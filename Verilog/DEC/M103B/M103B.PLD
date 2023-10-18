@@ -3,7 +3,7 @@
 
 Name     M103B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -55,7 +55,6 @@ pin = v2;
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node n_t_2x;
-node n_t_31x;
 node n_t_8x;
 node n_t_9x;
 $ENDIF
@@ -77,7 +76,7 @@ $ENDIF
 /* c6: c_us */
 
 /* e1: sn7430 */
-a1 = !(f2 & h2 & b1 & j2 & k2 & n_t_8x & d2 & e2);
+n_t_8x = !(f2 & h2 & j2 & k2 & l2 & n2 & d2 & e2);
 
 /* e2: sn74h40 */
 f1 = !(n3v3 & v2 & s2);
@@ -88,9 +87,9 @@ d1 = !(n3v3 & v2 & r2);
 c1 = !(n3v3 & d1);
 
 /* e4: sn7400 */
-n_t_31x = !n_t_9x;
-n_t_2x = !(c1 & s2);
-n_t_9x = !(l1 & n_t_8x);
+n_t_2x = !n_t_9x;
+n1 = !(l1 & m1);
+n_t_9x = !(u2 & n_t_8x);
 k1 = !(h1 & j1);
 
 /* e5: sn74h40 */

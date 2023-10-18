@@ -1,32 +1,30 @@
 ~/Verilog/bin/topld.pl M5921A
 info: cpol_use ne cpol_use15_5axial
-info: ds75453n ne dil14
+info: ds75453n ne dil08
 warning: making e1/ds75453n/ a connector
 info: 7450n ne dil14
 info: 7450n ne dil14
-info: ds75453n ne dil14
+info: ds75453n ne dil08
 warning: making e3/ds75453n/ a connector
 info: ds8640n ne dil14
 info: 7402n ne dil14
 info: 74h04n ne 7404n
 info: 7450n ne dil14
 info: ds8640n ne dil14
-info: ds75453n ne dil14
+info: ds75453n ne dil08
 warning: making e9/ds75453n/ a connector
 info: edge ne single
 warning: making u$2/edge/ a connector
 ~/Verilog/bin/smaller.pl M5921A.PLD >vv || (rm vv; exit 1)
-7 signals were removed:
+6 signals were removed:
   b1_l: !e2
   b2_l: !h2
-  n_t_17x: !u1_l
   t2_l: !k2
   u1_l: !m2
   v1_l: !p2
   v2_l: !s2
 ~/Verilog/bin/smaller.pl vv >M5921AX.PLD || (rm M5921AX.PLD; exit 1)
-1 signals were removed:
-  u1_l: !m2
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M5921AX.PLD >vv || (rm vv; exit 1)
 mv vv M5921A.v
 rm M5921AX.PLD

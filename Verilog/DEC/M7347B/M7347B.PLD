@@ -3,7 +3,7 @@
 
 Name     M7347B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -38,6 +38,7 @@ pin = crd1_l;
 pin = crd2_l;
 pin = crd3_l;
 pin = crd4_l;
+pin = crd5_l;
 pin = crd6_l;
 pin = crd7_l;
 pin = crdp_l;
@@ -88,9 +89,9 @@ pin = mb9;
 pin = mb9_l;
 pin = motor_on_ch;
 pin = n15v;
-pin = n_t_10x;
 pin = n_t_24x;
 pin = n_t_26x;
+pin = n_t_36x;
 pin = n_t_50x;
 pin = n_t_6x;
 pin = overflow;
@@ -107,105 +108,41 @@ pin = strobe;
 pin = tb3_h;
 pin = tp_av;
 pin = tp_bm;
+pin = u1;
 pin = v_clamp;
 pin = xrd0_l;
 pin = xrd2_l;
 pin = xrd4_l;
 pin = xrdp_l;
 pin = z_axis;
-node n3v;
+node n_t_10x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node a1;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac3_h;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
-node ba1;
-node bb2;
-node bc1;
-node bd2;
+node ac9;
 node bdata2;
 node bdata7;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bl1;
-node bl2;
-node bm2;
-node bu2;
-node bv1;
-node bv2;
-node c3;
-node ema0_l;
-node mb3_h;
 node n12th_carry;
 node n16_carry;
+node n3v;
 node n_t_11x;
 node n_t_12x;
+node n_t_13x;
 node n_t_14x;
 node n_t_15x;
 node n_t_16x;
-node n_t_18x;
-node n_t_20x;
-node n_t_23x;
+node n_t_19x;
+node n_t_29x;
 node n_t_2x;
+node n_t_35x;
 node n_t_3x;
 node n_t_4x;
 node n_t_5x;
 node n_t_8x;
 node n_t_9x;
-node tck;
-node tdo;
+node pb1;
+node pb3;
 $ENDIF
 
 /* Code nodes */
@@ -221,29 +158,29 @@ $ENDIF
 /* c4: cpol_use */
 
 /* e1: sn7404 */
-n_t_8x = !h;
-n_t_1x = !n_t_2x;
-n_t_3x = !n_t_9x;
-n_t_4x = !n_t_10x;
-n_t_10x = !n_t_12x;
-n_t_10x = !n_t_9x;
+n_t_2x = !h;
+n_t_3x = !e;
+n_t_4x = !n_t_9x;
+n_t_11x = !pb1;
+n_t_26x = !shift;
+shift_l = !n_t_3x;
 
 /* e2: sn7400 */
 n_t_6x = !(d & n_t_3x);
 n_t_9x = !(f & n_t_2x);
-n_t_20x = !n_t_26x;
-n_t_20x = !n_t_26x;
+n_t_10x = !(pb3 & n_t_26x);
+n_t_36x = !(ac9 & n_t_35x);
 
 /* e3: sn7474 */
-n3v.ar = !n_t_16x;
-n3v.d = n_t_16x;
-n3v.ck = n_t_3x;
-n3v.ap = !n_t_2x;
-n_t_18x = !n3v;
+n_t_10x.ar = !n_t_4x;
+n_t_10x.d = n_t_9x;
+n_t_10x.ck = shift_l;
+n_t_10x.ap = !n_t_19x;
+clk_l = !n_t_10x;
 n_t_26x.ar = !j;
 n_t_26x.d = 'b'0;
 n_t_26x.ck = n_t_6x;
 n_t_26x.ap = !n_t_4x;
-n_t_23x = !n_t_26x;
+n_t_12x = !n_t_26x;
 
 /* Open collector 'wire-or's */

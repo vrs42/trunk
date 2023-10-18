@@ -117,17 +117,7 @@ inout n_t_92x;
 inout n_t_9x;
 
 
-wire a1;
-wire a1p;
-wire a2;
-wire a3;
 wire a8;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac3_h;
 wire ac3_l;
 wire ac_2;
 wire ad01;
@@ -140,115 +130,44 @@ wire ad06h;
 wire ad06l;
 wire ad07h;
 wire ad07l;
-wire ad1;
-wire ad2;
-wire adder1;
-wire adder2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
 wire aiot6l;
 wire aiotl;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2u;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire b2;
-wire b3;
-wire ba1;
 wire bb1;
-wire bb2;
-wire bc1;
+wire bd00;
+wire bd03;
 wire bd04;
 wire bd05;
 wire bd07;
 wire bd07l;
 wire bd08;
 wire bd09;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
 wire bh1;
-wire bh2;
 wire biot0l;
 wire biot5l;
 wire biot6l;
 wire bj1;
-wire bl1;
-wire bl2;
-wire bm2;
 wire bn1;
 wire bn1_l;
 wire br1_l;
 wire bt2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c2;
-wire c3;
-wire da_enabl;
-wire data2;
-wire data3;
+wire c1_l;
+wire data1_l;
 wire data5_l;
 wire data9_l;
-wire data_enabl;
 wire enable_pc;
-wire io2;
-wire io3;
+wire f2;
+wire h1;
 wire load_tac;
 wire load_tbn;
 wire load_tma;
-wire ma2_h;
-wire ma2_l;
-wire ma3_h;
-wire ma3_l;
-wire mb2_l;
-wire mb3_h;
-wire mb3_l;
+wire m1;
 wire mb_2_l;
 wire md07_l;
 wire md09_l;
 wire md09h;
 wire md11_l;
-wire n3v;
+wire md11h;
+wire n2;
 wire n3v2;
 wire n3v3;
 wire n_t_112x;
@@ -258,28 +177,19 @@ wire n_t_170x;
 wire n_t_182x;
 wire n_t_217x;
 wire n_t_44x;
-wire pc2_h;
-wire pc2_l;
-wire pc3_h;
-wire pc3_l;
+wire p1;
 wire phase;
 wire ps_3;
 wire ps_left_2;
-wire reg_bus2;
 wire rsw3;
 wire rwb_out;
-wire sc2;
-wire sc3;
-wire shift_l2;
-wire sr2;
-wire sr3;
+wire s1;
+wire select6;
 wire tape_bus2;
 wire tape_bus3;
 wire tbn3;
-wire tck;
-wire tdo;
 wire tma3;
-wire tt_shift;
+wire u2;
 // e2: sn7482 
 assign gdollar_0 = n_t_44x & ~n_t_8x
                     | ~n_t_8x & load_tac
@@ -310,7 +220,7 @@ assign n_t_43x = gdollar_0 & n_t_8x
 // !n_t_23x = !n_t_23x; 
 assign n_t_15x = n_t_23x;
 // e6: sn74h53 
-// !n_t_8x = !(n_t_12x & !n_t_41x
+// !n_t_8x = !(n_t_12x & n_t_8x
 //       # n_t_13x & n_t_35x
 //       # n_t_16x & !n_t_35x & !n_t_35x
 //       # n_t_18x & !n_t_32x); 
@@ -334,6 +244,7 @@ assign n_t_44x = gdollar_1 & ~n_t_6x
                   | ac_2 & gdollar_1;
 // e9: sn74h00 
 // e10: sn74h00 
+assign n_t_10x = ~n_t_6x;
 // e11: sn74h00 
 assign n_t_32x = ~n_t_7x;
 // e12: sn74h00 
@@ -364,7 +275,7 @@ assign n_t_112x = gdollar_2 & ac_2
 //          # n_t_67x & n_t_1x); 
 // n_t_2x = !tape_bus2; 
 // e16: sn74h53 
-// !n_t_6x = !(n_t_6x & n_t_2x
+// !n_t_6x = !(!n_t_10x & n_t_2x
 //        # n_t_51x & n_t_4x
 //        # n_t_52x & n_t_20x & n_t_20x
 //        # n_t_49x & n_t_1x); 
@@ -418,13 +329,13 @@ assign n_t_113x = gdollar_3 & ~biot0l
 //        # !n_t_80x & n_t_18x
 //        # !n_t_77x & n_t_16x & n_t_16x
 //        # n_t_77x & n_t_13x); 
-// !n_t_24x = !n_t_24x; 
+// n_t_2x = !n_t_24x; 
 // e24: sn74h53 
 // n_t_41x = !(!n_t_41x & n_t_12x
 //        # !n_t_72x & n_t_18x
 //        # !n_t_76x & n_t_16x & n_t_16x
 //        # n_t_76x & n_t_13x); 
-// !n_t_41x = !n_t_41x; 
+// n_t_23x = !n_t_41x; 
 // e25: sn74h53 
 // ad07l = !(n_t_27x & n_t_60x
 //      # n_t_28x & n_t_92x
@@ -535,12 +446,14 @@ assign n_t_217x = ~((n_t_27x & n_t_92x
 assign n_t_23x = (n_t_12x & ~(1'b0)
                    | n_t_13x & n_t_7x
                    | n_t_16x & n_t_32x & n_t_32x
-                   | n_t_18x & ~n_t_6x)? 1'b0: 1'bz;
+                   | n_t_18x & ~n_t_6x)
+                  | n_t_41x? 1'b0: 1'bz;
 assign n_t_24x = (~(1'b0) & n_t_12x
                    | ~n_t_80x & n_t_18x
                    | ~n_t_77x & n_t_16x & n_t_16x
                    | n_t_77x & n_t_13x)? 1'b0: 1'bz;
-assign n_t_2x = tape_bus2? ~tape_bus2: 1'bz;
+assign n_t_2x = tape_bus2
+                 | n_t_24x? 1'b0: 1'bz;
 assign n_t_32x = (n_t_27x & n_t_21x
                    | n_t_28x & n_t_23x
                    | n_t_29x & n_t_41x & n_t_41x

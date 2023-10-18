@@ -92,6 +92,7 @@ reg p2_m;
 reg r2_m;
 reg s2_m;
 
+wire a0;
 wire bd00;
 wire bd01;
 wire bd03;
@@ -106,18 +107,15 @@ wire n_t_11x;
 wire n_t_12x;
 wire n_t_13x;
 wire n_t_15x;
-wire n_t_20x;
 wire n_t_22x;
 wire n_t_27x;
 wire n_t_29x;
 wire n_t_2x;
 wire n_t_30x;
-wire n_t_337x;
 wire n_t_46x;
-wire n_t_4x;
 wire n_t_6x;
-wire n_t_80x;
 wire n_t_9x;
+wire select6;
 assign f1 = u1
              ^ d1
              ^ e1;

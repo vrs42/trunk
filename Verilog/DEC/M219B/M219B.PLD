@@ -3,7 +3,7 @@
 
 Name     M219B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,42 +16,36 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = a0;
 pin = ad02h;
 pin = ad03h;
+pin = adonel;
 pin = bd01;
 pin = bd03h;
 pin = bd05;
 pin = biot5l;
 pin = bt2;
 pin = c1_l;
-pin = clrbufl;
-pin = data4;
-pin = int_enable;
+pin = initl;
 pin = k1;
-pin = n1;
+pin = m1;
 pin = n2;
 pin = n3v3;
-pin = n_t_146x;
-pin = n_t_147x;
 pin = n_t_219x;
-pin = n_t_30x;
-pin = n_t_8x;
 
 /* Output Pins */
 pin = bd04;
 pin = bd04l;
-pin = bd06;
 pin = bd07;
 pin = bd07l;
-pin = bdoneh;
 pin = bdonel;
 pin = bn1_l;
 pin = bv2;
 pin = data1_l;
-pin = data4_l;
-pin = data5;
 pin = data5_l;
+pin = data7_l;
 pin = n_t_10x;
+pin = n_t_11x;
 pin = n_t_125x;
 pin = n_t_12x;
 pin = n_t_134x;
@@ -61,7 +55,6 @@ pin = n_t_15x;
 pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_18x;
-pin = n_t_19x;
 pin = n_t_1x;
 pin = n_t_20x;
 pin = n_t_21x;
@@ -70,11 +63,12 @@ pin = n_t_23x;
 pin = n_t_24x;
 pin = n_t_25x;
 pin = n_t_26x;
-pin = n_t_28x;
 pin = n_t_29x;
 pin = n_t_2x;
+pin = n_t_30x;
 pin = n_t_33x;
 pin = n_t_34x;
+pin = n_t_36x;
 pin = n_t_37x;
 pin = n_t_38x;
 pin = n_t_39x;
@@ -92,7 +86,6 @@ pin = n_t_51x;
 pin = n_t_52x;
 pin = n_t_53x;
 pin = n_t_55x;
-pin = n_t_56x;
 pin = n_t_59x;
 pin = n_t_5x;
 pin = n_t_60x;
@@ -123,13 +116,14 @@ pin = n_t_85x;
 pin = n_t_86x;
 pin = n_t_87x;
 pin = n_t_89x;
+pin = n_t_8x;
 pin = n_t_90x;
 pin = n_t_91x;
 pin = n_t_96x;
 pin = n_t_97x;
 pin = n_t_99x;
 pin = n_t_9x;
-pin = r2;
+pin = select6;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
@@ -137,35 +131,32 @@ node a8;
 node ad01;
 node ad02;
 node ad02l;
-node ad05h;
 node ad06h;
 node bd00;
 node bd03;
 node bd05h;
 node bd05l;
-node bd06l;
 node bh1;
 node bj1;
 node br1_l;
-node breadyl;
 node f2;
 node h1;
 node md07_l;
 node md07h;
 node n_t_113x;
-node n_t_11x;
 node n_t_170x;
 node n_t_182x;
+node n_t_19x;
 node n_t_27x;
+node n_t_28x;
 node n_t_31x;
 node n_t_32x;
-node n_t_337x;
 node n_t_35x;
-node n_t_36x;
 node n_t_41x;
 node n_t_46x;
 node n_t_50x;
 node n_t_54x;
+node n_t_56x;
 node n_t_57x;
 node n_t_58x;
 node n_t_72x;
@@ -221,38 +212,38 @@ $ENDIF
 /* c18: c_us */
 
 /* e1: sn74h40 */
-n_t_9x = !(n3v3 & n_t_40x & n_t_8x);
-n_t_42x = !n_t_1x;
+n_t_42x = !(n3v3 & n_t_40x);
+n_t_2x = !n_t_1x;
 
 /* e3: sn7400 */
-n_t_6x = !n_t_13x;
-n_t_26x = !(n_t_27x & n_t_31x);
+n_t_27x = !n_t_13x;
+n_t_26x = !(n_t_6x & n_t_27x);
 n_t_18x = !(n_t_6x & n_t_19x);
-n_t_19x = !(n_t_27x & n_t_10x);
+n_t_19x = !n_t_10x;
 
 /* e4: sn7400 */
-n_t_6x = !(n_t_6x & n_t_3x);
-n_t_17x = !(n_t_7x & n_t_23x);
+n_t_8x = !(n_t_6x & n_t_3x);
+n_t_17x = !(n_t_6x & n_t_7x);
 n_t_9x = !(n_t_6x & n_t_10x);
 n_t_7x = !n_t_3x;
 
 /* e6: sn7400 */
-n_t_6x = !(n_t_6x & n_t_12x);
-n_t_29x = !(n_t_28x & n_t_32x);
+n_t_11x = !(n_t_6x & n_t_12x);
+n_t_29x = !(n_t_6x & n_t_28x);
 n_t_28x = !n_t_12x;
 n_t_14x = !(n_t_13x & n_t_6x);
 
 /* e7: sn74h00 */
-n_t_73x = !n_t_31x;
-n_t_75x = !(n_t_73x & n_t_41x);
+n_t_30x = !n_t_31x;
+n_t_75x = !n_t_73x;
 n_t_6x = !n_t_4x;
 n_t_44x = !n_t_43x;
 
 /* e10: sn7474 */
 n_t_81x.ar = !n_t_75x;
-n_t_81x.d = n_t_15x;
+n_t_81x.d = n_t_79x;
 n_t_81x.ck = n_t_80x;
-n_t_81x.ap = !n_t_79x;
+n_t_81x.ap = !n3v3;
 n_t_93x = !n_t_81x;
 n_t_79x.ar = !n_t_75x;
 n_t_79x.d = n_t_77x;
@@ -261,15 +252,15 @@ n_t_79x.ap = !n_t_78x;
 n_t_82x = !n_t_79x;
 
 /* e11: sn74h40 */
-n_t_39x = !(n3v3 & n_t_67x & n_t_46x);
+n_t_68x = !(n3v3 & n_t_67x);
 n_t_73x = !(n_t_68x & n_t_70x & n_t_69x & n_t_69x);
 
 /* e12: sn74h30 */
 n_t_43x = !(n_t_20x & n_t_21x & n_t_22x & n_t_24x & n3v3 & n3v3 & n_t_25x & n_t_23x);
 
 /* e14: sn74h00 */
-n_t_87x = !(n_t_75x & n_t_19x);
-n_t_88x = !(n_t_87x & n_t_43x);
+n_t_74x = !(n_t_75x & n_t_19x);
+n_t_88x = !n_t_87x;
 n_t_74x = !n_t_72x;
 n_t_72x = !(n_t_71x & n_t_68x);
 
@@ -279,34 +270,34 @@ n_t_92x = !(n_t_93x & n_t_91x & n_t_5x);
 n_t_31x = !(n_t_22x & n_t_21x & n_t_20x);
 
 /* e16: sn7400 */
-n_t_6x = !(n_t_6x & n_t_33x);
-n_t_16x = !(n_t_37x & n_t_51x);
+n_t_15x = !(n_t_6x & n_t_33x);
+n_t_16x = !(n_t_6x & n_t_37x);
 n_t_34x = !(n_t_6x & n_t_32x);
 n_t_32x = !n_t_33x;
 
 /* e18: sn74h00 */
 n_t_46x = !(n_t_5x & n_t_47x);
-n_t_49x = !(n_t_48x & breadyl);
+n_t_49x = !(n_t_46x & n_t_48x);
 n_t_96x = !n_t_95x;
 n_t_95x = !(n_t_85x & n_t_92x);
 
 /* e21: sn74h00 */
-n_t_50x = !n_t_54x;
-n_t_54x = !(n_t_53x & bd06l);
+n_t_55x = !n_t_54x;
+n_t_54x = !(n_t_50x & n_t_53x);
 n_t_50x = !(n_t_51x & n_t_52x);
-bd05h = !(n_t_55x & bd05l);
+bd05h = !bd05l;
 
 /* e22: sn74h00 */
 n_t_58x = !n_t_59x;
-n_t_56x = !(n_t_45x & ad05h);
+n_t_56x = !(n_t_58x & n_t_45x);
 n_t_66x = !(n_t_56x & n_t_57x);
 n_t_57x = !(n_t_60x & n_t_59x);
 
 /* e24: sn7400 */
-n_t_6x = !n_t_37x;
-n_t_38x = !(n_t_36x & n_t_1x);
+n_t_36x = !n_t_37x;
+n_t_38x = !(n_t_6x & n_t_36x);
 n_t_39x = !n_t_41x;
-n_t_41x = !(n_t_36x & n_t_24x);
+n_t_41x = !(n_t_23x & n_t_24x);
 
 /* r1: r_us_ */
 

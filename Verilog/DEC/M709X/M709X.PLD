@@ -3,7 +3,7 @@
 
 Name     M709X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -151,95 +151,23 @@ node n_t_29x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
 node ad06h;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
 node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
 node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node ba1;
-node bb2;
-node bc1;
 node bd07;
-node bd2;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bl1;
-node bl2;
-node bm2;
 node br1_l;
-node bu2;
-node bv1;
-node bv2;
-node c3;
 node clock_enable;
 node clr_flag_l;
-node data3;
+node data1_l;
 node data5_l;
-node flag;
-node io3;
 node io_irq_l;
+node io_skip_l;
 node ioclr_l;
 node iop1;
-node ma2_h;
-node ma3_h;
-node ma3_l;
 node mb11;
-node mb2_l;
-node mb3_h;
 node mb3_l;
-node mb5;
+node mb6_l;
+node mb8;
 node md07_l;
 node n3v1;
 node n3v3;
@@ -247,11 +175,10 @@ node n_t_113x;
 node n_t_123x;
 node n_t_125x;
 node n_t_131x;
-node n_t_147x;
 node n_t_152x;
 node n_t_153x;
-node n_t_171x;
 node n_t_26x;
+node n_t_381x;
 node n_t_40x;
 node n_t_41x;
 node n_t_42x;
@@ -286,15 +213,8 @@ node n_t_87x;
 node n_t_89x;
 node n_t_90x;
 node n_t_92x;
-node pc2_h;
-node pc3_h;
-node pc3_l;
 node q1;
 node q6;
-node sc3;
-node sr3;
-node tck;
-node tdo;
 $ENDIF
 
 /* Code nodes */
@@ -356,16 +276,16 @@ $ENDIF
 /* c27: c_us */
 
 /* e1: sn7474 */
-n_t_2x.ar = !flag;
+n_t_2x.ar = !io_irq_l;
 n_t_2x.d = n_t_38x;
 n_t_2x.ck = transfer;
-n_t_2x.ap = !n_t_15x;
-io_irq_l = !n_t_2x;
-n_t_1x.ar = !n_t_14x;
+n_t_2x.ap = !io_skip_l;
+n_t_32x = !n_t_2x;
+n_t_1x.ar = !clr_flag_l;
 n_t_1x.d = n_t_39x;
 n_t_1x.ck = transfer;
-n_t_1x.ap = !n_t_32x;
-clr_flag_l = !n_t_1x;
+n_t_1x.ap = !clr_flag_l;
+n_t_32x = !n_t_1x;
 
 /* e2: sn7474 */
 n_t_4x.ar = !n_t_29x;
@@ -395,20 +315,20 @@ n_t_39x = !n_t_6x;
 n_t_8x.ar = !mb11;
 n_t_8x.d = n_t_32x;
 n_t_8x.ck = transfer;
-n_t_8x.ap = !n_t_147x;
-n_t_38x = !n_t_8x;
+n_t_8x.ap = !n_t_40x;
+n_t_41x = !n_t_8x;
 n_t_9x.ar = !ar1;
 n_t_9x.d = n_t_33x;
 n_t_9x.ck = transfer;
-n_t_9x.ap = !n_t_40x;
-n_t_41x = !n_t_9x;
+n_t_9x.ap = !overflow;
+n_t_40x = !n_t_9x;
 
 /* e5: sn7474 */
 n_t_10x.ar = !ac06;
 n_t_10x.d = n_t_30x;
 n_t_10x.ck = transfer;
-n_t_10x.ap = !n_t_171x;
-n_t_53x = !n_t_10x;
+n_t_10x.ap = !n_t_19x;
+n_t_381x = !n_t_10x;
 n_t_11x.ar = !n3v1;
 n_t_11x.d = n_t_31x;
 n_t_11x.ck = transfer;
@@ -419,19 +339,19 @@ iop1 = !n_t_11x;
 n_t_5x.ar = !mb3_l;
 n_t_5x.d = n_t_28x;
 n_t_5x.ck = transfer;
-n_t_5x.ap = !mb5;
-n_t_26x = !n_t_5x;
+n_t_5x.ap = !mb6_l;
+mb8 = !n_t_5x;
 n_t_12x.ar = !ioclr_l;
 n_t_12x.d = n_t_29x;
 n_t_12x.ck = transfer;
 n_t_12x.ap = !n_t_20x;
-al1 = !n_t_12x;
+n_t_26x = !n_t_12x;
 
 /* e7: sn7400 */
-n_t_57x = !(n_t_54x & n_t_70x);
-n_t_71x = !(n_t_53x & n_t_57x);
-n_t_69x = !(n_t_57x & n_t_55x);
-n_t_57x = !(n_t_60x & n_t_56x);
+n_t_54x = !(n_t_70x & n_t_57x);
+n_t_53x = !(n_t_57x & n_t_71x);
+n_t_55x = !(n_t_69x & n_t_57x);
+n_t_56x = !(n_t_57x & n_t_60x);
 
 /* e8: sn7401 */
 /* n_t_14x = !(n_t_4x & n_t_27x); */
@@ -440,10 +360,10 @@ n_t_57x = !(n_t_60x & n_t_56x);
 /* n_t_16x = !(n_t_27x & n_t_2x); */
 
 /* e9: sn7400 */
-n_t_57x = !(n_t_62x & n_t_73x);
-n_t_77x = !(n_t_61x & n_t_58x);
-n_t_74x = !(n_t_57x & n_t_63x);
-n_t_57x = !(n_t_72x & n_t_64x);
+n_t_62x = !(n_t_73x & n_t_57x);
+n_t_61x = !(n_t_58x & n_t_77x);
+n_t_63x = !(n_t_74x & n_t_57x);
+n_t_64x = !(n_t_57x & n_t_72x);
 
 /* e10: sn7401 */
 /* n_t_20x = !(n_t_8x & n_t_13x); */
@@ -452,10 +372,10 @@ n_t_57x = !(n_t_72x & n_t_64x);
 /* n_t_18x = !(n_t_27x & n_t_7x); */
 
 /* e11: sn7400 */
-n_t_58x = !(n_t_68x & n_t_78x);
-n_t_79x = !(n_t_67x & n_t_58x);
-n_t_75x = !(n_t_58x & n_t_66x);
-n_t_58x = !(n_t_76x & n_t_65x);
+n_t_68x = !(n_t_78x & n_t_58x);
+n_t_67x = !(n_t_58x & n_t_79x);
+n_t_66x = !(n_t_75x & n_t_58x);
+n_t_65x = !(n_t_58x & n_t_76x);
 
 /* e12: sn7401 */
 /* n_t_22x = !(n_t_5x & n_t_13x); */
@@ -540,21 +460,21 @@ set_count = !load_counter;
 transfer = !n_t_86x;
 
 /* e20: sn7400 */
-clk_cla = !(n_t_27x & clk_cla);
-clk_cla = !(n_t_13x & clk_cla);
-n_t_84x = !(n_t_84x & n_t_89x);
-n_t_89x = !(n_t_85x & n_t_87x);
+n_t_27x = !clk_cla;
+n_t_13x = !clk_cla;
+n_t_89x = !n_t_84x;
+n_t_87x = !(n_t_89x & n_t_85x);
 
 /* e21: sn7410 */
-n_t_45x = !(n_t_81x & mb10 & clock_iot);
-clk_cla = !(clock_iop4 & n_t_85x & n_t_83x);
-mb10_l = !(clock_iop4 & clk_cla & clock_iot);
+n_t_81x = !(mb10 & clock_iop4 & clock_iot);
+n_t_85x = !(n_t_83x & clk_cla & clk_cla);
+clk_cla = !(mb10_l & clock_iop4 & clock_iot);
 
 /* e22: sn7400 */
-gate = !(n_t_57x & gate);
-clock = !(n_t_59x & gate);
-n_t_81x = !(n_t_59x & n_t_83x);
-n_t_83x = !(n_t_83x & clk_count);
+n_t_57x = !gate;
+n_t_59x = !(gate & clock);
+n_t_83x = !(n_t_81x & n_t_59x);
+clk_count = !n_t_83x;
 
 /* e23: sn7474 */
 overflow.ar = !gate;

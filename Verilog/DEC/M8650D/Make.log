@@ -43,7 +43,7 @@ info: rcl_l_100 ne rcl_l_00_05
 warning: making dl1/rcl_l_100/ a connector
 warning: making e/jumper4/ a connector
 info: sp380n ne dil14
-info: dec8271 ne jumper4
+info: dec8271 ne dil16
 info: 7402n ne dil14
 info: 7400n ne dil14
 info: sp314n ne dil14
@@ -53,15 +53,15 @@ warning: making e17/1489n/ a connector
 info: 7410n ne dil14
 info: 97401 ne 7401n
 info: 7404n ne dil14
-info: 74193n ne dil14
+info: 74193n ne dil16
 info: sp380n ne dil14
-info: n8815 ne jumper4
+info: n8815 ne dil14
 info: 7450n ne dil14
-info: dec8271 ne jumper4
+info: dec8271 ne dil16
 info: sp380n ne dil14
-info: dec8271 ne jumper4
+info: dec8271 ne dil16
 info: sp380n ne dil14
-info: dec8271 ne jumper4
+info: dec8271 ne dil16
 info: 1488n ne dil14
 warning: making e32/1488n/ a connector
 info: 97401 ne 7401n
@@ -71,15 +71,15 @@ info: sp384n ne dil14
 info: 97401 ne 7401n
 info: 7474n ne dil14
 info: 7450n ne dil14
-info: dec8251 ne jumper4
+info: dec8251 ne dil16
 info: 7400n ne dil14
 info: 7404n ne dil14
-info: dec8251 ne jumper4
+info: dec8251 ne dil16
 info: 7400n ne dil14
 info: 7402n ne dil14
 info: sp380n ne dil14
 info: 7402n ne dil14
-info: dec8271 ne jumper4
+info: dec8271 ne dil16
 info: sp314n ne dil14
 warning: making f/jumper4/ a connector
 info: j10mm ne 10
@@ -143,7 +143,7 @@ info: 1.5k ne 1/2w
 warning: making r25/1.5k/ a connector
 info: 16_0951 ne dil16
 warning: making t1/16_0951/ a connector
-info: quad ne jumper4
+info: quad ne edge_con8
 warning: making u$2/quad/ a connector
 info: 19.661 ne mhz
 warning: making y1/19.661/ a connector
@@ -162,22 +162,6 @@ warning: non-bypass capacitor deleted: c64
 warning: non-bypass capacitor deleted: c65
 warning: non-bypass capacitor deleted: c66
 warning: non-bypass capacitor deleted: c67
-unexpected OC output: n_t_35x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2921.
-unexpected OC output: n_t_36x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2921.
-unexpected OC output: dokrs at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2921.
-unexpected OC output: n_t_30x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2921.
-unexpected OC output: n_t_40x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3228.
-unexpected OC output: n_t_39x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3228.
-unexpected OC output: dokrs at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3228.
-unexpected OC output: n_t_37x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3228.
-unexpected OC output: dokcc at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3554.
-unexpected OC output: dokrs at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3554.
-unexpected OC output: n_t_5x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3554.
-unexpected OC output: dokcc at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3554.
-unexpected OC output: n_t_5x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3621.
-unexpected OC output: n_t_4x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3621.
-unexpected OC output: n_t_22x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3621.
-unexpected OC output: int_enab at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3621.
 warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r5
 warning: non-pullup resistor deleted: r6
@@ -188,32 +172,40 @@ warning: non-pullup resistor deleted: r19
 warning: non-pullup resistor deleted: r22
 warning: non-pullup resistor deleted: r23
 ~/Verilog/bin/smaller.pl M8650D.PLD >vv || (rm vv; exit 1)
-23 signals were removed:
-  ck_pulse: !last_word
-  ckkcc_l: !dotpc
-  dokrs: !krs_l
-  dotpc: !tpc_l
+30 signals were removed:
+  b_pause_l: io_pause_l
+  btp3: tp3
+  ck_pulse: !rcrd_l
+  cktfl_l: !cktfl
+  dotpc_l: !dotpc
   last_unit_l: !last_unit
   line_l: !line
-  load_pulse: rx20ma_data
-  n_t_102x: !tx_rate
-  n_t_17x: !n_t_20x
-  n_t_43x: !data_enab
-  n_t_67x: !n_t_83x
-  n_t_70x: !key_control_l
+  n_t_102x: !n_t_57x
+  n_t_10x: !tkskp
+  n_t_128x: rx20ma_data
+  n_t_145x: !tx_rate
+  n_t_17x: !n_t_16x
+  n_t_26x: !n_t_30x
+  n_t_2x: b_pause_l
+  n_t_43x: !pause_l
+  n_t_44x: !serial_in
+  n_t_67x: !n_t_70x
   n_t_72x: power_ok
-  n_t_75x: !n_t_51x
+  n_t_75x: !md10_l
   n_t_78x: !n_t_27x
+  n_t_85x: n_t_27x
   n_t_87x: !n_t_88x
-  rcra_l: !cktfl
-  rflg_l: !p3_btp3_l
+  p3_btp3: !enab
+  rcni: !tx_data
+  rflg_l: !p4_lxm_l
   rx_active_l: !rx_active
   rx_div_l: !rx_div
-  spike_det_l: !run_l
-  start_l: !ts3_l
+  spike_det_l: !pause_l
+  tp3_l: !btp3
   transit_l: !p_pulse_l
 ~/Verilog/bin/smaller.pl vv >M8650DX.PLD || (rm M8650DX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  btp3: tp3
 ~/Verilog/bin/cupl2v.pl M8650DX.PLD >vv || (rm vv; exit 1)
 mv vv M8650D.v
 rm M8650DX.PLD

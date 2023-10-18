@@ -15,7 +15,7 @@
 module m103a (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n3v3, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
 output a1;
 inout b1;
-inout c1;
+output c1;
 inout d1;
 input d2;
 output e1;
@@ -29,12 +29,12 @@ input j2;
 output k1;
 input k2;
 input l1;
-output l2;
-output m1;
+input l2;
+input m1;
 output m2;
 output n1;
 output n15v;
-output n2;
+input n2;
 input n3v3;
 output p1;
 input p2;
@@ -44,14 +44,13 @@ output s1;
 input s2;
 output t2;
 output u1;
-output u2;
+input u2;
 input v2;
 
 
-wire n_t_2x;
 wire n_t_8x;
 wire n_t_9x;
-assign a1 = ~(f2 & h2 & b1 & j2 & k2 & n_t_8x & d2 & e2);
+assign n_t_8x = ~(f2 & h2 & j2 & k2 & l2 & n2 & d2 & e2);
 // e2: sn74h40 
 assign f1 = ~(n3v3 & v2 & s2);
 assign e1 = ~(n3v3 & f1);
@@ -59,8 +58,8 @@ assign e1 = ~(n3v3 & f1);
 assign d1 = ~(n3v3 & v2 & r2);
 assign c1 = ~(n3v3 & d1);
 // e4: sn7400 
-assign n_t_2x = ~(c1 & s2);
-assign n_t_9x = ~(l1 & n_t_8x);
+assign n1 = ~(l1 & m1);
+assign n_t_9x = ~(u2 & n_t_8x);
 assign k1 = ~(h1 & j1);
 // e5: sn74h40 
 assign b1 = ~(n3v3 & v2 & p2);

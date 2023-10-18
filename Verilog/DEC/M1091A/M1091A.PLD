@@ -3,7 +3,7 @@
 
 Name     M1091A ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -19,7 +19,6 @@ $UNDEF  OPTIMIZE
 pin = n_t_101x;
 pin = n_t_136x;
 pin = n_t_2x;
-pin = n_t_59x;
 pin = n_t_77x;
 pin = n_t_91x;
 pin = n_t_96x;
@@ -56,6 +55,7 @@ pin = n_t_46x;
 pin = n_t_47x;
 pin = n_t_56x;
 pin = n_t_57x;
+pin = n_t_59x;
 pin = n_t_68x;
 pin = n_t_76x;
 pin = n_t_78x;
@@ -79,15 +79,14 @@ $IFNDEF OPTIMIZE
 node a0;
 node a09;
 node a11;
-node a3;
+node a4;
 node c0;
 node c1_l;
 node n_t_11x;
 node n_t_12x;
 node n_t_16x;
 node n_t_27x;
-node n_t_33x;
-node n_t_38x;
+node n_t_29x;
 node n_t_43x;
 node n_t_4x;
 node n_t_8x;
@@ -128,16 +127,14 @@ $ENDIF
 !b1 = c1;
 
 /* e2: sp380n */
-!m2 = p2
-    # m2;
-!'b'0 = p2;
+!k2 = k1;
+!n2 = p2;
 !f1 = h2;
 !h1 = j1;
 
 /* e3: sp380n */
-!t2 = v2
-    # t2;
-!s1 = r1;
+!r2 = s1;
+!p1 = r1;
 !l1 = m2;
 !m1 = n1;
 
@@ -148,15 +145,14 @@ $ENDIF
 !n_t_45x = e1;
 
 /* e5: sp380n */
-!n_t_43x = a3
-         # n_t_33x;
-!v1 = u1;
+!n_t_56x = v1;
+!n_t_59x = u1;
 !n_t_18x = t2;
 !n_t_57x = u2;
 
 /* e6: sn74h04 */
-n_t_27x = !n_t_38x;
-c1 = !out_l;
+n_t_27x = !out_l;
+c1 = !c1_l;
 s2 = !n_t_4x;
 n_t_76x = !d2;
 n_t_68x = !n_t_46x;

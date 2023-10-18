@@ -48,81 +48,55 @@
 // c41: cpol_use 
 // c42: cpol_use 
 // e1: sn7402 
-module m225a (ad07l, bu2, data7, md07_l, md09_l, n_t_106x, n_t_114x, n_t_147x, n_t_17x, n_t_22x, n_t_29x, phase, tape_bus3, ac2_h, ac2_l, ac3_h, ac3_l, ad06, af1w, ak2, al2w, am2w, an1w, ap1w, av1w, b2, b3, bc1, bd2, be2, bf1, bf2, bh2, bj1, bv1, bv2, c2, c3, ma2_h, ma2_l, ma3_h, ma3_l, mb2_h, mb2_l, mb3_h, mb3_l, md10h, n_t_100x, n_t_101x, n_t_102x, n_t_103x, n_t_104x, n_t_107x, n_t_108x, n_t_109x, n_t_10x, n_t_110x, n_t_111x, n_t_112x, n_t_113x, n_t_115x, n_t_116x, n_t_11x, n_t_125x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_18x, n_t_1x, n_t_20x, n_t_23x, n_t_25x, n_t_28x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_4x, n_t_50x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_66x, n_t_69x, n_t_6x, n_t_72x, n_t_73x, n_t_76x, n_t_77x, n_t_78x, n_t_79x, n_t_7x, n_t_80x, n_t_81x, n_t_82x, n_t_83x, n_t_84x, n_t_85x, n_t_86x, n_t_87x, n_t_88x, n_t_89x, n_t_8x, n_t_90x, n_t_91x, n_t_92x, n_t_93x, n_t_94x, n_t_95x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, pc2_h, pc3_h, pc3_l, q1, q2, q3, q4, q5, q6, q7, q8);
+module m225a (ad07l, data7, md07_l, md09_l, md11h, n_t_106x, n_t_114x, n_t_22x, phase, s1, tape_bus3, ad06, bd00, data1_l, md10h, n_t_100x, n_t_101x, n_t_102x, n_t_103x, n_t_104x, n_t_107x, n_t_108x, n_t_109x, n_t_10x, n_t_110x, n_t_111x, n_t_112x, n_t_113x, n_t_115x, n_t_116x, n_t_11x, n_t_125x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_23x, n_t_25x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_4x, n_t_50x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_66x, n_t_69x, n_t_6x, n_t_72x, n_t_73x, n_t_76x, n_t_77x, n_t_78x, n_t_79x, n_t_7x, n_t_80x, n_t_81x, n_t_82x, n_t_83x, n_t_84x, n_t_85x, n_t_86x, n_t_87x, n_t_88x, n_t_89x, n_t_8x, n_t_90x, n_t_91x, n_t_92x, n_t_93x, n_t_94x, n_t_95x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, q1, q2, q3, q4, q5, q6, q7, q8);
 output ad07l;
-output bu2;
 output data7;
 output md07_l;
 output md09_l;
+output md11h;
 output n_t_106x;
 output n_t_114x;
-output n_t_147x;
-output n_t_17x;
 output n_t_22x;
-output n_t_29x;
 output phase;
+output s1;
 output tape_bus3;
-output ac2_h;
-output ac2_l;
-output ac3_h;
-output ac3_l;
 output ad06;
-output af1w;
-output ak2;
-output al2w;
-output am2w;
-output an1w;
-output ap1w;
-output av1w;
-output b2;
-output b3;
-output bc1;
-output bd2;
-output be2;
-output bf1;
-output bf2;
-output bh2;
-output bj1;
-output bv1;
-output bv2;
-output c2;
-output c3;
-output ma2_h;
-output ma2_l;
-output ma3_h;
-output ma3_l;
-output mb2_h;
-output mb2_l;
-output mb3_h;
-output mb3_l;
+output bd00;
+output data1_l;
 output md10h;
-input n_t_100x;
-input n_t_101x;
-input n_t_102x;
-output n_t_103x;
+output n_t_100x;
+inout n_t_101x;
+inout n_t_102x;
+input n_t_103x;
 input n_t_104x;
-input n_t_107x;
-input n_t_108x;
-input n_t_109x;
+output n_t_107x;
+output n_t_108x;
+output n_t_109x;
 output n_t_10x;
-input n_t_110x;
-input n_t_111x;
+output n_t_110x;
+inout n_t_111x;
 output n_t_112x;
-input n_t_113x;
-input n_t_115x;
-input n_t_116x;
-inout n_t_11x;
+inout n_t_113x;
+inout n_t_115x;
+inout n_t_116x;
+input n_t_11x;
 output n_t_125x;
+output n_t_12x;
 output n_t_13x;
 inout n_t_14x;
 output n_t_15x;
-input n_t_16x;
+inout n_t_16x;
+output n_t_17x;
 output n_t_18x;
-input n_t_1x;
+output n_t_19x;
+inout n_t_1x;
 input n_t_20x;
+output n_t_21x;
 output n_t_23x;
 output n_t_25x;
+output n_t_27x;
 input n_t_28x;
+output n_t_29x;
 input n_t_2x;
 output n_t_31x;
 input n_t_32x;
@@ -143,7 +117,7 @@ input n_t_45x;
 input n_t_46x;
 input n_t_47x;
 input n_t_48x;
-input n_t_4x;
+output n_t_4x;
 input n_t_50x;
 input n_t_51x;
 input n_t_52x;
@@ -154,46 +128,43 @@ input n_t_56x;
 inout n_t_57x;
 input n_t_58x;
 input n_t_59x;
-input n_t_5x;
+output n_t_5x;
 inout n_t_60x;
 input n_t_61x;
 input n_t_62x;
 input n_t_63x;
 input n_t_64x;
 inout n_t_66x;
-inout n_t_69x;
-input n_t_6x;
-output n_t_72x;
+input n_t_69x;
+inout n_t_6x;
+inout n_t_72x;
 input n_t_73x;
 input n_t_76x;
-input n_t_77x;
-input n_t_78x;
-input n_t_79x;
+inout n_t_77x;
+output n_t_78x;
+output n_t_79x;
 input n_t_7x;
-input n_t_80x;
+inout n_t_80x;
 input n_t_81x;
-input n_t_82x;
-input n_t_83x;
-input n_t_84x;
-output n_t_85x;
+output n_t_82x;
+output n_t_83x;
+inout n_t_84x;
+input n_t_85x;
 input n_t_86x;
-input n_t_87x;
-input n_t_88x;
-input n_t_89x;
+inout n_t_87x;
+output n_t_88x;
+output n_t_89x;
 input n_t_8x;
-input n_t_90x;
-output n_t_91x;
-output n_t_92x;
-input n_t_93x;
-input n_t_94x;
-input n_t_95x;
-input n_t_96x;
-input n_t_97x;
+inout n_t_90x;
+input n_t_91x;
+input n_t_92x;
+inout n_t_93x;
+output n_t_94x;
+output n_t_95x;
+inout n_t_96x;
+inout n_t_97x;
 input n_t_98x;
-input n_t_99x;
-output pc2_h;
-output pc3_h;
-output pc3_l;
+inout n_t_99x;
 output q1;
 output q2;
 output q3;
@@ -204,109 +175,44 @@ output q7;
 output q8;
 
 
-wire a1;
-wire a1p;
-wire a2;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
 wire ac_2;
 wire ad01;
 wire ad02;
 wire ad02l;
 wire ad03h;
 wire ad06h;
-wire ad1;
-wire ad2;
-wire adder1;
-wire adder2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire al1;
-wire al2;
-wire am1;
-wire am1w;
-wire am2;
-wire an1;
-wire an2;
-wire ap1;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2u;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
 wire bd04;
 wire bd05;
 wire bd07;
-wire bh1;
 wire biot5l;
-wire bl1;
-wire bl2;
-wire bm2;
+wire bj1;
 wire bn1;
 wire br1_l;
-wire da_enabl;
-wire data2;
-wire data3;
+wire c1_l;
 wire data5_l;
-wire data_enabl;
-wire io2;
-wire io3;
-wire n3v;
+wire f2;
+wire h1;
+wire m1;
+wire n2;
 wire n_t_182x;
-wire n_t_49x;
-wire pc2_l;
-wire sc2;
-wire sc3;
-wire shift_l2;
-wire sr2;
-wire sr3;
-wire tck;
-wire tdo;
-wire tt_shift;
-assign n_t_69x = ~(~(n_t_1x
-                      | n_t_4x));
-assign n_t_69x = ~(~(n_t_3x
-                      | n_t_1x));
-assign n_t_69x = ~(~(n_t_6x
-                      | n_t_8x));
-assign n_t_69x = ~(~(n_t_5x
-                      | n_t_6x));
+wire select6;
+assign n_t_4x = ~(~n_t_69x
+                   | n_t_1x);
+assign n_t_1x = ~(~n_t_69x
+                   | n_t_3x);
+assign n_t_6x = ~(n_t_8x
+                   | ~n_t_69x);
+assign n_t_5x = ~(n_t_6x
+                   | ~n_t_69x);
 // e2: sn7402 
-assign n_t_69x = ~(~(n_t_93x
-                      | n_t_88x));
-assign n_t_69x = ~(~(n_t_73x
-                      | n_t_93x));
-assign n_t_85x = ~(n_t_90x
+assign n_t_88x = ~(~n_t_69x
+                    | n_t_93x);
+assign n_t_93x = ~(~n_t_69x
+                    | n_t_73x);
+assign n_t_90x = ~(~n_t_69x
+                    | n_t_85x);
+assign n_t_89x = ~(n_t_90x
                     | ~n_t_69x);
-assign n_t_69x = ~(~(n_t_89x
-                      | n_t_90x));
 // e7: sn74h53 
 // n_t_34x = !(n_t_53x & n_t_45x
 //        # n_t_47x & n_t_63x
@@ -315,24 +221,27 @@ assign n_t_69x = ~(~(n_t_89x
 // n_t_17x = !n_t_34x; 
 assign n_t_66x = n_t_34x;
 // e8: sn7402 
-assign n_t_69x = ~(~(n_t_87x
-                      | n_t_82x));
-assign n_t_69x = ~(~(n_t_7x
-                      | n_t_87x));
-assign n_t_69x = ~(~(n_t_84x
-                      | n_t_28x));
-assign n_t_69x = ~(~(n_t_83x
-                      | n_t_84x));
-// e9: sn7402 
-assign n_t_69x = ~(~(n_t_77x
-                      | n_t_78x));
-assign n_t_69x = ~(~(n_t_2x
-                      | n_t_77x));
-assign n_t_91x = ~(n_t_80x
+assign n_t_82x = ~(~n_t_69x
+                    | n_t_87x);
+assign n_t_87x = ~(~n_t_69x
+                    | n_t_7x);
+assign n_t_84x = ~(n_t_28x
                     | ~n_t_69x);
-assign n_t_69x = ~(~(n_t_79x
-                      | n_t_80x));
+assign n_t_83x = ~(n_t_84x
+                    | ~n_t_69x);
+// e9: sn7402 
+assign n_t_78x = ~(~n_t_69x
+                    | n_t_77x);
+assign n_t_77x = ~(~n_t_69x
+                    | n_t_2x);
+assign n_t_80x = ~(~n_t_69x
+                    | n_t_91x);
+assign n_t_79x = ~(n_t_80x
+                    | ~n_t_69x);
 // e10: n8881n 
+// n_t_16x = !(!n_t_14x & !n_t_66x); 
+// n_t_19x = !(!n_t_66x & n_t_14x); 
+// n_t_21x = !(!n_t_14x & n_t_66x); 
 // n_t_23x = !(n_t_66x & n_t_14x); 
 // e11: sn74h53 
 // n_t_14x = !(n_t_60x & n_t_45x
@@ -348,26 +257,29 @@ assign n_t_72x = ~n_t_57x;
 //     # n_t_47x & n_t_48x
 //     # n_t_20x & n_t_50x & n_t_16x
 //     # n_t_51x & n_t_52x); 
-// ac2_l = !ac_2; 
+// !ac_2 = !ac_2; 
 // e19: sn7402 
-assign n_t_11x = ~(~(n_t_101x
-                      | n_t_99x));
-assign n_t_11x = ~(~(n_t_32x
-                      | n_t_101x));
-assign n_t_11x = ~(~(n_t_102x
-                      | n_t_104x));
-assign n_t_11x = ~(~(n_t_100x
-                      | n_t_102x));
-// e20: sn7402 
-assign n_t_11x = ~(~(n_t_115x
-                      | n_t_107x));
-assign n_t_11x = ~(~(n_t_76x
-                      | n_t_115x));
-assign n_t_103x = ~(n_t_116x
+assign n_t_99x = ~(~n_t_11x
+                    | n_t_101x);
+assign n_t_101x = ~(~n_t_11x
+                     | n_t_32x);
+assign n_t_102x = ~(n_t_104x
                      | ~n_t_11x);
-assign n_t_11x = ~(~(n_t_108x
-                      | n_t_116x));
+assign n_t_100x = ~(n_t_102x
+                     | ~n_t_11x);
+// e20: sn7402 
+assign n_t_107x = ~(~n_t_11x
+                     | n_t_115x);
+assign n_t_115x = ~(~n_t_11x
+                     | n_t_76x);
+assign n_t_116x = ~(~n_t_11x
+                     | n_t_103x);
+assign n_t_108x = ~(n_t_116x
+                     | ~n_t_11x);
 // e21: n8881n 
+// n_t_25x = !(n_t_72x & !ac_2); 
+// n_t_27x = !(!ac_2 & n_t_57x); 
+// n_t_29x = !(n_t_72x & ac_2); 
 // n_t_31x = !(ac_2 & n_t_57x); 
 // e22: sn74h53 
 // n_t_57x = !(n_t_55x & n_t_45x
@@ -376,23 +288,23 @@ assign n_t_11x = ~(~(n_t_108x
 //        # n_t_57x & n_t_52x); 
 // n_t_60x = !n_t_57x; 
 // e27: sn7402 
-assign n_t_11x = ~(~(n_t_113x
-                      | n_t_109x));
-assign n_t_11x = ~(~(n_t_86x
-                      | n_t_113x));
-assign n_t_11x = ~(~(n_t_111x
-                      | n_t_98x));
-assign n_t_11x = ~(~(n_t_110x
-                      | n_t_111x));
+assign n_t_109x = ~(~n_t_11x
+                     | n_t_113x);
+assign n_t_113x = ~(~n_t_11x
+                     | n_t_86x);
+assign n_t_111x = ~(n_t_98x
+                     | ~n_t_11x);
+assign n_t_110x = ~(n_t_111x
+                     | ~n_t_11x);
 // e28: sn7402 
-assign n_t_11x = ~(~(n_t_97x
-                      | n_t_94x));
-assign n_t_11x = ~(~(n_t_81x
-                      | n_t_97x));
-assign n_t_92x = ~(n_t_96x
+assign n_t_94x = ~(~n_t_11x
+                    | n_t_97x);
+assign n_t_97x = ~(~n_t_11x
+                    | n_t_81x);
+assign n_t_96x = ~(~n_t_11x
+                    | n_t_92x);
+assign n_t_95x = ~(n_t_96x
                     | ~n_t_11x);
-assign n_t_11x = ~(~(n_t_95x
-                      | n_t_96x));
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -450,7 +362,6 @@ assign n_t_11x = ~(~(n_t_95x
 // r55: r_us_ 
 // r56: r_us_ 
 // open collector 'wire-or's 
-assign ac2_l = ac_2? ~ac_2: 1'bz;
 assign ac_2 = ~((n_t_46x & n_t_45x
                   | n_t_47x & n_t_48x
                   | n_t_20x & n_t_50x & n_t_16x
@@ -460,8 +371,14 @@ assign n_t_14x = (n_t_60x & n_t_45x
                    | n_t_20x & n_t_61x & n_t_99x
                    | n_t_58x & n_t_52x)? 1'b0: 1'bz;
 assign n_t_15x = n_t_14x? ~n_t_14x: 1'bz;
+assign n_t_16x = (~n_t_14x & ~n_t_66x)? 1'b0: 1'bz;
 assign n_t_17x = n_t_34x? ~n_t_34x: 1'bz;
+assign n_t_19x = (~n_t_66x & n_t_14x)? 1'b0: 1'bz;
+assign n_t_21x = (~n_t_14x & n_t_66x)? 1'b0: 1'bz;
 assign n_t_23x = (n_t_66x & n_t_14x)? 1'b0: 1'bz;
+assign n_t_25x = (n_t_72x & ~ac_2)? 1'b0: 1'bz;
+assign n_t_27x = (~ac_2 & n_t_57x)? 1'b0: 1'bz;
+assign n_t_29x = (n_t_72x & ac_2)? 1'b0: 1'bz;
 assign n_t_31x = (ac_2 & n_t_57x)? 1'b0: 1'bz;
 assign n_t_34x = (n_t_53x & n_t_45x
                    | n_t_47x & n_t_63x

@@ -3,7 +3,7 @@
 
 Name     M228X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -66,144 +66,69 @@ node ah1;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a1;
-node a1p;
-node a2;
-node a3;
 node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
 node ad01;
 node ad02;
 node ad02l;
 node ad03h;
-node ad1;
 node ad2;
-node adder1;
-node adder2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
 node ah2;
 node aj1;
-node aj1w;
 node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
 node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
 node ar1;
-node ar2;
-node ar2w;
 node as1;
 node at2;
-node at2u;
-node at2w;
-node au2;
-node au2w;
-node av1;
-node av1w;
 node av2;
-node av2w;
-node b2;
-node b3;
-node ba1;
 node bb1;
-node bb2;
 node bc1;
+node bd00;
 node bd04;
 node bd05;
 node bd07;
 node bd1;
-node bd2;
 node be2;
-node bf1;
 node bf2;
 node bh2;
 node biot5l;
 node bj1;
 node bk1;
-node bk2;
-node bl1;
 node bl2;
-node bm2;
 node bn1;
 node bp2;
-node br2;
 node bu2;
-node bv1;
-node bv2;
-node c2;
-node c3;
-node da_enabl;
-node data2;
-node data3;
+node c1_l;
+node data1_l;
 node data5_l;
-node data_enabl;
-node io2;
-node io3;
-node ma2_h;
-node ma2_l;
-node ma3_h;
-node ma3_l;
-node mb2_h;
-node mb2_l;
-node mb3_h;
-node mb3_l;
+node f2;
+node h1;
+node m1;
 node md07_l;
-node n3v;
+node n2;
 node n3v3;
 node n3v_r1;
 node n3v_r3;
 node n_t_108x;
 node n_t_10x;
+node n_t_11x;
+node n_t_12x;
 node n_t_13x;
 node n_t_15x;
+node n_t_16x;
+node n_t_17x;
 node n_t_182x;
 node n_t_20x;
-node n_t_2x;
+node n_t_29x;
 node n_t_3x;
 node n_t_57x;
 node n_t_5x;
-node n_t_7x;
-node pc2_h;
-node pc2_l;
-node pc3_h;
-node pc3_l;
+node n_t_8x;
 node q1;
 node q2;
 node q5;
 node q6;
-node sc2;
-node sc3;
-node shift_l2;
-node sr2;
-node sr3;
-node tck;
-node tdo;
-node tt_shift;
+node s1;
+node select6;
 node w1_l;
 node w2_l;
 node w3_l;
@@ -270,16 +195,16 @@ $ENDIF
 /* c26: cpol_use */
 
 /* e1: sn7400 */
-mk_data_sync_l = !(mk_data_sync & mk_data_sync_l);
-mk_blk_start_l = !(mk_blk_start & mk_blk_start_l);
-mk_end_l = !(mk_end_l & mk_end);
-mk_blk_mk_l = !(mk_blk_mk_l & mk_blk_mk);
+mk_data_sync = !mk_data_sync_l;
+mk_blk_start = !mk_blk_start_l;
+mk_end = !mk_end_l;
+mk_blk_mk = !mk_blk_mk_l;
 
 /* e2: sn7430 */
-ar2 = !(mk_blk_mk_l & w1_and_w5 & w3 & w2_l & w9_l & w8 & w6_l & w4_l);
+mk_blk_mk_l = !(w1_and_w5 & w3 & w7 & w2_l & w9_l & w8 & w6_l & w4_l);
 
 /* e3: sn7430 */
-n_t_4x = !(mk_end_l & w3_l & w6_l & w7_l & w8 & w9_l & w1_and_w5 & w2);
+mk_end_l = !(w3_l & w6_l & w4_l & w7_l & w8 & w9_l & w1_and_w5 & w2);
 
 /* e4: sn7402 */
 au1 = !(w8
@@ -304,7 +229,7 @@ w7.ap = !n3v_r1;
 w7_l = !w7;
 
 /* e6: sn7430 */
-n_t_2x = !(mk_data_sync_l & w3_l & w4_l & w7_l & w8 & w9_l & w1_and_w5 & w2);
+mk_data_sync_l = !(w3_l & w4_l & w6 & w7_l & w8 & w9_l & w1_and_w5 & w2);
 
 /* e7: sn7450 */
 
@@ -321,7 +246,7 @@ w4.ap = !n3v_r1;
 w4_l = !w4;
 
 /* e9: sn7430 */
-n_t_21x = !(mk_blk_start_l & w3_l & w8_l & w7_l & w5_l & w9_l & w4_l & w1);
+mk_blk_start_l = !(w3_l & w8_l & w6 & w7_l & w5_l & w9_l & w4_l & w1);
 
 /* e10: sn7474 */
 st_blk_mk.ar = !n0_to_state_l;
@@ -348,7 +273,7 @@ ah1.ap = !bb1;
 n_t_19x = !ah1;
 
 /* e12: sn7430 */
-at2 = !(mk_data_l & w3_l & w2_l & w7_l & w9_l & w1_and_w5 & w4 & w6);
+mk_data_l = !(w3_l & w8_l & w2_l & w7_l & w9_l & w1_and_w5 & w4 & w6);
 
 /* e13: sn7474 */
 data.ar = !n0_to_state_l;
@@ -375,7 +300,7 @@ w3.ap = !n3v_r1;
 w3_l = !w3;
 
 /* e15: sn7430 */
-be2 = !(sync_l & bh1 & w6_l & w9 & w7 & w1_and_w5 & w8_l & w4_l);
+sync_l = !(bh1 & w3 & w6_l & w9 & w7 & w1_and_w5 & w8_l & w4_l);
 
 /* e16: sn7474 */
 st_ck.ar = !n0_to_state_l;
@@ -402,7 +327,7 @@ w1.ap = !n3v_r1;
 w1_l = !w1;
 
 /* e18: sn7430 */
-bk2 = !(mk_blk_end_l & w1 & w4 & w7_l & w8 & w5 & w9 & w9);
+mk_blk_end_l = !(w1 & w4 & w6 & w7_l & w8 & w5 & w9 & w9);
 
 /* e19: sn7453 */
 /* n_t_2x = !(mk_blk_end & data
@@ -413,13 +338,13 @@ bk2 = !(mk_blk_end_l & w1 & w4 & w7_l & w8 & w5 & w9 & w9);
 n_t_3x = n_t_2x;
 
 /* e20: sn7400 */
-mk_blk_end_l = !(mk_blk_end & mk_blk_end_l);
-mk_blk_sync_l = !(mk_blk_sync & mk_blk_sync_l);
-mk_data_l = !(mk_data_l & mk_data);
-sync_l = !(sync_l & sync);
+mk_blk_end = !mk_blk_end_l;
+mk_blk_sync = !mk_blk_sync_l;
+mk_data = !mk_data_l;
+sync = !sync_l;
 
 /* e21: sn7430 */
-br2 = !(mk_blk_sync_l & w1 & w4 & w5_l & w3 & au1 & w7_l & w6);
+mk_blk_sync_l = !(w1 & w4 & w2 & w5_l & w3 & au1 & w7_l & w6);
 
 /* r1: r_us_ */
 n3v_r1 = 'b'1;

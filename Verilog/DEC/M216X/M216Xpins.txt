@@ -2,10 +2,14 @@ Exported from /home/vrs/Eagle/projects/DEC/Mxxx/M216/M216X.sch
 
 Part     Pad      Pin        Dir      Net
 
-C1       1        1          pas      VCC
+C1       +        +          pas      VCC
+         -        -          pas      GND
+         1        1          pas      VCC
          2        2          pas      GND
 
-C2       1        1          pas      VCC
+C2       +        +          pas      VCC
+         -        -          pas      GND
+         1        1          pas      VCC
          2        2          pas      GND
 
 C3       1        1          pas      VCC
@@ -17,12 +21,23 @@ E1       1        CLR        in       A1
          4        PRE        in       D1
          5        Q          out      E1
          6        !Q         out      F1
+         7        J          in       F2
          8        !Q         out      J2
          9        Q          out      H2
          10       PRE        in       F2
          11       CLK        in       D2
          12       D          in       E2
          13       CLR        in       A1
+         14       A2         in       H1
+         15       A3         in       H1
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        CLR        in       A1
          2        D          in       J1
@@ -30,12 +45,15 @@ E2       1        CLR        in       A1
          4        PRE        in       K1
          5        Q          out      L1
          6        !Q         out      M1
+         7        J          in       N2
          8        !Q         out      R2
          9        Q          out      P2
          10       PRE        in       N2
          11       CLK        in       L2
          12       D          in       M2
          13       CLR        in       K2
+         14       J          in       K1
+         15       A3         in       M1
 
 E3       1        CLR        in       K2
          2        D          in       P1
@@ -43,12 +61,15 @@ E3       1        CLR        in       K2
          4        PRE        in       R1
          5        Q          out      S1
          6        !Q         out      U1
+         7        J          in       U2
          8        !Q         out      V1
          9        Q          out      V2
          10       PRE        in       U2
          11       CLK        in       S2
          12       D          in       T2
          13       CLR        in       K2
+         14       A2         in       N$7
+         15       A3         in       S1
 
 U$4      A1       1          io       A1
          A2       1          io       VCC

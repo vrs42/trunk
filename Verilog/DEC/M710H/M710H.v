@@ -32,13 +32,12 @@
 // c25: cpol_use 
 // c26: c_us 
 // e1: sn7474 
-module m710h (clr_cntrs_l, mb2_l, md5_l, md_rd_buff_l, n3v, n_t_36x, a1, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, ak2, b1, b2, b_last_brk, c0_l, c1, c1_l, clear_l, clock_l, clocka, clockb, d1, d2, data10_l, data11_l, data8_l, data9_l, del_pun1, del_pun2, e1, e2, f1, f2, feed_l, feed_sw_l, h1, h2, inc_cntrs, inh_12th_bit, inh_12th_bit_l, initialize, initialize_l, int_rqst_l, internal_io_l, io_in_int_l, io_in_skip_l, io_pause_l, iop1, iop2, iop4, iop_02, j1, j2, k1, k2, l1, l2, m1, m2, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, md08_l, md09_l, md10_l, md11_l, motor, n1, n2, n4_5ms, n4_sec, n_t_13x, n_t_15x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_37x, n_t_39x, n_t_40x, n_t_42x, n_t_43x, n_t_49x, n_t_4x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_63x, n_t_64x, n_t_7x, p1, p2, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pc2_h, pc3_h, pc3_l, pun_active_l, pun_done, pun_flag, r1, r2, s1, s2, scr_active_l, skip_l, sync_bias, sync_pun, sync_pun0, t2, tp3, u1, u2, v1, v2);
+module m710h (clr_cntrs_l, crc6, n_t_17x, n_t_36x, n_t_50x, a1, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, b1, b2, b_last_brk, bmd5, c0_l, c1, c1_l, clear_l, clk_cla, clocka, clockb, d1, d2, data10_l, data11_l, data8_l, data9_l, data_in, del_pun1, del_pun2, drive0_l, e1, e2, echo, f1, f2, feed_l, feed_sw_l, h1, h2, inh_12th_bit, inh_12th_bit_l, initialize, initialize_l, int_rqst_l, internal_io_l, io_in_int_l, io_in_skip_l, io_pause_l, iop1, iop2, iop4, iop_02, irq, j1, j2, k1, k2, l1, l2, load_counter, m1, m2, mb10, mb10_l, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, md08_l, md09_l, md10_l, md11_l, motor, n1, n12th_carry_l, n2, n2xclk, n4_5ms, n4_sec, n_t_13x, n_t_15x, n_t_19x, n_t_1x, n_t_25x, n_t_26x, n_t_35x, n_t_40x, n_t_49x, n_t_4x, n_t_52x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_63x, n_t_64x, n_t_75x, n_t_79x, n_t_7x, n_t_8x, overflow, p1, p2, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, pun_flag, r1, r2, s1, s2, scr_active_l, set_count, skip_l, sync_bias, sync_pun, sync_pun0, t2, tp3, u1, u2, v1, v2);
 output clr_cntrs_l;
-output mb2_l;
-output md5_l;
-output md_rd_buff_l;
-output n3v;
+output crc6;
+output n_t_17x;
 output n_t_36x;
+output n_t_50x;
 output a1;
 input ac10;
 input ac11;
@@ -48,16 +47,16 @@ input ac6;
 input ac7;
 input ac8;
 input ac9;
-output ak2;
 output b1;
 output b2;
 output b_last_brk;
+output bmd5;
 output c0_l;
 output c1;
 output c1_l;
-input clear_l;
-output clock_l;
-input clocka;
+inout clear_l;
+output clk_cla;
+inout clocka;
 inout clockb;
 output d1;
 output d2;
@@ -65,17 +64,19 @@ output data10_l;
 output data11_l;
 output data8_l;
 output data9_l;
+output data_in;
 input del_pun1;
 inout reg del_pun2;
+output drive0_l;
 output e1;
 output e2;
+output echo;
 output f1;
 output f2;
 inout feed_l;
-inout feed_sw_l;
+input feed_sw_l;
 output h1;
 output h2;
-output inc_cntrs;
 output inh_12th_bit;
 output inh_12th_bit_l;
 output initialize;
@@ -85,70 +86,64 @@ output internal_io_l;
 output io_in_int_l;
 output io_in_skip_l;
 output io_pause_l;
-output iop1;
-output iop2;
+input iop1;
+input iop2;
 input iop4;
-output iop_02;
+inout iop_02;
+output irq;
 output j1;
 output j2;
 output k1;
 output k2;
 output l1;
 output l2;
+output load_counter;
 output m1;
 output m2;
+output mb10;
+output mb10_l;
 input mb3_lp_0_rp;
 input mb4_lp_0_rp;
-output mb5_lp_0_rp;
-output mb6_lp_0_rp;
+input mb5_lp_0_rp;
+input mb6_lp_0_rp;
 input mb7_lp_1_rp;
-inout mb8_lp_0_rp;
+input mb8_lp_0_rp;
 output md08_l;
 output md09_l;
 output md10_l;
 output md11_l;
 input motor;
 output n1;
+output n12th_carry_l;
 output n2;
+output n2xclk;
 output n4_5ms;
 output n4_sec;
 inout n_t_13x;
 input n_t_15x;
-output n_t_17x;
-output n_t_18x;
 output n_t_19x;
 inout n_t_1x;
-output n_t_20x;
-output n_t_21x;
-output n_t_22x;
-output n_t_23x;
+output n_t_25x;
 input n_t_26x;
-output n_t_27x;
-output n_t_28x;
-output n_t_29x;
-output n_t_30x;
-output n_t_31x;
-output n_t_32x;
-output n_t_33x;
-output n_t_34x;
 output n_t_35x;
-output n_t_37x;
-output n_t_39x;
 output n_t_40x;
-output n_t_42x;
-output n_t_43x;
 output n_t_49x;
 output n_t_4x;
+output n_t_52x;
 output n_t_56x;
 output n_t_57x;
 output n_t_58x;
 output n_t_59x;
-input n_t_5x;
+inout n_t_5x;
 output n_t_60x;
 input n_t_61x;
 output n_t_63x;
 output n_t_64x;
-input n_t_7x;
+output n_t_75x;
+output n_t_79x;
+inout n_t_7x;
+inout n_t_8x;
+output overflow;
 output p1;
 output p2;
 inout reg pb0;
@@ -157,11 +152,8 @@ inout reg pb2;
 inout reg pb3;
 output pb4;
 output pb5;
-output reg pb6;
+inout reg pb6;
 inout reg pb7;
-output pc2_h;
-output pc3_h;
-output pc3_l;
 inout reg pun_active_l;
 output pun_done;
 inout reg pun_flag;
@@ -170,6 +162,7 @@ output r2;
 output s1;
 output s2;
 output scr_active_l;
+output set_count;
 output skip_l;
 output sync_bias;
 output sync_pun;
@@ -191,109 +184,30 @@ reg pb6_m;
 reg pb7_m;
 reg pun_active_l_m;
 reg pun_flag_m;
-reg rd_clk2_m;
 
-reg rd_clk2;
 reg n_t_53x;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
 wire bdata0;
 wire bdata2;
 wire bdata3;
 wire bdata7;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
 wire clockb_l;
 wire clr_dsk_ad_l;
 wire crc10;
 wire crc4;
 wire crc5;
-wire data3;
 wire data_enab_l;
 wire data_enable;
-wire db_clk;
-wire drive0_l;
 wire drive2_l;
-wire ema0_l;
-wire half_block;
-wire io3;
-wire ma1_l;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mak;
-wire mb3_h;
-wire n128th_word;
-wire n12th_bit_ok;
 wire n12th_carry;
 wire n16_carry;
+wire n3v;
 wire n3v3;
 wire n_t_123x;
-wire n_t_41x;
+wire n_t_20x;
+wire n_t_24x;
+wire n_t_27x;
+wire n_t_29x;
+wire n_t_39x;
 wire n_t_55x;
 wire n_t_62x;
 wire n_t_65x;
@@ -301,14 +215,9 @@ wire n_t_72x;
 wire n_t_73x;
 wire n_t_74x;
 wire n_t_76x;
-wire rk_data0;
-wire rk_data1;
-wire sc3;
 wire seek_fail;
-wire shft_wrt_buff_l;
+wire state_enab_b;
 wire strobe;
-wire tck;
-wire tdo;
 always @(clockb, feed_l, n_t_26x, ac11)
   if (~feed_l) begin
     pb0_m <= 1'b0;
@@ -371,29 +280,28 @@ always @(clockb, feed_l, n_t_26x, pb2_m)
     pb2 <= pb2_m;
   end
 assign pb4 = ~(~pb2);
-always @(clockb, feed_l, n_t_26x, ac9)
+always @(clocka, feed_l, n_t_26x, ac7)
   if (~feed_l) begin
     pb3_m <= 1'b0;
   end else
   if (~n_t_26x) begin
     pb3_m <= 1'b1;
   end else
-  if (~(clockb)) begin
-    pb3_m <= ac9;
+  if (~(clocka)) begin
+    pb3_m <= ac7;
   end
-always @(clockb, feed_l, n_t_26x, pb3_m)
+always @(clocka, feed_l, n_t_26x, pb3_m)
   if (~feed_l) begin
     pb3 <= 1'b0;
   end else
   if (~n_t_26x) begin
     pb3 <= 1'b1;
   end else
-  if (clockb) begin
+  if (clocka) begin
     pb3 <= pb3_m;
   end
 assign pb5 = ~(~pb3);
 // e3: sn7404 
-assign 'b'0 = pb7;
 // e4: sn7474 
 always @(clocka, feed_l, n_t_26x, ac5)
   if (~feed_l) begin
@@ -436,29 +344,9 @@ always @(n_t_15x, clear_l, clockb_l, pb7_m)
     pb7 <= pb7_m;
   end
 // e6: sn7404 
-assign clock_l = ~clockb_l;
+assign clocka = ~clockb_l;
 assign clockb = ~clockb_l;
 // e7: sn7474 
-always @(clocka, feed_l, n_t_26x, ac7)
-  if (~feed_l) begin
-    rd_clk2_m <= 1'b0;
-  end else
-  if (~n_t_26x) begin
-    rd_clk2_m <= 1'b1;
-  end else
-  if (~(clocka)) begin
-    rd_clk2_m <= ac7;
-  end
-always @(clocka, feed_l, n_t_26x, rd_clk2_m)
-  if (~feed_l) begin
-    rd_clk2 <= 1'b0;
-  end else
-  if (~n_t_26x) begin
-    rd_clk2 <= 1'b1;
-  end else
-  if (clocka) begin
-    rd_clk2 <= rd_clk2_m;
-  end
 always @(clocka, feed_l, n_t_26x, ac6)
   if (~feed_l) begin
     pun_active_l_m <= 1'b0;
@@ -481,9 +369,10 @@ always @(clocka, feed_l, n_t_26x, pun_active_l_m)
   end
 assign n_t_13x = ~pun_active_l;
 // e8: sn7400 
-assign n_t_4x = ~(n_t_7x & initialize_l);
-assign feed_sw_l = ~(~(mb8_lp_0_rp & mb3_lp_0_rp));
-assign mb8_lp_0_rp = ~(iop4 & ~clockb_l);
+assign clear_l = ~(~(n_t_7x & initialize_l));
+assign iop_02 = ~(~(n_t_8x & iop1));
+assign n_t_7x = ~(iop2 & n_t_8x);
+assign clockb_l = ~(iop4 & n_t_8x);
 // e9: sn7474 
 always @(pun_active_l, clear_l, n_t_26x, n_t_26x)
   if (~clear_l) begin
@@ -505,16 +394,19 @@ always @(pun_active_l, clear_l, n_t_26x, pun_flag_m)
   if (pun_active_l) begin
     pun_flag <= pun_flag_m;
   end
-assign pun_done = ~pun_flag;
 // e11: sn7430 
+assign n_t_5x = ~(mb3_lp_0_rp & mb7_lp_1_rp & mb5_lp_0_rp & mb8_lp_0_rp & mb6_lp_0_rp & mb4_lp_0_rp & mb4_lp_0_rp);
 // e12: sn7401 
+// pun_done = !n_t_15x; 
+// pun_done = !n_t_15x; 
+// io_in_int_l = !pun_flag; 
+// io_in_skip_l = !(pun_flag & iop_02); 
 // e13: sn7440 
-assign feed_l = ~(n_t_53x & n_t_41x & n_t_41x & n_t_41x);
+assign feed_l = ~(n_t_53x & ~feed_sw_l & ~feed_sw_l & ~feed_sw_l);
 assign scr_active_l = ~motor;
 // e14: sn7400 
-assign half_block = ~(del_pun1 & n_t_1x);
-assign n_t_1x = ~feed_sw_l;
-assign shft_wrt_buff_l = ~n_t_5x;
+assign n_t_1x = ~(feed_l & pun_active_l);
+assign n_t_8x = ~n_t_5x;
 // e16: sn7474 
 always @(n_t_61x, motor, n_t_26x, n_t_26x)
   if (~motor) begin
@@ -572,4 +464,7 @@ assign n_t_4x = ~n_t_53x;
 // r14: r_us_ 
 // r15: r_us_ 
 // open collector 'wire-or's 
+assign io_in_int_l = pun_flag? ~pun_flag: 1'bz;
+assign io_in_skip_l = (pun_flag & iop_02)? 1'b0: 1'bz;
+assign pun_done = n_t_15x? ~n_t_15x: 1'bz;
 endmodule

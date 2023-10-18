@@ -145,52 +145,52 @@ C102     +        +          pas      VCC
 
 E1       1        I0         in       N$29
          2        I1         in       N$38
-         3        O          out      BIOTL
-         4        I2         in       N$24
+         3        I2         in       N$24
+         4        I3         in       N$36
          5        I4         in       IO_PAUSEH
          6        I5         in       IO_PAUSEH
-         7        I1         in       N$1
-         8        O          out      N$1
-         9        I0         in       D01
-         10       I1         in       N$1
+         7        A&lt       B_O      out
+         8        O          out      BIOTL
+         9        I1         in       N$1
+         10       O          oc       !DATA1
          11       I6         in       N$33
          12       I7         in       N$32
          13       O          oc       !DATA0
-         14       O          oc       !DATA1
-         15       2G         in       N$12
-         16       CN+4       out      N$17
-         17       G          out      N$16
-         18       B3         in       N$15
-         19       A3         in       N$13
-         20       B2         in       N$11
-         21       A2         in       N$12
-         22       B1         in       N$10
-         23       A1         in       N$8
+         14       B2         in       F2
+         15       A3         in       H1
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        I0         in       N$39
          2        I1         in       N$40
-         3        O          out      AIOTL
-         4        I2         in       N$41
+         3        I2         in       N$41
+         4        I3         in       N$42
          5        I4         in       IO_PAUSEH
          6        I5         in       IO_PAUSEH
          7        I1         in       !IO_PAUSE
-         8        O          out      N$7
+         8        O          out      AIOTL
          9        I0         in       !MD03
          10       I1         in       !MD03
          11       I6         in       N$31
          12       I7         in       N$45
          13       O          out      N$10
          14       O          out      MD03H
-         15       2G         in       N$20
+         15       A3         in       M1
 
 E3       1        I          in       N$57
-         2        O          out      MD06H
+         2        O          out      N$56
          3        I          in       BIOT3L
-         4        I0         in       !MD07
+         4        O          out      BIOT3H
          5        I          in       AIOT3L
-         6        O          out      BIOT3H
+         6        O          out      AIOT3H
          7        I1         in       !MD06
-         8        O          out      AIOT3H
+         8        O          out      N$64
          9        I          in       N$60
          10       O          out      AIOT2H
          11       I          in       AIOT2L
@@ -201,14 +201,14 @@ E3       1        I          in       N$57
 
 E4       1        I0         in       N$69
          2        I1         in       N$69
-         3        O          out      N$60
-         4        I0         in       AREADYL
-         5        I1         in       AREADYL
-         6        O          out      N$76
+         3        I          in       MD06H
+         4        I2         in       N$69
+         5        I3         in       N$69
+         6        O          out      N$60
          7        I1         in       N$31
-         8        O          out      MD07L
-         9        I          in       MD05H
-         10       O          out      MD04L
+         8        O          out      N$76
+         9        I0         in       AREADYL
+         10       I1         in       AREADYL
          11       I          in       MD04H
          12       I2         in       AREADYL
          13       I3         in       AREADYL
@@ -230,15 +230,15 @@ E5       1        B2         io       !DATA3
          14       O0         in       BD01
          15       B0         io       !DATA1
 
-E6       1        I0         in       MD08OK
+E6       1        CLR        in       INITL
          2        Q1         out      BD02
          3        !Q1        out      BD02L
          4        D1         in       DATA2
          5        D2         in       DATA3
          6        !Q2        out      BD03L
          7        Q2         out      BD03
-         8        O          out      N$36
-         9        I0         in       N$17
+         8        O          out      IOTL
+         9        CLK        in       N$79
          10       Q3         out      BD01
          11       !Q3        out      BD01L
          12       D3         in       DATA1
@@ -252,14 +252,14 @@ E7       1        I0         in       BD03L
          4        I0         in       BD02L
          5        I1         in       BD02L
          6        O          out      BD02H
-         7        I1         in       N$337
+         7        B          io       N$10
          8        O          out      BD01H
          9        I0         in       BD01L
          10       I1         in       BD01L
          11       O          out      BD00H
          12       I0         in       BD00L
          13       I1         in       BD00L
-         14       O          oc       !C0
+         14       R          out      A0
          15       B          io       N$12
 
 E8       1        I0         in       AINTENH
@@ -268,14 +268,14 @@ E8       1        I0         in       AINTENH
          4        I0         in       AIOT2H
          5        I1         in       ADFLAG
          6        O          out      N$120
-         7        I1         in       N$80
+         7        Y3         out      SELECT6
          8        O          out      N$53
          9        I0         in       N$120
          10       I1         in       N$119
          11       O          out      N$119
          12       I0         in       BDFLAG
          13       I1         in       BIOT2H
-         14       O          oc       R2
+         14       A          in       A0
          15       G          in       !C1
 
 E9       1        O          oc       !DATA3
@@ -284,7 +284,6 @@ E9       1        O          oc       !DATA3
          4        O          oc       !DATA2
          5        I0         in       N$1
          6        I1         in       AD02
-         7        I1         in       INT_ENABLE
          8        I0         in       AD00
          9        I1         in       N$1
          10       O          oc       !DATA0
@@ -293,7 +292,7 @@ E9       1        O          oc       !DATA3
          13       O          oc       !DATA1
          14       A2         in       N$40
 
-E10      1        O0         out      IOT0L
+E10      1        CLR        in       INITL
          2        Q1         out      AD00
          3        !Q1        out      AD00L
          4        D1         in       DATA0
@@ -301,7 +300,7 @@ E10      1        O0         out      IOT0L
          6        !Q2        out      AD01L
          7        Q2         out      AD01
          8        O          out      N$33
-         9        I0         in       N$23
+         9        CLK        in       N$20
          10       Q3         out      AD03
          11       !Q3        out      AD03L
          12       D3         in       DATA3
@@ -325,19 +324,19 @@ E11      1        I0         in       AD02L
          14       R          out      A7
          15       B          io       N$13
 
-E12      1        I          in       IOTL
-         2        O          oc       L
-         3        CLR        in       N$136
+E12      1        CLR        in       N$136
+         2        D          in       3V4
+         3        CLK        in       BREADY
          4        PRE        in       3V4
-         5        Q          out      ADFLAG
-         6        O          out      N$8
+         5        Q          out      BDFLAG
+         6        !Q         out      N$151
          7        B          io       N$17
-         8        O          out      N$24
-         9        I          in       IOT4L
+         8        !Q         out      N$147
+         9        Q          out      ADFLAG
          10       PRE        in       3V4
          11       CLK        in       AREADY
          12       D          in       3V4
-         13       Q          out      BDFLAG
+         13       CLR        in       N$146
          14       R          out      A8
          15       B          io       N$15
 
@@ -372,13 +371,13 @@ E14      1        Y1         in       !IO_PAUSE
          15       Y3         in       !MD07
 
 E15      1        I          in       MD04H
-         2        O          out      N$171
+         2        O          out      MD04L
          3        I          in       MD05H
-         4        I0         in       BF1
+         4        O          out      MD05L
          5        I          in       MD08H
-         6        O          out      MD05L
+         6        O          out      MD08L
          7        I1         in       BH1
-         8        O          out      MD08L
+         8        O          out      MD07L
          9        I          in       MD07H
          10       O          out      MD06L
          11       I          in       MD06H
@@ -417,13 +416,13 @@ E17      1        I          in       BJ2
 
 E18      1        I0         in       N$273
          2        I1         in       N$273
-         3        O          out      N$57
-         4        I0         in       BREADYL
-         5        I1         in       BREADYL
-         6        O          out      N$280
-         8        O          out      BK2
-         9        I          in       !BK2
-         10       O          out      BL1
+         3        I          in       !BM2
+         4        I2         in       N$273
+         5        I3         in       N$273
+         6        O          out      N$57
+         8        O          out      N$280
+         9        I0         in       BREADYL
+         10       I1         in       BREADYL
          11       I          in       !BL1
          12       I2         in       BREADYL
          13       I3         in       BREADYL
@@ -443,14 +442,14 @@ E19      1        B2         io       !DATA7
          14       O0         in       BD05
          15       B0         io       !DATA5
 
-E20      1        CLR        in       !DATACLR
+E20      1        CLR        in       INITL
          2        Q1         out      BD06
          3        !Q1        out      BD06L
          4        D1         in       DATA6
          5        D2         in       DATA7
          6        !Q2        out      BD07L
          7        Q2         out      BD07
-         9        CLK        in       HCLK
+         9        CLK        in       N$79
          10       Q3         out      BD05
          11       !Q3        out      BD05L
          12       D3         in       DATA5
@@ -516,12 +515,14 @@ E24      1        O          oc       !DATA7
          12       I1         in       AD05
          13       O          oc       !DATA5
 
-E25      2        Q1         out      AD04
+E25      1        CLR        in       INITL
+         2        Q1         out      AD04
          3        !Q1        out      AD04L
          4        D1         in       DATA4
          5        D2         in       DATA5
          6        !Q2        out      AD05L
          7        Q2         out      AD05
+         9        CLK        in       N$20
          10       Q3         out      AD07
          11       !Q3        out      AD07L
          12       D3         in       DATA7
@@ -568,8 +569,8 @@ E28      1        O          oc       !C1
          12       I1         in       N$196
          13       O          oc       !INTERNAL_IO
 
-E29      1        A          in       MD11H
-         2        B          in       MD10H
+E29      1        O0         out      BIOT0L
+         2        O1         out      BIOT1L
          3        O2         out      BIOT2L
          4        O3         out      BIOT3L
          5        O4         out      BIOT4L
@@ -577,14 +578,18 @@ E29      1        A          in       MD11H
          7        O6         out      BIOT6L
          9        O7         out      BIOT7L
          12       D          in       BIOTL
-         14       C          in       MD09H
+         13       C          in       MD09H
+         14       B          in       MD10H
+         15       A          in       MD11H
 
-E30      3        CLK        in       3V2
+E30      1        CLR        in       N$362
+         3        CLK        in       3V2
          4        PRE        in       BIOT1L
-         5        Q          out      AINTENH
+         5        Q          out      BINTENH
+         9        Q          out      AINTENH
          10       PRE        in       AIOT1L
          11       CLK        in       3V2
-         13       Q          out      BINTENH
+         13       CLR        in       N$332
 
 E31      1        I0         in       N$171
          2        I1         in       BCTLFLGH
@@ -623,7 +628,9 @@ E33      1        O0         out      AIOT0L
          7        O6         out      AIOT6L
          9        O7         out      AIOT7L
          12       D          in       AIOTL
-         14       C          in       MD09H
+         13       C          in       MD09H
+         14       B          in       MD10H
+         15       A          in       MD11H
 
 E34      1        I0         in       AIOT3L
          2        I1         in       INITIALIZEL
@@ -638,12 +645,14 @@ E34      1        I0         in       AIOT3L
          12       I0         in       BIOT0L
          13       I1         in       INITIALIZEL
 
-E35      3        CLK        in       3V2
+E35      1        CLR        in       N$193
+         3        CLK        in       3V2
          4        PRE        in       BIOT6L
-         5        Q          out      ACTLFLGH
+         5        Q          out      BCTLFLGH
+         9        Q          out      ACTLFLGH
          10       PRE        in       AIOT6L
          11       CLK        in       3V2
-         13       Q          out      BCTLFLGH
+         13       CLR        in       N$194
 
 E36      1        B2         io       !DATA11
          2        O2         in       BD11
@@ -660,12 +669,14 @@ E36      1        B2         io       !DATA11
          14       O0         in       BD09
          15       B0         io       !DATA9
 
-E37      2        Q1         out      BD10
+E37      1        CLR        in       INITL
+         2        Q1         out      BD10
          3        !Q1        out      BD10L
          4        D1         in       DATA10
          5        D2         in       DATA11
          6        !Q2        out      BD11L
          7        Q2         out      BD11
+         9        CLK        in       N$79
          10       Q3         out      BD09
          11       !Q3        out      BD09L
          12       D3         in       DATA9
@@ -699,12 +710,14 @@ E39      1        O          oc       !DATA11
          12       I1         in       AD09
          13       O          oc       !DATA9
 
-E40      2        Q1         out      AD08
+E40      1        CLR        in       INITL
+         2        Q1         out      AD08
          3        !Q1        out      AD08L
          4        D1         in       DATA8
          5        D2         in       DATA9
          6        !Q2        out      AD09L
          7        Q2         out      AD09
+         9        CLK        in       N$20
          10       Q3         out      AD11
          11       !Q3        out      AD11L
          12       D3         in       DATA11
@@ -802,83 +815,83 @@ E48      2        CLAMP      in       BDONEH
 
 J1       A        1          io       GND
          AA       23         io       GND
-         B        2          io       AD00H
          BB       24         io       AD11H
+         B        2          io       AD00H
          C        3          io       GND
          CC       25         io       GND
-         D        4          io       AD01H
          DD       26         io       ASTROBEL
+         D        4          io       AD01H
          EE       27         io       GND
          E        5          io       GND
          F        6          io       AD02H
          FF       28         io       AREADYL
          H        7          io       GND
          HH       29         io       GND
-         JJ       30         io       ASTROBEH
          J        8          io       AD03H
-         K        9          io       GND
+         JJ       30         io       ASTROBEH
          KK       31         io       GND
-         LL       32         io       AREADYH
+         K        9          io       GND
          L        10         io       AD04H
-         MM       33         io       GND
+         LL       32         io       AREADYH
+         1        1          pas      N$17
          M        11         io       GND
-         NN       34         io       ADONEH
+         MM       33         io       GND
          N        12         io       AD05H
+         NN       34         io       ADONEH
          PP       35         io       GND
          P        13         io       GND
-         RR       36         io       ADONEL
          R        14         io       AD06H
+         RR       36         io       ADONEL
          SS       37         io       GND
+         S        15         io       GND
          T        16         io       AD07H
          TT       38         io       AFLAGH
-         UU       39         io       GND
          U        17         io       GND
-         VV       40         io       AINITH
-         1        1          pas      N$17
-         2        2          pas      N$10
-         S        15         io       GND
+         UU       39         io       GND
          V        18         io       AD08H
-         W        19         io       GND
+         VV       40         io       AINITH
          X        20         io       AD09H
          Y        21         io       GND
          Z        22         io       AD10H
+         2        2          pas      N$10
+         W        19         io       GND
 
 J2       AA       23         io       GND
          A        1          io       GND
-         BB       24         io       BD11H
          B        2          io       BD00H
+         BB       24         io       BD11H
+         1        1          pas      N$18
+         2        2          pas      N$10
+         C        3          io       GND
          CC       25         io       GND
-         D        4          io       BD01H
          DD       26         io       BSTROBEL
+         D        4          io       BD01H
          E        5          io       GND
          EE       27         io       GND
          F        6          io       BD02H
          FF       28         io       BREADYL
          HH       29         io       GND
          H        7          io       GND
-         JJ       30         io       BSTROBEH
          J        8          io       BD03H
-         2        2          pas      N$10
-         KK       31         io       GND
+         JJ       30         io       BSTROBEH
          K        9          io       GND
-         1        1          pas      N$18
-         C        3          io       GND
-         L        10         io       BD04H
+         KK       31         io       GND
          LL       32         io       BREADYH
-         M        11         io       GND
+         L        10         io       BD04H
          MM       33         io       GND
-         N        12         io       BD05H
+         M        11         io       GND
          NN       34         io       BDONEH
+         N        12         io       BD05H
          P        13         io       GND
          PP       35         io       GND
-         R        14         io       BD06H
          RR       36         io       BDONEL
-         SS       37         io       GND
+         R        14         io       BD06H
          S        15         io       GND
+         SS       37         io       GND
          TT       38         io       BFLAGH
          T        16         io       BD07H
-         U        17         io       GND
          UU       39         io       GND
+         U        17         io       GND
          VV       40         io       BINITH
          V        18         io       BD08H
          W        19         io       GND
@@ -960,8 +973,7 @@ R24      1        A          pas      N$496
          2        S          pas      VCC
          3        E          pas      VCC
 
-U$2      A1       1          io       N$2
-         AA2      1          io       VCC
+U$2      AA2      1          io       VCC
          AC1      1          io       GND
          AC2      1          io       GND
          AF1      1          io       GND
@@ -969,6 +981,7 @@ U$2      A1       1          io       N$2
          AN1      1          io       GND
          AN2      1          io       GND
          AP1      1          io       !MD03
+         A1       1          io       N$2
          AR1      1          io       !DATA0
          AS1      1          io       !DATA1
          AT1      1          io       GND
@@ -976,44 +989,45 @@ U$2      A1       1          io       N$2
          AU1      1          io       !DATA2
          AV1      1          io       !DATA3
          A2       1          io       VCC
-         BA2      1          io       VCC
+         BU1      1          io       !DATA6
+         B1       1          io       N$14
          BC1      1          io       GND
          BC2      1          io       GND
-         BF1      1          io       GND
-         B1       1          io       N$14
-         BF2      1          io       GND
          BK1      1          io       !MD04
-         B2       1          io       -15V
          BL1      1          io       !MD05
+         BN2      1          io       GND
+         BT2      1          io       GND
+         B2       1          io       -15V
+         BA2      1          io       VCC
+         BF1      1          io       GND
+         BF2      1          io       GND
          BM1      1          io       !MD06
          BN1      1          io       GND
-         BN2      1          io       GND
          BP1      1          io       !MD07
          BR1      1          io       !DATA4
          BS1      1          io       !DATA5
          BT1      1          io       GND
-         BT2      1          io       GND
-         BU1      1          io       !DATA6
          BV1      1          io       !DATA7
-         CA2      1          io       VCC
          CC1      1          io       GND
-         CC2      1          io       GND
-         CD1      1          io       !IO_PAUSE
          CE1      1          io       !C0
-         CF1      1          io       GND
          CF2      1          io       GND
          CH1      1          io       !C1
          CH2      1          io       TP3
          CL1      1          io       !INTERNAL_IO
          CN1      1          io       GND
-         C2       1          io       GND
          CN2      1          io       GND
-         CP1      1          io       !INT_RQST
+         C1       1          io       N$3
+         CF1      1          io       GND
          CR1      1          io       INITIALIZE
          CS1      1          io       !SKIP
-         C1       1          io       N$3
          CT1      1          io       GND
          CT2      1          io       GND
+         C2       1          io       GND
+         CA2      1          io       VCC
+         CC2      1          io       GND
+         CD1      1          io       !IO_PAUSE
+         CP1      1          io       !INT_RQST
+         DC1      1          io       GND
          DC2      1          io       GND
          DF1      1          io       GND
          DF2      1          io       GND
@@ -1021,45 +1035,44 @@ U$2      A1       1          io       N$2
          DL1      1          io       !MD09
          DM1      1          io       !MD10
          DN1      1          io       GND
-         D2       1          io       N$13
          DN2      1          io       GND
          DP1      1          io       !MD11
          DR1      1          io       !DATA8
          DS1      1          io       !DATA9
          DT1      1          io       GND
+         D2       1          io       N$4
          DT2      1          io       GND
          DU1      1          io       !DATA10
          DV1      1          io       !DATA11
-         D1       1          io       N$6
-         DC1      1          io       GND
-         E1       1          io       N$7
+         D1       1          io       N$11
+         E1       1          io       N$13
          E2       1          io       N$5
-         F1       1          io       N$8
-         F2       1          io       N$14
-         H1       1          io       N$11
-         H2       1          io       N$1
-         J1       1          io       N$12
-         J2       1          io       N$2
-         K1       1          io       N$9
-         K2       1          io       N$3
-         L1       1          io       N$10
-         L2       1          io       N$4
-         M1       1          io       N$23
-         M2       1          io       N$28
-         N1       1          io       N$24
-         N2       1          io       N$22
-         P1       1          io       N$25
-         P2       1          io       N$27
-         R1       1          io       N$26
-         R2       1          io       N$15
-         S1       1          io       N$20
-         S2       1          io       N$16
+         F1       1          io       N$10
+         F2       1          io       N$6
+         H1       1          io       N$12
+         H2       1          io       N$16
+         J1       1          io       N$24
+         J2       1          io       N$9
+         K1       1          io       N$8
+         K2       1          io       N$15
+         L1       1          io       N$30
+         L2       1          io       N$17
+         M1       1          io       N$35
+         M2       1          io       N$18
+         N1       1          io       N$26
+         N2       1          io       N$19
+         P1       1          io       N$29
+         P2       1          io       N$20
+         R1       1          io       N$27
+         R2       1          io       N$21
+         S1       1          io       N$28
+         S2       1          io       N$32
          T1       1          io       GND
          T2       1          io       N$25
-         U1       1          io       N$19
-         U2       1          io       N$17
-         V1       1          io       N$21
-         V2       1          io       N$18
+         U1       1          io       N$31
+         U2       1          io       N$34
+         V1       1          io       N$33
+         V2       1          io       N$36
 
 W1       1        1          pas      MD03H
          2        2          pas      N$40

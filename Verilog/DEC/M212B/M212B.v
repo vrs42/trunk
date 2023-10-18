@@ -69,31 +69,29 @@ reg n_t_17x_m;
 reg n_t_7x_m;
 reg n_t_9x_m;
 
+wire a0;
 wire bd00;
 wire bd00l;
 wire bd01;
 wire bd03;
 wire biot5l;
-wire c0_l;
 wire c1_l;
 wire d1;
 wire data1_l;
 wire f2;
-wire int_enable;
+wire h1;
 wire k1;
 wire l2;
+wire m1;
 wire n2;
 wire n_t_119x;
-wire n_t_20x;
-wire n_t_25x;
+wire n_t_29x;
 wire n_t_31x;
-wire n_t_337x;
 wire n_t_40x;
 wire n_t_46x;
-wire n_t_80x;
 wire r1;
-wire r2;
 wire s1;
+wire select6;
 wire u2;
 wire v2;
 always @(clock, clear_reg_l, l2)
@@ -126,11 +124,11 @@ always @(clock, clear_reg_l, n_t_9x_m)
   end
 assign n_t_10x = ~n_t_9x;
 // e4: sn7453 
-// n_t_25x = !(n_t_10x & right_shift
+// n_t_29x = !(n_t_10x & right_shift
 //        # ina2_l & enable_a
 //        # inb2_l & enable_b
 //        # n_t_14x & left_shift); 
-// !n_t_25x = !n_t_25x; 
+// !n_t_29x = !n_t_29x; 
 // e5: sn7453 
 // !n3v3 = !(n_t_12x & right_shift
 //        # ina3_l & enable_a
@@ -138,12 +136,12 @@ assign n_t_10x = ~n_t_9x;
 //        # n_t_16x & left_shift); 
 // 'b'1 = n3v3; 
 // e6: sn7474 
-always @(clock, clear_reg_l, n_t_25x)
+always @(clock, clear_reg_l, n_t_29x)
   if (~clear_reg_l) begin
     n_t_11x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_11x_m <= n_t_25x;
+    n_t_11x_m <= n_t_29x;
   end
 always @(clock, clear_reg_l, n_t_11x_m)
   if (~clear_reg_l) begin
@@ -222,10 +220,6 @@ assign n_t_119x = ~((n_t_16x & right_shift
                       | ina5_l & enable_a
                       | inb5_l & enable_b
                       | sl_insert & left_shift));
-assign n_t_25x = ~((n_t_10x & right_shift
-                     | ina2_l & enable_a
-                     | inb2_l & enable_b
-                     | n_t_14x & left_shift));
 assign l2 = (sr_insert & right_shift
               | ina0_l & enable_a
               | inb0_l & enable_b
@@ -234,6 +228,10 @@ assign l2 = (sr_insert & right_shift
                 | ina4_l & enable_a
                 | inb4_l & enable_b
                 | n_t_18x & left_shift);
+assign n_t_29x = ~((n_t_10x & right_shift
+                     | ina2_l & enable_a
+                     | inb2_l & enable_b
+                     | n_t_14x & left_shift));
 assign n3v3 = (n_t_12x & right_shift
                 | ina3_l & enable_a
                 | inb3_l & enable_b

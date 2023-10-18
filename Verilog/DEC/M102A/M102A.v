@@ -23,15 +23,15 @@ input n_t_23x;
 input n_t_8x;
 output a1;
 inout b1;
-inout c1;
+output c1;
 inout d1;
 output e1;
 inout f1;
 output h1;
-output j1;
+input j1;
 output k1;
 output l1;
-output m1;
+input m1;
 output m2;
 output n1;
 output n15v;
@@ -41,7 +41,7 @@ output p2;
 output r1;
 output r2;
 output s1;
-input s2;
+output s2;
 output t2;
 output u1;
 input u2;
@@ -51,7 +51,6 @@ input v2;
 wire f2;
 wire l2;
 wire n2;
-wire n_t_31x;
 wire n_t_9x;
 assign b1 = ~(n_t_13x & v2 & n3v3 & n3v3);
 assign a1 = ~(b1 & n3v3 & n3v3 & n3v3);
@@ -62,9 +61,9 @@ assign c1 = ~(d1 & n3v3 & n3v3 & n3v3);
 assign f1 = ~(v2 & n_t_23x & n3v3 & n3v3);
 assign e1 = ~(f1 & n3v3 & n3v3 & n3v3);
 // e4: sn7400 
-assign n_t_31x = ~(n_t_8x & u2);
-assign n_t_9x = ~(c1 & s2);
-assign n1 = ~(n_t_15x & n_t_10x);
+assign n_t_9x = ~(n_t_8x & u2);
+assign n1 = ~(n_t_15x & m1);
+assign k1 = ~(j1 & n_t_10x);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

@@ -32,13 +32,14 @@
 // aj1 = !('b'1 & adder4 & shift_l2); 
 // n_t_10x = !aj1; 
 // e4: sn7474 
-module m220b (tt_shift, a1, ac2_h, ac2_l, ac3_h, ac3_l, ac_enabl, ac_enabl_l, adder0, adder1, adder2, adder3, adder4, adder5, aj1, ak1, ak2, an2, and_h, ar1, as1, as2, at2, au1, au2, b1, bb2, be2, br2, bu1, bv1, bv2, c0, c1, c2, d1, d2, da2, da_enabl, data2, data3, data_enabl, e1, e2, f1, f2, h1, h2, io2, io3, io_enabl, j1, j2, k1, k2, l1, l2, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, ma_enabl, mem2, mem_enabl, mq2_h, mq3_h, mq_enabl, n1, n2, n_t_30x, no_shift, p1, p2, pc2_h, pc2_l, pc3_h, pc3_l, pc_enabl, r1, r2, s1, s2, sc2, sc3, sc_enabl, shift_l1, shift_l2, shift_r1, shift_r2, sr2, sr3, sr_enabl, t2, tt_shift_l, u1, u2, v1, v2);
+module m220b (n_t_3x, tt_shift, a1, ac2_h, ac2_l, ac3_h, ac3_l, ac_enabl, ac_enabl_l, adder0, adder1, adder2, adder3, adder4, adder5, aj1, ak1, ak2, an2, and_h, ar1, as1, as2, at2, au1, au2, b1, bb2, be2, br2, bu1, bv1, bv2, c0, c1, c2, d1, d2, da2, da_enabl, data2, data3, data_enabl, e1, e2, f1, f2, h1, h2, io2, io3, io_enabl, j1, j2, k1, k2, l1, l2, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, ma_enabl, mem2, mem_enabl, mq2_h, mq3_h, mq_enabl, n1, n15v, n2, no_shift, p1, p2, pc2_h, pc2_l, pc3_h, pc3_l, pc_enabl, r1, r2, s1, s2, sc2, sc3, sc_enabl, shift_l1, shift_l2, shift_r1, shift_r2, sr2, sr3, sr_enabl, t2, tt_shift_l, u1, u2, v1, v2);
+input n_t_3x;
 input tt_shift;
 output a1;
 inout reg ac2_h;
 inout ac2_l;
 inout reg ac3_h;
-input ac3_l;
+inout ac3_l;
 input ac_enabl;
 input ac_enabl_l;
 input adder0;
@@ -102,9 +103,9 @@ input mem_enabl;
 input mq2_h;
 input mq3_h;
 input mq_enabl;
-input n1;
+output n1;
+output n15v;
 output n2;
-output n_t_30x;
 input no_shift;
 output p1;
 output p2;
@@ -145,61 +146,21 @@ reg pc3_h_m;
 
 reg mb2_h;
 reg mb3_h;
+wire a0;
 wire a8;
-wire ac1;
 wire ad01;
 wire ad02;
 wire ad02l;
 wire ad03h;
-wire ad1;
-wire ad2;
-wire ae1;
-wire ae2;
-wire af1;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj2;
-wire al1;
-wire al2;
-wire am1;
-wire am2;
-wire an1;
-wire ap1;
-wire ap2;
-wire ar2;
-wire av1;
-wire av2;
-wire ba1;
-wire bb1;
-wire bc1;
 wire bd00;
 wire bd01;
 wire bd03;
-wire bd1;
-wire bd2;
-wire be1;
-wire bf1;
-wire bf2;
 wire bh1;
-wire bh2;
 wire biot5l;
 wire bj1;
-wire bj2;
-wire bk1;
-wire bk2;
-wire bl1;
-wire bl2;
-wire bm1;
-wire bm2;
-wire bn1;
-wire bn2;
-wire bp1;
-wire bp2;
 wire bt2;
 wire c1_l;
 wire data1_l;
-wire int_enable;
 wire md07_l;
 wire md07h;
 wire n3v3;
@@ -209,30 +170,26 @@ wire n_t_16x;
 wire n_t_170x;
 wire n_t_17x;
 wire n_t_182x;
-wire n_t_19x;
 wire n_t_20x;
 wire n_t_27x;
 wire n_t_29x;
 wire n_t_31x;
-wire n_t_337x;
+wire n_t_36x;
 wire n_t_40x;
+wire n_t_42x;
 wire n_t_46x;
 wire n_t_49x;
 wire n_t_63x;
 wire n_t_7x;
-wire n_t_80x;
 wire n_t_88x;
 wire n_t_9x;
-wire tck;
-wire tdi;
-wire tdo;
-wire tms;
-always @(ak1, adder5, 1'b1)
+wire select6;
+always @(ak1, adder5, aj1)
   if (~adder5) begin
     ma2_h_m <= 1'b1;
   end else
   if (~(ak1)) begin
-    ma2_h_m <= 1'b1;
+    ma2_h_m <= aj1;
   end
 always @(ak1, adder5, ma2_h_m)
   if (~adder5) begin
@@ -242,18 +199,18 @@ always @(ak1, adder5, ma2_h_m)
     ma2_h <= ma2_h_m;
   end
 assign ma2_l = ~ma2_h;
-always @(ak1, aj1, ak2, n_t_9x)
-  if (~aj1) begin
+always @(ak1, n_t_3x, ak2, ak2)
+  if (~n_t_3x) begin
     ma3_h_m <= 1'b0;
   end else
   if (~ak2) begin
     ma3_h_m <= 1'b1;
   end else
   if (~(ak1)) begin
-    ma3_h_m <= n_t_9x;
+    ma3_h_m <= ak2;
   end
-always @(ak1, aj1, ak2, ma3_h_m)
-  if (~aj1) begin
+always @(ak1, n_t_3x, ak2, ma3_h_m)
+  if (~n_t_3x) begin
     ma3_h <= 1'b0;
   end else
   if (~ak2) begin
@@ -277,38 +234,38 @@ assign ma3_l = ~ma3_h;
 assign as2 = mb3_h;
 assign as1 = ~mb3_h;
 // e8: sn7474 
-always @(ar1, n_t_17x, n_t_4x, n_t_19x)
-  if (~n_t_17x) begin
+always @(ar1, n_t_36x, n3v3, aj1)
+  if (~n_t_36x) begin
     mb2_h_m <= 1'b0;
   end else
-  if (~n_t_4x) begin
+  if (~n3v3) begin
     mb2_h_m <= 1'b1;
   end else
   if (~(ar1)) begin
-    mb2_h_m <= n_t_19x;
+    mb2_h_m <= aj1;
   end
-always @(ar1, n_t_17x, n_t_4x, mb2_h_m)
-  if (~n_t_17x) begin
+always @(ar1, n_t_36x, n3v3, mb2_h_m)
+  if (~n_t_36x) begin
     mb2_h <= 1'b0;
   end else
-  if (~n_t_4x) begin
+  if (~n3v3) begin
     mb2_h <= 1'b1;
   end else
   if (ar1) begin
     mb2_h <= mb2_h_m;
   end
-always @(ar1, aj1, n3v3, n1)
-  if (~aj1) begin
+always @(ar1, n_t_4x, n3v3, ak2)
+  if (~n_t_4x) begin
     mb3_h_m <= 1'b0;
   end else
   if (~n3v3) begin
     mb3_h_m <= 1'b1;
   end else
   if (~(ar1)) begin
-    mb3_h_m <= n1;
+    mb3_h_m <= ak2;
   end
-always @(ar1, aj1, n3v3, mb3_h_m)
-  if (~aj1) begin
+always @(ar1, n_t_4x, n3v3, mb3_h_m)
+  if (~n_t_4x) begin
     mb3_h <= 1'b0;
   end else
   if (~n3v3) begin
@@ -318,7 +275,7 @@ always @(ar1, aj1, n3v3, mb3_h_m)
     mb3_h <= mb3_h_m;
   end
 // e9: sn7474 
-always @(an2, mb3_h, mb3_h, mb3_h)
+always @(an2, mb3_h, mb3_h, aj1)
   if (~mb3_h) begin
     pc2_h_m <= 1'b0;
   end else
@@ -326,7 +283,7 @@ always @(an2, mb3_h, mb3_h, mb3_h)
     pc2_h_m <= 1'b1;
   end else
   if (~(an2)) begin
-    pc2_h_m <= mb3_h;
+    pc2_h_m <= aj1;
   end
 always @(an2, mb3_h, mb3_h, pc2_h_m)
   if (~mb3_h) begin
@@ -339,18 +296,18 @@ always @(an2, mb3_h, mb3_h, pc2_h_m)
     pc2_h <= pc2_h_m;
   end
 assign pc2_l = ~pc2_h;
-always @(an2, aj1, mb3_h, mb3_h)
-  if (~aj1) begin
+always @(an2, mb3_h, mb3_h, ak2)
+  if (mb3_h) begin
     pc3_h_m <= 1'b0;
   end else
   if (mb3_h) begin
     pc3_h_m <= 1'b1;
   end else
   if (~(an2)) begin
-    pc3_h_m <= ~mb3_h;
+    pc3_h_m <= ak2;
   end
-always @(an2, aj1, mb3_h, pc3_h_m)
-  if (~aj1) begin
+always @(an2, mb3_h, mb3_h, pc3_h_m)
+  if (mb3_h) begin
     pc3_h <= 1'b0;
   end else
   if (mb3_h) begin
@@ -361,7 +318,7 @@ always @(an2, aj1, mb3_h, pc3_h_m)
   end
 assign pc3_l = ~pc3_h;
 // e10: sn7474 
-always @(au1, mb2_h, mb2_h, mb2_h)
+always @(au1, mb2_h, mb2_h, aj1)
   if (~mb2_h) begin
     ac2_h_m <= 1'b0;
   end else
@@ -369,7 +326,7 @@ always @(au1, mb2_h, mb2_h, mb2_h)
     ac2_h_m <= 1'b1;
   end else
   if (~(au1)) begin
-    ac2_h_m <= mb2_h;
+    ac2_h_m <= aj1;
   end
 always @(au1, mb2_h, mb2_h, ac2_h_m)
   if (~mb2_h) begin
@@ -382,18 +339,18 @@ always @(au1, mb2_h, mb2_h, ac2_h_m)
     ac2_h <= ac2_h_m;
   end
 assign ac2_l = ~ac2_h;
-always @(au1, aj1, mb2_h, mb2_h)
-  if (~aj1) begin
+always @(au1, mb2_h, mb2_h, ak2)
+  if (mb2_h) begin
     ac3_h_m <= 1'b0;
   end else
   if (mb2_h) begin
     ac3_h_m <= 1'b1;
   end else
   if (~(au1)) begin
-    ac3_h_m <= ~mb2_h;
+    ac3_h_m <= ak2;
   end
-always @(au1, aj1, mb2_h, ac3_h_m)
-  if (~aj1) begin
+always @(au1, mb2_h, mb2_h, ac3_h_m)
+  if (mb2_h) begin
     ac3_h <= 1'b0;
   end else
   if (mb2_h) begin
@@ -402,7 +359,7 @@ always @(au1, aj1, mb2_h, ac3_h_m)
   if (au1) begin
     ac3_h <= ac3_h_m;
   end
-assign ak2 = ~ac3_h;
+assign ac3_l = ~ac3_h;
 // e11: sn7440 
 assign au2 = ~mb2_h;
 assign at2 = mb2_h;

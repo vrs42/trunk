@@ -92,7 +92,7 @@ foreach $if (@ARGV) {
     $set = $1 if /<deviceset\s+name="([^"]*)"/;
     if (/<gate\s+name="([^"]*)"\s+symbol="([^"]*)"/) {
       ($name, $symbol) = ($1, $2);
-      $symbol{"$library;$set;$name"} = $symbol;
+      $symbol{"$library;$set$name"} = $symbol;
     }
     #
     # Devices also occur inside <devicesets> within a <library>.
@@ -101,15 +101,16 @@ foreach $if (@ARGV) {
     if (/<device\s+name="([^"]*)"\s+package="([^"]*)">/) {
       ($device, $package) = ($1, $2);
       next unless defined $haspad{"$library;$package"};
-#warn "remembering <device> for ($device:$package)\n";
-      $package{"$library;$device"} = $package;
+#warn "remembering <device> for ($library/$set$device:$package)\n";
+      $package{"$library;$set$device"} = $package;
       next;
     }
     # Also make note of <connect>, as it associates pads with pins
     # within the device.
     if (m:<connect\s+gate="([^"]*)"\s+pin="([^"]*)"\s+pad="([^"]*)"/>:) {
       ($gate, $pin, $pad) = ($1, $2, $3);
-      $pad{"$library;$device;$gate;$pin"} = $pad;
+#warn "setting pad{'$library;$set$device;$gate;$pin'} = $pad\n";
+      $pad{"$library;$set$device;$gate;$pin"} = $pad;
     }
     #
     # Once the libraries have been described, the parts used
@@ -125,8 +126,8 @@ foreach $if (@ARGV) {
 #     $set =~ s/[*]/$tech/;
       $value = ""; # For implied values
       $value = $1 if m:\s+value="([^"]*)"\s*/>:;
-      next unless defined $package{"$library;$device"};
-      $package = $package{"$library;$device"};
+      next unless defined $package{"$library;$set$device"};
+      $package = $package{"$library;$set$device"};
       $part{$part} = "$value;$set;$device;$package;$library";
     }
     #
@@ -148,9 +149,10 @@ foreach $if (@ARGV) {
       # At last we have a reference to a signal!
       # Look up the relevant stuff.
       ($value, $set, $device, $package, $library) = split(/;/, $part{$part});
-      $symbol = $symbol{"$library;$set;$gate"};
+      $symbol = $symbol{"$library;$set$gate"};
       $dir = $direction{"$library;$symbol;$pin"};
-      $pad = $pad{"$library;$device;$gate;$pin"};
+      $k = "$library;$set$device;$gate;$pin";
+      $pad = $pad{$k};
       # Add the expanded reference to the pin list for later sorted output.
       $partpad{"$part;$pad"} = "$pin;$dir;$net";
     }
@@ -164,7 +166,7 @@ foreach $if (@ARGV) {
     ($value, $set, $device, $package, $library) = split(/;/, $part{$part});
 $set =~ s/[*]//;
     printf PRT "%-8s %-14s %-15s %-12s %-8s %d\n",
-            $part, $value, "$set$device", $package, $library, $sheet;
+	    $part, $value, "$set$device", $package, $library, $sheet;
   }
   #
   # Open and write the sorted pins list.

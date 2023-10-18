@@ -14,10 +14,10 @@
 // c7: c_us 
 // c8: c_us 
 // e1: sn7486 
-module m896x (, a1, b1, b_set, break_in_prog_l, c0_l, c1, c1_l, clear_y, clk_l, clock_1, cpma_disable_l, crd1_l, crd2_l, d1, d_l, data00_l, data01_l, data02_l, data03_l, data10_l, data11_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e, e1, ema0_l, ema1_l, ema2_l, enable_l, f1, f_l, f_set_l, h1, ind1_l, ind2_l, init, int_ena, int_in_prog_l, int_rqst_l, internal_io_l, io_pause_l, iop2, iop4, ir0_l, ir1_l, j1, k1, key_control_l, l1, l2, la_en_l, link_data, link_l, link_load, m1, m2, mams_ld_ctl, mb5=0, mb7=1, mb8=0, md00_l, md01_l, md02_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, msirdis_l, n1, n15v, n2, n_t_107x, n_t_117x, n_t_13x, n_t_15x, n_t_17x, n_t_21x, n_t_22x, n_t_23x, n_t_26x, n_t_31x, n_t_4x, n_t_52x, n_t_82x, not_last_xfer, p1, p6_bs0_l, p6_bs1_l, p6_bs2_l, p6_bs3_l, power_clear_l, power_ok, pulse_la, r1, rsdwn_l, rtur_l, run_l, rx_active, s1, s2, shift, skip_l, stop_complete, stop_delay, sw, t2, tb3_h, tp1, tp2, tp3, tp4, ts1_l, ts2, ts3_l, ts4_l, u1, u2, user_mode_l, v1, v2, xmit_active, xrd2_l);
+module m896x (, a1, b1, b_set, break_in_prog_l, c0_l, c1, c1_l, clear_y, clk_l, clock_1, cpma_disable_l, crd1_l, crd2_l, d, d1, d_l, data00_l, data01_l, data02_l, data03_l, data10_l, data11_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e, e1, ema0_l, ema1_l, ema2_l, enable_l, f, f1, f_l, f_set_l, h, h1, ind1_l, ind2_l, init, int_ena, int_in_prog_l, int_rqst_l, internal_io_l, io_pause_l, iop2, iop4, ir0_l, ir1_l, j, j1, k1, key_control_l, l1, l2, la_en_l, link_l, m1, m2, mams_ld_ctl, mb5, mb5=0, mb6_l, mb7=1, mb8=0, md00_l, md01_l, md02_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, msirdis_l, n1, n15v, n2, n_t_107x, n_t_117x, n_t_31x, n_t_52x, n_t_82x, p1, p6_bs0_l, p6_bs1_l, p6_bs2_l, p6_bs3_l, power_clear_l, power_ok, pulse_la, r1, rsdwn_l, rtur_l, run_l, rx_active, s1, s2, shift, skip_l, stop_complete, stop_delay, sw, t2, tb3_h, tp1, tp2, tp3, tp4, ts1_l, ts3_l, ts4_l, u1, u2, user_mode_l, v1, v2, xmit_active, xrd2_l);
 output ;
 input a1;
-output reg b1;
+inout reg b1;
 output b_set;
 output break_in_prog_l;
 output c0_l;
@@ -29,7 +29,8 @@ output clock_1;
 output cpma_disable_l;
 output crd1_l;
 output crd2_l;
-output reg d1;
+output d;
+inout reg d1;
 output d_l;
 output data00_l;
 output data01_l;
@@ -49,10 +50,12 @@ output ema0_l;
 output ema1_l;
 output ema2_l;
 output enable_l;
+output f;
 inout reg f1;
 output f_l;
 output f_set_l;
-output h1;
+output h;
+input h1;
 output ind1_l;
 output ind2_l;
 output init;
@@ -65,19 +68,20 @@ output iop2;
 output iop4;
 output ir0_l;
 output ir1_l;
+output j;
 inout reg j1;
 inout reg k1;
 output key_control_l;
 input l1;
 input l2;
 output la_en_l;
-output link_data;
 output link_l;
-output link_load;
 input m1;
 input m2;
 output mams_ld_ctl;
+output mb5;
 output mb5=0;
+output mb6_l;
 output mb7=1;
 output mb8=0;
 output md00_l;
@@ -93,23 +97,14 @@ output md7_l;
 output md8_l;
 output md9_l;
 output msirdis_l;
-output reg n1;
+inout reg n1;
 output n15v;
 inout reg n2;
 output n_t_107x;
 output n_t_117x;
-inout n_t_13x;
-inout n_t_15x;
-output n_t_17x;
-output n_t_21x;
-output n_t_22x;
-output n_t_23x;
-output n_t_26x;
 output n_t_31x;
-inout n_t_4x;
 output n_t_52x;
 output n_t_82x;
-output not_last_xfer;
 input p1;
 output p6_bs0_l;
 output p6_bs1_l;
@@ -123,7 +118,7 @@ output rsdwn_l;
 output rtur_l;
 output run_l;
 output rx_active;
-output s1;
+input s1;
 output s2;
 output shift;
 output skip_l;
@@ -137,18 +132,16 @@ output tp2;
 output tp3;
 output tp4;
 output ts1_l;
-output ts2;
 output ts3_l;
 output ts4_l;
 inout reg u1;
 input u2;
 output user_mode_l;
 input v1;
-input v2;
+inout v2;
 output xmit_active;
 output xrd2_l;
 
-reg as2_m;
 reg b1_m;
 reg bit11_m;
 reg d1_m;
@@ -157,205 +150,82 @@ reg j1_m;
 reg k1_m;
 reg n1_m;
 reg n2_m;
+reg n_t_14x_m;
 reg r1_m;
 reg u1_m;
 
-reg as2;
+reg n_t_14x;
 reg bit11;
-wire ab1;
-wire ac2_8_0;
-wire ac2_h;
-wire ac3_h;
-wire ac3_l;
-wire ac4_11_0;
-wire ac_0;
-wire ac_to_bus_l;
+reg bit11;
 wire ad2;
 wire ae2;
-wire aj2;
-wire ak1;
+wire af2;
 wire ak2;
+wire al2;
 wire am2;
-wire ar1;
-wire b_dixy_l;
+wire an2;
+wire ap2;
 wire bb1;
-wire be2;
-wire bl2;
+wire biopause_l;
 wire bm2;
-wire btp3;
-wire bv2;
-wire c3;
-wire cf1;
-wire chan_l;
-wire clk;
-wire clock;
-wire col_red_l;
-wire color_l;
-wire dad_or_dst_l;
-wire data06_l;
-wire data07_l;
-wire data08_l;
+wire ck_flag;
+wire data05_l;
 wire data09_l;
-wire data0_l;
-wire data1_l;
-wire data2_l;
-wire data3_l;
-wire del_1_l;
-wire df_enable;
-wire di02_l;
 wire di03;
-wire di04;
-wire di05;
 wire di06;
 wire di07;
 wire di08;
 wire di09;
-wire di10;
-wire di11;
-wire dly_done_l;
-wire erase_l;
-wire gtf_or_ind;
-wire initialize;
-wire int_in_prog;
-wire interrupt_l;
-wire io19;
-wire io21;
-wire io22;
-wire io23;
-wire io24;
-wire io25;
-wire io26;
-wire io27;
-wire io28;
-wire io29;
-wire io30;
-wire io31;
-wire io32;
-wire io33;
-wire io34;
-wire io35;
-wire io36;
-wire io37;
-wire io38;
-wire io39;
-wire io40;
-wire io42;
-wire io59;
-wire io70;
-wire iot0x_l;
-wire iot1x_l;
-wire ir00_l;
-wire ir01_l;
-wire key_ctl_l;
-wire la_enable_l;
-wire last_step_l;
-wire ld_del_l;
-wire load_addr;
-wire load_cont_l;
-wire load_x_l;
-wire load_y_l;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire md03_l;
+wire load_en_l;
 wire md04_l;
-wire md05_l;
-wire md06_l;
-wire md07_l;
-wire md08_l;
-wire md09_l;
-wire modeb;
-wire mq0_l;
-wire mq_load;
-wire n3v;
+wire md11p;
 wire n3v3;
-wire n5v;
-wire n_t_10x;
-wire n_t_11x;
 wire n_t_12x;
-wire n_t_14x;
+wire n_t_13x;
+wire n_t_15x;
+wire n_t_19x;
 wire n_t_1x;
-wire n_t_27x;
+wire n_t_20x;
 wire n_t_2x;
-wire n_t_30x;
-wire n_t_33x;
-wire n_t_35x;
-wire n_t_36x;
-wire n_t_37x;
 wire n_t_3x;
-wire n_t_41x;
-wire n_t_45x;
-wire n_t_46x;
+wire n_t_4x;
 wire n_t_55x;
 wire n_t_5x;
 wire n_t_6x;
 wire n_t_7x;
 wire n_t_8x;
+wire n_t_92x;
 wire n_t_9x;
-wire non_store_l;
-wire p4_pclr;
-wire p4_pclr_l;
-wire pause_l;
-wire red_delay;
-wire restart;
-wire rom_11_l;
-wire rom_12_l;
-wire rom_14_l;
-wire rom_15_l;
-wire rom_17_l;
-wire rom_24_l;
-wire rtf;
-wire set_done;
-wire sgt_l;
-wire tck;
-wire tck2;
-wire tdi;
-wire tdo;
-wire tdo2;
-wire tms;
-wire tms2;
-wire tp2_d;
-wire tp_aa1;
-wire tp_ab1;
-wire ts_disable_l;
-wire write_thru_l;
-wire x_analog;
 wire y04;
-assign 'b'1 = ~n_t_8x;
-assign aj2 = n_t_7x
-              ^ n_t_1x;
-assign n_t_5x = n_t_46x
-                 ^ n_t_45x;
-assign n_t_6x = n_t_11x
+assign md04_l = n_t_6x;
+assign n_t_6x = b1
                  ^ a1;
 // e2: sn7486 
-assign n_t_1x = n_t_1x
-                 ^ n_t_2x;
-assign n_t_12x = n_t_3x
-                  ^ ab1;
+assign n_t_12x = n_t_1x
+                  ^ n_t_3x;
 assign n_t_15x = n_t_4x
                   ^ n_t_1x;
-assign n_t_13x = n_t_14x
+assign n_t_13x = n_t_5x
                   ^ n_t_1x;
 // e3: sn7430 
-assign ad2 = ~(n_t_7x & n_t_4x & n_t_1x & n_t_10x & n_t_6x & n_t_11x & n_t_9x & n_t_2x);
+assign v2 = 1'b1;
 // e4: sn7486 
-assign h1 = l1
-             ^ k1;
-assign n_t_4x = j1
-                 ^ ak1;
+assign n_t_3x = l1
+                 ^ k1;
+assign n_t_4x = h1
+                 ^ j1;
 assign n_t_5x = f1
                  ^ e1;
-assign n_t_7x = n_t_3x
+assign n_t_7x = d1
                  ^ c1;
 // e6: sn7486 
-assign s1 = v1
-             ^ u1;
-assign n_t_10x = r1
-                  ^ am2;
+assign n_t_1x = v1
+                 ^ u1;
+assign 'b'0 = s1
+               ^ r1;
 assign n_t_9x = m1
                  ^ n2;
-assign n_t_2x = n_t_1x
+assign n_t_2x = n1
                  ^ p1;
 // e7: sn74174 
 always @(l2, m2, n_t_14x)
@@ -372,12 +242,12 @@ always @(l2, m2, k1_m)
   if (~l2) begin
     k1 <= k1_m;
   end
-always @(l2, m2, 1'b0)
+always @(l2, m2, n_t_13x)
   if (~m2) begin
     d1_m <= 1'b0;
   end else
   if (~(~l2)) begin
-    d1_m <= 1'b0;
+    d1_m <= n_t_13x;
   end
 always @(l2, m2, d1_m)
   if (~m2) begin
@@ -416,17 +286,31 @@ always @(l2, m2, u1_m)
   end
 always @(l2, m2, 1'b0)
   if (~m2) begin
-    as2_m <= 1'b0;
+    n_t_14x_m <= 1'b0;
   end else
   if (~(~l2)) begin
-    as2_m <= 1'b0;
+    n_t_14x_m <= 1'b0;
   end
-always @(l2, m2, as2_m)
+always @(l2, m2, n_t_14x_m)
   if (~m2) begin
-    as2 <= 1'b0;
+    n_t_14x <= 1'b0;
   end else
   if (~l2) begin
-    as2 <= as2_m;
+    n_t_14x <= n_t_14x_m;
+  end
+always @(l2, m2, 1'b0)
+  if (~m2) begin
+    bit11_m <= 1'b0;
+  end else
+  if (~(~l2)) begin
+    bit11_m <= 1'b0;
+  end
+always @(l2, m2, bit11_m)
+  if (~m2) begin
+    bit11 <= 1'b0;
+  end else
+  if (~l2) begin
+    bit11 <= bit11_m;
   end
 // e8: sn74174 
 always @(l2, m2, n_t_1x)
@@ -443,12 +327,12 @@ always @(l2, m2, r1_m)
   if (~l2) begin
     r1 <= r1_m;
   end
-always @(l2, m2, n_t_10x)
+always @(l2, m2, 1'b0)
   if (~m2) begin
     n2_m <= 1'b0;
   end else
   if (~(~l2)) begin
-    n2_m <= n_t_10x;
+    n2_m <= 1'b0;
   end
 always @(l2, m2, n2_m)
   if (~m2) begin
@@ -498,20 +382,6 @@ always @(l2, m2, j1_m)
   end else
   if (~l2) begin
     j1 <= j1_m;
-  end
-always @(l2, m2, 1'b0)
-  if (~m2) begin
-    bit11_m <= 1'b0;
-  end else
-  if (~(~l2)) begin
-    bit11_m <= 1'b0;
-  end
-always @(l2, m2, bit11_m)
-  if (~m2) begin
-    bit11 <= 1'b0;
-  end else
-  if (~l2) begin
-    bit11 <= bit11_m;
   end
 // ic1: sn7410 
 assign n_t_8x = ~(n_t_12x & n_t_13x);

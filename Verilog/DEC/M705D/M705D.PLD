@@ -3,7 +3,7 @@
 
 Name     M705D ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -96,90 +96,18 @@ node n_t_36x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
-node bb2;
-node bb_lp_0_rp;
-node bd2;
-node be2;
-node bf1;
-node bf2;
-node bl1;
-node bl2;
-node bm2;
-node br1=0;
-node bu2;
-node bv1;
-node c3;
 node clr_flag;
-node data3;
-node io3;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mb10=1;
-node mb2_l;
-node mb3_h;
+node data1_l;
+node iot_012_l;
 node md07_l;
 node n3v3;
 node n3va;
-node n_t_102x;
 node n_t_15x;
 node n_t_16x;
 node n_t_18x;
 node n_t_19x;
 node n_t_20x;
-node n_t_21x;
+node n_t_24x;
 node n_t_25x;
 node n_t_26x;
 node n_t_27x;
@@ -192,7 +120,6 @@ node n_t_34x;
 node n_t_35x;
 node n_t_40x;
 node n_t_4x;
-node n_t_53x;
 node n_t_54x;
 node n_t_55x;
 node n_t_56x;
@@ -210,19 +137,8 @@ node n_t_74x;
 node n_t_76x;
 node n_t_7x;
 node n_t_8x;
-node out;
-node pc2_h;
-node pc3_h;
-node pc3_l;
 node rfc_delayed;
 node rfc_delayed_l;
-node s1;
-node sc3;
-node sr3;
-node tck;
-node tdo;
-node x_strobe;
-node y_strobe;
 $ENDIF
 
 /* Code nodes */
@@ -290,13 +206,13 @@ n_t_3x.ap = !n_t_12x;
 n_t_9x.ar = !rfc_delayed;
 n_t_9x.d = rd_hole_6;
 n_t_9x.ck = aj2;
-n_t_9x.ap = !n_t_35x;
-n_t_16x = !n_t_9x;
+n_t_9x.ap = !n_t_34x;
+n_t_35x = !n_t_9x;
 n_t_10x.ar = !rfc_delayed;
 n_t_10x.d = rd_hole_5;
 n_t_10x.ck = aj2;
-n_t_10x.ap = !offline;
-n_t_6x = !n_t_10x;
+n_t_10x.ap = !clock1;
+n_t_16x = !n_t_10x;
 
 /* e3: sn7474 */
 n_t_11x.ar = !rfc_delayed;
@@ -334,32 +250,41 @@ rdr_run.ap = !rfc_delayed;
 rdr_run_l = !rdr_run;
 
 /* e6: sn7401 */
-/* skip = !(n_t_4x & iob_in_7); */
+/* iob_in_7 = !(n_t_10x & iot_012); */
+/* iob_in_6 = !(n_t_9x & iot_012); */
+/* iob_in_5 = !(n_t_3x & iot_012); */
+/* iob_in_4 = !(iot_012 & n_t_2x); */
 
 /* e7: sn7401 */
-/* iob_in_9 = !(n_t_8x & iob_in_11); */
+/* iob_in_11 = !(n_t_14x & iot_012); */
+/* iob_in_10 = !(iot_012 & n_t_13x); */
+/* iob_in_8 = !(n_t_11x & iot_012); */
+/* iob_in_9 = !(iot_012 & n_t_12x); */
 
 /* e8: sn7400 */
-rfc_delayed_l = !n_t_7x;
-iot_011 = !(n_t_36x & n_t_33x);
-iot_012 = !(n_t_6x & n_t_8x);
+iot_011 = !n_t_7x;
+iot_012 = !n_t_6x;
+n_t_6x = !(iop2 & n_t_8x);
 n_t_7x = !(iop1 & n_t_8x);
 
 /* e9: sn7401 */
+/* n_t_31x = !feed_hole; */
+/* int_request = !rdr_flag; */
+/* skip = !(rdr_flag & iot_011); */
 
 /* e10: sn7430 */
-br1=0 = !(mb3_lp_0_rp & n_t_21x & mb4_lp_0_rp & mb8_lp_1_rp & n_t_5x & mb6_lp_0_rp & mb5_lp_0_rp);
+n_t_5x = !(mb3_lp_0_rp & mb4_lp_0_rp & mb7_lp_0_rp & mb8_lp_1_rp & mb8_lp_1_rp & mb6_lp_0_rp & mb5_lp_0_rp);
 
 /* e11: sn7474 */
-n_t_23x.ar = !n_t_3x;
+n_t_23x.ar = !iob_in_5;
 n_t_23x.d = n_t_15x;
 n_t_23x.ck = shift;
 n_t_23x.ap = !iob_in_8;
 n_t_4x = !n_t_23x;
-n_t_1x.ar = !n_t_13x;
+n_t_1x.ar = !iob_in_10;
 n_t_1x.d = n_t_23x;
 n_t_1x.ck = shift;
-n_t_1x.ap = !at2;
+n_t_1x.ap = !iob_in_6;
 n_t_15x = !n_t_1x;
 
 /* e12: sn7474 */
@@ -379,32 +304,32 @@ aj2 = !n_t_26x;
 rfc_delayed = !(n_t_31x & n_t_30x & n_t_30x & n_t_31x);
 
 /* e14: sn7410 */
-n_t_34x = !(binit_l & rfc_delayed & iop4);
-n_t_33x = !(n_t_53x & n_t_6x & mb5_lp_0_rp);
-bn1 = !(rdr_run_l & feed_switch & n_t_8x);
+n_t_33x = !(binit_l & rfc_delayed & n_t_6x);
+bn1 = !(rdr_run_l & feed_switch & n_t_34x);
+iot_014_l = !(iop4 & n_t_8x & n_t_8x);
 
 /* e15: sn7400 */
-stop_delay = !n_t_4x;
-ba = !(shift_l & n_t_19x);
-bb = !n_t_23x;
+ba = !n_t_4x;
+ba_l = !n_t_23x;
+bb = !n_t_15x;
 bb_l = !n_t_1x;
 
 /* e16: sn7400 */
-n3v3 = !(stop_complete & bn1);
-n_t_28x = !(bv2 & out);
-n_t_25x = !(n_t_23x & n_t_15x);
+n_t_28x = !(stop_complete & bn1);
+n_t_25x = !(n_t_4x & n_t_15x);
+n_t_24x = !(n_t_23x & n_t_1x);
 pwr = !n_t_27x;
 
 /* e17: sn7400 */
-bb = !n_t_33x;
-clr_flag = !(bb_lp_0_rp & bb_l);
+clr_flag = !n_t_33x;
+n_t_32x = !initialize_l;
 binit_l = !n_t_32x;
 n_t_8x = !n_t_5x;
 
 /* e18: sn7400 */
-shift = !(clock1 & bv2);
-n_t_26x = !(n3va & bb);
+n_t_26x = !(clock1 & bv2);
 n_t_34x = !bv2;
+bv2 = !(n_t_24x & n_t_25x);
 n_t_29x = !(iot_014_l & rfc_delayed);
 
 /* r1: r_us_ */
@@ -416,9 +341,34 @@ n_t_29x = !(iot_014_l & rfc_delayed);
 /* r4: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= int_request};
+!int_request = rdr_flag;
+int_request.oe = rdr_flag;
+property atmel {open_collector= iob_in_10};
+!iob_in_10 = (iot_012 & n_t_13x);
+iob_in_10.oe = (iot_012 & n_t_13x);
+property atmel {open_collector= iob_in_11};
+!iob_in_11 = (n_t_14x & iot_012);
+iob_in_11.oe = (n_t_14x & iot_012);
+property atmel {open_collector= iob_in_4};
+!iob_in_4 = (iot_012 & n_t_2x);
+iob_in_4.oe = (iot_012 & n_t_2x);
+property atmel {open_collector= iob_in_5};
+!iob_in_5 = (n_t_3x & iot_012);
+iob_in_5.oe = (n_t_3x & iot_012);
+property atmel {open_collector= iob_in_6};
+!iob_in_6 = (n_t_9x & iot_012);
+iob_in_6.oe = (n_t_9x & iot_012);
+property atmel {open_collector= iob_in_7};
+!iob_in_7 = (n_t_10x & iot_012);
+iob_in_7.oe = (n_t_10x & iot_012);
+property atmel {open_collector= iob_in_8};
+!iob_in_8 = (n_t_11x & iot_012);
+iob_in_8.oe = (n_t_11x & iot_012);
 property atmel {open_collector= iob_in_9};
-!iob_in_9 = (n_t_8x & iob_in_11);
-iob_in_9.oe = (n_t_8x & iob_in_11);
+!iob_in_9 = (iot_012 & n_t_12x);
+iob_in_9.oe = (iot_012 & n_t_12x);
+!n_t_31x = feed_hole;
 property atmel {open_collector= skip};
-!skip = (n_t_4x & iob_in_7);
-skip.oe = (n_t_4x & iob_in_7);
+!skip = (rdr_flag & iot_011);
+skip.oe = (rdr_flag & iot_011);

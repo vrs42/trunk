@@ -16,9 +16,14 @@
 // c12: cpol_use 
 // c13: c_us 
 // e1: sn7400 
-module m402x (n_t_17x, n_t_3x, aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, l2, m2, n2, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_16x, n_t_1x, n_t_28x, n_t_2x, n_t_4x, n_t_5x, n_t_60x, n_t_66x, n_t_6x, n_t_7x);
-input n_t_17x;
+module m402x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_15x, n_t_3x, n_t_8x, aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, l2, m2, n2, n_t_16x, n_t_17x, n_t_1x, n_t_28x, n_t_2x, n_t_4x, n_t_5x, n_t_60x, n_t_66x, n_t_6x, n_t_7x);
+output n_t_10x;
+output n_t_11x;
+output n_t_12x;
+output n_t_13x;
+output n_t_15x;
 input n_t_3x;
+output n_t_8x;
 output aa1;
 output ab1;
 output ac1;
@@ -85,11 +90,8 @@ output bv2;
 output l2;
 output m2;
 output n2;
-output n_t_11x;
-output n_t_12x;
-output n_t_13x;
-output n_t_14x;
 output n_t_16x;
+input n_t_17x;
 inout n_t_1x;
 output n_t_28x;
 output n_t_2x;
@@ -101,18 +103,6 @@ inout n_t_6x;
 output n_t_7x;
 
 
-wire ab2;
-wire adder3;
-wire adder4;
-wire ae2w;
-wire af1w;
-wire ak2;
-wire av1w;
-wire av2w;
-wire bb2;
-wire mb3_h;
-wire tck;
-wire tdo;
 assign n_t_6x = ~(n_t_5x & n_t_4x);
 assign n_t_2x = ~n_t_1x;
 assign n_t_1x = ~n_t_3x;

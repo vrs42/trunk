@@ -3,7 +3,7 @@
 
 Name     M8300B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -18,62 +18,40 @@ $UNDEF  OPTIMIZE
 /* Input Pins */
 pin = ac2bus_l;
 pin = ac_load_l;
-pin = acknowledge;
 pin = adlk_l;
 pin = al2mq_ena_l;
-pin = brk_in_l;
-pin = bu2;
 pin = carry_in_l;
-pin = clr_all_l;
-pin = clr_dsk_ad_l;
-pin = clr_states;
-pin = clr_status_l;
+pin = clr_all;
+pin = clr_sector_ad_l;
 pin = cpma_load_l;
 pin = data_enab_l;
-pin = data_enable;
 pin = data_f;
 pin = data_t;
-pin = db_cont1;
-pin = dsk_sec2;
-pin = dsk_sec2_l;
-pin = dsk_sector_mk_l;
 pin = en0;
 pin = en1;
 pin = en2;
 pin = function00;
-pin = header_b;
-pin = header_c;
-pin = header_e;
-pin = idle;
 pin = ld_disk_addrs;
 pin = left_l;
 pin = mac_l;
-pin = main;
-pin = mb2_l;
+pin = main_pl;
 pin = mb_load_l;
 pin = mq2bus_l;
 pin = mq_data_l;
 pin = mq_load_l;
-pin = n3v;
 pin = n3v3;
+pin = n_t_17x;
 pin = n_t_33x;
-pin = n_t_45x;
+pin = n_t_35x;
 pin = n_t_46x;
 pin = n_t_50x;
-pin = n_t_65x;
-pin = n_t_73x;
-pin = n_t_74x;
-pin = n_t_76x;
-pin = n_t_82x;
-pin = n_t_84x;
+pin = not_equal_l;
 pin = pagez;
 pin = pc_load_l;
+pin = rd_clk1_l;
 pin = right_l;
-pin = sector_eq;
-pin = seek_l;
 pin = shl_ena_l;
 pin = twice_l;
-pin = write;
 
 /* Output Pins */
 pin = a00_l;
@@ -86,28 +64,14 @@ pin = a06_l;
 pin = a07_l;
 pin = a08_l;
 pin = a09_l;
+pin = a1;
 pin = a10_l;
 pin = a11_l;
-pin = a3;
-pin = a_intr_done_h;
-pin = a_master_clear_h;
-pin = a_master_l;
-pin = a_request_1_h;
-pin = a_request_2_h;
-pin = a_sack_enbl_l;
-pin = a_start_intr_l;
 pin = ac00;
 pin = ac01;
 pin = ac02;
 pin = ac03;
-pin = ac04;
 pin = ac04_11eq0_l;
-pin = ac05;
-pin = ac06;
-pin = ac07;
-pin = ac08;
-pin = ac09;
-pin = ac10;
 pin = ac11;
 pin = ac5;
 pin = ac9;
@@ -123,13 +87,6 @@ pin = ad08_l;
 pin = ad09_l;
 pin = ad10_l;
 pin = ad11_l;
-pin = af1w;
-pin = ak2;
-pin = al2w;
-pin = am2w;
-pin = an1w;
-pin = ap1w;
-pin = av1w;
 pin = b00_l;
 pin = b01_l;
 pin = b02_l;
@@ -140,64 +97,20 @@ pin = b06_l;
 pin = b07_l;
 pin = b08_l;
 pin = b09_l;
+pin = b1;
 pin = b10_l;
 pin = b11_l;
 pin = b2;
-pin = b_init_l;
-pin = b_intr_done_h;
-pin = b_master_clear_h;
-pin = b_master_l;
-pin = b_request_1_h;
-pin = b_request_2_h;
-pin = b_start_intr_l;
-pin = bb1;
-pin = bc1;
-pin = bd2;
-pin = be2;
-pin = bf1;
-pin = bf2;
-pin = bm2;
-pin = bus_a_bg_in_h;
-pin = bus_a_bg_out_h;
-pin = bus_a_br_l;
-pin = bus_b_bg_in_h;
-pin = bus_b_bg_out_h;
-pin = bus_b_br_l;
-pin = bus_bsy_l;
-pin = bus_d02_l;
-pin = bus_d03_l;
-pin = bus_d04_l;
-pin = bus_d05_l;
-pin = bus_d06_l;
-pin = bus_d07_l;
-pin = bus_d08_l;
-pin = bus_intr_l;
-pin = bus_npr_l;
-pin = bus_sack_l;
-pin = bus_ssyn_l;
-pin = bv1;
-pin = bv2;
 pin = c0_l;
+pin = c1;
 pin = c1_l;
-pin = c3;
 pin = carry04_l;
 pin = carry08_l;
 pin = carry_out_l;
-pin = check_header_cmd_l;
+pin = clk_cla;
 pin = clocka;
-pin = clr_strobe_l;
-pin = cpma0;
-pin = cpma1;
-pin = cpma10;
-pin = cpma11;
-pin = cpma2;
-pin = cpma3;
-pin = cpma4;
-pin = cpma5;
-pin = cpma6;
-pin = cpma7;
-pin = cpma8;
-pin = cpma9;
+pin = d1;
+pin = d2;
 pin = data00;
 pin = data01;
 pin = data02;
@@ -210,18 +123,32 @@ pin = data08;
 pin = data09;
 pin = data10;
 pin = data11;
-pin = data3;
-pin = disk_priority;
-pin = header_c_l;
+pin = data_in;
+pin = drive0_l;
+pin = e1;
+pin = e2;
+pin = echo;
+pin = f1;
+pin = f2;
+pin = h1;
+pin = h2;
 pin = init;
 pin = initialize_l;
 pin = int_rqst_l;
 pin = internal_io_l;
-pin = io3;
 pin = io_in_int_l;
 pin = io_pause_l;
 pin = iop1;
 pin = iop4;
+pin = irq;
+pin = j1;
+pin = j2;
+pin = k1;
+pin = k2;
+pin = l1;
+pin = l2;
+pin = m1;
+pin = m2;
 pin = ma00_l;
 pin = ma01_l;
 pin = ma02_l;
@@ -234,19 +161,6 @@ pin = ma08_l;
 pin = ma09_l;
 pin = ma10_l;
 pin = ma11_l;
-pin = main_data;
-pin = mb00;
-pin = mb01;
-pin = mb02;
-pin = mb03;
-pin = mb04;
-pin = mb05;
-pin = mb06;
-pin = mb07;
-pin = mb08;
-pin = mb09;
-pin = mb10;
-pin = mb11;
 pin = mb5_lp_0_rp;
 pin = mb7_lp_1_rp;
 pin = md00_l;
@@ -262,6 +176,7 @@ pin = md09_l;
 pin = md10_l;
 pin = md11_l;
 pin = md_dir_l;
+pin = mq00_03eq0_l;
 pin = mq00_l;
 pin = mq01_l;
 pin = mq02_l;
@@ -275,64 +190,36 @@ pin = mq08_l;
 pin = mq09_l;
 pin = mq10_l;
 pin = mq11_l;
-pin = n3a;
-pin = n3b;
-pin = n3c;
+pin = n1;
+pin = n2;
+pin = n2xclk;
 pin = n4_5ms;
 pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
 pin = n_t_13x;
-pin = n_t_14x;
-pin = n_t_15x;
-pin = n_t_16x;
-pin = n_t_17x;
-pin = n_t_18x;
-pin = n_t_19x;
-pin = n_t_1x;
-pin = n_t_20x;
 pin = n_t_21x;
-pin = n_t_22x;
-pin = n_t_23x;
-pin = n_t_24x;
-pin = n_t_26x;
-pin = n_t_27x;
+pin = n_t_25x;
 pin = n_t_28x;
 pin = n_t_29x;
-pin = n_t_2x;
-pin = n_t_30x;
 pin = n_t_31x;
 pin = n_t_32x;
 pin = n_t_34x;
-pin = n_t_35x;
 pin = n_t_36x;
 pin = n_t_37x;
 pin = n_t_38x;
 pin = n_t_39x;
-pin = n_t_3x;
 pin = n_t_40x;
 pin = n_t_42x;
 pin = n_t_43x;
-pin = n_t_48x;
 pin = n_t_49x;
 pin = n_t_4x;
 pin = n_t_52x;
-pin = n_t_55x;
 pin = n_t_60x;
-pin = n_t_61x;
-pin = n_t_62x;
-pin = n_t_64x;
-pin = n_t_68x;
-pin = n_t_69x;
-pin = n_t_6x;
-pin = n_t_70x;
-pin = n_t_75x;
-pin = n_t_77x;
-pin = n_t_78x;
-pin = n_t_7x;
+pin = n_t_63x;
+pin = n_t_79x;
 pin = n_t_8x;
 pin = n_t_9x;
-pin = not_chk_header_cmd;
+pin = p1;
+pin = p2;
 pin = pb5;
 pin = pb6;
 pin = pc00_l;
@@ -347,88 +234,70 @@ pin = pc08_l;
 pin = pc09_l;
 pin = pc10_l;
 pin = pc11_l;
-pin = pc2_h;
-pin = pc3_h;
-pin = pc3_l;
-pin = pg00_l;
-pin = pg01_l;
-pin = pg02_l;
-pin = pg03_l;
-pin = pg04_l;
 pin = pun_active_l;
 pin = pun_done;
-pin = rd_shft_crc;
-pin = read_l;
-pin = regbus00;
-pin = regbus00_l;
-pin = regbus01;
-pin = regbus01_l;
-pin = regbus02;
-pin = regbus02_l;
-pin = regbus03;
-pin = regbus03_l;
-pin = regbus04;
-pin = regbus04_l;
-pin = regbus05;
-pin = regbus05_l;
-pin = regbus06;
-pin = regbus06_l;
-pin = regbus07;
-pin = regbus07_l;
-pin = regbus08;
-pin = regbus08_l;
-pin = regbus09;
-pin = regbus09_l;
-pin = regbus10;
-pin = regbus10_l;
-pin = regbus11;
-pin = regbus11_l;
-pin = right2;
-pin = sc3;
-pin = sector_seek_l;
-pin = set_cyl_addrs_er;
-pin = set_main_brk;
+pin = r1;
+pin = r2;
+pin = rdy_s_r_w_l;
+pin = s1;
+pin = s2;
 pin = sk_chk_wrt_l;
 pin = skip_l;
 pin = sync_bias;
 pin = sync_pun;
+pin = t2;
 pin = tp3;
-pin = vector_bit_02_h;
-pin = wrt_clk_l;
-pin = wrt_cmd_l;
+pin = u1;
+pin = u2;
+pin = v1;
+pin = v2;
+pin = write_l;
 pin = wrt_lock_out_l;
+pin = wrt_sync_bit;
+node mb02;
+node mb03;
+node mb01;
+node mb00;
+node cpma3;
+node cpma2;
+node cpma0;
+node cpma1;
+node mb06;
+node mb07;
+node mb05;
+node mb04;
+node cpma7;
+node cpma6;
+node cpma4;
+node cpma5;
+node ac06;
+node ac07;
+node ac05;
+node ac04;
+node cpma10;
+node cpma11;
+node cpma8;
+node cpma9;
+node mb10;
+node mb11;
+node mb09;
+node mb08;
+node ac10;
+node ac09;
+node ac08;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a1;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
 node ad09;
-node ad1;
 node ad10;
 node ad10l;
 node ad2;
-node ae1;
 node ae2;
-node ae2w;
-node af1;
 node af2;
-node ah1;
 node ah2;
-node aj1;
-node aj1w;
 node aj2;
-node ak1;
-node al1;
+node ak2;
 node al2;
-node am1;
-node am1w;
 node am2;
 node an1;
 node an2;
@@ -444,82 +313,182 @@ node and08_l;
 node and09_l;
 node and10_l;
 node and11_l;
-node ap1;
 node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node av1;
 node av2;
-node av2w;
-node b_idle;
-node b_wrt_clk;
-node ba1;
-node bb2;
-node bd08h;
+node b_data_state;
+node b_init_l;
+node b_io_pause;
+node bb1;
 node bdata0;
-node bdata2_l;
+node bdata10_l;
+node bdata2;
 node bdata5;
-node bh1;
-node bl1;
-node bl2;
+node bdata9;
+node bf1;
+node bf2;
+node bm2;
 node brk_in;
-node brk_in_clk;
-node btp3_ok;
+node brk_in_l;
+node bs1;
+node bu1;
+node check_header_cmd_l;
+node clk_l;
+node clr_drive_cmd;
 node clr_drive_cmd_l;
+node clr_dsk_ad_l;
+node clr_states;
+node clr_status_l;
+node clr_strobe_l;
 node crc_data;
-node crc_state;
 node cyl_addrs_er;
 node data7_l;
-node data_in;
-node data_state;
-node data_state_l;
-node dsk_index_mk_l;
-node error_fl_l;
+node data_clk_ok;
+node dsk_sec2;
+node dsk_sec2_l;
+node dsk_sector_mk_l;
+node end_state_l;
+node error_clr_l;
+node header_b;
+node header_c;
+node header_c_l;
+node header_d_l;
+node idle;
+node in;
+node inh_12th_bit_l;
+node initialize;
 node int_strobe;
 node left;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node ma8_l;
-node mak;
-node n16th_bit_l;
-node n_t_25x;
+node n3a;
+node n3b;
+node n3c;
+node n3v;
+node n_t_11x;
+node n_t_12x;
+node n_t_14x;
+node n_t_15x;
+node n_t_16x;
+node n_t_18x;
+node n_t_19x;
+node n_t_1x;
+node n_t_20x;
+node n_t_22x;
+node n_t_23x;
+node n_t_24x;
+node n_t_27x;
+node n_t_2x;
+node n_t_30x;
+node n_t_3x;
 node n_t_41x;
+node n_t_476x;
 node n_t_47x;
+node n_t_491x;
 node n_t_54x;
+node n_t_55x;
 node n_t_56x;
 node n_t_586x;
 node n_t_58x;
 node n_t_5x;
-node n_t_71x;
+node n_t_62x;
+node n_t_64x;
+node n_t_65x;
+node n_t_66x;
+node n_t_68x;
+node n_t_69x;
+node n_t_6x;
+node n_t_70x;
 node n_t_72x;
-node n_t_79x;
+node n_t_73x;
+node n_t_74x;
+node n_t_75x;
+node n_t_76x;
+node n_t_77x;
+node n_t_7x;
+node n_t_81x;
+node n_t_82x;
+node n_t_84x;
+node n_t_89x;
 node n_t_90x;
 node n_t_92x;
-node read_data_in;
+node nbr;
+node not_chk_header_cmd;
+node pg00_l;
+node pg01_l;
+node pg02_l;
+node pg03_l;
+node pg04_l;
+node pun_flag;
+node regbus00;
+node regbus00_l;
+node regbus01;
+node regbus01_l;
+node regbus02;
+node regbus02_l;
+node regbus03;
+node regbus03_l;
+node regbus04;
+node regbus04_l;
+node regbus05;
+node regbus05_l;
+node regbus06;
+node regbus06_l;
+node regbus07;
+node regbus07_l;
+node regbus08;
+node regbus08_l;
+node regbus09;
+node regbus09_l;
+node regbus10;
+node regbus10_l;
+node regbus11;
+node regbus11_l;
 node restore;
 node right;
+node right2;
 node rk_data11_l;
-node set_main_brk_l;
-node start_clr_l;
-node tck;
-node tdo;
+node sector_eq;
+node seek_l;
+node set_main_brk;
+node set_sector_seek_l;
+node set_time_out_er;
 node twice;
-node wrt_cmd;
+node write;
+node wrt_clk_l;
 node wrt_lock_er;
-node wrt_shft_crc;
 $ENDIF
 
 /* Code nodes */
 
 /* Equations */
+
+/* c1: cpol_use */
+
+/* c2: cpol_use */
+
+/* c3: cpol_use */
+
+/* c4: c_us */
+
+/* c5: c_us */
+
+/* c6: c_us */
+
+/* c7: c_us */
+
+/* c8: c_us */
+
+/* c9: c_us */
+
+/* c10: c_us */
+
+/* c11: c_us */
+
+/* c12: c_us */
+
+/* c13: c_us */
+
+/* c14: c_us */
+
+/* c15: c_us */
 
 /* e1: n8881n */
 /* ma03_l = !(cpma3 & n_t_1x); */
@@ -533,58 +502,197 @@ $ENDIF
 /* md00_l = !(n_t_12x & mb00); */
 /* md01_l = !(n_t_12x & mb01); */
 
+/* e3: dec8271 */
+mb02.ar = !n3b;
+mb02.d = regbus02 & n3b
+       # mb02 & !n3b;
+mb02.ck = !mb_load_l;
+mb03.ar = !n3b;
+mb03.d = regbus03 & n3b
+       # mb03 & !n3b;
+mb03.ck = !mb_load_l;
+mb01.ar = !n3b;
+mb01.d = regbus01 & n3b
+       # mb01 & !n3b;
+mb01.ck = !mb_load_l;
+mb00.ar = !n3b;
+mb00.d = regbus00 & n3b
+       # mb00 & !n3b;
+mb00.ck = !mb_load_l;
+an1 = !mb00;
+
+/* e4: dec8271 */
+cpma3.ar = !n3a;
+cpma3.d = regbus03 & n3a
+        # cpma3 & !n3a;
+cpma3.ck = !cpma_load_l;
+cpma2.ar = !n3a;
+cpma2.d = regbus02 & n3a
+        # cpma2 & !n3a;
+cpma2.ck = !cpma_load_l;
+cpma0.ar = !n3a;
+cpma0.d = regbus00 & n3a
+        # cpma0 & !n3a;
+cpma0.ck = !cpma_load_l;
+cpma1.ar = !n3a;
+cpma1.d = regbus01 & n3a
+        # cpma1 & !n3a;
+cpma1.ck = !cpma_load_l;
+n_t_9x = !cpma1;
+
+/* e5: mc8266 */
+pg02_l = !(!ma02_l & !pagez
+         # bu1 & pagez & !pagez);
+pg03_l = !(!ma03_l & !pagez
+         # n_t_12x & pagez & !pagez);
+pg01_l = !(!ma01_l & !pagez
+         # pagez & !pagez);
+pg00_l = !(!ma00_l & !pagez
+         # pagez & !pagez);
+
 /* e6: sn74151 */
-regbus00_l = ad00_l & !'b'0 & !right & !a_master_l & !bu2
-    # ad06_l  & !'b'0 & !right & !a_master_l &  bu2
-    # left  & !'b'0 & !right &  a_master_l & !bu2
-    # ad02_l  & !'b'0 & !right &  a_master_l &  bu2
-    # adlk_l & !'b'0 &  right & !a_master_l & !bu2
-    # twice & !'b'0 &  right & !a_master_l &  bu2
-    # and00_l & !'b'0 &  right &  a_master_l & !bu2
-    # pg00_l & !'b'0 &  right &  a_master_l &  bu2;
+regbus00_l = ad00_l & !'b'0 & !right & !left & !twice
+    # ad06_l  & !'b'0 & !right & !left &  twice
+    # ad01_l  & !'b'0 & !right &  left & !twice
+    # ad02_l  & !'b'0 & !right &  left &  twice
+    # adlk_l & !'b'0 &  right & !left & !twice
+    # ad11_l & !'b'0 &  right & !left &  twice
+    # and00_l & !'b'0 &  right &  left & !twice
+    # pg00_l & !'b'0 &  right &  left &  twice;
 regbus00 = !regbus00_l;
 
+/* e7: dec8235 */
+/* data03 = !(!mq03_l & !mq2bus_l
+       # ac03 & !ac2bus_l); */
+/* data02 = !(!mq02_l & !mq2bus_l
+       # ac02 & !ac2bus_l); */
+/* data00 = !(!mq00_l & !mq2bus_l
+       # ac00 & !ac2bus_l); */
+/* data01 = !(!mq01_l & !mq2bus_l
+       # ac01 & !ac2bus_l); */
+
+/* e8: dec8271 */
+ac02.ar = !b_init_l;
+ac02.d = regbus02 & n3b
+       # ac02 & !n3b;
+ac02.ck = !ac_load_l;
+ac03.ar = !b_init_l;
+ac03.d = regbus03 & n3b
+       # ac03 & !n3b;
+ac03.ck = !ac_load_l;
+ac01.ar = !b_init_l;
+ac01.d = regbus01 & n3b
+       # ac01 & !n3b;
+ac01.ck = !ac_load_l;
+ac00.ar = !b_init_l;
+ac00.d = regbus00 & n3b
+       # ac00 & !n3b;
+ac00.ck = !ac_load_l;
+iop4 = !ac00;
+
 /* e11: sn74151 */
-regbus01_l = ad01_l & !'b'0 & !right & !n_t_4x & !n_t_7x
-    # ad07_l  & !'b'0 & !right & !n_t_4x &  n_t_7x
-    # left  & !'b'0 & !right &  n_t_4x & !n_t_7x
-    # ad03_l  & !'b'0 & !right &  n_t_4x &  n_t_7x
-    # ad00_l & !'b'0 &  right & !n_t_4x & !n_t_7x
-    # twice & !'b'0 &  right & !n_t_4x &  n_t_7x
-    # and01_l & !'b'0 &  right &  n_t_4x & !n_t_7x
-    # pg01_l & !'b'0 &  right &  n_t_4x &  n_t_7x;
+regbus01_l = ad01_l & !'b'0 & !right & !left & !twice
+    # ad07_l  & !'b'0 & !right & !left &  twice
+    # ad02_l  & !'b'0 & !right &  left & !twice
+    # ad03_l  & !'b'0 & !right &  left &  twice
+    # ad00_l & !'b'0 &  right & !left & !twice
+    # adlk_l & !'b'0 &  right & !left &  twice
+    # and01_l & !'b'0 &  right &  left & !twice
+    # pg01_l & !'b'0 &  right &  left &  twice;
 regbus01 = !regbus01_l;
 
+/* e12: mc8266 */
+n_t_2x = !(!mq02_l & !shl_ena_l
+         # ac01 & shl_ena_l & !al2mq_ena_l);
+n_t_6x = !(!mq01_l & !shl_ena_l
+         # ac00 & shl_ena_l & !al2mq_ena_l);
+n_t_23x = !(!mq04_l & !shl_ena_l
+          # ac03 & shl_ena_l & !al2mq_ena_l);
+n_t_24x = !(!mq03_l & !shl_ena_l
+          # ac02 & shl_ena_l & !al2mq_ena_l);
+
 /* e13: sn7400 */
-n_t_3x = !(mb00 & ac00);
-and03_l = !(and01_l & ac01);
-mb03 = !(ac03 & n_t_42x);
-mb02 = !(ac02 & n_t_25x);
+and00_l = !(mb00 & ac00);
+and01_l = !(ac01 & mb01);
+and03_l = !(mb03 & ac03);
+and02_l = !(mb02 & ac02);
+
+/* e14: mc8266 */
+a02_l = !(!n_t_21x & !en0
+        # n_t_21x & en0 & !en0);
+a03_l = !(!n_t_13x & !en0
+        # n_t_13x & en0 & !en0);
+a01_l = !(!n_t_8x & !en0
+        # n_t_8x & en0 & !en0);
+a00_l = !(!n_t_9x & !en0
+        # n_t_9x & en0 & !en0);
 
 /* e16: sn74151 */
-regbus02_l = ad02_l & !'b'0 & !right & !n_t_32x & !bus_a_bg_out_h
-    # ad08_l  & !'b'0 & !right & !n_t_32x &  bus_a_bg_out_h
-    # ad03_l  & !'b'0 & !right &  n_t_32x & !bus_a_bg_out_h
-    # ad04_l  & !'b'0 & !right &  n_t_32x &  bus_a_bg_out_h
-    # ad01_l & !'b'0 &  right & !n_t_32x & !bus_a_bg_out_h
-    # twice & !'b'0 &  right & !n_t_32x &  bus_a_bg_out_h
-    # and02_l & !'b'0 &  right &  n_t_32x & !bus_a_bg_out_h
-    # pg02_l & !'b'0 &  right &  n_t_32x &  bus_a_bg_out_h;
+regbus02_l = ad02_l & !'b'0 & !right & !left & !twice
+    # ad08_l  & !'b'0 & !right & !left &  twice
+    # ad03_l  & !'b'0 & !right &  left & !twice
+    # ad04_l  & !'b'0 & !right &  left &  twice
+    # ad01_l & !'b'0 &  right & !left & !twice
+    # ad00_l & !'b'0 &  right & !left &  twice
+    # and02_l & !'b'0 &  right &  left & !twice
+    # pg02_l & !'b'0 &  right &  left &  twice;
 regbus02 = !regbus02_l;
 
+/* e17: dec8271 */
+mq00_l.ar = !n3c;
+mq00_l.d = ad11_l & right2
+         # n_t_6x & n3c & !right2
+         # mq00_l & !n3c & !right2;
+mq00_l.ck = !mq_load_l;
+mq01_l.ar = !n3c;
+mq01_l.d = mq00_l & right2
+         # n_t_2x & n3c & !right2
+         # mq01_l & !n3c & !right2;
+mq01_l.ck = !mq_load_l;
+mq02_l.ar = !n3c;
+mq02_l.d = mq01_l & right2
+         # n_t_24x & n3c & !right2
+         # mq02_l & !n3c & !right2;
+mq02_l.ck = !mq_load_l;
+mq03_l.ar = !n3c;
+mq03_l.d = mq02_l & right2
+         # n_t_23x & n3c & !right2
+         # mq03_l & !n3c & !right2;
+mq03_l.ck = !mq_load_l;
+inh_12th_bit_l = !mq03_l;
+
 /* e18: sn7420 */
-mq02_l = !(n_t_31x & ac04_11eq0_l & n_t_30x & mq03_l);
-n_t_48x = !(b_master_l & n_t_50x & mq00_l & mq01_l);
+ac04_11eq0_l = !(n_t_31x & n_t_29x & n_t_28x & n_t_30x);
+mq00_03eq0_l = !(mq03_l & mq02_l & mq00_l & mq01_l);
+
+/* e20: dec8271 */
+pc03_l.ar = !n3a;
+pc03_l.d = regbus03_l & n3a
+         # pc03_l & !n3a;
+pc03_l.ck = !pc_load_l;
+pc02_l.ar = !n3a;
+pc02_l.d = regbus02_l & n3a
+         # pc02_l & !n3a;
+pc02_l.ck = !pc_load_l;
+pc00_l.ar = !n3a;
+pc00_l.d = regbus00_l & n3a
+         # pc00_l & !n3a;
+pc00_l.ck = !pc_load_l;
+pc01_l.ar = !n3a;
+pc01_l.d = regbus01_l & n3a
+         # pc01_l & !n3a;
+pc01_l.ck = !pc_load_l;
+header_b = !pc01_l;
 
 /* e21: sn74151 */
-regbus03_l = ad03_l & !'b'0 & !right & !n3v & !n16th_bit_l
-    # ad09_l  & !'b'0 & !right & !n3v &  n16th_bit_l
-    # ad04_l  & !'b'0 & !right &  n3v & !n16th_bit_l
-    # ad05_l  & !'b'0 & !right &  n3v &  n16th_bit_l
-    # ad02_l & !'b'0 &  right & !n3v & !n16th_bit_l
-    # twice & !'b'0 &  right & !n3v &  n16th_bit_l
-    # and03_l & !'b'0 &  right &  n3v & !n16th_bit_l
-    # pg03_l & !'b'0 &  right &  n3v &  n16th_bit_l;
+regbus03_l = ad03_l & !'b'0 & !right & !left & !twice
+    # ad09_l  & !'b'0 & !right & !left &  twice
+    # ad04_l  & !'b'0 & !right &  left & !twice
+    # ad05_l  & !'b'0 & !right &  left &  twice
+    # ad02_l & !'b'0 &  right & !left & !twice
+    # ad01_l & !'b'0 &  right & !left &  twice
+    # and03_l & !'b'0 &  right &  left & !twice
+    # pg03_l & !'b'0 &  right &  left &  twice;
 regbus03 = !regbus03_l;
 
 /* e22: n8881n */
@@ -594,15 +702,63 @@ regbus03 = !regbus03_l;
 /* ma05_l = !(n_t_1x & cpma5); */
 
 /* e23: sn74151 */
-regbus04_l = ad04_l & !'b'0 & !right & !crc_state & !n_t_79x
-    # ad10_l  & !'b'0 & !right & !crc_state &  n_t_79x
-    # ad05_l  & !'b'0 & !right &  crc_state & !n_t_79x
-    # ad06_l  & !'b'0 & !right &  crc_state &  n_t_79x
-    # ad03_l & !'b'0 &  right & !crc_state & !n_t_79x
-    # twice & !'b'0 &  right & !crc_state &  n_t_79x
-    # and04_l & !'b'0 &  right &  crc_state & !n_t_79x
-    # pg04_l & !'b'0 &  right &  crc_state &  n_t_79x;
+regbus04_l = ad04_l & !'b'0 & !right & !left & !twice
+    # ad10_l  & !'b'0 & !right & !left &  twice
+    # ad05_l  & !'b'0 & !right &  left & !twice
+    # ad06_l  & !'b'0 & !right &  left &  twice
+    # ad03_l & !'b'0 &  right & !left & !twice
+    # ad02_l & !'b'0 &  right & !left &  twice
+    # and04_l & !'b'0 &  right &  left & !twice
+    # pg04_l & !'b'0 &  right &  left &  twice;
 regbus04 = !regbus04_l;
+
+/* e24: dec8271 */
+mb06.ar = !n3b;
+mb06.d = regbus06 & n3b
+       # mb06 & !n3b;
+mb06.ck = !mb_load_l;
+mb07.ar = !n3b;
+mb07.d = regbus07 & n3b
+       # mb07 & !n3b;
+mb07.ck = !mb_load_l;
+mb05.ar = !n3b;
+mb05.d = regbus05 & n3b
+       # mb05 & !n3b;
+mb05.ck = !mb_load_l;
+mb04.ar = !n3b;
+mb04.d = regbus04 & n3b
+       # mb04 & !n3b;
+mb04.ck = !mb_load_l;
+sector_eq = !mb04;
+
+/* e25: dec8271 */
+cpma7.ar = !n3a;
+cpma7.d = regbus07 & n3a
+        # cpma7 & !n3a;
+cpma7.ck = !cpma_load_l;
+cpma6.ar = !n3a;
+cpma6.d = regbus06 & n3a
+        # cpma6 & !n3a;
+cpma6.ck = !cpma_load_l;
+cpma4.ar = !n3a;
+cpma4.d = regbus04 & n3a
+        # cpma4 & !n3a;
+cpma4.ck = !cpma_load_l;
+cpma5.ar = !n3a;
+cpma5.d = regbus05 & n3a
+        # cpma5 & !n3a;
+cpma5.ck = !cpma_load_l;
+seek_l = !cpma5;
+
+/* e26: mc8266 */
+header_b = !(!idle & !pagez
+           # n_t_75x & pagez & !pagez);
+n_t_77x = !(!clr_states & !pagez
+          # header_c & pagez & !pagez);
+n_t_63x = !(!n_t_62x & !pagez
+          # clr_strobe_l & pagez & !pagez);
+pg04_l = !(!ma04_l & !pagez
+         # pagez & !pagez);
 
 /* e27: n8881n */
 /* md07_l = !(mb07 & n_t_12x); */
@@ -611,63 +767,154 @@ regbus04 = !regbus04_l;
 /* md05_l = !(n_t_12x & mb05); */
 
 /* e28: sn74151 */
-regbus05_l = ad05_l & !'b'0 & !right & !header_c & !data_in
-    # ad11_l  & !'b'0 & !right & !header_c &  data_in
-    # left  & !'b'0 & !right &  header_c & !data_in
-    # ad07_l  & !'b'0 & !right &  header_c &  data_in
-    # ad04_l & !'b'0 &  right & !header_c & !data_in
-    # ad03_l & !'b'0 &  right & !header_c &  data_in
-    # and05_l & !'b'0 &  right &  header_c & !data_in
-    # md05_l & !'b'0 &  right &  header_c &  data_in;
+regbus05_l = ad05_l & !'b'0 & !right & !left & !twice
+    # ad11_l  & !'b'0 & !right & !left &  twice
+    # ad06_l  & !'b'0 & !right &  left & !twice
+    # ad07_l  & !'b'0 & !right &  left &  twice
+    # ad04_l & !'b'0 &  right & !left & !twice
+    # ad03_l & !'b'0 &  right & !left &  twice
+    # and05_l & !'b'0 &  right &  left & !twice
+    # md05_l & !'b'0 &  right &  left &  twice;
 regbus05 = !regbus05_l;
 
+/* e29: dec8271 */
+ac06.ar = !b_init_l;
+ac06.d = regbus06 & n3b
+       # ac06 & !n3b;
+ac06.ck = !ac_load_l;
+ac07.ar = !b_init_l;
+ac07.d = regbus07 & n3b
+       # ac07 & !n3b;
+ac07.ck = !ac_load_l;
+ac05.ar = !b_init_l;
+ac05.d = regbus05 & n3b
+       # ac05 & !n3b;
+ac05.ck = !ac_load_l;
+ac04.ar = !b_init_l;
+ac04.d = regbus04 & n3b
+       # ac04 & !n3b;
+ac04.ck = !ac_load_l;
+wrt_clk_l = !ac04;
+
+/* e32: dec8235 */
+/* data07 = !(!mq07_l & !mq2bus_l
+       # ac07 & !ac2bus_l); */
+/* data06 = !(!mq06_l & !mq2bus_l
+       # ac06 & !ac2bus_l); */
+/* data04 = !(!mq04_l & !mq2bus_l
+       # ac04 & !ac2bus_l); */
+/* data05 = !(!mq05_l & !mq2bus_l
+       # ac05 & !ac2bus_l); */
+
 /* e33: sn74151 */
-regbus06_l = ad06_l & !'b'0 & !right & !data_state & !wrt_cmd
-    # ad00_l  & !'b'0 & !right & !data_state &  wrt_cmd
-    # ad07_l  & !'b'0 & !right &  data_state & !wrt_cmd
-    # ad08_l  & !'b'0 & !right &  data_state &  wrt_cmd
-    # ad05_l & !'b'0 &  right & !data_state & !wrt_cmd
-    # ad04_l & !'b'0 &  right & !data_state &  wrt_cmd
-    # and06_l & !'b'0 &  right &  data_state & !wrt_cmd
-    # md06_l & !'b'0 &  right &  data_state &  wrt_cmd;
+regbus06_l = ad06_l & !'b'0 & !right & !left & !twice
+    # ad00_l  & !'b'0 & !right & !left &  twice
+    # ad07_l  & !'b'0 & !right &  left & !twice
+    # ad08_l  & !'b'0 & !right &  left &  twice
+    # ad05_l & !'b'0 &  right & !left & !twice
+    # ad04_l & !'b'0 &  right & !left &  twice
+    # and06_l & !'b'0 &  right &  left & !twice
+    # md06_l & !'b'0 &  right &  left &  twice;
 regbus06 = !regbus06_l;
 
+/* e34: mc8266 */
+n_t_11x = !(!mq06_l & !shl_ena_l
+          # ac05 & shl_ena_l & !al2mq_ena_l);
+n_t_4x = !(!mq05_l & !shl_ena_l
+         # ac04 & shl_ena_l & !al2mq_ena_l);
+n_t_3x = !(!mq08_l & !shl_ena_l
+         # ac07 & shl_ena_l & !al2mq_ena_l);
+n_t_18x = !(!mq07_l & !shl_ena_l
+          # ac06 & shl_ena_l & !al2mq_ena_l);
+
 /* e35: sn7400 */
-read_data_in = !(mb04 & ac04);
-mb05 = !(and05_l & ac05);
-mb07 = !(ac07 & b_idle);
-mb06 = !(ac06 & b_wrt_clk);
+and04_l = !(mb04 & ac04);
+and05_l = !(ac05 & mb05);
+and07_l = !(mb07 & ac07);
+and06_l = !(mb06 & ac06);
+
+/* e36: mc8266 */
+a06_l = !(!n_t_39x & !en0
+        # n_t_39x & en0 & !en0);
+a07_l = !(!n_t_38x & !en0
+        # n_t_38x & en0 & !en0);
+a05_l = !(!n_t_37x & !en0
+        # n_t_37x & en0 & !en0);
+a04_l = !(!n_t_36x & !en0
+        # n_t_36x & en0 & !en0);
 
 /* e38: sn74151 */
-regbus07_l = ad07_l & !'b'0 & !right & !wrt_cmd & !n3v
-    # ad01_l  & !'b'0 & !right & !wrt_cmd &  n3v
-    # ad08_l  & !'b'0 & !right &  wrt_cmd & !n3v
-    # ad09_l  & !'b'0 & !right &  wrt_cmd &  n3v
-    # ad06_l & !'b'0 &  right & !wrt_cmd & !n3v
-    # ad05_l & !'b'0 &  right & !wrt_cmd &  n3v
-    # and07_l & !'b'0 &  right &  wrt_cmd & !n3v
-    # md07_l & !'b'0 &  right &  wrt_cmd &  n3v;
+regbus07_l = ad07_l & !'b'0 & !right & !left & !twice
+    # ad01_l  & !'b'0 & !right & !left &  twice
+    # ad08_l  & !'b'0 & !right &  left & !twice
+    # ad09_l  & !'b'0 & !right &  left &  twice
+    # ad06_l & !'b'0 &  right & !left & !twice
+    # ad05_l & !'b'0 &  right & !left &  twice
+    # and07_l & !'b'0 &  right &  left & !twice
+    # md07_l & !'b'0 &  right &  left &  twice;
 regbus07 = !regbus07_l;
 
+/* e39: dec8271 */
+mq04_l.ar = !n3c;
+mq04_l.d = mq03_l & right2
+         # n_t_4x & n3c & !right2
+         # mq04_l & !n3c & !right2;
+mq04_l.ck = !mq_load_l;
+mq05_l.ar = !n3c;
+mq05_l.d = mq04_l & right2
+         # n_t_11x & n3c & !right2
+         # mq05_l & !n3c & !right2;
+mq05_l.ck = !mq_load_l;
+mq06_l.ar = !n3c;
+mq06_l.d = mq05_l & right2
+         # n_t_18x & n3c & !right2
+         # mq06_l & !n3c & !right2;
+mq06_l.ck = !mq_load_l;
+mq07_l.ar = !n3c;
+mq07_l.d = mq06_l & right2
+         # n_t_3x & n3c & !right2
+         # mq07_l & !n3c & !right2;
+mq07_l.ck = !mq_load_l;
+n_t_69x = !mq07_l;
+
 /* e40: sn7402 */
-ac08 = !(n_t_28x
-       # data_state_l);
+n_t_28x = !(ac08
+          # ac09);
 n_t_30x = !(ac10
-          # n_t_31x);
-data_state = !(n_t_29x
-             # ac04);
-wrt_shft_crc = !(ac07
-               # ac06);
+          # ac11);
+n_t_31x = !(ac05
+          # ac04);
+n_t_29x = !(ac07
+          # ac06);
+
+/* e42: dec8271 */
+pc07_l.ar = !n3a;
+pc07_l.d = regbus07_l & n3a
+         # pc07_l & !n3a;
+pc07_l.ck = !pc_load_l;
+pc06_l.ar = !n3a;
+pc06_l.d = regbus06_l & n3a
+         # pc06_l & !n3a;
+pc06_l.ck = !pc_load_l;
+pc04_l.ar = !n3a;
+pc04_l.d = regbus04_l & n3a
+         # pc04_l & !n3a;
+pc04_l.ck = !pc_load_l;
+pc05_l.ar = !n3a;
+pc05_l.d = regbus05_l & n3a
+         # pc05_l & !n3a;
+pc05_l.ck = !pc_load_l;
+set_main_brk = !pc05_l;
 
 /* e43: sn74151 */
-regbus08_l = ad08_l & !'b'0 & !right & !data_state & !n3v
-    # ad02_l  & !'b'0 & !right & !data_state &  n3v
-    # ad09_l  & !'b'0 & !right &  data_state & !n3v
-    # ad10_l  & !'b'0 & !right &  data_state &  n3v
-    # ad07_l & !'b'0 &  right & !data_state & !n3v
-    # twice & !'b'0 &  right & !data_state &  n3v
-    # and08_l & !'b'0 &  right &  data_state & !n3v
-    # md08_l & !'b'0 &  right &  data_state &  n3v;
+regbus08_l = ad08_l & !'b'0 & !right & !left & !twice
+    # ad02_l  & !'b'0 & !right & !left &  twice
+    # ad09_l  & !'b'0 & !right &  left & !twice
+    # ad10_l  & !'b'0 & !right &  left &  twice
+    # ad07_l & !'b'0 &  right & !left & !twice
+    # ad06_l & !'b'0 &  right & !left &  twice
+    # and08_l & !'b'0 &  right &  left & !twice
+    # md08_l & !'b'0 &  right &  left &  twice;
 regbus08 = !regbus08_l;
 
 /* e44: n8881n */
@@ -677,17 +924,55 @@ regbus08 = !regbus08_l;
 /* ma09_l = !(n_t_1x & cpma9); */
 
 /* e45: sn7430 */
-n_t_29x = !(mq11_l & mq04_11eq0_l & mq09_l & mq08_l & mq06_l & mq07_l & mq05_l & mq04_l);
+mq04_11eq0_l = !(mq11_l & mq10_l & mq09_l & mq08_l & mq06_l & mq07_l & mq05_l & mq04_l);
+
+/* e46: dec8271 */
+cpma10.ar = !n3a;
+cpma10.d = regbus10 & n3a
+         # cpma10 & !n3a;
+cpma10.ck = !cpma_load_l;
+cpma11.ar = !n3a;
+cpma11.d = regbus11 & n3a
+         # cpma11 & !n3a;
+cpma11.ck = !cpma_load_l;
+cpma8.ar = !n3a;
+cpma8.d = regbus08 & n3a
+        # cpma8 & !n3a;
+cpma8.ck = !cpma_load_l;
+cpma9.ar = !n3a;
+cpma9.d = regbus09 & n3a
+        # cpma9 & !n3a;
+cpma9.ck = !cpma_load_l;
+brk_in_l = !cpma9;
+
+/* e47: dec8271 */
+pc08_l.ar = !n3a;
+pc08_l.d = regbus08_l & n3a
+         # pc08_l & !n3a;
+pc08_l.ck = !pc_load_l;
+pc09_l.ar = !n3a;
+pc09_l.d = regbus09_l & n3a
+         # pc09_l & !n3a;
+pc09_l.ck = !pc_load_l;
+pc10_l.ar = !n3a;
+pc10_l.d = regbus10_l & n3a
+         # pc10_l & !n3a;
+pc10_l.ck = !pc_load_l;
+pc11_l.ar = !n3a;
+pc11_l.d = regbus11_l & n3a
+         # pc11_l & !n3a;
+pc11_l.ck = !pc_load_l;
+dsk_sec2 = !pc11_l;
 
 /* e48: sn74151 */
-regbus09_l = ad09_l & !'b'0 & !right & !start_clr_l & !brk_in_clk
-    # ad03_l  & !'b'0 & !right & !start_clr_l &  brk_in_clk
-    # ad10_l  & !'b'0 & !right &  start_clr_l & !brk_in_clk
-    # ad11_l  & !'b'0 & !right &  start_clr_l &  brk_in_clk
-    # ad08_l & !'b'0 &  right & !start_clr_l & !brk_in_clk
-    # ad07_l & !'b'0 &  right & !start_clr_l &  brk_in_clk
-    # and09_l & !'b'0 &  right &  start_clr_l & !brk_in_clk
-    # md09_l & !'b'0 &  right &  start_clr_l &  brk_in_clk;
+regbus09_l = ad09_l & !'b'0 & !right & !left & !twice
+    # ad03_l  & !'b'0 & !right & !left &  twice
+    # ad10_l  & !'b'0 & !right &  left & !twice
+    # ad11_l  & !'b'0 & !right &  left &  twice
+    # ad08_l & !'b'0 &  right & !left & !twice
+    # ad07_l & !'b'0 &  right & !left &  twice
+    # and09_l & !'b'0 &  right &  left & !twice
+    # md09_l & !'b'0 &  right &  left &  twice;
 regbus09 = !regbus09_l;
 
 /* e49: n8881n */
@@ -696,32 +981,122 @@ regbus09 = !regbus09_l;
 /* md08_l = !(mb08 & n_t_12x); */
 /* md09_l = !(mb09 & n_t_12x); */
 
+/* e50: dec8271 */
+mb10.ar = !n3b;
+mb10.d = regbus10 & n3b
+       # mb10 & !n3b;
+mb10.ck = !mb_load_l;
+mb11.ar = !n3b;
+mb11.d = regbus11 & n3b
+       # mb11 & !n3b;
+mb11.ck = !mb_load_l;
+mb09.ar = !n3b;
+mb09.d = regbus09 & n3b
+       # mb09 & !n3b;
+mb09.ck = !mb_load_l;
+mb08.ar = !n3b;
+mb08.d = regbus08 & n3b
+       # mb08 & !n3b;
+mb08.ck = !mb_load_l;
+
 /* e53: sn74151 */
-regbus10_l = ad10_l & !'b'0 & !right & !'b'0 & !dsk_index_mk_l
-    # ad04_l  & !'b'0 & !right & !'b'0 &  dsk_index_mk_l
-    # left  & !'b'0 & !right &  'b'0 & !dsk_index_mk_l
-    # adlk_l  & !'b'0 & !right &  'b'0 &  dsk_index_mk_l
-    # ad09_l & !'b'0 &  right & !'b'0 & !dsk_index_mk_l
-    # ad08_l & !'b'0 &  right & !'b'0 &  dsk_index_mk_l
-    # and10_l & !'b'0 &  right &  'b'0 & !dsk_index_mk_l
-    # md10_l & !'b'0 &  right &  'b'0 &  dsk_index_mk_l;
+regbus10_l = ad10_l & !'b'0 & !right & !left & !twice
+    # ad04_l  & !'b'0 & !right & !left &  twice
+    # ad11_l  & !'b'0 & !right &  left & !twice
+    # adlk_l  & !'b'0 & !right &  left &  twice
+    # ad09_l & !'b'0 &  right & !left & !twice
+    # ad08_l & !'b'0 &  right & !left &  twice
+    # and10_l & !'b'0 &  right &  left & !twice
+    # md10_l & !'b'0 &  right &  left &  twice;
 regbus10 = !regbus10_l;
 
+/* e54: dec8271 */
+mq08_l.ar = !n3c;
+mq08_l.d = mq07_l & right2
+         # n_t_22x & n3c & !right2
+         # mq08_l & !n3c & !right2;
+mq08_l.ck = !mq_load_l;
+mq09_l.ar = !n3c;
+mq09_l.d = mq08_l & right2
+         # n_t_19x & n3c & !right2
+         # mq09_l & !n3c & !right2;
+mq09_l.ck = !mq_load_l;
+mq10_l.ar = !n3c;
+mq10_l.d = mq09_l & right2
+         # n_t_7x & n3c & !right2
+         # mq10_l & !n3c & !right2;
+mq10_l.ck = !mq_load_l;
+mq11_l.ar = !n3c;
+mq11_l.d = mq10_l & right2
+         # n_t_20x & n3c & !right2
+         # mq11_l & !n3c & !right2;
+mq11_l.ck = !mq_load_l;
+dsk_sector_mk_l = !mq11_l;
+
+/* e55: dec8271 */
+ac10.ar = !b_init_l;
+ac10.d = regbus10 & n3b
+       # ac10 & !n3b;
+ac10.ck = !ac_load_l;
+ac11.ar = !b_init_l;
+ac11.d = regbus11 & n3b
+       # ac11 & !n3b;
+ac11.ck = !ac_load_l;
+ac09.ar = !b_init_l;
+ac09.d = regbus09 & n3b
+       # ac09 & !n3b;
+ac09.ck = !ac_load_l;
+ac08.ar = !b_init_l;
+ac08.d = regbus08 & n3b
+       # ac08 & !n3b;
+ac08.ck = !ac_load_l;
+
+/* e56: mc8266 */
+a11_l = !(!n_t_43x & !en0
+        # n_t_43x & en0 & !en0);
+a10_l = !(!n_t_42x & !en0
+        # n_t_42x & en0 & !en0);
+a08_l = !(!n_t_10x & !en0
+        # n_t_10x & en0 & !en0);
+a09_l = !(!n_t_40x & !en0
+        # n_t_40x & en0 & !en0);
+
 /* e58: sn74151 */
-regbus11_l = ad11_l & !'b'0 & !right & ! & !
-    # ad05_l  & !'b'0 & !right & ! &  
-    # left  & !'b'0 & !right &   & !
-    # ad00_l  & !'b'0 & !right &   &  
-    # ad10_l & !'b'0 &  right & ! & !
-    # ad09_l & !'b'0 &  right & ! &  
-    # and11_l & !'b'0 &  right &   & !
-    # md11_l & !'b'0 &  right &   &  ;
+regbus11_l = ad11_l & !'b'0 & !right & !left & !twice
+    # ad05_l  & !'b'0 & !right & !left &  twice
+    # adlk_l  & !'b'0 & !right &  left & !twice
+    # ad00_l  & !'b'0 & !right &  left &  twice
+    # ad10_l & !'b'0 &  right & !left & !twice
+    # ad09_l & !'b'0 &  right & !left &  twice
+    # and11_l & !'b'0 &  right &  left & !twice
+    # md11_l & !'b'0 &  right &  left &  twice;
 regbus11 = !regbus11_l;
 
+/* e59: mc8266 */
+n_t_7x = !(!mq11_l & !shl_ena_l
+         # ac10 & shl_ena_l & !al2mq_ena_l);
+n_t_20x = !(!mq_data_l & !shl_ena_l
+          # ac11 & shl_ena_l & !al2mq_ena_l);
+n_t_22x = !(!mq09_l & !shl_ena_l
+          # ac08 & shl_ena_l & !al2mq_ena_l);
+n_t_19x = !(!mq10_l & !shl_ena_l
+          # ac09 & shl_ena_l & !al2mq_ena_l);
+
+/* e60: dec8235 */
+/* data09 = !(!mq09_l & !mq2bus_l
+       # ac09 & !ac2bus_l); */
+/* data08 = !(!mq08_l & !mq2bus_l
+       # ac08 & !ac2bus_l); */
+/* data10 = !(!mq10_l & !mq2bus_l
+       # ac10 & !ac2bus_l); */
+/* data11 = !(!mq11_l & !mq2bus_l
+       # ac11 & !ac2bus_l); */
+
 /* e61: sn7400 */
-ac09 = !(and09_l & mb09);
-ac11 = !(mb11 & );
-ac10 = !(mb10 & );
+and08_l = !(mb08 & ac08);
+and09_l = !(mb09 & ac09);
+and11_l = !(ac11 & mb11);
+and10_l = !(ac10 & mb10);
 
 /* e63: sn74h04 */
 n_t_5x = !md_dir_l;
@@ -741,6 +1116,66 @@ twice = !twice_l;
 /* r1: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= data00};
+!data00 = (!mq00_l & !mq2bus_l
+       # ac00 & !ac2bus_l);
+data00.oe = (!mq00_l & !mq2bus_l
+       # ac00 & !ac2bus_l);
+property atmel {open_collector= data01};
+!data01 = (!mq01_l & !mq2bus_l
+       # ac01 & !ac2bus_l);
+data01.oe = (!mq01_l & !mq2bus_l
+       # ac01 & !ac2bus_l);
+property atmel {open_collector= data02};
+!data02 = (!mq02_l & !mq2bus_l
+       # ac02 & !ac2bus_l);
+data02.oe = (!mq02_l & !mq2bus_l
+       # ac02 & !ac2bus_l);
+property atmel {open_collector= data03};
+!data03 = (!mq03_l & !mq2bus_l
+       # ac03 & !ac2bus_l);
+data03.oe = (!mq03_l & !mq2bus_l
+       # ac03 & !ac2bus_l);
+property atmel {open_collector= data04};
+!data04 = (!mq04_l & !mq2bus_l
+       # ac04 & !ac2bus_l);
+data04.oe = (!mq04_l & !mq2bus_l
+       # ac04 & !ac2bus_l);
+property atmel {open_collector= data05};
+!data05 = (!mq05_l & !mq2bus_l
+       # ac05 & !ac2bus_l);
+data05.oe = (!mq05_l & !mq2bus_l
+       # ac05 & !ac2bus_l);
+property atmel {open_collector= data06};
+!data06 = (!mq06_l & !mq2bus_l
+       # ac06 & !ac2bus_l);
+data06.oe = (!mq06_l & !mq2bus_l
+       # ac06 & !ac2bus_l);
+property atmel {open_collector= data07};
+!data07 = (!mq07_l & !mq2bus_l
+       # ac07 & !ac2bus_l);
+data07.oe = (!mq07_l & !mq2bus_l
+       # ac07 & !ac2bus_l);
+property atmel {open_collector= data08};
+!data08 = (!mq08_l & !mq2bus_l
+       # ac08 & !ac2bus_l);
+data08.oe = (!mq08_l & !mq2bus_l
+       # ac08 & !ac2bus_l);
+property atmel {open_collector= data09};
+!data09 = (!mq09_l & !mq2bus_l
+       # ac09 & !ac2bus_l);
+data09.oe = (!mq09_l & !mq2bus_l
+       # ac09 & !ac2bus_l);
+property atmel {open_collector= data10};
+!data10 = (!mq10_l & !mq2bus_l
+       # ac10 & !ac2bus_l);
+data10.oe = (!mq10_l & !mq2bus_l
+       # ac10 & !ac2bus_l);
+property atmel {open_collector= data11};
+!data11 = (!mq11_l & !mq2bus_l
+       # ac11 & !ac2bus_l);
+data11.oe = (!mq11_l & !mq2bus_l
+       # ac11 & !ac2bus_l);
 property atmel {open_collector= ma00_l};
 !ma00_l = (n_t_1x & cpma0);
 ma00_l.oe = (n_t_1x & cpma0);

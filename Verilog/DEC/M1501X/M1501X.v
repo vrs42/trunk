@@ -17,31 +17,31 @@
 // c10: c_us 
 // c11: cpol_use 
 // e1: sn7474 
-module m1501x (b, d, dd, f, ff, j, jj, l, ll, n, nn, r, rr, t, tt, vv, a1, b1, bb, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n3v3, n_t_10x, n_t_17x, p1, p2, r1, r2, s1, s2, t2, u2, x, z);
-output b;
-output d;
+module m1501x (b, d, dd, f, ff, j, jj, l, ll, n, nn, r, rr, t, tt, vv, a1, b1, bb, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n3v3, n_t_10x, p1, p2, r1, r2, s1, s2, t2, u2, x, z);
+input b;
+input d;
 input dd;
-output f;
-output ff;
+input f;
+input ff;
 input j;
-output jj;
-output l;
-output ll;
+input jj;
+input l;
+input ll;
 input n;
-output nn;
-output r;
-output rr;
-output t;
-output tt;
+input nn;
+input r;
+input rr;
+input t;
+input tt;
 input vv;
-output reg a1;
-inout b1;
+output a1;
+input b1;
 output bb;
-output c1;
+input c1;
 output d1;
-inout d2;
+input d2;
 input e1;
-output e2;
+input e2;
 input f1;
 input f2;
 input h1;
@@ -50,16 +50,15 @@ output j1;
 input j2;
 output k1;
 input k2;
-input l1;
+output l1;
 output l2;
-input m1;
-inout m2;
+output m1;
+output m2;
 output n1;
 output n15v;
-output n2;
+inout n2;
 input n3v3;
 output n_t_10x;
-output n_t_17x;
 output p1;
 output p2;
 output r1;
@@ -71,16 +70,16 @@ output u2;
 output x;
 output z;
 
-reg a1_m;
 reg n_t_71x_m;
+reg u2_l_m;
 
 reg n_t_71x;
+reg u2_l;
 wire a0;
-wire a8;
 wire c1_l;
+wire n_t_11x;
 wire n_t_12x;
 wire n_t_154x;
-wire n_t_157x;
 wire n_t_158x;
 wire n_t_16x;
 wire n_t_18x;
@@ -88,13 +87,14 @@ wire n_t_1x;
 wire n_t_22x;
 wire n_t_24x;
 wire n_t_26x;
+wire n_t_28x;
 wire n_t_31x;
-wire n_t_43x;
 wire n_t_46x;
 wire n_t_4x;
-wire n_t_57x;
 wire n_t_69x;
 wire n_t_8x;
+wire n_t_9x;
+wire select6;
 wire v2_l;
 always @(n_t_69x, n_t_158x, n3v3, e1)
   if (~n_t_158x) begin
@@ -117,58 +117,77 @@ always @(n_t_69x, n_t_158x, n3v3, n_t_71x_m)
     n_t_71x <= n_t_71x_m;
   end
 assign d1 = ~(~n_t_71x);
-always @(n_t_57x, n_t_154x, n_t_157x, h1)
+always @(d2, n_t_154x, b1, h1)
   if (~n_t_154x) begin
-    a1_m <= 1'b0;
+    u2_l_m <= 1'b0;
   end else
-  if (~n_t_157x) begin
-    a1_m <= 1'b1;
+  if (b1) begin
+    u2_l_m <= 1'b1;
   end else
-  if (~(~n_t_57x)) begin
-    a1_m <= ~h1;
+  if (~(d2)) begin
+    u2_l_m <= ~h1;
   end
-always @(n_t_57x, n_t_154x, n_t_157x, a1_m)
+always @(d2, n_t_154x, b1, u2_l_m)
   if (~n_t_154x) begin
-    a1 <= 1'b0;
+    u2_l <= 1'b0;
   end else
-  if (~n_t_157x) begin
-    a1 <= 1'b1;
+  if (b1) begin
+    u2_l <= 1'b1;
   end else
-  if (~n_t_57x) begin
-    a1 <= a1_m;
+  if (d2) begin
+    u2_l <= u2_l_m;
   end
+assign a1 = ~(~u2_l);
 // e2: sn7437 
 assign bb = ~n_t_71x;
 // e3: n8881n 
+// k1 = !(ll & !n_t_1x); 
+// j1 = !(jj & !n_t_1x); 
+// l2 = !(!n_t_1x & ff); 
 // m2 = !(dd & !n_t_1x); 
 // e4: sn7402 
-assign e2 = ~(~f1
-               | n_t_158x);
-assign d2 = ~(d2
-               | n_t_57x);
-assign c1 = ~(n_t_154x
-               | ~f1);
-assign b1 = ~(n_t_157x
-               | b1);
+assign n_t_158x = ~(e2
+                     | ~f1);
+assign n_t_154x = ~(~f1
+                     | c1);
 // e5: ds8640n 
-assign s1 = ~(v2_l
-               | m2);
+assign v2_l = ~(n2
+                 | v2_l);
 // e6: n8881n 
-// r2 = !(l1 & m1); 
+// m1 = !(rr & !n_t_1x); 
+// l1 = !(nn & !n_t_1x); 
+// n2 = !(!n_t_1x & tt); 
 // p2 = !(!n_t_1x & vv); 
 // e7: sn7400 
 assign n_t_1x = ~(k2 & j2);
 assign n_t_69x = ~(f2 & ~h2);
 // e8: n8881n 
+// p1 = !(b & !n_t_1x); 
+// n1 = !(d & !n_t_1x); 
+// r2 = !(!n_t_1x & f); 
 // s2 = !(!n_t_1x & j); 
 // e9: n8881n 
+// s1 = !(t & !n_t_1x); 
+// r1 = !(r & !n_t_1x); 
+// t2 = !(!n_t_1x & l); 
 // u2 = !(!n_t_1x & n); 
 // r1: r_us_ 
 // r2: r_us_ 
 // open collector 'wire-or's 
+assign j1 = (jj & ~n_t_1x)? 1'b0: 1'bz;
+assign k1 = (ll & ~n_t_1x)? 1'b0: 1'bz;
+assign l1 = (nn & ~n_t_1x)? 1'b0: 1'bz;
+assign l2 = (~n_t_1x & ff)? 1'b0: 1'bz;
+assign m1 = (rr & ~n_t_1x)? 1'b0: 1'bz;
 assign m2 = (dd & ~n_t_1x)? 1'b0: 1'bz;
+assign n1 = (d & ~n_t_1x)? 1'b0: 1'bz;
+assign n2 = (~n_t_1x & tt)? 1'b0: 1'bz;
+assign p1 = (b & ~n_t_1x)? 1'b0: 1'bz;
 assign p2 = (~n_t_1x & vv)? 1'b0: 1'bz;
-assign r2 = (l1 & m1)? 1'b0: 1'bz;
+assign r1 = (r & ~n_t_1x)? 1'b0: 1'bz;
+assign r2 = (~n_t_1x & f)? 1'b0: 1'bz;
+assign s1 = (t & ~n_t_1x)? 1'b0: 1'bz;
 assign s2 = (~n_t_1x & j)? 1'b0: 1'bz;
+assign t2 = (~n_t_1x & l)? 1'b0: 1'bz;
 assign u2 = (~n_t_1x & n)? 1'b0: 1'bz;
 endmodule

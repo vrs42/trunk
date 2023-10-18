@@ -30,8 +30,7 @@ warning: non-pullup resistor deleted: r5
 18 signals were removed:
   active_l: !active
   flag_l: !irq
-  n_t_131x: !n_t_49x
-  n_t_132x: !bit1
+  n_t_129x: !bit1
   n_t_133x: !n_t_362x
   n_t_142x: !bit6
   n_t_152x: !bit7
@@ -39,17 +38,16 @@ warning: non-pullup resistor deleted: r5
   n_t_154x: !bit4
   n_t_155x: !bit3
   n_t_156x: !bit2
-  n_t_21x: !n_t_163x
-  n_t_38x: !n_t_38x
+  n_t_167x: !n_t_163x
+  n_t_1x: !active_l
+  n_t_38x: 'b'1
   n_t_40x: !line
   n_t_460x: !n_t_6x
   n_t_4x: !n_t_2x
   n_t_5x: !n_t_133x
   n_t_7x: !bit8
 ~/Verilog/bin/smaller.pl vv >M707CX.PLD || (rm M707CX.PLD; exit 1)
-2 signals were removed:
-  n_t_133x: !n_t_362x
-  n_t_38x: !n_t_38x
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M707CX.PLD >vv || (rm vv; exit 1)
 mv vv M707C.v
 rm M707CX.PLD

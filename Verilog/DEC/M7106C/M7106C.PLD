@@ -3,7 +3,7 @@
 
 Name     M7106C ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -17,15 +17,17 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = bdata2;
+pin = bdata7;
 pin = btp2;
 pin = btp3;
+pin = btp3_ok;
+pin = btp4;
+pin = clr_all;
 pin = clr_all_l;
 pin = clr_drive_cmd_l;
 pin = clr_sector_ad_l;
 pin = data_enab_l;
 pin = data_enable;
-pin = data_in_l;
-pin = device_rk;
 pin = dsk_acknowledge_l;
 pin = dsk_data_in_l;
 pin = dsk_file_rdy_l;
@@ -43,10 +45,8 @@ pin = function01;
 pin = function02;
 pin = half_block;
 pin = hi_main_shft_l;
-pin = idle;
 pin = last_brk;
 pin = lo_main_shft_l;
-pin = main;
 pin = main_l;
 pin = n3v;
 pin = n3v3;
@@ -54,37 +54,33 @@ pin = n6rk3_ok;
 pin = n_t_21x;
 pin = n_t_24x;
 pin = n_t_33x;
-pin = n_t_35x;
+pin = n_t_50x;
+pin = n_t_52x;
 pin = n_t_73x;
 pin = n_t_74x;
 pin = n_t_76x;
 pin = n_t_8x;
 pin = n_t_90x;
 pin = n_t_9x;
-pin = rd_clk1;
 pin = rk_data11;
 pin = set_idle_pl_l;
 pin = shft_surf;
 
 /* Output Pins */
-pin = a1;
+pin = ac7;
 pin = ad05h;
 pin = adoneh;
 pin = ainith;
 pin = astrobeh;
 pin = b_last_brk;
-pin = bd08h;
 pin = bdata10;
 pin = bdata11;
-pin = bdata2_l;
-pin = bdata7;
 pin = bdata8;
 pin = bdata9;
 pin = bk_cycle_l;
 pin = brk_enab_clk;
 pin = brk_in_clk;
 pin = brk_in_prog_l;
-pin = btp3_ok;
 pin = c0_l;
 pin = c1_l;
 pin = clr_cntrs_l;
@@ -107,11 +103,10 @@ pin = data9_l;
 pin = data_clk_ok;
 pin = data_clr_l;
 pin = data_in;
+pin = data_in_l;
 pin = data_state;
 pin = data_state_l;
 pin = drv_revo;
-pin = dsk_cyl_ad32_l;
-pin = dsk_drive0_l;
 pin = dsk_head_sel1_l;
 pin = dsk_read_l;
 pin = dsk_restore_l;
@@ -127,6 +122,7 @@ pin = end_state_l;
 pin = erase_dly_l;
 pin = file_rdy;
 pin = header_c;
+pin = idle;
 pin = idle_l;
 pin = initialize;
 pin = inside_in_l;
@@ -165,36 +161,30 @@ pin = md_dir_l;
 pin = msir_dis_l;
 pin = n12th_bit_ok;
 pin = n16_carry;
-pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
 pin = n_t_20x;
 pin = n_t_22x;
 pin = n_t_23x;
 pin = n_t_28x;
 pin = n_t_29x;
-pin = n_t_2x;
 pin = n_t_31x;
 pin = n_t_32x;
 pin = n_t_34x;
+pin = n_t_35x;
 pin = n_t_3x;
 pin = n_t_47x;
 pin = n_t_48x;
 pin = n_t_49x;
-pin = n_t_4x;
-pin = n_t_50x;
-pin = n_t_52x;
 pin = n_t_53x;
 pin = n_t_55x;
-pin = n_t_5x;
 pin = n_t_61x;
-pin = n_t_6x;
-pin = n_t_7x;
+pin = nbr;
 pin = outside_clk_l;
 pin = priority;
 pin = r;
+pin = rd_clk1;
 pin = rd_shft_db_l;
 pin = rdy_s_r_w;
+pin = rdy_s_r_w_l;
 pin = read_dly_l;
 pin = sector_addrs1;
 pin = sector_mk;
@@ -217,133 +207,66 @@ pin = write;
 pin = wrt_cmd;
 pin = wrt_cmd_l;
 node brk_dir_l;
+node n_t_11x;
 node n_t_13x;
 node n_t_14x;
 node n6rk7;
-node n_t_103x;
 node ema1;
 node crc10;
 node crc11;
 node n128th_word;
+node gdollar_0;
+node n_t_63x;
 node n_t_62x;
 node n_t_37x;
-node n_t_38x;
-node n_t_38x;
+node gdollar_1;
 node n1_db2;
-node n_t_95x;
-node n_t_96x;
+node transfer;
 node inh_12th_bit_l;
-node md_rd_buff_l;
 node restore;
-node n6rk4_l;
-node clr_all;
-node mak;
-node n6rk4_l;
+node n6rk3_l;
+node header_b;
 node header_e;
+node sector_seek;
 node header_d;
+node wrt_sync_bit;
 node read_l;
-node n_t_25x;
 node top_surf;
 node sector_addrs8;
 node sector_addrs4;
 node sector_addrs2;
-node gdollar_0, gdollar_1, gdollar_2, gdollar_3;
+node gdollar_2, gdollar_3, gdollar_4, gdollar_5;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
+node a1;
 node acknowledge;
 node ad09;
-node ad1;
 node ad10;
 node ad10l;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
 node aiot6l;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
 node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
+node b_data_state;
 node b_idle;
+node b_io_pause;
 node b_wrt_clk;
 node b_wrt_clk_l;
-node ba1;
-node bb2;
-node bc1;
+node bd07;
 node bd09;
 node bd11;
-node bd11h;
-node bd2;
 node bdata0;
-node bdata1;
+node bdata10_l;
 node bdata3;
 node bdata5;
 node bdata6;
-node be2;
-node bf1;
-node bf2;
-node bh1;
 node biot5l;
-node bl1;
-node bl2;
-node bm2;
 node bmd10;
 node bmd11;
+node bmd5;
+node bmd9;
 node brk_in;
 node brk_in_l;
-node brk_rq;
-node bu2;
 node busy_error;
-node bv1;
-node bv2;
-node c3;
 node check_header_cmd_l;
 node clr_cntrs;
 node clr_drive_cmd;
@@ -351,7 +274,6 @@ node clr_dsk_ad_l;
 node clr_states;
 node clr_status_l;
 node clr_strobe_l;
-node crc2;
 node crc3;
 node crc4;
 node crc5;
@@ -359,27 +281,18 @@ node crc6;
 node crc_error;
 node crc_state_l;
 node cyl_addrs_er;
-node data3;
-node data9;
 node data_clk;
 node data_out_pl_l;
-node db_clk;
 node db_cont1;
 node disk_ok;
-node disk_priority;
 node drive0_l;
-node drive1_l;
 node drive2_l;
-node drive3_l;
 node drive_status_er;
 node dsk_sec2;
-node ema2;
-node enab_rk_data;
 node error_fl_l;
 node go;
 node go_l;
 node header_a;
-node header_b;
 node header_c_l;
 node header_d_l;
 node header_e_l;
@@ -391,35 +304,37 @@ node inc_brk_cntr_l;
 node inc_cntrs;
 node inc_cntrs_l;
 node inh_12th_bit;
-node io3;
 node last_word;
 node last_word_pl_l;
 node ld_rd_buffer;
-node ma2_h;
-node ma3_h;
-node main_data;
-node main_enab;
+node m1;
 node main_pl;
-node mb2_l;
-node mb3_h;
-node md09h;
-node md_rd_buff;
+node mak;
+node md09_l;
+node md10h;
+node md11h;
+node md_rk_l;
 node n12th_carry;
 node n12th_carry_l;
 node n16th_bit;
 node n16th_bit_l;
 node n6rk3_ok_l;
+node n_t_10x;
 node n_t_123x;
+node n_t_12x;
 node n_t_15x;
 node n_t_16x;
 node n_t_17x;
 node n_t_18x;
 node n_t_19x;
 node n_t_1x;
+node n_t_25x;
 node n_t_26x;
 node n_t_27x;
+node n_t_2x;
 node n_t_30x;
 node n_t_36x;
+node n_t_38x;
 node n_t_39x;
 node n_t_40x;
 node n_t_41x;
@@ -428,6 +343,9 @@ node n_t_43x;
 node n_t_44x;
 node n_t_45x;
 node n_t_46x;
+node n_t_476x;
+node n_t_491x;
+node n_t_4x;
 node n_t_51x;
 node n_t_54x;
 node n_t_56x;
@@ -435,14 +353,15 @@ node n_t_57x;
 node n_t_586x;
 node n_t_58x;
 node n_t_59x;
+node n_t_5x;
 node n_t_60x;
-node n_t_63x;
 node n_t_64x;
 node n_t_65x;
 node n_t_66x;
 node n_t_67x;
 node n_t_68x;
 node n_t_69x;
+node n_t_6x;
 node n_t_70x;
 node n_t_71x;
 node n_t_72x;
@@ -450,24 +369,23 @@ node n_t_75x;
 node n_t_77x;
 node n_t_78x;
 node n_t_79x;
+node n_t_7x;
 node n_t_80x;
 node n_t_81x;
 node n_t_82x;
 node n_t_83x;
 node n_t_84x;
 node n_t_85x;
+node n_t_87x;
+node n_t_88x;
+node n_t_89x;
 node n_t_92x;
-node nbr;
 node nbr_l;
 node not_chk_header_cmd;
-node pc2_h;
-node pc3_h;
-node pc3_l;
+node not_equal_l;
 node q1;
 node q2;
-node q3;
 node q5;
-node rd_brk_l;
 node rd_clk1_l;
 node rd_clk2;
 node rd_clk2_l;
@@ -478,30 +396,23 @@ node read_clk;
 node read_data_in;
 node read_data_in_l;
 node restore_l;
-node rk_data0;
-node rk_data1;
 node rk_data11_l;
-node rk_data8;
-node rk_data9;
-node sc3;
 node sector_eq;
-node sector_seek;
 node seek_fail;
 node seek_l;
 node seek_only;
-node set_cyl_addrs_er;
 node set_header_e_l;
 node set_main_brk;
 node set_main_brk_l;
 node set_sector_seek_l;
+node set_time_out_er;
+node shft_cmd_reg;
 node sk_chk_rd_l;
 node sk_chk_wrt_l;
 node sk_rd_l;
 node sk_wrt_l;
 node start_clr_l;
 node state_enab_a_l;
-node tck;
-node tdo;
 node time_out_er;
 node unit_sel0;
 node write_l;
@@ -512,9 +423,7 @@ node wrt_lock_er;
 node wrt_lock_out;
 node wrt_lock_out_l;
 node wrt_shft_crc;
-node wrt_sync_bit;
 node wrt_sync_bit_l;
-node wt_buff_data_l;
 $ENDIF
 
 /* Code nodes */
@@ -602,31 +511,31 @@ $ENDIF
 /* c45: c_us */
 
 /* e1: sn74161 */
-ema0_l.ar = !clr_cntrs_l;
-ema0_l.ck = !inc_cntrs_l;
-ema0_l.j = !(!n3v) & (n3v
-                    # !n3v);
-ema0_l.k = (n3v
-                 # !n3v);
+n_t_29x.ar = !clr_cntrs_l;
+n_t_29x.ck = !inc_cntrs_l;
+n_t_29x.j = !(!n3v) & (n3v
+                     # !n3v);
+n_t_29x.k = (n3v
+                  # !n3v);
 md_dir_l.ar = !clr_cntrs_l;
 md_dir_l.ck = !inc_cntrs_l;
-md_dir_l.j = !(!n3v) & ((n3v & ema0_l)
+md_dir_l.j = !(!n3v) & ((n3v & n_t_29x)
                       # !n3v);
-md_dir_l.k = ((n3v & ema0_l)
+md_dir_l.k = ((n3v & n_t_29x)
                    # !n3v);
 brk_dir_l.ar = !clr_cntrs_l;
 brk_dir_l.ck = !inc_cntrs_l;
-brk_dir_l.j = !(!n3v) & ((n3v & ema0_l & md_dir_l)
+brk_dir_l.j = !(!n3v) & ((n3v & n_t_29x & md_dir_l)
                        # !n3v);
-brk_dir_l.k = ((n3v & ema0_l & md_dir_l)
+brk_dir_l.k = ((n3v & n_t_29x & md_dir_l)
                     # !n3v);
 data_enable.ar = !clr_cntrs_l;
 data_enable.ck = !inc_cntrs_l;
-data_enable.j = !(!n3v) & ((n3v & ema0_l & md_dir_l & brk_dir_l)
+data_enable.j = !(!n3v) & ((n3v & n_t_29x & md_dir_l & brk_dir_l)
                          # !n3v);
-data_enable.k = ((n3v & ema0_l & md_dir_l & brk_dir_l)
+data_enable.k = ((n3v & n_t_29x & md_dir_l & brk_dir_l)
                       # !n3v);
-n16_carry = n3v & data_enable & brk_dir_l & md_dir_l & ema0_l;
+n16_carry = n3v & data_enable & brk_dir_l & md_dir_l & n_t_29x;
 
 /* e2: sn74161 */
 n_t_11x.ar = !clr_cntrs_l;
@@ -668,19 +577,19 @@ n6rk7.j = !(!n3v) & ((n12th_carry & bdata7)
                    # !n3v);
 n6rk7.k = ((n12th_carry & bdata7)
                 # !n3v);
-n_t_103x.ar = !clr_cntrs_l;
-n_t_103x.ck = !inc_cntrs_l;
-n_t_103x.j = !(!n3v) & ((n12th_carry & bdata7 & n6rk7)
-                      # !n3v);
-n_t_103x.k = ((n12th_carry & bdata7 & n6rk7)
-                   # !n3v);
+n_t_23x.ar = !clr_cntrs_l;
+n_t_23x.ck = !inc_cntrs_l;
+n_t_23x.j = !(!n3v) & ((n12th_carry & bdata7 & n6rk7)
+                     # !n3v);
+n_t_23x.k = ((n12th_carry & bdata7 & n6rk7)
+                  # !n3v);
 ema1.ar = !clr_cntrs_l;
 ema1.ck = !inc_cntrs_l;
-ema1.j = !(!n3v) & ((n12th_carry & bdata7 & n6rk7 & n_t_103x)
+ema1.j = !(!n3v) & ((n12th_carry & bdata7 & n6rk7 & n_t_23x)
                   # !n3v);
-ema1.k = ((n12th_carry & bdata7 & n6rk7 & n_t_103x)
+ema1.k = ((n12th_carry & bdata7 & n6rk7 & n_t_23x)
                # !n3v);
-n_t_15x = n12th_carry & ema1 & n_t_103x & n6rk7 & bdata7;
+n_t_15x = n12th_carry & ema1 & n_t_23x & n6rk7 & bdata7;
 
 /* e4: sn74161 */
 crc10.ar = !clr_cntrs_l;
@@ -710,80 +619,80 @@ n128th_word.k = ((n_t_15x & crc10 & crc11 & n_t_49x)
 n_t_16x = n_t_15x & n128th_word & n_t_49x & crc11 & crc10;
 
 /* e5: sn74161 */
+gdollar_0.ar = !clr_all_l;
+gdollar_0.ck = !inc_brk_cntr_l;
+gdollar_0.j = !(!n6rk3_ok_l) & ((n_t_1x & n3v)
+                              # !n6rk3_ok_l);
+gdollar_0.k = ((n_t_1x & n3v)
+                    # !n6rk3_ok_l);
+n_t_63x.ar = !clr_all_l;
+n_t_63x.ck = !inc_brk_cntr_l;
+n_t_63x.j = !(!n6rk3_ok_l) & ((n_t_1x & n3v & gdollar_0)
+                            # !n6rk3_ok_l);
+n_t_63x.k = ((n_t_1x & n3v & gdollar_0)
+                  # !n6rk3_ok_l);
 n_t_62x.ar = !clr_all_l;
 n_t_62x.ck = !inc_brk_cntr_l;
-n_t_62x.j = !(!n6rk3_ok_l) & ((n_t_1x & n3v)
+n_t_62x.j = !(!n6rk3_ok_l) & ((n_t_1x & n3v & gdollar_0 & n_t_63x)
                             # !n6rk3_ok_l);
-n_t_62x.k = ((n_t_1x & n3v)
+n_t_62x.k = ((n_t_1x & n3v & gdollar_0 & n_t_63x)
                   # !n6rk3_ok_l);
 n_t_37x.ar = !clr_all_l;
 n_t_37x.ck = !inc_brk_cntr_l;
-n_t_37x.j = !(!n6rk3_ok_l) & ((n_t_1x & n3v & n_t_62x)
-                            # !n6rk3_ok_l);
-n_t_37x.k = ((n_t_1x & n3v & n_t_62x)
-                  # !n6rk3_ok_l);
-n_t_38x.ar = !clr_all_l;
-n_t_38x.ck = !inc_brk_cntr_l;
-n_t_38x.j = !(!n6rk3_ok_l) & ((n_t_1x & n3v & n_t_62x & n_t_37x)
-                            # !n6rk3_ok_l);
-n_t_38x.k = ((n_t_1x & n3v & n_t_62x & n_t_37x)
-                  # !n6rk3_ok_l);
-n_t_38x.ar = !clr_all_l;
-n_t_38x.ck = !inc_brk_cntr_l;
-n_t_38x.j = !(!half_block & !n6rk3_ok_l) & ((n_t_1x & n3v & n_t_62x & n_t_37x & n_t_38x)
+n_t_37x.j = !(!half_block & !n6rk3_ok_l) & ((n_t_1x & n3v & gdollar_0 & n_t_63x & n_t_62x)
                                           # !n6rk3_ok_l);
-n_t_38x.k = !(half_block & !n6rk3_ok_l) & ((n_t_1x & n3v & n_t_62x & n_t_37x & n_t_38x)
+n_t_37x.k = !(half_block & !n6rk3_ok_l) & ((n_t_1x & n3v & gdollar_0 & n_t_63x & n_t_62x)
                                          # !n6rk3_ok_l);
-b_last_brk = n3v & n_t_38x & n_t_38x & n_t_37x & n_t_62x;
+b_last_brk = n3v & n_t_37x & n_t_62x & n_t_63x & gdollar_0;
 
 /* e6: sn74161 */
-n_t_7x.ar = !clr_all_l;
-n_t_7x.ck = !inc_brk_cntr_l;
-n_t_7x.j = !(!n6rk3_ok_l) & (data_enable
-                           # !n6rk3_ok_l);
-n_t_7x.k = (data_enable
-                 # !n6rk3_ok_l);
+gdollar_1.ar = !clr_all_l;
+gdollar_1.ck = !inc_brk_cntr_l;
+gdollar_1.j = !(!n6rk3_ok_l) & (data_enable
+                              # !n6rk3_ok_l);
+gdollar_1.k = (data_enable
+                    # !n6rk3_ok_l);
 n1_db2.ar = !clr_all_l;
 n1_db2.ck = !inc_brk_cntr_l;
-n1_db2.j = !(!n6rk3_ok_l) & ((data_enable & n_t_7x)
+n1_db2.j = !(!n6rk3_ok_l) & ((data_enable & gdollar_1)
                            # !n6rk3_ok_l);
-n1_db2.k = ((data_enable & n_t_7x)
+n1_db2.k = ((data_enable & gdollar_1)
                  # !n6rk3_ok_l);
-n_t_95x.ar = !clr_all_l;
-n_t_95x.ck = !inc_brk_cntr_l;
-n_t_95x.j = !(!n6rk3_ok_l) & ((data_enable & n_t_7x & n1_db2)
+n_t_29x.ar = !clr_all_l;
+n_t_29x.ck = !inc_brk_cntr_l;
+n_t_29x.j = !(!n6rk3_ok_l) & ((data_enable & gdollar_1 & n1_db2)
                             # !n6rk3_ok_l);
-n_t_95x.k = ((data_enable & n_t_7x & n1_db2)
+n_t_29x.k = ((data_enable & gdollar_1 & n1_db2)
                   # !n6rk3_ok_l);
-n_t_96x.ar = !clr_all_l;
-n_t_96x.ck = !inc_brk_cntr_l;
-n_t_96x.j = !(!n6rk3_ok_l) & ((data_enable & n_t_7x & n1_db2 & n_t_95x)
-                            # !n6rk3_ok_l);
-n_t_96x.k = ((data_enable & n_t_7x & n1_db2 & n_t_95x)
-                  # !n6rk3_ok_l);
-n_t_1x = data_enable & n_t_96x & n_t_95x & n1_db2 & n_t_7x;
+transfer.ar = !clr_all_l;
+transfer.ck = !inc_brk_cntr_l;
+transfer.j = !(!n6rk3_ok_l) & ((data_enable & gdollar_1 & n1_db2 & n_t_29x)
+                             # !n6rk3_ok_l);
+transfer.k = ((data_enable & gdollar_1 & n1_db2 & n_t_29x)
+                   # !n6rk3_ok_l);
+n_t_1x = data_enable & transfer & n_t_29x & n1_db2 & gdollar_1;
 
 /* e7: sn74h04 */
-ma2_l = !n_t_22x;
-n_t_39x = !n_t_4x;
-brk_in_clk = !rd_clk2;
-rd_clk2_l = !rd_clk1_l;
+n_t_39x = !ma3_l;
+brk_in_clk = !n_t_4x;
+rd_clk2_l = !rd_clk2;
+rd_clk1 = !rd_clk1_l;
 n_t_59x = !rd_clk1_l;
 n_t_56x = !read_clk;
 
 /* e8: sn7400 */
 n_t_4x = !(read & data_state);
-brk_enab_clk = !(write_l & bdata1);
+brk_enab_clk = !(n_t_4x & write_l);
 rd_sync_bit_l = !(data_in & rd_clk2);
 rd_clk1_l = !(n_t_57x & read_clk);
 
 /* e9: sn7404 */
-bdata3 = !go;
-'b'0 = !n_t_67x;
-n_t_66x = !n_t_64x;
-clr_states = !n6rk3_ok;
+go_l = !go;
+n_t_66x = !n_t_67x;
+clr_states = !n_t_64x;
+n6rk3_ok_l = !n6rk3_ok;
 clr_drive_cmd = !clr_drive_cmd_l;
-go_l = !n_t_2x;
+n_t_5x = !n_t_2x;
 
 /* e10: sn74h10 */
 inc_cntrs = !(rd_clk2_l & b_wrt_clk_l & hi_main_shft_l);
@@ -791,202 +700,202 @@ clr_cntrs = !(n_t_10x & clr_all_l & data_clr_l);
 n12th_carry_l = !(n_t_11x & n_t_13x & n_t_14x);
 
 /* e11: sn74h04 */
-dsk_drive0_l = !inc_cntrs;
-drive1_l = !clr_cntrs;
-clr_cntrs_l = !n12th_carry_l;
-n12th_carry = !last_word_pl_l;
-n16th_bit = !last_word_pl;
-inc_cntrs_l = !n_t_5x;
+inc_cntrs_l = !inc_cntrs;
+clr_cntrs_l = !clr_cntrs;
+n12th_carry = !n12th_carry_l;
+last_word_pl = !last_word_pl_l;
+n16th_bit = !n16th_bit_l;
+n_t_6x = !n_t_5x;
 
 /* e12: sn7400 */
-inc_cntrs = !(n_t_5x & n_t_7x);
-n_t_19x = !(n12th_carry & drive3_l);
+n_t_10x = !(n_t_5x & n_t_7x);
+n_t_19x = !(inc_cntrs & n12th_carry);
 last_word_pl_l = !(last_word & n12th_carry);
 n16th_bit_l = !(inc_cntrs & n16_carry);
 
 /* e13: sn7402 */
-header_e = !(state_enab_b
-           # n_t_3x);
-btp2 = !(data3_l
-       # inc_brk_cntr_l);
-n6rk3_ok_l = !(n_t_3x
-             # btp3_ok);
-inh_12th_bit = !(n12th_bit_ok
-               # n_t_19x);
+n_t_2x = !(header_e
+         # state_enab_b);
+inc_brk_cntr_l = !(n_t_3x
+                 # btp2);
+n_t_3x = !(btp3_ok
+         # n6rk3_ok_l);
+n12th_bit_ok = !(n_t_19x
+               # inh_12th_bit);
 
 /* e14: sn7400 */
-half_block = !(crc_state_l & header_c_l);
-n_t_17x = !(n128th_word & db_clk);
+state_enab_b = !(crc_state_l & header_c_l);
+n_t_17x = !(half_block & n128th_word);
 rd_shft_db_l = !(rd_clk1 & data_state);
-shft_wrt_buff_l = !(state_enab_b & n_t_42x);
+shft_wrt_buff_l = !(inh_12th_bit_l & n_t_42x);
 
 /* e15: sn7474 */
-inh_12th_bit_l.ar = !rd_clk2_l;
-inh_12th_bit_l.d = dsk_cyl_ad32_l;
-inh_12th_bit_l.ck = read;
-inh_12th_bit_l.ap = !read_data_in_l;
-'b'0 = !inh_12th_bit_l;
-md_rd_buff_l.ar = !data_in;
-md_rd_buff_l.d = inh_12th_bit;
-md_rd_buff_l.ck = n_t_18x;
-md_rd_buff_l.ap = !clr_cntrs_l;
-md5_l = !md_rd_buff_l;
+data_in.ar = !read;
+data_in.d = 'b'0;
+data_in.ck = rd_clk2_l;
+data_in.ap = !read_data_in_l;
+data_in_l = !data_in;
+inh_12th_bit_l.ar = !n3v;
+inh_12th_bit_l.d = n_t_17x;
+inh_12th_bit_l.ck = n_t_18x;
+inh_12th_bit_l.ap = !clr_cntrs_l;
+inh_12th_bit = !inh_12th_bit_l;
 
 /* e16: sn7408 */
-n_t_51x = (rdy_s_r_w & dsk_acknowledge_l);
-n_t_54x = (clr_all_l & crc4);
+disk_ok = (rdy_s_r_w & dsk_acknowledge_l);
+n_t_54x = (n_t_51x & clr_all_l);
 data_clk = (n_t_29x & n_t_31x);
-rd_clk2 = (disk_ok & n_t_60x);
+rd_clk2 = (rd_clk1_l & n_t_60x);
 
 /* e17: sn7400 */
 n_t_44x = !(data_clk & data_state);
-n_t_41x = !(n_t_44x & ema2);
+n_t_41x = !n_t_44x;
 data_clk_ok = !(lo_main_shft_l & n_t_43x);
-n_t_43x = !(n_t_44x & n_t_41x);
+n_t_43x = !(inh_12th_bit_l & n_t_41x);
 
 /* e18: sn7474 */
-restore.ar = !n_t_66x;
-restore.d = n_t_29x;
-restore.ck = n_t_64x;
-restore.ap = !go_l;
-'b'0 = !restore;
-n6rk4_l.ar = !idle_l;
-n6rk4_l.d = file_rdy;
-n6rk4_l.ck = clr_strobe_l;
-n6rk4_l.ap = !n3v;
-n_t_50x = !n6rk4_l;
+idle_l.ar = !n_t_64x;
+idle_l.d = 'b'0;
+idle_l.ck = n_t_66x;
+idle_l.ap = !go_l;
+idle = !idle_l;
+restore.ar = !clr_strobe_l;
+restore.d = file_rdy;
+restore.ck = clr_drive_cmd;
+restore.ap = !n3v;
+restore_l = !restore;
 
 /* e19: sn7474 */
-strobe.ar = !disk_ok;
-strobe.d = idle;
-strobe.ck = n3v;
-strobe.ap = !header_a;
-check_header_cmd_l = !strobe;
-clr_all.ar = !rdy_s_r_w;
-clr_all.d = file_rdy;
-clr_all.ck = clr_strobe_l;
-clr_all.ap = !n3v;
-n_t_17x = !clr_all;
+n6rk3_l.ar = !n3v;
+n6rk3_l.d = check_header_cmd_l;
+n6rk3_l.ck = disk_ok;
+n6rk3_l.ap = !n_t_75x;
+header_a = !n6rk3_l;
+strobe.ar = !clr_strobe_l;
+strobe.d = file_rdy;
+strobe.ck = go;
+strobe.ap = !n3v;
+clr_all = !strobe;
 
 /* e20: sn7474 */
-header_c.ar = !sector_mk;
-header_c.d = ma6_l;
-header_c.ck = n_t_77x;
-header_c.ap = !n3v;
-header_a = !header_c;
-mak.ar = !header_b;
-mak.d = header_c_l;
-mak.ck = rd_sync_bit_l;
-mak.ap = !header_c_l;
-n_t_34x = !mak;
+header_b.ar = !n_t_77x;
+header_b.d = header_a;
+header_b.ck = sector_mk;
+header_b.ap = !n3v;
+mak = !header_b;
+header_c.ar = !n_t_78x;
+header_c.d = header_b;
+header_c.ck = rd_sync_bit_l;
+header_c.ap = !header_c_l;
+header_c_l = !header_c;
 
 /* e21: sn7474 */
-end_state.ar = !last_word_pl_l;
-end_state.d = n_t_29x;
-end_state.ck = n_t_72x;
-end_state.ap = !crc_state_l;
-data_state = !end_state;
-n6rk4_l.ar = !crc_state;
-n6rk4_l.d = end_state_l;
-n6rk4_l.ck = n16th_bit_l;
-n6rk4_l.ap = !n3v;
-btp3_ok = !n6rk4_l;
+crc_state.ar = !n_t_72x;
+crc_state.d = data_state;
+crc_state.ck = last_word_pl_l;
+crc_state.ap = !crc_state_l;
+crc_state_l = !crc_state;
+end_state.ar = !idle_l;
+end_state.d = crc_state;
+end_state.ck = n16th_bit_l;
+end_state.ap = !n3v;
+end_state_l = !end_state;
 
 /* e22: sn7474 */
-header_e.ar = !n16th_bit_l;
-header_e.d = bdata7;
-header_e.ck = n_t_71x;
-header_e.ap = !data_state_l;
-header_e = !header_e;
-data5_l.ar = !data_state;
-data5_l.d = header_e_l;
-data5_l.ck = n_t_80x;
-data5_l.ap = !header_e_l;
-n_t_81x = !data5_l;
+data_state.ar = !n_t_71x;
+data_state.d = header_e;
+data_state.ck = n16th_bit_l;
+data_state.ap = !data_state_l;
+data_state_l = !data_state;
+header_e.ar = !n_t_79x;
+header_e.d = header_d;
+header_e.ck = n_t_80x;
+header_e.ap = !header_e_l;
+header_e_l = !header_e;
 
 /* e23: sn7402 */
-clr_states = !(end_state
-             # data_state);
-state_enab_b = !(crc2
-               # state_enab_a_l);
-crc_state = !(n_t_71x
-            # clr_states);
-clr_states = !(n_t_79x
-             # n_t_72x);
+n_t_72x = !(clr_states
+          # end_state);
+state_enab_a_l = !(data_state
+                 # state_enab_b);
+n_t_71x = !(clr_states
+          # crc_state);
+n_t_79x = !(data_state
+          # clr_states);
 
 /* e24: sn7474 */
-header_d.ar = !disk_ok;
-header_d.d = n3v;
-header_d.ck = n_t_70x;
-header_d.ap = !sector_seek_l;
-not_chk_header_cmd = !header_d;
-crc_data.ar = !sector_seek;
-crc_data.d = sector_eq;
-crc_data.ck = sector_mk_l;
-crc_data.ap = !n3v;
-n_t_6x = !crc_data;
+sector_seek.ar = !n_t_70x;
+sector_seek.d = not_chk_header_cmd;
+sector_seek.ck = disk_ok;
+sector_seek.ap = !set_sector_seek_l;
+sector_seek_l = !sector_seek;
+header_d.ar = !n_t_81x;
+header_d.d = sector_eq;
+header_d.ck = sector_mk_l;
+header_d.ap = !n3v;
+header_d_l = !header_d;
 
 /* e25: sn7400 */
-error_clr_l = !(n_t_68x & erase_dly_l);
-n_t_62x = !(clr_all_l & n_t_52x);
+n_t_67x = !(n_t_68x & erase_dly_l);
+n_t_62x = !(error_clr_l & clr_all_l);
 n_t_68x = !(strobe & seek_only);
 seek_only = !(seek_l & restore_l);
 
 /* e26: sn7402 */
-idle = !(header_b
-       # clr_states);
-header_c = !(data_enable
-           # n_t_77x);
-acknowledge = !(clr_strobe_l
-              # clr_states);
-n_t_63x = !(n_t_64x
-          # n_t_75x);
+n_t_75x = !(idle
+          # header_b);
+n_t_77x = !(clr_states
+          # header_c);
+clr_strobe_l = !(clr_states
+               # acknowledge);
+n_t_64x = !(n_t_62x
+          # n_t_63x);
 
 /* e27: sn7400 */
-header_c = !(n_t_58x & set_idle_pl_l);
-set_sector_seek_l = 'b'1;
+n_t_63x = !(n_t_58x & set_idle_pl_l);
+set_sector_seek_l = !(header_c & n16th_bit);
 set_header_e_l = !(b_wrt_clk & wrt_sync_bit);
-wrt_clk_data = !(n_t_63x & data_out_pl_l);
+wrt_clk_data = !(wrt_clk_l & data_out_pl_l);
 
 /* e29: sn7402 */
-idle = !(header_d
-       # clr_states);
-header_e = !(n_t_35x
-           # n_t_81x);
-sector_seek = !(n_t_78x
-              # idle);
-wrt_clk_l = !(b_wrt_clk
-            # n_t_70x);
+n_t_70x = !(idle
+          # header_d);
+n_t_81x = !(clr_states
+          # header_e);
+n_t_78x = !(idle
+          # sector_seek);
+b_wrt_clk = !(n_t_36x
+            # wrt_clk_l);
 
 /* e30: sn7402 */
-sector_seek = !(end_state
-              # n_t_45x);
-header_b = !(q3
-           # n_t_46x);
-state_enab_a_l = !(rd_shft_crc
-                 # rd_clk1_l);
-header_d_l = !(n_t_45x
-             # n_t_51x);
+n_t_51x = !(sector_seek
+          # end_state);
+n_t_46x = !(n_t_45x
+          # header_b);
+rd_shft_crc = !(rd_clk1_l
+              # state_enab_a_l);
+n_t_45x = !(wrt_cmd
+          # header_d_l);
 
 /* e31: sn74155 */
-sk_chk_wrt_l = !(!main_pl & !data_in_l & !function01 & function02);
-sk_wrt_l = !(!main_pl & data_in_l & !function01 & function02);
-enab_rk_data = !(main_pl & !data_in_l & !function01 & function02);
-n_t_16x = !(main_pl & data_in_l & !function01 & function02);
-sk_chk_rd_l = !(!main_pl & data_in_l & !function00);
-sk_rd_l = !(!main_pl & !data_in_l & !function00);
-wrt_lock_out_l = !(main_pl & data_in_l & !function00);
-seek_l = !(main_pl & !data_in_l & !function00);
+sk_chk_wrt_l = !(!function01 & !function02 & function00);
+sk_wrt_l = !(!function01 & function02 & function00);
+n_t_16x = !(function01 & !function02 & function00);
+main_pl = !(function01 & function02 & function00);
+sk_chk_rd_l = !(!function01 & function02 & !function00);
+sk_rd_l = !(!function01 & !function02 & !function00);
+wrt_lock_out_l = !(function01 & function02 & !function00);
+seek_l = !(function01 & !function02 & !function00);
 
 /* e32: sn7408 */
-btp3 = (set_header_e_l & rd_sync_bit_l);
-ld_disk_addrs = 'b'0;
+n_t_80x = (set_header_e_l & rd_sync_bit_l);
+ld_disk_addrs = (btp3 & n_t_65x);
 check_header_cmd_l = (sk_chk_rd_l & sk_chk_wrt_l);
-n_t_65x = (n_t_80x & wrt_lock_out_l);
+n_t_65x = (n6rk3_ok & wrt_lock_out_l);
 
 /* e33: sn7400 */
-header_e_l = !(crc16 & n_t_37x);
-n_t_37x = !(crc_state_l & tp4);
+n_t_35x = !(crc16 & n_t_37x);
+n_t_37x = !(header_e_l & crc_state_l);
 n_t_32x = !(rk_data11 & data_state);
 wrt_cmd = !(sk_chk_wrt_l & sk_wrt_l);
 
@@ -996,32 +905,32 @@ data_out_pl_l = !(n_t_31x & n_t_29x & n_t_39x);
 not_chk_header_cmd = !(sk_rd_l & sk_wrt_l & sk_wrt_l);
 
 /* e35: sn7404 */
-'b'0 = !sector_mk;
-n3v = !read_data_in;
-read_data_in_l = !wrt_lock_out_l;
-wrt_lock_out = !nbr;
+sector_mk_l = !sector_mk;
+read_data_in_l = !read_data_in;
+wrt_lock_out = !wrt_lock_out_l;
+nbr_l = !nbr;
 b_idle = !idle_l;
-sector_mk_l = !b_wrt_clk;
+b_wrt_clk_l = !b_wrt_clk;
 
 /* e36: sn7404 */
-nbr_l = !n_t_29x;
-rd_brk_l = !wrt_brk_l;
-brk_rq = !wrt_cmd;
-wrt_cmd_l = !set_main_brk;
+n_t_30x = !n_t_29x;
+wrt_brk_l = !n_t_34x;
+wrt_cmd_l = !wrt_cmd;
+n_t_32x = !set_main_brk;
 n_t_40x = !wrt_clk_l;
-n_t_30x = !bdata6;
+main_pl = !bdata6;
 
 /* e37: sn7474 */
-read_l.ar = !b_wrt_clk_l;
-read_l.d = main_enab;
-read_l.ck = header_d;
-read_l.ap = !n3v;
-sync_dly_l = !read_l;
-data_enable.ar = !wrt_sync_bit;
-data_enable.d = n_t_46x;
-data_enable.ck = read_dly_l;
-data_enable.ap = !n_t_54x;
-wt_buff_data_l = !data_enable;
+wrt_sync_bit.ar = !header_d;
+wrt_sync_bit.d = sync_dly_l;
+wrt_sync_bit.ck = b_wrt_clk_l;
+wrt_sync_bit.ap = !n3v;
+wrt_sync_bit_l = !wrt_sync_bit;
+read_l.ar = !n3v;
+read_l.d = n_t_46x;
+read_l.ck = read_dly_l;
+read_l.ap = !n_t_54x;
+read = !read_l;
 
 /* e39: sn7410 */
 n_t_69x = !(ld_disk_addrs & rdy_s_r_w & main_l);
@@ -1029,93 +938,98 @@ n_t_58x = !(wrt_cmd_l & last_brk & end_state);
 wrt_clk_l = !(write & n_t_29x & n_t_12x);
 
 /* e40: sn7402 */
-n_t_38x = !(b_wrt_clk_l
-          # data_state_l);
-b_wrt_clk_l = !(data9
-              # n_t_42x);
-data_state = !(n_t_38x
-             # n_t_37x);
-wrt_shft_crc = !(shift_crc_l
-               # rd_shft_crc);
+wrt_shft_crc = !(n_t_38x
+               # b_wrt_clk_l);
+n_t_42x = !(data_state_l
+          # b_wrt_clk_l);
+n_t_38x = !(n_t_37x
+          # data_state);
+shift_crc_l = !(rd_shft_crc
+              # wrt_shft_crc);
 
 /* e41: sn7474 */
-write.ar = !n_t_30x;
-write.d = bdata3;
-write.ck = write;
-write.ap = !n_t_12x;
-n_t_12x = !write;
-n_t_25x.ar = !n_t_31x;
-n_t_25x.d = write_l;
-n_t_25x.ck = idle_l;
-n_t_25x.ap = !n3v;
-n_t_23x = !n_t_25x;
+n_t_31x.ar = !write;
+n_t_31x.d = n_t_12x;
+n_t_31x.ck = n_t_30x;
+n_t_31x.ap = !n3v;
+n_t_12x = !n_t_31x;
+write.ar = !idle_l;
+write.d = wrt_cmd;
+write.ck = header_d;
+write.ap = !n3v;
+write_l = !write;
 
 /* e42: sp380n */
 !dsk_sec2 = dsk_sec2_l;
 !acknowledge = dsk_acknowledge_l;
+!bmd9 = data_state_l
+      # md_rk_l;
 !set_main_brk_l = btp3_ok
                 # set_main_brk;
 
 /* e44: ds75452n */
-/* dsk_wrt_clk_data_l = !(!(bdata10 & ma9_l)); */
+/* dsk_wrt_clk_data_l = !(!wrt_clk_data); */
 
 /* e45: sn7400 */
 n_t_28x = !(n_t_26x & inside_in_l);
-n_t_27x = !(outside_clk_l & mak);
+n_t_27x = !(n_t_28x & outside_clk_l);
 n_t_29x = !(n_t_27x & write);
 go = !(n_t_69x & clr_drive_cmd_l);
 
 /* e46: sn7496 */
 top_surf.ck = shft_surf;
 top_surf.d  = 'b'0;
-top_surf.ap = ld_disk_addrs & bdata8;
-top_surf.ar = !ld_disk_addrs & !;
+top_surf.ap = ld_disk_addrs & bdata7;
+top_surf.ar = !ld_disk_addrs & !clr_sector_ad_l;
 sector_addrs8.ck = shft_surf;
 sector_addrs8.d  = top_surf;
-sector_addrs8.ap = ld_disk_addrs & clr_sector_ad_l;
-sector_addrs8.ar = !ld_disk_addrs & !;
+sector_addrs8.ap = ld_disk_addrs & bdata8;
+sector_addrs8.ar = !ld_disk_addrs & !clr_sector_ad_l;
 sector_addrs4.ck = shft_surf;
 sector_addrs4.d  = sector_addrs8;
-sector_addrs4.ap = ld_disk_addrs & db_cont1;
-sector_addrs4.ar = !ld_disk_addrs & !;
+sector_addrs4.ap = ld_disk_addrs & bdata9;
+sector_addrs4.ar = !ld_disk_addrs & !clr_sector_ad_l;
 sector_addrs2.ck = shft_surf;
 sector_addrs2.d  = sector_addrs4;
 sector_addrs2.ap = ld_disk_addrs & bdata10;
-sector_addrs2.ar = !ld_disk_addrs & !;
+sector_addrs2.ar = !ld_disk_addrs & !clr_sector_ad_l;
 sector_addrs1.ck = shft_surf;
 sector_addrs1.d  = sector_addrs2;
 sector_addrs1.ap = ld_disk_addrs & bdata11;
-sector_addrs1.ar = !ld_disk_addrs & !;
+sector_addrs1.ar = !ld_disk_addrs & !clr_sector_ad_l;
 
 /* e47: sn7485 */
-gdollar_0 = sector_addrs8 & !n_t_82x
+gdollar_2 = sector_addrs8 & !n_t_82x
           # !sector_addrs8 & n_t_82x;
-gdollar_1 = sector_addrs4 & !n_t_83x
+gdollar_3 = sector_addrs4 & !n_t_83x
           # !sector_addrs4 & n_t_83x;
-gdollar_2 = sector_addrs2 & !dsk_sec2
+gdollar_4 = sector_addrs2 & !dsk_sec2
           # !sector_addrs2 & dsk_sec2;
-gdollar_3 = sector_addrs1 & !n_t_84x
+gdollar_5 = sector_addrs1 & !n_t_84x
           # !sector_addrs1 & n_t_84x;
-sector_eq = sector_seek & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3;
-idle = !sector_seek & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
-     # !sector_addrs1 & !gdollar_0 & !gdollar_1 & !gdollar_2 & gdollar_3
-     # !sector_addrs2 & !gdollar_0 & !gdollar_1 & gdollar_2
-     # !sector_addrs4 & !gdollar_0 & gdollar_1
-     # !sector_addrs8 & gdollar_0;
-ainith = !sector_seek & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
-       # sector_addrs1 & !gdollar_0 & !gdollar_1 & !gdollar_2 & gdollar_3
-       # sector_addrs2 & !gdollar_0 & !gdollar_1 & gdollar_2
-       # sector_addrs4 & !gdollar_0 & gdollar_1
-       # sector_addrs8 & gdollar_0;
+sector_eq = sector_seek & !gdollar_2 & !gdollar_3 & !gdollar_4 & !gdollar_5;
+shft_cmd_reg = !sector_seek & !in & !gdollar_2 & !gdollar_3 & !gdollar_4 & !gdollar_5
+             # !sector_addrs1 & !gdollar_2 & !gdollar_3 & !gdollar_4 & gdollar_5
+             # !sector_addrs2 & !gdollar_2 & !gdollar_3 & gdollar_4
+             # !sector_addrs4 & !gdollar_2 & gdollar_3
+             # !sector_addrs8 & gdollar_2;
+ainith = !sector_seek & !in & !gdollar_2 & !gdollar_3 & !gdollar_4 & !gdollar_5
+       # sector_addrs1 & !gdollar_2 & !gdollar_3 & !gdollar_4 & gdollar_5
+       # sector_addrs2 & !gdollar_2 & !gdollar_3 & gdollar_4
+       # sector_addrs4 & !gdollar_2 & gdollar_3
+       # sector_addrs8 & gdollar_2;
 
 /* e48: ds75452n */
-/* dsk_strobe_l = !(!(brk_enab_clk & dsk_head_sel1_l)); */
+/* dsk_strobe_l = !(!strobe); */
+/* dsk_head_sel1_l = !(!top_surf); */
 
 /* e49: ds75452n */
-/* dsk_read_l = !(!(main_data & dsk_restore_l)); */
+/* dsk_read_l = !(!read); */
+/* dsk_restore_l = !(!restore); */
 
 /* e50: ds75452n */
-/* dsk_wrt_erase_gate_l = !(!(n3v & dsk_wrt_protect_l)); */
+/* dsk_wrt_erase_gate_l = !(!write); */
+/* dsk_wrt_protect_l = !(!(n6rk3_ok & wrt_lock_out)); */
 
 /* e51: sp380n */
 !n_t_26x = n_t_20x;
@@ -1262,15 +1176,24 @@ ainith = !sector_seek & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
 /* w2: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= dsk_head_sel1_l};
+!dsk_head_sel1_l = (!top_surf);
+dsk_head_sel1_l.oe = (!top_surf);
 property atmel {open_collector= dsk_read_l};
-!dsk_read_l = (!(main_data & dsk_restore_l));
-dsk_read_l.oe = (!(main_data & dsk_restore_l));
+!dsk_read_l = (!read);
+dsk_read_l.oe = (!read);
+property atmel {open_collector= dsk_restore_l};
+!dsk_restore_l = (!restore);
+dsk_restore_l.oe = (!restore);
 property atmel {open_collector= dsk_strobe_l};
-!dsk_strobe_l = (!(brk_enab_clk & dsk_head_sel1_l));
-dsk_strobe_l.oe = (!(brk_enab_clk & dsk_head_sel1_l));
+!dsk_strobe_l = (!strobe);
+dsk_strobe_l.oe = (!strobe);
 property atmel {open_collector= dsk_wrt_clk_data_l};
-!dsk_wrt_clk_data_l = (!(bdata10 & ma9_l));
-dsk_wrt_clk_data_l.oe = (!(bdata10 & ma9_l));
+!dsk_wrt_clk_data_l = (!wrt_clk_data);
+dsk_wrt_clk_data_l.oe = (!wrt_clk_data);
 property atmel {open_collector= dsk_wrt_erase_gate_l};
-!dsk_wrt_erase_gate_l = (!(n3v & dsk_wrt_protect_l));
-dsk_wrt_erase_gate_l.oe = (!(n3v & dsk_wrt_protect_l));
+!dsk_wrt_erase_gate_l = (!write);
+dsk_wrt_erase_gate_l.oe = (!write);
+property atmel {open_collector= dsk_wrt_protect_l};
+!dsk_wrt_protect_l = (!(n6rk3_ok & wrt_lock_out));
+dsk_wrt_protect_l.oe = (!(n6rk3_ok & wrt_lock_out));

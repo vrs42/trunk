@@ -115,167 +115,61 @@ C26      +        +          pas      VCC
          1        1          pas      +3V3
          2        2          pas      GND
 
-E1       1        O          out      MK_DATA_SYNC
-         2        I0         in       !MK_DATA_SYNC
-         3        I1         in       !MK_DATA_SYNC
-         4        O          out      MK_BLK_START
-         5        I0         in       !MK_BLK_START
-         6        I1         in       !MK_BLK_START
-         7        I5         in       SHIFT_L2
-         8        I0         in       !MK_END
-         9        I1         in       !MK_END
-         10       O          out      MK_END
-         11       I0         in       !MK_BLK_MK
-         12       I1         in       !MK_BLK_MK
-         13       O          out      MK_BLK_MK
-         14       O2         io       ADDER1
-         15       O3         io       ADDER2
-         16       O4         io       ADDER3
-         17       O5         io       ADDER4
-         18       O6         io       BB2
-         19       O7         io       AJ1
-         20       FB1MC15    io       AH1
-         21       O7         io       AK2
-         22       FB1MC16    io       AF2
-         23       O9         io       MB3_H
-         24       FB1MC17    io       AF1W
-         25       FB2MC17    io       AE2W
-         26       FB2MC16    io       AE1
-         27       FB2MC15    io       AD2
-         28       FB2MC14    io       AD1
-         29       FB2MC13    io       AC1
-         30       TDO        out      N$2
-         31       IO22       io       BH1
-         33       FB2MC12    io       AB2
-         34       FB2MC11    io       AB1
-         35       FB2MC10    io       AA1
-         36       FB2MC9     io       GND
-         37       FB2MC8     io       GND
-         38       FB2MC7     io       GND
-         39       GSR        in       BB2
-         40       GTS@1      in       GND
-         41       IO30       io       BC1
-         42       GTS@0      in       GND
-         43       FB2MC4     io       AV2W
-         44       FB2MC2     io       AV1W
-         45       IO/PD2     io       BA1
-         46       IO33       io       AV1
-         48       IO34       io       AV2
-         49       IO35       io       AU1
-         50       IO36       io       AU2
-         51       IO37       io       AT2
-         52       IO38       io       AS1
-         53       VCCIO      pwr      VCC
-         54       IO39       io       AS2
-         55       IO40       io       AR1
-         56       IO41       io       AR2
-         57       IO42       io       AP1
-         58       IO43       io       AP2
-         60       IO44       io       AN1
-         61       IO45       io       AN2
-         62       TCK        io       TCK
-         63       IO46       io       AM1
-         64       IO47       io       AM2
-         65       IO48       io       AL1
-         66       VCCIO      pwr      VCC
-         67       IO49       io       AL2
-         68       IO50       io       AK1
-         69       IO51       io       AK2
-         70       IO52       io       AJ1
-         71       TDO        io       TDO
-         73       IO53       io       AJ2
-         74       IO54       io       AH1
-         75       IO55       io       AH2
-         76       IO56       io       AF1
-         77       IO57       io       AF2
-         78       VCCIO      pwr      VCC
-         79       IO58       io       AE1
-         80       IO59       io       AE2
-         81       IO/GCLK3   io       AD1
-         83       IN/GCLK1   in       AD2
-         84       IN/OE1     in       AC1
+E1       1        I0         in       !MK_DATA_SYNC
+         2        I1         in       !MK_DATA_SYNC
+         3        O          out      MK_DATA_SYNC
+         4        I0         in       !MK_BLK_START
+         5        I1         in       !MK_BLK_START
+         6        O          out      MK_BLK_START
+         7        J          in       F2
+         8        O          out      MK_END
+         9        I0         in       !MK_END
+         10       I1         in       !MK_END
+         11       O          out      MK_BLK_MK
+         12       I0         in       !MK_BLK_MK
+         13       I1         in       !MK_BLK_MK
+         14       A2         in       H1
+         15       A3         in       H1
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
-E2       1        O          out      !MK_BLK_MK
-         2        I0         in       W1*W5
-         3        I1         in       W3
+E2       1        I0         in       W1*W5
+         2        I1         in       W3
+         3        I2         in       W7
          4        I3         in       !W2
          5        I4         in       !W9
          6        I5         in       W8
-         7        I5         in       SHIFT_L2
-         8        O          out      AR2
+         7        J          in       N2
+         8        O          out      !MK_BLK_MK
          9        I8         in       AD2
          10       I7         in       BU2
          11       I6         in       !W6
          12       I7         in       !W4
          13       I3         in       AH2
          14       A2         in       N$15
-         15       O3         io       ADDER3
-         16       O4         io       ADDER4
-         17       O5         io       ADDER5
-         18       O6         io       ADDER3
-         19       O7         io       AK2
-         20       FB1MC15    io       AU2W
-         21       O7         io       AK2
-         22       FB1MC16    io       AU1
-         23       O9         io       AC3_H
-         24       FB1MC17    io       AT2W
-         25       FB2MC17    io       AR2W
-         26       FB2MC16    io       GND
-         27       FB2MC15    io       GND
-         28       FB2MC14    io       GND
-         29       FB2MC13    io       AP1W
-         30       TDO        out      N$5
-         33       FB2MC12    io       AM2W
-         34       FB2MC11    io       AM1W
-         35       FB2MC10    io       AJ1W
-         36       FB2MC9     io       AE2W
-         37       FB2MC8     io       B2
-         38       FB2MC7     io       C3
-         39       GSR        in       BM2
-         40       GTS@1      in       GND
-         42       GTS@0      in       GND
-         43       FB2MC4     io       BL2
-         44       FB2MC2     io       BL1
+         15       A3         in       M1
 
-E3       1        O          out      !MK_END
-         2        I0         in       !W3
-         3        I1         in       !W6
+E3       1        I0         in       !W3
+         2        I1         in       !W6
+         3        I2         in       !W4
          4        I3         in       !W7
          5        I4         in       W8
          6        I5         in       !W9
          7        Y3         in       Q6
-         8        E1         pas      N$4
+         8        O          out      !MK_END
          9        I3         in       AH1
          10       I2         in       AA1
          11       I6         in       W1*W5
          12       I7         in       W2
          13       I6         in       AT2
          14       X4         in       Q1
-         15       O3         io       C2
-         16       O4         io       MB2_L
-         17       O5         io       MB3_L
-         18       O6         io       MB2_H
-         19       O7         io       MB3_H
-         20       FB1MC15    io       BJ1
-         22       FB1MC16    io       BH2
-         24       FB1MC17    io       BF2
-         25       FB2MC17    io       BF1
-         26       FB2MC16    io       BE2
-         27       FB2MC15    io       BD2
-         28       FB2MC14    io       BC1
-         29       FB2MC13    io       AV1W
-         30       TDO        out      N$10
-         33       FB2MC12    io       AP1W
-         34       FB2MC11    io       AN1W
-         35       FB2MC10    io       AM2W
-         36       FB2MC9     io       AL2W
-         37       FB2MC8     io       AF1W
-         38       FB2MC7     io       C3
-         39       GSR        in       B2
-         40       GTS@1      in       BU2
-         42       GTS@0      in       GND
-         43       FB2MC4     io       BV2
-         44       FB2MC2     io       BV1
+         15       A3         in       S1
 
 E4       1        O          out      AU1
          2        I0         in       W8
@@ -291,11 +185,6 @@ E4       1        O          out      AU1
          12       I9         pas      N$5
          13       I3         in       AJ1
          14       X4         in       Q5
-         15       O3         io       B3
-         16       O4         io       MA2_L
-         17       O5         io       MA3_L
-         18       O6         io       MA2_H
-         19       O7         io       MA3_H
 
 E5       1        CLR        in       !0_TO_STATE
          2        D          in       W7
@@ -311,39 +200,23 @@ E5       1        CLR        in       !0_TO_STATE
          12       D          in       W8
          13       CLR        in       !0_TO_STATE
          14       X4         in       Q1
-         15       A3         in       MB2_L
-         16       Y2         hiz      N$7
-         17       A4         in       MB2_L
-         18       Y1         hiz      N$7
-         19       G          in       GND
-         20       O6         io       PC2_H
-         21       O7         io       AK2
-         22       O8         io       PC3_L
-         23       O9         io       PC3_H
+         15       B0         io       !DATA1
 
-E6       1        O          out      !MK_DATA_SYNC
-         2        I0         in       !W3
-         3        I1         in       !W4
+E6       1        I0         in       !W3
+         2        I1         in       !W4
+         3        I2         in       W6
          4        I3         in       !W7
          5        I4         in       W8
          6        I5         in       !W9
          7        Y3         in       Q2
-         8        E1         pas      N$2
+         8        O          out      !MK_DATA_SYNC
          9        I3         in       AH1
          10       I2         in       BU2
          11       I6         in       W1*W5
          12       I7         in       W2
          13       I6         in       AV2
          14       X4         in       Q5
-         15       O3         io       N$5
-         16       O4         io       AC2_L
-         17       O5         io       AC3_L
-         18       O6         io       AC2_H
-         19       O7         io       AC3_H
-         20       O6         io       MA2_H
-         21       O7         io       AK2
-         22       O8         io       MA3_L
-         23       O9         io       MA3_H
+         15       Q4         out      BD00
 
 E7       1        I4         in       MK_BLK_START
          2        D          in       AJ2
@@ -351,22 +224,15 @@ E7       1        I4         in       MK_BLK_START
          4        PRE        in       +3V3
          5        Q          out      AR1
          6        !Q         out      AS1
-         7        I5         in       DA_ENABL
+         7        B          io       N$10
          8        O          out      N$3
          9        I2         in       SHIFT_I
          10       I1         in       ST_IDLE
          11       I6         pas      N$2
          12       I5         pas      N$1
          13       I3         in       ST_BLK_MK
-         14       Y3         hiz      AT2U
-         15       O3         io       B2
-         16       O4         io       PC2_L
-         17       O5         io       PC3_L
-         18       O6         io       PC2_H
-         19       O7         io       PC3_H
-         20       O6         io       A1P
-         21       O7         io       BE2
-         22       O8         io       A1
+         14       A2         in       N$29
+         15       B          io       N$12
 
 E8       1        CLR        in       !0_TO_W
          2        D          in       AS2
@@ -374,7 +240,7 @@ E8       1        CLR        in       !0_TO_W
          4        PRE        in       +3V@R1
          5        Q          out      W9
          6        !Q         out      !W9
-         7        I5         in       DATA_ENABL
+         7        Y3         out      SELECT6
          8        !Q         out      !W4
          9        Q          out      W4
          10       PRE        in       +3V@R1
@@ -382,34 +248,21 @@ E8       1        CLR        in       !0_TO_W
          12       D          in       W5
          13       CLR        in       !0_TO_STATE
          14       A2         in       N$57
-         15       O3         io       SR2
-         16       O4         io       SC2
-         17       O5         io       DATA2
-         18       O6         io       IO2
-         19       O7         io       A2
-         20       O6         io       +3V
-         21       O7         io       AB2
-         22       O8         io       TT_SHIFT
+         15       G          in       !C1
 
-E9       1        O          out      !MK_BLK_START
-         2        I0         in       !W3
-         3        I1         in       !W8
+E9       1        I0         in       !W3
+         2        I1         in       !W8
+         3        I2         in       W6
          4        I3         in       !W7
          5        I4         in       !W5
          6        I5         in       !W9
-         7        I5         in       DATA_ENABL
-         8        E1         pas      N$21
+         8        O          out      !MK_BLK_START
          9        I3         in       BH1
          10       I2         in       AH1
          11       I6         in       !W4
          12       I7         in       W1
          13       I6         in       BH2
          14       A2         in       BN1
-         15       O3         io       SR3
-         16       O4         io       SC3
-         17       O5         io       DATA3
-         18       O6         io       IO3
-         19       O7         io       A3
 
 E10      1        CLR        in       !0_TO_STATE
          2        D          in       ST_IDLE_IN
@@ -443,14 +296,14 @@ E11      1        CLR        in       !0_TO_W
          14       A2         in       N$5
          15       B          io       N$13
 
-E12      1        O          out      !MK_DATA
-         2        I0         in       !W3
+E12      1        I0         in       !W3
+         2        I1         in       !W8
          3        I2         in       !W2
          4        I3         in       !W7
          5        I4         in       !W9
          6        I5         in       W1*W5
          7        Y3         in       Q6
-         8        !Q         out      AT2
+         8        O          out      !MK_DATA
          9        Q          out      AS2
          10       PRE        in       +3V3
          11       I6         in       W4
@@ -490,14 +343,14 @@ E14      1        CLR        in       !0_TO_W
          14       X4         in       Q1
          15       Y3         in       !MD07
 
-E15      1        O          out      !SYNC
-         2        I0         in       BH1
+E15      1        I0         in       BH1
+         2        I1         in       W3
          3        I2         in       !W6
          4        I3         in       W9
          5        I4         in       W7
          6        I5         in       W1*W5
          7        Y3         in       Q2
-         8        !Q         out      BE2
+         8        O          out      !SYNC
          9        Q          out      BF2
          10       PRE        in       +3V3
          11       I6         in       !W8
@@ -534,13 +387,13 @@ E17      1        CLR        in       !0_TO_W
          12       D          in       +3V@R1
          13       CLR        in       !0_TO_W
 
-E18      1        O          out      !MK_BLK_END
-         2        I0         in       W1
-         3        I1         in       W4
+E18      1        I0         in       W1
+         2        I1         in       W4
+         3        I2         in       W6
          4        I3         in       !W7
          5        I4         in       W8
          6        I5         in       W5
-         8        !Q         out      BK2
+         8        O          out      !MK_BLK_END
          9        Q          out      BL2
          10       PRE        in       +3V3
          11       I6         in       W9
@@ -563,29 +416,29 @@ E19      1        I4         in       MK_BLK_END
          14       O0         in       BD05
          15       B0         io       !DATA5
 
-E20      1        O          out      MK_BLK_END
-         2        I0         in       !MK_BLK_END
-         3        I1         in       !MK_BLK_END
-         4        O          out      MK_BLK_SYNC
-         5        I0         in       !MK_BLK_SYNC
-         6        I1         in       !MK_BLK_SYNC
+E20      1        I0         in       !MK_BLK_END
+         2        I1         in       !MK_BLK_END
+         3        O          out      MK_BLK_END
+         4        I0         in       !MK_BLK_SYNC
+         5        I1         in       !MK_BLK_SYNC
+         6        O          out      MK_BLK_SYNC
          7        Q2         out      BD07
-         8        I0         in       !MK_DATA
-         9        I1         in       !MK_DATA
-         10       O          out      MK_DATA
-         11       I0         in       !SYNC
-         12       I1         in       !SYNC
-         13       O          out      SYNC
+         8        O          out      MK_DATA
+         9        I0         in       !MK_DATA
+         10       I1         in       !MK_DATA
+         11       O          out      SYNC
+         12       I0         in       !SYNC
+         13       I1         in       !SYNC
          14       A2         in       N$108
          15       Q4         out      BD04
 
-E21      1        O          out      !MK_BLK_SYNC
-         2        I0         in       W1
-         3        I1         in       W4
+E21      1        I0         in       W1
+         2        I1         in       W4
+         3        I2         in       W2
          4        I3         in       !W5
          5        I4         in       W3
          6        I5         in       AU1
-         8        !Q         out      BR2
+         8        O          out      !MK_BLK_SYNC
          9        Q          out      BP2
          10       PRE        in       +3V3
          11       I6         in       !W7

@@ -26,22 +26,22 @@
 //        # adder4 & shift_l1); 
 // n_t_9x = !ak2; 
 // e3: sn7460 
-// aj1 = !(n3v & and_h & n_t_1x); 
+// aj1 = !('b'1 & and_h & n_t_1x); 
 // n_t_10x = !aj1; 
-// aj1 = !(adder4 & n3v & n3v & shift_l2); 
+// aj1 = !(adder4 & 'b'1 & 'b'1 & shift_l2); 
 // n_t_10x = !aj1; 
 // e4: sn7460 
-// ak2 = !(n3v & and_h & n_t_3x); 
+// ak2 = !('b'1 & and_h & n_t_3x); 
 // n_t_9x = !ak2; 
-// ak2 = !(adder5 & n3v & n3v & shift_l2); 
+// ak2 = !(adder5 & 'b'1 & 'b'1 & shift_l2); 
 // n_t_9x = !ak2; 
 // e5: sn7400 
-module m220a (a1, ac2_h, ac2_l, ac3_h, ac3_l, ac_enabl, ac_enabl_l, adder0, adder1, adder2, adder3, adder4, adder5, aj1, ak1, ak2, an2, and_h, ar1, as2, at2, au1, au2, b1, be2, br2, bu1, bv1, bv2, c0, c1, c2, d1, d2, da2, da_enabl, data2, data3, data_enabl, e1, e2, f1, f2, h1, h2, io2, io3, io_enabl, j1, j2, k1, k2, l1, l2, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, ma_enabl, mem2, mem_enabl, mq2_h, mq3_h, mq_enabl, n1, n2, n_t_15x, n_t_30x, no_shift, p1, p2, pc2_h, pc2_l, pc3_h, pc3_l, pc_enabl, r1, r2, s1, s2, sc2, sc3, sc_enabl, shift_l1, shift_l2, shift_r1, shift_r2, sr2, sr3, sr_enabl, t2, u1, u2, v1, v2);
+module m220a (a1, ac2_h, ac2_l, ac3_h, ac3_l, ac_enabl, ac_enabl_l, adder0, adder1, adder2, adder3, adder4, adder5, aj1, ak1, ak2, an2, and_h, ar1, as2, at2, au1, au2, b1, be2, br2, bu1, bv1, bv2, c0, c1, c2, d1, d2, da2, da_enabl, data2, data3, data_enabl, e1, e2, f1, f2, h1, h2, io2, io3, io_enabl, j1, j2, k1, k2, l1, l2, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, ma_enabl, mem2, mem_enabl, mq2_h, mq3_h, mq_enabl, n1, n15v, n2, n_t_15x, no_shift, p1, p2, pc2_h, pc2_l, pc3_h, pc3_l, pc_enabl, r1, r2, s1, s2, sc2, sc3, sc_enabl, shift_l1, shift_l2, shift_r1, shift_r2, sr2, sr3, sr_enabl, t2, u1, u2, v1, v2);
 output a1;
 inout reg ac2_h;
 inout ac2_l;
 inout reg ac3_h;
-input ac3_l;
+inout ac3_l;
 input ac_enabl;
 input ac_enabl_l;
 input adder0;
@@ -103,10 +103,10 @@ input mem_enabl;
 input mq2_h;
 input mq3_h;
 input mq_enabl;
-input n1;
+output n1;
+output n15v;
 output n2;
 output n_t_15x;
-output n_t_30x;
 input no_shift;
 output p1;
 output p2;
@@ -146,6 +146,7 @@ reg pc3_h_m;
 
 reg mb2_h;
 reg mb3_h;
+wire a0;
 wire a8;
 wire ad01;
 wire ad02;
@@ -160,10 +161,8 @@ wire bj1;
 wire bt2;
 wire c1_l;
 wire data1_l;
-wire int_enable;
 wire md07_l;
 wire md07h;
-wire n3v;
 wire n3v3;
 wire n_t_10x;
 wire n_t_134x;
@@ -171,71 +170,70 @@ wire n_t_16x;
 wire n_t_170x;
 wire n_t_17x;
 wire n_t_182x;
-wire n_t_19x;
 wire n_t_1x;
+wire n_t_20x;
 wire n_t_21x;
 wire n_t_22x;
 wire n_t_27x;
-wire n_t_28x;
 wire n_t_29x;
 wire n_t_31x;
 wire n_t_32x;
-wire n_t_337x;
-wire n_t_39x;
+wire n_t_36x;
 wire n_t_3x;
 wire n_t_40x;
+wire n_t_42x;
 wire n_t_46x;
 wire n_t_49x;
 wire n_t_4x;
 wire n_t_63x;
-wire n_t_67x;
+wire n_t_68x;
 wire n_t_6x;
 wire n_t_73x;
 wire n_t_76x;
 wire n_t_7x;
 wire n_t_80x;
 wire n_t_85x;
+wire n_t_86x;
 wire n_t_88x;
-wire n_t_90x;
 wire n_t_91x;
 wire n_t_9x;
-assign n3v = ~(n_t_9x & n_t_21x);
+wire select6;
 assign n_t_3x = ~(ac3_h & mb3_h);
 assign n_t_1x = ~(ac2_h & mb2_h);
 // e6: sn7474 
-always @(ak1, n_t_6x, n_t_28x, n_t_32x)
+always @(ak1, n_t_6x, n_t_6x, aj1)
   if (~n_t_6x) begin
     ma2_h_m <= 1'b0;
   end else
-  if (~n_t_28x) begin
+  if (~n_t_6x) begin
     ma2_h_m <= 1'b1;
   end else
   if (~(ak1)) begin
-    ma2_h_m <= n_t_32x;
+    ma2_h_m <= aj1;
   end
-always @(ak1, n_t_6x, n_t_28x, ma2_h_m)
+always @(ak1, n_t_6x, n_t_6x, ma2_h_m)
   if (~n_t_6x) begin
     ma2_h <= 1'b0;
   end else
-  if (~n_t_28x) begin
+  if (~n_t_6x) begin
     ma2_h <= 1'b1;
   end else
   if (ak1) begin
     ma2_h <= ma2_h_m;
   end
 assign ma2_l = ~ma2_h;
-always @(ak1, aj1, n_t_32x, aj1)
-  if (~aj1) begin
+always @(ak1, n_t_6x, n_t_32x, ak2)
+  if (~n_t_6x) begin
     ma3_h_m <= 1'b0;
   end else
   if (~n_t_32x) begin
     ma3_h_m <= 1'b1;
   end else
   if (~(ak1)) begin
-    ma3_h_m <= aj1;
+    ma3_h_m <= ak2;
   end
-always @(ak1, aj1, n_t_32x, ma3_h_m)
-  if (~aj1) begin
+always @(ak1, n_t_6x, n_t_32x, ma3_h_m)
+  if (~n_t_6x) begin
     ma3_h <= 1'b0;
   end else
   if (~n_t_32x) begin
@@ -246,7 +244,7 @@ always @(ak1, aj1, n_t_32x, ma3_h_m)
   end
 assign ma3_l = ~ma3_h;
 // e7: sn7474 
-always @(an2, n_t_31x, n_t_73x, n_t_31x)
+always @(an2, n_t_31x, n_t_73x, aj1)
   if (~n_t_31x) begin
     pc2_h_m <= 1'b0;
   end else
@@ -254,7 +252,7 @@ always @(an2, n_t_31x, n_t_73x, n_t_31x)
     pc2_h_m <= 1'b1;
   end else
   if (~(an2)) begin
-    pc2_h_m <= n_t_31x;
+    pc2_h_m <= aj1;
   end
 always @(an2, n_t_31x, n_t_73x, pc2_h_m)
   if (~n_t_31x) begin
@@ -267,18 +265,18 @@ always @(an2, n_t_31x, n_t_73x, pc2_h_m)
     pc2_h <= pc2_h_m;
   end
 assign pc2_l = ~pc2_h;
-always @(an2, aj1, n_t_4x, n_t_6x)
-  if (~aj1) begin
+always @(an2, n_t_6x, n_t_4x, ak2)
+  if (~n_t_6x) begin
     pc3_h_m <= 1'b0;
   end else
   if (~n_t_4x) begin
     pc3_h_m <= 1'b1;
   end else
   if (~(an2)) begin
-    pc3_h_m <= n_t_6x;
+    pc3_h_m <= ak2;
   end
-always @(an2, aj1, n_t_4x, pc3_h_m)
-  if (~aj1) begin
+always @(an2, n_t_6x, n_t_4x, pc3_h_m)
+  if (~n_t_6x) begin
     pc3_h <= 1'b0;
   end else
   if (~n_t_4x) begin
@@ -289,38 +287,38 @@ always @(an2, aj1, n_t_4x, pc3_h_m)
   end
 assign pc3_l = ~pc3_h;
 // e8: sn7474 
-always @(ar1, n_t_17x, n_t_4x, n_t_19x)
-  if (~n_t_17x) begin
+always @(ar1, n_t_36x, n3v3, aj1)
+  if (~n_t_36x) begin
     mb2_h_m <= 1'b0;
   end else
-  if (~n_t_4x) begin
+  if (~n3v3) begin
     mb2_h_m <= 1'b1;
   end else
   if (~(ar1)) begin
-    mb2_h_m <= n_t_19x;
+    mb2_h_m <= aj1;
   end
-always @(ar1, n_t_17x, n_t_4x, mb2_h_m)
-  if (~n_t_17x) begin
+always @(ar1, n_t_36x, n3v3, mb2_h_m)
+  if (~n_t_36x) begin
     mb2_h <= 1'b0;
   end else
-  if (~n_t_4x) begin
+  if (~n3v3) begin
     mb2_h <= 1'b1;
   end else
   if (ar1) begin
     mb2_h <= mb2_h_m;
   end
-always @(ar1, aj1, n3v3, n1)
-  if (~aj1) begin
+always @(ar1, n_t_4x, n3v3, ak2)
+  if (~n_t_4x) begin
     mb3_h_m <= 1'b0;
   end else
   if (~n3v3) begin
     mb3_h_m <= 1'b1;
   end else
   if (~(ar1)) begin
-    mb3_h_m <= n1;
+    mb3_h_m <= ak2;
   end
-always @(ar1, aj1, n3v3, mb3_h_m)
-  if (~aj1) begin
+always @(ar1, n_t_4x, n3v3, mb3_h_m)
+  if (~n_t_4x) begin
     mb3_h <= 1'b0;
   end else
   if (~n3v3) begin
@@ -360,13 +358,13 @@ assign c2 = gdollar_0 & n_t_32x
 //       # io2 & io_enabl); 
 // n_t_7x = !n_t_6x; 
 // e14: sn7453 
-// n_t_4x = !(n3v & be2
+// n_t_4x = !('b'1 & be2
 //       # ac3_h & ac_enabl
 //       # ac3_l & ac_enabl_l
 //       # mq3_h & mq_enabl); 
 // n_t_2x = !n_t_4x; 
 // e15: sn7474 
-always @(au1, n_t_85x, n_t_91x, n_t_88x)
+always @(au1, n_t_85x, n_t_91x, aj1)
   if (~n_t_85x) begin
     ac2_h_m <= 1'b0;
   end else
@@ -374,7 +372,7 @@ always @(au1, n_t_85x, n_t_91x, n_t_88x)
     ac2_h_m <= 1'b1;
   end else
   if (~(au1)) begin
-    ac2_h_m <= n_t_88x;
+    ac2_h_m <= aj1;
   end
 always @(au1, n_t_85x, n_t_91x, ac2_h_m)
   if (~n_t_85x) begin
@@ -387,18 +385,18 @@ always @(au1, n_t_85x, n_t_91x, ac2_h_m)
     ac2_h <= ac2_h_m;
   end
 assign ac2_l = ~ac2_h;
-always @(au1, aj1, n_t_21x, n_t_90x)
-  if (~aj1) begin
+always @(au1, n_t_86x, n_t_21x, ak2)
+  if (~n_t_86x) begin
     ac3_h_m <= 1'b0;
   end else
   if (~n_t_21x) begin
     ac3_h_m <= 1'b1;
   end else
   if (~(au1)) begin
-    ac3_h_m <= n_t_90x;
+    ac3_h_m <= ak2;
   end
-always @(au1, aj1, n_t_21x, ac3_h_m)
-  if (~aj1) begin
+always @(au1, n_t_86x, n_t_21x, ac3_h_m)
+  if (~n_t_86x) begin
     ac3_h <= 1'b0;
   end else
   if (~n_t_21x) begin
@@ -407,7 +405,7 @@ always @(au1, aj1, n_t_21x, ac3_h_m)
   if (au1) begin
     ac3_h <= ac3_h_m;
   end
-assign ak2 = ~ac3_h;
+assign ac3_l = ~ac3_h;
 // e16: sn7453 
 // n_t_32x = !(ma_enabl & ma2_h
 //        # pc2_h & pc_enabl
@@ -434,20 +432,20 @@ assign ak2 = ~((shift_r1 & adder2
                  | adder1 & shift_r2
                  | adder3 & no_shift
                  | adder4 & shift_l1)
-                | (n3v & and_h & n_t_3x)
-                | (adder5 & n3v & n3v & shift_l2));
+                | (and_h & n_t_3x)
+                | (adder5 & shift_l2));
 assign aj1 = ~((shift_r1 & adder1
                  | adder0 & shift_r2
                  | adder2 & no_shift
                  | adder3 & shift_l1)
-                | (n3v & and_h & n_t_1x)
-                | (adder4 & n3v & n3v & shift_l2));
+                | (and_h & n_t_1x)
+                | (adder4 & shift_l2));
 assign n_t_2x = ~n_t_4x;
 assign n_t_32x = ~((ma_enabl & ma2_h
                      | pc2_h & pc_enabl
                      | mem2 & mem_enabl
                      | da2 & da_enabl));
-assign n_t_4x = ~((n3v & be2
+assign n_t_4x = ~((be2
                     | ac3_h & ac_enabl
                     | ac3_l & ac_enabl_l
                     | mq3_h & mq_enabl)

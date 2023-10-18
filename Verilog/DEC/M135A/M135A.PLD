@@ -3,7 +3,7 @@
 
 Name     M135A ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -38,8 +38,8 @@ pin = l2;
 pin = m1;
 pin = m2;
 pin = n1;
+pin = n15v;
 pin = n2;
-pin = n_t_30x;
 pin = p1;
 pin = p2;
 pin = r1;
@@ -55,14 +55,11 @@ pin = v2;
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node n_t_10x;
-node n_t_13x;
-node n_t_16x;
 node n_t_18x;
 node n_t_22x;
 node n_t_24x;
 node n_t_26x;
 node n_t_28x;
-node n_t_2x;
 node n_t_4x;
 node n_t_8x;
 $ENDIF
@@ -87,7 +84,7 @@ j1 = !(e1 & f1 & h1);
 d1 = !(c1 & b1 & a1);
 
 /* e2: sn7410 */
-n_t_16x = !(n_t_13x & n_t_2x & n_t_13x);
+h1 = !(f1 & k2 & h1);
 n1 = !(k1 & l1 & m1);
 m2 = !(l2 & k2 & j2);
 

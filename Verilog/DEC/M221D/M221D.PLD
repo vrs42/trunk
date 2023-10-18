@@ -3,7 +3,7 @@
 
 Name     M221D ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -89,8 +89,8 @@ pin = mem3;
 pin = mq2;
 pin = mq3;
 pin = n1;
+pin = n15v;
 pin = n2;
-pin = n_t_30x;
 pin = no_rot;
 pin = p1;
 pin = p2;
@@ -126,113 +126,43 @@ node pc2_h;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a1p;
-node a2;
-node a3;
+node a0;
 node a8;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
 node ac2_l;
 node ac3_l;
-node ac_enabl;
 node ad01;
 node ad02;
 node ad02l;
 node ad03h;
-node ad1;
-node ad2;
 node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
 node as2;
-node at2;
-node at2u;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
-node b3;
-node ba1;
-node bc1;
+node bd00;
+node bd03;
 node bd04;
 node bd04l;
 node bd05;
 node bd07;
 node bd07l;
-node bd2;
-node be2;
-node bf1;
-node bf2;
 node bh1;
-node bh2;
 node biot5l;
 node bj1;
-node bl1;
-node bl2;
-node bm2;
-node bn1;
 node bt2;
-node bu2;
-node bv1;
-node bv2;
-node c2;
-node c3;
-node cin;
+node c1_l;
 node da_enabl;
+node data1_l;
 node data2;
-node data3;
 node data5_l;
-node data_enabl;
-node io2;
-node io3;
 node io_enabl;
 node ma_enabl;
 node mb2_l;
 node mb3_l;
 node md07_l;
 node md07h;
-node mem_enabl;
-node mq2_h;
-node mq3_h;
-node mq_enabl;
 node n3v;
 node n3v3;
 node n_t_10x;
+node n_t_11x;
+node n_t_12x;
 node n_t_13x;
 node n_t_15x;
 node n_t_16x;
@@ -242,22 +172,22 @@ node n_t_182x;
 node n_t_19x;
 node n_t_1x;
 node n_t_20x;
+node n_t_29x;
 node n_t_2x;
+node n_t_31x;
+node n_t_36x;
+node n_t_40x;
+node n_t_42x;
+node n_t_46x;
 node n_t_5x;
-node n_t_60x;
 node n_t_6x;
 node n_t_7x;
+node n_t_8x;
 node n_t_9x;
-node sc2;
-node sc3;
-node shift_l1;
+node select6;
 node shift_l2;
 node sr2;
-node sr3;
 node sr_enabl;
-node tck;
-node tdo;
-node tt_shift;
 $ENDIF
 
 /* Code nodes */
@@ -315,20 +245,20 @@ $ENDIF
 ps_2 = n_t_3x;
 
 /* e2: sn7453 */
-/* 'b'0 = !(rot_right & adder1
-     # rot_left & adder3
-     # no_rot & adder2
-     # n_t_9x & lsw); */
-/* mb3_l = 'b'1; */
-reg_bus2 = 'b'0;
+/* n_t_11x = !(rot_right & adder1
+        # rot_left & adder3
+        # no_rot & adder2
+        # n_t_9x & lsw); */
+/* n_t_9x = !n_t_11x; */
+reg_bus2 = n_t_11x;
 
 /* e3: sn7453 */
-/* 'b'0 = !(lsw2 & ma2_l
-     # lsw3 & ma3_l
-     # n_t_10x & ma3_h
-     # n_t_9x & ma2_h); */
-/* bn1 = 'b'1; */
-addr_match = 'b'0;
+/* n_t_13x = !(lsw2 & ma2_l
+        # lsw3 & ma3_l
+        # n_t_10x & ma3_h
+        # n_t_9x & ma2_h); */
+/* n_t_10x = !n_t_13x; */
+addr_match = n_t_13x;
 
 /* e4: sn7453 */
 /* n_t_3x = !(data_add_2 & data_add
@@ -353,12 +283,12 @@ carry_out_2 = gdollar_0 & ps_2
             # ps_left_2 & gdollar_0;
 
 /* e6: sn7453 */
-/* 'b'0 = !(adder2 & rot_right
-     # adder4 & rot_left
-     # lsw & n_t_10x
-     # no_rot & adder3); */
-/* am2 = 'b'1; */
-reg_bus3 = 'b'0;
+/* n_t_13x = !(adder2 & rot_right
+        # adder4 & rot_left
+        # lsw & n_t_10x
+        # no_rot & adder3); */
+/* n_t_10x = !n_t_13x; */
+reg_bus3 = n_t_13x;
 
 /* e7: sn7453 */
 /* n_t_6x = !(enable_mq & mq2
@@ -369,16 +299,16 @@ reg_bus3 = 'b'0;
 ps_left_2 = n_t_6x;
 
 /* e8: sn7474 */
-ac3_h.ar = 'b'1;
-ac3_h.d = ac_enabl;
+ac3_h.ar = !n_t_36x;
+ac3_h.d = reg_bus3;
 ac3_h.ck = load_ac;
-ac3_h.ap = !mq_enabl;
+ac3_h.ap = !n3v3;
 ac3_l = !ac3_h;
-ac2_h.ar = !reg_bus3;
-ac2_h.d = ac2_h;
+ac2_h.ar = !n_t_8x;
+ac2_h.d = reg_bus2;
 ac2_h.ck = load_ac;
-ac2_h.ap = 'b'0;
-reg_bus2 = !ac2_h;
+ac2_h.ap = !n3v3;
+ac2_l = !ac2_h;
 
 /* e9: sn7400 */
 n_t_19x = !ps_2;
@@ -394,15 +324,15 @@ n_t_9x = !lsw2;
 
 /* e11: sn7474 */
 mb3_h.ar = !mb2_h;
-mb3_h.d = mb2_h;
+mb3_h.d = reg_bus3;
 mb3_h.ck = load_mb;
 mb3_h.ap = !mb2_h;
 mb3_l = !mb3_h;
-mb2_h.ar = !reg_bus3;
-mb2_h.d = mb2_l;
+mb2_h.ar = !mb2_l;
+mb2_h.d = reg_bus2;
 mb2_h.ck = load_mb;
 mb2_h.ap = !mb2_l;
-reg_bus2 = !mb2_h;
+mb2_l = !mb2_h;
 
 /* e12: sn7453 */
 /* n_t_4x = !(ac3_l & ps_3
@@ -420,12 +350,12 @@ carry_ok_l = n_t_4x;
 
 /* e14: sn7474 */
 pc3_h.ar = !sr_enabl;
-pc3_h.d = sc2;
+pc3_h.d = reg_bus3;
 pc3_h.ck = load_pc;
 pc3_h.ap = !data2;
 pc3_l = !pc3_h;
-pc2_h.ar = !reg_bus3;
-pc2_h.d = n_t_7x;
+pc2_h.ar = !sr2;
+pc2_h.d = reg_bus2;
 pc2_h.ck = load_pc;
 pc2_h.ap = !io_enabl;
 pc2_l = !pc2_h;
@@ -448,15 +378,15 @@ ps_left_3 = n_t_1x;
 
 /* e17: sn7474 */
 ma3_h.ar = !ma_enabl;
-ma3_h.d = pc2_h;
+ma3_h.d = reg_bus3;
 ma3_h.ck = load_ma;
 ma3_h.ap = !mem2;
 ma3_l = !ma3_h;
-ma2_h.ar = !reg_bus3;
-ma2_h.d = n_t_60x;
+ma2_h.ar = !ma2_h;
+ma2_h.d = reg_bus2;
 ma2_h.ck = load_ma;
 ma2_h.ap = !da_enabl;
-reg_bus2 = !ma2_h;
+ma2_l = !ma2_h;
 
 /* e18: sn74h00 */
 ac_3 = !ac3_l;
@@ -515,34 +445,20 @@ mb_2_l = !mb2_h;
 /* r14: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= 'b'0};
-!'b'0 = (rot_right & adder1
-     # rot_left & adder3
-     # no_rot & adder2
-     # n_t_9x & lsw)
-     # (lsw2 & ma2_l
-     # lsw3 & ma3_l
-     # n_t_10x & ma3_h
-     # n_t_9x & ma2_h)
-     # (adder2 & rot_right
-     # adder4 & rot_left
-     # lsw & n_t_10x
-     # no_rot & adder3);
-'b'0.oe = (rot_right & adder1
-     # rot_left & adder3
-     # no_rot & adder2
-     # n_t_9x & lsw)
-     # (lsw2 & ma2_l
-     # lsw3 & ma3_l
-     # n_t_10x & ma3_h
-     # n_t_9x & ma2_h)
-     # (adder2 & rot_right
-     # adder4 & rot_left
-     # lsw & n_t_10x
-     # no_rot & adder3);
-!am2 = 'b'0;
-!bn1 = 'b'0;
-!mb3_l = 'b'0;
+!n_t_10x = (n_t_13x)
+           # (n_t_13x);
+!n_t_11x = (rot_right & adder1
+        # rot_left & adder3
+        # no_rot & adder2
+        # n_t_9x & lsw);
+!n_t_13x = (lsw2 & ma2_l
+        # lsw3 & ma3_l
+        # n_t_10x & ma3_h
+        # n_t_9x & ma2_h)
+        # (adder2 & rot_right
+        # adder4 & rot_left
+        # lsw & n_t_10x
+        # no_rot & adder3);
 !n_t_1x = (enable_bcl & mb3_l & ac3_h)
           # (enable_bse & ac3_l & mb3_h)
        # (enable_mq & mq3
@@ -591,3 +507,4 @@ property atmel {open_collector= 'b'0};
        # rs_msc3
        # rsw3 & enable_rsw
        # enable_pc & pc3_h);
+!n_t_9x = n_t_11x;

@@ -3,7 +3,7 @@
 
 Name     M102X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -56,7 +56,6 @@ node f2;
 node l2;
 node n2;
 node n_t_2x;
-node n_t_31x;
 node n_t_9x;
 $ENDIF
 
@@ -93,9 +92,9 @@ f1 = !(v2 & n_t_23x & n3v3 & n3v3);
 e1 = !(f1 & n3v3 & n3v3 & n3v3);
 
 /* e4: sn7400 */
-n_t_31x = !(n_t_8x & u2);
-n_t_9x = !(c1 & s2);
-n1 = !(n_t_15x & n_t_10x);
+n_t_9x = !(n_t_8x & u2);
+n1 = !(n_t_15x & m1);
+k1 = !(j1 & n_t_10x);
 n_t_2x = !n_t_9x;
 
 /* r1: r_us_ */

@@ -28,10 +28,11 @@ warning: making u$2/double/ a connector
 warning: non-bypass capacitor deleted: c24
 warning: non-bypass capacitor deleted: c25
 ~/Verilog/bin/smaller.pl M706D.PLD >vv || (rm vv; exit 1)
-12 signals were removed:
+13 signals were removed:
   enable_l: !spike
   in_last_l: !in_last
   n_t_13x: !n_t_42x
+  n_t_22x: !buffer_strobe
   n_t_32x: !n_t_29x
   n_t_34x: !n_t_1x
   n_t_38x: !n_t_39x
@@ -42,8 +43,9 @@ warning: non-bypass capacitor deleted: c25
   n_t_64x: !n_t_7x
   n_t_76x: !n_t_5x
 ~/Verilog/bin/smaller.pl vv >M706DX.PLD || (rm M706DX.PLD; exit 1)
-1 signals were removed:
+2 signals were removed:
   n_t_1x: n_t_9x
+  n_t_39x: !serial_l
 ~/Verilog/bin/cupl2v.pl M706DX.PLD >vv || (rm vv; exit 1)
 mv vv M706D.v
 rm M706DX.PLD

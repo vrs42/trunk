@@ -45,24 +45,24 @@ output n_t_13x;
 inout reg n_t_14x;
 input n_t_15x;
 input n_t_16x;
-inout reg n_t_17x;
+input n_t_17x;
 output n_t_18x;
 inout reg n_t_19x;
 output n_t_1x;
 input n_t_20x;
 input n_t_21x;
-input n_t_22x;
+inout n_t_22x;
 input n_t_23x;
-output n_t_24x;
+inout reg n_t_24x;
 inout reg n_t_25x;
 input n_t_26x;
 input n_t_27x;
 input n_t_28x;
 input n_t_29x;
 output n_t_2x;
-inout n_t_30x;
+input n_t_30x;
 inout reg n_t_31x;
-inout n_t_32x;
+output n_t_32x;
 output n_t_3x;
 inout reg n_t_4x;
 input n_t_5x;
@@ -74,14 +74,18 @@ output skip_l;
 output tp3;
 
 reg n_t_14x_m;
-reg n_t_17x_m;
 reg n_t_19x_m;
+reg n_t_24x_m;
 reg n_t_25x_m;
 reg n_t_31x_m;
 reg n_t_4x_m;
 
+wire f2;
+wire h1;
+wire m1;
+wire md03h;
 wire md04h;
-wire n_t_34x;
+wire out;
 wire s1;
 always @(n_t_7x, n_t_8x, n_t_6x, n_t_5x)
   if (~n_t_8x) begin
@@ -124,7 +128,6 @@ always @(n_t_22x, n_t_21x, n_t_23x, n_t_25x_m)
   if (n_t_22x) begin
     n_t_25x <= n_t_25x_m;
   end
-assign n_t_24x = ~n_t_25x;
 // e2: sn7474 
 always @(n_t_10x, n_t_9x, n_t_12x, n_t_11x)
   if (~n_t_9x) begin
@@ -190,27 +193,27 @@ always @(n_t_16x, n_t_15x, n_t_20x, n_t_19x_m)
     n_t_19x <= n_t_19x_m;
   end
 assign n_t_18x = ~n_t_19x;
-always @(n_t_34x, n_t_32x, 1'b0)
-  if (~n_t_34x) begin
-    n_t_17x_m <= 1'b0;
+always @(n_t_23x, n_t_21x, 1'b0)
+  if (~n_t_23x) begin
+    n_t_24x_m <= 1'b0;
   end else
-  if (~n_t_32x) begin
-    n_t_17x_m <= 1'b1;
+  if (~n_t_21x) begin
+    n_t_24x_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    n_t_17x_m <= 1'b0;
+    n_t_24x_m <= 1'b0;
   end
-always @(n_t_34x, n_t_32x, n_t_17x_m)
-  if (~n_t_34x) begin
-    n_t_17x <= 1'b0;
+always @(n_t_23x, n_t_21x, n_t_24x_m)
+  if (~n_t_23x) begin
+    n_t_24x <= 1'b0;
   end else
-  if (~n_t_32x) begin
-    n_t_17x <= 1'b1;
+  if (~n_t_21x) begin
+    n_t_24x <= 1'b1;
   end else
   if (1'b0) begin
-    n_t_17x <= n_t_17x_m;
+    n_t_24x <= n_t_24x_m;
   end
-assign n_t_30x = ~n_t_17x;
+assign n_t_22x = ~n_t_24x;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

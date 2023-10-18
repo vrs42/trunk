@@ -44,47 +44,41 @@
 // c39: c_us 
 // c40: c_us 
 // e3: sn7402 
-module m869d (a00_l, cc_sdrc_l, cc_sdrd_l, cf1, clk, clock, dad_or_dst_l, data_enab, io_pause_l, mtr3_l, n3v3, n_t_131x, n_t_138x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_40x, n_t_41x, n_t_42x, n_t_51x, n_t_71x, preset, rom_11_l, rom_15_l, rx_clk_l, rx_data, sr08, sr09, z_pulse, ac2_8_0, ac4_11_0, ac_0, ac_to_bus_l, b_dixy_l, bb1, bit10, bit11, bk_cycle_l, bl2, brk_in_prog_l, btp3, c0_l, c1_l, chan_l, clear, col_red_l, color, color_l, con_all_halt, cpma_dis_l, cpma_disable_l, d_l, data00_l, data04_l, data05_l, data06_l, data07_l, data08, data08_l, data09_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, del_1_l, df_enable, dile_l, dire_l, ema0_l, ema1_l, ema2_l, erase_l, f_l, f_not_r, f_set_l, grn_delay, gtf_or_ind, ind1_l, ind2_l, initialize, int_in_prog, int_rqst_l, int_strobe, intens, internal_io_l, interrupt_l, io19, io21, io22, io23, io24, io25, io26, io27, io28, io29, io30, io31, io32, io33, io34, io35, io36, io37, io38, io39, io40, io42, io59, io70, ir00_l, ir01_l, ir0_l, ir1_l, key_ctl_l, la_enable_l, last_step_l, ld_del_l, link_l, load_addr, load_cont_l, load_en_l, load_x, load_y, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_load_cont_l, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, md_dir_l, modeb, motor_stopping_l, mq0_l, mq_load, msir_dis_l, mtr4_l, n15v, n3v, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_27x, n_t_28x, n_t_29x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_3x, n_t_43x, n_t_45x, n_t_47x, n_t_48x, n_t_49x, n_t_4x, n_t_57x, n_t_5x, n_t_61x, n_t_6x, n_t_72x, n_t_7x, n_t_8x, n_t_9x, nd0, nd1, nd2, non_store_l, p4_pclr, p4_pclr_l, pause_l, pls, power_ok, preset_l, rd00, rd01, rd02, rdata_to_bus, red_delay, restart, rmt, rom_12_l, rom_14_l, rom_17_l, rom_24_l, rtf, rtt_l, run_l, rx_div4_l, s_not_g, sel_echo, set_done, set_done_l, sgt_l, skip_l, t_m_enable, tck, tck2, tdo, tdo2, tms, tms2, tp1, tp2, tp2_d, tp3, tp4, tp_aa1, tp_ab1, ts1_l, ts2, ts3_l, ts4, ts4_l, ts_disable_l, unith, user_mode_l, wd_enab, wpt, write_thru_l, wrt_echo, xmit_active_l);
+module m869d (a00_l, cc_sdrc_l, cc_sdrd_l, iot67, mtr3_l, n3v3, n_t_15x, n_t_30x, n_t_31x, n_t_33x, n_t_37x, n_t_39x, n_t_40x, n_t_41x, n_t_42x, regbus00, rx_active_l, sr08, sr09, z_pulse, a1, ad2, ae2, af2, ak2, al2, am2, an2, ap2, b_dixy_l, bb1, bit10, bit11, bk_cycle_l, brk_in_prog_l, btp3, c0_l, c1_l, chan_l, clear, col_red_l, color, color_l, con_all_halt, cpma_dis_l, data00_l, data04_l, data05_l, data06_l, data07_l, data08, data08_l, data09_l, data10_l, data11_l, data1_l, data2_l, data3_l, del_1_l, dile_l, dire_l, ema0_l, ema1_l, ema2_l, erase_l, f_not_r, grn_delay, initialize, int_strobe, intens, internal_io_l, interrupt_l, ld_del_l, load_en_l, load_x, load_y, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_load_cont_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, md_dir_l, motor_stopping_l, msir_dis_l, mtr4_l, n15v, n3v, n_t_10x, n_t_110x, n_t_136x, n_t_13x, n_t_14x, n_t_16x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_27x, n_t_28x, n_t_29x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_43x, n_t_45x, n_t_47x, n_t_48x, n_t_49x, n_t_4x, n_t_57x, n_t_5x, n_t_61x, n_t_6x, n_t_72x, n_t_75x, n_t_7x, n_t_8x, n_t_9x, nd0, nd1, nd2, non_store_l, pause_l, pls, rd00, rd01, rd02, rdata_to_bus, red_delay, rmt, rtt_l, s_not_g, sel_echo, set_done, set_done_l, skip_l, t_m_enable, tp1, tp2, tp3, tp4, ts2, ts3_l, ts4, unith, wd_enab, wpt, write_thru_l, wrt_echo, xmit_active_l);
 output a00_l;
-input cc_sdrc_l;
-output cc_sdrd_l;
-output cf1;
-output clk;
-output clock;
-output dad_or_dst_l;
-output data_enab;
-output io_pause_l;
+output cc_sdrc_l;
+input cc_sdrd_l;
+output iot67;
 output mtr3_l;
-inout n3v3;
-output n_t_131x;
-output n_t_138x;
+output n3v3;
+input n_t_15x;
 output n_t_30x;
 output n_t_31x;
-output n_t_32x;
 output n_t_33x;
+output n_t_37x;
+output n_t_39x;
 output n_t_40x;
 output n_t_41x;
 output n_t_42x;
-output n_t_51x;
-output n_t_71x;
-output preset;
-output rom_11_l;
-output rom_15_l;
-input rx_clk_l;
-output rx_data;
+output regbus00;
+output rx_active_l;
 output sr08;
 output sr09;
 input z_pulse;
-output ac2_8_0;
-output ac4_11_0;
-output ac_0;
-output ac_to_bus_l;
-input b_dixy_l;
+output a1;
+output ad2;
+output ae2;
+output af2;
+output ak2;
+output al2;
+output am2;
+output an2;
+output ap2;
+inout b_dixy_l;
 output bb1;
-input bit10;
-input bit11;
+inout bit10;
+inout bit11;
 output bk_cycle_l;
-output bl2;
 output brk_in_prog_l;
 inout btp3;
 output c0_l;
@@ -96,84 +90,35 @@ inout reg color;
 inout color_l;
 output con_all_halt;
 output cpma_dis_l;
-output cpma_disable_l;
-output d_l;
 output data00_l;
 output data04_l;
 output data05_l;
-output data06_l;
+inout data06_l;
 inout data07_l;
 output data08;
-output data08_l;
+input data08_l;
 inout data09_l;
-output data0_l;
-output data10_l;
+inout data10_l;
 inout data11_l;
 output data1_l;
 output data2_l;
 output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
 input del_1_l;
-output df_enable;
 inout dile_l;
 inout dire_l;
 output ema0_l;
 output ema1_l;
 output ema2_l;
 output erase_l;
-output f_l;
 output f_not_r;
-output f_set_l;
-output grn_delay;
-output gtf_or_ind;
-output ind1_l;
-output ind2_l;
-output initialize;
-output int_in_prog;
-output int_rqst_l;
+input grn_delay;
+input initialize;
 output int_strobe;
 output intens;
 output internal_io_l;
 output interrupt_l;
-output io19;
-output io21;
-output io22;
-output io23;
-output io24;
-output io25;
-output io26;
-output io27;
-output io28;
-output io29;
-output io30;
-output io31;
-output io32;
-output io33;
-output io34;
-output io35;
-output io36;
-output io37;
-output io38;
-output io39;
-output io40;
-output io42;
-output io59;
-output io70;
-output ir00_l;
-output ir01_l;
-output ir0_l;
-output ir1_l;
-output key_ctl_l;
-output la_enable_l;
-output last_step_l;
 input ld_del_l;
-output link_l;
-output load_addr;
-output load_cont_l;
-input load_en_l;
+inout load_en_l;
 output load_x;
 output load_y;
 output ma0_l;
@@ -189,68 +134,55 @@ output ma7_l;
 output ma8_l;
 output ma9_l;
 output mams_load_cont_l;
-output md00_l;
-output md01_l;
-output md02_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
 output md0_l;
 input md10_l;
-output md11_l;
+input md11_l;
 output md1_l;
 output md2_l;
 input md3_l;
-output md4_l;
-output md5_l;
+input md4_l;
+input md5_l;
 input md6_l;
 input md7_l;
 input md8_l;
 input md9_l;
 output md_dir_l;
-output modeb;
 output motor_stopping_l;
-output mq0_l;
-output mq_load;
 output msir_dis_l;
 output mtr4_l;
 output n15v;
 inout n3v;
-inout n_t_11x;
-input n_t_12x;
-input n_t_13x;
+inout n_t_10x;
+output n_t_110x;
+output n_t_136x;
+inout n_t_13x;
 output n_t_14x;
-input n_t_15x;
 inout n_t_16x;
 inout reg n_t_1x;
 inout n_t_20x;
 inout n_t_21x;
-input n_t_22x;
-input n_t_23x;
-input n_t_24x;
+inout n_t_22x;
+inout n_t_23x;
+inout n_t_24x;
 output n_t_27x;
 output n_t_28x;
 output n_t_29x;
-inout n_t_34x;
+output n_t_32x;
+output n_t_34x;
 input n_t_35x;
 output n_t_36x;
-output n_t_37x;
-input n_t_3x;
 output n_t_43x;
 output n_t_45x;
 output n_t_47x;
 output n_t_48x;
 output n_t_49x;
-input n_t_4x;
+inout n_t_4x;
 output n_t_57x;
-input n_t_5x;
+inout n_t_5x;
 output n_t_61x;
 inout n_t_6x;
 output n_t_72x;
+output n_t_75x;
 inout n_t_7x;
 inout n_t_8x;
 output n_t_9x;
@@ -258,55 +190,29 @@ output nd0;
 output nd1;
 output nd2;
 output non_store_l;
-output p4_pclr;
-output p4_pclr_l;
 input pause_l;
 output pls;
-output power_ok;
-output preset_l;
 output rd00;
 output rd01;
 output rd02;
 output rdata_to_bus;
-output red_delay;
-output restart;
+input red_delay;
 output rmt;
-output rom_12_l;
-output rom_14_l;
-output rom_17_l;
-output rom_24_l;
-output rtf;
 output rtt_l;
-output run_l;
-output rx_div4_l;
 output s_not_g;
 output sel_echo;
-output set_done;
+input set_done;
 input set_done_l;
-output sgt_l;
 output skip_l;
 output t_m_enable;
-output tck;
-output tck2;
-output tdo;
-output tdo2;
-output tms;
-output tms2;
 output tp1;
 output tp2;
-output tp2_d;
 input tp3;
 output tp4;
-output tp_aa1;
-output tp_ab1;
-output ts1_l;
 output ts2;
 output ts3_l;
 output ts4;
-output ts4_l;
-output ts_disable_l;
 output unith;
-output user_mode_l;
 output wd_enab;
 output wpt;
 output write_thru_l;
@@ -318,7 +224,7 @@ reg color_m;
 reg erase_m;
 reg int_en_m;
 reg n_t_1x_m;
-reg n_t_73x_m;
+reg n_t_80x_m;
 reg store_m;
 reg write_thru_m;
 
@@ -327,102 +233,73 @@ reg store;
 reg erase;
 reg chan;
 reg int_en;
-reg n_t_73x;
-wire a3;
-wire ac2_h;
-wire ac3_h;
-wire ac3_l;
-wire ad03_l;
-wire af1w;
-wire ak2;
-wire al2w;
-wire am2w;
-wire an1w;
-wire ap1w;
-wire av1w;
-wire b2;
+reg n_t_80x;
+wire ac01;
+wire ac03;
+wire ac2bus_l;
 wire b_dicd_l;
 wire b_load_en_l;
-wire bc1;
-wire bd2;
 wire bd2400;
 wire bd300;
-wire be2;
-wire bf1;
-wire bf2;
+wire bd600;
 wire bm2;
-wire bms_dis;
-wire btp3_l;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
-wire cc_67x;
-wire cc_67x_l;
 wire cc_clk_te_l;
 wire cc_dtp;
-wire cc_dtp0_l;
-wire cc_dtp1_l;
+wire cc_dtp0;
 wire cc_init_l;
+wire cc_run_l;
 wire cc_sdlc_l;
-wire cc_setdly_l;
-wire cc_t_m_en;
+wire cc_sdld_l;
+wire cc_tpg1;
+wire cc_tpg_clk;
 wire cc_tt_en;
 wire cl_done_l;
 wire clear_done_l;
-wire clr_dsk_ad_l;
-wire data01;
 wire data03_l;
-wire data3;
+wire data09;
+wire data10;
 wire df_db00;
 wire df_db01;
 wire df_db03;
-wire df_time_er_l;
 wire dicd_l;
 wire dicl_l;
 wire dilx_l;
 wire dily_l;
 wire disd_l;
-wire div349;
 wire dixy_l;
 wire dly_done_l;
 wire evn;
 wire framing_err;
-wire io3;
+wire i04;
+wire int_in_prog_l;
+wire io_pause_l;
 wire iot;
 wire last_unit;
+wire last_unit_l;
 wire ld_en_reg;
 wire load_data_l;
-wire ma2_h;
-wire ma3_h;
-wire mb2_l;
+wire ma04_l;
 wire md07;
 wire md08;
+wire md10p;
 wire md11p;
+wire mq01_l;
 wire mtr1_l;
+wire n_t_100x;
 wire n_t_101x;
 wire n_t_102x;
+wire n_t_107x;
 wire n_t_109x;
 wire n_t_112x;
-wire n_t_115x;
-wire n_t_116x;
-wire n_t_117x;
-wire n_t_118x;
-wire n_t_119x;
-wire n_t_134x;
-wire n_t_141x;
+wire n_t_11x;
+wire n_t_12x;
+wire n_t_130x;
 wire n_t_154x;
-wire n_t_159x;
 wire n_t_19x;
-wire n_t_218x;
-wire n_t_219x;
-wire n_t_243x;
-wire n_t_247x;
-wire n_t_250x;
 wire n_t_25x;
 wire n_t_26x;
-wire n_t_2x;
-wire n_t_303x;
+wire n_t_3x;
+wire n_t_51x;
 wire n_t_52x;
 wire n_t_53x;
 wire n_t_54x;
@@ -435,15 +312,13 @@ wire n_t_62x;
 wire n_t_64x;
 wire n_t_65x;
 wire n_t_66x;
-wire n_t_67x;
 wire n_t_68x;
 wire n_t_69x;
 wire n_t_70x;
+wire n_t_73x;
 wire n_t_74x;
 wire n_t_76x;
-wire n_t_77x;
 wire n_t_82x;
-wire n_t_83x;
 wire n_t_84x;
 wire n_t_89x;
 wire n_t_90x;
@@ -463,28 +338,27 @@ wire p3_bm5;
 wire p3_bm6;
 wire p3_bm7;
 wire p3_bm8;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
+wire p3_bpause;
+wire p3_e2cfrom_l;
+wire p3_hos_l;
+wire p6_eem;
+wire pagez;
 wire power_ok_l;
-wire rd4_l;
+wire preset_l;
 wire rd5;
+wire rd7_l;
+wire rd8_l;
+wire rd9_l;
 wire regbus01;
 wire reset_dav_l;
-wire rx_active;
 wire rx_clk;
+wire rx_clr_l;
 wire rx_data_av;
-wire sc3;
 wire serial_in;
 wire serial_out;
-wire sr01;
 wire sr05;
 wire sr06;
 wire sr07;
-wire start_add_l;
-wire sync;
-wire sync_l;
-wire tpg0;
 wire tsb;
 wire tsk_l;
 wire tx_buf_empty;
@@ -494,12 +368,14 @@ wire xr;
 wire zone1;
 wire zone4;
 wire zone5;
-assign red_delay = ~(dly_done_l
-                      | n_t_89x);
-assign n_t_26x = ~(rx_active
-                    | n_t_34x);
-assign set_done = ~(clear_done_l
-                     | clear);
+assign dly_done_l = ~(red_delay
+                       | grn_delay);
+assign n_t_26x = ~(clear
+                    | set_done);
+assign n_t_34x = ~(grn_delay
+                    | red_delay);
+assign clear_done_l = ~(n_t_35x
+                         | erase);
 // e5: sn7474 
 always @(ld_en_reg, clear, n3v, n_t_13x)
   if (clear) begin
@@ -562,7 +438,6 @@ always @(ld_en_reg, n_t_26x, n3v, erase_m)
   if (ld_en_reg) begin
     erase <= erase_m;
   end
-assign n_t_41x = ~erase;
 always @(ld_en_reg, clear, n3v, n_t_11x)
   if (clear) begin
     color_m <= 1'b0;
@@ -592,12 +467,12 @@ assign color_l = ~color;
 // data09_l = !(color & !dire_l); 
 // data06_l = !(!dire_l & write_thru); 
 // e9: sp380n 
-assign load_data_l = ~(n_t_22x
-                        | load_data_l);
-assign data08_l = ~(data07_l
-                     | n3v3);
-assign n_t_55x = ~(load_data_l
-                    | n_t_13x);
+assign n_t_24x = ~(data08_l
+                    | load_data_l);
+assign n_t_22x = ~(load_data_l
+                    | data07_l);
+assign n_t_13x = ~(data06_l
+                    | load_data_l);
 assign n_t_11x = ~(load_data_l
                     | data09_l);
 // e10: sn7406 
@@ -607,29 +482,31 @@ assign n_t_11x = ~(load_data_l
 // n_t_43x = !color_l; 
 // non_store_l = store; 
 // e11: sp380n 
-assign n_t_6x = ~(n_t_17x
-                   | n_t_6x);
-assign md5_l = ~(md7_l
-                  | sr07);
-assign df_db01 = ~(n_t_6x
-                    | n_t_12x);
+assign n_t_14x = ~(md5_l
+                    | n_t_6x);
+assign cc_tpg_clk = n_t_6x
+                     | md7_l;
+assign n_t_12x = ~(md4_l
+                    | n_t_6x);
+assign n_t_10x = ~(n_t_6x
+                    | md3_l);
 // e12: sp314n 
 assign iot = ~(n_t_15x
                 | n_t_6x
-                | n_t_17x
+                | ~cc_tpg_clk
                 | n_t_12x
-                | ~chan
+                | n_t_10x
                 | md6_l
                 | md8_l);
 // e13: sp380n 
-assign load_data_l = ~(bit11
-                        | data11_l);
+assign bit10 = ~(data10_l
+                  | load_data_l);
+assign bit11 = ~(data11_l
+                  | load_data_l);
 assign n_t_16x = ~pause_l;
 // e14: sn7404 
 assign n3v = 1'b1;
-assign n_t_17x = ~n_t_17x;
-assign n3v3 = ~tpg0;
-assign btp3 = ~btp3_l;
+assign btp3 = tp3;
 assign n_t_6x = ~n_t_16x;
 assign n3v = 1'b1;
 // e16: n8881n 
@@ -663,6 +540,7 @@ always @(ld_en_reg, clear, n3v, chan_m)
   if (ld_en_reg) begin
     chan <= chan_m;
   end
+assign n_t_10x = ~chan;
 always @(ld_en_reg, clear, n3v, bit11)
   if (clear) begin
     int_en_m <= 1'b0;
@@ -705,52 +583,52 @@ always @(n_t_3x, cl_done_l, n3v, n_t_1x_m)
   if (n_t_3x) begin
     n_t_1x <= n_t_1x_m;
   end
-always @(n_t_66x, n_t_68x, cc_tt_en, cc_sdlc_l)
-  if (~n_t_68x) begin
-    n_t_73x_m <= 1'b0;
+assign cc_dtp0 = ~n_t_1x;
+always @(n_t_68x, cc_sdlc_l, n_t_73x, n_t_66x)
+  if (~cc_sdlc_l) begin
+    n_t_80x_m <= 1'b0;
   end else
-  if (~cc_tt_en) begin
-    n_t_73x_m <= 1'b1;
+  if (~n_t_73x) begin
+    n_t_80x_m <= 1'b1;
   end else
-  if (~(n_t_66x)) begin
-    n_t_73x_m <= cc_sdlc_l;
+  if (~(n_t_68x)) begin
+    n_t_80x_m <= n_t_66x;
   end
-always @(n_t_66x, n_t_68x, cc_tt_en, n_t_73x_m)
-  if (~n_t_68x) begin
-    n_t_73x <= 1'b0;
+always @(n_t_68x, cc_sdlc_l, n_t_73x, n_t_80x_m)
+  if (~cc_sdlc_l) begin
+    n_t_80x <= 1'b0;
   end else
-  if (~cc_tt_en) begin
-    n_t_73x <= 1'b1;
+  if (~n_t_73x) begin
+    n_t_80x <= 1'b1;
   end else
-  if (n_t_66x) begin
-    n_t_73x <= n_t_73x_m;
+  if (n_t_68x) begin
+    n_t_80x <= n_t_80x_m;
   end
+assign cc_tt_en = ~n_t_80x;
 // e20: sn7402 
-assign dile_l = ~(ld_en_reg
-                   | md07);
-assign n_t_67x = ~(md08
-                    | load_en_l);
-assign dily_l = ~(~(n_t_23x
-                     | ~dilx_l));
-assign btp3_l = ~(tp3
-                   | dicl_l);
+assign ld_en_reg = ~(dile_l
+                      | ~tp3);
+assign io_pause_l = ~(md07
+                       | md08);
+assign load_en_l = ~(~dilx_l
+                      | ~dily_l);
+assign n_t_23x = ~(dicl_l
+                    | ~tp3);
 // e21: sn7404 
 assign n_t_7x = ~dixy_l;
 // e22: sn7400 
-assign cc_dtp0_l = ~(btp3 & b_dicd_l);
-assign load_x = ~(b_dixy_l & cc_setdly_l);
-assign load_y = ~(btp3 & n_t_7x);
-assign cc_dtp1_l = ~(btp3 & ~dily_l);
+assign b_dicd_l = ~(btp3 & ~dicd_l);
+assign b_dixy_l = ~(btp3 & n_t_7x);
+assign load_x = ~(~dilx_l & btp3);
+assign load_y = ~(btp3 & ~dily_l);
 // e23: sn74h21 
-assign cc_t_m_en = ~clear & cl_done_l & n_t_3x & b_dicd_l;
-assign n_t_101x = del_1_l & set_done_l & dly_done_l & ld_del_l;
+assign cl_done_l = ~clear & b_load_en_l & b_dixy_l & b_dicd_l;
+assign n_t_3x = del_1_l & set_done_l & dly_done_l & ld_del_l;
 // e24: sp380n 
-assign iot = n_t_20x
-              | ~iot;
-assign md11_l = ~(md10_l
-                   | n_t_243x);
-assign n_t_247x = ~(n_t_23x
-                     | ~clear);
+assign n_t_19x = ~(md11_l
+                    | ~iot);
+assign n_t_20x = ~(~iot
+                    | md10_l);
 assign n_t_21x = ~(md9_l
                     | ~iot);
 // e25: dec8251 
@@ -765,15 +643,14 @@ assign dire_l = ~(iot & n_t_21x & n_t_20x & n_t_19x);
 assign tsk_l = ~(~iot & ~n_t_21x & ~n_t_20x & ~n_t_19x);
 assign 'b'0 = ~(~iot & ~n_t_21x & ~n_t_20x & n_t_19x);
 // e26: sn7400 
-assign n_t_20x = ~(dile_l & n_t_4x);
-assign n_t_2x = ~(n_t_5x & n_t_83x);
-assign b_load_en_l = ~(dile_l & clear_done_l);
-assign cc_67x = ~(n_t_2x & btp3);
+assign n_t_4x = ~(dile_l & dire_l);
+assign n_t_5x = ~(dile_l & load_en_l);
+assign b_load_en_l = ~(~write_thru & btp3);
 // e27: sn7400 
-assign cc_clk_te_l = ~(df_time_er_l & cc_init_l);
-assign cc_sdrd_l = ~(n_t_22x & cc_sdrc_l);
-assign n_t_8x = ~(cc_dtp & n_t_109x);
-assign sync = ~(z_pulse & del_1_l);
+assign cc_sdrc_l = ~(cc_init_l & cc_clk_te_l);
+assign n_t_22x = ~(cc_sdrd_l & cc_sdld_l);
+assign n_t_109x = ~(n_t_101x & cc_dtp);
+assign n_t_8x = ~(z_pulse & del_1_l);
 // e28: sn7416 
 // chan_l = !chan; 
 // n_t_9x = !n_t_8x; 
@@ -807,7 +684,9 @@ assign sync = ~(z_pulse & del_1_l);
 assign c0_l = n_t_4x? ~n_t_4x: 1'bz;
 assign c1_l = ~dire_l? 1'b0: 1'bz;
 assign chan_l = chan? ~chan: 1'bz;
-assign clear = ~()? : 1'bz;
+assign clear = ~(initialize
+                | n_t_23x)? initialize
+                | n_t_23x: 1'bz;
 assign col_red_l = color? ~color: 1'bz;
 assign data00_l = (n_t_1x & ~dire_l)? 1'b0: 1'bz;
 assign data06_l = (~dire_l & write_thru)? 1'b0: 1'bz;

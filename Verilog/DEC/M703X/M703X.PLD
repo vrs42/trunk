@@ -3,7 +3,7 @@
 
 Name     M703X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,7 +16,9 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_10x;
 pin = n_t_6x;
+pin = n_t_7x;
 
 /* Output Pins */
 pin = b1;
@@ -65,7 +67,6 @@ pin = md09_l;
 pin = md10_l;
 pin = md11_l;
 pin = n1;
-pin = n_t_10x;
 pin = n_t_14x;
 pin = n_t_16x;
 pin = n_t_17x;
@@ -73,7 +74,6 @@ pin = n_t_18x;
 pin = n_t_1x;
 pin = n_t_21x;
 pin = n_t_2x;
-pin = n_t_7x;
 pin = p1;
 pin = pwr_low=0;
 pin = pwr_low=1;
@@ -90,88 +90,11 @@ pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node ;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node ba1;
-node bb2;
-node bc1;
-node bd2;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bl1;
-node bl2;
-node bm2;
-node bu2;
-node bv1;
-node bv2;
-node c3;
 node ebot_l;
 node erws_l;
-node f2;
-node light_pen_flag;
-node ma2_h;
-node ma2_l;
-node ma3_h;
-node ma3_l;
-node mb2_l;
-node mb3_h;
-node n_t_102x;
 node n_t_11x;
 node n_t_12x;
+node n_t_13x;
 node n_t_15x;
 node n_t_19x;
 node n_t_20x;
@@ -187,15 +110,11 @@ node n_t_5x;
 node n_t_8x;
 node n_t_9x;
 node out;
-node p2;
-node pc2_h;
-node pc3_h;
-node pc3_l;
-node tck;
-node tdo;
+node t2_l;
 node vpe_l;
+node xrd0_l;
+node xrd1_l;
 node xrd2_l;
-node y_strobe;
 $ENDIF
 
 /* Code nodes */
@@ -230,9 +149,9 @@ $ENDIF
 pwr_skip = !(mb8=0 & mb7=0 & mb6=0 & mb5=1 & mb4=0 & mb3=0 & pwr_low= 1 & iop2;
 
 /* e2: sn7400 */
-initialize = !(shutdown_l & n_t_14x);
+n_t_16x = !(shutdown_l & n_t_14x);
 n_t_14x = !(n_t_2x & n_t_11x);
-n_t_16x = !(n_t_18x & n_t_11x);
+n_t_12x = !(n_t_18x & n_t_11x);
 n_t_11x = !n_t_10x;
 
 /* e3: sn7460 */
@@ -242,21 +161,21 @@ n_t_11x = !n_t_10x;
 /* n_t_28x = !n_t_26x; */
 
 /* e4: sn7400 */
-light_pen_flag = !(shutdown_l & pwr_low= 0;
+pwr_low=1 = !(shutdown_l & pwr_low= 0;
 pwr_low=0 = !(pwr_low= 1 & initialize_l;
 n_t_3x = !n_t_1x;
 n_t_1x = !(stop_ok & pwr_low= 0;
 
 /* e5: sn7400 */
-y_strobe = !n_t_9x;
+stop_ok = !n_t_9x;
 n_t_20x = !(stop_ok & shutdown_l);
 n_t_15x = !(n_t_30x & n_t_29x);
 n_t_29x = !(n_t_19x & n_t_15x);
 
 /* e6: sn7400 */
-n_t_102x = !(n_t_1x & n_t_20x);
+n_t_19x = !(n_t_1x & n_t_20x);
 n_t_18x = !n_t_4x;
-n_t_19x = !n_t_2x;
+restart = !n_t_2x;
 n_t_2x = !n_t_17x;
 
 /* e7: sn7460 */

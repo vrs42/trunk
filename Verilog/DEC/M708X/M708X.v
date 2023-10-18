@@ -15,8 +15,12 @@
 // c8: c_us 
 // c9: c_us 
 // e1: sn7401 
+// io_irq_l = !(flag & irq_enb); 
+// io_skip_l = !(flag_buffer & !n_t_31x); 
+// clr_flag_l = !(!n_t_31x & flag_buffer); 
+// clr_flag_l = !n_t_14x; 
 // e2: sn7474 
-module m708x (, b1, b_bot, b_set, b_stop, ccrce_l, cfmk_l, clear_x, clear_y, clock, clock_enable, clock_iot, clrce_l, clrcs_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, ctur_l, e2, ebot_l, f1, flag, flag_buffer, fmk_l, h2, initialize, interrupt_l, io_irq_l, io_skip_l, iop1, iop1_l, iop2, iop2_l, iop4, iop4_l, irq_enb, j1, light_pen, load_counter, load_x, load_y, m1, mb10, mb10=1, mb11, mb11=1, mb3=0, mb3_l, mb4=0, mb4_l, mb5, mb5=0, mb6=1, mb6_l, mb7, mb7=0, mb7=1, mb8, mb8=0, mb8=1, mb9, mb9=0, mb9_l, mftp0, mfts0_h, n15v, n_t_24x, n_t_35x, n_t_48x, n_t_50x, overflow, power_clear_l, rds_l, rsdwn_l, rtur_l, set_pulse_h, skip_l, tb3_h, v_clamp, xrd0_l, xrd2_l, xrd4_l, xrdp_l, z_axis);
+module m708x (, b1, b_bot, b_set, b_stop, ccrce_l, cfmk_l, clear_x, clear_y, clock, clock_enable, clock_iot, clrce_l, clrcs_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, ctur_l, e2, ebot_l, f1, flag, flag_buffer, fmk_l, h2, initialize, interrupt_l, io_irq_l, io_skip_l, iop1, iop1_l, iop2, iop2_l, iop4, iop4_l, irq_enb, j1, light_pen, load_counter, load_x, load_y, m1, mb10, mb10=1, mb11, mb11=1, mb3=0, mb3_l, mb4=0, mb4_l, mb5, mb5=0, mb6=1, mb6_l, mb7, mb7=0, mb7=1, mb8, mb8=0, mb8=1, mb9, mb9=0, mb9_l, mftp0, mfts0_h, n15v, n_t_24x, n_t_35x, n_t_48x, n_t_50x, overflow, power_clear_l, rds_l, rsdwn_l, rtur_l, set_pulse_h, skip_l, tb3_h, u1, v_clamp, xrd0_l, xrd2_l, xrd4_l, xrdp_l, z_axis);
 output ;
 output b1;
 output b_bot;
@@ -28,7 +32,7 @@ output clear_x;
 output clear_y;
 input clock;
 output clock_enable;
-input clock_iot;
+inout clock_iot;
 output clrce_l;
 output clrcs_l;
 output crcs_l;
@@ -47,7 +51,7 @@ output e2;
 output ebot_l;
 output f1;
 inout reg flag;
-output reg flag_buffer;
+inout reg flag_buffer;
 output fmk_l;
 output h2;
 input initialize;
@@ -60,7 +64,7 @@ inout iop2;
 input iop2_l;
 output iop4;
 input iop4_l;
-output reg irq_enb;
+inout reg irq_enb;
 output j1;
 output light_pen;
 inout load_counter;
@@ -79,13 +83,13 @@ input mb5;
 output mb5=0;
 output mb6=1;
 input mb6_l;
-output mb7;
+input mb7;
 output mb7=0;
 output mb7=1;
-output mb8;
+input mb8;
 output mb8=0;
 output mb8=1;
-output mb9;
+input mb9;
 output mb9=0;
 input mb9_l;
 output mftp0;
@@ -95,7 +99,7 @@ output n_t_24x;
 inout n_t_35x;
 output n_t_48x;
 output n_t_50x;
-output overflow;
+input overflow;
 output power_clear_l;
 output rds_l;
 output rsdwn_l;
@@ -103,6 +107,7 @@ output rtur_l;
 output set_pulse_h;
 output skip_l;
 output tb3_h;
+output u1;
 output v_clamp;
 output xrd0_l;
 output xrd2_l;
@@ -117,144 +122,57 @@ reg n_t_36x_m;
 
 reg n_t_36x;
 wire a1;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
 wire ac06;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
+wire ac07;
 wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire b2;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bit2;
-wire bit4;
 wire bit9;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire buffer_strobe;
-wire bv1;
-wire bv2;
-wire c3;
 wire clr_flag_l;
-wire data3;
-wire f2;
-wire io3;
+wire data1_l;
 wire ioclr_l;
 wire k1;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mb2_l;
-wire mb3_h;
 wire n3v3;
 wire n_t_10x;
 wire n_t_11x;
 wire n_t_12x;
 wire n_t_13x;
-wire n_t_147x;
 wire n_t_14x;
 wire n_t_152x;
 wire n_t_153x;
 wire n_t_15x;
 wire n_t_16x;
-wire n_t_171x;
 wire n_t_18x;
 wire n_t_1x;
 wire n_t_20x;
-wire n_t_26x;
 wire n_t_27x;
 wire n_t_29x;
 wire n_t_2x;
 wire n_t_31x;
-wire n_t_32x;
 wire n_t_34x;
 wire n_t_37x;
+wire n_t_381x;
 wire n_t_38x;
 wire n_t_3x;
 wire n_t_40x;
 wire n_t_4x;
-wire n_t_51x;
 wire n_t_53x;
 wire n_t_55x;
 wire n_t_5x;
 wire n_t_6x;
 wire n_t_86x;
+wire n_t_8x;
 wire n_t_9x;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
-wire sc3;
-wire sr3;
-wire tck;
-wire tdo;
-always @(n_t_32x, n_t_29x, flag)
+always @(n_t_31x, n_t_29x, flag)
   if (~n_t_29x) begin
     flag_buffer_m <= 1'b0;
   end else
-  if (~(n_t_32x)) begin
+  if (~(~n_t_31x)) begin
     flag_buffer_m <= flag;
   end
-always @(n_t_32x, n_t_29x, flag_buffer_m)
+always @(n_t_31x, n_t_29x, flag_buffer_m)
   if (~n_t_29x) begin
     flag_buffer <= 1'b0;
   end else
-  if (n_t_32x) begin
+  if (~n_t_31x) begin
     flag_buffer <= flag_buffer_m;
   end
 always @(clock, clr_flag_l, n_t_40x)
@@ -302,24 +220,24 @@ always @(n_t_14x, n_t_38x, irq_enb_m)
     irq_enb <= irq_enb_m;
   end
 // e4: sn7400 
-assign n_t_5x = ~(mb11 & load_counter);
-assign n_t_38x = ~(n_t_147x & bit4);
+assign n_t_38x = ~(mb11 & load_counter);
+assign n_t_40x = ~(n_t_36x & overflow);
 // e5: sn7400 
-assign n_t_5x = ~(ac06 & ~ar1);
-assign n_t_53x = ~(n_t_171x & bit2);
+assign n_t_53x = ~(ac06 & ~ar1);
+assign n_t_381x = ~(~ar1 & ac07);
 assign iop1 = ~iop1_l;
 assign iop4 = ~iop4_l;
 // e6: sn7430 
+assign clock_iot = ~(~(mb3_l & mb4_l & mb5 & mb6_l & mb7 & mb8));
 // e7: sn7400 
-assign buffer_strobe = ~(clock_iot & iop2);
-assign n_t_29x = ~(n_t_5x & n_t_51x);
+assign n_t_29x = ~(clock_iot & iop2);
 assign iop2 = ~iop2_l;
 assign n_t_34x = ~(mb9_l & mb11);
 // e8: sn7420 
 assign n_t_31x = ~(clock_iot & iop1 & mb10 & mb9_l);
 assign n_t_35x = ~(n_t_34x & clock_iot & iop2);
 // e9: sn7400 
-assign n_t_32x = ~(n_t_153x & n_t_36x);
+assign n_t_37x = ~(load_counter & mb9);
 assign n_t_14x = ~(n_t_35x & initialize);
 assign load_counter = ~n_t_35x;
 // r1: r_us_ 
@@ -329,4 +247,8 @@ assign load_counter = ~n_t_35x;
 // r5: r_us_ 
 // r6: r_us_ 
 // open collector 'wire-or's 
+assign clr_flag_l = ~((~n_t_31x & flag_buffer)
+                       | n_t_14x);
+assign io_irq_l = (flag & irq_enb)? 1'b0: 1'bz;
+assign io_skip_l = (flag_buffer & ~n_t_31x)? 1'b0: 1'bz;
 endmodule

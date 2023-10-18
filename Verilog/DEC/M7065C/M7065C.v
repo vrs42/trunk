@@ -25,15 +25,23 @@
 // c18: c_us 
 // c19: c_us 
 // e1: dec8242 
+// j2 = !(!n_t_2x & !d1
+//   # n_t_2x & d1); 
+// j2 = !(!n_t_3x & !h2
+//   # n_t_3x & h2); 
+// j2 = !(!n_t_1x & !f2
+//   # n_t_1x & f2); 
+// j2 = !(!s1 & !c1
+//   # s1 & c1); 
 // e2: sn7475 
 module m7065c (a1, b1, b2, c0_l, c1, c1_l, d1, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e1, e2, f1, f2, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, j2, k1, k2, l1, l2, m1, m2, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n2, p1, p2, r1, r2, s1, s2, skip_l, t2, tp3, u1, u2, v1, v2);
 output reg a1;
 output reg b1;
 output b2;
 output c0_l;
-output c1;
+input c1;
 output c1_l;
-output d1;
+input d1;
 inout reg d2;
 output data0_l;
 output data10_l;
@@ -48,17 +56,17 @@ output data7_l;
 output data8_l;
 output data9_l;
 input e1;
-output reg e2;
+inout reg e2;
 input f1;
-output f2;
+input f2;
 output h1;
-output h2;
+input h2;
 output initialize;
 output int_rqst_l;
 output internal_io_l;
 output io_pause_l;
 input j1;
-input j2;
+inout j2;
 input k1;
 output k2;
 output l1;
@@ -81,12 +89,12 @@ output reg p2;
 inout r1;
 input r2;
 inout reg s1;
-output s2;
+input s2;
 output skip_l;
-output t2;
+input t2;
 output tp3;
 input u1;
-output u2;
+input u2;
 input v1;
 inout reg v2;
 
@@ -97,7 +105,6 @@ reg e2_m;
 reg m1_m;
 reg n1_m;
 reg n_t_120x_m;
-reg n_t_16x_m;
 reg n_t_19x_m;
 reg n_t_1x_m;
 reg n_t_27x_m;
@@ -119,88 +126,13 @@ reg n_t_29x;
 reg n_t_38x;
 reg n_t_120x;
 reg n_t_37x;
-reg n_t_16x;
 reg n_t_19x;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
-wire data3;
+wire binit_l;
+wire bn1;
 wire enable_l;
+wire feed_switch;
 wire initialize_l;
-wire io3;
-wire iob_in_10;
-wire iob_in_7;
 wire iot_012;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mb2_l;
-wire mb3_h;
 wire n3v3;
 wire n_t_10x;
 wire n_t_11x;
@@ -223,6 +155,7 @@ wire n_t_54x;
 wire n_t_55x;
 wire n_t_62x;
 wire n_t_65x;
+wire n_t_6x;
 wire n_t_70x;
 wire n_t_73x;
 wire n_t_74x;
@@ -232,19 +165,11 @@ wire n_t_8x;
 wire n_t_90x;
 wire n_t_92x;
 wire n_t_9x;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
 wire rd_hole_1;
+wire rd_hole_4;
+wire rd_hole_6;
+wire rd_hole_8;
 wire rdr_flag;
-wire rfc_delayed_l;
-wire sc3;
-wire shift;
-wire skip;
-wire sr3;
-wire tck;
-wire tdo;
-wire y_strobe;
 always @(r1, n_t_2x, r1, n_t_2x, 1'b0)
   if (r1 & ~n_t_2x) begin
     a1_m <= 1'b0;
@@ -305,24 +230,24 @@ always @(r1, n_t_1x, r1, n_t_1x, d2_m)
   if (1'b0) begin
     d2 <= d2_m;
   end
-always @(r1, s1, r1, s1, 1'b0)
-  if (r1 & ~s1) begin
+always @(n_t_76x, n_t_92x, u1)
+  if (~(~n_t_92x)) begin
     e2_m <= 1'b0;
   end else
-  if (r1 & s1) begin
+  if (1'b1) begin
     e2_m <= 1'b1;
   end else
-  if (~(1'b0)) begin
-    e2_m <= 1'b0;
+  if (~(~(~n_t_76x))) begin
+    e2_m <= ~u1;
   end
-always @(r1, s1, r1, s1, e2_m)
-  if (r1 & ~s1) begin
+always @(n_t_76x, n_t_92x, e2_m)
+  if (~(~n_t_92x)) begin
     e2 <= 1'b0;
   end else
-  if (r1 & s1) begin
+  if (1'b1) begin
     e2 <= 1'b1;
   end else
-  if (1'b0) begin
+  if (~(~n_t_76x)) begin
     e2 <= e2_m;
   end
 // e3: dec8271 
@@ -419,17 +344,23 @@ always @(n_t_33x, v2, n_t_29x_m)
   end
 assign l1 = ~n_t_29x;
 // e7: sn7400 
-assign n_t_7x = ~(n_t_19x & n_t_22x);
-assign n_t_21x = ~(n_t_23x & n_t_19x);
-assign n_t_24x = ~(j1 & n_t_24x);
-assign iob_in_10 = ~(k1 & n_t_16x);
+assign n_t_22x = ~(n_t_19x & n_t_18x);
+assign n_t_23x = ~(n_t_15x & n_t_19x);
+assign n_t_21x = ~(j1 & n_t_24x);
+assign n_t_24x = ~(k1 & ~e2);
 // e8: sn7400 
-assign rfc_delayed_l = ~(j2 & n_t_34x);
-assign n_t_33x = ~(n_t_27x & v2);
-assign iot_012 = ~(f1 & e1);
+assign n_t_34x = ~(j2 & n_t_27x);
+assign h1 = ~(n_t_27x & v2);
+assign n_t_33x = ~(r1 & n_t_29x);
 // e9: dec8242 
-// skip = !(!v2 & !r2
-//     # v2 & r2); 
+// j2 = !(!n_t_38x & !u2
+//   # n_t_38x & u2); 
+// j2 = !(!n_t_120x & !t2
+//   # n_t_120x & t2); 
+// j2 = !(!n_t_37x & !s2
+//   # n_t_37x & s2); 
+// j2 = !(!v2 & !r2
+//   # v2 & r2); 
 // e10: sn7475 
 always @(r1, n_t_38x, r1, n_t_38x, 1'b0)
   if (r1 & ~n_t_38x) begin
@@ -570,29 +501,16 @@ always @(n_t_76x, n_t_23x, v2_m)
   end
 // e12: sn7416 
 // !n_t_76x = !n_t_76x; 
-// n_t_16x = n_t_16x; 
+// !e2 = !e2; 
 // !v2 = !v2; 
 // !n_t_19x = !n_t_19x; 
 // r1 = r1; 
 // !n_t_19x = !n_t_19x; 
 // e13: sn7400 
-assign n_t_32x = ~(j2 & n_t_92x);
-assign n_t_76x = ~(n_t_8x & n_t_21x);
+assign n_t_92x = ~(j2 & ~n_t_27x);
+assign bn1 = ~(feed_switch & n_t_34x);
+assign n_t_76x = ~(n2 & n_t_22x);
 // e14: sn7474 
-always @(n_t_76x, n_t_92x, u1)
-  if (~n_t_92x) begin
-    n_t_16x_m <= 1'b0;
-  end else
-  if (~(~n_t_76x)) begin
-    n_t_16x_m <= u1;
-  end
-always @(n_t_76x, n_t_92x, n_t_16x_m)
-  if (~n_t_92x) begin
-    n_t_16x <= 1'b0;
-  end else
-  if (~n_t_76x) begin
-    n_t_16x <= n_t_16x_m;
-  end
 always @(r1, n2, v2, 1'b1)
   if (~n2) begin
     n_t_19x_m <= 1'b0;
@@ -626,7 +544,21 @@ assign enable_l = ~n_t_19x;
 // r10: r_us_ 
 // r11: r_us_ 
 // open collector 'wire-or's 
-assign r1 = ~(~(~(n2 & n_t_22x)))? ~(~(n2 & n_t_22x)): 1'bz;
-assign skip = ~((~v2 & ~r2
-                  | v2 & r2));
+assign j2 = (~n_t_2x & ~d1
+              | n_t_2x & d1)
+             | (~n_t_3x & ~h2
+                | n_t_3x & h2)
+             | (~n_t_1x & ~f2
+                | n_t_1x & f2)
+             | (~s1 & ~c1
+                | s1 & c1)
+             | (~n_t_38x & ~u2
+                | n_t_38x & u2)
+             | (~n_t_120x & ~t2
+                | n_t_120x & t2)
+             | (~n_t_37x & ~s2
+                | n_t_37x & s2)
+             | (~v2 & ~r2
+                | v2 & r2)? 1'b0: 1'bz;
+assign r1 = ~(~(~(e2 & n_t_90x)))? ~(~(e2 & n_t_90x)): 1'bz;
 endmodule

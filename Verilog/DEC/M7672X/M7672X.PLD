@@ -3,7 +3,7 @@
 
 Name     M7672X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,7 +16,6 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = bb2;
 pin = clk_l;
 pin = n3v;
 pin = n_t_13x;
@@ -26,21 +25,15 @@ pin = n_t_17x;
 pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_20x;
+pin = n_t_5x;
 pin = n_t_6x;
 pin = n_t_8x;
+pin = shift_l;
 
 /* Output Pins */
-pin = aa1;
-pin = ab1;
-pin = ab2;
-pin = ac1;
-pin = ad1;
 pin = ad2;
-pin = ae1;
 pin = ae2;
-pin = ae2w;
 pin = af1;
-pin = af1w;
 pin = af2;
 pin = ah1;
 pin = ah2;
@@ -50,15 +43,11 @@ pin = ak1;
 pin = ak2;
 pin = al1;
 pin = al2;
-pin = al2w;
 pin = am1;
 pin = am2;
-pin = am2w;
 pin = an1;
-pin = an1w;
 pin = an2;
 pin = ap1;
-pin = ap1w;
 pin = ap2;
 pin = ar1;
 pin = ar2;
@@ -68,17 +57,11 @@ pin = at2;
 pin = au1;
 pin = au2;
 pin = av1;
-pin = av1w;
 pin = av2;
-pin = av2w;
-pin = b2;
 pin = ba1;
 pin = bb1;
-pin = bc1;
 pin = bd1;
-pin = bd2;
 pin = be1;
-pin = be2;
 pin = bf1;
 pin = bf2;
 pin = bh1;
@@ -103,69 +86,40 @@ pin = bt2;
 pin = bu1;
 pin = bu2;
 pin = bv1;
-pin = bv2;
-pin = c3;
 pin = n15v;
-pin = n_t_100x;
-pin = n_t_104x;
-pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_16x;
 pin = n_t_1x;
-pin = n_t_23x;
 pin = n_t_2x;
-pin = n_t_34x;
-pin = n_t_37x;
-pin = n_t_56x;
-pin = n_t_5x;
-pin = n_t_65x;
 pin = n_t_7x;
 pin = n_t_9x;
-pin = tck;
-pin = tdo;
+node iop2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node a1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ac_enabl_l;
-node adder3;
-node adder5;
-node aj1w;
-node am1w;
-node ar2w;
-node at2w;
-node au2w;
+node b1;
 node b_last_brk;
-node bd115200;
-node bd230400;
-node bd38400;
-node bd57600;
 node bdata2;
-node clockb_l;
+node c1;
+node d1;
+node d2;
 node data_enable;
-node div3;
+node e2;
+node f2;
+node h2;
+node iop1;
 node iop4;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mb2_l;
-node mb3_lp_0_rp;
+node j2;
+node k2;
+node n2_8v;
 node n3v3;
-node n5v;
+node n_t_10x;
+node n_t_39x;
 node n_t_3x;
-node n_t_42x;
 node n_t_4x;
 node n_t_55x;
-node pc2_h;
-node pc3_h;
-node pc3_l;
-node tp_l;
-node tp_n;
 $ENDIF
 
 /* Code nodes */
@@ -233,18 +187,18 @@ au1 = !av1;
 bf2 = !ba1;
 
 /* e5: sn7420 */
-n_t_9x = !(n_t_12x & bu1 & n_t_16x & n_t_10x);
-n_t_42x = !(n_t_12x & n_t_4x & n3v);
+n_t_12x = !(bu1 & bf2 & bh2 & bj2);
+n_t_16x = !(n_t_10x & n_t_9x & n_t_4x & n3v);
 
 /* e6: sn7486 */
-bp2 = n_t_4x
-    $ bs2;
-n3v = bl2
-    $ n_t_3x;
-br2 = br1
-    $ n_t_10x;
-bu2 = bt2
-    $ n_t_9x;
+n_t_4x = bs2
+       $ bp2;
+bl2 = n_t_3x
+    $ n3v;
+n_t_10x = br2
+        $ br1;
+n_t_9x = bu2
+       $ bt2;
 
 /* e8: sn7475 */
 bm2.ap = bs1 & bt2;
@@ -259,22 +213,22 @@ bp1.ap = bs1 & br2;
 bp1.ar = bs1 & !br2;
 bp1.ck = 'b'0;
 bp1.d = 'b'0;
-n_t_8x.ap = bs1 & n3v;
-n_t_8x.ar = bs1 & !n3v;
-n_t_8x.ck = 'b'0;
-n_t_8x.d = 'b'0;
+iop2.ap = bs1 & n3v;
+iop2.ar = bs1 & !n3v;
+iop2.ck = 'b'0;
+iop2.d = 'b'0;
 bu2 = !bm2;
 bp2 = !bn2;
 br1 = !bp1;
-clockb_l = !n_t_8x;
+n_t_7x = !iop2;
 
 /* ic1: sn7404 */
-div3 = !bd230400;
-bd57600 = !bd115200;
-ac2_h = !bd38400;
-ac_enabl_l = !aj1;
-tp_l = !tp_n;
-'b'0 = !n_t_11x;
+h2 = !j2;
+d2 = !k2;
+f2 = !e2;
+n_t_11x = !aj1;
+d1 = !c1;
+b1 = !a1;
 
 /* r1: r_us_ */
 

@@ -53,6 +53,7 @@ wire n_t_24x;
 wire n_t_26x;
 wire n_t_28x;
 wire n_t_29x;
+wire n_t_32x;
 wire n_t_4x;
 wire n_t_8x;
 assign c1 = (a1 & b1);
@@ -65,6 +66,7 @@ assign s1 = (p1 & r1);
 assign v2 = (u2 & t2);
 assign s2 = (r2 & p2);
 // e3: sn7408 
+assign n_t_32x = (u2 & n_t_12x);
 assign k1 = (h1 & j1);
 assign n2 = (m2 & l2);
 assign 'b'0 = (n_t_29x & n_t_8x);

@@ -11,41 +11,40 @@ info: d664 ne diode_do35_10
 warning: making d1/d664/ a connector
 info: d664 ne diode_do35_10
 warning: making d2/d664/ a connector
-info: 74123n ne dil14
+info: 74123n ne dil16
 warning: making e1/sn74123/ a connector
 info: 7406n ne dil14
 info: sp380n ne dil14
 info: sp314n ne dil14
 info: sp380n ne dil14
 info: 7404n ne dil14
-info: 9601 ne 23_021
+info: 9601 ne dil14
 warning: making e15/9601/ a connector
 info: n8881n ne dil14
 info: n8881n ne dil14
-info: 74123n ne dil14
+info: 74123n ne dil16
 warning: making e2/sn74123/ a connector
 info: 7402n ne dil14
 info: 7404n ne dil14
 info: 7400n ne dil14
 info: 74h21n ne 7421n
 info: sp380n ne dil14
-info: dec8251 ne 23_021
+info: dec8251 ne dil16
 info: 7400n ne dil14
 info: 7400n ne dil14
 info: 7416n ne dil14
 info: 7402n ne dil14
-info: 9601 ne 23_021
+info: 9601 ne dil14
 warning: making e4/9601/ a connector
 info: n8881n ne dil14
 info: n8881n ne dil14
 info: sp380n ne dil14
-info: edge_top ne 23_021
+info: edge_top ne edge_con2
 warning: making f/edge_top/ a connector
-info: edge_top ne 23_021
+info: edge_top ne edge_con2
 warning: making h/edge_top/ a connector
-info: 1_480459_0 ne 23_021
 warning: making j1/1_480459_0/ a connector
-info: quad ne 23_021
+info: quad ne edge_con8
 warning: making omnibus/quad/ a connector
 info: 2n3009 ne _npn_to18_
 warning: making q1/2n3009/ a connector
@@ -71,13 +70,15 @@ warning: non-bypass capacitor deleted: c37
 warning: non-bypass capacitor deleted: c38
 warning: non-bypass capacitor deleted: c39
 warning: non-bypass capacitor deleted: c40
-unexpected OC output: n3v at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2016.
-unexpected OC output: preset_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2016.
-unexpected OC output: n3v3 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2040.
-unexpected OC output: mtr1_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2077.
+unexpected OC output: n3v at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1589.
+unexpected OC output: preset_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1589.
+unexpected OC output: n3v3 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1613.
+unexpected OC output: mtr1_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1646.
 warning: non-pullup resistor deleted: r14
 ~/Verilog/bin/smaller.pl M869D.PLD >vv || (rm vv; exit 1)
-15 signals were removed:
+14 signals were removed:
+  btp3_l: !tp3
+  cc_tpg1_l: !cc_tpg1
   clear_l: !clear
   dicd: !dicd_l
   dilx: !dilx_l
@@ -85,17 +86,13 @@ warning: non-pullup resistor deleted: r14
   dire: !dire_l
   disd: !disd_l
   iot_l: !iot
-  n_t_100x: !n_t_1x
-  n_t_10x: !chan
-  n_t_147x: !write_thru
-  n_t_17x: !n_t_17x
+  n_t_125x: !erase
+  n_t_17x: !cc_tpg_clk
   n_t_18x: !clear
-  n_t_80x: !n_t_73x
-  n_t_85x: !btp3_l
+  n_t_2x: !write_thru
   store_l: !store
 ~/Verilog/bin/smaller.pl vv >M869DX.PLD || (rm M869DX.PLD; exit 1)
-1 signals were removed:
-  n_t_17x: !n_t_17x
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M869DX.PLD >vv || (rm vv; exit 1)
 mv vv M869D.v
 rm M869DX.PLD

@@ -9,7 +9,7 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn7474 
-module m216b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m216b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 input c1;
@@ -30,7 +30,6 @@ input l2;
 output m1;
 input m2;
 input n1;
-output n15v;
 input n2;
 input p1;
 inout reg p2;
@@ -58,8 +57,6 @@ wire n_t_13x;
 wire n_t_15x;
 wire n_t_16x;
 wire n_t_17x;
-wire n_t_20x;
-wire n_t_4x;
 wire n_t_7x;
 wire n_t_8x;
 always @(b1, a1, d1, c1)

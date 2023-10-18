@@ -3,7 +3,7 @@
 
 Name     M7065X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -93,88 +93,14 @@ node n_t_19x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
 node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node ba1;
-node bb2;
-node bc1;
-node bd2;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bl1;
-node bl2;
-node bm2;
-node bu2;
-node bv1;
-node bv2;
-node c3;
+node binit_l;
+node bn1;
 node clr_flag;
-node data3;
 node enable_l;
+node feed_switch;
 node initialize_l;
-node io3;
-node iob_in_10;
-node iob_in_7;
 node iot_012;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mb2_l;
-node mb3_h;
 node n3v3;
 node n_t_10x;
 node n_t_11x;
@@ -222,22 +148,14 @@ node n_t_8x;
 node n_t_90x;
 node n_t_92x;
 node n_t_9x;
-node pc2_h;
-node pc3_h;
-node pc3_l;
 node rd_hole_1;
+node rd_hole_4;
 node rd_hole_5;
+node rd_hole_6;
+node rd_hole_8;
 node rdr_flag;
 node rdr_run_l;
 node rfc_delayed;
-node rfc_delayed_l;
-node sc3;
-node shift;
-node skip;
-node sr3;
-node tck;
-node tdo;
-node y_strobe;
 $ENDIF
 
 /* Code nodes */
@@ -283,6 +201,14 @@ $ENDIF
 /* c19: c_us */
 
 /* e1: dec8242 */
+/* j2 = !(!n_t_2x & !d1
+   # n_t_2x & d1); */
+/* j2 = !(!n_t_3x & !h2
+   # n_t_3x & h2); */
+/* j2 = !(!n_t_1x & !f2
+   # n_t_1x & f2); */
+/* j2 = !(!s1 & !c1
+   # s1 & c1); */
 
 /* e2: sn7475 */
 a1.ap = r1 & n_t_2x;
@@ -303,7 +229,7 @@ e2.ck = 'b'0;
 e2.d = 'b'0;
 rfc_delayed = !a1;
 aj2 = !d2;
-n_t_6x = !e2;
+n_t_16x = !e2;
 
 /* e3: dec8271 */
 n_t_2x.ar = !n_t_23x;
@@ -351,20 +277,26 @@ n_t_29x.ap = !n_t_5x;
 l1 = !n_t_29x;
 
 /* e7: sn7400 */
-n_t_7x = !(n_t_19x & n_t_22x);
-n_t_21x = !(n_t_23x & n_t_19x);
-n_t_24x = !(j1 & n_t_24x);
-iob_in_10 = !(k1 & n_t_16x);
+n_t_22x = !(n_t_19x & n_t_18x);
+n_t_23x = !(n_t_15x & n_t_19x);
+n_t_21x = !(j1 & n_t_24x);
+n_t_24x = !(k1 & n_t_16x);
 
 /* e8: sn7400 */
-rfc_delayed_l = !(j2 & n_t_34x);
-n_t_33x = !(n_t_27x & v2);
-n_t_36x = !(r1 & n_t_29x);
-iot_012 = !(f1 & e1);
+n_t_34x = !(j2 & n_t_27x);
+h1 = !(n_t_27x & v2);
+n_t_33x = !(r1 & n_t_29x);
+n_t_36x = !(f1 & e1);
 
 /* e9: dec8242 */
-/* skip = !(!v2 & !r2
-     # v2 & r2); */
+/* j2 = !(!n_t_38x & !u2
+   # n_t_38x & u2); */
+/* j2 = !(!n_t_120x & !t2
+   # n_t_120x & t2); */
+/* j2 = !(!n_t_37x & !s2
+   # n_t_37x & s2); */
+/* j2 = !(!v2 & !r2
+   # v2 & r2); */
 
 /* e10: sn7475 */
 m1.ap = r1 & n_t_38x;
@@ -415,10 +347,10 @@ n_t_5x = !v2;
 /* n_t_78x = !n_t_19x; */
 
 /* e13: sn7400 */
-n_t_32x = !(j2 & n_t_92x);
-n_t_76x = !(n_t_8x & n_t_21x);
-n_t_71x = !(n2 & n_t_22x);
-rfc_delayed = !(n_t_72x & n_t_90x);
+n_t_92x = !(j2 & n_t_88x);
+bn1 = !(feed_switch & n_t_34x);
+n_t_76x = !(n2 & n_t_22x);
+n_t_71x = !(n_t_72x & n_t_90x);
 
 /* e14: sn7474 */
 n_t_16x.ar = !n_t_92x;
@@ -455,6 +387,39 @@ enable_l = !n_t_19x;
 /* r11: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= j2};
+!j2 = (!n_t_2x & !d1
+   # n_t_2x & d1)
+   # (!n_t_3x & !h2
+   # n_t_3x & h2)
+   # (!n_t_1x & !f2
+   # n_t_1x & f2)
+   # (!s1 & !c1
+   # s1 & c1)
+   # (!n_t_38x & !u2
+   # n_t_38x & u2)
+   # (!n_t_120x & !t2
+   # n_t_120x & t2)
+   # (!n_t_37x & !s2
+   # n_t_37x & s2)
+   # (!v2 & !r2
+   # v2 & r2);
+j2.oe = (!n_t_2x & !d1
+   # n_t_2x & d1)
+   # (!n_t_3x & !h2
+   # n_t_3x & h2)
+   # (!n_t_1x & !f2
+   # n_t_1x & f2)
+   # (!s1 & !c1
+   # s1 & c1)
+   # (!n_t_38x & !u2
+   # n_t_38x & u2)
+   # (!n_t_120x & !t2
+   # n_t_120x & t2)
+   # (!n_t_37x & !s2
+   # n_t_37x & s2)
+   # (!v2 & !r2
+   # v2 & r2);
 !n_t_5x = n_t_36x;
 !n_t_77x = n_t_72x;
 !n_t_78x = n_t_19x;
@@ -463,5 +428,3 @@ enable_l = !n_t_19x;
 property atmel {open_collector= r1};
 !r1 = n_t_71x;
 r1.oe = n_t_71x;
-!skip = (!v2 & !r2
-     # v2 & r2);

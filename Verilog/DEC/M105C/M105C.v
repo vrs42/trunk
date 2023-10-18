@@ -26,29 +26,29 @@ inout c1_l;
 output n15v;
 input n_t_10x;
 input n_t_11x;
-output n_t_12x;
-output n_t_13x;
+input n_t_12x;
+input n_t_13x;
 input n_t_14x;
 input n_t_15x;
-output n_t_16x;
+input n_t_16x;
 input n_t_17x;
 input n_t_18x;
-output n_t_19x;
-output n_t_1x;
+input n_t_19x;
+input n_t_1x;
 output n_t_20x;
 input n_t_23x;
 input n_t_24x;
-output n_t_2x;
+input n_t_2x;
 input n_t_3x;
 input n_t_44x;
 input n_t_4x;
-output n_t_5x;
-output n_t_6x;
+input n_t_5x;
+input n_t_6x;
 input n_t_7x;
-output n_t_8x;
-output n_t_9x;
+input n_t_8x;
+input n_t_9x;
 output out_high;
-input out_l;
+output out_l;
 output select0;
 output select2;
 output select4;
@@ -57,9 +57,8 @@ output ssyn_l;
 inout testpoint;
 
 
-wire a00_l;
+wire a00;
 wire a01;
-wire a01_l;
 wire a02;
 wire a03;
 wire a04;
@@ -75,25 +74,25 @@ wire a1314;
 wire a1516;
 wire a17syn;
 wire c0;
-wire c0_l;
 wire c1;
+wire n3v3;
 wire n_t_38x;
 wire n_t_41x;
 wire n_t_43x;
-assign a00 = ~a00;
-assign a00 = ~(n_t_18x
-                | );
+assign a00 = ~n_t_18x;
+assign a01 = ~n_t_19x;
 assign a02 = ~n_t_17x;
 // e2: sp380n 
-assign n_t_6x = ~(c0
-                   | n_t_23x);
-assign n_t_5x = ~;
+assign a1314 = ~(n_t_5x
+                  | n_t_6x);
+assign c0 = ~n_t_23x;
+assign a17syn = ~(n_t_2x
+                   | n_t_1x);
 assign a1516 = ~(n_t_3x
                   | n_t_4x);
 // e3: sp380n 
-assign 'b'0 = ~c1;
-assign n_t_8x = ~(n_t_24x
-                   | );
+assign a11 = ~n_t_8x;
+assign c1 = ~n_t_24x;
 assign a12 = ~n_t_7x;
 // e4: dec8242 
 // n_t_43x = !(!'b'1 & !a11
@@ -105,22 +104,21 @@ assign a12 = ~n_t_7x;
 // n_t_43x = !(!a12 & !'b'1
 //        # a12 & 'b'1); 
 // e5: sn74h00 
-assign a01 = ~(a01_l & a01);
-assign n_t_43x = ~(a17syn & testpoint);
+assign testpoint = ~(n_t_43x & a17syn);
 assign c1_l = ~c1;
 // e6: sn7402 
-assign n_t_38x = ~(c1_l
-                    | out_l);
+assign out_l = ~(n_t_38x
+                  | c1_l);
 assign out_high = ~(c1_l
                      | n_t_41x);
 assign n_t_41x = ~(a00
-                    | c0_l);
-assign c0_l = ~(n_t_38x
-                 | a00_l);
+                    | ~c0);
+assign n_t_38x = ~(~a00
+                    | ~c0);
 // e7: sp380n 
-assign 'b'0 = ~a08;
-assign n_t_12x = ~(n_t_10x
-                    | );
+assign a07 = ~n_t_12x;
+assign a08 = ~n_t_10x;
+assign a10 = ~n_t_9x;
 assign a09 = ~n_t_11x;
 // e8: dec8242 
 // n_t_43x = !(!'b'1 & !a07
@@ -134,24 +132,24 @@ assign a09 = ~n_t_11x;
 // e9: n8815 
 assign select6 = ~(~a02
                     | testpoint
-                    | a01_l);
+                    | ~a01);
 assign select4 = ~(testpoint
                     | a01
                     | ~a02
                     | ~a02);
 // e10: n8815 
 assign select2 = ~(testpoint
-                    | a01_l
-                    | a01_l
+                    | ~a01
+                    | ~a01
                     | a02);
 assign select0 = ~(a02
                     | a01
                     | a01
                     | testpoint);
 // e11: sp380n 
-assign 'b'0 = ~a04;
-assign n_t_16x = ~(n_t_15x
-                    | );
+assign a03 = ~n_t_16x;
+assign a04 = ~n_t_15x;
+assign a06 = ~n_t_13x;
 assign a05 = ~n_t_14x;
 // e12: dec8242 
 // n_t_43x = !(!'b'1 & !a03

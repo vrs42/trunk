@@ -13,12 +13,12 @@
 // c6: c_us 
 // c7: c_us 
 // e1: sn7400 
-module m217a (ac0, ac1, ac2, ac2bufl, ac3, buf2ac, bus0, bus1, bus2, bus3, clrbufl, clrclkl, cnt2bufh, count, loadclkh, n15v, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_35x, n_t_37x, n_t_38x, u1);
-output ac0;
-output ac1;
-output ac2;
+module m217a (ac0, ac1, ac2, ac2bufl, ac3, buf2ac, bus0, bus1, bus2, bus3, clrbufl, clrclkl, cnt2bufh, count, loadclkh, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_35x, n_t_37x, n_t_38x, u1);
+input ac0;
+input ac1;
+input ac2;
 input ac2bufl;
-output ac3;
+input ac3;
 input buf2ac;
 output bus0;
 output bus1;
@@ -28,8 +28,7 @@ input clrbufl;
 input clrclkl;
 input cnt2bufh;
 input count;
-inout loadclkh;
-output n15v;
+input loadclkh;
 inout reg n_t_12x;
 output n_t_13x;
 inout reg n_t_14x;
@@ -65,17 +64,15 @@ wire data1_l;
 wire f2;
 wire h1;
 wire k1;
+wire m1;
 wire n2;
 wire n_t_10x;
 wire n_t_11x;
-wire n_t_20x;
 wire n_t_26x;
 wire n_t_27x;
 wire n_t_28x;
 wire n_t_29x;
-wire n_t_337x;
 wire n_t_46x;
-wire n_t_4x;
 wire n_t_6x;
 wire n_t_7x;
 wire n_t_8x;
@@ -83,10 +80,10 @@ wire n_t_9x;
 wire p1;
 wire s1;
 wire u2;
-assign ac2 = ~(n_t_7x & ac2bufl);
-assign ac3 = ~(n_t_6x & ac2bufl);
-assign ac0 = ~(ac2bufl & n_t_9x);
-assign ac1 = ~(ac2bufl & n_t_8x);
+assign n_t_7x = ~(ac2bufl & ac2);
+assign n_t_6x = ~(ac2bufl & ac3);
+assign n_t_9x = ~(ac0 & ac2bufl);
+assign n_t_8x = ~(ac1 & ac2bufl);
 // e2: sn7474 
 always @(n_t_33x, clrclkl, n_t_28x, n_t_35x)
   if (~clrclkl) begin
@@ -136,9 +133,10 @@ assign n_t_38x = ~n_t_37x;
 // bus0 = !(n_t_12x & buf2ac); 
 // bus1 = !(buf2ac & n_t_14x); 
 // e4: sn7400 
-assign loadclkh = ~(n_t_26x & n_t_18x);
-assign loadclkh = ~(n_t_27x & n_t_16x);
-assign loadclkh = ~(n_t_14x & n_t_28x);
+assign n_t_26x = ~(n_t_18x & loadclkh);
+assign n_t_27x = ~(n_t_16x & loadclkh);
+assign n_t_29x = ~(n_t_12x & loadclkh);
+assign n_t_28x = ~(loadclkh & n_t_14x);
 // e5: sn7474 
 always @(cnt2bufh, clrbufl, n_t_8x, n_t_2x)
   if (~clrbufl) begin

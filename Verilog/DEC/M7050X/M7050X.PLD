@@ -3,7 +3,7 @@
 
 Name     M7050X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,38 +16,23 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = bu2;
 pin = n3va;
 pin = n_t_17x;
 pin = n_t_20x;
 
 /* Output Pins */
 pin = ac1;
-pin = af1w;
 pin = aj2;
-pin = al2w;
-pin = am2w;
-pin = an1w;
-pin = ap1w;
 pin = at2;
 pin = au1;
-pin = av1w;
-pin = b2;
 pin = ba1;
 pin = ba_lp_0_rp;
 pin = ba_lp_1_rp;
 pin = bb_lp_0_rp;
 pin = bb_lp_1_rp;
 pin = bc1;
-pin = bd2;
-pin = be2;
-pin = bf1;
-pin = bf2;
 pin = bh1;
 pin = bn1;
-pin = bv1;
-pin = bv2;
-pin = c3;
 pin = clk_l;
 pin = clock1;
 pin = enable_l;
@@ -126,82 +111,22 @@ node ba;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node am1;
-node am1w;
-node am2;
-node an1;
-node an2;
-node ap1;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2w;
-node au2;
-node au2w;
-node av1;
-node av2;
-node av2w;
 node ba_l;
-node bb2;
 node bb_l;
 node binit_l;
-node bl1;
-node bl2;
-node bm2;
-node br0=1;
-node br1=0;
+node bv2;
 node clr_flag;
 node clr_run_l;
-node data3;
+node data1_l;
 node data5_l;
-node initialize;
-node io3;
 node iot_011_l;
 node iot_012_l;
 node iot_014_l;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mb10=1;
-node mb2_l;
-node mb3_h;
 node mb5=0;
-node mb7=1;
 node md07_l;
 node n3v;
 node n3v3;
 node n3vb;
-node n_t_102x;
-node n_t_120x;
 node n_t_134x;
 node n_t_149x;
 node n_t_15x;
@@ -219,8 +144,6 @@ node n_t_38x;
 node n_t_39x;
 node n_t_40x;
 node n_t_41x;
-node n_t_47x;
-node n_t_53x;
 node n_t_54x;
 node n_t_55x;
 node n_t_56x;
@@ -229,7 +152,6 @@ node n_t_60x;
 node n_t_62x;
 node n_t_64x;
 node n_t_65x;
-node n_t_67x;
 node n_t_70x;
 node n_t_72x;
 node n_t_73x;
@@ -237,18 +159,7 @@ node n_t_74x;
 node n_t_76x;
 node n_t_7x;
 node n_t_8x;
-node out;
 node out_of_tape_l;
-node pc2_h;
-node pc3_h;
-node pc3_l;
-node s1;
-node sc3;
-node sr3;
-node tck;
-node tdo;
-node x_strobe;
-node y_strobe;
 $ENDIF
 
 /* Code nodes */
@@ -316,16 +227,19 @@ n_t_12x.ap = ac1 & rd_hole_3;
 n_t_12x.ar = ac1 & !rd_hole_3;
 n_t_12x.ck = 'b'0;
 n_t_12x.d = 'b'0;
+n_t_11x.ap = ac1 & rd_hole_4;
+n_t_11x.ar = ac1 & !rd_hole_4;
 n_t_11x.ck = 'b'0;
 n_t_11x.d = 'b'0;
 rd_hole_6 = !n_t_14x;
+rd_hole_8 = !n_t_13x;
 n3v3 = !n_t_12x;
 
 /* e2: sn7400 */
-initialize = !(out_of_tape_l & rfc_delayed_l);
-n_t_16x = !(n_t_35x & n_t_11x);
-n_t_6x = !(n_t_34x & offline);
-n_t_11x = !(n_t_16x & binit_l);
+rfc_delayed_l = !(out_of_tape_l & n_t_30x);
+n_t_35x = !(n_t_34x & offline);
+n_t_16x = !(n_t_35x & clock1);
+n_t_6x = !(n_t_16x & binit_l);
 
 /* e4: sn7475 */
 n_t_3x.ap = ac1 & rd_hole_7;
@@ -340,9 +254,12 @@ n_t_10x.ap = ac1 & rd_hole_5;
 n_t_10x.ar = ac1 & !rd_hole_5;
 n_t_10x.ck = 'b'0;
 n_t_10x.d = 'b'0;
+n_t_9x.ap = ac1 & rd_hole_6;
+n_t_9x.ar = ac1 & !rd_hole_6;
 n_t_9x.ck = 'b'0;
 n_t_9x.d = 'b'0;
 rd_hole_4 = !n_t_3x;
+rd_hole_1 = !n_t_2x;
 n3v3 = !n_t_10x;
 
 /* e5: sn7474 */
@@ -358,10 +275,16 @@ rdr_flag.ap = !n3va;
 n_t_15x = !rdr_flag;
 
 /* e6: sn7401 */
-/* skip = !(n_t_4x & out_of_tape); */
+/* int_request = !rdr_flag; */
+/* skip = !(rdr_flag & iot_011); */
+/* out_of_tape = !out_of_tape_l; */
+/* n_t_37x = !(n_t_34x & n_t_38x); */
 
 /* e7: sn7401 */
-/* iob_in_9 = !(n_t_8x & iob_in_7); */
+/* iob_in_4 = !(n_t_2x & at2); */
+/* iob_in_9 = !(n_t_12x & at2); */
+/* iob_in_7 = !(at2 & n_t_10x); */
+/* iob_in_11 = !(at2 & n_t_14x); */
 
 /* e8: sn7404 */
 clr_run_l = !n_t_6x;
@@ -372,21 +295,24 @@ out_of_tape_l = !n_t_35x;
 n_t_38x = !n_t_40x;
 
 /* e9: sn7400 */
-y_strobe = !(iop1 & n_t_8x);
-n_t_29x = !(iot_014_l & x_strobe);
-iot_012_l = !(iot_014_l & rfc_delayed_l);
-n_t_47x = !(iop2 & n_t_8x);
+iot_011_l = !(iop1 & n_t_8x);
+iot_014_l = !(n_t_8x & iop4);
+n_t_29x = !(iot_014_l & rfc_delayed_l);
+iot_012_l = !(iop2 & n_t_8x);
 
 /* e10: sn7410 */
-rdr_run_l = !(clk_l & n_t_28x & mb10= 1;
-n_t_33x = !(n_t_21x & stop_complete & br0= 1;
-br1=0 = !(ba1 & rfc_delayed_l & clr_run_l);
+n_t_28x = !(clk_l & bn1 & stop_complete);
+bn1 = !(ba1 & feed_switch & rdr_run_l);
+n_t_33x = !(iot_012_l & rfc_delayed_l & clr_run_l);
 
 /* e11: sn7401 */
-/* iob_in_8 = !(n_t_3x & iob_in_6); */
+/* iob_in_5 = !(n_t_3x & at2); */
+/* iob_in_8 = !(n_t_11x & at2); */
+/* iob_in_6 = !(n_t_9x & at2); */
+/* iob_in_10 = !(at2 & n_t_13x); */
 
 /* e12: sn7440 */
-n_t_27x = !(n_t_39x & ac1 & n_t_39x & n_t_39x);
+ac1 = !n_t_39x;
 n_t_31x = !n_t_36x;
 
 /* e13: sn7404 */
@@ -398,7 +324,7 @@ mb5=0 = !n_t_40x;
 iot_011 = !iot_011_l;
 
 /* e14: sn7430 */
-n_t_21x = !(mb8_lp_1_rp & n_t_5x & n_t_53x & mb4_lp_0_rp & mb5_lp_0_rp & mb7_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp);
+n_t_5x = !(mb8_lp_1_rp & mb6_lp_0_rp & mb4_lp_0_rp & mb4_lp_0_rp & mb5_lp_0_rp & mb7_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp);
 
 /* e15: sn7474 */
 n_t_19x.ar = !binit_l;
@@ -413,10 +339,10 @@ enable.ap = !n_t_28x;
 enable_l = !enable;
 
 /* e16: sn7400 */
-n3v3 = !(bb_l & n_t_25x);
-at2 = !(bv2 & out);
-n_t_26x = !(bc1 & n_t_24x);
-n_t_67x = !(inhibit_strobe_l & enable);
+n_t_25x = !(bb_l & ba_l);
+bv2 = !(n_t_25x & n_t_24x);
+at2 = !(bc1 & iot_012_l);
+n_t_26x = !(inhibit_strobe_l & enable);
 
 /* e17: sn7404 */
 ba_lp_0_rp = !ba;
@@ -440,9 +366,9 @@ ba_l = !ba;
 
 /* e19: sn7400 */
 n_t_149x = !(n_t_134x & n_t_149x);
-n_t_41x = !(n_t_24x & n_t_12x);
-n_t_40x = !(n_t_40x & n_t_21x);
-n_t_120x = !(n_t_41x & enable_l);
+n_t_24x = !(ba & bb);
+n_t_41x = !(n_t_40x & n_t_21x);
+n_t_40x = !(n_t_41x & enable_l);
 
 /* r1: r_us_ */
 
@@ -479,12 +405,39 @@ n_t_120x = !(n_t_41x & enable_l);
 /* r17: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= int_request};
+!int_request = rdr_flag;
+int_request.oe = rdr_flag;
+property atmel {open_collector= iob_in_10};
+!iob_in_10 = (at2 & n_t_13x);
+iob_in_10.oe = (at2 & n_t_13x);
+property atmel {open_collector= iob_in_11};
+!iob_in_11 = (at2 & n_t_14x);
+iob_in_11.oe = (at2 & n_t_14x);
+property atmel {open_collector= iob_in_4};
+!iob_in_4 = (n_t_2x & at2);
+iob_in_4.oe = (n_t_2x & at2);
+property atmel {open_collector= iob_in_5};
+!iob_in_5 = (n_t_3x & at2);
+iob_in_5.oe = (n_t_3x & at2);
+property atmel {open_collector= iob_in_6};
+!iob_in_6 = (n_t_9x & at2);
+iob_in_6.oe = (n_t_9x & at2);
+property atmel {open_collector= iob_in_7};
+!iob_in_7 = (at2 & n_t_10x);
+iob_in_7.oe = (at2 & n_t_10x);
 property atmel {open_collector= iob_in_8};
-!iob_in_8 = (n_t_3x & iob_in_6);
-iob_in_8.oe = (n_t_3x & iob_in_6);
+!iob_in_8 = (n_t_11x & at2);
+iob_in_8.oe = (n_t_11x & at2);
 property atmel {open_collector= iob_in_9};
-!iob_in_9 = (n_t_8x & iob_in_7);
-iob_in_9.oe = (n_t_8x & iob_in_7);
+!iob_in_9 = (n_t_12x & at2);
+iob_in_9.oe = (n_t_12x & at2);
+property atmel {open_collector= n_t_37x};
+!n_t_37x = (n_t_34x & n_t_38x);
+n_t_37x.oe = (n_t_34x & n_t_38x);
+property atmel {open_collector= out_of_tape};
+!out_of_tape = out_of_tape_l;
+out_of_tape.oe = out_of_tape_l;
 property atmel {open_collector= skip};
-!skip = (n_t_4x & out_of_tape);
-skip.oe = (n_t_4x & out_of_tape);
+!skip = (rdr_flag & iot_011);
+skip.oe = (rdr_flag & iot_011);

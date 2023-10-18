@@ -5,76 +5,69 @@
 // internal nodes 
 // code nodes 
 // equations 
+// c1: cpol_use 
+// c2: cpol_use 
+// c3: cpol_use 
+// c4: c_us 
+// c5: c_us 
+// c6: c_us 
+// c7: c_us 
+// c8: c_us 
+// c9: c_us 
+// c10: c_us 
+// c11: c_us 
+// c12: c_us 
+// c13: c_us 
+// c14: c_us 
+// c15: c_us 
 // e1: n8881n 
-// ma03_l = !(cpma3 & n_t_1x); 
-// ma02_l = !(n_t_1x & cpma2); 
-// ma00_l = !(n_t_1x & cpma0); 
-// ma01_l = !(n_t_1x & cpma1); 
+// ma03_l = !(cpma3 & !mac_l); 
+// ma02_l = !(!mac_l & cpma2); 
+// ma00_l = !(!mac_l & cpma0); 
+// ma01_l = !(!mac_l & cpma1); 
 // e2: n8881n 
-// md03_l = !(mb03 & n_t_12x); 
-// md02_l = !(n_t_12x & mb02); 
-// md00_l = !(n_t_12x & mb00); 
-// md01_l = !(n_t_12x & mb01); 
-// e6: sn74151 
-module m8300b (ac2bus_l, ac_load_l, acknowledge, adlk_l, al2mq_ena_l, brk_in_l, bu2, carry_in_l, clr_all_l, clr_dsk_ad_l, clr_states, clr_status_l, cpma_load_l, data_enab_l, data_enable, data_f, data_t, db_cont1, dsk_sec2, dsk_sec2_l, dsk_sector_mk_l, en0, en1, en2, function00, header_b, header_c, header_e, idle, ld_disk_addrs, left_l, mac_l, main, mb2_l, mb_load_l, mq2bus_l, mq_data_l, mq_load_l, n3v, n3v3, n_t_33x, n_t_45x, n_t_46x, n_t_50x, n_t_65x, n_t_73x, n_t_74x, n_t_76x, n_t_82x, n_t_84x, pagez, pc_load_l, right_l, sector_eq, seek_l, shl_ena_l, twice_l, write, a00_l, a01_l, a02_l, a03_l, a04_l, a05_l, a06_l, a07_l, a08_l, a09_l, a10_l, a11_l, a3, a_intr_done_h, a_master_clear_h, a_master_l, a_request_1_h, a_request_2_h, a_sack_enbl_l, a_start_intr_l, ac00, ac01, ac02, ac03, ac04, ac04_11eq0_l, ac05, ac06, ac07, ac08, ac09, ac10, ac11, ac5, ac9, ad00_l, ad01_l, ad02_l, ad03_l, ad04_l, ad05_l, ad06_l, ad07_l, ad08_l, ad09_l, ad10_l, ad11_l, af1w, ak2, al2w, am2w, an1w, ap1w, av1w, b00_l, b01_l, b02_l, b03_l, b04_l, b05_l, b06_l, b07_l, b08_l, b09_l, b10_l, b11_l, b2, b_init_l, b_intr_done_h, b_master_clear_h, b_master_l, b_request_1_h, b_request_2_h, b_start_intr_l, bb1, bc1, bd2, be2, bf1, bf2, bm2, bus_a_bg_in_h, bus_a_bg_out_h, bus_a_br_l, bus_b_bg_in_h, bus_b_bg_out_h, bus_b_br_l, bus_bsy_l, bus_d02_l, bus_d03_l, bus_d04_l, bus_d05_l, bus_d06_l, bus_d07_l, bus_d08_l, bus_intr_l, bus_npr_l, bus_sack_l, bus_ssyn_l, bv1, bv2, c0_l, c1_l, c3, carry04_l, carry08_l, carry_out_l, check_header_cmd_l, clocka, clr_strobe_l, cpma0, cpma1, cpma10, cpma11, cpma2, cpma3, cpma4, cpma5, cpma6, cpma7, cpma8, cpma9, data00, data01, data02, data03, data04, data05, data06, data07, data08, data09, data10, data11, data3, disk_priority, header_c_l, init, initialize_l, int_rqst_l, internal_io_l, io3, io_in_int_l, io_pause_l, iop1, iop4, ma00_l, ma01_l, ma02_l, ma03_l, ma04_l, ma05_l, ma06_l, ma07_l, ma08_l, ma09_l, ma10_l, ma11_l, main_data, mb00, mb01, mb02, mb03, mb04, mb05, mb06, mb07, mb08, mb09, mb10, mb11, mb5_lp_0_rp, mb7_lp_1_rp, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, md_dir_l, mq00_l, mq01_l, mq02_l, mq03_l, mq04_11eq0_l, mq04_l, mq05_l, mq06_l, mq07_l, mq08_l, mq09_l, mq10_l, mq11_l, n3a, n3b, n3c, n4_5ms, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_42x, n_t_43x, n_t_48x, n_t_49x, n_t_4x, n_t_52x, n_t_55x, n_t_60x, n_t_61x, n_t_62x, n_t_64x, n_t_68x, n_t_69x, n_t_6x, n_t_70x, n_t_75x, n_t_77x, n_t_78x, n_t_7x, n_t_8x, n_t_9x, not_chk_header_cmd, pb5, pb6, pc00_l, pc01_l, pc02_l, pc03_l, pc04_l, pc05_l, pc06_l, pc07_l, pc08_l, pc09_l, pc10_l, pc11_l, pc2_h, pc3_h, pc3_l, pg00_l, pg01_l, pg02_l, pg03_l, pg04_l, pun_active_l, pun_done, rd_shft_crc, read_l, regbus00, regbus00_l, regbus01, regbus01_l, regbus02, regbus02_l, regbus03, regbus03_l, regbus04, regbus04_l, regbus05, regbus05_l, regbus06, regbus06_l, regbus07, regbus07_l, regbus08, regbus08_l, regbus09, regbus09_l, regbus10, regbus10_l, regbus11, regbus11_l, right2, sc3, sector_seek_l, set_cyl_addrs_er, set_main_brk, sk_chk_wrt_l, skip_l, sync_bias, sync_pun, tp3, vector_bit_02_h, wrt_clk_l, wrt_cmd_l, wrt_lock_out_l);
-output ac2bus_l;
-output ac_load_l;
-output acknowledge;
+// md03_l = !(mb03 & md_dir_l); 
+// md02_l = !(md_dir_l & mb02); 
+// md00_l = !(md_dir_l & mb00); 
+// md01_l = !(md_dir_l & mb01); 
+// e3: dec8271 
+module m8300b (ac2bus_l, ac_load_l, adlk_l, al2mq_ena_l, carry_in_l, clr_all, clr_sector_ad_l, cpma_load_l, data_enab_l, data_f, data_t, en0, en1, en2, function00, ld_disk_addrs, left_l, mac_l, main_pl, mb_load_l, mq2bus_l, mq_data_l, mq_load_l, n3v3, n_t_17x, n_t_33x, n_t_35x, n_t_46x, n_t_50x, not_equal_l, pagez, pc_load_l, rd_clk1_l, right_l, shl_ena_l, twice_l, a00_l, a01_l, a02_l, a03_l, a04_l, a05_l, a06_l, a07_l, a08_l, a09_l, a1, a10_l, a11_l, ac00, ac01, ac02, ac03, ac04_11eq0_l, ac11, ac5, ac9, ad00_l, ad01_l, ad02_l, ad03_l, ad04_l, ad05_l, ad06_l, ad07_l, ad08_l, ad09_l, ad10_l, ad11_l, b00_l, b01_l, b02_l, b03_l, b04_l, b05_l, b06_l, b07_l, b08_l, b09_l, b1, b10_l, b11_l, b2, c0_l, c1, c1_l, carry04_l, carry08_l, carry_out_l, clk_cla, clocka, d1, d2, data00, data01, data02, data03, data04, data05, data06, data07, data08, data09, data10, data11, data_in, drive0_l, e1, e2, echo, f1, f2, h1, h2, init, initialize_l, int_rqst_l, internal_io_l, io_in_int_l, io_pause_l, iop1, iop4, irq, j1, j2, k1, k2, l1, l2, m1, m2, ma00_l, ma01_l, ma02_l, ma03_l, ma04_l, ma05_l, ma06_l, ma07_l, ma08_l, ma09_l, ma10_l, ma11_l, mb5_lp_0_rp, mb7_lp_1_rp, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, md_dir_l, mq00_03eq0_l, mq00_l, mq01_l, mq02_l, mq03_l, mq04_11eq0_l, mq04_l, mq05_l, mq06_l, mq07_l, mq08_l, mq09_l, mq10_l, mq11_l, n1, n2, n2xclk, n4_5ms, n_t_10x, n_t_13x, n_t_21x, n_t_25x, n_t_28x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_40x, n_t_42x, n_t_43x, n_t_49x, n_t_4x, n_t_52x, n_t_60x, n_t_63x, n_t_79x, n_t_8x, n_t_9x, p1, p2, pb5, pb6, pc00_l, pc01_l, pc02_l, pc03_l, pc04_l, pc05_l, pc06_l, pc07_l, pc08_l, pc09_l, pc10_l, pc11_l, pun_active_l, pun_done, r1, r2, rdy_s_r_w_l, s1, s2, sk_chk_wrt_l, skip_l, sync_bias, sync_pun, t2, tp3, u1, u2, v1, v2, write_l, wrt_lock_out_l, wrt_sync_bit);
+input ac2bus_l;
+input ac_load_l;
 input adlk_l;
-output al2mq_ena_l;
-output brk_in_l;
-input bu2;
+input al2mq_ena_l;
 output carry_in_l;
-output clr_all_l;
-output clr_dsk_ad_l;
-output clr_states;
-output clr_status_l;
-output cpma_load_l;
+output clr_all;
+output clr_sector_ad_l;
+input cpma_load_l;
 output data_enab_l;
-output data_enable;
 output data_f;
 output data_t;
-output db_cont1;
-output dsk_sec2;
-output dsk_sec2_l;
-output dsk_sector_mk_l;
-output en0;
+input en0;
 output en1;
 output en2;
 output function00;
-output header_b;
-input header_c;
-output header_e;
-output idle;
 output ld_disk_addrs;
 input left_l;
 input mac_l;
-output main;
-output mb2_l;
-output mb_load_l;
-output mq2bus_l;
-output mq_data_l;
-output mq_load_l;
-input n3v;
+output main_pl;
+input mb_load_l;
+input mq2bus_l;
+input mq_data_l;
+input mq_load_l;
 output n3v3;
+output n_t_17x;
 output n_t_33x;
-output n_t_45x;
+output n_t_35x;
 output n_t_46x;
-input n_t_50x;
-output n_t_65x;
-output n_t_73x;
-output n_t_74x;
-output n_t_76x;
-output n_t_82x;
-output n_t_84x;
-output pagez;
-output pc_load_l;
+output n_t_50x;
+output not_equal_l;
+input pagez;
+input pc_load_l;
+output rd_clk1_l;
 input right_l;
-output sector_eq;
-output seek_l;
-output shl_ena_l;
+input shl_ena_l;
 input twice_l;
-output write;
 output a00_l;
 output a01_l;
 output a02_l;
@@ -85,29 +78,15 @@ output a06_l;
 output a07_l;
 output a08_l;
 output a09_l;
+output a1;
 output a10_l;
 output a11_l;
-output a3;
-output a_intr_done_h;
-output a_master_clear_h;
-input a_master_l;
-output a_request_1_h;
-output a_request_2_h;
-output a_sack_enbl_l;
-output a_start_intr_l;
-input ac00;
-input ac01;
-input ac02;
-input ac03;
-input ac04;
-input ac04_11eq0_l;
-input ac05;
-input ac06;
-input ac07;
-output ac08;
-output ac09;
-inout ac10;
-output ac11;
+inout reg ac00;
+inout reg ac01;
+inout reg ac02;
+inout reg ac03;
+output ac04_11eq0_l;
+inout reg ac11;
 output ac5;
 output ac9;
 input ad00_l;
@@ -122,13 +101,6 @@ input ad08_l;
 input ad09_l;
 input ad10_l;
 input ad11_l;
-output af1w;
-output ak2;
-output al2w;
-output am2w;
-output an1w;
-output ap1w;
-output av1w;
 output b00_l;
 output b01_l;
 output b02_l;
@@ -139,64 +111,20 @@ output b06_l;
 output b07_l;
 output b08_l;
 output b09_l;
+output b1;
 output b10_l;
 output b11_l;
 output b2;
-output b_init_l;
-output b_intr_done_h;
-output b_master_clear_h;
-input b_master_l;
-output b_request_1_h;
-output b_request_2_h;
-output b_start_intr_l;
-output bb1;
-output bc1;
-output bd2;
-output be2;
-output bf1;
-output bf2;
-output bm2;
-output bus_a_bg_in_h;
-input bus_a_bg_out_h;
-output bus_a_br_l;
-output bus_b_bg_in_h;
-output bus_b_bg_out_h;
-output bus_b_br_l;
-output bus_bsy_l;
-output bus_d02_l;
-output bus_d03_l;
-output bus_d04_l;
-output bus_d05_l;
-output bus_d06_l;
-output bus_d07_l;
-output bus_d08_l;
-output bus_intr_l;
-output bus_npr_l;
-output bus_sack_l;
-output bus_ssyn_l;
-output bv1;
-output bv2;
 output c0_l;
+output c1;
 output c1_l;
-output c3;
 output carry04_l;
 output carry08_l;
 output carry_out_l;
-output check_header_cmd_l;
+output clk_cla;
 output clocka;
-output clr_strobe_l;
-input cpma0;
-input cpma1;
-input cpma10;
-input cpma11;
-input cpma2;
-input cpma3;
-input cpma4;
-input cpma5;
-input cpma6;
-input cpma7;
-input cpma8;
-input cpma9;
+output d1;
+output d2;
 output data00;
 output data01;
 output data02;
@@ -209,23 +137,37 @@ output data08;
 output data09;
 output data10;
 output data11;
-output data3;
-output disk_priority;
-output header_c_l;
+output data_in;
+output drive0_l;
+output e1;
+output e2;
+output echo;
+output f1;
+output f2;
+output h1;
+output h2;
 input init;
 output initialize_l;
 output int_rqst_l;
 output internal_io_l;
-output io3;
 output io_in_int_l;
 output io_pause_l;
 output iop1;
 output iop4;
-output ma00_l;
-output ma01_l;
-output ma02_l;
-output ma03_l;
-output ma04_l;
+output irq;
+output j1;
+output j2;
+output k1;
+output k2;
+output l1;
+output l2;
+output m1;
+output m2;
+inout ma00_l;
+inout ma01_l;
+inout ma02_l;
+inout ma03_l;
+inout ma04_l;
 output ma05_l;
 output ma06_l;
 output ma07_l;
@@ -233,19 +175,6 @@ output ma08_l;
 output ma09_l;
 output ma10_l;
 output ma11_l;
-output main_data;
-input mb00;
-input mb01;
-inout mb02;
-inout mb03;
-input mb04;
-inout mb05;
-inout mb06;
-inout mb07;
-input mb08;
-input mb09;
-input mb10;
-input mb11;
 output mb5_lp_0_rp;
 output mb7_lp_1_rp;
 output md00_l;
@@ -261,174 +190,140 @@ inout md09_l;
 inout md10_l;
 inout md11_l;
 input md_dir_l;
-input mq00_l;
-input mq01_l;
-output mq02_l;
-input mq03_l;
-input mq04_11eq0_l;
-input mq04_l;
-input mq05_l;
-input mq06_l;
-input mq07_l;
-input mq08_l;
-input mq09_l;
-output mq10_l;
-input mq11_l;
-output n3a;
-output n3b;
-output n3c;
+output mq00_03eq0_l;
+inout reg mq00_l;
+inout reg mq01_l;
+inout reg mq02_l;
+inout reg mq03_l;
+output mq04_11eq0_l;
+inout reg mq04_l;
+inout reg mq05_l;
+inout reg mq06_l;
+inout reg mq07_l;
+inout reg mq08_l;
+inout reg mq09_l;
+inout reg mq10_l;
+inout reg mq11_l;
+output n1;
+output n2;
+output n2xclk;
 output n4_5ms;
-output n_t_10x;
-output n_t_11x;
-inout n_t_12x;
-output n_t_13x;
-output n_t_14x;
-output n_t_15x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output n_t_19x;
-inout n_t_1x;
-output n_t_20x;
-output n_t_21x;
-output n_t_22x;
-output n_t_23x;
-output n_t_24x;
-output n_t_26x;
-output n_t_27x;
-input n_t_28x;
+input n_t_10x;
+input n_t_13x;
+input n_t_21x;
+output n_t_25x;
+inout n_t_28x;
 inout n_t_29x;
-output n_t_2x;
-inout n_t_30x;
-input n_t_31x;
-input n_t_32x;
+inout n_t_31x;
+output n_t_32x;
 output n_t_34x;
-output n_t_35x;
-output n_t_36x;
-output n_t_37x;
-output n_t_38x;
-output n_t_39x;
-output n_t_3x;
-output n_t_40x;
+input n_t_36x;
+input n_t_37x;
+input n_t_38x;
+input n_t_39x;
+input n_t_40x;
 input n_t_42x;
-output n_t_43x;
-output n_t_48x;
+input n_t_43x;
 output n_t_49x;
-input n_t_4x;
+inout n_t_4x;
 output n_t_52x;
-output n_t_55x;
 output n_t_60x;
-output n_t_61x;
-output n_t_62x;
-output n_t_64x;
-output n_t_68x;
-output n_t_69x;
-output n_t_6x;
-output n_t_70x;
-output n_t_75x;
-output n_t_77x;
-output n_t_78x;
-input n_t_7x;
-output n_t_8x;
-output n_t_9x;
-output not_chk_header_cmd;
+output n_t_63x;
+output n_t_79x;
+input n_t_8x;
+inout n_t_9x;
+output p1;
+output p2;
 output pb5;
 output pb6;
-output pc00_l;
-output pc01_l;
-output pc02_l;
-output pc03_l;
-output pc04_l;
-output pc05_l;
-output pc06_l;
-output pc07_l;
-output pc08_l;
-output pc09_l;
-output pc10_l;
-output pc11_l;
-output pc2_h;
-output pc3_h;
-output pc3_l;
-input pg00_l;
-input pg01_l;
-input pg02_l;
-input pg03_l;
-input pg04_l;
+inout reg pc00_l;
+inout reg pc01_l;
+inout reg pc02_l;
+inout reg pc03_l;
+inout reg pc04_l;
+inout reg pc05_l;
+inout reg pc06_l;
+inout reg pc07_l;
+inout reg pc08_l;
+inout reg pc09_l;
+inout reg pc10_l;
+inout reg pc11_l;
 output pun_active_l;
 output pun_done;
-output rd_shft_crc;
-output read_l;
-output regbus00;
-inout regbus00_l;
-output regbus01;
-inout regbus01_l;
-output regbus02;
-inout regbus02_l;
-output regbus03;
-inout regbus03_l;
-output regbus04;
-inout regbus04_l;
-output regbus05;
-inout regbus05_l;
-output regbus06;
-inout regbus06_l;
-output regbus07;
-inout regbus07_l;
-output regbus08;
-inout regbus08_l;
-output regbus09;
-inout regbus09_l;
-output regbus10;
-inout regbus10_l;
-output regbus11;
-inout regbus11_l;
-output right2;
-output sc3;
-output sector_seek_l;
-output set_cyl_addrs_er;
-output set_main_brk;
+output r1;
+output r2;
+output rdy_s_r_w_l;
+output s1;
+output s2;
 output sk_chk_wrt_l;
 output skip_l;
 output sync_bias;
 output sync_pun;
+output t2;
 output tp3;
-output vector_bit_02_h;
-output wrt_clk_l;
-output wrt_cmd_l;
+output u1;
+output u2;
+output v1;
+output v2;
+output write_l;
 output wrt_lock_out_l;
+output wrt_sync_bit;
 
+reg ac00_m;
+reg ac01_m;
+reg ac02_m;
+reg ac03_m;
+reg ac04_m;
+reg ac05_m;
+reg ac06_m;
+reg ac07_m;
+reg ac08_m;
+reg ac09_m;
+reg ac10_m;
+reg ac11_m;
 
-wire a1;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
+reg mb02;
+reg mb03;
+reg mb01;
+reg mb00;
+reg cpma3;
+reg cpma2;
+reg cpma0;
+reg cpma1;
+reg mb06;
+reg mb07;
+reg mb05;
+reg mb04;
+reg cpma7;
+reg cpma6;
+reg cpma4;
+reg cpma5;
+reg ac06;
+reg ac07;
+reg ac05;
+reg ac04;
+reg cpma10;
+reg cpma11;
+reg cpma8;
+reg cpma9;
+reg mb10;
+reg mb11;
+reg mb09;
+reg mb08;
+reg ac10;
+reg ac09;
+reg ac08;
 wire ad09;
-wire ad1;
 wire ad10;
 wire ad10l;
 wire ad2;
-wire ae1;
 wire ae2;
-wire ae2w;
-wire af1;
 wire af2;
-wire ah1;
 wire ah2;
-wire aj1;
-wire aj1w;
 wire aj2;
-wire ak1;
-wire al1;
+wire ak2;
 wire al2;
-wire am1;
-wire am1w;
 wire am2;
-wire an1;
 wire an2;
 wire and00_l;
 wire and01_l;
@@ -442,269 +337,806 @@ wire and08_l;
 wire and09_l;
 wire and10_l;
 wire and11_l;
-wire ap1;
 wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire av1;
 wire av2;
-wire av2w;
-wire b_idle;
-wire b_wrt_clk;
-wire ba1;
-wire bb2;
-wire bd08h;
+wire b_data_state;
+wire b_io_pause;
+wire bb1;
 wire bdata0;
-wire bdata2_l;
+wire bdata10_l;
+wire bdata2;
 wire bdata5;
-wire bh1;
-wire bl1;
-wire bl2;
+wire bdata9;
+wire bf1;
+wire bf2;
+wire bm2;
 wire brk_in;
-wire brk_in_clk;
-wire btp3_ok;
+wire bs1;
+wire bu1;
+wire check_header_cmd_l;
+wire clk_l;
+wire clr_drive_cmd;
 wire clr_drive_cmd_l;
+wire clr_dsk_ad_l;
+wire clr_states;
+wire clr_status_l;
+wire clr_strobe_l;
 wire crc_data;
-wire crc_state;
 wire cyl_addrs_er;
 wire data7_l;
-wire data_in;
-wire data_state;
-wire data_state_l;
-wire dsk_index_mk_l;
-wire error_fl_l;
+wire data_clk_ok;
+wire dsk_sec2_l;
+wire end_state_l;
+wire error_clr_l;
+wire header_c;
+wire header_c_l;
+wire header_d_l;
+wire idle;
+wire in;
+wire initialize;
 wire int_strobe;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire ma8_l;
-wire mak;
-wire n16th_bit_l;
-wire n_t_25x;
+wire n3v;
+wire n_t_11x;
+wire n_t_14x;
+wire n_t_15x;
+wire n_t_16x;
+wire n_t_18x;
+wire n_t_19x;
+wire n_t_20x;
+wire n_t_22x;
+wire n_t_23x;
+wire n_t_24x;
+wire n_t_27x;
+wire n_t_2x;
+wire n_t_30x;
+wire n_t_3x;
 wire n_t_41x;
+wire n_t_476x;
 wire n_t_47x;
+wire n_t_491x;
 wire n_t_54x;
+wire n_t_55x;
 wire n_t_56x;
 wire n_t_586x;
 wire n_t_58x;
-wire n_t_71x;
+wire n_t_62x;
+wire n_t_64x;
+wire n_t_65x;
+wire n_t_66x;
+wire n_t_68x;
+wire n_t_6x;
+wire n_t_70x;
 wire n_t_72x;
-wire n_t_79x;
+wire n_t_73x;
+wire n_t_74x;
+wire n_t_75x;
+wire n_t_76x;
+wire n_t_77x;
+wire n_t_7x;
+wire n_t_81x;
+wire n_t_82x;
+wire n_t_84x;
+wire n_t_89x;
 wire n_t_90x;
 wire n_t_92x;
-wire read_data_in;
+wire nbr;
+wire not_chk_header_cmd;
+wire pg00_l;
+wire pg01_l;
+wire pg02_l;
+wire pg03_l;
+wire pg04_l;
+wire pun_flag;
+wire regbus00_l;
+wire regbus01_l;
+wire regbus02_l;
+wire regbus03_l;
+wire regbus04_l;
+wire regbus05_l;
+wire regbus06_l;
+wire regbus07_l;
+wire regbus08_l;
+wire regbus09_l;
+wire regbus10_l;
+wire regbus11_l;
 wire restore;
 wire rk_data11_l;
-wire set_main_brk_l;
-wire start_clr_l;
-wire tck;
-wire tdo;
-wire wrt_cmd;
+wire set_sector_seek_l;
+wire set_time_out_er;
+wire write;
 wire wrt_lock_er;
-wire wrt_shft_crc;
-assign regbus00_l = ad00_l & right_l & ~a_master_l & ~bu2
-                     | ad06_l & right_l & ~a_master_l & bu2
-                     | ~left_l & right_l & a_master_l & ~bu2
-                     | ad02_l & right_l & a_master_l & bu2
-                     | adlk_l & ~right_l & ~a_master_l & ~bu2
-                     | ~twice_l & ~right_l & ~a_master_l & bu2
-                     | and00_l & ~right_l & a_master_l & ~bu2
-                     | pg00_l & ~right_l & a_master_l & bu2;
-assign regbus00 = ~regbus00_l;
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb02 <= ~regbus02_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb03 <= ~regbus03_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb01 <= ~regbus01_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb00 <= ~regbus00_l;
+  end
+// e4: dec8271 
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma3 <= ~regbus03_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma2 <= ~regbus02_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma0 <= ~regbus00_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma1 <= ~regbus01_l;
+  end
+assign n_t_9x = ~cpma1;
+// e5: mc8266 
+assign pg02_l = ~(~ma02_l & ~pagez
+                   | bu1 & pagez & ~pagez);
+assign pg03_l = ~(~ma03_l & ~pagez
+                   | md_dir_l & pagez & ~pagez);
+assign pg01_l = ~(~ma01_l & ~pagez
+                   | pagez & ~pagez);
+assign pg00_l = ~(~ma00_l & ~pagez
+                   | pagez & ~pagez);
+// e6: sn74151 
+assign regbus00_l = ad00_l & right_l & left_l & twice_l
+                     | ad06_l & right_l & left_l & ~twice_l
+                     | ad01_l & right_l & ~left_l & twice_l
+                     | ad02_l & right_l & ~left_l & ~twice_l
+                     | adlk_l & ~right_l & left_l & twice_l
+                     | ad11_l & ~right_l & left_l & ~twice_l
+                     | and00_l & ~right_l & ~left_l & twice_l
+                     | pg00_l & ~right_l & ~left_l & ~twice_l;
+// e7: dec8235 
+// data03 = !(!mq03_l & !mq2bus_l
+//       # ac03 & !ac2bus_l); 
+// data02 = !(!mq02_l & !mq2bus_l
+//       # ac02 & !ac2bus_l); 
+// data00 = !(!mq00_l & !mq2bus_l
+//       # ac00 & !ac2bus_l); 
+// data01 = !(!mq01_l & !mq2bus_l
+//       # ac01 & !ac2bus_l); 
+// e8: dec8271 
+always @(ac_load_l, init, regbus02_l)
+  if (init) begin
+    ac02_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac02_m <= ~regbus02_l;
+  end
+always @(ac_load_l, init, ac02_m)
+  if (init) begin
+    ac02 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac02 <= ac02_m;
+  end
+always @(ac_load_l, init, regbus03_l)
+  if (init) begin
+    ac03_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac03_m <= ~regbus03_l;
+  end
+always @(ac_load_l, init, ac03_m)
+  if (init) begin
+    ac03 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac03 <= ac03_m;
+  end
+always @(ac_load_l, init, regbus01_l)
+  if (init) begin
+    ac01_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac01_m <= ~regbus01_l;
+  end
+always @(ac_load_l, init, ac01_m)
+  if (init) begin
+    ac01 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac01 <= ac01_m;
+  end
+always @(ac_load_l, init, regbus00_l)
+  if (init) begin
+    ac00_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac00_m <= ~regbus00_l;
+  end
+always @(ac_load_l, init, ac00_m)
+  if (init) begin
+    ac00 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac00 <= ac00_m;
+  end
+assign iop4 = ~ac00;
 // e11: sn74151 
-assign regbus01_l = ad01_l & right_l & ~n_t_4x & ~n_t_7x
-                     | ad07_l & right_l & ~n_t_4x & n_t_7x
-                     | ~left_l & right_l & n_t_4x & ~n_t_7x
-                     | ad03_l & right_l & n_t_4x & n_t_7x
-                     | ad00_l & ~right_l & ~n_t_4x & ~n_t_7x
-                     | ~twice_l & ~right_l & ~n_t_4x & n_t_7x
-                     | and01_l & ~right_l & n_t_4x & ~n_t_7x
-                     | pg01_l & ~right_l & n_t_4x & n_t_7x;
-assign regbus01 = ~regbus01_l;
+assign regbus01_l = ad01_l & right_l & left_l & twice_l
+                     | ad07_l & right_l & left_l & ~twice_l
+                     | ad02_l & right_l & ~left_l & twice_l
+                     | ad03_l & right_l & ~left_l & ~twice_l
+                     | ad00_l & ~right_l & left_l & twice_l
+                     | adlk_l & ~right_l & left_l & ~twice_l
+                     | and01_l & ~right_l & ~left_l & twice_l
+                     | pg01_l & ~right_l & ~left_l & ~twice_l;
+// e12: mc8266 
+assign n_t_2x = ~(~mq02_l & ~shl_ena_l
+                   | ac01 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_6x = ~(~mq01_l & ~shl_ena_l
+                   | ac00 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_23x = ~(~mq04_l & ~shl_ena_l
+                    | ac03 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_24x = ~(~mq03_l & ~shl_ena_l
+                    | ac02 & shl_ena_l & ~al2mq_ena_l);
 // e13: sn7400 
-assign n_t_3x = ~(mb00 & ac00);
-assign and03_l = ~(and01_l & ac01);
-assign mb03 = ~(ac03 & n_t_42x);
-assign mb02 = ~(ac02 & n_t_25x);
+assign and00_l = ~(mb00 & ac00);
+assign and01_l = ~(ac01 & mb01);
+assign and03_l = ~(mb03 & ac03);
+assign and02_l = ~(mb02 & ac02);
+// e14: mc8266 
+assign a02_l = ~(~n_t_21x & ~en0
+                  | n_t_21x & en0 & ~en0);
+assign a03_l = ~(~n_t_13x & ~en0
+                  | n_t_13x & en0 & ~en0);
+assign a01_l = ~(~n_t_8x & ~en0
+                  | n_t_8x & en0 & ~en0);
+assign a00_l = ~(~n_t_9x & ~en0
+                  | n_t_9x & en0 & ~en0);
 // e16: sn74151 
-assign regbus02_l = ad02_l & right_l & ~n_t_32x & ~bus_a_bg_out_h
-                     | ad08_l & right_l & ~n_t_32x & bus_a_bg_out_h
-                     | ad03_l & right_l & n_t_32x & ~bus_a_bg_out_h
-                     | ad04_l & right_l & n_t_32x & bus_a_bg_out_h
-                     | ad01_l & ~right_l & ~n_t_32x & ~bus_a_bg_out_h
-                     | ~twice_l & ~right_l & ~n_t_32x & bus_a_bg_out_h
-                     | and02_l & ~right_l & n_t_32x & ~bus_a_bg_out_h
-                     | pg02_l & ~right_l & n_t_32x & bus_a_bg_out_h;
-assign regbus02 = ~regbus02_l;
+assign regbus02_l = ad02_l & right_l & left_l & twice_l
+                     | ad08_l & right_l & left_l & ~twice_l
+                     | ad03_l & right_l & ~left_l & twice_l
+                     | ad04_l & right_l & ~left_l & ~twice_l
+                     | ad01_l & ~right_l & left_l & twice_l
+                     | ad00_l & ~right_l & left_l & ~twice_l
+                     | and02_l & ~right_l & ~left_l & twice_l
+                     | pg02_l & ~right_l & ~left_l & ~twice_l;
+// e17: dec8271 
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq00_l <= ad11_l & ~right_l
+                   | n_t_6x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq01_l <= mq00_l & ~right_l
+                   | n_t_2x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq02_l <= mq01_l & ~right_l
+                   | n_t_24x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq03_l <= mq02_l & ~right_l
+                   | n_t_23x & right_l;
+  end
 // e18: sn7420 
-assign mq02_l = ~(n_t_31x & ac04_11eq0_l & n_t_30x & mq03_l);
-assign n_t_48x = ~(b_master_l & n_t_50x & mq00_l & mq01_l);
+assign ac04_11eq0_l = ~(n_t_31x & n_t_29x & n_t_28x & n_t_30x);
+assign mq00_03eq0_l = ~(mq03_l & mq02_l & mq00_l & mq01_l);
+// e20: dec8271 
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc03_l <= regbus03_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc02_l <= regbus02_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc00_l <= regbus00_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc01_l <= regbus01_l;
+  end
 // e21: sn74151 
-assign regbus03_l = ad03_l & right_l & ~n3v & ~n16th_bit_l
-                     | ad09_l & right_l & ~n3v & n16th_bit_l
-                     | ad04_l & right_l & n3v & ~n16th_bit_l
-                     | ad05_l & right_l & n3v & n16th_bit_l
-                     | ad02_l & ~right_l & ~n3v & ~n16th_bit_l
-                     | ~twice_l & ~right_l & ~n3v & n16th_bit_l
-                     | and03_l & ~right_l & n3v & ~n16th_bit_l
-                     | pg03_l & ~right_l & n3v & n16th_bit_l;
-assign regbus03 = ~regbus03_l;
+assign regbus03_l = ad03_l & right_l & left_l & twice_l
+                     | ad09_l & right_l & left_l & ~twice_l
+                     | ad04_l & right_l & ~left_l & twice_l
+                     | ad05_l & right_l & ~left_l & ~twice_l
+                     | ad02_l & ~right_l & left_l & twice_l
+                     | ad01_l & ~right_l & left_l & ~twice_l
+                     | and03_l & ~right_l & ~left_l & twice_l
+                     | pg03_l & ~right_l & ~left_l & ~twice_l;
 // e22: n8881n 
-// ma07_l = !(cpma7 & n_t_1x); 
-// ma06_l = !(n_t_1x & cpma6); 
-// ma04_l = !(n_t_1x & cpma4); 
-// ma05_l = !(n_t_1x & cpma5); 
+// ma07_l = !(cpma7 & !mac_l); 
+// ma06_l = !(!mac_l & cpma6); 
+// ma04_l = !(!mac_l & cpma4); 
+// ma05_l = !(!mac_l & cpma5); 
 // e23: sn74151 
-assign regbus04_l = ad04_l & right_l & ~crc_state & ~n_t_79x
-                     | ad10_l & right_l & ~crc_state & n_t_79x
-                     | ad05_l & right_l & crc_state & ~n_t_79x
-                     | ad06_l & right_l & crc_state & n_t_79x
-                     | ad03_l & ~right_l & ~crc_state & ~n_t_79x
-                     | ~twice_l & ~right_l & ~crc_state & n_t_79x
-                     | and04_l & ~right_l & crc_state & ~n_t_79x
-                     | pg04_l & ~right_l & crc_state & n_t_79x;
-assign regbus04 = ~regbus04_l;
+assign regbus04_l = ad04_l & right_l & left_l & twice_l
+                     | ad10_l & right_l & left_l & ~twice_l
+                     | ad05_l & right_l & ~left_l & twice_l
+                     | ad06_l & right_l & ~left_l & ~twice_l
+                     | ad03_l & ~right_l & left_l & twice_l
+                     | ad02_l & ~right_l & left_l & ~twice_l
+                     | and04_l & ~right_l & ~left_l & twice_l
+                     | pg04_l & ~right_l & ~left_l & ~twice_l;
+// e24: dec8271 
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb06 <= ~regbus06_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb07 <= ~regbus07_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb05 <= ~regbus05_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb04 <= ~regbus04_l;
+  end
+// e25: dec8271 
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma7 <= ~regbus07_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma6 <= ~regbus06_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma4 <= ~regbus04_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma5 <= ~regbus05_l;
+  end
+// e26: mc8266 
+assign n_t_77x = ~(~clr_states & ~pagez
+                    | header_c & pagez & ~pagez);
+assign n_t_63x = ~(~n_t_62x & ~pagez
+                    | clr_strobe_l & pagez & ~pagez);
+assign pg04_l = ~(~ma04_l & ~pagez
+                   | pagez & ~pagez);
 // e27: n8881n 
-// md07_l = !(mb07 & n_t_12x); 
-// md06_l = !(n_t_12x & mb06); 
-// md04_l = !(n_t_12x & mb04); 
-// md05_l = !(n_t_12x & mb05); 
+// md07_l = !(mb07 & md_dir_l); 
+// md06_l = !(md_dir_l & mb06); 
+// md04_l = !(md_dir_l & mb04); 
+// md05_l = !(md_dir_l & mb05); 
 // e28: sn74151 
-assign regbus05_l = ad05_l & right_l & ~header_c & ~data_in
-                     | ad11_l & right_l & ~header_c & data_in
-                     | ~left_l & right_l & header_c & ~data_in
-                     | ad07_l & right_l & header_c & data_in
-                     | ad04_l & ~right_l & ~header_c & ~data_in
-                     | ad03_l & ~right_l & ~header_c & data_in
-                     | and05_l & ~right_l & header_c & ~data_in
-                     | md05_l & ~right_l & header_c & data_in;
-assign regbus05 = ~regbus05_l;
+assign regbus05_l = ad05_l & right_l & left_l & twice_l
+                     | ad11_l & right_l & left_l & ~twice_l
+                     | ad06_l & right_l & ~left_l & twice_l
+                     | ad07_l & right_l & ~left_l & ~twice_l
+                     | ad04_l & ~right_l & left_l & twice_l
+                     | ad03_l & ~right_l & left_l & ~twice_l
+                     | and05_l & ~right_l & ~left_l & twice_l
+                     | md05_l & ~right_l & ~left_l & ~twice_l;
+// e29: dec8271 
+always @(ac_load_l, init, regbus06_l)
+  if (init) begin
+    ac06_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac06_m <= ~regbus06_l;
+  end
+always @(ac_load_l, init, ac06_m)
+  if (init) begin
+    ac06 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac06 <= ac06_m;
+  end
+always @(ac_load_l, init, regbus07_l)
+  if (init) begin
+    ac07_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac07_m <= ~regbus07_l;
+  end
+always @(ac_load_l, init, ac07_m)
+  if (init) begin
+    ac07 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac07 <= ac07_m;
+  end
+always @(ac_load_l, init, regbus05_l)
+  if (init) begin
+    ac05_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac05_m <= ~regbus05_l;
+  end
+always @(ac_load_l, init, ac05_m)
+  if (init) begin
+    ac05 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac05 <= ac05_m;
+  end
+always @(ac_load_l, init, regbus04_l)
+  if (init) begin
+    ac04_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac04_m <= ~regbus04_l;
+  end
+always @(ac_load_l, init, ac04_m)
+  if (init) begin
+    ac04 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac04 <= ac04_m;
+  end
+// e32: dec8235 
+// data07 = !(!mq07_l & !mq2bus_l
+//       # ac07 & !ac2bus_l); 
+// data06 = !(!mq06_l & !mq2bus_l
+//       # ac06 & !ac2bus_l); 
+// data04 = !(!mq04_l & !mq2bus_l
+//       # ac04 & !ac2bus_l); 
+// data05 = !(!mq05_l & !mq2bus_l
+//       # ac05 & !ac2bus_l); 
 // e33: sn74151 
-assign regbus06_l = ad06_l & right_l & ~data_state & ~wrt_cmd
-                     | ad00_l & right_l & ~data_state & wrt_cmd
-                     | ad07_l & right_l & data_state & ~wrt_cmd
-                     | ad08_l & right_l & data_state & wrt_cmd
-                     | ad05_l & ~right_l & ~data_state & ~wrt_cmd
-                     | ad04_l & ~right_l & ~data_state & wrt_cmd
-                     | and06_l & ~right_l & data_state & ~wrt_cmd
-                     | md06_l & ~right_l & data_state & wrt_cmd;
-assign regbus06 = ~regbus06_l;
+assign regbus06_l = ad06_l & right_l & left_l & twice_l
+                     | ad00_l & right_l & left_l & ~twice_l
+                     | ad07_l & right_l & ~left_l & twice_l
+                     | ad08_l & right_l & ~left_l & ~twice_l
+                     | ad05_l & ~right_l & left_l & twice_l
+                     | ad04_l & ~right_l & left_l & ~twice_l
+                     | and06_l & ~right_l & ~left_l & twice_l
+                     | md06_l & ~right_l & ~left_l & ~twice_l;
+// e34: mc8266 
+assign n_t_11x = ~(~mq06_l & ~shl_ena_l
+                    | ac05 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_4x = ~(~mq05_l & ~shl_ena_l
+                   | ac04 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_3x = ~(~mq08_l & ~shl_ena_l
+                   | ac07 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_18x = ~(~mq07_l & ~shl_ena_l
+                    | ac06 & shl_ena_l & ~al2mq_ena_l);
 // e35: sn7400 
-assign read_data_in = ~(mb04 & ac04);
-assign mb05 = ~(and05_l & ac05);
-assign mb07 = ~(ac07 & b_idle);
-assign mb06 = ~(ac06 & b_wrt_clk);
+assign and04_l = ~(mb04 & ac04);
+assign and05_l = ~(ac05 & mb05);
+assign and07_l = ~(mb07 & ac07);
+assign and06_l = ~(mb06 & ac06);
+// e36: mc8266 
+assign a06_l = ~(~n_t_39x & ~en0
+                  | n_t_39x & en0 & ~en0);
+assign a07_l = ~(~n_t_38x & ~en0
+                  | n_t_38x & en0 & ~en0);
+assign a05_l = ~(~n_t_37x & ~en0
+                  | n_t_37x & en0 & ~en0);
+assign a04_l = ~(~n_t_36x & ~en0
+                  | n_t_36x & en0 & ~en0);
 // e38: sn74151 
-assign regbus07_l = ad07_l & right_l & ~wrt_cmd & ~n3v
-                     | ad01_l & right_l & ~wrt_cmd & n3v
-                     | ad08_l & right_l & wrt_cmd & ~n3v
-                     | ad09_l & right_l & wrt_cmd & n3v
-                     | ad06_l & ~right_l & ~wrt_cmd & ~n3v
-                     | ad05_l & ~right_l & ~wrt_cmd & n3v
-                     | and07_l & ~right_l & wrt_cmd & ~n3v
-                     | md07_l & ~right_l & wrt_cmd & n3v;
-assign regbus07 = ~regbus07_l;
+assign regbus07_l = ad07_l & right_l & left_l & twice_l
+                     | ad01_l & right_l & left_l & ~twice_l
+                     | ad08_l & right_l & ~left_l & twice_l
+                     | ad09_l & right_l & ~left_l & ~twice_l
+                     | ad06_l & ~right_l & left_l & twice_l
+                     | ad05_l & ~right_l & left_l & ~twice_l
+                     | and07_l & ~right_l & ~left_l & twice_l
+                     | md07_l & ~right_l & ~left_l & ~twice_l;
+// e39: dec8271 
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq04_l <= mq03_l & ~right_l
+                   | n_t_4x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq05_l <= mq04_l & ~right_l
+                   | n_t_11x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq06_l <= mq05_l & ~right_l
+                   | n_t_18x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq07_l <= mq06_l & ~right_l
+                   | n_t_3x & right_l;
+  end
 // e40: sn7402 
-assign ac08 = ~(n_t_28x
-                 | data_state_l);
+assign n_t_28x = ~(ac08
+                    | ac09);
 assign n_t_30x = ~(ac10
-                    | n_t_31x);
-assign data_state = ~(n_t_29x
-                       | ac04);
-assign wrt_shft_crc = ~(ac07
-                         | ac06);
+                    | ac11);
+assign n_t_31x = ~(ac05
+                    | ac04);
+assign n_t_29x = ~(ac07
+                    | ac06);
+// e42: dec8271 
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc07_l <= regbus07_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc06_l <= regbus06_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc04_l <= regbus04_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc05_l <= regbus05_l;
+  end
 // e43: sn74151 
-assign regbus08_l = ad08_l & right_l & ~data_state & ~n3v
-                     | ad02_l & right_l & ~data_state & n3v
-                     | ad09_l & right_l & data_state & ~n3v
-                     | ad10_l & right_l & data_state & n3v
-                     | ad07_l & ~right_l & ~data_state & ~n3v
-                     | ~twice_l & ~right_l & ~data_state & n3v
-                     | and08_l & ~right_l & data_state & ~n3v
-                     | md08_l & ~right_l & data_state & n3v;
-assign regbus08 = ~regbus08_l;
+assign regbus08_l = ad08_l & right_l & left_l & twice_l
+                     | ad02_l & right_l & left_l & ~twice_l
+                     | ad09_l & right_l & ~left_l & twice_l
+                     | ad10_l & right_l & ~left_l & ~twice_l
+                     | ad07_l & ~right_l & left_l & twice_l
+                     | ad06_l & ~right_l & left_l & ~twice_l
+                     | and08_l & ~right_l & ~left_l & twice_l
+                     | md08_l & ~right_l & ~left_l & ~twice_l;
 // e44: n8881n 
-// ma11_l = !(cpma11 & n_t_1x); 
-// ma10_l = !(n_t_1x & cpma10); 
-// ma08_l = !(cpma8 & n_t_1x); 
-// ma09_l = !(n_t_1x & cpma9); 
+// ma11_l = !(cpma11 & !mac_l); 
+// ma10_l = !(!mac_l & cpma10); 
+// ma08_l = !(cpma8 & !mac_l); 
+// ma09_l = !(!mac_l & cpma9); 
 // e45: sn7430 
-assign n_t_29x = ~(mq11_l & mq04_11eq0_l & mq09_l & mq08_l & mq06_l & mq07_l & mq05_l & mq04_l);
+assign mq04_11eq0_l = ~(mq11_l & mq10_l & mq09_l & mq08_l & mq06_l & mq07_l & mq05_l & mq04_l);
+// e46: dec8271 
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma10 <= ~regbus10_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma11 <= ~regbus11_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma8 <= ~regbus08_l;
+  end
+always @(negedge cpma_load_l)
+  if (~cpma_load_l) begin
+    cpma9 <= ~regbus09_l;
+  end
+// e47: dec8271 
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc08_l <= regbus08_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc09_l <= regbus09_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc10_l <= regbus10_l;
+  end
+always @(negedge pc_load_l)
+  if (~pc_load_l) begin
+    pc11_l <= regbus11_l;
+  end
 // e48: sn74151 
-assign regbus09_l = ad09_l & right_l & ~start_clr_l & ~brk_in_clk
-                     | ad03_l & right_l & ~start_clr_l & brk_in_clk
-                     | ad10_l & right_l & start_clr_l & ~brk_in_clk
-                     | ad11_l & right_l & start_clr_l & brk_in_clk
-                     | ad08_l & ~right_l & ~start_clr_l & ~brk_in_clk
-                     | ad07_l & ~right_l & ~start_clr_l & brk_in_clk
-                     | and09_l & ~right_l & start_clr_l & ~brk_in_clk
-                     | md09_l & ~right_l & start_clr_l & brk_in_clk;
-assign regbus09 = ~regbus09_l;
+assign regbus09_l = ad09_l & right_l & left_l & twice_l
+                     | ad03_l & right_l & left_l & ~twice_l
+                     | ad10_l & right_l & ~left_l & twice_l
+                     | ad11_l & right_l & ~left_l & ~twice_l
+                     | ad08_l & ~right_l & left_l & twice_l
+                     | ad07_l & ~right_l & left_l & ~twice_l
+                     | and09_l & ~right_l & ~left_l & twice_l
+                     | md09_l & ~right_l & ~left_l & ~twice_l;
 // e49: n8881n 
-// md11_l = !(mb11 & n_t_12x); 
-// md10_l = !(n_t_12x & mb10); 
-// md08_l = !(mb08 & n_t_12x); 
-// md09_l = !(mb09 & n_t_12x); 
+// md11_l = !(mb11 & md_dir_l); 
+// md10_l = !(md_dir_l & mb10); 
+// md08_l = !(mb08 & md_dir_l); 
+// md09_l = !(mb09 & md_dir_l); 
+// e50: dec8271 
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb10 <= ~regbus10_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb11 <= ~regbus11_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb09 <= ~regbus09_l;
+  end
+always @(negedge mb_load_l)
+  if (~mb_load_l) begin
+    mb08 <= ~regbus08_l;
+  end
 // e53: sn74151 
-assign regbus10_l = ad10_l & right_l & ~dsk_index_mk_l
-                     | ad04_l & right_l & dsk_index_mk_l
-                     | ad09_l & ~right_l & ~dsk_index_mk_l
-                     | ad08_l & ~right_l & dsk_index_mk_l;
-assign regbus10 = ~regbus10_l;
+assign regbus10_l = ad10_l & right_l & left_l & twice_l
+                     | ad04_l & right_l & left_l & ~twice_l
+                     | ad11_l & right_l & ~left_l & twice_l
+                     | adlk_l & right_l & ~left_l & ~twice_l
+                     | ad09_l & ~right_l & left_l & twice_l
+                     | ad08_l & ~right_l & left_l & ~twice_l
+                     | and10_l & ~right_l & ~left_l & twice_l
+                     | md10_l & ~right_l & ~left_l & ~twice_l;
+// e54: dec8271 
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq08_l <= mq07_l & ~right_l
+                   | n_t_22x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq09_l <= mq08_l & ~right_l
+                   | n_t_19x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq10_l <= mq09_l & ~right_l
+                   | n_t_7x & right_l;
+  end
+always @(negedge mq_load_l)
+  if (~mq_load_l) begin
+    mq11_l <= mq10_l & ~right_l
+                   | n_t_20x & right_l;
+  end
+// e55: dec8271 
+always @(ac_load_l, init, regbus10_l)
+  if (init) begin
+    ac10_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac10_m <= ~regbus10_l;
+  end
+always @(ac_load_l, init, ac10_m)
+  if (init) begin
+    ac10 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac10 <= ac10_m;
+  end
+always @(ac_load_l, init, regbus11_l)
+  if (init) begin
+    ac11_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac11_m <= ~regbus11_l;
+  end
+always @(ac_load_l, init, ac11_m)
+  if (init) begin
+    ac11 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac11 <= ac11_m;
+  end
+always @(ac_load_l, init, regbus09_l)
+  if (init) begin
+    ac09_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac09_m <= ~regbus09_l;
+  end
+always @(ac_load_l, init, ac09_m)
+  if (init) begin
+    ac09 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac09 <= ac09_m;
+  end
+always @(ac_load_l, init, regbus08_l)
+  if (init) begin
+    ac08_m <= 1'b0;
+  end else
+  if (~(~ac_load_l)) begin
+    ac08_m <= ~regbus08_l;
+  end
+always @(ac_load_l, init, ac08_m)
+  if (init) begin
+    ac08 <= 1'b0;
+  end else
+  if (~ac_load_l) begin
+    ac08 <= ac08_m;
+  end
+// e56: mc8266 
+assign a11_l = ~(~n_t_43x & ~en0
+                  | n_t_43x & en0 & ~en0);
+assign a10_l = ~(~n_t_42x & ~en0
+                  | n_t_42x & en0 & ~en0);
+assign a08_l = ~(~n_t_10x & ~en0
+                  | n_t_10x & en0 & ~en0);
+assign a09_l = ~(~n_t_40x & ~en0
+                  | n_t_40x & en0 & ~en0);
 // e58: sn74151 
-assign regbus11_l = ad11_l & right_l & ~ & ~
-                     | ad05_l & right_l & ~ & 
-                     | ~left_l & right_l &  & ~
-                     | ad00_l & right_l &  & 
-                     | ad10_l & ~right_l & ~ & ~
-                     | ad09_l & ~right_l & ~ & 
-                     | and11_l & ~right_l &  & ~
-                     | md11_l & ~right_l &  & ;
-assign regbus11 = ~regbus11_l;
+assign regbus11_l = ad11_l & right_l & left_l & twice_l
+                     | ad05_l & right_l & left_l & ~twice_l
+                     | adlk_l & right_l & ~left_l & twice_l
+                     | ad00_l & right_l & ~left_l & ~twice_l
+                     | ad10_l & ~right_l & left_l & twice_l
+                     | ad09_l & ~right_l & left_l & ~twice_l
+                     | and11_l & ~right_l & ~left_l & twice_l
+                     | md11_l & ~right_l & ~left_l & ~twice_l;
+// e59: mc8266 
+assign n_t_7x = ~(~mq11_l & ~shl_ena_l
+                   | ac10 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_20x = ~(~mq_data_l & ~shl_ena_l
+                    | ac11 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_22x = ~(~mq09_l & ~shl_ena_l
+                    | ac08 & shl_ena_l & ~al2mq_ena_l);
+assign n_t_19x = ~(~mq10_l & ~shl_ena_l
+                    | ac09 & shl_ena_l & ~al2mq_ena_l);
+// e60: dec8235 
+// data09 = !(!mq09_l & !mq2bus_l
+//       # ac09 & !ac2bus_l); 
+// data08 = !(!mq08_l & !mq2bus_l
+//       # ac08 & !ac2bus_l); 
+// data10 = !(!mq10_l & !mq2bus_l
+//       # ac10 & !ac2bus_l); 
+// data11 = !(!mq11_l & !mq2bus_l
+//       # ac11 & !ac2bus_l); 
 // e61: sn7400 
-assign ac09 = ~(and09_l & mb09);
-assign ac11 = ~(mb11 & );
-assign ac10 = ~(mb10 & );
+assign and08_l = ~(mb08 & ac08);
+assign and09_l = ~(mb09 & ac09);
+assign and11_l = ~(ac11 & mb11);
+assign and10_l = ~(ac10 & mb10);
 // e63: sn74h04 
-assign n_t_12x = md_dir_l;
-assign n3b = 1'b1;
-assign right2 = ~right_l;
-assign n3c = 1'b1;
-assign b_init_l = ~init;
 // e64: sn74h04 
-assign n3a = 1'b1;
-assign n_t_1x = ~mac_l;
 // r1: r_us_ 
 // open collector 'wire-or's 
-assign ma00_l = (n_t_1x & cpma0)? 1'b0: 1'bz;
-assign ma01_l = (n_t_1x & cpma1)? 1'b0: 1'bz;
-assign ma02_l = (n_t_1x & cpma2)? 1'b0: 1'bz;
-assign ma03_l = (cpma3 & n_t_1x)? 1'b0: 1'bz;
-assign ma04_l = (n_t_1x & cpma4)? 1'b0: 1'bz;
-assign ma05_l = (n_t_1x & cpma5)? 1'b0: 1'bz;
-assign ma06_l = (n_t_1x & cpma6)? 1'b0: 1'bz;
-assign ma07_l = (cpma7 & n_t_1x)? 1'b0: 1'bz;
-assign ma08_l = (cpma8 & n_t_1x)? 1'b0: 1'bz;
-assign ma09_l = (n_t_1x & cpma9)? 1'b0: 1'bz;
-assign ma10_l = (n_t_1x & cpma10)? 1'b0: 1'bz;
-assign ma11_l = (cpma11 & n_t_1x)? 1'b0: 1'bz;
-assign md00_l = (n_t_12x & mb00)? 1'b0: 1'bz;
-assign md01_l = (n_t_12x & mb01)? 1'b0: 1'bz;
-assign md02_l = (n_t_12x & mb02)? 1'b0: 1'bz;
-assign md03_l = (mb03 & n_t_12x)? 1'b0: 1'bz;
-assign md04_l = (n_t_12x & mb04)? 1'b0: 1'bz;
-assign md05_l = (n_t_12x & mb05)? 1'b0: 1'bz;
-assign md06_l = (n_t_12x & mb06)? 1'b0: 1'bz;
-assign md07_l = (mb07 & n_t_12x)? 1'b0: 1'bz;
-assign md08_l = (mb08 & n_t_12x)? 1'b0: 1'bz;
-assign md09_l = (mb09 & n_t_12x)? 1'b0: 1'bz;
-assign md10_l = (n_t_12x & mb10)? 1'b0: 1'bz;
-assign md11_l = (mb11 & n_t_12x)? 1'b0: 1'bz;
+assign data00 = (~mq00_l & ~mq2bus_l
+                  | ac00 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data01 = (~mq01_l & ~mq2bus_l
+                  | ac01 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data02 = (~mq02_l & ~mq2bus_l
+                  | ac02 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data03 = (~mq03_l & ~mq2bus_l
+                  | ac03 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data04 = (~mq04_l & ~mq2bus_l
+                  | ac04 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data05 = (~mq05_l & ~mq2bus_l
+                  | ac05 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data06 = (~mq06_l & ~mq2bus_l
+                  | ac06 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data07 = (~mq07_l & ~mq2bus_l
+                  | ac07 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data08 = (~mq08_l & ~mq2bus_l
+                  | ac08 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data09 = (~mq09_l & ~mq2bus_l
+                  | ac09 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data10 = (~mq10_l & ~mq2bus_l
+                  | ac10 & ~ac2bus_l)? 1'b0: 1'bz;
+assign data11 = (~mq11_l & ~mq2bus_l
+                  | ac11 & ~ac2bus_l)? 1'b0: 1'bz;
+assign ma00_l = (~mac_l & cpma0)? 1'b0: 1'bz;
+assign ma01_l = (~mac_l & cpma1)? 1'b0: 1'bz;
+assign ma02_l = (~mac_l & cpma2)? 1'b0: 1'bz;
+assign ma03_l = (cpma3 & ~mac_l)? 1'b0: 1'bz;
+assign ma04_l = (~mac_l & cpma4)? 1'b0: 1'bz;
+assign ma05_l = (~mac_l & cpma5)? 1'b0: 1'bz;
+assign ma06_l = (~mac_l & cpma6)? 1'b0: 1'bz;
+assign ma07_l = (cpma7 & ~mac_l)? 1'b0: 1'bz;
+assign ma08_l = (cpma8 & ~mac_l)? 1'b0: 1'bz;
+assign ma09_l = (~mac_l & cpma9)? 1'b0: 1'bz;
+assign ma10_l = (~mac_l & cpma10)? 1'b0: 1'bz;
+assign ma11_l = (cpma11 & ~mac_l)? 1'b0: 1'bz;
+assign md00_l = (md_dir_l & mb00)? 1'b0: 1'bz;
+assign md01_l = (md_dir_l & mb01)? 1'b0: 1'bz;
+assign md02_l = (md_dir_l & mb02)? 1'b0: 1'bz;
+assign md03_l = (mb03 & md_dir_l)? 1'b0: 1'bz;
+assign md04_l = (md_dir_l & mb04)? 1'b0: 1'bz;
+assign md05_l = (md_dir_l & mb05)? 1'b0: 1'bz;
+assign md06_l = (md_dir_l & mb06)? 1'b0: 1'bz;
+assign md07_l = (mb07 & md_dir_l)? 1'b0: 1'bz;
+assign md08_l = (mb08 & md_dir_l)? 1'b0: 1'bz;
+assign md09_l = (mb09 & md_dir_l)? 1'b0: 1'bz;
+assign md10_l = (md_dir_l & mb10)? 1'b0: 1'bz;
+assign md11_l = (mb11 & md_dir_l)? 1'b0: 1'bz;
 endmodule

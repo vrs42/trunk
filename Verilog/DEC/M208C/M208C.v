@@ -17,7 +17,7 @@
 // c10: c_us 
 // c11: c_us 
 // e1: sn7474 
-module m208c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_30x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m208c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 inout reg c1;
@@ -36,10 +36,10 @@ input k2;
 output l1;
 output l2;
 inout reg m1;
-output m2;
+input m2;
 output n1;
+output n15v;
 output n2;
-output n_t_30x;
 inout reg p1;
 output p2;
 output r1;
@@ -61,6 +61,7 @@ reg p1_m;
 reg s2_m;
 reg u1_m;
 
+wire a0;
 wire ad01;
 wire ad02;
 wire ad02l;
@@ -71,11 +72,8 @@ wire bd01l;
 wire bd02l;
 wire bd03;
 wire biot5l;
-wire c0_l;
 wire c1_l;
 wire data1_l;
-wire data3;
-wire int_enable;
 wire n_t_10x;
 wire n_t_119x;
 wire n_t_11x;
@@ -87,15 +85,12 @@ wire n_t_16x;
 wire n_t_17x;
 wire n_t_18x;
 wire n_t_1x;
-wire n_t_20x;
-wire n_t_23x;
 wire n_t_24x;
-wire n_t_25x;
 wire n_t_27x;
 wire n_t_2x;
+wire n_t_30x;
 wire n_t_31x;
 wire n_t_32x;
-wire n_t_337x;
 wire n_t_3x;
 wire n_t_40x;
 wire n_t_46x;
@@ -103,9 +98,9 @@ wire n_t_4x;
 wire n_t_5x;
 wire n_t_6x;
 wire n_t_7x;
-wire n_t_80x;
 wire n_t_8x;
 wire n_t_9x;
+wire select6;
 always @(n_t_27x, n_t_32x, n_t_7x)
   if (~n_t_32x) begin
     e1_m <= 1'b1;
@@ -170,9 +165,9 @@ always @(n_t_27x, n_t_32x, h1_m)
 assign j2 = ~h1;
 // e4: sn7450 
 // e5: sn7400 
-assign data3 = ~b1;
-assign n_t_31x = ~(n_t_4x & n_t_2x);
+assign n_t_31x = ~b1;
 assign n_t_14x = ~k2;
+assign n_t_9x = ~m2;
 assign n_t_32x = ~b1;
 // e6: sn74h40 
 assign n_t_27x = ~(a1 & u2);

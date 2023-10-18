@@ -9,7 +9,7 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn7485 
-module m168x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_30x, n_t_49x, n_t_50x, p1, p2, r1, r2, s1, s2, t2, u2, v2);
+module m168x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_49x, n_t_50x, p1, p2, r1, r2, s1, s2, t2, u2, v2);
 output a1;
 input b1;
 output c1;
@@ -30,8 +30,8 @@ input l2;
 input m1;
 input m2;
 input n1;
+output n15v;
 input n2;
-output n_t_30x;
 output n_t_49x;
 output n_t_50x;
 input p1;

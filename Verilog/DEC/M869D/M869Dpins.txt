@@ -7,8 +7,8 @@ C1       +        +          pas      VCC
          1        1          pas      VCC
          2        2          pas      GND
 
-C2       +        +          pas      VCC
-         -        -          pas      N$114
+C2       +        +          pas      +15V
+         -        -          pas      GND
          1        1          pas      VCC
          2        2          pas      GND
 
@@ -42,13 +42,13 @@ C8       +        +          pas      N$107
          1        1          pas      VCC
          2        2          pas      GND
 
-C9       +        +          pas      GND
-         -        -          pas      -15V
+C9       +        +          pas      N$32
+         -        -          pas      N$31
          1        1          pas      VCC
          2        2          pas      GND
 
-C10      +        +          pas      VCC
-         -        -          pas      GND
+C10      +        +          pas      GND
+         -        -          pas      N$24
          1        1          pas      VCC
          2        2          pas      GND
 
@@ -97,8 +97,8 @@ C19      +        +          pas      VCC
          1        1          pas      VCC
          2        2          pas      GND
 
-C20      +        +          pas      VCC
-         -        -          pas      GND
+C20      +        +          pas      GND
+         -        -          pas      -15V
          1        1          pas      VCC
          2        2          pas      GND
 
@@ -107,8 +107,8 @@ C21      +        +          pas      VCC
          1        1          pas      VCC
          2        2          pas      GND
 
-C22      +        +          pas      VCC
-         -        -          pas      GND
+C22      +        +          pas      N$64
+         -        -          pas      N$49
          1        1          pas      VCC
          2        2          pas      GND
 
@@ -206,271 +206,93 @@ D2       A        A          pas      N$43
 
 E1       1        A          in       N$34
          2        B          in       +3V
-         3        A          in       VCC
-         4        B          in       VCC
-         5        Q          out      N$35
+         3        CLR        in       +3V
+         4        PRE        in       N$110
+         5        Q          out      SET_DONE
          6        C          in       N$42
          7        R/C        in       N$41
-         8        !Q         out      !SET_DONE
-         9        Q          out      SET_DONE
+         8        I0         in       N$10
+         9        A          in       N$39
          10       B          in       N$40
-         11       CLK        in       !RX_CLK
-         12       CLK        in       N$138
-         13       CLR        in       N$40
+         11       CLR        in       N$40
+         12       !Q         out      !SET_DONE
+         13       Q          out      N$35
          14       C          in       N$37
          15       R/C        in       N$36
-         16       IO11       io       MD02_L
-         17       TMS        io       TMS2
-         18       G1         in       GND
-         19       G2         in       GND
-         20       VCCIO      pwr      VCCIO
-         21       IO14       io       EMA2_L
-         22       IO15       io       EMA1_L
-         23       IO16       io       EMA0_L
-         24       IO17       io       TP_AB1
-         25       IO18       io       TP_AA1
-         26       IO19       io       IO19
-         27       IO20       io       GND
-         28       GND        pwr      GND
-         29       IO21       io       IO21
-         30       IO22       io       IO22
-         31       IO23       io       IO23
-         32       IO24       io       IO24
-         33       IO25       io       IO25
-         34       IO26       io       IO26
-         35       IO27       io       IO27
-         36       VCCIO      pwr      VCCIO
-         37       IO28       io       IO28
-         38       IO29       io       IO29
-         39       IO30       io       IO30
-         40       GND        pwr      GND
-         41       VCCINT     pwr      VCCINT
-         42       IO31       io       IO31
-         43       IO/PD2     io       IO32
-         44       IO33       io       IO33
-         45       GND        pwr      GND
-         46       IO34       io       IO34
-         47       IO35       io       IO35
-         48       IO36       io       IO36
-         49       IO37       io       IO37
-         50       IO38       io       IO38
-         51       IO39       io       IO39
-         52       IO40       io       IO40
-         53       VCCIO      pwr      VCCIO
-         54       IO41       io       TS_DISABLE_L
-         55       IO42       io       IO42
-         56       IO43       io       DATA11_L
-         57       IO44       io       KEY_CTL_L
-         58       IO45       io       DATA10_L
-         59       IO46       io       DATA09_L
-         60       IO47       io       LOAD_ADDR
-         61       GND        pwr      GND
-         62       IO48       io       DATA08_L
-         63       IO49       io       F_SET_L
-         64       TCK        io       TCK2
-         65       IO50       io       MD11_L
-         66       IO51       io       USER_MODE_L
-         67       IO52       io       MD10_L
-         68       VCCIO      pwr      VCCIO
-         69       IO53       io       MD09_L
-         70       IO54       io       D_L
-         71       IO55       io       MD08_L
-         72       IO56       io       F_L
-         73       IO57       io       IR01_L
-         74       IO58       io       IR00_L
-         75       TDO        io       TDO2
-         76       GND        pwr      GND
-         77       IO59       io       IO59
-         78       IO60       io       IND2_L
-         79       IO61       io       IND1_L
-         80       IO62       io       CPMA_DISABLE_L
-         81       IO63       io       SKIP_L
-         82       IO64       io       INITIALIZE
-         83       IO65       io       INT_RQST_L
-         84       VCCIO      pwr      VCCIO
-         85       IO66       io       INTERNAL_IO_L
-         86       IO67       io       TS1_L
-         87       IO/GCLK3   io       TP4
-         88       GND        pwr      GND
-         89       IN/GCLK1   in       TP3
-         90       IN/OE1     in       C1_L
-         91       IN/GCLR    in       TP2
-         92       IN/GCLK2/OE2 in       IO_PAUSE_L
-         93       VCCINT     pwr      VCCINT
-         94       IO69       io       DF_ENABLE
-         95       IO70       io       IO70
-         96       IO71       io       POWER_OK
-         97       GND        pwr      GND
-         98       IO72       io       DATA07_L
-         99       IO73       io       RUN_L
-         100      IO74       io       DATA06_L
+         16       8Q         hiz      AF2
+         17       7Q         hiz      AE2
+         18       6Q         hiz      AD2
+         19       5Q         hiz      AK2
+         20       4Q         hiz      AL2
+         21       3Q         hiz      AM2
+         22       2Q         hiz      AN2
+         23       1Q         hiz      AP2
 
 E2       1        A          in       GND
          2        B          in       !COLOR
-         3        I1         in       PRESET
-         4        O          out      !PRESET
-         5        Q          out      GRN_DELAY
+         3        CLR        in       +3V
+         4        I1         in       !RX_ACTIVE
+         5        Q          out      RED_DELAY
          6        C          in       N$32
          7        R/C        in       N$31
-         8        I0         in       N$131
-         9        Q          out      RED_DELAY
+         8        O          out      N$136
+         9        A          in       GND
          10       B          in       COLOR
-         11       I2         in       RX_DATA
-         12       I0         in       N$13
-         13       CLR        in       +3V
+         11       CLR        in       +3V
+         12       O          out      N$110
+         13       Q          out      GRN_DELAY
          14       C          in       N$33
          15       R/C        in       N$30
-         16       IO10       io       !MD10
-         17       IO11       io       !MD09
-         18       IO12       io       !MD08
-         19       IO13       io       TP2
-         20       IO13       io       !D
-         21       IO14       io       !F
-         22       IO15       io       !IR1
-         23       TMS        io       TMS
-         24       IO16       io       !IR0
-         25       IO17       io       !IND2
-         26       FB2MC16    io       GND
-         27       IO18       io       !IND1
-         28       IO19       io       !CPMA_DISABLE
-         29       IO20       io       !SKIP
-         30       IO21       io       INITIALIZE
-         31       IO22       io       !TS4
-         32       IO24       io       !AC_TO_BUS
-         33       IO23       io       !INT_RQST
-         34       IO24       io       !TS3
-         35       IO25       io       !TS1
-         36       IO26       io       !INTERNAL_IO
-         37       IO27       io       TP4
-         38       IO29       io       MQ_LOAD
-         39       IO28       io       TP3
-         40       IO29       io       !C1
-         41       IO30       io       !C0
-         42       IO31       io       AC4-11_0
-         43       FB2MC4     io       BL2
-         44       IO31       io       !PAUSE
-         45       IO/PD2     io       POWER_OK
-         46       IO33       io       !RUN
-         47       IO35       io       AC_0
-         48       IO34       io       !DATA7
-         49       IO35       io       !DATA6
-         50       IO36       io       !DATA5
-         51       IO37       io       !DATA4
-         52       IO38       io       INT_IN_PROG
-         54       IO39       io       !LA_ENABLE
-         55       IO40       io       !MD07
-         56       IO41       io       !MD06
-         57       IO42       io       !MD05
-         58       IO43       io       !MD04
-         59       IO46       io       AC2-8_0
-         60       IO44       io       !LOAD_CONT
-         61       IO45       io       !LINK
-         62       TCK        io       TCK
-         63       IO46       io       !DATA3
-         64       IO47       io       !DATA2
-         65       IO48       io       !DATA1
-         66       IO51       io       !MQ0
-         67       IO49       io       !DATA0
-         68       IO50       io       !MD03
-         69       IO51       io       !MD02
-         70       IO52       io       !MD01
-         71       TDO        io       TDO
-         72       IO56       io       RTF
-         73       IO53       io       !MD00
-         74       IO54       io       !EMA0
-         75       IO55       io       !EMA1
-         76       IO56       io       !EMA2
-         77       IO57       io       N_T_37X
-         78       IO60       io       ROM_24_L
-         79       IO58       io       !P4_PCLR
-         80       IO59       io       P4_PCLR
-         81       IO/GCLK3   io       DATA09_L
-         82       IO64       io       RESTART
-         83       IN/GCLK1   in       CLK
-         84       IN/OE1     in       CF1
-         85       IO66       io       TP2_D
-         86       IO67       io       !SGT
-         89       IN/GCLK1   in       ROM_15_L
-         90       IN/OE1     in       !DAD+DST
-         91       IN/GCLR    in       ROM_11_L
-         92       IN/GCLK2/OE2 in       CLOCK
-         94       IO69       io       ROM_17_L
-         95       IO70       io       LAST_STEP_L
-         96       IO71       io       ROM_12_L
-         98       IO72       io       ROM_14_L
-         99       IO73       io       MODEB
-         100      IO74       io       GTF+IND
+         16       Q1         out      A1
 
-E3       1        I0         in       RED_DELAY
-         2        O          out      !DLY_DONE
-         3        I1         in       N$89
+E3       1        O          out      !DLY_DONE
+         2        I0         in       RED_DELAY
+         3        I1         in       GRN_DELAY
          4        O          out      N$26
-         5        I0         in       RX_ACTIVE
-         6        O          out      N$34
-         7        ENP        in       VCC
-         8        O          out      !CLEAR_DONE
-         9        I0         in       CLEAR
-         10       I1         in       SET_DONE
-         11       I0         in       !RX_CLK
-         12       I0         in       N$35
-         13       I1         in       ERASE
-         14       QA         out      DIV349
+         5        I0         in       CLEAR
+         6        I1         in       SET_DONE
+         7        I1         in       !INT_IN_PROG
+         8        I0         in       GRN_DELAY
+         9        I1         in       RED_DELAY
+         10       O          out      N$34
+         11       I0         in       N$35
+         12       I1         in       ERASE
+         13       O          out      !CLEAR_DONE
+         14       B          in       MD10P
          15       A          in       MD11P
          16       S1         in       N$12
-         17       E2         in       VCC
-         18       B2         io       N$3
-         19       E1         in       VCC
-         20       B1         io       N$1
+         17       S0         in       N$11
+         18       C3         in       GND
+         19       B3         in       N$5
+         20       A3         in       N$1
          21       C2         in       GND
          22       B2         in       N$6
          23       A2         in       N$2
-         24       FB1MC17    io       BF2
-         25       FB2MC17    io       BF1
-         26       FB2MC16    io       BE2
-         27       FB2MC15    io       BD2
-         28       FB2MC14    io       BC1
-         29       FB2MC13    io       AV1W
-         30       TDO        out      N$10
-         33       FB2MC12    io       AP1W
-         34       FB2MC11    io       AN1W
-         35       FB2MC10    io       AM2W
-         36       FB2MC9     io       AL2W
-         37       FB2MC8     io       AF1W
-         38       FB2MC7     io       C3
-         39       GSR        in       B2
-         40       GTS@1      in       BU2
-         42       GTS@0      in       GND
-         43       FB2MC4     io       BV2
-         44       FB2MC2     io       BV1
 
 E4       1        P$1        in       !LOAD_EN
          2        P$2        in       !LOAD_EN
          3        P$3        in       BTP3
          4        P$4        in       +3V
-         5        I1         in       DATA_ENAB
+         5        I1         in       !PAUSE
          6        !Q         out      !LD_DEL
-         7        I1         in       DATA_ENAB
-         8        !Q         out      !RX_DIV4
-         9        I0         in       N$51
+         7        I1         in       IOT67
+         8        !Q         out      N$75
+         9        I0         in       !MD10
          10       PRE        in       +3V3
          11       P$5        io       N$49
          12       QA         out      N$72
          13       P$6        io       N$45
          14       CKA        in       N$57
-         15       R/C        in       N$71
+         15       I2         in       REGBUS00
          16       Q1         out      BB1
-         17       E2         in       VCC
-         18       B2         io       N$14
-         19       E1         in       VCC
-         20       B1         io       N$15
 
 E5       1        CLR        in       !CLEAR
          2        D          in       N$13
          3        CLK        in       LD_EN_REG
          4        PRE        in       +3V
          5        Q          out      WRITE_THRU
-         6        I1         in       N$147
-         7        I1         in       BMS_DIS
+         6        I1         in       N$2
+         7        S1         in       PAGEZ
          8        !Q         out      !STORE
          9        Q          out      STORE
          10       PRE        in       +3V
@@ -479,21 +301,13 @@ E5       1        CLR        in       !CLEAR
          13       CLR        in       !CLEAR
          14       CKA        in       N$154
          15       A3         in       VCC
-         16       Y2         hiz      N$7
-         17       A4         in       MB2_L
-         18       Y1         hiz      N$7
-         19       G          in       GND
-         20       O6         io       PC2_H
-         21       O7         io       AK2
-         22       O8         io       PC3_L
-         23       O9         io       PC3_H
 
 E6       1        CLR        in       N$26
          2        D          in       N$24
          3        CLK        in       LD_EN_REG
          4        PRE        in       +3V
          5        Q          out      ERASE
-         6        C          in       N$41
+         6        O          out      N$125
          7        Q1         out      N$34
          8        !Q         out      !COLOR
          9        Q          out      COLOR
@@ -504,13 +318,6 @@ E6       1        CLR        in       N$26
          14       I3         in       +3V3
          15       15         pas      NB2
          16       16         pas      NB1
-         17       O5         io       AC3_L
-         18       O6         io       AC2_H
-         19       O7         io       AC3_H
-         20       O6         io       MA2_H
-         21       O7         io       AK2
-         22       O8         io       MA3_L
-         23       O9         io       MA3_H
 
 E7       1        O          oc       !COL_RED
          2        I0         in       COLOR
@@ -518,16 +325,16 @@ E7       1        O          oc       !COL_RED
          4        O          oc       N$25
          5        I0         in       !STORE
          6        I1         in       !COLOR
-         7        S1         in       !START_ADD
-         8        Q          out      N$134
-         9        I0         in       N$57
+         7        S1         in       !AC2BUS
+         8        !Q         out      N$92
+         9        I0         in       N$53
          10       PRE        in       +3V
          11       CLK        in       N$90
-         12       CLK        in       N$92
+         12       D          in       N$92
          13       CLR        in       !PRESET
-         14       B3         in       N$9
-         15       A3         in       N$8
-         16       CLR        in       +3V
+         14       B3         in       !MQ01
+         15       A3         in       AC01
+         16       S1         in       N$12
          17       S0         in       N$11
          18       C3         in       GND
          19       B3         in       N$20
@@ -541,8 +348,8 @@ E8       1        O          oc       !DATA07
          3        I1         in       STORE
          4        PRE        in       +3V3
          5        Q          out      LAST_UNIT
-         6        R0(1)      in       +3V3
-         7        R0(2)      in       !SYNC
+         6        !Q         out      !LAST_UNIT
+         7        Q1         out      AC03
          8        I0         in       COLOR
          9        I1         in       DIRE
          10       O          oc       !DATA09
@@ -560,25 +367,21 @@ E8       1        O          oc       !DATA07
          22       1Q         hiz      N$55
          23       !R         in       +3V3
 
-E9       1        O          out      N$24
-         2        I0         in       !DATA08
-         3        I1         in       !LOAD_DATA
-         4        O          out      N$22
-         5        I0         in       !LOAD_DATA
-         6        I1         in       !DATA07
-         7        R0(2)      in       +3V3
-         8        I0         in       !DATA06
-         9        I1         in       !LOAD_DATA
-         10       O          out      N$13
+E9       1        CKB        in       N$56
+         2        O          out      N$22
+         3        O          out      N$24
+         4        I0         in       !DATA08
+         5        I1         in       !LOAD_DATA
+         6        I0         in       !LOAD_DATA
+         7        I1         in       !DATA07
+         8        Q          out      N$54
+         9        I0         in       !DATA06
+         10       I1         in       !LOAD_DATA
          11       I0         in       !LOAD_DATA
          12       I1         in       !DATA09
          13       O          out      N$11
-         14       CKA        in       N$55
+         14       O          out      N$13
          15       2G         in       GND
-         16       O4         io       SC3
-         17       O5         io       DATA3
-         18       O6         io       IO3
-         19       O7         io       A3
 
 E10      1        A0         in       SR07
          2        B0         in       !MTR1
@@ -597,64 +400,60 @@ E10      1        A0         in       SR07
          15       A3         in       SR05
          16       Q1         out      ZONE1
 
-E11      1        O          out      N$14
-         2        I0         in       !MD5
-         3        I1         in       N$6
-         4        O          out      N$17
-         5        I0         in       N$6
-         6        I1         in       !MD7
-         7        Q1         out      SR07
-         8        I0         in       !MD4
-         9        I1         in       N$6
-         10       O          out      N$12
+E11      1        R          in       N$1
+         2        O          out      N$17
+         3        O          out      N$14
+         4        I0         in       !MD5
+         5        I1         in       N$6
+         6        I0         in       N$6
+         7        I1         in       !MD7
+         8        O          out      !RX_CLR
+         9        I0         in       !MD4
+         10       I1         in       N$6
          11       I0         in       N$6
          12       I1         in       !MD3
          13       O          out      N$10
-         14       I3         in       DF_DB01
+         14       O          out      N$12
          15       I2         in       N$11
-         20       D          in       N$119
-         21       C          in       N$118
-         22       B          in       N$117
-         23       A          in       N$116
 
-E12      1        O          out      N$8
-         2        I0         in       !CC_67X
+E12      1        CLR        in       +3V
+         2        O          out      N$9
          3        O          out      IOT
          4        I0         in       N$15
          5        I1         in       N$6
          6        I2         in       N$17
-         7        D0         in       N$77
-         8        I0         in       DATA01
+         7        I1         in       DATA10
+         8        !Q         out      !LAST_UNIT
          9        I3         in       N$12
          10       I4         in       N$10
          11       I5         in       !MD6
          12       I6         in       !MD8
          13       O          out      N$11
-         14       O0         in       N$82
+         14       O          out      DF_DB01
          15       B0         io       !DATA03
          16       S1         in       N$12
          17       S0         in       N$11
          18       C3         in       N$7
          19       B3         in       N$74
-         20       D          in       N$131
+         20       A3         in       N$65
          21       C2         in       N$8
          22       B2         in       N$76
          23       A2         in       N$73
 
-E13      1        O          out      BIT10
-         2        I0         in       !DATA10
-         3        I1         in       !LOAD_DATA
-         4        O          out      BIT11
-         5        I0         in       !DATA11
-         6        I1         in       !LOAD_DATA
-         7        D4         in       SR01
-         8        I0         in       TP3
-         9        I1         in       GND
-         10       O          out      !BTP3
+E13      1        !Q1        out      N$32
+         2        O          out      BIT11
+         3        O          out      BIT10
+         4        I0         in       !DATA10
+         5        I1         in       !LOAD_DATA
+         6        I0         in       !DATA11
+         7        I1         in       !LOAD_DATA
+         8        !Q4        out      N$34
+         9        I0         in       TP3
+         10       I1         in       GND
          11       I0         in       GND
          12       I1         in       !PAUSE
          13       O          out      N$16
-         14       CKA        in       N$85
+         14       O          out      !BTP3
          15       B0         io       !DATA07
          16       7Q         hiz      N$72
          17       6Q         hiz      N$64
@@ -667,11 +466,11 @@ E13      1        O          out      BIT10
 
 E14      1        I          in       GND
          2        O          out      +3V
-         3        CLR        in       N$17
+         3        CLK        in       CC_TPG_CLK
          4        PRE        in       N$17
-         5        Q          out      TPG0
-         6        R0(1)      in       +3V3
-         7        R0(2)      in       !SYNC
+         5        Q          out      CC_TPG1
+         6        !Q         out      !CC_TPG1
+         7        I2         in       P6_EEM
          8        O          out      BTP3
          9        I          in       !BTP3
          10       O          out      N$6
@@ -679,8 +478,10 @@ E14      1        I          in       GND
          12       O          out      +3V
          13       I          in       GND
          14       CKA        in       N$65
-         15       A3         in       N$159
-         16       CLR        in       !CLR_DSK_AD
+         15       O3         hiz      !P3_HOS
+         16       O2         hiz      N$74
+         17       O1         hiz      N$73
+         18       O0         hiz      N$72
          19       !CE        in       GND
          20       I15        in       N$69
          21       I14        in       P3_BM2
@@ -723,8 +524,9 @@ E16      1        O          oc       !DATA10
          13       O          oc       !C1
          14       I3         in       DF_DB00
          15       I2         in       DF_DB03
-         16       14         out      N$219
-         17       15         out      N$218
+         16       O2         hiz      !RD7
+         17       O1         hiz      !RD8
+         18       O0         hiz      !RD9
          19       !CE        in       N$64
          20       I15        in       N$51
          21       I14        in       N$52
@@ -741,14 +543,14 @@ E17      1        O          oc       !SKIP
          4        O          oc       !INTERRUPT
          5        I0         in       N$1
          6        I1         in       INT_EN
-         7        R0(2)      in       !SYNC
+         7        I1         in       DATA09
          8        I0         in       IOT
          9        I1         in       IOT
          10       O          oc       !INTERNAL_IO
          11       I0         in       N$1
          12       I1         in       DIRE
          13       O          oc       !DATA00
-         14       CKA        in       N$67
+         14       O          out      DF_DB00
          15       Q6         out      N$57
 
 E18      1        CLR        in       !CLEAR
@@ -757,7 +559,7 @@ E18      1        CLR        in       !CLEAR
          4        PRE        in       +3V
          5        Q          out      CHAN
          6        I1         in       N$10
-         7        R0(2)      in       +3V3
+         7        D4         in       I04
          8        I0         in       N$34
          9        Q          out      INT_EN
          10       PRE        in       +3V
@@ -773,14 +575,14 @@ E19      1        CLR        in       !CL_DONE
          3        CLK        in       N$3
          4        PRE        in       +3V
          5        Q          out      N$1
-         6        I1         in       N$100
+         6        O          out      CC_DTP0
          7        RD6        hiz      RD5
-         8        I0         in       N$80
-         9        I1         in       N$73
-         10       O          out      CC_TT_EN
-         11       I0         in       N$66
-         12       I1         in       !CC_SDLC
-         13       O          out      N$68
+         8        O          out      CC_TT_EN
+         9        I0         in       N$80
+         10       I1         in       N$73
+         11       O          out      N$68
+         12       I0         in       N$66
+         13       I1         in       !CC_SDLC
          14       FE         hiz      FRAMING_ERR
          15       OR         hiz      OVERRUN_ERR
          16       /SWE       in       GND
@@ -808,21 +610,21 @@ E19      1        CLR        in       !CL_DONE
          39       EPS        in       EVN
          40       TCP        in       TX_CLK
 
-E20      1        I0         in       !DILE
-         2        O          out      LD_EN_REG
-         3        I1         in       MD07
-         4        O          out      N$67
-         5        I0         in       MD08
-         6        O          out      !LOAD_EN
-         7        I1         in       TP4
-         8        O          out      N$23
-         9        I0         in       DILX
-         10       I1         in       DILY
-         11       I0         in       TP3
-         12       I0         in       !DICL
-         13       I1         in       !BTP3
-         14       O          out      N$141
-         15       G          in       N$303
+E20      1        O          out      LD_EN_REG
+         2        I0         in       !DILE
+         3        I1         in       !BTP3
+         4        I0         in       !IO_PAUSE
+         5        I1         in       MD07
+         6        I0         in       MD08
+         7        I1         in       !IO_PAUSE
+         8        I0         in       DILX
+         9        I1         in       DILY
+         10       O          out      !LOAD_EN
+         11       I0         in       !DICL
+         12       I1         in       !BTP3
+         13       O          out      N$23
+         14       O          out      !CC_RUN
+         15       A3         in       GND
          16       S1         in       N$12
          17       S0         in       N$11
          18       C3         in       GND
@@ -857,53 +659,52 @@ E21      1        I          in       !DIXY
          23       A2         in       N$68
 
 E22      1        I0         in       BTP3
-         2        O          out      !B_DICD
-         3        I1         in       !CC_DTP0
-         4        O          out      !B_DIXY
-         5        I0         in       !CC_SETDLY
-         6        O          out      LOAD_X
+         2        I1         in       DICD
+         3        O          out      !B_DICD
+         4        I0         in       BTP3
+         5        I1         in       N$7
+         6        O          out      !B_DIXY
          7        G          in       GND
-         8        O          out      LOAD_Y
-         9        I0         in       BTP3
-         10       I1         in       N$7
-         11       I0         in       !CC_DTP1
+         8        O          out      LOAD_X
+         9        I0         in       DILX
+         10       I1         in       BTP3
+         11       O          out      LOAD_Y
          12       I0         in       BTP3
          13       I1         in       DILY
          14       D5         in       BD300
-         15       A          in       GND
+         15       D4         in       BD600
 
 E23      1        I0         in       !CLEAR
-         2        O          out      !CL_DONE
-         3        I2         in       TPG0
-         4        O          out      N$3
+         2        I1         in       !B_LOAD_EN
+         3        I0         in       N$107
+         4        I2         in       !B_DIXY
          5        I3         in       !B_DICD
-         6        I1         in       CC_T/M_EN
-         7        2Y         hiz      !RD4
-         8        I0         in       N$101
+         6        O          out      !CL_DONE
+         7        I1         in       !MD7
+         8        O          out      N$3
          9        I0         in       !DEL_1
          10       I1         in       !SET_DONE
          11       I2         in       N$102
          12       I2         in       !DLY_DONE
          13       I3         in       !LD_DEL
          14       O          out      N$36
-         15       D4         in       !AD03
-         16       CLR        in       !CLR_DSK_AD
+         15       G          in       N$66
 
-E24      1        O          out      N$19
-         2        I0         in       !MD11
-         3        I1         in       !IOT
-         4        O          out      N$20
-         5        I0         in       !IOT
-         6        I1         in       !MD10
-         7        D0         in       N$243
-         8        I0         in       INITIALIZE
-         9        I1         in       N$23
-         10       O          out      N$18
+E24      1        I0         in       N$56
+         2        O          out      N$20
+         3        O          out      N$19
+         4        I0         in       !MD11
+         5        I1         in       !IOT
+         6        I0         in       !IOT
+         7        I1         in       !MD10
+         8        O          out      N$68
+         9        I0         in       INITIALIZE
+         10       I1         in       N$23
          11       I0         in       !MD9
          12       I1         in       !IOT
          13       O          out      N$21
-         14       O0         in       N$247
-         15       B0         io       N$250
+         14       O          out      N$18
+         15       A3         in       GND
 
 E25      1        C          in       N$21
          2        D          in       !IOT
@@ -920,36 +721,35 @@ E25      1        C          in       N$21
          13       0          out      !DICL
          14       B          in       N$20
          15       A          in       N$19
-         16       CLR        in       +3V
 
 E26      1        I0         in       !DILE
-         2        O          out      N$4
-         3        I          in       N$20
-         4        O          out      N$5
-         5        I          in       N$83
-         6        O          out      N$2
-         7        S1         in       !START_ADD
-         8        O          out      !B_LOAD_EN
-         9        I0         in       !DILE
+         2        I1         in       !DIRE
+         3        O          out      N$4
+         4        I0         in       !DILE
+         5        I1         in       !LOAD_EN
+         6        O          out      N$5
+         7        2D         in       N$130
+         8        O          out      N$2
+         9        I0         in       !LOAD_EN
          10       I1         in       !CLEAR_DONE
-         11       I          in       CC_67X
+         11       O          out      !B_LOAD_EN
          12       I0         in       N$2
          13       I1         in       BTP3
-         14       B3         in       N$27
-         15       A3         in       N$26
-         16       +UB        pwr      VCC
+         14       B3         in       !MA04
+         15       2Q         out      !P3_E2CFROM
+         16       1Q         out      P3_BPAUSE
 
-E27      1        O          out      !DF_TIME_ER
-         2        I0         in       !CC_INIT
-         3        I1         in       !CC_CLK_TE
-         4        O          out      N$22
-         5        I0         in       !CC_SDRC
-         6        I1         in       !CC_SDRD
-         7        I1         in       N$115
-         8        O          out      N$8
-         9        I1         in       CC_DTP
-         10       O          out      N$109
-         11       I2         in       SYNC
+E27      1        I0         in       !CC_INIT
+         2        I1         in       !CC_CLK_TE
+         3        I0         in       !CC_SDRC
+         4        I1         in       !CC_SDRD
+         5        I2         in       !CC_SDLD
+         6        O          out      N$22
+         7        I1         in       !IO_PAUSE
+         8        O          out      N$109
+         9        I0         in       N$101
+         10       I1         in       CC_DTP
+         11       O          out      N$8
          12       I0         in       Z_PULSE
          13       I1         in       !DEL_1
          14       O          out      INITIALIZE
@@ -961,20 +761,20 @@ E28      1        I          in       CHAN
          4        O          oc       N$9
          5        I          in       CLEAR
          6        O          oc       !CLEAR
-         7        7          pas      R=150
+         7        I1         in       GND
          8        O          oc       CLEAR
          9        I          in       N$18
          10       O          oc       !IOT
          11       I          in       IOT
          12       O          oc       !LOAD_DATA
          13       I          in       N$5
-         14       14         pas      B3
+         14       O          out      !IO_PAUSE
          15       15         pas      !TX_CLK
          16       16         pas      +3V3
 
 F        A1       P          pas      GND
          A2       P          pas      Z_PULSE
-         B1       P          pas      GND
+         3        3          pas      MD05
          B2       P          pas      !DIRE
          C1       P          pas      GND
          C2       P          pas      !NON_STORE
@@ -983,10 +783,10 @@ F        A1       P          pas      GND
          E1       P          pas      +15V
          E2       P          pas      AC2-8_0
          F1       P          pas      -15V
-         F2       P          pas      MQ_0
          H1       P          pas      -15V
          H2       P          pas      AC0
          J1       P          pas      !AD_LK
+         J2       P          pas      AC1
          K1       P          pas      !ERASE
          K2       P          pas      !AC_LOAD
          L1       P          pas      !COL_RED
@@ -994,24 +794,24 @@ F        A1       P          pas      GND
          M1       P          pas      !WRITE_THRU
          M2       P          pas      !CARRY_OUT
          N1       P          pas      CLEAR
+         N2       P          pas      DATA_F
+         P1       P          pas      !DILE
+         2        2          pas      N$161
          P2       P          pas      EN1
-         3        3          pas      MD05
-         4        4          pas      N$1
-         J2       P          pas      AC1
          R1       P          pas      !CHAN
-         T1       P          pas      BIT11
+         S1       P          pas      INTENS
          T2       P          pas      EN0
          U1       P          pas      BIT10
          U2       P          pas      LOAD_Y
          1        1          pas      N$165
+         4        4          pas      N$1
+         B1       P          pas      GND
+         F2       P          pas      MQ_0
          R2       P          pas      MQ_LOAD
-         S1       P          pas      INTENS
+         S2       P          pas      !MQ_TO_BUS
+         T1       P          pas      BIT11
          V1       P          pas      !LOAD_EN
          V2       P          pas      LOAD_X
-         2        2          pas      N$161
-         N2       P          pas      DATA_F
-         P1       P          pas      !DILE
-         S2       P          pas      !MQ_TO_BUS
 
 H        A1       P          pas      GTF+IND
          A2       P          pas      MODEB
@@ -1050,60 +850,59 @@ H        A1       P          pas      GTF+IND
          V1       P          pas      GND
          V2       P          pas      !ADLK_DIS
 
-J1       AA       23         io       GND
-         A        1          io       GND
-         BB       24         io       WPT
-         CC       25         io       GND
-         D        4          io       RD00
+J1       A        1          io       GND
          DD       26         io       ND1
-         E        5          io       GND
+         D        4          io       RD00
          EE       27         io       GND
-         FF       28         io       ND0
-         HH       29         io       GND
-         H        7          io       GND
+         E        5          io       GND
+         F        6          io       RMT
          J        8          io       !RTT
          JJ       30         io       S/!G
-         KK       31         io       GND
-         K        9          io       GND
          L        10         io       RD01
-         LL       32         io       UNITH
          M        11         io       GND
+         3        3          pas      -15V
+         9        9          pas      GND
+         AA       23         io       GND
+         BB       24         io       WPT
+         B        2          io       GND
+         HH       29         io       GND
+         H        7          io       GND
          MM       33         io       GND
          NN       34         io       T/M_ENABLE
-         P        13         io       GND
-         P3       P$2        io       GND
-         PP       35         io       GND
          P2       P$2        io       GND
          2        2          pas      +15V
-         5        5          pas      GND
          6        6          pas      GND
-         P1       P$2        io       GND
-         R        P          pas      READ
+         FF       28         io       ND0
+         K        9          io       GND
+         LL       32         io       UNITH
+         1        1          pas      +15V
+         8        8          pas      GND
+         N        12         io       SEL_ECHO
+         P3       P$2        io       GND
+         PP       35         io       GND
          RR       36         io       CON_ALL_HALT
          SS       37         io       GND
          S        15         io       GND
          TT       38         io       F/!R
+         T        16         io       WRT_ECHO
+         5        5          pas      GND
+         10       10         pas      GND
+         C        3          io       GND
+         P        13         io       GND
+         P1       P$2        io       GND
+         R        P          pas      READ
          U        17         io       GND
-         3        3          pas      -15V
-         VV       40         io       GND
+         UU       39         io       GND
          V        18         io       RD02
          W        19         io       GND
-         X        20         io       ND2
+         Y        21         io       GND
          4        4          pas      -15V
          7        7          pas      GND
-         8        8          pas      GND
-         B        2          io       GND
-         F        6          io       RMT
-         T        16         io       WRT_ECHO
-         UU       39         io       GND
-         1        1          pas      +15V
-         9        9          pas      GND
-         10       10         pas      GND
-         Y        21         io       GND
+         CC       25         io       GND
+         KK       31         io       GND
+         VV       40         io       GND
+         X        20         io       ND2
          Z        22         io       WD_ENAB
-         12       12         pas      N$4
-         C        3          io       GND
-         N        12         io       SEL_ECHO
 
 OMNIBUS  AA2      1          io       VCC
          AB2      1          io       -15V
@@ -1207,36 +1006,30 @@ OMNIBUS  AA2      1          io       VCC
          DU1      1          io       !DATA10
          DV1      1          io       !DATA11
 
-Q1       B        B          pas      N$22
-         1        E          pas      GND
+Q1       2        B          pas      N$38
+         B        B          pas      N$22
          C        C          pas      +15V
-         E        E          pas      N$23
-         2        B          pas      N$38
+         1        E          pas      GND
          3        C          pas      N$39
+         E        E          pas      N$23
 
 R1       1        1          pas      N$6
          2        2          pas      VCC
 
-R2       A        A          pas      D2
-         E        E          pas      GND
-         1        1          pas      !IOT
-         S        S          pas      GND
+R2       1        1          pas      !IOT
          2        2          pas      VCC
          3        E          pas      D2
 
-R3       3        E          pas      N$6
-         A        A          pas      VCC
-         E        E          pas      N$10
-         S        S          pas      N$10
-         1        1          pas      CLEAR
+R3       1        1          pas      CLEAR
          2        2          pas      VCC
+         3        E          pas      N$6
 
-R4       3        E          pas      N$47
-         A        A          pas      N$64
-         1        1          pas      N$36
-         2        2          pas      VCC
+R4       A        A          pas      N$64
          E        E          pas      4.5MS
          S        S          pas      4.5MS
+         1        1          pas      N$36
+         2        2          pas      VCC
+         3        E          pas      N$47
 
 R5       1        1          pas      !CLEAR
          2        2          pas      VCC
@@ -1247,17 +1040,11 @@ R6       1        1          pas      !LOAD_DATA
 R7       1        1          pas      N$41
          2        2          pas      VCC
 
-R8       A        A          pas      N$26
-         3        E          pas      N2
-         S        S          pas      N$26
-         1        1          pas      N$43
+R8       1        1          pas      N$43
          2        2          pas      VCC
-         E        E          pas      N2
+         3        E          pas      N2
 
-R9       A        A          pas      V1
-         E        E          pas      N$9
-         S        S          pas      N$9
-         1        1          pas      N$44
+R9       1        1          pas      N$44
          2        2          pas      VCC
 
 R10      1        1          pas      N$46
@@ -1268,30 +1055,18 @@ R11      1        1          pas      Z_PULSE
          3        E          pas      V1
 
 R12      1        1          pas      !CHAN
-         A        A          pas      A1
-         E        E          pas      N$10
          2        2          pas      VCC
-         S        S          pas      N$10
          3        E          pas      N$50
 
-R13      A        A          pas      N$9
+R13      1        1          pas      N$9
          2        2          pas      VCC
-         E        E          pas      VCC
-         S        S          pas      VCC
-         1        1          pas      N$9
          3        E          pas      V2
 
 R14      1        1          pas      !ERASE_INTERVAL
-         S        S          pas      VCC
          2        2          pas      N$38
-         A        A          pas      N$10
-         E        E          pas      VCC
 
-R15      E        E          pas      N$64
-         S        S          pas      4.5MS
-         1        1          pas      N$39
+R15      1        1          pas      N$39
          2        2          pas      VCC
-         A        A          pas      4.5MS
 
 R16      1        1          pas      N$25
          2        2          pas      VCC
@@ -1302,10 +1077,7 @@ R17      1        1          pas      N$27
 R18      1        1          pas      N$28
          2        2          pas      VCC
 
-R19      S        S          pas      N$15
-         1        1          pas      N$30
-         A        A          pas      -15V
-         E        E          pas      GND
+R19      1        1          pas      N$30
          2        2          pas      VCC
          3        E          pas      -15V
 
@@ -1319,35 +1091,29 @@ R22      1        1          pas      N$40
          2        2          pas      VCC
 
 S1       1        A1         io       N$8
-         4        4          pas      N$13
-         5        5          pas      N$13
-         7        7          pas      N$13
-         8        8          pas      N$13
-         9        9          pas      N$1
-         11       11         pas      N$4
-         12       12         pas      N$5
-         13       13         pas      N$6
-         14       14         pas      N$7
-         C1       C1         pas      N$22
-         C2       C2         pas      N$21
          2        A2         io       INTENS
+         9        42         pas      N$8
+         10       52         pas      N$21
+         C1       C1         pas      N$22
+         8        32         pas      N$7
+         C2       C2         pas      N$21
          3        A3         io       N$9
-         6        6          pas      N$13
-         10       10         pas      N$3
-         15       15         pas      N$11
-         16       16         pas      N$12
+         4        41         pas      N$9
+         5        51         pas      N$22
+         6        12         pas      N$4
+         7        22         pas      N$6
 
-S2       2        A2         io       N$45
+S2       1        A1         io       N$47
+         C2       C2         pas      N$24
          3        A3         io       N$48
          4        41         pas      N$20
+         C1       C1         pas      N$5
+         2        A2         io       N$45
          5        51         pas      N$5
          6        12         pas      N$13
-         8        32         pas      N$15
-         C1       C1         pas      N$5
-         9        42         pas      N$16
-         C2       C2         pas      N$24
-         1        A1         io       N$47
          7        22         pas      N$14
+         8        32         pas      N$15
+         9        42         pas      N$16
          10       52         pas      N$24
 
 TP1      P$1      P          pas      16_CARRY

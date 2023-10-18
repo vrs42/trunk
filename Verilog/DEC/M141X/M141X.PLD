@@ -3,7 +3,7 @@
 
 Name     M141X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -18,7 +18,6 @@ $UNDEF  OPTIMIZE
 /* Input Pins */
 
 /* Output Pins */
-pin = n15v;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
@@ -54,8 +53,6 @@ pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node b1;
-node c1;
 node n3v;
 node n_t_46x;
 $ENDIF
@@ -73,8 +70,8 @@ $ENDIF
 /* c4: c_us */
 
 /* e1: sn7420 */
-n3v = !(n_t_30x & n_t_32x & n_t_29x & n3v);
-n_t_9x = !(c1 & b1 & n3v & n_t_31x);
+n_t_30x = !(n_t_32x & n3v & n3v & n3v);
+n_t_29x = !(n3v & n_t_31x);
 
 /* e2: sn7401 */
 /* n_t_9x = !(n_t_1x & n_t_2x); */

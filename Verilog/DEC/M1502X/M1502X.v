@@ -28,40 +28,41 @@
 // c21: c_us 
 // c22: c_us 
 // c23: c_us 
+// c24: cpol_use 
 // c25: c_us 
 // e1: sn7400 
 module m1502x (aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al2, am1, am2, an1, an2, ap1, ap2, ar1, as1, as2, at2, au2, av1, av2, b, ba1, bb, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, d, dd, f, ff, j, jj, l, ll, n, n3v3, n_t_10x, n_t_17x, nn, r, rr, t, tt, v, vv, x, z);
-inout aa1;
-inout ab1;
+input aa1;
+input ab1;
 input ac1;
 input ad1;
 input ad2;
-inout ae1;
-output ae2;
+input ae1;
+input ae2;
 input af1;
-output af2;
+input af2;
 input ah1;
-output ah2;
+input ah2;
 input aj1;
 input aj2;
 input ak1;
 input ak2;
 output al2;
-output am1;
-output am2;
-input an1;
+input am1;
+input am2;
+output an1;
 input an2;
-output ap1;
+input ap1;
 output ap2;
 input ar1;
 output as1;
-output as2;
-output at2;
-output au2;
+input as2;
+input at2;
+input au2;
 output av1;
 output av2;
 output b;
-input ba1;
+output ba1;
 output bb;
 input bb1;
 input bc1;
@@ -95,7 +96,7 @@ output bu2;
 input bv1;
 output bv2;
 output d;
-inout dd;
+output dd;
 output f;
 output ff;
 output j;
@@ -116,6 +117,7 @@ output vv;
 output x;
 output z;
 
+reg c1_m;
 reg d2_m;
 reg n_t_100x_m;
 reg n_t_102x_m;
@@ -131,14 +133,13 @@ reg n_t_122x_m;
 reg n_t_123x_m;
 reg n_t_124x_m;
 reg n_t_125x_m;
-reg n_t_49x_m;
 reg n_t_89x_m;
 reg n_t_90x_m;
 reg n_t_98x_m;
 reg n_t_99x_m;
 
 reg d2;
-reg n_t_49x;
+reg c1;
 reg n_t_89x;
 reg n_t_90x;
 reg n_t_109x;
@@ -161,12 +162,14 @@ wire a0;
 wire a12;
 wire a7;
 wire a8;
+wire a9;
 wire an1_l;
 wire an1clk;
 wire an1clr_l;
 wire as1clr_l;
 wire b1;
 wire ba1_l;
+wire ba1clk;
 wire ba1clr_l;
 wire bk2_l;
 wire bl1_l;
@@ -184,127 +187,107 @@ wire bs2_l;
 wire bu1_l;
 wire bu2_l;
 wire bv2_l;
-wire c1;
 wire c1_l;
 wire d1;
 wire dataclr_l;
-wire f1;
 wire f2;
 wire h1;
 wire hclk;
-wire k1;
-wire l2;
 wire lclk;
-wire m1;
-wire n2;
+wire n_t_11x;
 wire n_t_12x;
 wire n_t_13x;
-wire n_t_16x;
+wire n_t_154x;
 wire n_t_18x;
 wire n_t_20x;
 wire n_t_22x;
-wire n_t_23x;
+wire n_t_28x;
 wire n_t_31x;
-wire n_t_36x;
-wire n_t_43x;
 wire n_t_46x;
 wire n_t_4x;
 wire n_t_55x;
-wire n_t_62x;
-wire n_t_68x;
 wire n_t_69x;
 wire n_t_71x;
 wire n_t_73x;
-wire p1;
-wire r2;
-wire s1;
-wire select0;
-wire t2;
-wire testpoint;
-assign n_t_69x = ~(n_t_36x & ah1);
+wire n_t_9x;
+wire select6;
+assign an1clk = ~(~af1 & ah1);
+assign ba1clk = ~(~ae2 & ad2);
 // e2: ds8640n 
 // e3: sn7402 
-assign ap1 = ~(~ae1
-                | k1);
-assign ae1 = ~(~(ar1
-                  | as1clr_l));
-assign ah2 = ~(ba1clr_l
-                | ~ae1);
-assign af2 = ~(dd
-                | ~ae1);
+assign dataclr_l = ~(ap1
+                      | ~ae1);
+assign an1clr_l = ~(~ae1
+                     | ar1);
+assign as1clr_l = ~(~ae1
+                     | ah2);
+assign ba1clr_l = ~(~ae1
+                     | af2);
 // e4: sn7474 
-always @(bd2, as1clr_l, ak2, aj1)
+always @(bj2, as1clr_l, aj1)
   if (~as1clr_l) begin
     d2_m <= 1'b0;
   end else
-  if (ak2) begin
-    d2_m <= 1'b1;
-  end else
-  if (~(~bd2)) begin
+  if (~(bj2)) begin
     d2_m <= ~aj1;
   end
-always @(bd2, as1clr_l, ak2, d2_m)
+always @(bj2, as1clr_l, d2_m)
   if (~as1clr_l) begin
     d2 <= 1'b0;
   end else
-  if (ak2) begin
-    d2 <= 1'b1;
-  end else
-  if (~bd2) begin
+  if (bj2) begin
     d2 <= d2_m;
   end
-always @(be2, b1, c1, b1)
-  if (~b1) begin
-    n_t_49x_m <= 1'b0;
+assign as1 = ~(~d2);
+always @(b1, be2, n_t_154x, b1)
+  if (be2) begin
+    c1_m <= 1'b0;
   end else
-  if (~c1) begin
-    n_t_49x_m <= 1'b1;
+  if (~n_t_154x) begin
+    c1_m <= 1'b1;
   end else
-  if (~(~be2)) begin
-    n_t_49x_m <= b1;
+  if (~(b1)) begin
+    c1_m <= b1;
   end
-always @(be2, b1, c1, n_t_49x_m)
-  if (~b1) begin
-    n_t_49x <= 1'b0;
+always @(b1, be2, n_t_154x, c1_m)
+  if (be2) begin
+    c1 <= 1'b0;
   end else
-  if (~c1) begin
-    n_t_49x <= 1'b1;
+  if (~n_t_154x) begin
+    c1 <= 1'b1;
   end else
-  if (~be2) begin
-    n_t_49x <= n_t_49x_m;
+  if (b1) begin
+    c1 <= c1_m;
   end
 // e5: sn7402 
-assign n_t_16x = 1'b0;
-assign hclk = 1'b0;
-assign ab1 = ~(n_t_16x
-                | ab1);
-assign aa1 = ~(f1
-                | aa1);
+assign lclk = ~(~aa1
+                 | ~am1);
+assign hclk = ~(~ab1
+                 | ~am1);
 // e6: sn7400 
-assign m1 = ~(n_t_62x & n_t_68x);
 // e7: sn7437 
-assign n_t_55x = ~(an1_l & an1);
-assign as1 = ~(ba1 & ba1_l);
+assign an1 = ~an1_l;
+assign ba1 = ~ba1_l;
 assign n_t_69x = ~(f2 & n_t_55x);
 // e8: sn7474 
-always @(p1, ba1clr_l, n3v3, aj2)
+always @(ba1clk, ba1clr_l, n3v3, aj2)
   if (~ba1clr_l) begin
     n_t_89x_m <= 1'b0;
   end else
   if (~n3v3) begin
     n_t_89x_m <= 1'b1;
   end else
-  if (~(p1)) begin
+  if (~(ba1clk)) begin
     n_t_89x_m <= ~aj2;
   end
-always @(p1, ba1clr_l, n3v3, n_t_89x_m)
+always @(ba1clk, ba1clr_l, n3v3, n_t_89x_m)
   if (~ba1clr_l) begin
     n_t_89x <= 1'b0;
   end else
   if (~n3v3) begin
     n_t_89x <= 1'b1;
   end else
-  if (p1) begin
+  if (ba1clk) begin
     n_t_89x <= n_t_89x_m;
   end
 assign ba1_l = ~n_t_89x;
@@ -337,7 +320,10 @@ assign an1_l = ~n_t_90x;
 // rr = !n_t_102x; 
 // bb = !n_t_90x; 
 // e10: n8881n 
-// ap2 = !(n_t_68x & an2); 
+// av2 = !(au2 & at2); 
+// av1 = !(at2 & as2); 
+// al2 = !(am2 & ak2); 
+// ap2 = !(ak2 & an2); 
 // e11: sn7406 
 // jj = !n_t_108x; 
 // ff = !n_t_112x; 
@@ -640,7 +626,10 @@ assign bn1_l = ~n_t_125x;
 // r19: r_us_ 
 // r20: r_us_ 
 // open collector 'wire-or's 
-assign ap2 = (n_t_68x & an2)? 1'b0: 1'bz;
+assign al2 = (am2 & ak2)? 1'b0: 1'bz;
+assign ap2 = (ak2 & an2)? 1'b0: 1'bz;
+assign av1 = (at2 & as2)? 1'b0: 1'bz;
+assign av2 = (au2 & at2)? 1'b0: 1'bz;
 assign b = n_t_100x? ~n_t_100x: 1'bz;
 assign bb = n_t_90x? ~n_t_90x: 1'bz;
 assign d = n_t_122x? ~n_t_122x: 1'bz;

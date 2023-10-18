@@ -21,10 +21,10 @@
 // c14: cpol_use 
 // c15: c_us 
 // e1: sn7400 
-module m105x (a00, a01, a06, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_40x, n_t_42x, a0, a03, a07, a1, a10, a11, a12, a13, a1314, a14, a15, a16, a17, a2, a3, a4, a5, a6, a7, a8, a9, c0, c1, extgnd, msyn, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_3x, n_t_41x, n_t_43x, n_t_44x, n_t_45x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, out_l, outhigh, outlow, select0, select2, select4, select6, syn_l, testpoint);
+module m105x (a00, a06, n3v3, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_40x, n_t_42x, a0, a01, a1, a10, a11, a12, a13, a14, a15, a16, a17, a2, a3, a4, a5, a6, a7, a8, a9, c0, c1, c1_l, extgnd, msyn, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_3x, n_t_41x, n_t_43x, n_t_44x, n_t_45x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, out_l, outhigh, outlow, select0, select2, select4, select6, syn_l, testpoint);
 output a00;
-output a01;
 output a06;
+output n3v3;
 output n_t_33x;
 output n_t_34x;
 output n_t_35x;
@@ -35,14 +35,12 @@ output n_t_39x;
 output n_t_40x;
 output n_t_42x;
 output a0;
-output a03;
-output a07;
+output a01;
 output a1;
 output a10;
 output a11;
 output a12;
 input a13;
-output a1314;
 input a14;
 input a15;
 input a16;
@@ -57,6 +55,7 @@ output a8;
 output a9;
 output c0;
 input c1;
+inout c1_l;
 output extgnd;
 input msyn;
 output n15v;
@@ -113,21 +112,22 @@ assign n_t_31x = ~(msyn & a17);
 // testpoint = !(!n_t_31x & n_t_43x); 
 // !testpoint = !testpoint; 
 // syn_l = !n_t_44x; 
-// !c1 = !c1; 
+// c1_l = !c1; 
 // e8: sn74139 
 assign select0 = ~[a1,a2]:'b'00;
 assign select2 = ~[a1,a2]:'b'01;
 assign select4 = ~[a1,a2]:'b'10;
 assign select6 = ~[a1,a2]:'b'11;
-assign a09 = ~(c1 & [a0,c0]:'b'00);
-assign n_t_43x = ~(c1 & [a0,c0]:'b'01);
-assign outhigh = ~(c1 & [a0,c0]:'b'10);
-assign outlow = ~(c1 & [a0,c0]:'b'11);
+assign a09 = ~(~c1_l & [a0,c0]:'b'00);
+assign n_t_43x = ~(~c1_l & [a0,c0]:'b'01);
+assign outhigh = ~(~c1_l & [a0,c0]:'b'10);
+assign outlow = ~(~c1_l & [a0,c0]:'b'11);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
 // r4: r_us_ 
 // open collector 'wire-or's 
+assign c1_l = c1? ~c1: 1'bz;
 assign syn_l = n_t_44x? ~n_t_44x: 1'bz;
 assign testpoint = (~n_t_31x & n_t_43x)? 1'b0: 1'bz;
 endmodule

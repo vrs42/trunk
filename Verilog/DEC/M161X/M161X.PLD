@@ -3,7 +3,7 @@
 
 Name     M161X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -33,7 +33,6 @@ pin = l2;
 pin = m1;
 pin = m2;
 pin = n1;
-pin = n15v;
 pin = n2;
 pin = n_t_10x;
 pin = n_t_11x;
@@ -57,18 +56,11 @@ $IFNDEF OPTIMIZE
 node a0;
 node a7;
 node aj1;
-node al2;
+node an1;
 node an1clk;
-node as2;
-node at2;
-node au2;
-node av2;
+node ba1clk;
 node c1_l;
-node ff;
 node n3v;
-node n_t_100x;
-node n_t_111x;
-node n_t_112x;
 node n_t_12x;
 node n_t_13x;
 node n_t_14x;
@@ -82,19 +74,19 @@ node n_t_22x;
 node n_t_23x;
 node n_t_24x;
 node n_t_25x;
+node n_t_28x;
 node n_t_2x;
 node n_t_31x;
-node n_t_33x;
 node n_t_35x;
 node n_t_46x;
 node n_t_4x;
-node n_t_55x;
 node n_t_5x;
+node n_t_68x;
 node n_t_69x;
 node n_t_73x;
 node n_t_7x;
-node n_t_80x;
 node n_t_8x;
+node select6;
 $ENDIF
 
 /* Code nodes */
@@ -126,9 +118,9 @@ $ENDIF
 /* c12: c_us */
 
 /* e1: sn7400 */
-n_t_5x = !(n3v & h1);
-h2 = !(n_t_6x & n_t_7x);
-f2 = !n3v;
+h2 = !(n3v & h1);
+f2 = !(n3v & f1);
+e2 = !(e1 & n3v);
 d2 = !(d1 & n3v);
 
 /* e2: sn7420 */
@@ -144,9 +136,9 @@ l1 = !(n_t_25x & n_t_11x & n_t_24x & n_t_5x);
 h1 = !(n_t_5x & n_t_24x & n_t_11x & n_t_10x);
 
 /* e5: sn7400 */
-s1 = !(n3v & n1);
-n2 = !(n_t_31x & n_t_33x);
-l2 = !n3v;
+n2 = !(n3v & n1);
+m2 = !(n3v & m1);
+l2 = !(l1 & n3v);
 j2 = !(j1 & n3v);
 
 /* e6: sn7420 */
@@ -162,21 +154,21 @@ n_t_6x = !(n_t_7x & s2 & s1 & t2);
 n_t_2x = !(t2 & s1 & s2 & n3v);
 
 /* e9: sn7400 */
-n_t_100x = !(n3v & u1);
-n_t_7x = !(n_t_2x & n_t_4x);
-n_t_10x = !n3v;
+n_t_7x = !(n3v & u1);
+n_t_10x = !(n3v & v1);
+n_t_8x = !(v2 & n3v);
 n_t_9x = !(u2 & n3v);
 
 /* e10: sn7400 */
-av2 = !(n3v & n_t_6x);
-n_t_5x = !(au2 & at2);
-n_t_4x = !n3v;
+n_t_5x = !(n3v & n_t_6x);
+n_t_4x = !(n3v & n_t_2x);
+r2 = !(r1 & n3v);
 p2 = !(p1 & n3v);
 
 /* e11: sn7400 */
-n_t_112x = !(n3v & n_t_9x);
-n_t_24x = !(ff & n_t_111x);
-n_t_25x = !n3v;
+n_t_24x = !(n3v & n_t_9x);
+n_t_25x = !(n3v & n_t_10x);
+n_t_11x = !(n_t_8x & n3v);
 n_t_12x = !(n_t_7x & n3v);
 
 /* r1: r_us_ */

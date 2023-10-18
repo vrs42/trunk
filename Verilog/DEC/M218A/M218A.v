@@ -30,12 +30,9 @@
 //       # n_t_11x & n_t_12x & n_t_13x
 //       # n_t_18x & n_t_19x); 
 // n_t_1x = !n_t_2x; 
-// e3: sn7474 
-module m218a (ac0, bd01, biot5l, clrbufl, f2, h1, data1_l, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_26x, n_t_27x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_43x, n_t_44x, n_t_46x, n_t_47x, n_t_48x, n_t_4x, n_t_50x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_6x, n_t_70x, n_t_74x, n_t_75x, n_t_76x, n_t_77x, n_t_79x, n_t_7x, n_t_80x, n_t_81x, n_t_8x, n_t_9x);
-output ac0;
+module m218a (bd01, biot5l, f2, h1, data1_l, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_26x, n_t_27x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_43x, n_t_44x, n_t_46x, n_t_47x, n_t_48x, n_t_4x, n_t_50x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_6x, n_t_70x, n_t_74x, n_t_75x, n_t_76x, n_t_77x, n_t_79x, n_t_7x, n_t_80x, n_t_81x, n_t_8x, n_t_9x);
 output bd01;
 output biot5l;
-output clrbufl;
 output f2;
 output h1;
 output data1_l;
@@ -44,7 +41,7 @@ output n_t_10x;
 input n_t_11x;
 input n_t_12x;
 input n_t_13x;
-inout n_t_14x;
+input n_t_14x;
 inout n_t_15x;
 input n_t_16x;
 inout n_t_17x;
@@ -120,6 +117,7 @@ reg n_t_50x_m;
 reg n_t_52x_m;
 
 reg n_t_219x;
+wire a0;
 wire a8;
 wire ad01;
 wire ad02;
@@ -134,9 +132,9 @@ wire bt2;
 wire c1;
 wire c1_l;
 wire cnt2bufh;
-wire int_enable;
 wire k1;
 wire loadclkh;
+wire m1;
 wire md03_l;
 wire md07_l;
 wire md07h;
@@ -145,12 +143,13 @@ wire n_t_134x;
 wire n_t_170x;
 wire n_t_182x;
 wire n_t_217x;
-wire n_t_337x;
 wire p1;
-wire r2;
 wire s1;
+wire select6;
 wire tp3l;
 wire u2;
+assign loadclkh = ~n_t_2x;
+// e3: sn7474 
 always @(n_t_27x, n_t_24x, n_t_26x, loadclkh)
   if (~n_t_24x) begin
     n_t_31x_m <= 1'b0;
@@ -159,7 +158,7 @@ always @(n_t_27x, n_t_24x, n_t_26x, loadclkh)
     n_t_31x_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
-    n_t_31x_m <= loadclkh;
+    n_t_31x_m <= ~loadclkh;
   end
 always @(n_t_27x, n_t_24x, n_t_26x, n_t_31x_m)
   if (~n_t_24x) begin
@@ -172,7 +171,7 @@ always @(n_t_27x, n_t_24x, n_t_26x, n_t_31x_m)
     n_t_31x <= n_t_31x_m;
   end
 assign n_t_17x = ~n_t_31x;
-always @(n_t_27x, n_t_24x, n_t_26x, n_t_2x)
+always @(n_t_27x, n_t_24x, n_t_26x, loadclkh)
   if (~n_t_24x) begin
     n_t_30x_m <= 1'b0;
   end else
@@ -180,7 +179,7 @@ always @(n_t_27x, n_t_24x, n_t_26x, n_t_2x)
     n_t_30x_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
-    n_t_30x_m <= n_t_2x;
+    n_t_30x_m <= ~loadclkh;
   end
 always @(n_t_27x, n_t_24x, n_t_26x, n_t_30x_m)
   if (~n_t_24x) begin
@@ -193,11 +192,11 @@ always @(n_t_27x, n_t_24x, n_t_26x, n_t_30x_m)
     n_t_30x <= n_t_30x_m;
   end
 // e4: sn74h53 
-// loadclkh = !(n_t_21x & n_t_19x
-//         # n_t_22x & n_t_15x
-//         # n_t_23x & n_t_16x
-//         # n_t_13x & n_t_20x); 
-// n_t_14x = !loadclkh; 
+// !loadclkh = !(n_t_21x & n_t_19x
+//        # n_t_22x & n_t_15x
+//        # n_t_23x & n_t_16x
+//        # n_t_13x & n_t_20x); 
+// loadclkh = loadclkh; 
 // e6: sn74h53 
 // cnt2bufh = !(n_t_34x & n_t_15x
 //         # n_t_19x & n_t_33x
@@ -423,15 +422,10 @@ assign cnt2bufh = ~((n_t_34x & n_t_15x
                       | n_t_19x & n_t_33x
                       | n_t_32x & n_t_16x
                       | n_t_13x & n_t_17x));
-assign loadclkh = ~((n_t_21x & n_t_19x
-                      | n_t_22x & n_t_15x
-                      | n_t_23x & n_t_16x
-                      | n_t_13x & n_t_20x));
 assign md03_l = ~((n_t_75x & n_t_15x
                     | n_t_19x & n_t_74x
                     | n_t_43x & n_t_16x
                     | n_t_13x & n_t_39x));
-assign n_t_14x = loadclkh? ~loadclkh: 1'bz;
 assign n_t_15x = (n_t_67x & n_t_19x
                    | n_t_68x & (1'b0)
                    | n_t_47x & n_t_16x
@@ -443,6 +437,10 @@ assign n_t_20x = (n_t_65x & n_t_19x
                    | n_t_15x & n_t_66x
                    | n_t_39x & n_t_16x
                    | n_t_13x & n_t_32x)? 1'b0: 1'bz;
+assign loadclkh = (n_t_21x & n_t_19x
+                    | n_t_22x & n_t_15x
+                    | n_t_23x & n_t_16x
+                    | n_t_13x & n_t_20x);
 assign n_t_2x = (n_t_15x & n_t_14x
                   | n_t_16x & n_t_17x
                   | n_t_11x & n_t_12x & n_t_13x

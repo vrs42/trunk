@@ -60,8 +60,10 @@ output u2;
 output v2;
 
 
+wire a01;
 wire a12;
 wire a16;
+wire n_t_18x;
 wire n_t_2x;
 wire n_t_4x;
 wire n_t_5x;

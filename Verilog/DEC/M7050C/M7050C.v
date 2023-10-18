@@ -30,80 +30,32 @@
 // c23: c_us 
 // c24: c_us 
 // e2: sn7400 
-module m7050c (bu2, n_t_17x, n_t_20x, aa1, ab1, ab2, ac1, ad1, ad2, adder4, ae1, ae2, ae2w, af1, af1w, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, al2w, am1, am2, am2w, an1, an1w, an2, ap1, ap1w, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av1w, av2, av2w, b2, ba1, ba_lp_0_rp, ba_lp_1_rp, bb2, bb_lp_0_rp, bb_lp_1_rp, bc1, bd2, be2, bf1, bf2, bh1, bn1, bv1, bv2, c3, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, ma2_h, ma3_h, ma3_l, mb3_h, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n3v3, n5v_1, n5v_2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_18x, n_t_19x, n_t_1x, n_t_21x, n_t_26x, n_t_28x, n_t_2x, n_t_30x, n_t_34x, n_t_37x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_9x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, sh_st_out, shift, shift_l, skip, stop_complete, stop_delay, tck, tdo, w1, w2, w8);
-output bu2;
+module m7050c (n_t_17x, n_t_20x, ac1, aj2, at2, au1, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bh1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n3v3, n5v_1, n5v_2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_18x, n_t_19x, n_t_1x, n_t_21x, n_t_26x, n_t_28x, n_t_2x, n_t_30x, n_t_34x, n_t_37x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, sh_st_out, shift, shift_l, skip, stop_complete, stop_delay, w1, w2, w8);
 input n_t_17x;
 output n_t_20x;
-output aa1;
-output ab1;
-output ab2;
 input ac1;
-output ad1;
-output ad2;
-output adder4;
-output ae1;
-output ae2;
-output ae2w;
-output af1;
-output af1w;
-output af2;
-output ah1;
-output ah2;
-output aj1;
 output aj2;
-output ak1;
-output ak2;
-output al1;
-output al2;
-output al2w;
-output am1;
-output am2;
-output am2w;
-output an1;
-output an1w;
-output an2;
-output ap1;
-output ap1w;
-output ap2;
-output ar1;
-output ar2;
-output as1;
-output as2;
-output at2;
+inout at2;
 output au1;
-output au2;
-output av1;
-output av1w;
-output av2;
-output av2w;
-output b2;
 inout ba1;
 output ba_lp_0_rp;
 output ba_lp_1_rp;
-output bb2;
 output bb_lp_0_rp;
 output bb_lp_1_rp;
 input bc1;
-output bd2;
-output be2;
-output bf1;
-output bf2;
 output bh1;
-input bn1;
-output bv1;
-input bv2;
-output c3;
+inout bn1;
 input clk_l;
 input clock1;
 inout enable_l;
 output feed_hole;
-output feed_switch;
+input feed_switch;
 input inhibit_strobe_l;
 input initialize_l;
 output int_request;
 output iob_in_10;
-input iob_in_11;
-input iob_in_4;
+output iob_in_11;
+output iob_in_4;
 output iob_in_5;
 output iob_in_6;
 output iob_in_7;
@@ -111,43 +63,42 @@ output iob_in_8;
 output iob_in_9;
 input iop1;
 input iop2;
-output iop4;
-output iot_011;
-output ma2_h;
-output ma3_h;
-output ma3_l;
-output mb3_h;
+input iop4;
+inout iot_011;
 input mb3_lp_0_rp;
 input mb4_lp_0_rp;
 input mb5_lp_0_rp;
-output mb6_lp_0_rp;
+input mb6_lp_0_rp;
 input mb7_lp_0_rp;
 input mb8_lp_1_rp;
 inout n3v3;
 output n5v_1;
 output n5v_2;
-output n_t_10x;
-inout n_t_11x;
+input n_t_10x;
+input n_t_11x;
 input n_t_12x;
-output n_t_13x;
-output n_t_14x;
+input n_t_13x;
+input n_t_14x;
+output n_t_15x;
+inout n_t_16x;
 output n_t_18x;
 inout reg n_t_19x;
 output n_t_1x;
 inout n_t_21x;
 output n_t_26x;
-input n_t_28x;
-output n_t_2x;
-output n_t_30x;
+inout n_t_28x;
+input n_t_2x;
+input n_t_30x;
 input n_t_34x;
 output n_t_37x;
 input n_t_3x;
-input n_t_4x;
-input n_t_5x;
+output n_t_4x;
+inout n_t_5x;
 inout n_t_6x;
-output n_t_9x;
+inout n_t_8x;
+input n_t_9x;
 input offline;
-input out_of_tape;
+output out_of_tape;
 output pwr;
 output rd_hole_1;
 output rd_hole_2;
@@ -157,16 +108,14 @@ output rd_hole_5;
 output rd_hole_6;
 output rd_hole_7;
 output rd_hole_8;
-output rdr_run_l;
-input rfc_delayed_l;
+inout rdr_run_l;
+inout rfc_delayed_l;
 output sh_st_out;
 input shift;
 input shift_l;
 output skip;
 input stop_complete;
 input stop_delay;
-output tck;
-output tdo;
 output w1;
 output w2;
 output w8;
@@ -183,50 +132,23 @@ reg rdr_flag;
 reg enable;
 reg bb;
 reg ba;
-wire a3;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire adder3;
-wire adder5;
-wire aj1w;
-wire am1w;
-wire ar2w;
-wire at2w;
-wire au2w;
-wire bl1;
-wire bl2;
-wire bm2;
-wire br0=1;
-wire br1=0;
+wire bv2;
 wire clr_flag;
 wire clr_run_l;
-wire data3;
+wire data1_l;
 wire data5_l;
-wire initialize;
-wire io3;
 wire iot_011_l;
 wire iot_012_l;
 wire iot_014_l;
-wire mb10=1;
-wire mb2_l;
 wire mb5=0;
-wire mb7=1;
 wire md07_l;
-wire n_t_102x;
-wire n_t_120x;
 wire n_t_134x;
 wire n_t_149x;
-wire n_t_16x;
 wire n_t_24x;
 wire n_t_25x;
 wire n_t_29x;
-wire n_t_39x;
 wire n_t_40x;
 wire n_t_41x;
-wire n_t_47x;
-wire n_t_53x;
 wire n_t_54x;
 wire n_t_55x;
 wire n_t_56x;
@@ -235,27 +157,17 @@ wire n_t_60x;
 wire n_t_62x;
 wire n_t_64x;
 wire n_t_65x;
-wire n_t_67x;
 wire n_t_70x;
 wire n_t_72x;
 wire n_t_73x;
 wire n_t_74x;
 wire n_t_76x;
 wire n_t_7x;
-wire out;
 wire out_of_tape_l;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
-wire s1;
-wire sc3;
-wire sr3;
-wire x_strobe;
-wire y_strobe;
-assign initialize = ~(out_of_tape_l & rfc_delayed_l);
-assign n_t_16x = ~(~out_of_tape_l & n_t_11x);
-assign n_t_6x = ~(n_t_34x & offline);
-assign n_t_11x = ~(n_t_16x & initialize_l);
+assign rfc_delayed_l = ~(out_of_tape_l & n_t_30x);
+assign out_of_tape_l = ~(~(n_t_34x & offline));
+assign n_t_16x = ~(~out_of_tape_l & clock1);
+assign n_t_6x = ~(n_t_16x & initialize_l);
 // e5: sn7474 
 always @(ac1, clr_run_l, rfc_delayed_l, 1'b0)
   if (~clr_run_l) begin
@@ -298,32 +210,42 @@ always @(ac1, clr_flag, n3v3, rdr_flag_m)
   if (ac1) begin
     rdr_flag <= rdr_flag_m;
   end
+assign n_t_15x = ~rdr_flag;
 // e6: sn7401 
-// skip = !(n_t_4x & out_of_tape); 
+// int_request = !rdr_flag; 
+// skip = !(rdr_flag & iot_011); 
+// out_of_tape = !out_of_tape_l; 
+// n_t_37x = !(n_t_34x & !n_t_40x); 
 // e7: sn7401 
-// iob_in_6 = !(!n_t_5x & iob_in_11); 
+// iob_in_8 = !(n_t_11x & at2); 
+// iob_in_6 = !(at2 & n_t_9x); 
+// iob_in_11 = !(n_t_14x & at2); 
+// iob_in_9 = !(n_t_12x & at2); 
 // e8: sn7404 
 assign clr_run_l = ~n_t_6x;
 assign n3v3 = 1'b1;
 // e9: sn7400 
-assign y_strobe = ~(iop1 & ~n_t_5x);
-assign n_t_29x = ~(iot_014_l & x_strobe);
-assign iot_012_l = ~(iot_014_l & rfc_delayed_l);
-assign n_t_47x = ~(iop2 & ~n_t_5x);
+assign iot_011_l = ~(iop1 & n_t_8x);
+assign iot_014_l = ~(n_t_8x & iop4);
+assign n_t_29x = ~(iot_014_l & rfc_delayed_l);
+assign iot_012_l = ~(iop2 & n_t_8x);
 // e10: sn7410 
-assign rdr_run_l = ~(clk_l & n_t_28x & mb10=);
-assign clr_flag = ~(~(n_t_21x & stop_complete & br0=));
-assign br1=0 = ~(ba1 & rfc_delayed_l & clr_run_l);
+assign n_t_28x = ~(clk_l & bn1 & stop_complete);
+assign bn1 = ~(ba1 & feed_switch & rdr_run_l);
+assign clr_flag = ~(~(iot_012_l & rfc_delayed_l & clr_run_l));
 // e11: sn7401 
-// iob_in_10 = !(n_t_3x & iob_in_4); 
+// iob_in_5 = !(n_t_3x & at2); 
+// iob_in_10 = !(at2 & n_t_13x); 
+// iob_in_4 = !(n_t_2x & at2); 
+// iob_in_7 = !(at2 & n_t_10x); 
 // e12: sn7440 
-assign pwr = ~(~(n_t_39x & ac1 & n_t_39x & n_t_39x));
 // e13: sn7404 
 assign ba1 = ~bv2;
+assign n_t_8x = ~n_t_5x;
 assign mb5=0 = ~n_t_40x;
 assign iot_011 = ~iot_011_l;
 // e14: sn7430 
-assign n_t_21x = ~(mb8_lp_1_rp & n_t_5x & n_t_53x & mb4_lp_0_rp & mb5_lp_0_rp & mb7_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp);
+assign n_t_5x = ~(mb8_lp_1_rp & mb6_lp_0_rp & mb4_lp_0_rp & mb4_lp_0_rp & mb5_lp_0_rp & mb7_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp);
 // e15: sn7474 
 always @(stop_delay, initialize_l, shift_l, 1'b0)
   if (~initialize_l) begin
@@ -368,10 +290,10 @@ always @(clock1, initialize_l, n_t_28x, enable_m)
   end
 assign enable_l = ~enable;
 // e16: sn7400 
-assign n3v3 = ~(~bb & n_t_25x);
-assign at2 = ~(bv2 & out);
-assign n_t_26x = ~(bc1 & n_t_24x);
-assign n_t_67x = ~(inhibit_strobe_l & enable);
+assign n_t_25x = ~(~bb & ~ba);
+assign bv2 = ~(n_t_25x & n_t_24x);
+assign at2 = ~(bc1 & iot_012_l);
+assign n_t_26x = ~(inhibit_strobe_l & enable);
 // e17: sn7404 
 assign ba_lp_0_rp = ~ba;
 assign bb_lp_0_rp = ~bb;
@@ -421,9 +343,9 @@ always @(shift, n3v3, n3v3, ba_m)
   end
 // e19: sn7400 
 assign n_t_149x = ~(n_t_134x & n_t_149x);
-assign n_t_41x = ~(n_t_24x & n_t_12x);
-assign n_t_40x = ~(n_t_40x & n_t_21x);
-assign n_t_120x = ~(n_t_41x & enable_l);
+assign n_t_24x = ~(ba & bb);
+assign n_t_41x = ~(n_t_40x & n_t_21x);
+assign n_t_40x = ~(n_t_41x & enable_l);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -441,7 +363,16 @@ assign n_t_120x = ~(n_t_41x & enable_l);
 // r15: r_us_ 
 // r16: r_us_ 
 // open collector 'wire-or's 
-assign iob_in_10 = (n_t_3x & iob_in_4)? 1'b0: 1'bz;
-assign iob_in_6 = (~n_t_5x & iob_in_11)? 1'b0: 1'bz;
-assign skip = (n_t_4x & out_of_tape)? 1'b0: 1'bz;
+assign int_request = rdr_flag? ~rdr_flag: 1'bz;
+assign iob_in_10 = (at2 & n_t_13x)? 1'b0: 1'bz;
+assign iob_in_11 = (n_t_14x & at2)? 1'b0: 1'bz;
+assign iob_in_4 = (n_t_2x & at2)? 1'b0: 1'bz;
+assign iob_in_5 = (n_t_3x & at2)? 1'b0: 1'bz;
+assign iob_in_6 = (at2 & n_t_9x)? 1'b0: 1'bz;
+assign iob_in_7 = (at2 & n_t_10x)? 1'b0: 1'bz;
+assign iob_in_8 = (n_t_11x & at2)? 1'b0: 1'bz;
+assign iob_in_9 = (n_t_12x & at2)? 1'b0: 1'bz;
+assign n_t_37x = (n_t_34x & ~n_t_40x)? 1'b0: 1'bz;
+assign out_of_tape = out_of_tape_l? ~out_of_tape_l: 1'bz;
+assign skip = (rdr_flag & iot_011)? 1'b0: 1'bz;
 endmodule

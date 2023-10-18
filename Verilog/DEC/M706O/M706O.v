@@ -34,7 +34,8 @@
 // c27: c_us 
 // c28: c_us 
 // e1: sn7430 
-module m706o (a1, active_l, b1, b2, bit1, bit2, bit3, bit4, bit5, bit6, bit7, bit8, buffer_strobe, c0_l, c1, c1_l, clock8_baud, clr_flg1, clr_flg2, d1, d2, data10_l, data11_l, data2_l, data7_l, data8_l, data9_l, e1, e2, enable, f1, f2, h1, h2, i_o_clear, i_o_skip, initialize, int_rqst_l, internal_io_l, io_pause_l, irq_l, j1, j2, k1, k2, l1, l2, m1, m2, md04_l, md05_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n3v3, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_25x, n_t_26x, n_t_31x, n_t_35x, n_t_36x, n_t_37x, n_t_46x, n_t_47x, n_t_49x, n_t_4x, n_t_50x, n_t_52x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_62x, n_t_63x, p1, p2, preset, r1, r2, read_buffer, reader_enable, reader_run_l, s1, s2, serial, serial_in, shift, skip_l, skip_strobe, t2, tp3, u1, u2, v1, v2);
+module m706o (n_t_53x, a1, active_l, b1, b2, bit1, bit2, bit3, bit4, bit5, bit6, bit7, bit8, buffer_strobe, c0_l, c1, c1_l, clock8_baud, clr_flg1, clr_flg2, d1, d2, data10_l, data11_l, data2_l, data7_l, data8_l, data9_l, e1, e2, enable, f1, f2, h1, h2, i_o_clear, i_o_skip, initialize, int_rqst_l, internal_io_l, io_pause_l, irq_l, j1, j2, k1, k2, l1, l2, m1, m2, md04_l, md05_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n3v3, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_25x, n_t_26x, n_t_31x, n_t_35x, n_t_36x, n_t_37x, n_t_46x, n_t_47x, n_t_49x, n_t_4x, n_t_50x, n_t_52x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_62x, n_t_63x, p1, p2, preset, r1, r2, read_buffer, reader_enable, reader_run_l, s1, s2, serial, serial_in, shift, skip_l, skip_strobe, t2, tp3, u1, u2, v1, v2);
+input n_t_53x;
 output a1;
 inout active_l;
 output b1;
@@ -53,7 +54,7 @@ output c1;
 output c1_l;
 input clock8_baud;
 input clr_flg1;
-output clr_flg2;
+input clr_flg2;
 output d1;
 output d2;
 output data10_l;
@@ -93,16 +94,16 @@ output md11_l;
 output n1;
 output n2;
 input n3v3;
-input n_t_11x;
+inout n_t_11x;
 input n_t_14x;
 input n_t_15x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
+input n_t_16x;
+input n_t_17x;
+input n_t_18x;
 input n_t_19x;
 input n_t_20x;
 input n_t_21x;
-input n_t_25x;
+inout n_t_25x;
 inout n_t_26x;
 input n_t_31x;
 inout reg n_t_35x;
@@ -119,7 +120,7 @@ output n_t_55x;
 output n_t_56x;
 input n_t_57x;
 output n_t_59x;
-inout n_t_60x;
+output n_t_60x;
 input n_t_62x;
 input n_t_63x;
 output p1;
@@ -132,12 +133,12 @@ output reader_enable;
 output reader_run_l;
 output s1;
 output s2;
-input serial;
+inout serial;
 input serial_in;
 inout shift;
 output skip_l;
 input skip_strobe;
-input t2;
+output t2;
 output tp3;
 output u1;
 output u2;
@@ -177,94 +178,19 @@ reg active;
 reg in_last;
 reg serial_l;
 reg n_t_61x;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bc1;
 wire bd07;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
-wire data3;
+wire data1_l;
 wire data5_l;
-wire io3;
 wire io_clear_l;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mb2_l;
-wire mb3_h;
 wire md07_l;
 wire n_t_10x;
 wire n_t_120x;
 wire n_t_12x;
-wire n_t_13x;
+wire n_t_23x;
 wire n_t_24x;
 wire n_t_27x;
 wire n_t_29x;
-wire n_t_32x;
+wire n_t_42x;
 wire n_t_43x;
 wire n_t_45x;
 wire n_t_58x;
@@ -280,18 +206,13 @@ wire n_t_82x;
 wire n_t_84x;
 wire n_t_90x;
 wire n_t_92x;
-wire n_t_96x;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
-wire rdr_run_l;
-wire sc3;
+wire rd_hole_1;
+wire rd_hole_4;
+wire rd_hole_6;
+wire rd_hole_8;
 wire set_flag;
-wire sr3;
 wire start;
-wire tck;
-wire tdo;
-assign j2 = ~(n_t_15x & n_t_21x & aj2 & n_t_20x & n_t_19x & n_t_10x & n3v3 & n3v3);
+assign n_t_10x = ~(n_t_15x & n_t_21x & n_t_20x & n_t_19x & n_t_18x & n_t_17x & n3v3 & n3v3);
 // e2: sn7474 
 always @(clock8_baud, n3v3, n3v3, n_t_27x)
   if (~n3v3) begin
@@ -335,12 +256,13 @@ always @(shift, n_t_11x, n3v3, flag_m)
   end
 assign irq_l = ~flag;
 // e3: sn7400 
-assign buffer_strobe = ~(preset & n_t_5x);
-assign shift = ~(~(~n_t_12x & read_buffer));
+assign n_t_11x = ~n_t_12x;
+assign n_t_23x = ~(n_t_16x & n_t_10x);
+assign buffer_strobe = ~(~(n_t_23x & read_buffer));
 // e4: sn7400 
-assign shift = ~(n_t_6x & buffer_strobe);
-assign bit4 = ~(preset & n_t_7x);
-assign bit6 = ~(n_t_9x & buffer_strobe);
+assign bit4 = ~(n_t_6x & buffer_strobe);
+assign bit2 = ~(n_t_9x & buffer_strobe);
+assign bit6 = ~(n_t_4x & buffer_strobe);
 assign bit5 = ~(buffer_strobe & n_t_7x);
 // e5: sn7474 
 always @(shift, n3v3, preset, n_t_9x)
@@ -428,9 +350,9 @@ always @(shift, n3v3, preset, n_t_6x_m)
   end
 assign l1 = ~n_t_6x;
 // e7: sn7400 
-assign buffer_strobe = ~(n_t_5x & buffer_strobe);
-assign bit3 = ~(n_t_5x & n_t_19x);
-assign bit7 = ~(buffer_strobe & n_t_3x);
+assign bit3 = ~(n_t_5x & buffer_strobe);
+assign bit7 = ~(buffer_strobe & n_t_2x);
+assign bit8 = ~(buffer_strobe & n_t_3x);
 assign bit1 = ~(n_t_8x & buffer_strobe);
 // e8: sn7474 
 always @(shift, n3v3, preset, n_t_31x)
@@ -476,8 +398,8 @@ always @(shift, n3v3, preset, n_t_4x_m)
   end
 assign bit6 = ~n_t_4x;
 // e9: sn7410 
-assign n_t_12x = ~(~shift & n_t_25x & t2);
-assign n_t_32x = ~(io_clear_l & n_t_29x);
+assign n_t_12x = ~(n_t_24x & io_clear_l & n_t_25x);
+assign n_t_29x = ~(io_clear_l & ~spike);
 // e10: sn7474 
 always @(shift, n3v3, preset, n_t_3x)
   if (~n3v3) begin
@@ -519,13 +441,12 @@ always @(shift, n3v3, preset, n_t_3x_m)
   if (shift) begin
     n_t_3x <= n_t_3x_m;
   end
-assign rdr_run_l = ~n_t_3x;
 // e11: sn7410 
-assign clr_flg2 = ~(skip_strobe & ~n_t_12x & i_o_clear);
-assign i_o_skip = ~(n_t_43x & flag & serial_l);
+assign i_o_skip = ~(skip_strobe & n_t_23x & flag);
+assign n_t_25x = ~(n_t_23x & n3v3 & clr_flg2);
 // e12: sn7400 
-assign n_t_13x = ~(io_clear_l & ~spike);
-assign io_clear_l = ~(~(in_last & n_t_43x));
+assign n_t_42x = ~(in_last & n_t_43x);
+assign io_clear_l = ~(i_o_clear & n3v3);
 assign n_t_24x = ~(n3v3 & clr_flg1);
 // e13: sn7474 
 always @(preset, n_t_50x, 1'b0)
@@ -570,24 +491,24 @@ always @(n_t_43x, io_clear_l, preset, spike_m)
     spike <= spike_m;
   end
 // e14: sn7474 
-always @(n_t_13x, n_t_32x, start, 1'b0)
-  if (~n_t_32x) begin
+always @(n_t_42x, n_t_29x, start, 1'b0)
+  if (n_t_29x) begin
     active_m <= 1'b0;
   end else
   if (~start) begin
     active_m <= 1'b1;
   end else
-  if (~(n_t_13x)) begin
+  if (~(~n_t_42x)) begin
     active_m <= 1'b0;
   end
-always @(n_t_13x, n_t_32x, start, active_m)
-  if (~n_t_32x) begin
+always @(n_t_42x, n_t_29x, start, active_m)
+  if (n_t_29x) begin
     active <= 1'b0;
   end else
   if (~start) begin
     active <= 1'b1;
   end else
-  if (n_t_13x) begin
+  if (~n_t_42x) begin
     active <= active_m;
   end
 assign active_l = ~active;
@@ -615,8 +536,8 @@ always @(shift, n_t_57x, n3v3, in_last_m)
 assign preset = ~n_t_49x;
 assign n_t_58x = ~(active_l & n3v3 & n3v3 & n3v3);
 // e16: sn7400 
-assign n_t_43x = ~(n3v3 & n_t_35x);
-assign n_t_26x = ~n_t_43x;
+assign n_t_43x = ~(active & n_t_63x);
+assign n_t_26x = ~n_t_53x;
 assign n_t_45x = ~(~in_last & active_l);
 // e17: sn7474 
 always @(serial_l, n_t_45x, n3v3, n_t_36x)
@@ -661,9 +582,9 @@ always @(n_t_5x, n_t_45x, n3v3, serial_l_m)
     serial_l <= serial_l_m;
   end
 // e18: sn7460 
-// !serial_l = !(serial_in & preset); 
+// !serial_l = !serial_in; 
 // serial_l = serial_l; 
-// !serial_l = !(serial_l & n_t_60x); 
+// !serial_l = !serial_l; 
 // serial_l = serial_l; 
 // e19: sn7474 
 always @(n_t_37x, preset, n_t_62x, active_l)
@@ -712,9 +633,9 @@ assign n_t_60x = ~enable;
 assign shift = ~n_t_26x;
 assign start = ~(enable & ~n_t_45x & serial_l & clock8_baud);
 // e21: sn7400 
-assign n_t_74x = ~(n2^0 & n_t_45x);
-assign n_t_27x = ~(n_t_73x & n_t_96x);
-assign n_t_46x = ~(n_t_47x & serial_l);
+assign n_t_27x = ~(n2^0 & n_t_45x);
+assign n_t_46x = ~(n_t_47x & buffer_strobe);
+assign serial = ~serial_l;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

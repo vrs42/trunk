@@ -1,48 +1,35 @@
 ~/Verilog/bin/topld.pl M226X
 info: cpol_use ne cpol_use20_8axial
 info: cpol_use ne cpol_use20_8axial
-info: 74h53n ne e12_8
-info: 7462 ne e12_8
+info: 74h53n ne dil14
+info: 7462 ne dil14
 warning: making e13/sn7462/ a connector
-info: 74h53n ne e12_8
+info: 74h53n ne dil14
 info: 74h00n ne 7400n
 info: 74h50n ne 7450n
 warning: making e4/sn74h50/ a connector
-info: 7462 ne e12_8
+info: 7462 ne dil14
 warning: making e5/sn7462/ a connector
-info: 74h53n ne e12_8
-info: double ne e12_8
+info: 74h53n ne dil14
+info: double ne edge_con4
 warning: making u$3/double/ a connector
 warning: non-bypass capacitor deleted: c14
 warning: non-bypass capacitor deleted: c17
 warning: non-bypass capacitor deleted: c18
-unexpected OC output: n_t_72x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 755.
-unexpected OC output: n_t_70x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 755.
-unexpected OC output: n_t_49x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 755.
-unexpected OC output: n_t_52x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 755.
-unexpected OC output: n_t_63x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 951.
-unexpected OC output: n_t_29x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 951.
-unexpected OC output: n_t_20x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 951.
-unexpected OC output: n_t_57x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 951.
-unexpected OC output: n_t_36x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1003.
-unexpected OC output: n_t_67x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1003.
-unexpected OC output: n_t_28x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1003.
-unexpected OC output: n_t_18x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1003.
 warning: non-pullup resistor deleted: r3
 warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r5
 warning: non-pullup resistor deleted: r6
 ~/Verilog/bin/smaller.pl M226X.PLD >vv || (rm vv; exit 1)
-5 signals were removed:
+4 signals were removed:
   n_t_18x: !n_t_54x
   n_t_1x: !n_t_2x
   n_t_4x: !n_t_3x
   n_t_64x: !n_t_63x
-  n_t_80x: !n_t_57x
 ~/Verilog/bin/smaller.pl vv >M226XX.PLD || (rm M226XX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M226XX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output n_t_2x at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 713.
+OE qualifier on FF output n_t_2x at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 568.
 ../Makefile:29: recipe for target 'M226X.v' failed
 make: *** [M226X.v] Error 1
 rm M226XX.PLD

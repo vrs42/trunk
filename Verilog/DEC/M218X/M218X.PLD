@@ -3,7 +3,7 @@
 
 Name     M218X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,10 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ac0;
 pin = bd01;
 pin = biot5l;
-pin = clrbufl;
 pin = f2;
 pin = h1;
 
@@ -97,6 +95,7 @@ node n_t_219x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
 node a8;
 node ad01;
 node ad02;
@@ -111,9 +110,9 @@ node bt2;
 node c1;
 node c1_l;
 node cnt2bufh;
-node int_enable;
 node k1;
 node loadclkh;
+node m1;
 node md03_l;
 node md06h;
 node md07_l;
@@ -126,7 +125,6 @@ node n_t_182x;
 node n_t_217x;
 node n_t_25x;
 node n_t_28x;
-node n_t_337x;
 node n_t_37x;
 node n_t_38x;
 node n_t_42x;
@@ -135,8 +133,8 @@ node n_t_64x;
 node n_t_72x;
 node n_t_73x;
 node p1;
-node r2;
 node s1;
+node select6;
 node tp3l;
 node u2;
 $ENDIF
@@ -204,12 +202,12 @@ n_t_30x.ap = !n_t_26x;
 n_t_20x = !n_t_30x;
 
 /* e4: sn74h53 */
-/* loadclkh = !(n_t_21x & n_t_19x
-         # n_t_22x & n_t_15x
-         # n_t_23x & n_t_16x
-         # n_t_13x & n_t_20x); */
-/* n_t_14x = !loadclkh; */
-n_t_25x = loadclkh;
+/* n_t_28x = !(n_t_21x & n_t_19x
+        # n_t_22x & n_t_15x
+        # n_t_23x & n_t_16x
+        # n_t_13x & n_t_20x); */
+/* loadclkh = !n_t_28x; */
+n_t_25x = n_t_28x;
 
 /* e6: sn74h53 */
 /* cnt2bufh = !(n_t_34x & n_t_15x
@@ -328,19 +326,13 @@ n_t_73x = n_t_79x;
          # n_t_19x & n_t_33x
          # n_t_32x & n_t_16x
          # n_t_13x & n_t_17x);
-!loadclkh = (n_t_21x & n_t_19x
-         # n_t_22x & n_t_15x
-         # n_t_23x & n_t_16x
-         # n_t_13x & n_t_20x);
+!loadclkh = n_t_28x;
 !md03_l = (n_t_75x & n_t_15x
        # n_t_19x & n_t_74x
        # n_t_43x & n_t_16x
        # n_t_13x & n_t_39x);
 !md06h = md03_l;
 !n1 = c1;
-property atmel {open_collector= n_t_14x};
-!n_t_14x = loadclkh;
-n_t_14x.oe = loadclkh;
 property atmel {open_collector= n_t_15x};
 !n_t_15x = (n_t_67x & n_t_19x
         # n_t_68x & n_t_15x
@@ -367,6 +359,10 @@ n_t_20x.oe = (n_t_65x & n_t_19x
         # n_t_15x & n_t_66x
         # n_t_39x & n_t_16x
         # n_t_13x & n_t_32x);
+!n_t_28x = (n_t_21x & n_t_19x
+        # n_t_22x & n_t_15x
+        # n_t_23x & n_t_16x
+        # n_t_13x & n_t_20x);
 property atmel {open_collector= n_t_2x};
 !n_t_2x = (n_t_15x & n_t_14x
        # n_t_16x & n_t_17x

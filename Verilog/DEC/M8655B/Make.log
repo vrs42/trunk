@@ -31,29 +31,29 @@ warning: making e1/8242/ a connector
 info: sp384n ne dil14
 info: 97401 ne 7401n
 info: sp384n ne dil14
-info: n8815 ne dil40
+info: n8815 ne dil14
 info: 7404n ne dil14
 info: 1808 ne ay_5_1013a
 warning: making e19/1808/ a connector
 info: 8242 ne 74266n
 warning: making e2/8242/ a connector
 info: 7400n ne dil14
-info: 74151n ne dil14
+info: 74151n ne dil16
 info: 97401 ne 7401n
 info: sp380n ne dil14
-info: 74175n ne dil14
+info: 74175n ne dil16
 info: 7430n ne dil14
 info: e28_tp ne dil16s
 warning: making e28/e28_tp/ a connector
 info: 97401 ne 7401n
 info: 7400n ne dil14
 info: sp380n ne dil14
-info: 74175n ne dil14
+info: 74175n ne dil16
 info: 7404n ne dil14
 info: 97401n ne 7401n
 info: 97401n ne 7401n
 info: 7402n ne dil14
-info: 8266 ne dil40
+info: 8266 ne dil16
 warning: making e36/8266/ a connector
 info: 7402n ne dil14
 info: 7400n ne dil14
@@ -71,7 +71,7 @@ warning: making e50/1488n/ a connector
 info: 11380n ne sp380n
 warning: making e51/11380n/ a connector
 info: sp380n ne dil14
-info: n8815 ne dil40
+info: n8815 ne dil14
 info: 7400n ne dil14
 info: 11380n ne sp380n
 warning: making e55/11380n/ a connector
@@ -116,7 +116,7 @@ info: j10mm ne 10
 warning: making swd/j10mm/ a connector
 info: j10mm ne 10
 warning: making tty/j10mm/ a connector
-info: quad ne dil40
+info: quad ne edge_con8
 warning: making u$2/quad/ a connector
 info: j10mm ne 10
 warning: making w1/j10mm/ a connector
@@ -141,25 +141,6 @@ warning: non-bypass capacitor deleted: c55
 warning: non-bypass capacitor deleted: c56
 warning: non-bypass capacitor deleted: c62
 warning: non-bypass capacitor deleted: c63
-unexpected OC output: overrun_err at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3094.
-unexpected OC output: n_t_42x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3094.
-unexpected OC output: n_t_110x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3094.
-unexpected OC output: n_t_110x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3094.
-unexpected OC output: rd4 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3366.
-unexpected OC output: n_t_4x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3366.
-unexpected OC output: io_read_h at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3366.
-unexpected OC output: rd6 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3366.
-unexpected OC output: rd0 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3465.
-unexpected OC output: tx_active at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3465.
-unexpected OC output: io_read_h at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3465.
-unexpected OC output: rd2 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3465.
-unexpected OC output: rflag_h at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3536.
-unexpected OC output: dokrs at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3536.
-unexpected OC output: int_enab_h at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3536.
-unexpected OC output: tflag_h at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3536.
-unexpected OC output: n_t_24x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3553.
-unexpected OC output: n_t_2x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3553.
-unexpected OC output: io_read_h at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3553.
 warning: non-pullup resistor deleted: r1
 warning: non-pullup resistor deleted: r2
 warning: non-pullup resistor deleted: r3
@@ -208,8 +189,11 @@ warning: non-pullup resistor deleted: r59
 warning: non-pullup resistor deleted: r62
 ~/Verilog/bin/smaller.pl M8655B.PLD >vv || (rm vv; exit 1)
 29 signals were removed:
+  b_pause_h: !b_pause_l
+  b_pause_l: io_pause_l
   btx_buf_empty: tx_buf_empty
   filch_l: !filch_h
+  init_h: initialize
   n_t_103x: !n_t_89x
   n_t_104x: !n_t_97x
   n_t_105x: !fill
@@ -217,30 +201,27 @@ warning: non-pullup resistor deleted: r62
   n_t_107x: !n_t_100x
   n_t_108x: !n_t_102x
   n_t_110x: !filch_h
-  n_t_113x: !n_t_42x
-  n_t_115x: !has_error
+  n_t_111x: !has_error
+  n_t_115x: !io_read_h
   n_t_118x: !n_t_117x
-  n_t_25x: rx_data_av
-  n_t_45x: !count_fillchar
-  n_t_49x: !n_t_49x
-  n_t_69x: !trans_246_l
+  n_t_27x: !n_t_21x
+  n_t_29x: !n_t_22x
+  n_t_37x: !p1_18us
+  n_t_43x: !n_t_42x
+  n_t_46x: !trans_1
   n_t_75x: !n_t_76x
   n_t_79x: !n_t_78x
-  n_t_82x: !n_t_24x
-  n_t_88x: !n_t_101x
-  n_t_90x: !trans_246_l
-  n_t_94x: !n_t_22x
-  recv_1: !'b'0
-  recv_5: !'b'0
+  n_t_80x: !krs_l
+  n_t_82x: !txd_strobe
+  n_t_94x: !count_fillchar
   rflag_h: !rflag_l
+  selected_l: !selected_h
   tflag_l: !tflag_h
-  trans_1: !'b'0
   trans_246_l: 'b'1
-  tx_div_l: !io_read_h
 ~/Verilog/bin/smaller.pl vv >M8655BX.PLD || (rm M8655BX.PLD; exit 1)
-2 signals were removed:
-  n_t_49x: !n_t_49x
-  trans_246_l: 'b'1
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M8655BX.PLD >vv || (rm vv; exit 1)
-mv vv M8655B.v
+OE qualifier on FF output data07_l at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 2023.
+../Makefile:29: recipe for target 'M8655B.v' failed
+make: *** [M8655B.v] Error 1
 rm M8655BX.PLD

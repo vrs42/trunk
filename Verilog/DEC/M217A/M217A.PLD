@@ -3,7 +3,7 @@
 
 Name     M217A ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -33,7 +33,6 @@ pin = clrclkl;
 pin = cnt2bufh;
 pin = count;
 pin = loadclkh;
-pin = n15v;
 pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_14x;
@@ -62,17 +61,15 @@ node data1_l;
 node f2;
 node h1;
 node k1;
+node m1;
 node n2;
 node n_t_10x;
 node n_t_11x;
-node n_t_20x;
 node n_t_26x;
 node n_t_27x;
 node n_t_28x;
 node n_t_29x;
-node n_t_337x;
 node n_t_46x;
-node n_t_4x;
 node n_t_6x;
 node n_t_7x;
 node n_t_8x;
@@ -101,10 +98,10 @@ $ENDIF
 /* c7: c_us */
 
 /* e1: sn7400 */
-ac2 = !(n_t_7x & ac2bufl);
-ac3 = !(n_t_6x & ac2bufl);
-ac0 = !(ac2bufl & n_t_9x);
-ac1 = !(ac2bufl & n_t_8x);
+n_t_7x = !(ac2bufl & ac2);
+n_t_6x = !(ac2bufl & ac3);
+n_t_9x = !(ac0 & ac2bufl);
+n_t_8x = !(ac1 & ac2bufl);
 
 /* e2: sn7474 */
 n_t_2x.ar = !clrclkl;
@@ -125,10 +122,10 @@ n_t_38x = !n_t_37x;
 /* bus1 = !(buf2ac & n_t_14x); */
 
 /* e4: sn7400 */
-loadclkh = !(n_t_26x & n_t_18x);
-loadclkh = !(n_t_27x & n_t_16x);
-n_t_12x = !(loadclkh & n_t_29x);
-loadclkh = !(n_t_14x & n_t_28x);
+n_t_26x = !(n_t_18x & loadclkh);
+n_t_27x = !(n_t_16x & loadclkh);
+n_t_29x = !(n_t_12x & loadclkh);
+n_t_28x = !(loadclkh & n_t_14x);
 
 /* e5: sn7474 */
 n_t_14x.ar = !clrbufl;

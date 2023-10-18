@@ -15,35 +15,43 @@
 // c8: cpol_use 
 // c9: c_us 
 // e1: sn7401 
+// f1 = !(d1 & u2_l); 
+// c1 = !(v2_l & b1); 
+// c1 = !(a1 & u2_l); 
+// f1 = !(v2_l & e1); 
 // e2: sn7401 
+// k2 = !(h2 & u2_l); 
+// f2 = !(v2_l & e2); 
+// f2 = !(d2 & u2_l); 
+// k2 = !(v2_l & j2); 
 // e3: sn7400 
-module m149c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_30x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
-output a1;
-output b1;
+module m149c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input a1;
+input b1;
 output c1;
-output d1;
-output d2;
-output e1;
-output e2;
+input d1;
+input d2;
+input e1;
+input e2;
 output f1;
 output f2;
-output h1;
-output h2;
-output j1;
-output j2;
+input h1;
+input h2;
+input j1;
+input j2;
 output k1;
 output k2;
-output l1;
-output l2;
-output m1;
-output m2;
+input l1;
+input l2;
+input m1;
+input m2;
 output n1;
+output n15v;
 output n2;
-output n_t_30x;
-output p1;
-output p2;
-output r1;
-output r2;
+input p1;
+input p2;
+input r1;
+input r2;
 output s1;
 output s2;
 output t2;
@@ -74,9 +82,37 @@ assign u2_l = ~u2;
 assign n_t_17x = ~(n_t_16x & n_t_18x);
 assign v2_l = ~v2;
 // e4: sn7401 
+// n1 = !(l1 & u2_l); 
+// k1 = !(v2_l & j1); 
+// k1 = !(h1 & u2_l); 
+// n1 = !(v2_l & m1); 
 // e5: sn7401 
+// s1 = !(r1 & v2_l); 
+// n2 = !(v2_l & m2); 
+// n2 = !(l2 & u2_l); 
+// s1 = !(u2_l & p1); 
 // e6: sn7401 
+// s2 = !(r2 & v2_l); 
+// s2 = !(u2_l & p2); 
 // r1: r_us_ 
 // r2: r_us_ 
 // open collector 'wire-or's 
+assign c1 = (v2_l & b1)
+             | (a1 & u2_l)? 1'b0: 1'bz;
+assign f1 = (d1 & u2_l)
+             | (v2_l & e1)? 1'b0: 1'bz;
+assign f2 = (v2_l & e2)
+             | (d2 & u2_l)? 1'b0: 1'bz;
+assign k1 = (v2_l & j1)
+             | (h1 & u2_l)? 1'b0: 1'bz;
+assign k2 = (h2 & u2_l)
+             | (v2_l & j2)? 1'b0: 1'bz;
+assign n1 = (l1 & u2_l)
+             | (v2_l & m1)? 1'b0: 1'bz;
+assign n2 = (v2_l & m2)
+             | (l2 & u2_l)? 1'b0: 1'bz;
+assign s1 = (r1 & v2_l)
+             | (u2_l & p1)? 1'b0: 1'bz;
+assign s2 = (r2 & v2_l)
+             | (u2_l & p2)? 1'b0: 1'bz;
 endmodule

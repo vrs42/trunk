@@ -3,7 +3,7 @@
 
 Name     M715F ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -18,41 +18,23 @@ $UNDEF  OPTIMIZE
 /* Input Pins */
 pin = ac9;
 pin = bdata2;
-pin = bm2;
-pin = mb2_l;
 pin = n2_8v;
 pin = n3v;
 pin = n_t_18x;
 pin = n_t_20x;
 pin = n_t_26x;
+pin = n_t_27x;
 
 /* Output Pins */
 pin = ;
 pin = a1;
-pin = ac3_h;
-pin = adder3;
-pin = adder5;
-pin = ae2w;
-pin = aj1w;
-pin = ak2;
-pin = am1w;
-pin = am2w;
-pin = ap1w;
-pin = ar2w;
-pin = at2w;
-pin = au1;
-pin = au2w;
 pin = b1;
-pin = b2;
 pin = b_bot;
 pin = b_last_brk;
 pin = b_set;
 pin = b_stop;
 pin = be;
 pin = bh;
-pin = bl1;
-pin = bl2;
-pin = c3;
 pin = catch;
 pin = cfmk_l;
 pin = clear_y;
@@ -61,7 +43,6 @@ pin = clock;
 pin = clock_1;
 pin = clock_enable;
 pin = clock_iot;
-pin = clock_l;
 pin = clrce_l;
 pin = crcs_l;
 pin = crd0_l;
@@ -123,6 +104,7 @@ pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_14x;
 pin = n_t_15x;
+pin = n_t_1x;
 pin = n_t_24x;
 pin = n_t_35x;
 pin = n_t_36x;
@@ -131,14 +113,11 @@ pin = n_t_39x;
 pin = n_t_42x;
 pin = n_t_50x;
 pin = n_t_5x;
-pin = n_t_7x;
+pin = n_t_8x;
 pin = n_t_9x;
 pin = overflow;
 pin = pb2;
 pin = pb3;
-pin = pc2_h;
-pin = pc3_h;
-pin = pc3_l;
 pin = power_clear_l;
 pin = rds_l;
 pin = rsdwn_l;
@@ -152,6 +131,7 @@ pin = strobe;
 pin = tb3_h;
 pin = tp_av;
 pin = tp_bm;
+pin = u1;
 pin = v_clamp;
 pin = xrd0_l;
 pin = xrd2_l;
@@ -161,89 +141,26 @@ pin = z_axis;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_l;
-node ac5;
 node ac7;
-node ad1;
-node ad2;
-node adder4;
-node ae1;
-node ae2;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj2;
-node ak1;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am2;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap2;
-node ar1;
-node ar2;
-node as1;
-node as2;
-node at2;
-node au2;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node ba1;
-node bb2;
-node bc1;
-node bd2;
 node bdata7;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bu2;
-node bv1;
-node bv2;
 node clocka;
 node clr_dsk_ad_l;
 node crc10;
 node data_enable;
-node ema0_l;
 node feed_l;
-node ma1_l;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mak;
-node mb3_h;
 node n12th_carry;
 node n16_carry;
 node n_t_13x;
 node n_t_16x;
 node n_t_19x;
-node n_t_1x;
 node n_t_29x;
 node n_t_2x;
 node n_t_3x;
 node n_t_43x;
 node n_t_4x;
 node n_t_6x;
-node n_t_8x;
 node pb0;
 node pb1;
-node tck;
-node tdo;
 $ENDIF
 
 /* Code nodes */
@@ -291,30 +208,30 @@ $ENDIF
 /* c20: cpol_use */
 
 /* e1: sn7400 */
-stop_delay = !(n_t_6x & n_t_2x);
+n_t_6x = !(n_t_2x & stop_delay);
 n_t_12x = !(n_t_26x & pb0);
 n_t_11x = !(pb1 & n_t_26x);
-shift_l = !(n_t_3x & shift);
+shift = !(shift_l & n_t_3x);
 
 /* e3: sn7400 */
-n_t_9x = !(shift_l & n_t_4x);
-n_t_10x = !(clk_l & n_t_19x);
-n_t_10x = !(n_t_18x & n_t_12x);
-n_t_12x = !(n_t_13x & n_t_11x);
+shift_l = !(n_t_4x & n_t_9x);
+clk_l = !(n_t_19x & n_t_10x);
+n_t_12x = !(n_t_10x & n_t_18x);
+n_t_11x = !(n_t_12x & n_t_13x);
 
 /* e4: sn7404 */
-ac5 = !n_t_11x;
+n_t_4x = !n_t_11x;
 n_t_14x = !n_t_12x;
-n_t_3x = !n_t_16x;
-n_t_2x = !tp_av;
+clock_1 = !n_t_16x;
+n_t_10x = !tp_av;
 n_t_29x = !n_t_9x;
 n_t_9x = !enable_l;
 
 /* e6: sn7400 */
-n_t_2x = !(n_t_1x & n_t_3x);
-run_l = !(n_t_2x & n_t_1x);
-feed_sw_l = !(n_t_6x & stop_complete);
-catch = !(n_t_43x & n_t_3x);
+n_t_1x = !(n_t_3x & n_t_2x);
+n_t_2x = !(n_t_1x & run_l);
+stop_complete = !(feed_sw_l & n_t_6x);
+n_t_3x = !(catch & n_t_43x);
 
 /* e7: sn7402 */
 feed_l = !(ac7

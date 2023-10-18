@@ -73,42 +73,42 @@ C14      +        +          pas      VCC
 E1       1        S1         out      N$14
          2        A1         in       N$5
          3        B1         in       N$6
-         4        6          out      N$11
+         4        I2         in       N$5
          5        C0         in       N$19
-         6        8          out      N$13
-         7        9          out      N$14
+         6        O          out      N$15
+         7        6          out      N$14
          8        O          out      N$9
-         9        4          out      N$10
+         9        I0         in       N$8
          10       C2         out      N$15
-         11       2          out      N$7
+         11       O          out      D2
          12       S2         out      N$12
          13       B2         in       N$7
          14       A2         in       N$8
-         15       A          in       N$1
-         16       CN+4       out      N$17
-         17       G          out      N$16
-         18       B3         in       N$15
-         19       A3         in       N$13
-         20       B2         in       N$11
-         21       A2         in       N$12
-         22       B1         in       N$10
-         23       A1         in       N$8
+         15       13         out      N$18
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        S1         out      N$13
          2        A1         in       N$6
          3        B1         in       N$5
-         4        6          out      N$23
+         4        I2         in       N$1
          5        C0         in       N$20
-         6        8          out      N$25
-         7        9          out      N$28
+         6        O          out      N$14
+         7        I1         in       AJ1
          8        O          out      N$11
-         9        4          out      N$21
+         9        I0         in       N$3
          10       C2         out      N$16
-         11       2          out      N$19
+         11       X          out      N$1
          12       S2         out      N$11
          13       B2         in       N$7
          14       A2         in       N$8
-         15       A          in       N$17
+         15       B          io       N$8
 
 E3       1        I4         in       N$13
          2        I1         in       N$9
@@ -116,14 +116,14 @@ E3       1        I4         in       N$13
          4        I3         in       N$12
          5        I4         in       N$10
          6        O          out      N$18
-         7        I1         in       N$80
+         7        I1         in       N$10
          8        O          out      N$17
          9        I2         in       N$14
          10       I1         in       N$10
          11       I6         in       N$15
          12       I7         in       N$9
          13       I3         in       N$9
-         14       O          oc       L2
+         14       O          out      N$28
          15       B          io       N$4
 
 E4       1        I0         in       N$3
@@ -162,11 +162,11 @@ E6       1        S1         out      N$29
          4        I2         in       N$34
          5        C0         in       N$36
          6        O          out      N$35
-         7        I1         in       N$80
+         7        I1         in       N$11
          8        O          out      N$36
          9        I0         in       N$17
          10       C2         out      N$20
-         11       I0         in       N$80
+         11       O          out      N$15
          12       S2         out      N$27
          13       B2         in       N$23
          14       A2         in       N$24
@@ -194,14 +194,14 @@ E8       1        I1         in       GND
          4        I4         in       GND
          5        I5         in       GND
          6        O          out      N$31
-         7        I1         in       N$80
+         7        Y3         out      SELECT6
          8        O8         out      N$10
          9        I0         in       N$20
          10       I10        in       N$2
          11       I11        in       N$3
          12       I12        in       N$1
          13       I13        pas      N$4
-         14       O          oc       R2
+         14       A          in       A0
          15       G          in       !C1
 
 E9       1        S1         out      N$46
@@ -210,9 +210,8 @@ E9       1        S1         out      N$46
          4        I3         in       N$30
          5        C0         in       N$25
          6        I5         in       N$31
-         7        I1         in       N$80
          8        O          out      N$34
-         9        I0         in       N$1
+         9        I0         in       V2
          10       C2         out      N$47
          11       I6         in       N$26
          12       S2         out      N$44
@@ -225,7 +224,7 @@ E10      1        S1         out      N$45
          4        I2         in       N$23
          5        C0         in       GND
          6        O          out      N$27
-         7        I1         in       AS2
+         7        B          io       N$25
          8        O          out      N$33
          9        I0         in       N$23
          10       C2         out      N$36
@@ -260,7 +259,7 @@ R2       1        1          pas      GND
 U$1      A1       1          io       N$17
          A2       1          io       VCC
          B1       1          io       N$18
-         B2       1          io       N$30
+         B2       1          io       -15V
          C1       1          io       N$33
          C2       1          io       GND
          D1       1          io       N$16

@@ -139,19 +139,19 @@ warning: making e16/mc1439/ a connector
 info: mc1439 ne ad504h
 warning: making e17/mc1439/ a connector
 info: 74193n ne dil16
-info: sp380n ne dil16
+info: sp380n ne dil14
 info: 74193n ne dil16
 info: 74193n ne dil16
-info: sp380n ne dil16
+info: sp380n ne dil14
 info: 74193n ne dil16
 info: 74193n ne dil16
 info: dec8235 ne dil16
-info: edge_top ne dil16
+info: edge_top ne edge_con2
 warning: making f/edge_top/ a connector
-info: edge_top ne dil16
+info: edge_top ne edge_con2
 warning: making h/edge_top/ a connector
 warning: making j1/dec40pinh/ a connector
-info: quad ne dil16
+info: quad ne edge_con8
 warning: making omnibus/quad/ a connector
 info: 2n3009 ne _npn_to5
 warning: making q1/2n3009/ a connector
@@ -273,8 +273,8 @@ warning: non-bypass capacitor deleted: c38
 warning: non-bypass capacitor deleted: c39
 warning: non-bypass capacitor deleted: c40
 warning: non-bypass capacitor deleted: c41
-unexpected OC output: 'b'0 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2954.
-unexpected OC output: myiot_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2954.
+unexpected OC output: 'b'0 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2525.
+unexpected OC output: myiot_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2525.
 warning: non-pullup resistor deleted: r8
 warning: non-pullup resistor deleted: r11
 warning: non-pullup resistor deleted: r12
@@ -380,11 +380,13 @@ warning: non-pullup resistor deleted: r147
 warning: non-pullup resistor deleted: r148
 warning: non-pullup resistor deleted: r149
 ~/Verilog/bin/smaller.pl M885E.PLD >vv || (rm vv; exit 1)
-4 signals were removed:
+6 signals were removed:
   n_t_2x: !y10
   n_t_3x: !y09
+  n_t_4x: !y08
   n_t_76x: !x02
   n_t_91x: !y02
+  n_t_9x: !y04
 ~/Verilog/bin/smaller.pl vv >M885EX.PLD || (rm M885EX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M885EX.PLD >vv || (rm vv; exit 1)

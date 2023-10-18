@@ -53,44 +53,50 @@ C14      1        1          pas      N$44
 C15      +        +          pas      VCC
          -        -          pas      GND
 
-E1       1        O          out      !A00
-         2        I0         in       A00
-         3        I1         in       A00
-         4        O          out      A00
-         5        I0         in       GND
-         6        I1         in       N$18
-         8        I0         in       N$19
-         9        I1         in       GND
-         10       O          out      A01
+E1       1        CLR        in       N$1
+         2        O          out      A00
+         3        O          out      !A00
+         4        I0         in       A00
+         5        I1         in       A00
+         6        I0         in       GND
+         7        I1         in       N$18
+         8        !Q         out      N$13
+         9        I0         in       N$19
+         10       I1         in       GND
          11       I0         in       GND
          12       I1         in       N$17
          13       O          out      A02
+         14       O          out      A01
 
-E2       1        O          out      A1314
-         2        I0         in       N$5
-         3        I1         in       N$6
-         4        O          out      C0
-         5        I0         in       N$23
-         6        I1         in       GND
-         8        I0         in       N$2
-         9        I1         in       N$1
-         10       O          out      A17SYN
+E2       1        I0         in       N$6
+         2        O          out      C0
+         3        O          out      A1314
+         4        I0         in       N$5
+         5        I1         in       N$6
+         6        I0         in       N$23
+         7        I1         in       GND
+         8        O          out      N$10
+         9        I0         in       N$2
+         10       I1         in       N$1
          11       I0         in       N$3
          12       I1         in       N$4
          13       O          out      A1516
+         14       O          out      A17SYN
 
-E3       1        O          out      A11
-         2        I0         in       N$8
-         3        I1         in       GND
-         4        O          out      C1
-         5        I0         in       GND
-         6        I1         in       N$24
-         8        I0         in       C0
-         9        I1         in       C0
-         10       O          out      !C0
+E3       1        I0         in       +3V3
+         2        O          out      C1
+         3        O          out      A11
+         4        I0         in       N$8
+         5        I1         in       GND
+         6        I0         in       GND
+         7        I1         in       N$24
+         8        O          out      N$6
+         9        I0         in       C0
+         10       I1         in       C0
          11       I0         in       GND
          12       I1         in       N$7
          13       O          out      A12
+         14       O          out      !C0
 
 E4       1        I0         in       N$31
          2        I1         in       A11
@@ -108,41 +114,41 @@ E4       1        I0         in       N$31
 E5       1        I0         in       A02
          2        I1         in       A02
          3        O          out      !A02
-         4        O          out      !A01
-         5        I0         in       A01
-         6        I1         in       A01
-         8        I0         in       N$43
-         9        I1         in       A17SYN
-         10       O          out      TESTPOINT
+         4        I0         in       A01
+         5        I1         in       A01
+         6        O          out      !A01
+         8        O          out      TESTPOINT
+         9        I0         in       N$43
+         10       I1         in       A17SYN
          11       O          out      !C1
          12       I0         in       C1
          13       I1         in       C1
 
-E6       1        I0         in       N$38
-         2        I1         in       !C1
-         3        O          out      OUT_LOW
+E6       1        O          out      OUT_LOW
+         2        I0         in       N$38
+         3        I1         in       !C1
          4        O          out      OUT_HIGH
          5        I0         in       !C1
          6        I1         in       N$41
          8        I0         in       A00
          9        I1         in       !C0
          10       O          out      N$41
-         11       O          out      N$38
-         12       I0         in       !A00
-         13       I1         in       !C0
+         11       I0         in       !A00
+         12       I1         in       !C0
+         13       O          out      N$38
 
-E7       1        O          out      A07
-         2        I0         in       N$12
-         3        I1         in       GND
-         4        O          out      A08
-         5        I0         in       GND
-         6        I1         in       N$10
-         8        I0         in       N$9
-         9        I1         in       GND
-         10       O          out      A10
+E7       2        O          out      A08
+         3        O          out      A07
+         4        I0         in       N$12
+         5        I1         in       GND
+         6        I0         in       GND
+         7        I1         in       N$10
+         9        I0         in       N$9
+         10       I1         in       GND
          11       I0         in       GND
          12       I1         in       N$11
          13       O          out      A09
+         14       O          out      A10
 
 E8       1        I0         in       N$48
          2        I1         in       A07
@@ -179,18 +185,18 @@ E10      1        I0         in       TESTPOINT
          12       I2         in       A01
          13       I3         in       TESTPOINT
 
-E11      1        O          out      A03
-         2        I0         in       N$16
-         3        I1         in       GND
-         4        O          out      A04
-         5        I0         in       GND
-         6        I1         in       N$15
-         8        I0         in       N$13
-         9        I1         in       GND
-         10       O          out      A06
+E11      2        O          out      A04
+         3        O          out      A03
+         4        I0         in       N$16
+         5        I1         in       GND
+         6        I0         in       GND
+         7        I1         in       N$15
+         9        I0         in       N$13
+         10       I1         in       GND
          11       I0         in       GND
          12       I1         in       N$14
          13       O          out      A05
+         14       O          out      A06
 
 E12      1        I0         in       N$33
          2        I1         in       A03

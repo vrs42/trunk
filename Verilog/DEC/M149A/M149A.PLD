@@ -3,7 +3,7 @@
 
 Name     M149A ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -38,8 +38,8 @@ pin = l2;
 pin = m1;
 pin = m2;
 pin = n1;
+pin = n15v;
 pin = n2;
-pin = n_t_30x;
 pin = p1;
 pin = p2;
 pin = r1;
@@ -96,8 +96,16 @@ $ENDIF
 /* c9: c_us */
 
 /* e1: sn7401 */
+/* f1 = !(d1 & u2_l); */
+/* c1 = !(v2_l & b1); */
+/* c1 = !(a1 & u2_l); */
+/* f1 = !(v2_l & e1); */
 
 /* e2: sn7401 */
+/* k2 = !(h2 & u2_l); */
+/* f2 = !(v2_l & e2); */
+/* f2 = !(d2 & u2_l); */
+/* k2 = !(v2_l & j2); */
 
 /* e3: sn7400 */
 v1 = !(n3v3 & u1);
@@ -106,10 +114,20 @@ n_t_17x = !(n_t_16x & n_t_18x);
 v2_l = !(v2 & n3v3);
 
 /* e4: sn7401 */
+/* n1 = !(l1 & u2_l); */
+/* k1 = !(v2_l & j1); */
+/* k1 = !(h1 & u2_l); */
+/* n1 = !(v2_l & m1); */
 
 /* e5: sn7401 */
+/* s1 = !(r1 & v2_l); */
+/* n2 = !(v2_l & m2); */
+/* n2 = !(l2 & u2_l); */
+/* s1 = !(u2_l & p1); */
 
 /* e6: sn7401 */
+/* s2 = !(r2 & v2_l); */
+/* s2 = !(u2_l & p2); */
 
 /* r1: r_us_ */
 n3v3 = 'b'1;
@@ -118,3 +136,48 @@ n3v3 = 'b'1;
 n3v3 = 'b'1;
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= c1};
+!c1 = (v2_l & b1)
+      # (a1 & u2_l);
+c1.oe = (v2_l & b1)
+      # (a1 & u2_l);
+property atmel {open_collector= f1};
+!f1 = (d1 & u2_l)
+      # (v2_l & e1);
+f1.oe = (d1 & u2_l)
+      # (v2_l & e1);
+property atmel {open_collector= f2};
+!f2 = (v2_l & e2)
+      # (d2 & u2_l);
+f2.oe = (v2_l & e2)
+      # (d2 & u2_l);
+property atmel {open_collector= k1};
+!k1 = (v2_l & j1)
+      # (h1 & u2_l);
+k1.oe = (v2_l & j1)
+      # (h1 & u2_l);
+property atmel {open_collector= k2};
+!k2 = (h2 & u2_l)
+      # (v2_l & j2);
+k2.oe = (h2 & u2_l)
+      # (v2_l & j2);
+property atmel {open_collector= n1};
+!n1 = (l1 & u2_l)
+      # (v2_l & m1);
+n1.oe = (l1 & u2_l)
+      # (v2_l & m1);
+property atmel {open_collector= n2};
+!n2 = (v2_l & m2)
+      # (l2 & u2_l);
+n2.oe = (v2_l & m2)
+      # (l2 & u2_l);
+property atmel {open_collector= s1};
+!s1 = (r1 & v2_l)
+      # (u2_l & p1);
+s1.oe = (r1 & v2_l)
+      # (u2_l & p1);
+property atmel {open_collector= s2};
+!s2 = (r2 & v2_l)
+      # (u2_l & p2);
+s2.oe = (r2 & v2_l)
+      # (u2_l & p2);

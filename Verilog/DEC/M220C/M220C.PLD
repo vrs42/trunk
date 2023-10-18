@@ -3,7 +3,7 @@
 
 Name     M220C ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_3x;
 pin = tt_shift;
 
 /* Output Pins */
@@ -88,8 +89,8 @@ pin = mq2_h;
 pin = mq3_h;
 pin = mq_enabl;
 pin = n1;
+pin = n15v;
 pin = n2;
-pin = n_t_30x;
 pin = no_shift;
 pin = p1;
 pin = p2;
@@ -123,61 +124,21 @@ node mb3_h;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
 node a8;
-node ac1;
 node ad01;
 node ad02;
 node ad02l;
 node ad03h;
-node ad1;
-node ad2;
-node ae1;
-node ae2;
-node af1;
-node af2;
-node ah1;
-node ah2;
-node aj2;
-node al1;
-node al2;
-node am1;
-node am2;
-node an1;
-node ap1;
-node ap2;
-node ar2;
-node av1;
-node av2;
-node ba1;
-node bb1;
-node bc1;
 node bd00;
 node bd01;
 node bd03;
-node bd1;
-node bd2;
-node be1;
-node bf1;
-node bf2;
 node bh1;
-node bh2;
 node biot5l;
 node bj1;
-node bj2;
-node bk1;
-node bk2;
-node bl1;
-node bl2;
-node bm1;
-node bm2;
-node bn1;
-node bn2;
-node bp1;
-node bp2;
 node bt2;
 node c1_l;
 node data1_l;
-node int_enable;
 node mb2_l;
 node mb3_l;
 node md07_l;
@@ -194,27 +155,23 @@ node n_t_16x;
 node n_t_170x;
 node n_t_17x;
 node n_t_182x;
-node n_t_19x;
 node n_t_20x;
 node n_t_27x;
 node n_t_29x;
 node n_t_31x;
-node n_t_337x;
+node n_t_36x;
 node n_t_40x;
+node n_t_42x;
 node n_t_46x;
 node n_t_49x;
 node n_t_5x;
 node n_t_60x;
 node n_t_63x;
 node n_t_7x;
-node n_t_80x;
 node n_t_88x;
 node n_t_8x;
 node n_t_9x;
-node tck;
-node tdi;
-node tdo;
-node tms;
+node select6;
 $ENDIF
 
 /* Code nodes */
@@ -263,12 +220,12 @@ ak2 = n_t_11x;
 
 /* e4: sn7474 */
 ma2_h.ar = !n3v;
-ma2_h.d = n3v;
+ma2_h.d = aj1;
 ma2_h.ck = ak1;
 ma2_h.ap = !adder5;
 ma2_l = !ma2_h;
-ma3_h.ar = !aj1;
-ma3_h.d = n_t_9x;
+ma3_h.ar = !n_t_3x;
+ma3_h.d = ak2;
 ma3_h.ck = ak1;
 ma3_h.ap = !n_t_11x;
 ma3_l = !ma3_h;
@@ -290,40 +247,40 @@ as2 = !mb3_l;
 as1 = !mb3_h;
 
 /* e8: sn7474 */
-mb2_h.ar = !n_t_17x;
-mb2_h.d = n_t_19x;
+mb2_h.ar = !n_t_36x;
+mb2_h.d = aj1;
 mb2_h.ck = ar1;
-mb2_h.ap = !n_t_8x;
+mb2_h.ap = !n3v3;
 mb2_l = !mb2_h;
-mb3_h.ar = !aj1;
-mb3_h.d = n1;
+mb3_h.ar = !n_t_8x;
+mb3_h.d = ak2;
 mb3_h.ck = ar1;
 mb3_h.ap = !n3v3;
 mb3_l = !mb3_h;
 
 /* e9: sn7474 */
 pc2_h.ar = !mb3_h;
-pc2_h.d = mb3_h;
+pc2_h.d = aj1;
 pc2_h.ck = an2;
 pc2_h.ap = !mb3_h;
 pc2_l = !pc2_h;
-pc3_h.ar = !aj1;
-pc3_h.d = mb3_l;
+pc3_h.ar = !mb3_l;
+pc3_h.d = ak2;
 pc3_h.ck = an2;
 pc3_h.ap = !mb3_l;
 pc3_l = !pc3_h;
 
 /* e10: sn7474 */
 ac2_h.ar = !mb2_h;
-ac2_h.d = mb2_h;
+ac2_h.d = aj1;
 ac2_h.ck = au1;
 ac2_h.ap = !mb2_h;
 ac2_l = !ac2_h;
-ac3_h.ar = !aj1;
-ac3_h.d = mb2_l;
+ac3_h.ar = !mb2_l;
+ac3_h.d = ak2;
 ac3_h.ck = au1;
 ac3_h.ap = !mb2_l;
-ak2 = !ac3_h;
+ac3_l = !ac3_h;
 
 /* e11: sn7440 */
 au2 = !mb2_h;

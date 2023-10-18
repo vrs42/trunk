@@ -43,26 +43,6 @@ input n_t_9x;
 output v1;
 
 
-wire ac3_h;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae2w;
-wire aj1w;
-wire ak2;
-wire am1w;
-wire am2w;
-wire ap1w;
-wire ar2w;
-wire at2w;
-wire au1;
-wire au2w;
-wire b2;
-wire bl1;
-wire bl2;
-wire bm2;
-wire c3;
-wire e2rc;
 wire j2;
 assign n_t_21x = ~(n_t_8x & n_t_9x & n_t_20x & n_t_10x);
 assign n_t_22x = ~(n_t_11x & n_t_5x & n_t_3x & n_t_2x);

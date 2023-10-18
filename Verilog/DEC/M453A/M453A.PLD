@@ -3,7 +3,7 @@
 
 Name     M453A ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,33 +16,31 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_10x;
+pin = n_t_11x;
+pin = n_t_12x;
 pin = n_t_13x;
+pin = n_t_15x;
 pin = n_t_6x;
 pin = n_t_7x;
-pin = tp_l;
+pin = x2_rate;
 
 /* Output Pins */
 pin = a1;
 pin = aa1;
 pin = ab1;
-pin = ab2;
 pin = ac1;
 pin = ad1;
 pin = ad2;
-pin = adder3;
-pin = adder4;
 pin = ae1;
 pin = ae2;
-pin = ae2w;
 pin = af1;
-pin = af1w;
 pin = af2;
 pin = ah1;
 pin = ah2;
 pin = aj1;
 pin = aj2;
 pin = ak1;
-pin = ak2;
 pin = al1;
 pin = al2;
 pin = am1;
@@ -59,12 +57,9 @@ pin = at2;
 pin = au1;
 pin = au2;
 pin = av1;
-pin = av1w;
 pin = av2;
-pin = av2w;
 pin = ba1;
 pin = bb1;
-pin = bb2;
 pin = bc1;
 pin = bd1;
 pin = bd2;
@@ -103,11 +98,11 @@ pin = l1;
 pin = l2;
 pin = m1;
 pin = m2;
-pin = mb3_h;
 pin = n1;
 pin = n2;
 pin = n3v3;
-pin = n_t_11x;
+pin = n_t_16x;
+pin = n_t_17x;
 pin = n_t_1x;
 pin = n_t_28x;
 pin = n_t_2x;
@@ -121,49 +116,25 @@ pin = p2;
 pin = r1;
 pin = r2;
 pin = s1;
-pin = tck;
-pin = tdo;
 pin = u1;
 pin = v1;
-pin = x2_rate;
+pin = x8_rate;
 pin = x8_rate_l;
 node n_t_24x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node ac3_h;
-node adder5;
-node aj1w;
-node al2w;
-node am1w;
-node am2w;
-node an1w;
-node ap1w;
-node ar2w;
-node at2w;
-node au2w;
-node b2;
 node bd115200;
-node c3;
-node e2rc;
-node ma2_h;
-node ma2_l;
-node ma3_h;
-node ma3_l;
-node mb2_h;
-node mb2_l;
-node mb3_l;
-node n_t_10x;
 node n_t_18x;
 node n_t_20x;
-node n_t_25x;
 node n_t_61x;
-node x8_rate;
 $ENDIF
 
 /* Code nodes */
 
 /* Equations */
+
+/* c1: cpol_use */
 
 /* c2: c_us */
 
@@ -202,8 +173,8 @@ n_t_24x.ap = !n3v3;
 l2 = !n_t_24x;
 
 /* e4: sn7400 */
-n_t_24x = !n_t_18x;
-n_t_2x = !(n_t_25x & x2_rate);
+n_t_2x = !n_t_18x;
+r2 = !n_t_2x;
 n_t_1x = !(p2 & n_t_2x);
 n_t_61x = !h2;
 

@@ -3,7 +3,7 @@
 
 Name     M1705X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -17,6 +17,8 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = bj2;
+pin = bl1_l;
+pin = bm2_l;
 pin = bp1_l;
 pin = dataclr_l;
 pin = n3v1;
@@ -27,13 +29,11 @@ pin = n_t_165x;
 pin = n_t_171x;
 pin = n_t_172x;
 pin = n_t_273x;
-pin = n_t_29x;
-pin = n_t_31x;
-pin = n_t_32x;
 pin = n_t_38x;
 pin = n_t_39x;
 pin = n_t_40x;
 pin = n_t_41x;
+pin = n_t_42x;
 pin = n_t_45x;
 pin = n_t_476x;
 pin = n_t_488x;
@@ -136,6 +136,7 @@ pin = md03h;
 pin = md03l;
 pin = md04_l;
 pin = md04h;
+pin = md04l;
 pin = md05_l;
 pin = md05h;
 pin = md05l;
@@ -164,19 +165,23 @@ pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_18x;
 pin = n_t_19x;
-pin = n_t_1x;
 pin = n_t_20x;
 pin = n_t_21x;
 pin = n_t_22x;
-pin = n_t_23x;
 pin = n_t_24x;
 pin = n_t_25x;
 pin = n_t_26x;
 pin = n_t_27x;
 pin = n_t_280x;
 pin = n_t_28x;
+pin = n_t_29x;
 pin = n_t_2x;
+pin = n_t_30x;
+pin = n_t_31x;
+pin = n_t_32x;
 pin = n_t_33x;
+pin = n_t_34x;
+pin = n_t_35x;
 pin = n_t_36x;
 pin = n_t_3x;
 pin = n_t_46x;
@@ -191,24 +196,23 @@ pin = n_t_5x;
 pin = n_t_60x;
 pin = n_t_6x;
 pin = n_t_76x;
-pin = n_t_7x;
 pin = n_t_8x;
 pin = n_t_9x;
 pin = skip_l;
 pin = tp3;
-pin = tp3h;
-pin = tp3l;
 node ad00;
 node ad01;
 node ad03;
 node ad02;
+node bdflag;
 node adflag;
-node iot4l;
 node ad04;
 node ad05;
 node ad07;
 node ad06;
+node bintenh;
 node aintenh;
+node bctlflgh;
 node actlflgh;
 node ad08;
 node ad09;
@@ -217,6 +221,7 @@ node ad10;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
 node a7;
 node a8;
 node ad00l;
@@ -242,7 +247,6 @@ node aiot6l;
 node aiot7l;
 node aiotl;
 node aready;
-node bctlflgh;
 node bd00l;
 node bd01l;
 node bd02l;
@@ -255,9 +259,7 @@ node bd08l;
 node bd09l;
 node bd10l;
 node bd11l;
-node bdflag;
 node bh1;
-node bintenh;
 node biot0l;
 node biot1l;
 node biot2h;
@@ -271,16 +273,14 @@ node bj1;
 node bn1_l;
 node bready;
 node bt2;
-node d01;
-node hclk;
+node f2;
+node h1;
 node initializeh;
 node initializel;
 node initl;
-node int_enable;
 node io_pauseh;
-node iot0l;
 node iotl;
-node l;
+node m1;
 node md09h;
 node md10h;
 node md11h;
@@ -302,6 +302,7 @@ node n_t_193x;
 node n_t_194x;
 node n_t_196x;
 node n_t_199x;
+node n_t_1x;
 node n_t_217x;
 node n_t_219x;
 node n_t_332x;
@@ -314,10 +315,11 @@ node n_t_53x;
 node n_t_56x;
 node n_t_64x;
 node n_t_79x;
-node n_t_80x;
 node n_t_99x;
-node r2;
+node out;
 node s1;
+node select6;
+node tp3l;
 $ENDIF
 
 /* Code nodes */
@@ -399,35 +401,35 @@ $ENDIF
 /* c102: cpol_use */
 
 /* e1: sn7430 */
-n_t_1x = !(n_t_29x & n_t_38x & biotl & n_t_24x & io_pauseh & io_pauseh & n_t_33x & n_t_32x);
+biotl = !(n_t_29x & n_t_38x & n_t_24x & n_t_36x & io_pauseh & io_pauseh & n_t_33x & n_t_32x);
 
 /* e2: sn7430 */
-n_t_7x = !(n_t_39x & n_t_40x & aiotl & n_t_41x & io_pauseh & io_pauseh & n_t_31x & n_t_45x);
+aiotl = !(n_t_39x & n_t_40x & n_t_41x & n_t_42x & io_pauseh & io_pauseh & n_t_31x & n_t_45x);
 
 /* e3: sn7404 */
-n_t_64x = !n_t_57x;
-aiot2h = !biot3l;
-biot3h = !aiot3l;
-aiot3h = !n_t_60x;
+n_t_56x = !n_t_57x;
+biot3h = !biot3l;
+aiot3h = !aiot3l;
+n_t_64x = !n_t_60x;
 aiot2h = !aiot2l;
 biot2h = !biot2l;
 
 /* e6: sn74175 */
 bd02.d = data2;
-bd02.ck = n_t_17x;
-bd02.ar = !md08l;
+bd02.ck = n_t_79x;
+bd02.ar = !initl;
 bd02l = !bd02;
 bd03.d = data3;
-bd03.ck = n_t_17x;
-bd03.ar = !md08l;
+bd03.ck = n_t_79x;
+bd03.ar = !initl;
 bd03l = !bd03;
 bd01.d = data1;
-bd01.ck = n_t_17x;
-bd01.ar = !md08l;
+bd01.ck = n_t_79x;
+bd01.ar = !initl;
 bd01l = !bd01;
 bd00.d = data0;
-bd00.ck = n_t_17x;
-bd00.ar = !md08l;
+bd00.ck = n_t_79x;
+bd00.ar = !initl;
 bd00l = !bd00;
 
 /* e7: sn7437 */
@@ -450,20 +452,20 @@ n_t_119x = !(bdflag & biot2h);
 
 /* e10: sn74175 */
 ad00.d = data0;
-ad00.ck = n_t_23x;
-ad00.ar = !iot0l;
+ad00.ck = n_t_20x;
+ad00.ar = !initl;
 ad00l = !ad00;
 ad01.d = data1;
-ad01.ck = n_t_23x;
-ad01.ar = !iot0l;
+ad01.ck = n_t_20x;
+ad01.ar = !initl;
 ad01l = !ad01;
 ad03.d = data3;
-ad03.ck = n_t_23x;
-ad03.ar = !iot0l;
+ad03.ck = n_t_20x;
+ad03.ar = !initl;
 ad03l = !ad03;
 ad02.d = data2;
-ad02.ck = n_t_23x;
-ad02.ar = !iot0l;
+ad02.ck = n_t_20x;
+ad02.ar = !initl;
 ad02l = !ad02;
 
 /* e11: sn7437 */
@@ -473,16 +475,16 @@ ad01h = !ad01l;
 ad00h = !ad00l;
 
 /* e12: sn7474 */
-adflag.ar = !iotl;
-adflag.d = l;
-adflag.ck = n_t_136x;
+bdflag.ar = !n_t_136x;
+bdflag.d = n3v4;
+bdflag.ck = bready;
+bdflag.ap = !n3v4;
+n_t_151x = !bdflag;
+adflag.ar = !n_t_146x;
+adflag.d = n3v4;
+adflag.ck = aready;
 adflag.ap = !n3v4;
-n_t_8x = !adflag;
-iot4l.ar = !bdflag;
-iot4l.d = n3v4;
-iot4l.ck = aready;
-iot4l.ap = !n3v4;
-n_t_24x = !iot4l;
+n_t_147x = !adflag;
 
 /* e13: sn7408 */
 n_t_193x = (biot7l & initl);
@@ -499,10 +501,10 @@ md06h = !md06_l;
 md07h = !md07_l;
 
 /* e15: sn7404 */
-md07l = !md04h;
-md06l = !md05h;
-md05l = !md08h;
-md08l = !md07h;
+md04l = !md04h;
+md05l = !md05h;
+md08l = !md08h;
+md07l = !md07h;
 md06l = !md06h;
 md03l = !md03h;
 
@@ -514,20 +516,20 @@ n_t_79x = !(tp3l & biot3h);
 
 /* e20: sn74175 */
 bd06.d = data6;
-bd06.ck = hclk;
-bd06.ar = !dataclr_l;
+bd06.ck = n_t_79x;
+bd06.ar = !initl;
 bd06l = !bd06;
 bd07.d = data7;
-bd07.ck = hclk;
-bd07.ar = !dataclr_l;
+bd07.ck = n_t_79x;
+bd07.ar = !initl;
 bd07l = !bd07;
 bd05.d = data5;
-bd05.ck = hclk;
-bd05.ar = !dataclr_l;
+bd05.ck = n_t_79x;
+bd05.ar = !initl;
 bd05l = !bd05;
 bd04.d = data4;
-bd04.ck = hclk;
-bd04.ar = !dataclr_l;
+bd04.ck = n_t_79x;
+bd04.ar = !initl;
 bd04l = !bd04;
 
 /* e21: sn7437 */
@@ -550,16 +552,20 @@ adonel = !(n_t_147x & n_t_146x);
 
 /* e25: sn74175 */
 ad04.d = data4;
-ad04.ck = ;
+ad04.ck = n_t_20x;
+ad04.ar = !initl;
 ad04l = !ad04;
 ad05.d = data5;
-ad05.ck = ;
+ad05.ck = n_t_20x;
+ad05.ar = !initl;
 ad05l = !ad05;
 ad07.d = data7;
-ad07.ck = ;
+ad07.ck = n_t_20x;
+ad07.ar = !initl;
 ad07l = !ad07;
 ad06.d = data6;
-ad06.ck = ;
+ad06.ck = n_t_20x;
+ad06.ar = !initl;
 ad06l = !ad06;
 
 /* e26: sn7437 */
@@ -581,18 +587,22 @@ ainith = !initl;
 /* internal_io_l = !n_t_196x; */
 
 /* e29: sn7442 */
-!md11h = !biotl & ! & !md09h & !;
-!md10h = !biotl & ! & !md09h & ;
-!biot2l = !biotl & ! & md09h & !;
-!biot3l = !biotl & ! & md09h & ;
-!biot4l = !biotl &  & !md09h & !;
-!biot5l = !biotl &  & !md09h & ;
-!biot6l = !biotl &  & md09h & !;
-!biot7l = !biotl &  & md09h & ;
+!biot0l = !biotl & !md09h & !md10h & !md11h;
+!biot1l = !biotl & !md09h & !md10h & md11h;
+!biot2l = !biotl & !md09h & md10h & !md11h;
+!biot3l = !biotl & !md09h & md10h & md11h;
+!biot4l = !biotl & md09h & !md10h & !md11h;
+!biot5l = !biotl & md09h & !md10h & md11h;
+!biot6l = !biotl & md09h & md10h & !md11h;
+!biot7l = !biotl & md09h & md10h & md11h;
 
 /* e30: sn7474 */
+bintenh.ar = !n_t_362x;
+bintenh.ck = n3v2;
+bintenh.ap = !biot1l;
+aintenh.ar = !n_t_332x;
 aintenh.ck = n3v2;
-aintenh.ap = !biot1l;
+aintenh.ap = !aiot1l;
 
 /* e31: sn7486 */
 n_t_347x = n_t_171x
@@ -613,14 +623,14 @@ md10h = !md10_l;
 md09h = !md09_l;
 
 /* e33: sn7442 */
-!aiot0l = !aiotl & ! & !md09h & !;
-!aiot1l = !aiotl & ! & !md09h & ;
-!aiot2l = !aiotl & ! & md09h & !;
-!aiot3l = !aiotl & ! & md09h & ;
-!aiot4l = !aiotl &  & !md09h & !;
-!aiot5l = !aiotl &  & !md09h & ;
-!aiot6l = !aiotl &  & md09h & !;
-!aiot7l = !aiotl &  & md09h & ;
+!aiot0l = !aiotl & !md09h & !md10h & !md11h;
+!aiot1l = !aiotl & !md09h & !md10h & md11h;
+!aiot2l = !aiotl & !md09h & md10h & !md11h;
+!aiot3l = !aiotl & !md09h & md10h & md11h;
+!aiot4l = !aiotl & md09h & !md10h & !md11h;
+!aiot5l = !aiotl & md09h & !md10h & md11h;
+!aiot6l = !aiotl & md09h & md10h & !md11h;
+!aiot7l = !aiotl & md09h & md10h & md11h;
 
 /* e34: sn7408 */
 n_t_146x = (aiot3l & initializel);
@@ -629,21 +639,29 @@ n_t_136x = (biot3l & initializel);
 n_t_362x = (biot0l & initializel);
 
 /* e35: sn7474 */
+bctlflgh.ar = !n_t_193x;
+bctlflgh.ck = n3v2;
+bctlflgh.ap = !biot6l;
+actlflgh.ar = !n_t_194x;
 actlflgh.ck = n3v2;
-actlflgh.ap = !biot6l;
+actlflgh.ap = !aiot6l;
 
 /* e37: sn74175 */
 bd10.d = data10;
-bd10.ck = ;
+bd10.ck = n_t_79x;
+bd10.ar = !initl;
 bd10l = !bd10;
 bd11.d = data11;
-bd11.ck = ;
+bd11.ck = n_t_79x;
+bd11.ar = !initl;
 bd11l = !bd11;
 bd09.d = data9;
-bd09.ck = ;
+bd09.ck = n_t_79x;
+bd09.ar = !initl;
 bd09l = !bd09;
 bd08.d = data8;
-bd08.ck = ;
+bd08.ck = n_t_79x;
+bd08.ar = !initl;
 bd08l = !bd08;
 
 /* e38: sn7437 */
@@ -660,16 +678,20 @@ bd09h = !bd09l;
 
 /* e40: sn74175 */
 ad08.d = data8;
-ad08.ck = ;
+ad08.ck = n_t_20x;
+ad08.ar = !initl;
 ad08l = !ad08;
 ad09.d = data9;
-ad09.ck = ;
+ad09.ck = n_t_20x;
+ad09.ar = !initl;
 ad09l = !ad09;
 ad11.d = data11;
-ad11.ck = ;
+ad11.ck = n_t_20x;
+ad11.ar = !initl;
 ad11l = !ad11;
 ad10.d = data10;
-ad10.ck = ;
+ad10.ck = n_t_20x;
+ad10.ar = !initl;
 ad10l = !ad10;
 
 /* e41: sn7437 */

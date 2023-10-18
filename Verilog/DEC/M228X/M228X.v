@@ -36,19 +36,19 @@ input as2;
 inout au1;
 input bh1;
 inout reg data;
-input mk_blk_end;
+inout mk_blk_end;
 inout mk_blk_end_l;
-input mk_blk_mk;
+output mk_blk_mk;
 inout mk_blk_mk_l;
-input mk_blk_start;
+inout mk_blk_start;
 inout mk_blk_start_l;
-input mk_blk_sync;
+output mk_blk_sync;
 inout mk_blk_sync_l;
-input mk_data;
+output mk_data;
 inout mk_data_l;
-input mk_data_sync;
+output mk_data_sync;
 inout mk_data_sync_l;
-input mk_end;
+output mk_end;
 inout mk_end_l;
 input n0_to_state_l;
 input n0_to_w_l;
@@ -62,7 +62,7 @@ inout reg st_final;
 output reg st_idle;
 input st_idle_in;
 inout reg st_rev_ck;
-input sync;
+output sync;
 inout sync_l;
 input tp0_l;
 input tp1;
@@ -95,145 +95,70 @@ reg w8_m;
 reg w9_m;
 
 reg ah1;
-wire a1;
-wire a1p;
-wire a2;
-wire a3;
 wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
 wire ad01;
 wire ad02;
 wire ad02l;
 wire ad03h;
-wire ad1;
 wire ad2;
-wire adder1;
-wire adder2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
 wire ah2;
 wire aj1;
-wire aj1w;
 wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
 wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
 wire ar1;
-wire ar2;
-wire ar2w;
 wire as1;
 wire at2;
-wire at2u;
-wire at2w;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
 wire av2;
-wire av2w;
-wire b2;
-wire b3;
-wire ba1;
 wire bb1;
-wire bb2;
+wire bd00;
 wire bd04;
 wire bd05;
 wire bd07;
-wire bd2;
 wire be2;
-wire bf1;
 wire bf2;
 wire bh2;
 wire biot5l;
 wire bj1;
-wire bk2;
-wire bl1;
 wire bl2;
-wire bm2;
 wire bn1;
 wire bp2;
-wire br2;
 wire bu2;
-wire bv1;
-wire bv2;
-wire c2;
-wire c3;
-wire da_enabl;
-wire data2;
-wire data3;
+wire c1_l;
+wire data1_l;
 wire data5_l;
-wire data_enabl;
-wire io2;
-wire io3;
-wire ma2_h;
-wire ma2_l;
-wire ma3_h;
-wire ma3_l;
-wire mb2_h;
-wire mb2_l;
-wire mb3_h;
-wire mb3_l;
+wire f2;
+wire h1;
+wire m1;
 wire md07_l;
-wire n3v;
+wire n2;
 wire n_t_108x;
 wire n_t_10x;
+wire n_t_11x;
+wire n_t_12x;
 wire n_t_13x;
 wire n_t_15x;
+wire n_t_16x;
+wire n_t_17x;
 wire n_t_182x;
 wire n_t_20x;
-wire n_t_2x;
+wire n_t_29x;
 wire n_t_57x;
 wire n_t_5x;
-wire n_t_7x;
-wire pc2_h;
-wire pc2_l;
-wire pc3_h;
-wire pc3_l;
+wire n_t_8x;
 wire q1;
 wire q2;
 wire q5;
 wire q6;
-wire sc2;
-wire sc3;
-wire shift_l2;
-wire sr2;
-wire sr3;
-wire tck;
-wire tdo;
-wire tt_shift;
-assign mk_data_sync_l = ~(mk_data_sync & mk_data_sync_l);
-assign mk_blk_start_l = ~(mk_blk_start & mk_blk_start_l);
-assign mk_end_l = ~(mk_end_l & mk_end);
-assign mk_blk_mk_l = ~(mk_blk_mk_l & mk_blk_mk);
+wire s1;
+wire select6;
+assign mk_data_sync = ~mk_data_sync_l;
+assign mk_blk_start = ~mk_blk_start_l;
+assign mk_end = ~mk_end_l;
+assign mk_blk_mk = ~mk_blk_mk_l;
 // e2: sn7430 
-assign ar2 = ~(mk_blk_mk_l & w1_and_w5 & w3 & ~w2 & ~w9 & w8 & ~w6 & ~w4);
+assign mk_blk_mk_l = ~(w1_and_w5 & w3 & w7 & ~w2 & ~w9 & w8 & ~w6 & ~w4);
 // e3: sn7430 
-assign n_t_4x = ~(mk_end_l & ~w3 & ~w6 & ~w7 & w8 & ~w9 & w1_and_w5 & w2);
+assign mk_end_l = ~(~w3 & ~w6 & ~w4 & ~w7 & w8 & ~w9 & w1_and_w5 & w2);
 // e4: sn7402 
 assign au1 = ~(w8
                 | ~w9);
@@ -273,7 +198,7 @@ always @(tp1, n0_to_state_l, w7_m)
     w7 <= w7_m;
   end
 // e6: sn7430 
-assign n_t_2x = ~(mk_data_sync_l & ~w3 & ~w4 & ~w7 & w8 & ~w9 & w1_and_w5 & w2);
+assign mk_data_sync_l = ~(~w3 & ~w4 & w6 & ~w7 & w8 & ~w9 & w1_and_w5 & w2);
 // e7: sn7450 
 // e8: sn7474 
 always @(tp1, n0_to_w_l, as2)
@@ -305,7 +230,7 @@ always @(tp1, n0_to_state_l, w4_m)
     w4 <= w4_m;
   end
 // e9: sn7430 
-assign n_t_21x = ~(mk_blk_start_l & ~w3 & ~w8 & ~w7 & ~w5 & ~w9 & ~w4 & w1);
+assign mk_blk_start_l = ~(~w3 & ~w8 & w6 & ~w7 & ~w5 & ~w9 & ~w4 & w1);
 // e10: sn7474 
 always @(sh_st, n0_to_state_l, st_idle_in)
   if (~n0_to_state_l) begin
@@ -371,7 +296,7 @@ always @(st_ck, be2, bb1, ah1_m)
     ah1 <= ah1_m;
   end
 // e12: sn7430 
-assign at2 = ~(mk_data_l & ~w3 & ~w2 & ~w7 & ~w9 & w1_and_w5 & w4 & w6);
+assign mk_data_l = ~(~w3 & ~w8 & ~w2 & ~w7 & ~w9 & w1_and_w5 & w4 & w6);
 // e13: sn7474 
 always @(sh_st, n0_to_state_l, st_rev_ck)
   if (~n0_to_state_l) begin
@@ -431,7 +356,7 @@ always @(tp1, n0_to_w_l, w3_m)
     w3 <= w3_m;
   end
 // e15: sn7430 
-assign be2 = ~(sync_l & bh1 & ~w6 & w9 & w7 & w1_and_w5 & ~w8 & ~w4);
+assign sync_l = ~(bh1 & w3 & ~w6 & w9 & w7 & w1_and_w5 & ~w8 & ~w4);
 // e16: sn7474 
 always @(sh_st, n0_to_state_l, st_final)
   if (~n0_to_state_l) begin
@@ -491,7 +416,7 @@ always @(w2, n0_to_w_l, w1_m)
     w1 <= w1_m;
   end
 // e18: sn7430 
-assign bk2 = ~(mk_blk_end_l & w1 & w4 & ~w7 & w8 & w5 & w9 & w9);
+assign mk_blk_end_l = ~(w1 & w4 & w6 & ~w7 & w8 & w5 & w9 & w9);
 // e19: sn7453 
 // n_t_2x = !(mk_blk_end & data
 //       # mk_blk_end & st_final
@@ -499,12 +424,12 @@ assign bk2 = ~(mk_blk_end_l & w1 & w4 & ~w7 & w8 & w5 & w9 & w9);
 //       # shift_ck & st_ck); 
 // !n_t_2x = !n_t_2x; 
 // e20: sn7400 
-assign mk_blk_end_l = ~(mk_blk_end & mk_blk_end_l);
-assign mk_blk_sync_l = ~(mk_blk_sync & mk_blk_sync_l);
-assign mk_data_l = ~(mk_data_l & mk_data);
-assign sync_l = ~(sync_l & sync);
+assign mk_blk_end = ~mk_blk_end_l;
+assign mk_blk_sync = ~mk_blk_sync_l;
+assign mk_data = ~mk_data_l;
+assign sync = ~sync_l;
 // e21: sn7430 
-assign br2 = ~(mk_blk_sync_l & w1 & w4 & ~w5 & w3 & au1 & ~w7 & w6);
+assign mk_blk_sync_l = ~(w1 & w4 & w2 & ~w5 & w3 & au1 & ~w7 & w6);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

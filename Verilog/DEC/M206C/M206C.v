@@ -8,7 +8,7 @@
 // c1: c_us 
 // c2: c_us 
 // e1: sn7474 
-module m206c (ff1, ff2, a1, ad00h, ad01h, ad02h, ad03h, ad04h, ad05h, ad06h, ad07h, ad08h, ad09h, ad10h, ad11h, adoneh, adonel, aflagh, ainith, areadyh, areadyl, astrobeh, astrobel, b1, bd00h, bd01h, bd02h, bd03h, bd04h, bd05h, bd06h, bd07h, bd08h, bd09h, bd10h, bd11h, bdoneh, bdonel, bflagh, binith, breadyh, breadyl, bstrobeh, bstrobel, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m206c (ff1, ff2, a1, ad00h, ad01h, ad02h, ad03h, ad04h, ad05h, ad06h, ad07h, ad08h, ad09h, ad10h, ad11h, adoneh, adonel, aflagh, ainith, areadyh, areadyl, astrobeh, astrobel, b1, bd00h, bd01h, bd02h, bd03h, bd04h, bd05h, bd06h, bd07h, bd08h, bd09h, bd10h, bd11h, bdoneh, bdonel, bflagh, binith, breadyh, breadyl, bstrobeh, bstrobel, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input ff1;
 input ff2;
 input a1;
@@ -71,7 +71,6 @@ input l2;
 output m1;
 input m2;
 input n1;
-output n15v;
 input n2;
 input p1;
 inout reg p2;
@@ -92,6 +91,8 @@ reg p2_m;
 reg s1_m;
 reg v2_m;
 
+wire io_pause_l;
+wire md03h;
 wire md04h;
 wire md06_l;
 wire n_t_10x;
@@ -101,12 +102,8 @@ wire n_t_13x;
 wire n_t_15x;
 wire n_t_16x;
 wire n_t_17x;
-wire n_t_20x;
-wire n_t_21x;
-wire n_t_24x;
-wire n_t_4x;
-wire n_t_5x;
 wire n_t_8x;
+wire out;
 always @(b1, a1, d1, c1)
   if (~a1) begin
     e1_m <= 1'b0;

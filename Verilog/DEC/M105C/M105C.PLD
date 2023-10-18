@@ -3,7 +3,7 @@
 
 Name     M105C ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -76,6 +76,7 @@ node a17syn;
 node c0;
 node c0_l;
 node c1;
+node n3v3;
 node n_t_21x;
 node n_t_22x;
 node n_t_31x;
@@ -128,22 +129,24 @@ $ENDIF
 /* c15: cpol_use */
 
 /* e1: sp380n */
-!a00 = a00;
-!a00 = n_t_18x
-     # ;
+!a00_l = a00;
+!a00 = n_t_18x;
+!a01 = n_t_19x;
 !a02 = n_t_17x;
 
 /* e2: sp380n */
-!n_t_6x = c0
-        # n_t_23x;
-!n_t_5x = ;
+!a1314 = n_t_5x
+       # n_t_6x;
+!c0 = n_t_23x;
+!a17syn = n_t_2x
+        # n_t_1x;
 !a1516 = n_t_3x
        # n_t_4x;
 
 /* e3: sp380n */
-!'b'0 = c1;
-!n_t_8x = n_t_24x
-        # ;
+!a11 = n_t_8x;
+!c1 = n_t_24x;
+!c0_l = c0;
 !a12 = n_t_7x;
 
 /* e4: dec8242 */
@@ -158,24 +161,24 @@ $ENDIF
 
 /* e5: sn74h00 */
 a02_l = !a02;
-a01 = !(a01_l & a01);
-n_t_43x = !(a17syn & testpoint);
+a01_l = !a01;
+testpoint = !(n_t_43x & a17syn);
 c1_l = !c1;
 
 /* e6: sn7402 */
-n_t_38x = !(c1_l
-          # out_l);
+out_l = !(n_t_38x
+        # c1_l);
 out_high = !(c1_l
            # n_t_41x);
 n_t_41x = !(a00
           # c0_l);
-c0_l = !(n_t_38x
-       # a00_l);
+n_t_38x = !(a00_l
+          # c0_l);
 
 /* e7: sp380n */
-!'b'0 = a08;
-!n_t_12x = n_t_10x
-         # ;
+!a07 = n_t_12x;
+!a08 = n_t_10x;
+!a10 = n_t_9x;
 !a09 = n_t_11x;
 
 /* e8: dec8242 */
@@ -208,9 +211,9 @@ c0_l = !(n_t_38x
          # testpoint;
 
 /* e11: sp380n */
-!'b'0 = a04;
-!n_t_16x = n_t_15x
-         # ;
+!a03 = n_t_16x;
+!a04 = n_t_15x;
+!a06 = n_t_13x;
 !a05 = n_t_14x;
 
 /* e12: dec8242 */

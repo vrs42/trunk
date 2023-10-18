@@ -3,7 +3,7 @@
 
 Name     M7104B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,34 +16,31 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ad07l;
 pin = bdata1;
 pin = bdata10;
 pin = bdata10_l;
 pin = bdata11;
 pin = bdata11_l;
-pin = bmd8;
-pin = bmd9;
 pin = brk_dir_l;
-pin = btp2;
-pin = data8;
+pin = brk_rq;
 pin = data_clk_ok;
 pin = data_enable;
 pin = data_state;
 pin = data_state_l;
-pin = db_cont4_l;
 pin = drive_status_bad;
 pin = drv_revo;
+pin = dsk_capacity_ex_l;
 pin = dsk_file_rdy_l;
 pin = dsk_wrt_status_l;
+pin = enab_int;
 pin = enab_seek_done;
 pin = end_state_l;
+pin = hi_data_in;
 pin = hi_rd_clk;
 pin = idle;
 pin = idle_l;
 pin = last_word_pl;
 pin = ld_cmd_reg;
-pin = ld_db_ac;
 pin = ld_disk_addrs;
 pin = lo_main_data;
 pin = lo_main_shft_l;
@@ -52,11 +49,8 @@ pin = main_l;
 pin = main_pl;
 pin = mak_l;
 pin = n12th_bit_ok;
-pin = n3v3;
-pin = n6rk7;
-pin = n_t_102x;
-pin = n_t_109x;
 pin = n_t_11x;
+pin = n_t_20x;
 pin = n_t_24x;
 pin = n_t_25x;
 pin = n_t_27x;
@@ -65,17 +59,11 @@ pin = n_t_74x;
 pin = n_t_75x;
 pin = n_t_76x;
 pin = n_t_8x;
-pin = n_t_96x;
 pin = n_t_9x;
 pin = not_equal_l;
-pin = q1;
-pin = q2;
-pin = q5;
 pin = rd_brk_l;
 pin = rdy_s_r_w_l;
 pin = rdy_s_r_w_slo;
-pin = rk_data5_l;
-pin = rk_data8_l;
 pin = sector_seek_l;
 pin = seek_fail;
 pin = shft_wrt_buff_l;
@@ -85,30 +73,20 @@ pin = wrt_cmd_l;
 pin = wt_buff_data_l;
 
 /* Output Pins */
-pin = ac2_h;
-pin = ac2_l;
-pin = ac3_h;
-pin = ac3_l;
 pin = ac7_l;
-pin = ak2;
 pin = b_brk_rq;
-pin = bd11;
-pin = bd11l;
-pin = bmd10;
-pin = bmd11;
 pin = bmd6;
 pin = bmd7;
+pin = bmd8;
+pin = btp2;
 pin = btp3;
 pin = btp3_l;
 pin = btp3_ok;
-pin = busy_error;
 pin = c0_l;
 pin = c1_l;
 pin = clr_all;
 pin = clr_all_l;
 pin = clr_drive_cmd_l;
-pin = crc_error;
-pin = cyl_addrs_er;
 pin = data0_l;
 pin = data10_l;
 pin = data11_l;
@@ -121,25 +99,15 @@ pin = data6_l;
 pin = data7_l;
 pin = data8_l;
 pin = data9_l;
-pin = data_rqst_late;
-pin = db4_ena;
 pin = db_clk;
 pin = db_cont1_l;
 pin = db_cont4;
 pin = device_rk;
-pin = device_rk_l;
-pin = done_flag;
-pin = drive_status_er;
-pin = enab_rk_data;
-pin = enab_rk_data_l;
 pin = error_clr_l;
 pin = initialize;
 pin = int_rqst_l;
 pin = internal_io_l;
 pin = io_pause_l;
-pin = ma2_h;
-pin = ma3_h;
-pin = ma3_l;
 pin = md0_l;
 pin = md10_l;
 pin = md11_l;
@@ -152,24 +120,14 @@ pin = md6_l;
 pin = md7_l;
 pin = md8_l;
 pin = md9_l;
-pin = n0_db4;
-pin = n1_db2;
-pin = n1_db3;
-pin = n1_db4;
 pin = n3v;
-pin = n6rk1_l;
 pin = n6rk2_l;
-pin = n6rk3_l;
 pin = n6rk3_ok;
 pin = n6rk3_ok_l;
 pin = n6rk4_l;
-pin = n6rk5_l;
 pin = n6rk6;
-pin = n6rk6_l;
-pin = n6rk7_l;
+pin = n6rk7;
 pin = n6rk7_ok;
-pin = n_t_100x;
-pin = n_t_10x;
 pin = n_t_123x;
 pin = n_t_12x;
 pin = n_t_13x;
@@ -177,60 +135,42 @@ pin = n_t_15x;
 pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_19x;
-pin = n_t_1x;
-pin = n_t_20x;
 pin = n_t_22x;
-pin = n_t_28x;
-pin = n_t_2x;
-pin = n_t_35x;
-pin = n_t_38x;
-pin = n_t_39x;
-pin = n_t_3x;
 pin = n_t_4x;
 pin = n_t_52x;
 pin = n_t_55x;
+pin = n_t_57x;
 pin = n_t_5x;
-pin = n_t_77x;
 pin = n_t_7x;
-pin = n_t_81x;
 pin = n_t_82x;
-pin = n_t_95x;
 pin = power_ok;
-pin = rk_data0_l;
-pin = rk_data10_l;
 pin = rk_data11;
-pin = rk_data11_l;
-pin = rk_data1_l;
-pin = rk_data2_l;
-pin = rk_data3_l;
-pin = rk_data4_l;
-pin = rk_data6_l;
-pin = rk_data7_l;
-pin = rk_data9_l;
 pin = set_idle_pl_l;
 pin = skip_l;
 pin = test_clk;
 pin = test_clk_l;
-pin = time_out_er;
 pin = tp1;
 pin = tp2;
 pin = tp3;
 pin = ts3_l;
-pin = wrt_lock_er;
+node n_t_18x;
+node n_t_23x;
 node n_t_26x;
-node n_t_103x;
-node n_t_89x;
+node n_t_28x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
 node n_t_48x;
 node n_t_49x;
 node n_t_50x;
+node n_t_63x;
+node n_t_62x;
 node n_t_37x;
+node n_t_38x;
+node rk_data0;
+node rk_data1;
 node rk_data2;
-node n_t_23x;
 node rk_data3;
-node d2data;
 node n_t_67x;
 node n_t_66x;
 node n_t_65x;
@@ -239,228 +179,192 @@ node n_t_60x;
 node n_t_40x;
 node db_cont1;
 node db_cont2;
-node md07_l;
-node n_t_72x;
+node db_cont3;
+node rk_data4;
+node rk_data5;
 node rk_data6;
-node n_t_48x;
 node rk_data7;
-node set_count;
 node n_t_36x;
+node n_t_39x;
 node n_t_44x;
-node n_t_57x;
 node n_t_58x;
 node n_t_59x;
+node rk_data8;
+node rk_data9;
 node rk_data10;
-node n_t_36x;
 node n_t_51x;
 node n_t_53x;
 node n_t_54x;
 node n_t_56x;
+node n_t_32x;
+node n_t_31x;
 node n_t_30x;
-node md10h;
 node n_t_64x;
-node n_t_66x;
-node btp1;
-node n_t_97x;
+node ac7;
+node data_rqst_late;
 node done_flag_l;
+node n_t_1x;
 node aiot5l;
 node n_t_337x;
 node set_time_out_er;
+node busy_error;
+node crc_error;
+node time_out_er;
+node drive_status_er;
+node cyl_addrs_er;
+node wrt_lock_er;
 node clr_syn_l;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node a1;
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac7;
+node ad07l;
 node ad09;
 node ad09h;
-node ad1;
 node ad10;
 node ad10l;
-node ad11;
 node ad11h;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
 node aflagh;
-node ah1;
-node ah2;
 node ainith;
 node aiot6l;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
 node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
 node b_drive_status_er;
 node b_io_pause;
 node b_io_pause_l;
-node ba1;
-node bac2d;
-node bb2;
-node bc1;
 node bd07;
 node bd08;
 node bd08h;
 node bd09;
-node bd09h;
 node bd10h;
-node bd11h;
-node bd2;
-node bdonel;
-node be2;
-node bf1;
-node bf2;
-node bh1;
+node bd11;
+node bd11l;
 node binith;
 node biot5l;
-node bl1;
-node bl2;
-node bm2;
 node bmd0;
 node bmd1;
+node bmd10;
+node bmd11;
 node bmd2;
 node bmd3;
 node bmd4;
 node bmd5;
-node bstrobeh;
+node bmd9;
+node bstrobel;
+node btp1;
 node btp3_ok_l;
-node bu2;
-node bv1;
-node bv2;
-node c3;
-node clk_cla;
+node clr_flag_l;
 node clr_status_l;
-node d2ac;
-node data3;
-node data9;
+node data8;
 node data_rqst_late_l;
+node db4_ena;
 node db_cont2_l;
-node db_cont3;
 node db_cont3_l;
+node db_cont4_l;
+node device_rk_l;
+node done_flag;
+node e2;
+node enab_rk_data;
+node enab_rk_data_l;
 node enable_status;
 node error_fl_l;
-node f1;
 node hi_rd_clk_l;
 node hi_wrt_clk;
-node initializel;
-node io3;
+node io_irq_l;
 node ld_db4;
+node ld_db_ac;
 node ld_db_ac_l;
 node ld_rd_buffer;
-node load_counter;
-node mb10;
-node mb2_l;
-node mb3_h;
-node md09h;
+node m1;
+node md09_l;
+node md10h;
+node md11h;
 node md_rd_buff;
 node md_rd_buff_l;
 node md_rk_l;
+node n0_db4;
+node n1_db2;
+node n1_db3;
+node n1_db4;
 node n3v1;
+node n3v3;
 node n6rk1;
+node n6rk1_l;
 node n6rk2;
+node n6rk3_l;
+node n6rk5_l;
+node n6rk6_l;
+node n6rk7_l;
+node n_t_100x;
 node n_t_101x;
-node n_t_104x;
-node n_t_105x;
-node n_t_113x;
-node n_t_116x;
+node n_t_102x;
+node n_t_107x;
+node n_t_109x;
+node n_t_10x;
 node n_t_125x;
-node n_t_131x;
 node n_t_14x;
-node n_t_18x;
+node n_t_152x;
+node n_t_153x;
 node n_t_29x;
-node n_t_31x;
-node n_t_32x;
+node n_t_2x;
 node n_t_347x;
 node n_t_34x;
+node n_t_35x;
 node n_t_386x;
+node n_t_3x;
 node n_t_41x;
 node n_t_42x;
 node n_t_43x;
 node n_t_476x;
+node n_t_483x;
 node n_t_491x;
-node n_t_530x;
 node n_t_586x;
-node n_t_62x;
-node n_t_63x;
 node n_t_68x;
 node n_t_70x;
 node n_t_71x;
+node n_t_72x;
 node n_t_73x;
+node n_t_77x;
 node n_t_78x;
 node n_t_79x;
 node n_t_80x;
+node n_t_81x;
 node n_t_83x;
 node n_t_84x;
 node n_t_85x;
 node n_t_86x;
 node n_t_87x;
 node n_t_88x;
+node n_t_89x;
 node n_t_90x;
 node n_t_92x;
+node n_t_93x;
+node n_t_95x;
+node n_t_97x;
 node n_t_98x;
 node n_t_99x;
 node p2;
-node pc2_h;
-node pc3_h;
-node pc3_l;
-node q3;
-node q4;
+node q1;
+node q2;
+node q5;
 node q6;
-node q8;
-node rk_data0;
-node rk_data1;
-node rk_data4;
-node rk_data5;
-node rk_data8;
-node rk_data9;
-node sc3;
+node rk_data0_l;
+node rk_data10_l;
+node rk_data11_l;
+node rk_data1_l;
+node rk_data2_l;
+node rk_data3_l;
+node rk_data4_l;
+node rk_data5_l;
+node rk_data6_l;
+node rk_data7_l;
+node rk_data8_l;
+node rk_data9_l;
 node set_busy_er;
 node set_crc_er;
 node set_cyl_addrs_er;
 node set_status_er;
 node short_tp3;
-node tck;
-node tdo;
+node transfer;
 node wrt_buf_data;
 node wrt_buff_shft;
 node wrt_buff_shft_l;
@@ -470,6 +374,118 @@ $ENDIF
 /* Code nodes */
 
 /* Equations */
+
+/* c1: c_us */
+
+/* c2: c_us */
+
+/* c3: c_us */
+
+/* c4: c_us */
+
+/* c5: c_us */
+
+/* c6: c_us */
+
+/* c7: c_us */
+
+/* c8: c_us */
+
+/* c9: c_us */
+
+/* c10: c_us */
+
+/* c11: c_us */
+
+/* c12: c_us */
+
+/* c13: c_us */
+
+/* c14: c_us */
+
+/* c15: c_us */
+
+/* c16: c_us */
+
+/* c17: c_us */
+
+/* c18: c_us */
+
+/* c19: c_us */
+
+/* c20: c_us */
+
+/* c21: c_us */
+
+/* c22: c_us */
+
+/* c23: c_us */
+
+/* c24: c_us */
+
+/* c25: c_us */
+
+/* c26: c_us */
+
+/* c27: c_us */
+
+/* c28: c_us */
+
+/* c29: c_us */
+
+/* c30: c_us */
+
+/* c31: c_us */
+
+/* c32: c_us */
+
+/* c33: c_us */
+
+/* c34: c_us */
+
+/* c35: c_us */
+
+/* c36: c_us */
+
+/* c37: c_us */
+
+/* c38: c_us */
+
+/* c39: c_us */
+
+/* c40: c_us */
+
+/* c41: c_us */
+
+/* c42: c_us */
+
+/* c43: c_us */
+
+/* c44: c_us */
+
+/* c45: c_us */
+
+/* c46: c_us */
+
+/* c47: c_us */
+
+/* c48: c_us */
+
+/* c49: c_us */
+
+/* c50: c_us */
+
+/* c51: c_us */
+
+/* c52: c_us */
+
+/* c53: cpol_use */
+
+/* c54: cpol_use */
+
+/* c55: cpol_use */
+
+/* c56: c_us */
 
 /* e1: sp314n */
 !device_rk = n_t_74x
@@ -481,111 +497,129 @@ $ENDIF
            # md3_l;
 
 /* e2: ds8640n */
-n_t_60x = !n_t_66x;
-md_rd_buff_l = !(bmd2
-               # n_t_68x);
-f1 = !(md_rd_buff_l
-     # md0_l);
+bmd2 = !(md2_l
+       # md_rd_buff_l);
+bmd0 = !(md_rd_buff_l
+       # md0_l);
+bmd1 = !(md1_l
+       # md_rd_buff_l);
 bmd3 = !(md_rd_buff_l
        # md3_l);
 
 /* e3: sn7495 */
+n_t_18x.ck = !(hi_wrt_clk & !md_rd_buff
+             # ld_rd_buffer & md_rd_buff);
+n_t_18x.d  = bmd0 & md_rd_buff
+           # hi_data_in & !md_rd_buff;
+n_t_23x.ck = !(hi_wrt_clk & !md_rd_buff
+             # ld_rd_buffer & md_rd_buff);
+n_t_23x.d  = bmd1 & md_rd_buff
+           # n_t_18x & !md_rd_buff;
 n_t_26x.ck = !(hi_wrt_clk & !md_rd_buff
              # ld_rd_buffer & md_rd_buff);
-n_t_26x.d  = bmd0 & md_rd_buff
-           # bd2 & !md_rd_buff;
-n_t_103x.ck = !(hi_wrt_clk & !md_rd_buff
-              # ld_rd_buffer & md_rd_buff);
-n_t_103x.d  = bmd1 & md_rd_buff
-            # n_t_26x & !md_rd_buff;
+n_t_26x.d  = bmd2 & md_rd_buff
+           # n_t_23x & !md_rd_buff;
 n_t_28x.ck = !(hi_wrt_clk & !md_rd_buff
              # ld_rd_buffer & md_rd_buff);
-n_t_28x.d  = bmd2 & md_rd_buff
-           # n_t_103x & !md_rd_buff;
-n_t_89x.ck = !(hi_wrt_clk & !md_rd_buff
-             # ld_rd_buffer & md_rd_buff);
-n_t_89x.d  = n_t_101x & md_rd_buff
-           # n_t_28x & !md_rd_buff;
+n_t_28x.d  = bmd3 & md_rd_buff
+           # n_t_26x & !md_rd_buff;
 
 /* e4: sn74174 */
-n_t_45x.ar = !db_cont2;
-n_t_45x.ck = n_t_41x;
+n_t_45x.ar = !n3v;
+n_t_45x.ck = db_cont2;
 n_t_45x.d = n_t_18x;
-n_t_46x.ar = !db_cont2;
-n_t_46x.ck = n_t_41x;
+n_t_46x.ar = !n3v;
+n_t_46x.ck = db_cont2;
 n_t_46x.d = n_t_23x;
-n_t_47x.ar = !db_cont2;
-n_t_47x.ck = n_t_41x;
+n_t_47x.ar = !n3v;
+n_t_47x.ck = db_cont2;
 n_t_47x.d = n_t_26x;
-n_t_48x.ar = !db_cont2;
-n_t_48x.ck = n_t_41x;
+n_t_48x.ar = !n3v;
+n_t_48x.ck = db_cont2;
 n_t_48x.d = n_t_28x;
-n_t_49x.ar = !db_cont2;
-n_t_49x.ck = n_t_41x;
+n_t_49x.ar = !n3v;
+n_t_49x.ck = db_cont2;
 n_t_49x.d = n_t_63x;
-n_t_50x.ar = !db_cont2;
-n_t_50x.ck = n_t_41x;
+n_t_50x.ar = !n3v;
+n_t_50x.ck = db_cont2;
 n_t_50x.d = n_t_62x;
 
 /* e5: sn7495 */
+n_t_63x.ck = !(hi_wrt_clk & !md_rd_buff
+             # ld_rd_buffer & md_rd_buff);
+n_t_63x.d  = bmd4 & md_rd_buff
+           # n_t_28x & !md_rd_buff;
+n_t_62x.ck = !(hi_wrt_clk & !md_rd_buff
+             # ld_rd_buffer & md_rd_buff);
+n_t_62x.d  = bmd5 & md_rd_buff
+           # n_t_63x & !md_rd_buff;
 n_t_37x.ck = !(hi_wrt_clk & !md_rd_buff
              # ld_rd_buffer & md_rd_buff);
-n_t_37x.d  = bmd4 & md_rd_buff
-           # n_t_68x & !md_rd_buff;
+n_t_37x.d  = bmd6 & md_rd_buff
+           # n_t_62x & !md_rd_buff;
 n_t_38x.ck = !(hi_wrt_clk & !md_rd_buff
              # ld_rd_buffer & md_rd_buff);
-n_t_38x.d  = bmd5 & md_rd_buff
+n_t_38x.d  = bmd7 & md_rd_buff
            # n_t_37x & !md_rd_buff;
-n_t_38x.ck = !(hi_wrt_clk & !md_rd_buff
-             # ld_rd_buffer & md_rd_buff);
-n_t_38x.d  = bmd6 & md_rd_buff
-           # n_t_38x & !md_rd_buff;
-n_t_39x.ck = !(hi_wrt_clk & !md_rd_buff
-             # ld_rd_buffer & md_rd_buff);
-n_t_39x.d  = n_t_67x & md_rd_buff
-           # n_t_38x & !md_rd_buff;
+
+/* e6: sn74h53 */
+/* transfer = !(n1_db2
+         # db4_ena & n1_db4
+         # n0_db4
+         # n1_db3); */
+/* n_t_29x = !transfer; */
+n_t_22x = transfer;
+
+/* e8: dec8235 */
+/* data0_l = !(!rk_data0_l & !enab_rk_data_l
+        # done_flag & !n6rk5_l); */
+/* data1_l = !(!rk_data1_l & !enab_rk_data_l
+        # rdy_s_r_w_l & !n6rk5_l); */
+/* data2_l = !(!rk_data2_l & !enab_rk_data_l); */
+/* data3_l = !(!rk_data3_l & !enab_rk_data_l
+        # seek_fail & !n6rk5_l); */
 
 /* e9: sn7495 */
-rk_data2.ck = !(lo_main_data & !db_cont4_l
+rk_data0.ck = !(wrt_buff_shft_l & !db_cont4_l
               # ld_db4 & db_cont4_l);
-rk_data2.d  = n_t_67x & db_cont4_l
-            # n_t_22x & !db_cont4_l;
-n_t_23x.ck = !(lo_main_data & !db_cont4_l
-             # ld_db4 & db_cont4_l);
-n_t_23x.d  = n_t_66x & db_cont4_l
-           # rk_data2 & !db_cont4_l;
-rk_data3.ck = !(lo_main_data & !db_cont4_l
+rk_data0.d  = n_t_67x & db_cont4_l
+            # lo_main_data & !db_cont4_l;
+rk_data1.ck = !(wrt_buff_shft_l & !db_cont4_l
               # ld_db4 & db_cont4_l);
-rk_data3.d  = n_t_65x & db_cont4_l
-            # n_t_23x & !db_cont4_l;
-d2data.ck = !(lo_main_data & !db_cont4_l
-            # ld_db4 & db_cont4_l);
-d2data.d  = d2ac & db_cont4_l
-          # rk_data3 & !db_cont4_l;
+rk_data1.d  = n_t_66x & db_cont4_l
+            # rk_data0 & !db_cont4_l;
+rk_data2.ck = !(wrt_buff_shft_l & !db_cont4_l
+              # ld_db4 & db_cont4_l);
+rk_data2.d  = n_t_65x & db_cont4_l
+            # rk_data1 & !db_cont4_l;
+rk_data3.ck = !(wrt_buff_shft_l & !db_cont4_l
+              # ld_db4 & db_cont4_l);
+rk_data3.d  = n_t_61x & db_cont4_l
+            # rk_data2 & !db_cont4_l;
 
 /* e10: sn74174 */
-n_t_67x.ar = !db_cont3;
-n_t_67x.ck = n_t_16x;
+n_t_67x.ar = !n3v;
+n_t_67x.ck = db_cont3;
 n_t_67x.d = n_t_45x;
-n_t_66x.ar = !db_cont3;
-n_t_66x.ck = n_t_16x;
+n_t_66x.ar = !n3v;
+n_t_66x.ck = db_cont3;
 n_t_66x.d = n_t_46x;
-n_t_65x.ar = !db_cont3;
-n_t_65x.ck = n_t_16x;
+n_t_65x.ar = !n3v;
+n_t_65x.ck = db_cont3;
 n_t_65x.d = n_t_47x;
-n_t_61x.ar = !db_cont3;
-n_t_61x.ck = n_t_16x;
+n_t_61x.ar = !n3v;
+n_t_61x.ck = db_cont3;
 n_t_61x.d = n_t_48x;
-n_t_60x.ar = !db_cont3;
-n_t_60x.ck = n_t_16x;
+n_t_60x.ar = !n3v;
+n_t_60x.ck = db_cont3;
 n_t_60x.d = n_t_49x;
-n_t_40x.ar = !db_cont3;
-n_t_40x.ck = n_t_16x;
+n_t_40x.ar = !n3v;
+n_t_40x.ck = db_cont3;
 n_t_40x.d = n_t_50x;
 
 /* e11: sn7408 */
-n1_db2 = (n12th_bit_ok & wrt_cmd_l);
-n_t_16x = (db_cont2 & n_t_74x);
+n_t_13x = (n12th_bit_ok & wrt_cmd_l);
+n_t_16x = (n1_db2 & db_cont2);
 ld_db4 = (n1_db4 & db_clk);
 hi_wrt_clk = (hi_rd_clk_l & wrt_cmd_l);
 
@@ -602,271 +636,307 @@ db_cont2.ck = db_clk;
 db_cont2_l = !db_cont2;
 
 /* e13: sn7402 */
-ld_rd_buffer = !(n_t_13x
-               # n_t_20x);
-db_cont1_l = !(n_t_9x
-             # n1_db2);
-db_cont2_l = !(n1_db3
-             # db_cont3);
-db_cont4 = !(n1_db4
-           # db_cont3_l);
+n_t_14x = !(ld_rd_buffer
+          # n_t_13x);
+n1_db2 = !(n_t_20x
+         # db_cont1_l);
+n1_db3 = !(db_cont3
+         # db_cont2_l);
+n1_db4 = !(db_cont3_l
+         # db_cont4);
 
 /* e14: sn7476 */
-md07_l.ar = !n1_db4;
-md07_l.j = n3v;
-md07_l.k = clr_all_l;
-md07_l.ck = db_clk;
-md07_l.ap = !n_t_40x;
-n1_db3 = !md07_l;
-n_t_72x.ar = !n_t_1x;
-n_t_72x.j = db_cont4;
-n_t_72x.k = db_cont3;
-n_t_72x.ck = n_t_70x;
-n_t_72x.ap = !n1_db4;
-n_t_34x = !n_t_72x;
+db_cont3.ar = !clr_all_l;
+db_cont3.j = n1_db3;
+db_cont3.k = n1_db4;
+db_cont3.ck = db_clk;
+db_cont3.ap = !n3v;
+db_cont3_l = !db_cont3;
+db_cont4.ar = !db4_ena;
+db_cont4.j = n1_db4;
+db_cont4.k = n0_db4;
+db_cont4.ck = db_clk;
+db_cont4.ap = !n_t_34x;
+n_t_1x = !db_cont4;
 
 /* e15: ds8640n */
-n_t_17x = !(set_count
-          # n_t_16x);
-'b'0 = !(bmd6
-       # bac2d);
-n_t_15x = !(md_rd_buff_l
-          # md4_l);
+bmd6 = !md6_l;
+bmd4 = !(md_rd_buff_l
+       # md4_l);
+bmd5 = !(md5_l
+       # md_rd_buff_l);
 bmd7 = !md7_l;
 
 /* e16: sn7404 */
-n_t_47x = !rk_data6;
-set_count = !rk_data1;
-rk_data1_l = !rk_data0;
-rk_data0_l = !rk_data3;
-rk_data2_l = !rk_data3_l;
-rk_data6_l = !rk_data5;
+rk_data6_l = !rk_data6;
+rk_data1_l = !rk_data1;
+rk_data0_l = !rk_data0;
+rk_data3_l = !rk_data3;
+rk_data2_l = !rk_data2;
+rk_data5_l = !rk_data5;
 
 /* e17: sn7495 */
+rk_data4.ck = !(wrt_buff_shft_l & !db_cont4_l
+              # ld_db4 & db_cont4_l);
+rk_data4.d  = n_t_60x & db_cont4_l
+            # rk_data3 & !db_cont4_l;
+rk_data5.ck = !(wrt_buff_shft_l & !db_cont4_l
+              # ld_db4 & db_cont4_l);
+rk_data5.d  = n_t_40x & db_cont4_l
+            # rk_data4 & !db_cont4_l;
 rk_data6.ck = !(wrt_buff_shft_l & !db_cont4_l
               # ld_db4 & db_cont4_l);
-rk_data6.d  = n_t_60x & db_cont4_l
-            # n_t_66x & !db_cont4_l;
-n_t_48x.ck = !(wrt_buff_shft_l & !db_cont4_l
-             # ld_db4 & db_cont4_l);
-n_t_48x.d  = n_t_40x & db_cont4_l
-           # rk_data6 & !db_cont4_l;
+rk_data6.d  = n_t_36x & db_cont4_l
+            # rk_data5 & !db_cont4_l;
 rk_data7.ck = !(wrt_buff_shft_l & !db_cont4_l
               # ld_db4 & db_cont4_l);
-rk_data7.d  = n_t_36x & db_cont4_l
-            # n_t_48x & !db_cont4_l;
-set_count.ck = !(wrt_buff_shft_l & !db_cont4_l
-               # ld_db4 & db_cont4_l);
-set_count.d  = n_t_30x & db_cont4_l
-             # rk_data7 & !db_cont4_l;
+rk_data7.d  = n_t_39x & db_cont4_l
+            # rk_data6 & !db_cont4_l;
 
 /* e18: sn74174 */
-n_t_36x.ar = !db_cont3;
-n_t_36x.ck = n_t_29x;
+n_t_36x.ar = !n3v;
+n_t_36x.ck = db_cont3;
 n_t_36x.d = n_t_51x;
-n_t_39x.ar = !db_cont3;
-n_t_39x.ck = n_t_29x;
+n_t_39x.ar = !n3v;
+n_t_39x.ck = db_cont3;
 n_t_39x.d = n_t_52x;
-n_t_44x.ar = !db_cont3;
-n_t_44x.ck = n_t_29x;
+n_t_44x.ar = !n3v;
+n_t_44x.ck = db_cont3;
 n_t_44x.d = n_t_53x;
-n_t_57x.ar = !db_cont3;
-n_t_57x.ck = n_t_29x;
+n_t_57x.ar = !n3v;
+n_t_57x.ck = db_cont3;
 n_t_57x.d = n_t_54x;
-n_t_58x.ar = !db_cont3;
-n_t_58x.ck = n_t_29x;
+n_t_58x.ar = !n3v;
+n_t_58x.ck = db_cont3;
 n_t_58x.d = n_t_55x;
-n_t_59x.ar = !db_cont3;
-n_t_59x.ck = n_t_29x;
+n_t_59x.ar = !n3v;
+n_t_59x.ck = db_cont3;
 n_t_59x.d = n_t_56x;
 
 /* e19: sn7402 */
-n6rk7_l = !(btp3_l
-          # n6rk3_l);
-idle_l = !(load_counter
-         # n6rk3_ok);
-n_t_16x = !(n_t_17x
-          # clr_all);
-btp3_l = !(ld_rd_buffer
-         # n6rk7_ok);
+n6rk7_ok = !(n6rk7_l
+           # btp3_l);
+n6rk3_ok = !(n6rk3_l
+           # idle_l);
+n_t_17x = !(clr_all
+          # n_t_16x);
+ld_rd_buffer = !(md_rd_buff_l
+               # btp3_l);
 
 /* e20: sn74h00 */
-data_enable = !(lo_main_shft_l & shft_wrt_buff_l);
-md_rd_buff_l = !(brk_dir_l & clk_cla);
+wrt_buff_shft = !(lo_main_shft_l & shft_wrt_buff_l);
+md_rd_buff_l = !(data_enable & brk_dir_l);
 n_t_34x = !(main_pl & bdata1);
 btp3_ok_l = !(idle & btp3);
 
 /* e21: sn74h04 */
-mb10 = !n6rk6_l;
-n_t_85x = !btp3;
-btp3_l = !btp3_ok_l;
-btp3_ok = !ld_db_ac_l;
+n6rk6 = !n6rk6_l;
+btp3_l = !btp3;
+btp3_ok = !btp3_ok_l;
+ld_db_ac = !ld_db_ac_l;
 n6rk3_ok_l = !n6rk3_ok;
-n6rk6 = !wt_buff_data_l;
+wrt_buf_data = !wt_buff_data_l;
+
+/* e22: dec8235 */
+/* data4_l = !(!rk_data4_l & !enab_rk_data_l
+        # dsk_file_rdy_l & !n6rk5_l); */
+/* data5_l = !(!rk_data5_l & !enab_rk_data_l
+        # busy_error & !n6rk5_l); */
+/* data6_l = !(!rk_data6_l & !enab_rk_data_l
+        # time_out_er & !n6rk5_l); */
+/* data7_l = !(!rk_data7_l & !enab_rk_data_l
+        # wrt_lock_er & !n6rk5_l); */
 
 /* e23: sn7404 */
-n_t_52x = !rk_data8;
-n_t_131x = !rk_data10;
-rk_data10_l = !rk_data9;
-rk_data9_l = !rk_data4;
-rk_data7_l = !rk_data4_l;
+rk_data8_l = !rk_data8;
+rk_data10_l = !rk_data10;
+rk_data9_l = !rk_data9;
+rk_data4_l = !rk_data4;
+rk_data7_l = !rk_data7;
 rk_data11_l = !rk_data11;
 
 /* e24: sn7495 */
+rk_data8.ck = !(wrt_buff_shft_l & !db_cont4_l
+              # ld_db4 & db_cont4_l);
+rk_data8.d  = n_t_44x & db_cont4_l
+            # rk_data7 & !db_cont4_l;
+rk_data9.ck = !(wrt_buff_shft_l & !db_cont4_l
+              # ld_db4 & db_cont4_l);
+rk_data9.d  = n_t_57x & db_cont4_l
+            # rk_data8 & !db_cont4_l;
 rk_data10.ck = !(wrt_buff_shft_l & !db_cont4_l
                # ld_db4 & db_cont4_l);
-rk_data10.d  = n_t_44x & db_cont4_l
-             # q6 & !db_cont4_l;
-n_t_36x.ck = !(wrt_buff_shft_l & !db_cont4_l
-             # ld_db4 & db_cont4_l);
-n_t_36x.d  = n_t_57x & db_cont4_l
-           # rk_data10 & !db_cont4_l;
+rk_data10.d  = n_t_58x & db_cont4_l
+             # rk_data9 & !db_cont4_l;
 rk_data11.ck = !(wrt_buff_shft_l & !db_cont4_l
                # ld_db4 & db_cont4_l);
-rk_data11.d  = n_t_58x & db_cont4_l
-             # n_t_36x & !db_cont4_l;
-n_t_13x.ck = !(wrt_buff_shft_l & !db_cont4_l
-             # ld_db4 & db_cont4_l);
-n_t_13x.d  = q3 & db_cont4_l
-           # rk_data11 & !db_cont4_l;
+rk_data11.d  = n_t_59x & db_cont4_l
+             # rk_data10 & !db_cont4_l;
 
 /* e25: sn74174 */
-n_t_51x.ar = !db_cont2;
-n_t_51x.ck = n_t_116x;
+n_t_51x.ar = !n3v;
+n_t_51x.ck = db_cont2;
 n_t_51x.d = n_t_37x;
-n_t_52x.ar = !db_cont2;
-n_t_52x.ck = n_t_116x;
+n_t_52x.ar = !n3v;
+n_t_52x.ck = db_cont2;
 n_t_52x.d = n_t_38x;
-n_t_53x.ar = !db_cont2;
-n_t_53x.ck = n_t_116x;
+n_t_53x.ar = !n3v;
+n_t_53x.ck = db_cont2;
 n_t_53x.d = n_t_32x;
-n_t_54x.ar = !db_cont2;
-n_t_54x.ck = n_t_116x;
+n_t_54x.ar = !n3v;
+n_t_54x.ck = db_cont2;
 n_t_54x.d = n_t_31x;
-n_t_55x.ar = !db_cont2;
-n_t_55x.ck = n_t_116x;
+n_t_55x.ar = !n3v;
+n_t_55x.ck = db_cont2;
 n_t_55x.d = n_t_30x;
-n_t_56x.ar = !db_cont2;
-n_t_56x.ck = n_t_116x;
+n_t_56x.ar = !n3v;
+n_t_56x.ck = db_cont2;
 n_t_56x.d = n_t_64x;
 
+/* e26: sn74h53 */
+/* n_t_38x = !(ld_db_ac & btp3_ok
+        # data_state & write & n12th_bit_ok
+        # clr_all); */
+/* ad07l = !n_t_38x; */
+db4_ena = n_t_38x;
+
 /* e27: sn7404 */
-n_t_113x = !idle;
-n_t_30x = !md_rd_buff_l;
-md_rd_buff = !n_t_14x;
-n_t_15x = !ld_disk_addrs;
-hi_rd_clk_l = !n_t_100x;
+n_t_93x = !idle;
+md_rd_buff = !md_rd_buff_l;
+n_t_15x = !n_t_14x;
+n_t_100x = !ld_disk_addrs;
+hi_rd_clk_l = !hi_rd_clk;
 n_t_101x = !btp3;
 
 /* e28: sn7402 */
-wrt_brk_l = !(db_cont2_l
-            # n_t_42x);
-n_t_43x = !(n_t_81x
-          # n_t_68x);
-rd_brk_l = !(n_t_43x
-           # db_cont3);
-mak_l = !(n_t_72x
-        # n_t_68x);
+n_t_42x = !(wrt_brk_l
+          # db_cont2_l);
+n_t_68x = !(n_t_42x
+          # n_t_43x);
+n_t_43x = !(db_cont3
+          # rd_brk_l);
+n_t_72x = !(n_t_68x
+          # mak_l);
+
+/* e29: dec8235 */
+/* c1_l = !(!n6rk5_l
+     # enab_rk_data); */
+/* c0_l = !(!n_t_35x
+     # n_t_3x); */
 
 /* e30: sp384n */
-q8 = n_t_89x
-   # q3;
-'b'0 = btp3
-     # q2;
-q5 = crc_error
-   # n_t_88x;
+btp3 = tp3;
+btp2 = tp2;
+n_t_88x = busy_error
+        # crc_error;
 btp1 = tp1;
 
 /* e31: sn7404 */
-q4 = !n6rk7_l;
-n_t_29x = !device_rk;
-device_rk_l = !enab_rk_data;
-enab_rk_data_l = !wrt_buff_shft;
+n6rk7 = !n6rk7_l;
+device_rk_l = !device_rk;
+enab_rk_data_l = !enab_rk_data;
+wrt_buff_shft_l = !wrt_buff_shft;
 n6rk1 = !n6rk1_l;
 n6rk2 = !n6rk2_l;
 
 /* e32: sn7495 */
+n_t_32x.ck = !(hi_wrt_clk & !md_rd_buff
+             # ld_rd_buffer & md_rd_buff);
+n_t_32x.d  = bmd8 & md_rd_buff
+           # n_t_38x & !md_rd_buff;
+n_t_31x.ck = !(hi_wrt_clk & !md_rd_buff
+             # ld_rd_buffer & md_rd_buff);
+n_t_31x.d  = bmd9 & md_rd_buff
+           # n_t_32x & !md_rd_buff;
 n_t_30x.ck = !(hi_wrt_clk & !md_rd_buff
              # ld_rd_buffer & md_rd_buff);
-n_t_30x.d  = bmd8 & md_rd_buff
-           # q6 & !md_rd_buff;
-md10h.ck = !(hi_wrt_clk & !md_rd_buff
-           # ld_rd_buffer & md_rd_buff);
-md10h.d  = bmd9 & md_rd_buff
-         # n_t_30x & !md_rd_buff;
+n_t_30x.d  = bmd10 & md_rd_buff
+           # n_t_31x & !md_rd_buff;
 n_t_64x.ck = !(hi_wrt_clk & !md_rd_buff
              # ld_rd_buffer & md_rd_buff);
-n_t_64x.d  = bmd10 & md_rd_buff
-           # md10h & !md_rd_buff;
-n_t_66x.ck = !(hi_wrt_clk & !md_rd_buff
-             # ld_rd_buffer & md_rd_buff);
-n_t_66x.d  = q3 & md_rd_buff
-           # n_t_64x & !md_rd_buff;
+n_t_64x.d  = bmd11 & md_rd_buff
+           # n_t_30x & !md_rd_buff;
 
 /* e33: sn7437 */
-clr_all = 'b'1;
-clr_all_l = !(clr_all & n_t_3x);
+n3v = 'b'1;
+clr_all_l = !clr_all;
 clr_all = !(n_t_78x & n_t_73x);
-enab_rk_data = !(n3v & ld_db_ac_l);
+enab_rk_data = !(wt_buff_data_l & ld_db_ac_l);
 
 /* e34: sn7402 */
-'b'0 = !(b_io_pause
-       # clr_all);
-ld_cmd_reg = !(n_t_3x
-             # n_t_85x);
-clr_syn_l = !(n0_db4
-            # test_clk);
-n_t_72x = !(n_t_70x
-          # b_io_pause_l);
+b_io_pause_l = !b_io_pause;
+n_t_85x = !(clr_all
+          # ld_cmd_reg);
+n0_db4 = !(test_clk
+         # clr_syn_l);
+n_t_70x = !(clr_all
+          # n_t_72x);
 
 /* e35: ds8640n */
-n_t_18x = !(n_t_105x
-          # n_t_9x);
-'b'0 = !(n_t_77x
-       # );
+n_t_77x = !power_ok;
+n_t_78x = !(n_t_77x
+          # initialize);
+b_io_pause = !(ts3_l
+             # io_pause_l);
 n_t_71x = !data7_l;
 
 /* e36: n8881n */
+/* skip_l = !(n_t_41x & n6rk1); */
+/* int_rqst_l = !(n_t_41x & enab_int); */
 /* internal_io_l = !device_rk; */
 
+/* e37: dec8251 */
+!data8 = !device_rk_l & !bmd9 & !bmd10 & !bmd11;
+!n6rk1_l = !device_rk_l & !bmd9 & !bmd10 & bmd11;
+!n6rk2_l = !device_rk_l & !bmd9 & bmd10 & !bmd11;
+!n6rk3_l = !device_rk_l & !bmd9 & bmd10 & bmd11;
+!n6rk4_l = !device_rk_l & bmd9 & !bmd10 & !bmd11;
+!n6rk5_l = !device_rk_l & bmd9 & !bmd10 & bmd11;
+!n6rk6_l = !device_rk_l & bmd9 & bmd10 & !bmd11;
+!n6rk7_l = !device_rk_l & bmd9 & bmd10 & bmd11;
+!bd11l = device_rk_l & !bmd9 & !bmd10 & !bmd11;
+!bd11 = device_rk_l & !bmd9 & !bmd10 & bmd11;
+
 /* e38: sn74h74 */
-btp1.ar = !btp2;
-btp1.d = bd11l;
-btp1.ck = bd11h;
-btp1.ap = !n3v;
-n_t_71x = !btp1;
-b_brk_rq.ar = !ac7_l;
-b_brk_rq.d = ac7;
-b_brk_rq.ck = bd09h;
+ac7.ar = !main;
+ac7.d = n_t_71x;
+ac7.ck = btp2;
+ac7.ap = !n3v;
+ac7_l = !ac7;
+b_brk_rq.ar = !n_t_70x;
+b_brk_rq.d = brk_rq;
+b_brk_rq.ck = btp1;
 b_brk_rq.ap = !n3v;
 bd08h = !b_brk_rq;
 
 /* e39: sn7474 */
-n_t_97x.ar = !data_clk_ok;
-n_t_97x.d = ad11;
-n_t_97x.ck = n_t_1x;
-n_t_97x.ap = !n_t_99x;
-db_cont4_l = !n_t_97x;
-done_flag_l.ar = !data_rqst_late_l;
-done_flag_l.d = data_rqst_late;
-done_flag_l.ck = n_t_1x;
+data_rqst_late.ar = !clr_status_l;
+data_rqst_late.d = db_cont4_l;
+data_rqst_late.ck = data_clk_ok;
+data_rqst_late.ap = !n_t_99x;
+data_rqst_late_l = !data_rqst_late;
+done_flag_l.ar = !n_t_98x;
+done_flag_l.d = 'b'0;
+done_flag_l.ck = n_t_97x;
 done_flag_l.ap = !clr_status_l;
 done_flag = !done_flag_l;
 
 /* e40: sn7408 */
-idle = (main_l & drive_status_er);
-n_t_81x = (n_t_82x & data9);
+b_drive_status_er = (main_l & drive_status_er);
+n_t_81x = (idle & n_t_82x);
 n_t_35x = (n6rk3_l & ld_db_ac_l);
-short_tp3 = (b_drive_status_er & n_t_102x);
+short_tp3 = (btp3 & n_t_102x);
 
 /* e41: sn7440 */
 n_t_73x = !(btp3 & bdata10_l & n6rk2 & bdata11);
 n_t_80x = !(n6rk3_l & n6rk6_l & n6rk4_l & n_t_79x);
 
 /* e42: ds8640n */
-bstrobeh = !n_t_530x;
-md_rk_l = !(bmd10
-          # );
+bmd10 = !(md10_l
+        # md_rk_l);
+bmd8 = !md8_l;
+bmd9 = !(md9_l
+       # md_rk_l);
 bmd11 = !(md_rk_l
         # md11_l);
 
@@ -903,16 +973,16 @@ clr_drive_cmd_l = !(bdata10 & bdata11_l & n6rk2 & btp3_ok);
 n_t_3x = !(n6rk6_l & n6rk5_l & n6rk2_l & n6rk4_l);
 
 /* e45: sn7400 */
-enable_status = !(n6rk2 & bdata11_l);
-n_t_5x = !(drive_status_bad & initializel);
+n_t_79x = !(n6rk2 & bdata11_l);
+n_t_5x = !(enable_status & drive_status_bad);
 n_t_84x = !(btp3_ok & n6rk2);
-set_status_er = !(n_t_79x & n_t_6x);
+set_status_er = !(dsk_capacity_ex_l & n_t_6x);
 
 /* e46: sn7400 */
-hi_rd_clk = !(n_t_10x & n_t_81x);
-n_t_99x = !(db_cont1 & bd11h);
+set_idle_pl_l = !(n_t_10x & n_t_81x);
+n_t_99x = !(hi_rd_clk & db_cont1);
 n_t_98x = !(main & last_word_pl);
-n_t_97x = !set_idle_pl_l;
+n_t_97x = !(n_t_95x & set_idle_pl_l);
 
 /* e47: sn7410 */
 n_t_7x = !(main_l & md_rd_buff_l & data_state_l);
@@ -920,10 +990,20 @@ n_t_95x = !(rdy_s_r_w_slo & enab_seek_done & idle);
 n_t_89x = !(data_rqst_late_l & n_t_87x & n_t_86x);
 
 /* e48: sn7408 */
-n_t_85x = (n_t_88x & idle);
-clr_status_l = (n_t_84x & bdonel);
+n_t_90x = (n_t_88x & idle);
+clr_status_l = (n_t_85x & n_t_84x);
 n_t_83x = (short_tp3 & idle_l);
-set_busy_er = (n_t_90x & n_t_83x);
+set_busy_er = (n_t_80x & n_t_83x);
+
+/* e49: dec8235 */
+/* data8_l = !(!rk_data8_l & !enab_rk_data_l
+        # crc_error & !n6rk5_l); */
+/* data9_l = !(!rk_data9_l & !enab_rk_data_l
+        # data_rqst_late & !n6rk5_l); */
+/* data10_l = !(!rk_data10_l & !enab_rk_data_l
+         # drive_status_er & !n6rk5_l); */
+/* data11_l = !(!rk_data11_l & !enab_rk_data_l
+         # cyl_addrs_er & !n6rk5_l); */
 
 /* e50: sn7496 */
 busy_error.ck = n3v;
@@ -948,38 +1028,39 @@ cyl_addrs_er.ap = n3v & set_cyl_addrs_er;
 cyl_addrs_er.ar = !n3v & !clr_status_l;
 
 /* e51: sn7402 */
-md_rd_buff = !(b_io_pause
-             # not_equal_l);
-end_state_l = !(
-              # set_crc_er);
-sector_seek_l = !(set_cyl_addrs_er
-                # not_equal_l);
-dsk_wrt_status_l = !(n_t_12x
-                   # wrt_cmd_l);
+md_rk_l = !(md_rd_buff
+          # b_io_pause);
+set_crc_er = !(not_equal_l
+             # end_state_l);
+set_cyl_addrs_er = !(not_equal_l
+                   # sector_seek_l);
+n_t_12x = !(wrt_cmd_l
+          # dsk_wrt_status_l);
 
 /* e52: sn7474 */
-n_t_19x.ar = !ld_disk_addrs;
-n_t_19x.ck = ;
-n_t_19x.ap = !n3v;
-n_t_12x = !n_t_19x;
-clr_syn_l.ar = !wrt_lock_er_l;
-clr_syn_l.d = wrt_lock_er;
-clr_syn_l.ck = ;
+wrt_lock_er.ar = !clr_status_l;
+wrt_lock_er.d = n_t_12x;
+wrt_lock_er.ck = ld_disk_addrs;
+wrt_lock_er.ap = !n3v;
+wrt_lock_er_l = !wrt_lock_er;
+clr_syn_l.ar = !n3v;
+clr_syn_l.d = 'b'0;
+clr_syn_l.ck = n_t_19x;
 clr_syn_l.ap = !db_cont4;
 
 /* e53: sn7402 */
-cyl_addrs_er = !(b_drive_status_er
-               # wrt_lock_er);
-time_out_er = !(
-              # n_t_86x);
-n_t_88x = !(error_fl_l
-          # n_t_89x);
-n_t_90x = !(error_clr_l
-          # n_t_89x);
+n_t_87x = !(cyl_addrs_er
+          # b_drive_status_er);
+n_t_86x = !(wrt_lock_er
+          # time_out_er);
+error_fl_l = !(n_t_89x
+             # n_t_88x);
+error_clr_l = !(n_t_89x
+              # n_t_90x);
 
 /* e54: sn7400 */
-clr_drive_cmd_l = !(error_fl_l & done_flag_l);
-enable_status = !(n_t_100x & );
+n_t_41x = !(error_fl_l & done_flag_l);
+enable_status = !(clr_drive_cmd_l & n_t_100x);
 n_t_19x = !(btp2 & wrt_buf_data);
 ld_db_ac_l = !(ac7 & n6rk7);
 
@@ -1004,7 +1085,6 @@ ld_db_ac_l = !(ac7 & n6rk7);
 /* r10: r_us_ */
 
 /* r11: r_us_ */
-md_rk_l = 'b'1;
 
 /* r12: r_us_ */
 
@@ -1019,6 +1099,89 @@ md_rk_l = 'b'1;
 /* r17: r_us_ */
 
 /* Open collector 'wire-or's */
+!ad07l = n_t_38x;
+property atmel {open_collector= c0_l};
+!c0_l = (!n_t_35x
+     # n_t_3x);
+c0_l.oe = (!n_t_35x
+     # n_t_3x);
+property atmel {open_collector= c1_l};
+!c1_l = (!n6rk5_l
+     # enab_rk_data);
+c1_l.oe = (!n6rk5_l
+     # enab_rk_data);
+property atmel {open_collector= data0_l};
+!data0_l = (!rk_data0_l & !enab_rk_data_l
+        # done_flag & !n6rk5_l);
+data0_l.oe = (!rk_data0_l & !enab_rk_data_l
+        # done_flag & !n6rk5_l);
+property atmel {open_collector= data10_l};
+!data10_l = (!rk_data10_l & !enab_rk_data_l
+         # drive_status_er & !n6rk5_l);
+data10_l.oe = (!rk_data10_l & !enab_rk_data_l
+         # drive_status_er & !n6rk5_l);
+property atmel {open_collector= data11_l};
+!data11_l = (!rk_data11_l & !enab_rk_data_l
+         # cyl_addrs_er & !n6rk5_l);
+data11_l.oe = (!rk_data11_l & !enab_rk_data_l
+         # cyl_addrs_er & !n6rk5_l);
+property atmel {open_collector= data1_l};
+!data1_l = (!rk_data1_l & !enab_rk_data_l
+        # rdy_s_r_w_l & !n6rk5_l);
+data1_l.oe = (!rk_data1_l & !enab_rk_data_l
+        # rdy_s_r_w_l & !n6rk5_l);
+property atmel {open_collector= data2_l};
+!data2_l = (!rk_data2_l & !enab_rk_data_l);
+data2_l.oe = (!rk_data2_l & !enab_rk_data_l);
+property atmel {open_collector= data3_l};
+!data3_l = (!rk_data3_l & !enab_rk_data_l
+        # seek_fail & !n6rk5_l);
+data3_l.oe = (!rk_data3_l & !enab_rk_data_l
+        # seek_fail & !n6rk5_l);
+property atmel {open_collector= data4_l};
+!data4_l = (!rk_data4_l & !enab_rk_data_l
+        # dsk_file_rdy_l & !n6rk5_l);
+data4_l.oe = (!rk_data4_l & !enab_rk_data_l
+        # dsk_file_rdy_l & !n6rk5_l);
+property atmel {open_collector= data5_l};
+!data5_l = (!rk_data5_l & !enab_rk_data_l
+        # busy_error & !n6rk5_l);
+data5_l.oe = (!rk_data5_l & !enab_rk_data_l
+        # busy_error & !n6rk5_l);
+property atmel {open_collector= data6_l};
+!data6_l = (!rk_data6_l & !enab_rk_data_l
+        # time_out_er & !n6rk5_l);
+data6_l.oe = (!rk_data6_l & !enab_rk_data_l
+        # time_out_er & !n6rk5_l);
+property atmel {open_collector= data7_l};
+!data7_l = (!rk_data7_l & !enab_rk_data_l
+        # wrt_lock_er & !n6rk5_l);
+data7_l.oe = (!rk_data7_l & !enab_rk_data_l
+        # wrt_lock_er & !n6rk5_l);
+property atmel {open_collector= data8_l};
+!data8_l = (!rk_data8_l & !enab_rk_data_l
+        # crc_error & !n6rk5_l);
+data8_l.oe = (!rk_data8_l & !enab_rk_data_l
+        # crc_error & !n6rk5_l);
+property atmel {open_collector= data9_l};
+!data9_l = (!rk_data9_l & !enab_rk_data_l
+        # data_rqst_late & !n6rk5_l);
+data9_l.oe = (!rk_data9_l & !enab_rk_data_l
+        # data_rqst_late & !n6rk5_l);
+property atmel {open_collector= int_rqst_l};
+!int_rqst_l = (n_t_41x & enab_int);
+int_rqst_l.oe = (n_t_41x & enab_int);
 property atmel {open_collector= internal_io_l};
 !internal_io_l = device_rk;
 internal_io_l.oe = device_rk;
+!n_t_29x = transfer;
+!n_t_38x = (ld_db_ac & btp3_ok
+        # data_state & write & n12th_bit_ok
+        # clr_all);
+property atmel {open_collector= skip_l};
+!skip_l = (n_t_41x & n6rk1);
+skip_l.oe = (n_t_41x & n6rk1);
+!transfer = (n1_db2
+         # db4_ena & n1_db4
+         # n0_db4
+         # n1_db3);

@@ -46,12 +46,12 @@ inout reg n_t_2x;
 inout n_t_3x;
 input n_t_4x;
 output p2;
-output pwr_clr;
+input pwr_clr;
 output r1;
 output r2;
 output t2;
 output u1;
-input v2;
+output v2;
 
 reg n_t_14x_m;
 reg n_t_15x_m;
@@ -60,10 +60,9 @@ reg n_t_2x_m;
 
 reg n_t_16x;
 wire n_t_5x;
-wire n_t_7x;
+wire n_t_6x;
 wire n_t_8x;
 wire pwr_clr_l;
-wire s2;
 always @(io_sync, n_t_1x, pwr_clr_l, n_t_11x)
   if (~n_t_1x) begin
     n_t_15x_m <= 1'b0;
@@ -107,11 +106,11 @@ always @(io_sync, n3v3, n3v3, n_t_14x_m)
   end
 assign n_t_13x = ~n_t_14x;
 // e2: sn7400 
-assign n_t_7x = ~(v2 & s2);
+assign pwr_clr_l = ~(n3v3 & pwr_clr);
 assign n_t_10x = ~(grant & n_t_12x);
 // e3: sn74h40 
 assign n_t_5x = ~(n3v3 & n_t_3x & en_in);
-assign k1 = ~(~(en_in & clr_flag_l & pwr_clr_l & n3v3));
+assign n_t_6x = ~(en_in & clr_flag_l & pwr_clr_l & n3v3);
 // e4: sn7474 
 always @(grant, n_t_8x, n3v3, n_t_4x)
   if (n_t_8x) begin
@@ -134,8 +133,8 @@ always @(grant, n_t_8x, n3v3, n_t_16x_m)
     n_t_16x <= n_t_16x_m;
   end
 assign n_t_1x = ~n_t_16x;
-always @(io_sync, n_t_7x, n3v3, flag)
-  if (~n_t_7x) begin
+always @(io_sync, n_t_6x, n3v3, flag)
+  if (n_t_6x) begin
     n_t_2x_m <= 1'b0;
   end else
   if (~n3v3) begin
@@ -144,8 +143,8 @@ always @(io_sync, n_t_7x, n3v3, flag)
   if (~(io_sync)) begin
     n_t_2x_m <= flag;
   end
-always @(io_sync, n_t_7x, n3v3, n_t_2x_m)
-  if (~n_t_7x) begin
+always @(io_sync, n_t_6x, n3v3, n_t_2x_m)
+  if (n_t_6x) begin
     n_t_2x <= 1'b0;
   end else
   if (~n3v3) begin

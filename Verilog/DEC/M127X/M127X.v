@@ -16,7 +16,7 @@
 //   # e1 & h2 & f2
 //   # e2 & d2); 
 // b1 = !a1; 
-module m127x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m127x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 inout a1;
 inout b1;
 input c1;
@@ -37,7 +37,6 @@ input l2;
 input m1;
 input m2;
 inout n1;
-output n15v;
 inout n2;
 input p1;
 output p2;

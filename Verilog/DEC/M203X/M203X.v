@@ -75,8 +75,13 @@ output skip_l;
 output tp3;
 
 
+wire f2;
+wire h1;
+wire m1;
+wire md03h;
 wire md04h;
 wire n_t_46x;
+wire out;
 wire s1;
 assign n_t_2x = ~(n_t_3x & n_t_1x);
 assign n_t_1x = ~(n_t_2x & n_t_4x);

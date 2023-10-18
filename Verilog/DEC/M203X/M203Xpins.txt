@@ -26,23 +26,23 @@ E1       1        I0         in       N$3
          4        I0         in       N$2
          5        I1         in       N$4
          6        O          out      N$1
-         7        P          out      N$10
+         7        A&lt       B_O      out
          8        O          out      N$6
          9        I0         in       N$8
          10       I1         in       N$5
          11       O          out      N$5
          12       I0         in       N$6
          13       I1         in       N$7
-         14       G2         in       N$5
-         15       P2         in       N$4
-         16       E15        in       N$17
-         17       E14        in       N$16
-         18       E13        in       N$15
-         19       E12        in       N$13
-         20       E11        in       N$11
-         21       E10        in       N$12
-         22       E9         in       N$10
-         23       E8         in       N$8
+         14       B2         in       F2
+         15       A3         in       H1
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        I0         in       N$11
          2        I1         in       N$9
@@ -50,15 +50,15 @@ E2       1        I0         in       N$11
          4        I0         in       N$10
          5        I1         in       N$12
          6        O          out      N$9
-         7        P          out      N$24
+         7        I1         in       !IO_PAUSE
          8        O          out      N$14
          9        I0         in       N$16
          10       I1         in       N$13
          11       O          out      N$13
          12       I0         in       N$14
          13       I1         in       N$15
-         14       G2         in       N$21
-         15       P2         in       N$20
+         14       O          out      MD03H
+         15       A3         in       M1
 
 E3       1        I0         in       N$19
          2        I1         in       N$17
@@ -91,8 +91,7 @@ E4       1        I0         in       N$27
          13       I1         in       N$31
          14       O          out      N$46
 
-U$2      A1       1          io       N$3
-         AA2      1          io       VCC
+U$2      AA2      1          io       VCC
          AC1      1          io       GND
          AC2      1          io       GND
          AF1      1          io       GND
@@ -100,6 +99,7 @@ U$2      A1       1          io       N$3
          AN1      1          io       GND
          AN2      1          io       GND
          AP1      1          io       !MD03
+         A1       1          io       N$3
          AR1      1          io       !DATA0
          AS1      1          io       !DATA1
          AT1      1          io       GND
@@ -107,44 +107,45 @@ U$2      A1       1          io       N$3
          AU1      1          io       !DATA2
          AV1      1          io       !DATA3
          A2       1          io       VCC
-         BA2      1          io       VCC
+         BU1      1          io       !DATA6
+         B1       1          io       N$7
          BC1      1          io       GND
          BC2      1          io       GND
-         BF1      1          io       GND
-         B1       1          io       N$7
-         BF2      1          io       GND
          BK1      1          io       !MD04
-         B2       1          io       -15V
          BL1      1          io       !MD05
+         BN2      1          io       GND
+         BT2      1          io       GND
+         B2       1          io       -15V
+         BA2      1          io       VCC
+         BF1      1          io       GND
+         BF2      1          io       GND
          BM1      1          io       !MD06
          BN1      1          io       GND
-         BN2      1          io       GND
          BP1      1          io       !MD07
          BR1      1          io       !DATA4
          BS1      1          io       !DATA5
          BT1      1          io       GND
-         BT2      1          io       GND
-         BU1      1          io       !DATA6
          BV1      1          io       !DATA7
-         CA2      1          io       VCC
          CC1      1          io       GND
-         CC2      1          io       GND
-         CD1      1          io       !IO_PAUSE
          CE1      1          io       !C0
-         CF1      1          io       GND
          CF2      1          io       GND
          CH1      1          io       !C1
          CH2      1          io       TP3
          CL1      1          io       !INTERNAL_IO
          CN1      1          io       GND
-         C2       1          io       GND
          CN2      1          io       GND
-         CP1      1          io       !INT_RQST
+         C1       1          io       N$2
+         CF1      1          io       GND
          CR1      1          io       INITIALIZE
          CS1      1          io       !SKIP
-         C1       1          io       N$2
          CT1      1          io       GND
          CT2      1          io       GND
+         C2       1          io       GND
+         CA2      1          io       VCC
+         CC2      1          io       GND
+         CD1      1          io       !IO_PAUSE
+         CP1      1          io       !INT_RQST
+         DC1      1          io       GND
          DC2      1          io       GND
          DF1      1          io       GND
          DF2      1          io       GND
@@ -152,17 +153,16 @@ U$2      A1       1          io       N$3
          DL1      1          io       !MD09
          DM1      1          io       !MD10
          DN1      1          io       GND
-         D2       1          io       N$11
          DN2      1          io       GND
          DP1      1          io       !MD11
          DR1      1          io       !DATA8
          DS1      1          io       !DATA9
          DT1      1          io       GND
+         D2       1          io       N$11
          DT2      1          io       GND
          DU1      1          io       !DATA10
          DV1      1          io       !DATA11
          D1       1          io       N$5
-         DC1      1          io       GND
          E1       1          io       N$4
          E2       1          io       N$15
          F1       1          io       N$8

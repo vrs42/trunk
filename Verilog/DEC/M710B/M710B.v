@@ -25,34 +25,40 @@
 // c18: c_us 
 // c19: c_us 
 // e1: sn7474 
-module m710b (a1, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, b1, b2, c0_l, c1, c1_l, clear_l, clocka, clockb, d1, d2, data10_l, data11_l, data8_l, data9_l, del_pun1, del_pun2, e1, e2, f1, f2, feed_sw_l, h1, h2, initialize, initialize_l, int_rqst_l, internal_io_l, io_in_int_l, io_in_skip_l, io_pause_l, iop1, iop2, iop4, iop_02, j1, j2, k1, k2, l1, l2, m1, m2, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, md08_l, md09_l, md10_l, md11_l, n1, n2, n4_5usec, n4_sec, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_37x, n_t_39x, n_t_42x, n_t_43x, n_t_4x, n_t_6x, n_t_7x, n_t_8x, p1, p2, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, r1, r2, s1, s2, scr_active_l, skip_l, sync_bias, sync_pun, sync_pun0, t2, tp3, u1, u2, v1, v2);
+module m710b (n_t_20x, n_t_24x, a1, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, b1, b2, c0_l, c1, c1_l, clear_l, clk_cla, clock_iop4, clock_iot, clocka, clockb, d1, d2, data10_l, data11_l, data7_l, data8_l, data9_l, del_pun1, e1, e2, echo, f1, f2, feed_sw_l, h1, h2, initialize, initialize_l, int_rqst_l, internal_io_l, io_in_int_l, io_in_skip_l, io_pause_l, iop1, iop2, iop4, iop_02, irq, j1, j2, k1, k2, l1, l2, load_counter, m1, m2, mb10, mb10_l, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, md08_l, md09_l, md10_l, md11_l, n1, n2, n2xclk, n4_5usec, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_1x, n_t_23x, n_t_25x, n_t_26x, n_t_27x, n_t_35x, n_t_39x, n_t_40x, n_t_4x, n_t_52x, n_t_60x, n_t_63x, n_t_6x, n_t_75x, n_t_79x, n_t_8x, overflow, p1, p2, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, r1, r2, s1, s2, set_count, skip_l, sync_bias, sync_pun, t2, tp3, u1, u2, v1, v2);
+output n_t_20x;
+output n_t_24x;
 output a1;
 input ac10;
-inout ac11;
+input ac11;
 input ac4;
-inout ac5;
+input ac5;
 input ac6;
-output ac7;
+input ac7;
 input ac8;
-inout ac9;
+input ac9;
 output b1;
 output b2;
 output c0_l;
 output c1;
 output c1_l;
 inout clear_l;
+output clk_cla;
+output clock_iop4;
+output clock_iot;
 inout clocka;
 inout clockb;
 output d1;
 output d2;
 output data10_l;
 output data11_l;
+output data7_l;
 output data8_l;
 output data9_l;
-output del_pun1;
-output del_pun2;
+input del_pun1;
 output e1;
 output e2;
+output echo;
 output f1;
 output f2;
 input feed_sw_l;
@@ -66,22 +72,26 @@ output io_in_int_l;
 output io_in_skip_l;
 output io_pause_l;
 input iop1;
-output iop2;
+input iop2;
 input iop4;
 inout iop_02;
+output irq;
 output j1;
 output j2;
 output k1;
 output k2;
 output l1;
 output l2;
+output load_counter;
 output m1;
 output m2;
+output mb10;
+output mb10_l;
 input mb3_lp_0_rp;
 input mb4_lp_0_rp;
 input mb5_lp_0_rp;
-output mb6_lp_0_rp;
-output mb7_lp_1_rp;
+input mb6_lp_0_rp;
+input mb7_lp_1_rp;
 input mb8_lp_0_rp;
 output md08_l;
 output md09_l;
@@ -89,61 +99,49 @@ output md10_l;
 output md11_l;
 output n1;
 output n2;
+output n2xclk;
 output n4_5usec;
-output n4_sec;
 output n_t_11x;
 output n_t_12x;
 input n_t_13x;
 output n_t_14x;
-output n_t_15x;
-output n_t_17x;
-output n_t_18x;
-output n_t_19x;
-input n_t_1x;
-output n_t_20x;
-input n_t_21x;
-inout n_t_22x;
+inout n_t_1x;
 output n_t_23x;
+output n_t_25x;
 inout reg n_t_26x;
 output n_t_27x;
-output n_t_28x;
-output n_t_29x;
-inout n_t_2x;
-output n_t_30x;
-output n_t_31x;
-output n_t_32x;
-output n_t_33x;
-output n_t_34x;
 output n_t_35x;
-output n_t_37x;
 output n_t_39x;
-output n_t_42x;
-output n_t_43x;
-inout n_t_4x;
+output n_t_40x;
+input n_t_4x;
+output n_t_52x;
+output n_t_60x;
+output n_t_63x;
 inout n_t_6x;
-inout n_t_7x;
+output n_t_75x;
+output n_t_79x;
 inout n_t_8x;
+output overflow;
 output p1;
 output p2;
 inout reg pb0;
-inout reg pb1;
+output reg pb1;
 inout reg pb2;
-inout reg pb3;
+output reg pb3;
 inout reg pb4;
-inout reg pb5;
+output reg pb5;
 inout reg pb6;
-inout reg pb7;
+output reg pb7;
 inout pun_active_l;
 output pun_done;
 output r1;
 output r2;
 output s1;
 output s2;
-output scr_active_l;
+output set_count;
 output skip_l;
 output sync_bias;
 output sync_pun;
-output sync_pun0;
 output t2;
 output tp3;
 output u1;
@@ -163,206 +161,121 @@ reg pb7_m;
 reg pun_flag_m;
 
 reg pun_flag;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
 wire b_last_brk;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
 wire bdata2;
 wire bdata7;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
 wire clock_l;
+wire clr_drive_cmd_l;
 wire clr_dsk_ad_l;
 wire crc10;
-wire data3;
-wire data_enable;
+wire data_in;
 wire drive0_l;
 wire drive2_l;
-wire ema0_l;
-wire inc_cntrs;
-wire inc_cntrs_l;
-wire io3;
-wire ma1_l;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mak;
-wire mb2_l;
-wire mb3_h;
 wire n12th_carry;
 wire n16_carry;
 wire n3v;
 wire n3v3;
 wire n_t_123x;
-wire n_t_16x;
-wire n_t_40x;
-wire n_t_47x;
+wire n_t_15x;
+wire n_t_22x;
+wire n_t_29x;
+wire n_t_50x;
 wire n_t_55x;
 wire n_t_5x;
 wire n_t_65x;
-wire n_t_66x;
+wire n_t_67x;
 wire n_t_73x;
 wire n_t_74x;
 wire n_t_76x;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
+wire n_t_7x;
 wire rd_clk2;
-wire rk_data0;
-wire rk_data1;
-wire sc3;
+wire read_clk;
 wire seek_fail;
-wire tck;
-wire tdo;
-always @(clocka, clear_l, n_t_47x, ac11)
+always @(clocka, clear_l, ac4)
   if (~clear_l) begin
     pb0_m <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (1'b1) begin
     pb0_m <= 1'b1;
   end else
   if (~(clocka)) begin
-    pb0_m <= ac11;
+    pb0_m <= ac4;
   end
-always @(clocka, clear_l, n_t_47x, pb0_m)
+always @(clocka, clear_l, pb0_m)
   if (~clear_l) begin
     pb0 <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (1'b1) begin
     pb0 <= 1'b1;
   end else
   if (clocka) begin
     pb0 <= pb0_m;
   end
-always @(clocka, clear_l, n_t_47x, ac10)
+assign 'b'0 = ~pb0;
+always @(clocka, clear_l, n3v, ac5)
   if (~clear_l) begin
     pb1_m <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (~n3v) begin
     pb1_m <= 1'b1;
   end else
   if (~(clocka)) begin
-    pb1_m <= ac10;
+    pb1_m <= ac5;
   end
-always @(clocka, clear_l, n_t_47x, pb1_m)
+always @(clocka, clear_l, n3v, pb1_m)
   if (~clear_l) begin
     pb1 <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (~n3v) begin
     pb1 <= 1'b1;
   end else
   if (clocka) begin
     pb1 <= pb1_m;
   end
-assign ac5 = ~pb1;
 // e2: sn7474 
-always @(clocka, clear_l, n_t_47x, ac8)
+always @(clocka, clear_l, ac6)
   if (~clear_l) begin
     pb2_m <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (1'b1) begin
     pb2_m <= 1'b1;
   end else
   if (~(clocka)) begin
-    pb2_m <= ac8;
+    pb2_m <= ac6;
   end
-always @(clocka, clear_l, n_t_47x, pb2_m)
+always @(clocka, clear_l, pb2_m)
   if (~clear_l) begin
     pb2 <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (1'b1) begin
     pb2 <= 1'b1;
   end else
   if (clocka) begin
     pb2 <= pb2_m;
   end
-always @(clocka, ac6, n_t_47x, ac9)
-  if (~ac6) begin
+assign 'b'0 = ~pb2;
+always @(clocka, clear_l, n3v, ac7)
+  if (~clear_l) begin
     pb3_m <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (~n3v) begin
     pb3_m <= 1'b1;
   end else
   if (~(clocka)) begin
-    pb3_m <= ac9;
+    pb3_m <= ac7;
   end
-always @(clocka, ac6, n_t_47x, pb3_m)
-  if (~ac6) begin
+always @(clocka, clear_l, n3v, pb3_m)
+  if (~clear_l) begin
     pb3 <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (~n3v) begin
     pb3 <= 1'b1;
   end else
   if (clocka) begin
     pb3 <= pb3_m;
   end
-assign ac7 = ~pb3;
 // e3: sn7474 
-always @(clockb, clear_l, inc_cntrs_l)
+always @(clockb, clear_l, ac8)
   if (~clear_l) begin
     pb4_m <= 1'b0;
   end else
@@ -370,7 +283,7 @@ always @(clockb, clear_l, inc_cntrs_l)
     pb4_m <= 1'b1;
   end else
   if (~(clockb)) begin
-    pb4_m <= inc_cntrs_l;
+    pb4_m <= ac8;
   end
 always @(clockb, clear_l, pb4_m)
   if (~clear_l) begin
@@ -382,87 +295,85 @@ always @(clockb, clear_l, pb4_m)
   if (clockb) begin
     pb4 <= pb4_m;
   end
-always @(clockb, ac8, pb5, pb6)
-  if (~ac8) begin
+assign 'b'0 = ~pb4;
+always @(clockb, clear_l, n12th_carry, ac9)
+  if (~clear_l) begin
     pb5_m <= 1'b0;
   end else
-  if (~pb5) begin
+  if (~n12th_carry) begin
     pb5_m <= 1'b1;
   end else
   if (~(clockb)) begin
-    pb5_m <= pb6;
+    pb5_m <= ac9;
   end
-always @(clockb, ac8, pb5, pb5_m)
-  if (~ac8) begin
+always @(clockb, clear_l, n12th_carry, pb5_m)
+  if (~clear_l) begin
     pb5 <= 1'b0;
   end else
-  if (~pb5) begin
+  if (~n12th_carry) begin
     pb5 <= 1'b1;
   end else
   if (clockb) begin
     pb5 <= pb5_m;
   end
-assign ac9 = ~pb5;
 // e4: sn7474 
-always @(clockb, clear_l, n_t_47x, ac5)
+always @(clockb, clear_l, ac10)
   if (~clear_l) begin
     pb6_m <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (1'b1) begin
     pb6_m <= 1'b1;
   end else
   if (~(clockb)) begin
-    pb6_m <= ac5;
+    pb6_m <= ac10;
   end
-always @(clockb, clear_l, n_t_47x, pb6_m)
+always @(clockb, clear_l, pb6_m)
   if (~clear_l) begin
     pb6 <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (1'b1) begin
     pb6 <= 1'b1;
   end else
   if (clockb) begin
     pb6 <= pb6_m;
   end
-always @(clockb, ac10, n_t_47x, ac4)
-  if (~ac10) begin
+assign 'b'0 = ~pb6;
+always @(clockb, clear_l, n_t_15x, ac11)
+  if (~clear_l) begin
     pb7_m <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (~n_t_15x) begin
     pb7_m <= 1'b1;
   end else
   if (~(clockb)) begin
-    pb7_m <= ac4;
+    pb7_m <= ac11;
   end
-always @(clockb, ac10, n_t_47x, pb7_m)
-  if (~ac10) begin
+always @(clockb, clear_l, n_t_15x, pb7_m)
+  if (~clear_l) begin
     pb7 <= 1'b0;
   end else
-  if (~n_t_47x) begin
+  if (~n_t_15x) begin
     pb7 <= 1'b1;
   end else
   if (clockb) begin
     pb7 <= pb7_m;
   end
-assign ac11 = ~pb7;
 // e5: sn7400 
-assign iop2 = ~(iop4 & n_t_8x);
-assign n_t_7x = 1'b1;
+assign clock_l = ~(iop4 & n_t_8x);
+assign n_t_7x = ~(iop2 & n_t_8x);
 assign n_t_8x = ~n_t_5x;
-assign n_t_16x = ~(clock_l & iop1);
+assign iop_02 = ~(~(n_t_8x & iop1));
 // e6: sn7410 
 assign clocka = ~clock_l;
-assign n_t_2x = ~(initialize_l & feed_sw_l & n_t_7x);
+assign clear_l = ~(~(initialize_l & feed_sw_l & n_t_7x));
 assign clockb = ~clock_l;
 // e7: sn7400 
-assign del_pun1 = ~n_t_21x;
-assign n_t_23x = ~(n_t_22x & rd_clk2);
+assign n_t_1x = 1'b0;
+assign n_t_23x = ~(del_pun1 & n_t_22x);
 assign n_t_22x = ~(pun_active_l & feed_sw_l);
-assign iop_02 = ~(n_t_1x & n_t_16x);
 // e8: sn7430 
-assign n_t_4x = ~(mb4_lp_0_rp & mb5_lp_0_rp & n_t_4x & mb8_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp & mb8_lp_0_rp & n_t_5x);
+assign n_t_5x = ~(mb4_lp_0_rp & mb5_lp_0_rp & mb6_lp_0_rp & mb8_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp & mb8_lp_0_rp & mb7_lp_1_rp);
 // e9: sn7440 
-assign clear_l = ~n_t_2x;
 assign pun_done = ~n_t_1x;
 // e10: sn7474 
 always @(n_t_1x, clear_l, clock_l, 1'b0)
@@ -486,7 +397,7 @@ always @(n_t_1x, clear_l, clock_l, n_t_26x_m)
     n_t_26x <= n_t_26x_m;
   end
 assign pun_active_l = ~n_t_26x;
-always @(n_t_1x, clear_l, n_t_13x, inc_cntrs)
+always @(n_t_1x, clear_l, n_t_13x, n_t_26x)
   if (~clear_l) begin
     pun_flag_m <= 1'b0;
   end else
@@ -494,7 +405,7 @@ always @(n_t_1x, clear_l, n_t_13x, inc_cntrs)
     pun_flag_m <= 1'b1;
   end else
   if (~(n_t_1x)) begin
-    pun_flag_m <= inc_cntrs;
+    pun_flag_m <= n_t_26x;
   end
 always @(n_t_1x, clear_l, n_t_13x, pun_flag_m)
   if (~clear_l) begin
@@ -515,7 +426,7 @@ always @(n_t_1x, clear_l, n_t_13x, pun_flag_m)
 // n_t_6x = !n_t_4x; 
 // !n_t_6x = !n_t_6x; 
 // n_t_6x = n_t_6x; 
-// n_t_19x = !n_t_6x; 
+// !n_t_6x = !n_t_6x; 
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -538,7 +449,6 @@ always @(n_t_1x, clear_l, n_t_13x, pun_flag_m)
 // open collector 'wire-or's 
 assign n_t_11x = (pun_flag & iop_02)? 1'b0: 1'bz;
 assign n_t_12x = pun_flag? ~pun_flag: 1'bz;
-assign n_t_19x = n_t_6x? ~n_t_6x: 1'bz;
 assign n_t_6x = n_t_4x
                  | (~(1'b0))? 1'b0: 1'bz;
 endmodule

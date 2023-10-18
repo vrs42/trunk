@@ -3,7 +3,7 @@
 
 Name     M212B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -53,43 +53,41 @@ pin = sr_insert;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
 node bd00;
 node bd00l;
 node bd01;
 node bd03;
 node biot5l;
-node c0_l;
 node c1_l;
 node d1;
 node data1_l;
 node f2;
-node int_enable;
+node h1;
 node k1;
 node l1;
 node l2;
+node m1;
 node n2;
 node n3v3;
 node n_t_119x;
 node n_t_1x;
-node n_t_20x;
-node n_t_23x;
 node n_t_24x;
-node n_t_25x;
 node n_t_27x;
+node n_t_29x;
 node n_t_2x;
+node n_t_30x;
 node n_t_31x;
 node n_t_32x;
-node n_t_337x;
 node n_t_3x;
 node n_t_40x;
 node n_t_46x;
 node n_t_4x;
 node n_t_5x;
 node n_t_6x;
-node n_t_80x;
 node r1;
-node r2;
 node s1;
+node select6;
 node u2;
 node v2;
 $ENDIF
@@ -147,12 +145,12 @@ n_t_9x.ap = !clear_reg_l;
 n_t_10x = !n_t_9x;
 
 /* e4: sn7453 */
-/* n_t_25x = !(n_t_10x & right_shift
+/* n_t_29x = !(n_t_10x & right_shift
         # ina2_l & enable_a
         # inb2_l & enable_b
         # n_t_14x & left_shift); */
-/* n_t_23x = !n_t_25x; */
-n_t_3x = n_t_25x;
+/* n_t_30x = !n_t_29x; */
+n_t_3x = n_t_29x;
 
 /* e5: sn7453 */
 /* n_t_32x = !(n_t_12x & right_shift
@@ -216,12 +214,7 @@ n3v3 = 'b'1;
          # ina5_l & enable_a
          # inb5_l & enable_b
          # sl_insert & left_shift);
-!n_t_23x = n_t_25x;
 !n_t_24x = n_t_119x;
-!n_t_25x = (n_t_10x & right_shift
-        # ina2_l & enable_a
-        # inb2_l & enable_b
-        # n_t_14x & left_shift);
 !n_t_27x = (sr_insert & right_shift
         # ina0_l & enable_a
         # inb0_l & enable_b
@@ -230,7 +223,12 @@ n3v3 = 'b'1;
         # ina4_l & enable_a
         # inb4_l & enable_b
         # n_t_18x & left_shift);
+!n_t_29x = (n_t_10x & right_shift
+        # ina2_l & enable_a
+        # inb2_l & enable_b
+        # n_t_14x & left_shift);
 !n_t_2x = n_t_27x;
+!n_t_30x = n_t_29x;
 !n_t_32x = (n_t_12x & right_shift
         # ina3_l & enable_a
         # inb3_l & enable_b

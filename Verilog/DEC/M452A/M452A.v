@@ -12,12 +12,11 @@
 // c5: cpol_use 
 // c6: c_us 
 // e1: sn7440 
-module m452a (n_t_1x, n_t_6x, c0_l, c1_l, d1, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e1, f1, f2, h1, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n220_baud, n3v, n880_baud, n_t_10x, n_t_12x, n_t_13x, n_t_14x, n_t_16x, n_t_18x, n_t_21x, n_t_22x, n_t_23x, n_t_26x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_7x, n_t_9x, p1, r1, s1, skip_l, tp3, tp_l, tp_m, tp_n, u1, v2);
-inout n_t_1x;
-output n_t_6x;
+module m452a (n_t_15x, c0_l, c1_l, cs, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n220_baud, n3v, n880_baud, n_t_10x, n_t_12x, n_t_13x, n_t_14x, n_t_16x, n_t_17x, n_t_18x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_26x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp3, tp_l, tp_m, tp_n, v2);
+output n_t_15x;
 output c0_l;
 output c1_l;
-output d1;
+output cs;
 output data0_l;
 output data10_l;
 output data11_l;
@@ -30,15 +29,10 @@ output data6_l;
 output data7_l;
 output data8_l;
 output data9_l;
-output e1;
-output f1;
-output f2;
-output h1;
 output initialize;
 output int_rqst_l;
 output internal_io_l;
 output io_pause_l;
-output j1;
 output md03_l;
 output md04_l;
 output md05_l;
@@ -48,167 +42,55 @@ output md08_l;
 output md09_l;
 output md10_l;
 output md11_l;
-output n1;
 output n220_baud;
 output n3v;
 output n880_baud;
 output n_t_10x;
 input n_t_12x;
 input n_t_13x;
-output n_t_14x;
+input n_t_14x;
 output n_t_16x;
+inout n_t_17x;
 output n_t_18x;
+output n_t_20x;
 output n_t_21x;
 output n_t_22x;
 output n_t_23x;
 output n_t_26x;
 output n_t_2x;
+output n_t_30x;
 output n_t_3x;
 inout reg n_t_4x;
 output n_t_5x;
+output n_t_6x;
 output n_t_7x;
+output n_t_8x;
 output n_t_9x;
-output p1;
-output r1;
-output s1;
 output skip_l;
 output tp3;
 inout tp_l;
 inout reg tp_m;
 inout tp_n;
-output u1;
 output v2;
 
-reg n_t_4x_m;
-reg tp_m_m;
 
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac3_h;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire b2;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bh2;
-wire bj1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
-wire e2rc;
-wire mb2_h;
-wire mb2_l;
-wire mb3_h;
-wire mb3_l;
-wire n_t_11x;
-wire n_t_17x;
 wire n_t_31x;
 wire n_t_34x;
-wire tck;
-wire tdo;
 assign n220_baud = ~n_t_4x;
 assign n880_baud = ~n_t_13x;
 // e2: sn7474 
-always @(n_t_13x, n_t_11x, n_t_11x, tp_n)
-  if (~n_t_11x) begin
-    tp_m_m <= 1'b0;
-  end else
-  if (~n_t_11x) begin
-    tp_m_m <= 1'b1;
-  end else
-  if (~(n_t_13x)) begin
-    tp_m_m <= tp_n;
-  end
-always @(n_t_13x, n_t_11x, n_t_11x, tp_m_m)
-  if (~n_t_11x) begin
-    tp_m <= 1'b0;
-  end else
-  if (~n_t_11x) begin
-    tp_m <= 1'b1;
-  end else
+always @(posedge n_t_13x)
   if (n_t_13x) begin
-    tp_m <= tp_m_m;
+    tp_m <= tp_n;
   end
 assign tp_n = ~tp_m;
-always @(tp_m, n_t_11x, n_t_11x, tp_l)
-  if (~n_t_11x) begin
-    n_t_4x_m <= 1'b0;
-  end else
-  if (~n_t_11x) begin
-    n_t_4x_m <= 1'b1;
-  end else
-  if (~(tp_m)) begin
-    n_t_4x_m <= tp_l;
-  end
-always @(tp_m, n_t_11x, n_t_11x, n_t_4x_m)
-  if (~n_t_11x) begin
-    n_t_4x <= 1'b0;
-  end else
-  if (~n_t_11x) begin
-    n_t_4x <= 1'b1;
-  end else
+always @(posedge tp_m)
   if (tp_m) begin
-    n_t_4x <= n_t_4x_m;
+    n_t_4x <= tp_l;
   end
 assign tp_l = ~n_t_4x;
 // e3: sn7400 
-assign n_t_1x = 1'b1;
-assign n_t_11x = ~(n_t_1x & n_t_4x);
+assign n_t_17x = ~n_t_14x;
 assign n_t_21x = ~n_t_17x;
 assign n_t_16x = ~(n_t_17x & n_t_12x);
 // r1: r_us_ 

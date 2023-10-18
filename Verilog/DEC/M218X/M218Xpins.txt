@@ -90,28 +90,28 @@ C19      1        1          pas      +3V3
          2        2          pas      GND
 
 E1       1        A          in       N$3
-         2        D          in       N$6
+         2        B          in       N$5
          3        C          in       N$4
          4        A          in       N$7
          5        B          in       N$8
          6        C          in       N$9
          7        J          in       F2
-         8        I0         in       AC0
+         8        D          in       N$10
          9        !X         out      N$1
          10       X          out      N$2
          11       X          out      N$2
-         12       D          in       N$10
-         13       O          out      N$8
+         12       !X         out      N$1
+         13       D          in       N$6
          14       A2         in       H1
-         15       P2         in       N$4
-         16       E15        in       N$17
-         17       E14        in       N$16
-         18       E13        in       N$15
-         19       E12        in       N$13
-         20       E11        in       N$11
-         21       E10        in       N$12
-         22       E9         in       N$10
-         23       E8         in       N$8
+         15       A3         in       H1
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        I4         in       N$15
          2        I5         in       N$16
@@ -127,7 +127,7 @@ E2       1        I4         in       N$15
          12       I9         pas      N$1
          13       I3         in       N$14
          14       J          in       K1
-         15       P2         in       N$20
+         15       A3         in       M1
 
 E3       1        CLR        in       N$24
          2        D          in       N$25
@@ -155,24 +155,24 @@ E4       1        I4         in       N$21
          8        O          out      N$25
          9        I8         in       N$13
          10       I7         in       N$20
-         11       I0         in       LOADCLKH
-         12       I1         in       N$14
+         11       O          out      N$28
+         12       I0         in       LOADCLKH
          13       I3         in       N$19
          14       O          out      N$46
 
 E5       1        A          in       N$53
-         2        D          in       N$56
+         2        B          in       N$54
          3        C          in       N$55
          4        A          in       N$57
          5        B          in       N$58
          6        C          in       N$59
          7        D0         in       BIOT5L
-         8        !Q         out      N$13
+         8        D          in       N$60
          9        !X         out      N$62
          10       X          out      N$61
          11       X          out      N$61
          12       !X         out      N$62
-         13       CLR        in       CLRBUFL
+         13       D          in       N$56
          14       O0         in       BD01
          15       B0         io       !DATA1
 
@@ -198,7 +198,7 @@ E7       1        CLR        in       N$24
          4        PRE        in       N$26
          5        Q          out      N$41
          6        !Q         out      N$32
-         7        I1         in       N$337
+         7        B          io       N$10
          8        !Q         out      N$23
          9        Q          out      N$40
          10       PRE        in       N$26
@@ -214,14 +214,14 @@ E8       1        I4         in       N$36
          4        I1         in       N$35
          5        I11        in       N$35
          6        I2         in       N$16
-         7        I1         in       N$80
+         7        Y3         out      SELECT6
          8        O          out      N$38
          9        I8         in       N$13
          10       I7         in       N$23
          11       CLK        in       C1
          12       D          in       N1
          13       I3         in       N$15
-         14       O          oc       R2
+         14       A          in       A0
          15       G          in       !C1
 
 E9       1        I4         in       N$81
@@ -230,7 +230,6 @@ E9       1        I4         in       N$81
          4        I1         in       N$16
          5        I11        in       N$79
          6        I2         in       N$70
-         7        I1         in       INT_ENABLE
          8        O          out      N$42
          9        I8         in       N$43
          10       I7         in       N$13

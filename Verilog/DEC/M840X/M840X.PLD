@@ -3,7 +3,7 @@
 
 Name     M840X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -17,26 +17,25 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = a00_l;
-pin = a02_l;
 pin = ac01;
 pin = ac2bus_l;
-pin = cif_l;
-pin = la;
-pin = md08;
+pin = b02_l;
+pin = en2;
 pin = modea;
 pin = mq01_l;
 pin = multi_out_l;
-pin = n3v;
+pin = n3v0;
 pin = n3v3;
 pin = n_t_101x;
-pin = n_t_104x;
-pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_131x;
 pin = n_t_13x;
+pin = n_t_15x;
+pin = n_t_21x;
 pin = n_t_22x;
-pin = n_t_44x;
 pin = n_t_68x;
+pin = n_t_6x;
+pin = n_t_7x;
 pin = n_t_82x;
 pin = n_t_83x;
 pin = n_t_85x;
@@ -54,19 +53,21 @@ pin = rd_hole5;
 pin = rd_hole6;
 pin = rd_hole7;
 pin = rd_hole8;
-pin = rdf;
-pin = rdf_l;
-pin = tp3h;
+pin = regbus00;
+pin = regbus01;
 
 /* Output Pins */
+pin = ad00_l;
 pin = ba;
 pin = ba_l;
 pin = bb;
 pin = bb1;
+pin = bb_l;
 pin = bk_cycle_l;
 pin = brk_in_prog_l;
 pin = c0_l;
 pin = c1_l;
+pin = carry_out_l;
 pin = cpma_dis_l;
 pin = data04_l;
 pin = data05_l;
@@ -119,39 +120,29 @@ pin = motor_power;
 pin = motor_stopping_l;
 pin = msir_dis_l;
 pin = n15v;
+pin = n3vc;
 pin = n_t_100x;
-pin = n_t_102x;
 pin = n_t_106x;
 pin = n_t_107x;
 pin = n_t_10x;
+pin = n_t_11x;
 pin = n_t_129x;
 pin = n_t_132x;
 pin = n_t_14x;
-pin = n_t_15x;
 pin = n_t_16x;
+pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_20x;
-pin = n_t_21x;
 pin = n_t_23x;
-pin = n_t_2x;
 pin = n_t_3x;
-pin = n_t_45x;
 pin = n_t_4x;
 pin = n_t_5x;
-pin = n_t_60x;
 pin = n_t_61x;
-pin = n_t_6x;
-pin = n_t_71x;
-pin = n_t_72x;
-pin = n_t_76x;
-pin = n_t_78x;
-pin = n_t_7x;
 pin = n_t_84x;
 pin = n_t_86x;
 pin = n_t_87x;
 pin = n_t_89x;
 pin = n_t_93x;
-pin = n_t_94x;
 pin = n_t_9x;
 pin = pause_l;
 pin = pls;
@@ -168,22 +159,22 @@ pin = punch_done_l;
 pin = r;
 pin = rdata_to_bus;
 pin = skip_l;
+pin = swba;
 pin = tp1;
 pin = tp2;
 pin = tp3;
 pin = tp4;
-pin = tp_ba1;
 pin = ts2;
 pin = ts3_l;
 pin = ts4;
 node rdr_run;
-node rdata_strobe;
+node eae_on;
 node n_t_49x;
-node rotate_pulse;
+node n_t_48x;
 node punch_flag;
-node md03_l;
+node shift_ok;
 node int_ena;
-node n_t_79x;
+node eae_on;
 node n_t_24x;
 node n_t_26x;
 node n_t_27x;
@@ -196,155 +187,74 @@ node n_t_29x;
 node n_t_30x;
 node n_t_31x;
 node n_t_32x;
+node n_t_60x;
 node n_t_63x;
 node n_t_62x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
+node a1;
 node a_or_b;
 node ab_l;
 node ac02;
 node ac03;
-node ac03_l;
-node ac10_l;
-node ac2_8_0;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ac4_11_0;
-node ac_0;
-node ac_to_bus_l;
+node ac05;
+node ac_to_mq_ena_l;
 node ad02_l;
 node ad03_l;
 node ad04_l;
 node ad05_l;
 node ad06_l;
-node af1w;
+node ad11_l;
+node ad2;
+node adlk_l;
+node ae2;
+node af2;
+node ah2;
+node aj2;
 node ak2;
-node al2w;
-node am2w;
-node an1w;
-node ap1w;
-node av1w;
-node b2;
-node bc1;
-node bd2;
+node al2;
+node al2mq_ena_l;
+node am2;
+node an2;
+node ap2;
+node av2;
+node b_io_pause;
+node bac0;
 node bdata0;
-node be2;
-node bf1;
-node bf2;
-node bl2;
+node bdata2;
+node bdata5;
 node bm2;
-node bmb05;
-node bmd8;
-node bms_dis;
 node btp3;
-node bts1;
-node bu2;
-node bv1;
-node bv2;
-node c3;
-node carry_in_l;
+node carry_in;
 node catch_pulse_l;
-node cf1;
-node clk;
-node clock;
 node clock_pulse;
 node clock_pulse_l;
-node clr_all_l;
 node clr_dsk_ad_l;
-node cpma_disable_l;
-node d_l;
-node dad_or_dst_l;
-node data00_l;
-node data01_l;
-node data02_l;
-node data03_l;
-node data3;
-node data6_l;
+node data7_l;
+node data9;
 node data_enab_l;
-node db;
-node df_enable;
-node dvi_and_ts3;
-node eir3;
-node en2;
+node drive0_l;
+node e;
+node e_l;
+node en0;
 node ena_pun_buffr_l;
 node enable_l;
-node f_l;
-node f_set_l;
-node gtf_or_ind;
 node have_tape;
-node ind1_l;
-node ind2_l;
-node ind_l;
-node init;
 node init_or_eot_l;
 node initialize_l;
 node int_in_prog;
-node int_in_progress_l;
-node int_rqst_l;
-node io19;
-node io21;
-node io22;
-node io23;
-node io24;
-node io25;
-node io26;
-node io27;
-node io28;
-node io29;
-node io3;
-node io30;
-node io31;
-node io32;
-node io33;
-node io34;
-node io35;
-node io36;
-node io37;
-node io38;
-node io39;
-node io40;
-node io42;
-node io59;
-node io70;
-node io_pause_l;
 node iot01;
 node iot02;
 node iot_l;
-node ir00_l;
-node ir01_l;
-node irq_l;
-node key_ctl_l;
-node last_step_l;
-node left_l;
-node load_addr;
-node load_cntl;
-node lp_ind_or_rif_rp_l;
-node ma2_h;
-node ma3_h;
-node main;
-node mb2_l;
-node md00_l;
-node md01_l;
-node md02_l;
-node md04_l;
-node md05_l;
-node md06_l;
-node md07;
-node md07_l;
-node md08_l;
-node md09;
-node md09_l;
-node md10;
+node m1;
+node ma00_l;
+node ma04_l;
 node md7;
 node md8;
-node modeb;
-node mq0_l;
-node mq_load;
-node n0_to_eir;
+node mq03_l;
+node mq05_l;
+node n3v;
 node n3vr40;
 node n_t_108x;
 node n_t_109x;
@@ -370,25 +280,25 @@ node n_t_128x;
 node n_t_130x;
 node n_t_134x;
 node n_t_135x;
-node n_t_17x;
-node n_t_18x;
 node n_t_1x;
 node n_t_25x;
+node n_t_2x;
 node n_t_33x;
 node n_t_34x;
 node n_t_35x;
 node n_t_36x;
-node n_t_37x;
 node n_t_39x;
 node n_t_40x;
 node n_t_41x;
 node n_t_42x;
 node n_t_43x;
 node n_t_46x;
+node n_t_476x;
 node n_t_47x;
-node n_t_48x;
+node n_t_491x;
 node n_t_50x;
 node n_t_51x;
+node n_t_52x;
 node n_t_53x;
 node n_t_54x;
 node n_t_55x;
@@ -399,72 +309,51 @@ node n_t_66x;
 node n_t_67x;
 node n_t_69x;
 node n_t_70x;
+node n_t_71x;
+node n_t_72x;
 node n_t_73x;
 node n_t_74x;
 node n_t_75x;
+node n_t_76x;
+node n_t_78x;
+node n_t_79x;
 node n_t_80x;
 node n_t_81x;
 node n_t_88x;
 node n_t_90x;
 node out_of_tape;
+node pagez;
 node pause;
-node pc2_h;
-node pc3_h;
-node pc3_l;
 node pce_l;
 node pcf_l;
 node piop0;
 node piop1;
 node piop2;
 node piop4;
-node power_ok;
 node ppc_l;
 node psf_l;
 node punch_strobe;
 node punch_strobe_l;
 node rbc_l;
+node rdata_strobe;
 node rdr_run_l;
-node regbus00;
-node regbus01;
+node regbus04;
 node regbus04_l;
 node regbus05;
-node restart;
 node rfc_l;
 node riop0;
 node riop1;
 node riop2_l;
 node riop4_l;
-node rom_11_l;
-node rom_12_l;
+node rom_13_l;
 node rom_14_l;
-node rom_15_l;
 node rom_17_l;
-node rom_24_l;
+node rotate_pulse;
 node rpe_l;
 node rrb_l;
 node rsf_l;
-node rtf;
-node run_l;
-node rxd;
-node sc3;
-node sgt_l;
 node shift_pulse_l;
-node skp2;
-node tck2;
-node tdo2;
-node tms2;
-node tp2_d;
-node tp_aa1;
-node tp_ab1;
-node tp_bb1;
-node tp_cb1;
-node tp_db1;
-node ts1;
-node ts1_l;
-node ts_disable_l;
-node txd;
-node uint;
-node user_mode_l;
+node wrt_lock_er;
 $ENDIF
 
 /* Code nodes */
@@ -598,141 +487,143 @@ $ENDIF
 /* c66: cpol_use */
 
 /* e1: sn7410 */
-n_t_121x = !(n_t_121x & riop2_l & init_or_eot_l);
-n_t_72x = !(init_or_eot_l & shift_pulse_l & enable);
-n_t_71x = !(n_t_71x & n_t_74x & n_t_75x);
+n_t_121x = !(riop2_l & riop4_l & init_or_eot_l);
+shift_pulse_l = !(enable & n_t_72x & n_t_74x);
+n_t_74x = !(n_t_71x & n_t_75x);
 
 /* e2: sn7474 */
 rdr_run.ar = !init_or_eot_l;
 rdr_run.d = 'b'0;
 rdr_run.ck = rdata_strobe;
 rdr_run.ap = !riop4_l;
-rdr_run = !rdr_run;
-rdata_strobe.ar = !initialize_l;
-rdata_strobe.d = n_t_120x;
-rdata_strobe.ck = clock_pulse;
-rdata_strobe.ap = !n_t_113x;
-n_t_90x = !rdata_strobe;
+rdr_run_l = !rdr_run;
+eae_on.ar = !initialize_l;
+eae_on.d = n_t_120x;
+eae_on.ck = clock_pulse;
+eae_on.ap = !n_t_113x;
+n_t_90x = !eae_on;
 
 /* e3: sn7404 */
-n_t_93x = !n_t_48x;
+bb_l = !n_t_48x;
 ba_l = !n_t_49x;
-ba_l = !n_t_47x;
-bb = !n_t_69x;
+bb = !n_t_47x;
+ba = !n_t_69x;
 n_t_71x = !multi_out_l;
-n_t_109x = !ba;
+n_t_109x = !n_t_110x;
 
 /* e5: sn7400 */
-n_t_76x = !(clock_pulse_l & n_t_71x);
-initialize_l = !(n_t_130x & n_t_35x);
-out_of_tape = !(clock_pulse & n_t_35x);
-n_t_90x = !(r_feed_sw_l & enable);
+clock_pulse_l = !(n_t_71x & n_t_76x);
+n_t_130x = !(n_t_35x & initialize_l);
+n_t_35x = !(out_of_tape & clock_pulse);
+enable = !(n_t_90x & r_feed_sw_l);
 
 /* e6: sn7400 */
-n_t_125x = !(n_t_119x & r_feed_sw_l);
-shift_pulse_l = !(rotate_pulse & catch_pulse_l);
-n_t_49x = !(n_t_48x & ab_l);
-n_t_88x = !(n_t_89x & catch_pulse_l);
+n_t_119x = !(r_feed_sw_l & n_t_125x);
+rotate_pulse = !(catch_pulse_l & shift_pulse_l);
+ab_l = !(n_t_49x & n_t_48x);
+catch_pulse_l = !(n_t_88x & n_t_89x);
 
 /* e8: sn7404 */
-data06_l = !motor_power;
+motor_power = !n_t_78x;
 n_t_51x = !n_t_121x;
-n_t_51x = !n_t_130x;
-init_or_eot_l = !n_t_74x;
-init_or_eot_l = !clock_pulse_l;
-n_t_113x = !n_t_73x;
+init_or_eot_l = !n_t_130x;
+n_t_73x = !n_t_74x;
+clock_pulse = !clock_pulse_l;
+n_t_113x = !n_t_119x;
 
 /* e9: sn7474 */
 n_t_49x.ar = !n_t_70x;
 n_t_49x.d = n_t_47x;
 n_t_49x.ck = rotate_pulse;
 n_t_49x.ap = !n_t_70x;
-n_t_49x = !n_t_49x;
-rotate_pulse.ar = !n_t_70x;
-rotate_pulse.d = n_t_49x;
-rotate_pulse.ck = rotate_pulse;
-rotate_pulse.ap = !n_t_70x;
-n_t_47x = !rotate_pulse;
+n_t_69x = !n_t_49x;
+n_t_48x.ar = !n_t_70x;
+n_t_48x.d = n_t_49x;
+n_t_48x.ck = rotate_pulse;
+n_t_48x.ap = !n_t_70x;
+n_t_47x = !n_t_48x;
 
 /* e10: sn7474 */
-'b'0.ar = !n_t_126x;
-'b'0.d = 'b'0;
-'b'0.ck = punch_done_l;
-'b'0.ap = !punch_strobe_l;
-n_t_126x = 'b'1;
+n_t_19x.ar = !initialize_l;
+n_t_19x.d = 'b'0;
+n_t_19x.ck = punch_done_l;
+n_t_19x.ap = !punch_strobe_l;
+n_t_126x = !n_t_19x;
 punch_flag.ar = !n_t_124x;
 punch_flag.d = n_t_81x;
 punch_flag.ck = n_t_126x;
 punch_flag.ap = !n_t_81x;
-n_t_20x = !punch_flag;
+n_t_11x = !punch_flag;
 
 /* e11: sn7410 */
-n_t_120x = !(n_t_120x & ab_l & rdr_run_l);
-rdr_run = !(rdr_run_l & n_t_125x & clock_pulse_l);
-btp3 = !(have_tape & riop4_l & n_t_25x);
+n_t_120x = !(ab_l & a_or_b & rdr_run_l);
+n_t_125x = !(clock_pulse_l & rdr_run & motor_stopping_l);
+riop4_l = !(btp3 & have_tape & n_t_25x);
 
 /* e12: sn7474 */
-md03_l.ar = !n_t_78x;
-md03_l.d = 'b'0;
-md03_l.ck = motor_stopping_l;
-md03_l.ap = !shift_pulse_l;
-n_t_78x = !md03_l;
+shift_ok.ar = !n3vr40;
+shift_ok.d = 'b'0;
+shift_ok.ck = motor_stopping_l;
+shift_ok.ap = !shift_pulse_l;
+n_t_78x = !shift_ok;
 n_t_23x.ar = !n_t_51x;
 n_t_23x.d = rdr_run;
 n_t_23x.ck = rdata_strobe;
 n_t_23x.ap = !n_t_33x;
-n_t_94x = !n_t_23x;
+bac0 = !n_t_23x;
 
 /* e13: sn7400 */
-n_t_126x = !(n_t_127x & punch_feed_l);
-piop2 = !(n_t_122x & btp3);
-n_t_69x = !(n_t_47x & a_or_b);
-n_t_127x = !(pun_to_speed & n_t_128x);
+n_t_127x = !(punch_feed_l & n_t_126x);
+n_t_122x = !(btp3 & piop2);
+a_or_b = !(n_t_69x & n_t_47x);
+n_t_128x = !(n_t_127x & pun_to_speed);
 
 /* e14: sn7474 */
 int_ena.ar = !n_t_80x;
 int_ena.d = n_t_81x;
 int_ena.ck = n_t_79x;
 int_ena.ap = !initialize_l;
-int_ena = !int_ena;
-n_t_79x.ar = !n3vr40;
-n_t_79x.d = n_t_128x;
-n_t_79x.ck = n_t_22x;
-n_t_79x.ap = !punch_done_l;
-n_t_129x = !n_t_79x;
+n_t_33x = !int_ena;
+eae_on.ar = !n3vr40;
+eae_on.d = n_t_128x;
+eae_on.ck = n_t_22x;
+eae_on.ap = !punch_done_l;
+n_t_129x = !eae_on;
 
 /* e17: sn7438 */
-/* internal_io_l = !(n_t_69x & db); */
+/* internal_io_l = !iot02; */
+/* internal_io_l = !iot01; */
 /* c1_l = !rdata_to_bus; */
 /* n_t_93x = !(n_t_109x & n_t_107x); */
 
 /* e18: sn7438 */
-/* skip_l = !(bmb05 & n_t_6x); */
-/* skip_l = !(n_t_23x & int_ena); */
+/* skip_l = !(piop1 & punch_flag); */
+/* skip_l = !(n_t_23x & riop1); */
+/* interrupt_l = !(n_t_23x & int_ena); */
 /* interrupt_l = !(int_ena & punch_flag); */
 
 /* e20: sn7404 */
-n_t_6x = !md8;
+md8 = !md8_l;
 iot01 = !n_t_135x;
-n_t_17x = !md7_l;
-n_t_5x = !n_t_134x;
+md7 = !md7_l;
+iot02 = !n_t_134x;
 pause = !pause_l;
-md4_l = !iot02;
+md4_l = 'b'1;
 
 /* e21: sn7430 */
-ind_l = !(n_t_135x & md4_l & md5_l & md6_l & md7_l & md8 & pause);
+n_t_135x = !(md3_l & md4_l & md5_l & md6_l & md7_l & md8 & pause);
 
 /* e22: sn7400 */
-btp3 = !(riop2_l & rdata_to_bus);
-piop0 = !(n_t_80x & btp3);
-riop0 = !(btp3 & n_t_79x);
-btp3 = !(piop4 & punch_strobe_l);
+riop2_l = !(rdata_to_bus & btp3);
+n_t_80x = !(btp3 & piop0);
+n_t_79x = !(riop0 & btp3);
+punch_strobe_l = !(btp3 & piop4);
 
 /* e23: sn7400 */
-n_t_110x = !(n_t_111x & n_t_106x);
-'b'0 = 'b'1;
-n_t_107x = !(r_offline_l & out_of_tape);
-n_t_108x = !(n_t_106x & n_t_115x);
+n_t_111x = !(n_t_106x & n_t_110x);
+ac_to_mq_ena_l = 'b'1;
+out_of_tape = !(n_t_107x & r_offline_l);
+n_t_115x = !(n_t_108x & n_t_106x);
 
 /* e24: sn7402 */
 iot_l = !(iot01
@@ -742,39 +633,39 @@ n_t_6x = 'b'1;
 n_t_1x = !tp3;
 
 /* e25: sn7430 */
-load_addr = !(n_t_134x & md4_l & md5_l & md6_l & md7 & md8_l & pause);
+n_t_134x = !(md3_l & md4_l & md5_l & md6_l & md7 & md8_l & pause);
 
 /* e26: sn7404 */
-tp_cb1 = !n_t_106x;
+n_t_106x = !n_t_7x;
 enable_l = !enable;
-enable_l = !punch_strobe_l;
-n_t_37x = !n_t_1x;
-punch_strobe = !out_of_tape;
+punch_strobe = !punch_strobe_l;
+btp3 = !n_t_1x;
+have_tape = !out_of_tape;
 punch_done = !punch_done_l;
 
 /* e27: sn74138 */
-!n_t_20x = !md10 & !bts1 & !n_t_20x & !n_t_18x & !n_t_19x;
-!pls = !md10 & !bts1 & n_t_20x & !n_t_18x & !n_t_19x;
-!pce_l = !md10 & bts1 & !n_t_20x & !n_t_18x & !n_t_19x;
-!ppc_l = !md10 & bts1 & n_t_20x & !n_t_18x & !n_t_19x;
-!pcf_l = md10 & !bts1 & !n_t_20x & !n_t_18x & !n_t_19x;
-!pcf_l = md10 & !bts1 & n_t_20x & !n_t_18x & !n_t_19x;
-!psf_l = md10 & bts1 & !n_t_20x & !n_t_18x & !n_t_19x;
-!pce_l = md10 & bts1 & n_t_20x & !n_t_18x & !n_t_19x;
+!n_t_20x = !n_t_4x & !n_t_19x & !n_t_20x & !n_t_18x & !n_t_18x;
+!pls = !n_t_4x & !n_t_19x & n_t_20x & !n_t_18x & !n_t_18x;
+!pce_l = !n_t_4x & n_t_19x & !n_t_20x & !n_t_18x & !n_t_18x;
+!ppc_l = !n_t_4x & n_t_19x & n_t_20x & !n_t_18x & !n_t_18x;
+!pcf_l = n_t_4x & !n_t_19x & !n_t_20x & !n_t_18x & !n_t_18x;
+!pcf_l = n_t_4x & !n_t_19x & n_t_20x & !n_t_18x & !n_t_18x;
+!psf_l = n_t_4x & n_t_19x & !n_t_20x & !n_t_18x & !n_t_18x;
+!pce_l = n_t_4x & n_t_19x & n_t_20x & !n_t_18x & !n_t_18x;
 
 /* e28: sn7400 */
-rrb_l = !(rdata_to_bus & rbc_l);
-rfc_l = !(n_t_25x & rbc_l);
-pcf_l = !(pls & piop2);
-pls = !(ppc_l & piop4);
+rdata_to_bus = !(rbc_l & rrb_l);
+n_t_25x = !(rbc_l & rfc_l);
+piop2 = !(pcf_l & pls);
+piop4 = !(pls & ppc_l);
 
 /* e29: sn7404 */
-n_t_67x = !riop1;
+riop1 = !rsf_l;
 riop0 = !rpe_l;
-riop0 = !iot02;
-n_t_18x = !pce_l;
+n_t_18x = !iot02;
+piop0 = !pce_l;
 piop1 = !psf_l;
-n_t_16x = !piop0;
+n_t_16x = !iot01;
 
 /* e30: sn7402 */
 n_t_20x = !(md11_l
@@ -786,24 +677,25 @@ n_t_4x = !(iot_l
          # md9_l);
 
 /* e31: sn74138 */
-!n_t_20x = !n_t_5x & !n_t_20x & !n_t_16x & !n_t_19x;
-!rbc_l = !n_t_5x & n_t_20x & !n_t_16x & !n_t_19x;
-!rpe_l = !n_t_5x & n_t_5x & !n_t_20x & !n_t_16x & !n_t_19x;
-!rfc_l = !n_t_5x & n_t_5x & n_t_20x & !n_t_16x & !n_t_19x;
-!rrb_l = n_t_5x & !n_t_5x & !n_t_20x & !n_t_16x & !n_t_19x;
-!rrb_l = n_t_5x & !n_t_5x & n_t_20x & !n_t_16x & !n_t_19x;
-!rsf_l = n_t_5x & !n_t_20x & !n_t_16x & !n_t_19x;
-!rpe_l = n_t_5x & n_t_20x & !n_t_16x & !n_t_19x;
+!n_t_20x = !n_t_4x & !n_t_19x & !n_t_20x & !n_t_16x & !n_t_16x;
+!rbc_l = !n_t_4x & !n_t_19x & n_t_20x & !n_t_16x & !n_t_16x;
+!rpe_l = !n_t_4x & n_t_19x & !n_t_20x & !n_t_16x & !n_t_16x;
+!rfc_l = !n_t_4x & n_t_19x & n_t_20x & !n_t_16x & !n_t_16x;
+!rrb_l = n_t_4x & !n_t_19x & !n_t_20x & !n_t_16x & !n_t_16x;
+!rrb_l = n_t_4x & !n_t_19x & n_t_20x & !n_t_16x & !n_t_16x;
+!rsf_l = n_t_4x & n_t_19x & !n_t_20x & !n_t_16x & !n_t_16x;
+!rpe_l = n_t_4x & n_t_19x & n_t_20x & !n_t_16x & !n_t_16x;
 
 /* e32: sn7400 */
-n_t_116x = !(n_t_114x & n_t_112x);
-ab_l = !(n_t_118x & a_or_b);
-clock_pulse = !(n_t_118x & n_t_117x);
-n_t_117x = !(n_t_114x & n_t_112x);
+n_t_114x = !(n_t_112x & n_t_116x);
+n_t_118x = !(a_or_b & ab_l);
+n_t_117x = !(clock_pulse & n_t_118x);
+n_t_112x = !(n_t_117x & n_t_114x);
 
 /* e33: sn7438 */
-/* data04_l = !(n_t_22x & n_t_34x); */
-/* data05_l = !rdata_to_bus; */
+/* data04_l = !(n_t_24x & rdata_to_bus); */
+/* data05_l = !(n_t_26x & rdata_to_bus); */
+/* data07_l = !(rdata_to_bus & n_t_28x); */
 /* data06_l = !(rdata_to_bus & n_t_27x); */
 
 /* e35: sn7420 */
@@ -821,25 +713,26 @@ n_t_42x = !(ena_pun_buffr_l
           # data04_l);
 
 /* e38: sn7404 */
-initialize_l = !pn_hole7;
+pn_hole7 = !n_t_53x;
 n_t_55x = !n_t_56x;
-n_t_55x = !n_t_57x;
-n_t_54x = !n_t_59x;
-n_t_54x = !n_t_58x;
-pn_hole8 = !n_t_53x;
+n_t_54x = !n_t_57x;
+n_t_53x = !n_t_59x;
+n_t_52x = !n_t_58x;
+pn_hole8 = !n_t_52x;
 
 /* e39: sn7438 */
-/* data08_l = !(ts1 & ts1_l); */
-/* data10_l = !rdata_to_bus; */
+/* data08_l = !(n_t_29x & rdata_to_bus); */
+/* data09_l = !(rdata_to_bus & n_t_30x); */
+/* data10_l = !(n_t_31x & rdata_to_bus); */
 /* data11_l = !(rdata_to_bus & n_t_32x); */
 
 /* e41: sn7404 */
-md09 = !pn_hole3;
+pn_hole3 = !n_t_65x;
 pn_hole4 = !n_t_64x;
-pn_hole4 = !n_t_55x;
-pn_hole5 = !n_t_54x;
+pn_hole5 = !n_t_55x;
+pn_hole6 = !n_t_54x;
 pn_hole2 = !n_t_66x;
-pn_hole1 = !pn_hole6;
+pn_hole1 = !n_t_67x;
 
 /* e42: sn7402 */
 n_t_36x = !(data11_l
@@ -852,11 +745,11 @@ n_t_41x = !(ena_pun_buffr_l
           # data08_l);
 
 /* e44: sn7404 */
-tp3h = !n_t_124x;
+n_t_124x = !n_t_123x;
 rdata_strobe = !n_t_116x;
-rdata_strobe = !n_t_60x;
-n_t_67x = !n_t_63x;
-n_t_67x = !n_t_62x;
+n_t_67x = !n_t_60x;
+n_t_66x = !n_t_63x;
+n_t_65x = !n_t_62x;
 n_t_64x = !n_t_61x;
 
 /* ic34: sn74175 */
@@ -997,7 +890,6 @@ n3vr40 = 'b'1;
 n_t_70x = 'b'1;
 
 /* r42: r_us_ */
-n_t_33x = 'b'1;
 
 /* r43: r_us_ */
 n_t_34x = 'b'1;
@@ -1025,34 +917,44 @@ property atmel {open_collector= c1_l};
 !c1_l = rdata_to_bus;
 c1_l.oe = rdata_to_bus;
 property atmel {open_collector= data04_l};
-!data04_l = (n_t_22x & n_t_34x);
-data04_l.oe = (n_t_22x & n_t_34x);
+!data04_l = (n_t_24x & rdata_to_bus);
+data04_l.oe = (n_t_24x & rdata_to_bus);
 property atmel {open_collector= data05_l};
-!data05_l = rdata_to_bus;
-data05_l.oe = rdata_to_bus;
+!data05_l = (n_t_26x & rdata_to_bus);
+data05_l.oe = (n_t_26x & rdata_to_bus);
 property atmel {open_collector= data06_l};
 !data06_l = (rdata_to_bus & n_t_27x);
 data06_l.oe = (rdata_to_bus & n_t_27x);
+property atmel {open_collector= data07_l};
+!data07_l = (rdata_to_bus & n_t_28x);
+data07_l.oe = (rdata_to_bus & n_t_28x);
 property atmel {open_collector= data08_l};
-!data08_l = (ts1 & ts1_l);
-data08_l.oe = (ts1 & ts1_l);
+!data08_l = (n_t_29x & rdata_to_bus);
+data08_l.oe = (n_t_29x & rdata_to_bus);
+property atmel {open_collector= data09_l};
+!data09_l = (rdata_to_bus & n_t_30x);
+data09_l.oe = (rdata_to_bus & n_t_30x);
 property atmel {open_collector= data10_l};
-!data10_l = rdata_to_bus;
-data10_l.oe = rdata_to_bus;
+!data10_l = (n_t_31x & rdata_to_bus);
+data10_l.oe = (n_t_31x & rdata_to_bus);
 property atmel {open_collector= data11_l};
 !data11_l = (rdata_to_bus & n_t_32x);
 data11_l.oe = (rdata_to_bus & n_t_32x);
 property atmel {open_collector= internal_io_l};
-!internal_io_l = (n_t_69x & db);
-internal_io_l.oe = (n_t_69x & db);
+!internal_io_l = (iot02)
+                 # (iot01);
+internal_io_l.oe = (iot02)
+                 # (iot01);
 property atmel {open_collector= interrupt_l};
-!interrupt_l = (int_ena & punch_flag);
-interrupt_l.oe = (int_ena & punch_flag);
+!interrupt_l = (n_t_23x & int_ena)
+               # (int_ena & punch_flag);
+interrupt_l.oe = (n_t_23x & int_ena)
+               # (int_ena & punch_flag);
 property atmel {open_collector= n_t_93x};
 !n_t_93x = (n_t_109x & n_t_107x);
 n_t_93x.oe = (n_t_109x & n_t_107x);
 property atmel {open_collector= skip_l};
-!skip_l = (bmb05 & n_t_6x)
-          # (n_t_23x & int_ena);
-skip_l.oe = (bmb05 & n_t_6x)
-          # (n_t_23x & int_ena);
+!skip_l = (piop1 & punch_flag)
+          # (n_t_23x & riop1);
+skip_l.oe = (piop1 & punch_flag)
+          # (n_t_23x & riop1);

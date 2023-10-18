@@ -26,7 +26,7 @@ C4       +        +          pas      VCC
          1        1          pas      N$52
          2        2          pas      N$83
 
-C5       +        +          pas      +3V3
+C5       +        +          pas      VCC
          -        -          pas      GND
          1        1          pas      N$11
          2        2          pas      GND
@@ -51,112 +51,30 @@ E1       1        I0         in       +3V3
          13       I2         in       N$33
          14       A2         in       N$3
          15       A1         in       N$6
-         16       O4         io       ADDER3
-         17       O5         io       ADDER4
-         18       O6         io       BB2
-         19       O7         io       AJ1
-         20       FB1MC15    io       AH1
-         21       O7         io       AK2
-         22       FB1MC16    io       AF2
-         23       O9         io       MB3_H
-         24       FB1MC17    io       AF1W
-         25       FB2MC17    io       AE2W
-         26       FB2MC16    io       AE1
-         27       FB2MC15    io       AD2
-         28       FB2MC14    io       AD1
-         29       FB2MC13    io       AC1
-         30       TDO        out      N$2
-         31       IO22       io       BH1
-         33       FB2MC12    io       AB2
-         34       FB2MC11    io       AB1
-         35       FB2MC10    io       AA1
-         36       FB2MC9     io       GND
-         37       FB2MC8     io       GND
-         38       FB2MC7     io       GND
-         39       GSR        in       BB2
-         40       GTS@1      in       GND
-         41       IO30       io       BC1
-         42       GTS@0      in       GND
-         43       FB2MC4     io       AV2W
-         44       FB2MC2     io       AV1W
-         45       IO/PD2     io       BA1
-         46       IO33       io       AV1
-         48       IO34       io       AV2
-         49       IO35       io       AU1
-         50       IO36       io       AU2
-         51       IO37       io       AT2
-         52       IO38       io       AS1
-         53       VCCIO      pwr      VCC
-         54       IO39       io       AS2
-         55       IO40       io       AR1
-         56       IO41       io       AR2
-         57       IO42       io       AP1
-         58       IO43       io       AP2
-         60       IO44       io       AN1
-         61       IO45       io       AN2
-         62       TCK        io       TCK
-         63       IO46       io       AM1
-         64       IO47       io       AM2
-         65       IO48       io       AL1
-         66       VCCIO      pwr      VCC
-         67       IO49       io       AL2
-         68       IO50       io       AK1
-         69       IO51       io       AK2
-         70       IO52       io       AJ1
-         71       TDO        io       TDO
-         73       IO53       io       AJ2
-         74       IO54       io       AH1
-         75       IO55       io       AH2
-         76       IO56       io       AF1
-         77       IO57       io       AF2
-         78       VCCIO      pwr      VCC
-         79       IO58       io       AE1
-         80       IO59       io       AE2
-         81       IO/GCLK3   io       AD1
-         83       IN/GCLK1   in       AD2
-         84       IN/OE1     in       AC1
+         16       14         out      N$17
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        I0         in       N$57
          2        I1         in       N$70
-         3        I0         in       N$71
-         4        I1         in       N$8
-         5        I0         in       N$18
+         3        O          out      N$71
+         4        I0         in       N$71
+         5        I1         in       N$8
          6        O          out      N$70
          7        Q1         out      N$24
          8        O          out      T2
          9        I0         in       N$59
          10       I1         in       N$70
          11       O          out      N$2
-         12       O          out      N$71
+         12       I0         in       N$70
          13       I1         in       N$57
          14       A2         in       N$3
          15       A1         in       N$6
-         16       O4         io       ADDER4
-         17       O5         io       ADDER5
-         18       O6         io       ADDER3
-         19       O7         io       AK2
-         20       FB1MC15    io       AU2W
-         21       O7         io       AK2
-         22       FB1MC16    io       AU1
-         23       O9         io       AC3_H
-         24       FB1MC17    io       AT2W
-         25       FB2MC17    io       AR2W
-         26       FB2MC16    io       GND
-         27       FB2MC15    io       GND
-         28       FB2MC14    io       GND
-         29       FB2MC13    io       AP1W
-         30       TDO        out      N$5
-         33       FB2MC12    io       AM2W
-         34       FB2MC11    io       AM1W
-         35       FB2MC10    io       AJ1W
-         36       FB2MC9     io       AE2W
-         37       FB2MC8     io       B2
-         38       FB2MC7     io       C3
-         39       GSR        in       BM2
-         40       GTS@1      in       GND
-         42       GTS@0      in       GND
-         43       FB2MC4     io       BL2
-         44       FB2MC2     io       BL1
 
 Q1       1        E          pas      VCC
          2        B          pas      N$14
@@ -166,12 +84,12 @@ Q2       1        E          pas      N$90
          2        B          pas      N$12
          3        C          pas      N$94
 
-Q3       B        B          pas      N$14
-         1        E          pas      N$90
+Q3       1        E          pas      N$90
          2        B          pas      L2
-         3        C          pas      N$28
+         B        B          pas      N$14
          C        C          pas      N$16
          E        E          pas      GND
+         3        C          pas      N$28
 
 Q4       1        E          pas      GND
          2        B          pas      N$11
@@ -181,12 +99,12 @@ Q5       1        E          pas      N$15
          2        B          pas      L2
          3        C          pas      N$14
 
-Q6       C        C          pas      N$18
+Q6       1        E          pas      N$15
+         B        B          pas      N$17
          E        E          pas      GND
          2        B          pas      N$16
          3        C          pas      N$13
-         B        B          pas      N$17
-         1        E          pas      N$15
+         C        C          pas      N$18
 
 Q7       1        E          pas      GND
          2        B          pas      N$52
@@ -199,20 +117,15 @@ Q8       1        E          pas      GND
 R1       1        1          pas      VCC
          2        2          pas      N$13
 
-R2       E        E          pas      GND
-         1        1          pas      VCC
+R2       1        1          pas      VCC
          2        2          pas      N$14
-         A        A          pas      D2
-         S        S          pas      GND
          3        E          pas      D2
 
 R3       1        1          pas      GND
          2        2          pas      N$15
-         3        E          pas      VCC
 
 R4       1        1          pas      N$33
          2        2          pas      N$16
-         3        E          pas      VCC
 
 R5       1        1          pas      N$16
          2        2          pas      VCC
@@ -238,12 +151,9 @@ R11      1        1          pas      VCC
 R12      1        1          pas      N$8
          2        2          pas      GND
 
-R13      3        E          pas      V2
-         A        A          pas      V2
-         E        E          pas      GND
-         1        1          pas      E2
+R13      1        1          pas      E2
          2        2          pas      N$5
-         S        S          pas      GND
+         3        E          pas      V2
 
 R14      1        1          pas      L2
          2        2          pas      N$5
@@ -282,22 +192,29 @@ R24      1        A          pas      D2
 
 U$1      AA1      1          io       LOAD_TAC
          AA2      1          io       VCC
-         AB1      1          io       TAC3_L
          AB2      1          io       AB2
          AC1      1          io       AC1
          AC2      1          io       GND
+         AD1      1          io       TMA3
          AD2      1          io       AD2
          AE1      1          io       AE1
          AE2      1          io       AE2
          AF1      1          io       AF1
+         A2       1          io       VCC
          AF2      1          io       AF2
-         AH2      1          io       AH2
-         AJ2      1          io       AJ2
+         AH1      1          io       TMASU3
+         AH2      1          io       TAC3_H
+         AJ1      1          io       LOAD_TBN
+         AJ2      1          io       TAC2_L
+         AK1      1          io       LOAD_TMASU
+         AK2      1          io       TBN3
          AL1      1          io       AL1
+         A1       1          io       A1
+         AB1      1          io       TAC3_L
          AL2      1          io       AL2
          AM1      1          io       AM1
          AM2      1          io       AM2
-         AN1      1          io       AN1
+         AN1      1          io       TAC2_H
          AN2      1          io       AN2
          AP1      1          io       AP1
          AP2      1          io       AP2
@@ -306,37 +223,28 @@ U$1      AA1      1          io       LOAD_TAC
          AS1      1          io       AS1
          AS2      1          io       AS2
          AT1      1          io       GND
-         AT2      1          io       AT2
-         AU1      1          io       AU1
-         AU2      1          io       AU2
-         A2       1          io       VCC
-         AD1      1          io       TMA3
-         AH1      1          io       AH1
-         AJ1      1          io       AJ1
-         AK1      1          io       AK1
-         AK2      1          io       AK2
+         AT2      1          io       TMA2
+         AU1      1          io       TBN2
+         AU2      1          io       LOAD_TMA
          AV1      1          io       AV1
-         AV2      1          io       AV2
-         A1       1          io       A1
+         AV2      1          io       CARRY_OUT_L
          BA1      1          io       CARRY_IN_L
          BA2      1          io       VCC
+         B2       1          io       -15V
          BB1      1          io       BB1
-         B1       1          io       N$12
          BB2      1          io       BB2
-         BC1      1          io       AM1
+         BC1      1          io       BC1
          BC2      1          io       GND
-         B2       1          io       N$30
          BD1      1          io       TB3_H
-         BD2      1          io       AN2
+         BD2      1          io       RWB3_H
          BE1      1          io       BE1
-         BE2      1          io       BE2
+         BE2      1          io       SHIFT_RWB
          BF1      1          io       BF1
-         BF2      1          io       BF2
+         BF2      1          io       LOAD_RWB
          BH1      1          io       BH1
          BH2      1          io       BH2
          BJ1      1          io       BJ1
          BJ2      1          io       BJ2
-         BK1      1          io       BK1
          BK2      1          io       BK2
          BL1      1          io       BL1
          BL2      1          io       BL2
@@ -347,15 +255,17 @@ U$1      AA1      1          io       LOAD_TAC
          BP1      1          io       TB2_H
          BP2      1          io       BP2
          BR1      1          io       BR1
-         BR2      1          io       BR2
+         BR2      1          io       TAPE_BUS3
          BS1      1          io       BS1
-         BS2      1          io       BS2
+         BS2      1          io       PHASE
          BT1      1          io       GND
-         BT2      1          io       BT2
+         BT2      1          io       LOAD_TB
          BU1      1          io       BU1
-         BU2      1          io       BU2
-         BV1      1          io       BV1
-         BV2      1          io       BV2
+         BU2      1          io       +3V3
+         B1       1          io       N$12
+         BK1      1          io       BK1
+         BV1      1          io       RWB_OUT
+         BV2      1          io       TAPE_BUS2
          C1       1          io       C1
          C2       1          io       GND
          D1       1          io       N$4

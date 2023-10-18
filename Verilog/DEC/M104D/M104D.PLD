@@ -3,7 +3,7 @@
 
 Name     M104D ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -64,7 +64,6 @@ node n_t_7x;
 node n_t_8x;
 node n_t_9x;
 node pwr_clr_l;
-node s2;
 $ENDIF
 
 /* Code nodes */
@@ -102,8 +101,8 @@ n_t_14x.ap = !n3v3;
 n_t_13x = !n_t_14x;
 
 /* e2: sn7400 */
-k1 = !n_t_6x;
-n_t_7x = !(v2 & s2);
+n_t_7x = !n_t_6x;
+pwr_clr_l = !(n3v3 & pwr_clr);
 n_t_10x = !(grant & n_t_12x);
 n_t_9x = !n_t_8x;
 

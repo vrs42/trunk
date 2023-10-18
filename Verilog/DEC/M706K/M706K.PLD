@@ -3,7 +3,7 @@
 
 Name     M706K ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_53x;
 
 /* Output Pins */
 pin = a1;
@@ -143,86 +144,11 @@ node n_t_61x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a3;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node ba1;
-node bb2;
-node bc1;
 node bd07;
-node bd2;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bl1;
-node bl2;
-node bm2;
-node bu2;
-node bv1;
-node bv2;
-node c3;
-node data3;
+node data1_l;
 node data5_l;
 node in_last_l;
-node io3;
 node io_clear_l;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mb2_l;
-node mb3_h;
 node md07_l;
 node n_t_10x;
 node n_t_120x;
@@ -243,6 +169,7 @@ node n_t_39x;
 node n_t_42x;
 node n_t_43x;
 node n_t_45x;
+node n_t_48x;
 node n_t_58x;
 node n_t_64x;
 node n_t_65x;
@@ -256,17 +183,12 @@ node n_t_82x;
 node n_t_84x;
 node n_t_90x;
 node n_t_92x;
-node n_t_96x;
-node pc2_h;
-node pc3_h;
-node pc3_l;
-node rdr_run_l;
-node sc3;
+node rd_hole_1;
+node rd_hole_4;
+node rd_hole_6;
+node rd_hole_8;
 node set_flag;
-node sr3;
 node start;
-node tck;
-node tdo;
 $ENDIF
 
 /* Code nodes */
@@ -330,7 +252,7 @@ $ENDIF
 /* c28: c_us */
 
 /* e1: sn7430 */
-j2 = !(n_t_15x & n_t_21x & aj2 & n_t_20x & n_t_19x & n_t_10x & n3v3 & n3v3);
+n_t_10x = !(n_t_15x & n_t_21x & n_t_20x & n_t_19x & n_t_18x & n_t_17x & n3v3 & n3v3);
 
 /* e2: sn7474 */
 n2^0.ar = !n3v3;
@@ -345,15 +267,15 @@ flag.ap = !n3v3;
 irq_l = !flag;
 
 /* e3: sn7400 */
-shift = !n_t_22x;
-buffer_strobe = !(preset & n_t_5x);
-n_t_23x = !n_t_12x;
+buffer_strobe = !n_t_22x;
+n_t_11x = !n_t_12x;
+n_t_23x = !(n_t_16x & n_t_10x);
 n_t_22x = !(n_t_23x & read_buffer);
 
 /* e4: sn7400 */
-shift = !(n_t_6x & buffer_strobe);
-bit4 = !(preset & n_t_7x);
-bit6 = !(n_t_9x & buffer_strobe);
+bit4 = !(n_t_6x & buffer_strobe);
+bit2 = !(n_t_9x & buffer_strobe);
+bit6 = !(n_t_4x & buffer_strobe);
 bit5 = !(buffer_strobe & n_t_7x);
 
 /* e5: sn7474 */
@@ -381,9 +303,9 @@ n_t_6x.ap = !preset;
 l1 = !n_t_6x;
 
 /* e7: sn7400 */
-buffer_strobe = !(n_t_5x & buffer_strobe);
-bit3 = !(n_t_5x & n_t_19x);
-bit7 = !(buffer_strobe & n_t_3x);
+bit3 = !(n_t_5x & buffer_strobe);
+bit7 = !(buffer_strobe & n_t_2x);
+bit8 = !(buffer_strobe & n_t_3x);
 bit1 = !(n_t_8x & buffer_strobe);
 
 /* e8: sn7474 */
@@ -399,9 +321,9 @@ n_t_4x.ap = !preset;
 bit6 = !n_t_4x;
 
 /* e9: sn7410 */
-n_t_28x = !(n_t_24x & io_clear_l & n_t_10x);
-n_t_12x = !(n_t_22x & n_t_25x & t2);
-n_t_32x = !(io_clear_l & n_t_29x);
+n_t_12x = !(n_t_24x & io_clear_l & n_t_25x);
+n_t_29x = !(io_clear_l & n_t_28x);
+n_t_32x = !n_t_29x;
 
 /* e10: sn7474 */
 n_t_2x.ar = !n3v3;
@@ -413,17 +335,17 @@ n_t_3x.ar = !n3v3;
 n_t_3x.d = n_t_14x;
 n_t_3x.ck = shift;
 n_t_3x.ap = !preset;
-rdr_run_l = !n_t_3x;
+n_t_38x = !n_t_3x;
 
 /* e11: sn7410 */
-clr_flg2 = !(skip_strobe & n_t_23x & i_o_clear);
-i_o_skip = !(n_t_43x & flag & n_t_38x);
+i_o_skip = !(skip_strobe & n_t_23x & flag);
+n_t_25x = !(n_t_23x & n3v3 & clr_flg2);
 n_t_28x = !(shift & serial & spike);
 
 /* e12: sn7400 */
-io_clear_l = !n_t_42x;
-n_t_13x = !(io_clear_l & n_t_28x);
+n_t_13x = !n_t_42x;
 n_t_42x = !(in_last & n_t_43x);
+io_clear_l = !(i_o_clear & n3v3);
 n_t_24x = !(n3v3 & clr_flg1);
 
 /* e13: sn7474 */
@@ -455,9 +377,9 @@ preset = !n_t_49x;
 n_t_58x = !(active_l & n3v3 & n3v3 & n3v3);
 
 /* e16: sn7400 */
-n_t_34x = !(active & n_t_63x);
-n_t_43x = !(n3v3 & n_t_35x);
-n_t_26x = !n_t_43x;
+n_t_43x = !(active & n_t_63x);
+n_t_48x = !n_t_43x;
+n_t_26x = !n_t_53x;
 n_t_45x = !(in_last_l & active_l);
 
 /* e17: sn7474 */
@@ -473,9 +395,9 @@ serial_l.ap = !n3v3;
 n_t_34x = !serial_l;
 
 /* e18: sn7460 */
-/* n_t_39x = !(serial_in & preset); */
+/* n_t_39x = !serial_in; */
 /* n_t_38x = !n_t_39x; */
-/* n_t_39x = !(n_t_38x & n_t_60x); */
+/* n_t_39x = !n_t_38x; */
 /* serial_l = !n_t_39x; */
 
 /* e19: sn7474 */
@@ -495,9 +417,9 @@ shift = !n_t_26x;
 start = !(enable & n_t_1x & serial_l & clock8_baud);
 
 /* e21: sn7400 */
-n_t_74x = !(n2^0 & n_t_45x);
-n_t_27x = !(n_t_73x & n_t_96x);
-n_t_46x = !(n_t_47x & serial_l);
+n_t_27x = !(n2^0 & n_t_45x);
+n_t_46x = !(n_t_47x & buffer_strobe);
+serial = !serial_l;
 n_t_1x = !n_t_45x;
 
 /* r1: r_us_ */
@@ -515,7 +437,6 @@ n_t_1x = !n_t_45x;
 /* r7: r_us_ */
 
 /* r8: r_us_ */
-n_t_48x = 'b'1;
 
 /* r9: r_us_ */
 
@@ -523,6 +444,6 @@ n_t_48x = 'b'1;
 
 /* Open collector 'wire-or's */
 !n_t_38x = n_t_39x;
-!n_t_39x = (serial_in & preset)
-           # (n_t_38x & n_t_60x);
+!n_t_39x = (serial_in)
+           # (n_t_38x);
 !serial_l = n_t_39x;

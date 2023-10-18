@@ -50,6 +50,15 @@ reg p2_m;
 reg s1_m;
 reg v2_m;
 
+wire n_t_10x;
+wire n_t_11x;
+wire n_t_12x;
+wire n_t_13x;
+wire n_t_15x;
+wire n_t_16x;
+wire n_t_17x;
+wire n_t_7x;
+wire n_t_8x;
 always @(b1, a1, d1, c1)
   if (~a1) begin
     e1_m <= 1'b0;

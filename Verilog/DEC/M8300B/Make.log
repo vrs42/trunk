@@ -5,86 +5,118 @@ info: cpol_use ne cpol_use20_8axial
 info: edge_top ne edge_con2
 warning: making e/edge_top/ a connector
 info: n8881n ne dil14
-info: 7487 ne edge_con2
+info: 7487 ne dil14
 warning: making e10/sn7487/ a connector
-info: 74151n ne dil14
-info: mc8266 ne edge_con2
+info: 74151n ne dil16
+info: mc8266 ne dil16
 info: 7400n ne dil14
-info: mc8266 ne edge_con2
-info: 7483n ne dil14
+info: mc8266 ne dil16
+info: 7483n ne dil16
 warning: making e15/sn7483/ a connector
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
+info: 74151n ne dil16
+info: dec8271 ne dil16
 warning: making e19/sn74153/ a connector
 info: n8881n ne dil14
-info: dec8271 ne edge_con2
-info: 74151n ne dil14
+info: dec8271 ne dil16
+info: 74151n ne dil16
 info: n8881n ne dil14
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: mc8266 ne edge_con2
+info: 74151n ne dil16
+info: dec8271 ne dil16
+info: dec8271 ne dil16
+info: mc8266 ne dil16
 info: n8881n ne dil14
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
+info: 74151n ne dil16
+info: dec8271 ne dil16
+info: dec8271 ne dil16
 warning: making e30/sn74153/ a connector
-info: 7487 ne edge_con2
+info: 7487 ne dil14
 warning: making e31/sn7487/ a connector
-info: dec8235 ne edge_con2
-info: 74151n ne dil14
-info: mc8266 ne edge_con2
+info: dec8235 ne dil16
+info: 74151n ne dil16
+info: mc8266 ne dil16
 info: 7400n ne dil14
-info: mc8266 ne edge_con2
-info: 7483n ne dil14
+info: mc8266 ne dil16
+info: 7483n ne dil16
 warning: making e37/sn7483/ a connector
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
+info: 74151n ne dil16
+info: dec8271 ne dil16
+info: dec8271 ne dil16
 info: 7402n ne dil14
 warning: making e41/sn74153/ a connector
-info: dec8271 ne edge_con2
-info: 74151n ne dil14
+info: dec8271 ne dil16
+info: 74151n ne dil16
 info: n8881n ne dil14
 info: 7430n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: 74151n ne dil14
+info: dec8271 ne dil16
+info: dec8271 ne dil16
+info: 74151n ne dil16
 info: n8881n ne dil14
-info: mc8266 ne edge_con2
-info: dec8271 ne edge_con2
+info: mc8266 ne dil16
+info: dec8271 ne dil16
 warning: making e51/sn74153/ a connector
-info: 7483n ne dil14
+info: 7483n ne dil16
 warning: making e52/sn7483/ a connector
-info: 74151n ne dil14
-info: dec8271 ne edge_con2
-info: dec8271 ne edge_con2
-info: mc8266 ne edge_con2
-info: 7487 ne edge_con2
+info: 74151n ne dil16
+info: dec8271 ne dil16
+info: dec8271 ne dil16
+info: mc8266 ne dil16
+info: 7487 ne dil14
 warning: making e57/sn7487/ a connector
-info: 74151n ne dil14
-info: mc8266 ne edge_con2
-info: 74151n ne dil14
-info: dec8235 ne edge_con2
+info: 74151n ne dil16
+info: mc8266 ne dil16
+info: 74151n ne dil16
+info: dec8235 ne dil16
 info: 7400n ne dil14
 warning: making e62/sn74153/ a connector
 info: 74h04n ne 7404n
 info: 74h04n ne 7404n
-info: dec8235 ne edge_con2
-info: dec8271 ne edge_con2
+info: dec8235 ne dil16
+info: dec8271 ne dil16
 warning: making e9/sn74153/ a connector
 info: edge_top ne edge_con2
 warning: making h/edge_top/ a connector
-info: quad ne edge_con2
+info: quad ne edge_con8
 warning: making u$2/quad/ a connector
+warning: non-bypass capacitor deleted: c15
 ~/Verilog/bin/smaller.pl M8300B.PLD >vv || (rm vv; exit 1)
-4 signals were removed:
+34 signals were removed:
+  an1: !mb00
+  b_init_l: !init
+  brk_in_l: !cpma9
+  dsk_sec2: !pc11_l
+  dsk_sector_mk_l: !mq11_l
+  header_b: !pc01_l
+  inh_12th_bit_l: !mq03_l
   left: !left_l
+  n3a: 'b'1
+  n3b: 'b'1
+  n3c: 'b'1
+  n_t_12x: !n_t_5x
+  n_t_1x: !mac_l
   n_t_5x: !md_dir_l
+  n_t_69x: !mq07_l
+  regbus00: !regbus00_l
+  regbus01: !regbus01_l
+  regbus02: !regbus02_l
+  regbus03: !regbus03_l
+  regbus04: !regbus04_l
+  regbus05: !regbus05_l
+  regbus06: !regbus06_l
+  regbus07: !regbus07_l
+  regbus08: !regbus08_l
+  regbus09: !regbus09_l
+  regbus10: !regbus10_l
+  regbus11: !regbus11_l
   right: !right_l
+  right2: !right_l
+  sector_eq: !mb04
+  seek_l: !cpma5
+  set_main_brk: !pc05_l
   twice: !twice_l
+  wrt_clk_l: !ac04
 ~/Verilog/bin/smaller.pl vv >M8300BX.PLD || (rm M8300BX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_5x: !md_dir_l
 ~/Verilog/bin/cupl2v.pl M8300BX.PLD >vv || (rm vv; exit 1)
 mv vv M8300B.v
 rm M8300BX.PLD

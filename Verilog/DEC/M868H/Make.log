@@ -25,24 +25,24 @@ info: d664 ne 1n4148do35_10
 warning: making d9/d664/ a connector
 info: 74h04n ne 7404n
 info: 7402n ne dil14
-info: 74123n ne dil14
+info: 74123n ne dil16
 warning: making e04/sn74123/ a connector
-info: dec8235 ne edge_con8
-info: dec8271 ne edge_con8
+info: dec8235 ne dil16
+info: dec8271 ne dil16
 info: sp380n ne dil14
-info: 74123n ne dil14
+info: 74123n ne dil16
 warning: making e08/sn74123/ a connector
-info: dec8235 ne edge_con8
-info: dec8271 ne edge_con8
+info: dec8235 ne dil16
+info: dec8271 ne dil16
 info: sp380n ne dil14
-info: 7475n ne dil14
-info: dec8235 ne edge_con8
-info: dec8271 ne edge_con8
+info: 7475n ne dil16
+info: dec8235 ne dil16
+info: dec8271 ne dil16
 info: sp380n ne dil14
 info: dec8242 ne 74266n
 info: 7400n ne dil14
 info: sp380n ne dil14
-info: dec8271 ne edge_con8
+info: dec8271 ne dil16
 info: 7400n ne dil14
 info: 7410n ne dil14
 info: sp314n ne dil14
@@ -50,7 +50,7 @@ info: spare ne dil14
 info: 7404n ne dil14
 info: 7410n ne dil14
 info: sp384n ne dil14
-info: dec8271 ne edge_con8
+info: dec8271 ne dil16
 info: 7404n ne dil14
 info: 7404n ne dil14
 info: n8881n ne dil14
@@ -63,7 +63,7 @@ info: 7430n ne dil14
 info: n8881n ne dil14
 info: dec8242 ne 74266n
 info: sp380n ne dil14
-info: dec8251 ne edge_con8
+info: dec8251 ne dil16
 info: quad ne edge_con8
 warning: making edge$/quad/ a connector
 warning: making j1/dec40pinh/ a connector
@@ -85,6 +85,7 @@ info: 0r2 ne 0r2/10
 warning: making w4w3/0r2/ a connector
 info: 31_xx ne b3f_31x
 warning: making wtm/31_xx/ a connector
+warning: non-bypass capacitor deleted: c36
 warning: non-bypass capacitor deleted: c37
 warning: non-bypass capacitor deleted: c38
 warning: non-bypass capacitor deleted: c39
@@ -94,14 +95,7 @@ warning: non-bypass capacitor deleted: c42
 warning: non-bypass capacitor deleted: c44
 warning: non-bypass capacitor deleted: c47
 warning: non-bypass capacitor deleted: c48
-unexpected OC output: df_db01 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2140.
-unexpected OC output: df_comp_wd at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2140.
-unexpected OC output: n_t_98x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2532.
-unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2532.
-unexpected OC output: read_buffer at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2532.
-unexpected OC output: recv_5 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2564.
-unexpected OC output: sync at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2580.
-unexpected OC output: cc_s_g at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2580.
+unexpected OC output: rx_clr_l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2514.
 warning: non-pullup resistor deleted: r25
 warning: non-pullup resistor deleted: r29
 warning: non-pullup resistor deleted: r30
@@ -117,41 +111,51 @@ warning: non-pullup resistor deleted: r41
 warning: non-pullup resistor deleted: r43
 warning: non-pullup resistor deleted: r48
 ~/Verilog/bin/smaller.pl M868H.PLD >vv || (rm vv; exit 1)
-30 signals were removed:
-  b3: io_pause_l
-  cc_clk_te_l: !cc_67x
+41 signals were removed:
+  cc_67x_l: !cc_67x
+  cc_btp3: !cc_tp3_l
   cc_dtp0_l: !cc_dtp0
+  cc_dtp1_l: !cc_dtp1
+  cc_f_not_r: !cc_f_r
+  cc_init: initialize
   cc_init_l: !cc_init
+  cc_pwr_ok: power_ok_l
+  cc_r_not_w: !cc_r_w
   cc_run: !cc_run_l
+  cc_run_l: !run
+  cc_s_not_g: !cc_s_g
+  cc_t_not_m_en: !cc_t_m_en
   cc_tp3_l: !tp3
+  cc_tpg1_l: !cc_tpg1
+  cc_unit_l: !cc_unit
+  cc_uts_l: !cc_uts
   df_sel_er: !df_sel_er_l
-  dokcc: !cc_dtp1_l
-  kcf_l: !cc_wrt_ok
-  krb_l: !cc_r_w
-  n3v3: !tpg0
-  n603x: !cc_sdsq_l
-  n604x: !cc_sdst_l
+  io_pause_l: io_pause
+  n_t_102x: !sync
+  n_t_107x: !tpg0
   n_t_10x: !n_t_29x
   n_t_112x: !cc_tpg_clk
-  n_t_141x: !cc_run_l
-  n_t_19x: !
-  n_t_24x: !krs_l
-  n_t_2x: !dokcc
+  n_t_122x: !sr01
+  n_t_1x: 'b'1
+  n_t_30x: !n_t_2x
   n_t_32x: !n_t_72x
   n_t_34x: !rcvr_clk
   n_t_35x: !cc_dtp0_l
+  n_t_44x: !cc_sdst_l
+  n_t_45x: !cc_sdsq_l
   n_t_46x: !cc_sdss_l
-  n_t_83x: !ksf_l
+  n_t_48x: !n_t_47x
+  n_t_66x: !cc_wrt_ok
+  n_t_70x: !sr00
+  n_t_7x: !n_t_29x
+  n_t_83x: !cc_clk_te_l
   n_t_84x: 'b'1
   n_t_85x: !data07_l
   n_t_88x: !n_t_20x
-  ns200: !cc_btp3
-  osc: !cc_uts
-  read_buffer: !cc_t_m_en
+  tx_busy_l: !mtr2_l
 ~/Verilog/bin/smaller.pl vv >M868HX.PLD || (rm M868HX.PLD; exit 1)
-2 signals were removed:
-  cc_dtp0_l: !cc_dtp0
-  cc_dtp1_l: !dokcc
+1 signals were removed:
+  cc_run_l: !run
 ~/Verilog/bin/cupl2v.pl M868HX.PLD >vv || (rm vv; exit 1)
 mv vv M868H.v
 rm M868HX.PLD

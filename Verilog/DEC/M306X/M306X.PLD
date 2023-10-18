@@ -3,7 +3,7 @@
 
 Name     M306X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,7 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = n_t_18x;
+pin = n_t_11x;
+pin = n_t_15x;
 pin = n_t_33x;
 pin = n_t_8x;
 
@@ -29,34 +30,22 @@ pin = ae1;
 pin = ae2;
 pin = af1;
 pin = af2;
-pin = ah1;
-pin = ah2;
-pin = aj1;
-pin = aj2;
-pin = ak1;
-pin = ak2;
 pin = al1;
 pin = al2;
 pin = am1;
 pin = am2;
-pin = an1;
 pin = an2;
 pin = ap1;
 pin = ap2;
 pin = ar2;
 pin = as1;
 pin = as2;
-pin = at2;
-pin = au1;
-pin = au2;
 pin = av1;
-pin = av2;
 pin = bb1;
 pin = bb2;
+pin = bc1;
 pin = be1;
-pin = be2;
 pin = bf1;
-pin = bf2;
 pin = bh1;
 pin = bh2;
 pin = bj1;
@@ -71,33 +60,35 @@ pin = bn1;
 pin = bn2;
 pin = bp2;
 pin = br1;
-pin = br2;
 pin = bs1;
-pin = bs2;
-pin = bt2;
 pin = bu1;
-pin = bu2;
-pin = bv1;
-pin = bv2;
 pin = c1;
 pin = carry_in_l;
+pin = carry_out_l;
 pin = d2;
 pin = e2;
 pin = f2;
 pin = h2;
 pin = j2;
 pin = l2;
+pin = load_rwb;
 pin = load_tac;
+pin = load_tb;
+pin = load_tbn;
+pin = load_tma;
+pin = load_tmasu;
+pin = n15v;
 pin = n2;
 pin = n3v3;
 pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_14x;
+pin = n_t_16x;
+pin = n_t_17x;
 pin = n_t_20x;
 pin = n_t_26x;
 pin = n_t_27x;
 pin = n_t_2x;
-pin = n_t_30x;
 pin = n_t_31x;
 pin = n_t_38x;
 pin = n_t_39x;
@@ -107,45 +98,34 @@ pin = n_t_49x;
 pin = n_t_4x;
 pin = n_t_50x;
 pin = n_t_51x;
-pin = n_t_5x;
 pin = p2;
+pin = phase;
+pin = rwb3_h;
+pin = rwb_out;
 pin = s2;
+pin = shift_rwb;
 pin = t2;
+pin = tac2_h;
+pin = tac2_l;
+pin = tac3_h;
 pin = tac3_l;
+pin = tape_bus2;
+pin = tape_bus3;
 pin = tb2_h;
 pin = tb3_h;
+pin = tbn2;
+pin = tbn3;
+pin = tma2;
 pin = tma3;
 pin = tmasu2;
+pin = tmasu3;
 pin = u1;
 pin = u2;
 pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node aa1;
-node ab1;
-node ac3_h;
-node ad1;
-node adder3;
-node adder4;
-node adder5;
-node ae2w;
-node af1w;
-node aj1w;
-node am1w;
-node am2w;
-node ap1w;
-node ar1;
-node ar2w;
-node at2w;
-node au2w;
-node av1w;
-node av2w;
-node b2;
-node ba1;
-node bc1;
-node c3;
-node mb3_h;
+node n_t_10x;
 node n_t_19x;
 node n_t_24x;
 node n_t_3x;
@@ -154,8 +134,6 @@ node n_t_59x;
 node n_t_6x;
 node n_t_70x;
 node n_t_71x;
-node tck;
-node tdo;
 $ENDIF
 
 /* Code nodes */
@@ -175,9 +153,9 @@ n_t_57x = !(n3v3 & j2 & h2);
 
 /* e2: sn74h00 */
 n_t_71x = !(n_t_57x & n_t_70x);
-n_t_70x = !(n_t_8x & n_t_18x);
+n_t_70x = !(n_t_71x & n_t_8x);
 t2 = !(n_t_59x & n_t_70x);
-n_t_2x = !(n_t_71x & n_t_57x);
+n_t_2x = !(n_t_70x & n_t_57x);
 
 /* r1: r_us_ */
 

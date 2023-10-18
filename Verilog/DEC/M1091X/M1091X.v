@@ -15,11 +15,10 @@
 // c8: c_us 
 // c9: cpol_use 
 // e1: sp380n 
-module m1091x (n_t_101x, n_t_136x, n_t_2x, n_t_59x, n_t_77x, n_t_91x, n_t_96x, n_t_98x, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_10x, n_t_17x, n_t_18x, n_t_45x, n_t_46x, n_t_47x, n_t_56x, n_t_57x, n_t_68x, n_t_76x, n_t_78x, n_t_82x, n_t_84x, n_t_86x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m1091x (n_t_101x, n_t_136x, n_t_2x, n_t_77x, n_t_91x, n_t_96x, n_t_98x, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_10x, n_t_17x, n_t_18x, n_t_45x, n_t_46x, n_t_47x, n_t_56x, n_t_57x, n_t_59x, n_t_68x, n_t_76x, n_t_78x, n_t_82x, n_t_84x, n_t_86x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input n_t_101x;
 input n_t_136x;
 input n_t_2x;
-input n_t_59x;
 input n_t_77x;
 input n_t_91x;
 input n_t_96x;
@@ -37,12 +36,12 @@ output h1;
 input h2;
 input j1;
 inout j2;
-output k1;
+input k1;
 output k2;
 output l1;
 input l2;
 output m1;
-inout m2;
+input m2;
 input n1;
 output n15v;
 output n2;
@@ -52,8 +51,9 @@ inout n_t_18x;
 output n_t_45x;
 inout n_t_46x;
 output n_t_47x;
-input n_t_56x;
+inout n_t_56x;
 inout n_t_57x;
+inout n_t_59x;
 output n_t_68x;
 output n_t_76x;
 output n_t_78x;
@@ -64,25 +64,24 @@ output p1;
 input p2;
 input r1;
 output r2;
-output s1;
+input s1;
 output s2;
-inout t2;
+input t2;
 input u1;
 input u2;
-output v1;
+input v1;
 input v2;
 
 
 wire a0;
 wire a11;
-wire a3;
+wire a4;
 wire c0;
 wire c1_l;
 wire n_t_11x;
 wire n_t_12x;
 wire n_t_16x;
-wire n_t_33x;
-wire n_t_38x;
+wire n_t_29x;
 wire n_t_8x;
 wire out_l;
 wire outhigh;
@@ -94,15 +93,13 @@ assign j2 = ~l2;
 assign a1 = ~d1;
 assign b1 = ~c1;
 // e2: sp380n 
-assign m2 = ~(p2
-               | m2);
-assign 'b'0 = ~p2;
+assign k2 = ~k1;
+assign n2 = ~p2;
 assign f1 = ~h2;
 assign h1 = ~j1;
 // e3: sp380n 
-assign t2 = ~(v2
-               | t2);
-assign s1 = ~r1;
+assign r2 = ~s1;
+assign p1 = ~r1;
 assign l1 = ~m2;
 assign m1 = ~n1;
 // e4: sp380n 
@@ -111,13 +108,12 @@ assign n_t_47x = ~v2;
 assign n_t_46x = ~f2;
 assign n_t_45x = ~e1;
 // e5: sp380n 
-assign outhigh = a3
-                  | n_t_33x;
-assign v1 = ~u1;
+assign n_t_56x = ~v1;
+assign n_t_59x = ~u1;
 assign n_t_18x = ~t2;
 assign n_t_57x = ~u2;
 // e6: sn74h04 
-assign c1 = ~out_l;
+assign c1 = ~c1_l;
 assign n_t_76x = ~d2;
 assign n_t_68x = ~n_t_46x;
 assign n_t_78x = ~n_t_77x;

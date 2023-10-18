@@ -27,10 +27,9 @@
 // n_t_2x = !(n_t_1x & af1); 
 // n_t_1x = !(ak1 & af1); 
 // e4: sn7475 
-module m7672x (bb2, clk_l, n3v, n_t_13x, n_t_14x, n_t_15x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_6x, n_t_8x, aa1, ab1, ab2, ac1, ad1, ad2, ae1, ae2, ae2w, af1, af1w, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, al2w, am1, am2, am2w, an1, an1w, an2, ap1, ap1w, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av1w, av2, av2w, b2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, c3, n15v, n_t_100x, n_t_104x, n_t_10x, n_t_11x, n_t_12x, n_t_16x, n_t_1x, n_t_23x, n_t_2x, n_t_34x, n_t_37x, n_t_56x, n_t_5x, n_t_65x, n_t_7x, n_t_9x, tck, tdo);
-output bb2;
+module m7672x (clk_l, n3v, n_t_13x, n_t_14x, n_t_15x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_5x, n_t_6x, n_t_8x, shift_l, ad2, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bd1, be1, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, n15v, n_t_11x, n_t_12x, n_t_16x, n_t_1x, n_t_2x, n_t_7x, n_t_9x);
 output clk_l;
-inout n3v;
+input n3v;
 output n_t_13x;
 output n_t_14x;
 output n_t_15x;
@@ -38,37 +37,27 @@ output n_t_17x;
 output n_t_18x;
 output n_t_19x;
 output n_t_20x;
+output n_t_5x;
 output n_t_6x;
-inout reg n_t_8x;
-output aa1;
-output ab1;
-output ab2;
-output ac1;
-output ad1;
+output n_t_8x;
+output shift_l;
 output ad2;
-output ae1;
 output ae2;
-output ae2w;
 input af1;
-output af1w;
 output af2;
 input ah1;
 output ah2;
-output aj1;
+input aj1;
 output aj2;
 input ak1;
 output ak2;
 output al1;
 output al2;
-output al2w;
 output am1;
 output am2;
-output am2w;
 output an1;
-output an1w;
 input an2;
 output ap1;
-output ap1w;
 output ap2;
 inout reg ar1;
 output ar2;
@@ -78,62 +67,43 @@ output at2;
 output au1;
 output au2;
 inout reg av1;
-output av1w;
 output av2;
-output av2w;
-output b2;
 inout reg ba1;
 inout reg bb1;
-output bc1;
 input bd1;
-output bd2;
 input be1;
-output be2;
 input bf1;
-output bf2;
+inout bf2;
 input bh1;
-output bh2;
+input bh2;
 input bj1;
-output bj2;
+input bj2;
 output bk1;
 output bk2;
 output bl1;
-input bl2;
+output bl2;
 output bm1;
 inout reg bm2;
 output bn1;
 inout reg bn2;
 inout reg bp1;
-output bp2;
+inout bp2;
 inout br1;
-inout br2;
+input br2;
 input bs1;
 input bs2;
 input bt2;
 input bu1;
-output bu2;
+inout bu2;
 output bv1;
-output bv2;
-output c3;
 output n15v;
-output n_t_100x;
-output n_t_104x;
-input n_t_10x;
-input n_t_11x;
-input n_t_12x;
-input n_t_16x;
+output n_t_11x;
+output n_t_12x;
+output n_t_16x;
 inout n_t_1x;
-output n_t_23x;
 output n_t_2x;
-output n_t_34x;
-output n_t_37x;
-output n_t_56x;
-output n_t_5x;
-output n_t_65x;
 output n_t_7x;
 inout n_t_9x;
-output tck;
-output tdo;
 
 reg ar1_m;
 reg av1_m;
@@ -142,42 +112,26 @@ reg bb1_m;
 reg bm2_m;
 reg bn2_m;
 reg bp1_m;
-reg n_t_8x_m;
+reg iop2_m;
 
+reg iop2;
 wire a1;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire adder3;
-wire adder5;
-wire aj1w;
-wire am1w;
-wire ar2w;
-wire at2w;
-wire au2w;
 wire b_last_brk;
-wire bd115200;
-wire bd230400;
-wire bd38400;
 wire bdata2;
-wire clockb_l;
+wire c1;
 wire data_enable;
+wire e2;
+wire iop1;
 wire iop4;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mb2_l;
-wire mb3_lp_0_rp;
+wire j2;
+wire k2;
+wire n2_8v;
 wire n3v3;
-wire n5v;
+wire n_t_10x;
+wire n_t_39x;
 wire n_t_3x;
-wire n_t_42x;
 wire n_t_4x;
 wire n_t_55x;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
-wire tp_n;
 always @(bf1, bj1, bf1, bj1, 1'b0)
   if (bf1 & ~bj1) begin
     bb1_m <= 1'b0;
@@ -263,17 +217,17 @@ assign as1 = ~ar1;
 assign au1 = ~av1;
 assign bf2 = ~ba1;
 // e5: sn7420 
-assign n_t_9x = ~(n_t_12x & bu1 & n_t_16x & n_t_10x);
-assign n_t_42x = ~(n_t_12x & n_t_4x & n3v);
+assign n_t_12x = ~(bu1 & bf2 & bh2 & bj2);
+assign n_t_16x = ~(n_t_10x & n_t_9x & n_t_4x & n3v);
 // e6: sn7486 
-assign bp2 = n_t_4x
-              ^ bs2;
-assign n3v = bl2
-              ^ n_t_3x;
-assign br2 = br1
-              ^ n_t_10x;
-assign bu2 = bt2
-              ^ n_t_9x;
+assign n_t_4x = bs2
+                 ^ bp2;
+assign bl2 = n_t_3x
+              ^ n3v;
+assign n_t_10x = br2
+                  ^ br1;
+assign n_t_9x = bu2
+                 ^ bt2;
 // e8: sn7475 
 always @(bs1, bt2, bs1, bt2, 1'b0)
   if (bs1 & ~bt2) begin
@@ -337,30 +291,29 @@ always @(bs1, br2, bs1, br2, bp1_m)
   end
 always @(bs1, n3v, bs1, n3v, 1'b0)
   if (bs1 & ~n3v) begin
-    n_t_8x_m <= 1'b0;
+    iop2_m <= 1'b0;
   end else
   if (bs1 & n3v) begin
-    n_t_8x_m <= 1'b1;
+    iop2_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    n_t_8x_m <= 1'b0;
+    iop2_m <= 1'b0;
   end
-always @(bs1, n3v, bs1, n3v, n_t_8x_m)
+always @(bs1, n3v, bs1, n3v, iop2_m)
   if (bs1 & ~n3v) begin
-    n_t_8x <= 1'b0;
+    iop2 <= 1'b0;
   end else
   if (bs1 & n3v) begin
-    n_t_8x <= 1'b1;
+    iop2 <= 1'b1;
   end else
   if (1'b0) begin
-    n_t_8x <= n_t_8x_m;
+    iop2 <= iop2_m;
   end
 assign bu2 = ~bm2;
 assign bp2 = ~bn2;
 assign br1 = ~bp1;
-assign clockb_l = ~n_t_8x;
 // ic1: sn7404 
-assign 'b'0 = ~n_t_11x;
+assign n_t_11x = ~aj1;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

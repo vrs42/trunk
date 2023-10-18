@@ -3,7 +3,7 @@
 
 Name     M208C ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -38,8 +38,8 @@ pin = l2;
 pin = m1;
 pin = m2;
 pin = n1;
+pin = n15v;
 pin = n2;
-pin = n_t_30x;
 pin = p1;
 pin = p2;
 pin = r1;
@@ -54,6 +54,7 @@ pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
 node ad01;
 node ad02;
 node ad02l;
@@ -64,11 +65,8 @@ node bd01l;
 node bd02l;
 node bd03;
 node biot5l;
-node c0_l;
 node c1_l;
 node data1_l;
-node data3;
-node int_enable;
 node n3v3;
 node n_t_10x;
 node n_t_119x;
@@ -81,16 +79,13 @@ node n_t_16x;
 node n_t_17x;
 node n_t_18x;
 node n_t_1x;
-node n_t_20x;
-node n_t_23x;
 node n_t_24x;
-node n_t_25x;
 node n_t_27x;
 node n_t_29x;
 node n_t_2x;
+node n_t_30x;
 node n_t_31x;
 node n_t_32x;
-node n_t_337x;
 node n_t_3x;
 node n_t_40x;
 node n_t_46x;
@@ -98,9 +93,9 @@ node n_t_4x;
 node n_t_5x;
 node n_t_6x;
 node n_t_7x;
-node n_t_80x;
 node n_t_8x;
 node n_t_9x;
+node select6;
 $ENDIF
 
 /* Code nodes */
@@ -158,9 +153,9 @@ j2 = !h1;
 /* e4: sn7450 */
 
 /* e5: sn7400 */
-data3 = !(n3v3 & b1);
-n_t_31x = !(n_t_4x & n_t_2x);
+n_t_31x = !(n3v3 & b1);
 n_t_14x = !(k2 & n3v3);
+n_t_9x = !(m2 & n3v3);
 n_t_32x = !(n3v3 & b1);
 
 /* e6: sn74h40 */

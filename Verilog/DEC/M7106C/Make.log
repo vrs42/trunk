@@ -16,54 +16,54 @@ info: 2.88mhz ne crystalhc49tl_h
 warning: making cr1/2.88mhz/ a connector
 info: d664 ne diode_do35_10
 warning: making d3/d664/ a connector
-info: edge_top ne ma01_1
+info: edge_top ne edge_con2
 warning: making e/edge_top/ a connector
-info: 74161n ne dil14
+info: 74161n ne dil16
 info: 74h10n ne 7410n
 info: 74h04n ne 7404n
-info: 7400n ne dil16
-info: 7402n ne dil16
-info: 7400n ne dil16
-info: 7400n ne dil16
-info: 74161n ne dil14
-info: 7402n ne dil16
-info: 7402n ne dil16
-info: 7400n ne dil16
-info: 7452 ne ma01_1
+info: 7400n ne dil14
+info: 7402n ne dil14
+info: 7400n ne dil14
+info: 7400n ne dil14
+info: 74161n ne dil16
+info: 7402n ne dil14
+info: 7402n ne dil14
+info: 7400n ne dil14
+info: 7452 ne dil14
 warning: making e28/sn7452/ a connector
-info: 7402n ne dil16
-info: 74161n ne dil14
-info: 7402n ne dil16
+info: 7402n ne dil14
+info: 74161n ne dil16
+info: 7402n ne dil14
 info: 74155n ne dil16
-info: 7400n ne dil16
+info: 7400n ne dil14
 info: 74123n ne dil16
 warning: making e38/sn74123/ a connector
-info: 74161n ne dil14
-info: 7402n ne dil16
+info: 74161n ne dil16
+info: 7402n ne dil14
 info: sp380n ne dil14
 info: 74123n ne dil16
 warning: making e43/sn74123/ a connector
-info: ds75452n ne dil14
-info: 7400n ne dil16
+info: ds75452n ne dil08
+info: 7400n ne dil14
 info: 7485n ne dil16
-info: ds75452n ne dil14
-info: ds75452n ne dil14
-info: 74161n ne dil14
-info: ds75452n ne dil14
+info: ds75452n ne dil08
+info: ds75452n ne dil08
+info: 74161n ne dil16
+info: ds75452n ne dil08
 info: sp380n ne dil14
 info: sp380n ne dil14
 info: sp380n ne dil14
 info: sp380n ne dil14
-info: 74161n ne dil14
+info: 74161n ne dil16
 info: 74h04n ne 7404n
-info: 7400n ne dil16
-info: edge_top ne ma01_1
+info: 7400n ne dil14
+info: edge_top ne edge_con2
 warning: making f/edge_top/ a connector
 info: dec40pinsh ne dec40pinh
 warning: making j1/dec40pinsh/ a connector
 info: dec40pinsh ne dec40pinh
 warning: making j2/dec40pinsh/ a connector
-info: quad ne ma01_1
+info: quad ne edge_con8
 warning: making omnibus/quad/ a connector
 info: 10k ne 275p
 warning: making r12/10k/ a connector
@@ -97,10 +97,7 @@ warning: non-bypass capacitor deleted: c35
 warning: non-bypass capacitor deleted: c39
 warning: non-bypass capacitor deleted: c40
 warning: non-bypass capacitor deleted: c45
-unexpected OC output: wrt_clk_data at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3050.
-unexpected OC output: strobe at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3111.
-unexpected OC output: read at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3127.
-unexpected OC output: write at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 3142.
+unexpected OC output: n_t_45x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 2759.
 warning: non-pullup resistor deleted: r1
 warning: non-pullup resistor deleted: r3
 warning: non-pullup resistor deleted: r5
@@ -115,42 +112,53 @@ warning: non-pullup resistor deleted: r55
 warning: non-pullup resistor deleted: w1
 warning: non-pullup resistor deleted: w2
 ~/Verilog/bin/smaller.pl M7106C.PLD >vv || (rm vv; exit 1)
-31 signals were removed:
+43 signals were removed:
   acknowledge: !dsk_acknowledge_l
   b_idle: !idle_l
-  bdata3: !go
-  brk_rq: !wrt_cmd
-  check_header_cmd_l: !strobe
+  b_wrt_clk_l: !b_wrt_clk
   clr_drive_cmd: !clr_drive_cmd_l
-  clr_states: !n6rk3_ok
-  drive1_l: !clr_cntrs
+  crc_state_l: !crc_state
   dsk_sec2: !dsk_sec2_l
-  header_a: !header_c
-  n12th_carry: !last_word_pl_l
-  n16th_bit: !last_word_pl
-  n_t_17x: !clr_all
+  go_l: !go
+  header_a: !n6rk3_l
+  header_c_l: !header_c
+  header_d_l: !header_d
+  header_e_l: !header_e
+  inc_cntrs_l: !inc_cntrs
+  inh_12th_bit: !inh_12th_bit_l
+  main_pl: !bdata6
+  mak: !header_b
+  n12th_carry: !n12th_carry_l
+  n16th_bit: !n16th_bit_l
+  n6rk3_ok_l: !n6rk3_ok
+  n_t_12x: !n_t_31x
+  n_t_25x: !n_t_24x
   n_t_26x: !n_t_20x
-  n_t_30x: !bdata6
-  n_t_39x: !n_t_4x
+  n_t_30x: !n_t_29x
+  n_t_39x: !ma3_l
   n_t_40x: !wrt_clk_l
+  n_t_41x: !n_t_44x
+  n_t_4x: !brk_in_clk
   n_t_56x: !read_clk
   n_t_59x: !rd_clk1_l
-  n_t_66x: !n_t_64x
-  n_t_81x: !data5_l
+  n_t_5x: !n_t_2x
+  n_t_64x: !clr_states
+  n_t_66x: !n_t_67x
+  n_t_6x: !n_t_5x
   n_t_82x: !dsk_sec8_l
   n_t_83x: !dsk_sec4_l
   n_t_84x: !dsk_sec1_l
-  not_chk_header_cmd: !header_d
-  rd_brk_l: !wrt_brk_l
-  rd_clk2_l: !rd_clk1_l
-  read_data_in_l: !wrt_lock_out_l
-  set_sector_seek_l: 'b'1
-  wrt_lock_out: !nbr
-  wt_buff_data_l: !data_enable
+  nbr_l: !nbr
+  rd_clk2_l: !rd_clk2
+  read: !read_l
+  read_data_in_l: !read_data_in
+  restore_l: !restore
+  write_l: !write
+  wrt_lock_out: !wrt_lock_out_l
+  wrt_sync_bit_l: !wrt_sync_bit
 ~/Verilog/bin/smaller.pl vv >M7106CX.PLD || (rm M7106CX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_5x: !n_t_2x
 ~/Verilog/bin/cupl2v.pl M7106CX.PLD >vv || (rm vv; exit 1)
-data_enable.j at /home/vrs/Verilog/bin/cupl2v.pl line 273, <INPUT> line 1812.
-../Makefile:29: recipe for target 'M7106C.v' failed
-make: *** [M7106C.v] Error 1
+mv vv M7106C.v
 rm M7106CX.PLD

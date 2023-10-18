@@ -83,8 +83,8 @@ output skip_l;
 output tp3;
 
 reg adflag_m;
+reg bdflag_m;
 reg enable_b_m;
-reg iot4l_m;
 reg n_t_14x_m;
 reg sl_insert_m;
 
@@ -92,8 +92,9 @@ reg enable_b;
 reg n_t_14x;
 reg enable_b;
 reg sl_insert;
+reg bdflag;
 reg adflag;
-reg iot4l;
+wire a0;
 wire a8;
 wire ad01;
 wire ad02;
@@ -102,34 +103,34 @@ wire bd00;
 wire bd00l;
 wire bd01;
 wire bd03;
-wire bdflag;
 wire biot5l;
 wire clear_reg_l;
 wire clock;
 wire d1;
 wire f2;
+wire h1;
 wire inb2_l;
 wire inb4_l;
 wire inb5_l;
-wire int_enable;
-wire iotl;
 wire k1;
 wire l1;
 wire l2;
 wire left_shift;
+wire m1;
 wire n2;
 wire n3v3;
 wire n3v4;
 wire n_t_10x;
 wire n_t_11x;
 wire n_t_12x;
+wire n_t_136x;
 wire n_t_13x;
+wire n_t_146x;
 wire n_t_27x;
 wire n_t_29x;
 wire n_t_30x;
 wire n_t_31x;
 wire n_t_32x;
-wire n_t_337x;
 wire n_t_33x;
 wire n_t_34x;
 wire n_t_35x;
@@ -141,12 +142,11 @@ wire n_t_54x;
 wire n_t_56x;
 wire n_t_57x;
 wire n_t_7x;
-wire n_t_80x;
 wire n_t_8x;
 wire n_t_9x;
-wire r2;
 wire right_shift;
 wire s1;
+wire select6;
 wire u2;
 wire v2;
 assign n_t_13x = n_t_11x
@@ -258,18 +258,39 @@ assign n_t_33x = gdollar_2 & n_t_52x
                   | n_t_52x & n_t_51x
                   | n_t_51x & gdollar_2;
 // e12: sn7474 
-always @(n_t_15x, iotl, n3v4, n_t_56x)
-  if (~iotl) begin
+always @(n_t_15x, n_t_136x, n3v4, n_t_56x)
+  if (~n_t_136x) begin
+    bdflag_m <= 1'b0;
+  end else
+  if (~n3v4) begin
+    bdflag_m <= 1'b1;
+  end else
+  if (~(n_t_15x)) begin
+    bdflag_m <= n_t_56x;
+  end
+always @(n_t_15x, n_t_136x, n3v4, bdflag_m)
+  if (~n_t_136x) begin
+    bdflag <= 1'b0;
+  end else
+  if (~n3v4) begin
+    bdflag <= 1'b1;
+  end else
+  if (n_t_15x) begin
+    bdflag <= bdflag_m;
+  end
+assign n_t_61x = ~bdflag;
+always @(n_t_15x, n_t_146x, n3v4, n_t_57x)
+  if (~n_t_146x) begin
     adflag_m <= 1'b0;
   end else
   if (~n3v4) begin
     adflag_m <= 1'b1;
   end else
   if (~(n_t_15x)) begin
-    adflag_m <= n_t_56x;
+    adflag_m <= n_t_57x;
   end
-always @(n_t_15x, iotl, n3v4, adflag_m)
-  if (~iotl) begin
+always @(n_t_15x, n_t_146x, n3v4, adflag_m)
+  if (~n_t_146x) begin
     adflag <= 1'b0;
   end else
   if (~n3v4) begin
@@ -278,27 +299,6 @@ always @(n_t_15x, iotl, n3v4, adflag_m)
   if (n_t_15x) begin
     adflag <= adflag_m;
   end
-assign n_t_61x = ~adflag;
-always @(n_t_15x, bdflag, n3v4, n_t_57x)
-  if (~bdflag) begin
-    iot4l_m <= 1'b0;
-  end else
-  if (~n3v4) begin
-    iot4l_m <= 1'b1;
-  end else
-  if (~(n_t_15x)) begin
-    iot4l_m <= n_t_57x;
-  end
-always @(n_t_15x, bdflag, n3v4, iot4l_m)
-  if (~bdflag) begin
-    iot4l <= 1'b0;
-  end else
-  if (~n3v4) begin
-    iot4l <= 1'b1;
-  end else
-  if (n_t_15x) begin
-    iot4l <= iot4l_m;
-  end
-assign n_t_60x = ~iot4l;
+assign n_t_60x = ~adflag;
 // open collector 'wire-or's 
 endmodule

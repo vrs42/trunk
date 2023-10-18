@@ -73,96 +73,23 @@ input n_t_9x;
 output skip_l;
 output tp3;
 
-reg l1_m;
 reg n_t_12x_m;
 reg n_t_19x_m;
 reg n_t_25x_m;
 reg n_t_2x_m;
+reg n_t_47x_m;
 reg n_t_4x_m;
 
-reg l1;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac3_h;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae1;
-wire ae2;
-wire ae2w;
-wire af1;
-wire af1w;
-wire af2;
-wire ah1;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al1;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar1;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire b2;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bh2;
-wire bj1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
+reg n_t_47x;
 wire f2;
 wire h1;
 wire j1;
-wire k1;
-wire k2;
-wire mb2_h;
-wire mb2_l;
-wire mb3_h;
-wire mb3_l;
+wire n3v3;
 wire n_t_37x;
+wire n_t_48x;
+wire p2;
 wire r1;
 wire s1;
-wire tck;
-wire tdo;
 always @(n_t_7x, n_t_8x, n_t_6x, n_t_5x)
   if (~n_t_8x) begin
     n_t_4x_m <= 1'b0;
@@ -206,25 +133,25 @@ always @(n_t_22x, n_t_21x, n_t_23x, n_t_25x_m)
   end
 assign n_t_24x = ~n_t_25x;
 // e2: sn74h74 
-always @(k1, k2)
+always @(n3v3, n_t_48x)
   if (1'b1) begin
-    l1_m <= 1'b0;
+    n_t_47x_m <= 1'b0;
   end else
-  if (~k1) begin
-    l1_m <= 1'b1;
+  if (~n3v3) begin
+    n_t_47x_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    l1_m <= k2;
+    n_t_47x_m <= n_t_48x;
   end
-always @(k1, l1_m)
+always @(n3v3, n_t_47x_m)
   if (1'b1) begin
-    l1 <= 1'b0;
+    n_t_47x <= 1'b0;
   end else
-  if (~k1) begin
-    l1 <= 1'b1;
+  if (~n3v3) begin
+    n_t_47x <= 1'b1;
   end else
   if (1'b0) begin
-    l1 <= l1_m;
+    n_t_47x <= n_t_47x_m;
   end
 always @(n_t_16x, n_t_15x, n_t_20x, n_t_17x)
   if (~n_t_15x) begin

@@ -13,7 +13,7 @@
 // c6: c_us 
 // c7: c_us 
 // ic1: sn74h00 
-module m133x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m133x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 output c1;
@@ -34,7 +34,6 @@ inout l2;
 input m1;
 input m2;
 output n1;
-output n15v;
 inout n2;
 input p1;
 input p2;
@@ -57,7 +56,7 @@ assign c1 = ~(b1 & a1);
 assign l2 = ~(n2 & m2);
 assign k1 = ~(h1 & j1);
 assign n2 = ~(m2 & l2);
-assign h1 = ~(f1 & m1);
+assign h1 = ~(f1 & );
 // ic3: sn74h00 
 assign n1 = ~(l1 & m1);
 assign s1 = ~(p1 & r1);

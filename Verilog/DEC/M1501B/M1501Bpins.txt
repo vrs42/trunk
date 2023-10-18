@@ -165,7 +165,7 @@ E1       1        CLR        in       N$158
          6        !Q         out      N$163
          7        I1         in       N$18
          8        !Q         out      N$164
-         9        I0         in       A1
+         9        I1         in       !U2
          10       PRE        in       N$157
          11       CLK        in       N$52
          12       D          in       N$77
@@ -188,45 +188,45 @@ E2       1        I0         in       N$71
          14       O          out      N$24
          15       B          io       N$8
 
-E3       1        I0         in       +3V3
-         2        O          oc       J1
-         3        O          oc       K1
-         4        I0         in       LL
-         5        I1         in       N$80
-         6        I0         in       JJ
-         7        I1         in       N$80
-         8        I0         in       N$17
-         9        I0         in       N$80
-         10       I1         in       FF
+E3       1        O          oc       K1
+         2        I0         in       LL
+         3        I1         in       N$80
+         4        O          oc       J1
+         5        I0         in       JJ
+         6        I1         in       N$80
+         7        I1         in       N$10
+         8        I0         in       N$80
+         9        I1         in       FF
+         10       O          oc       L2
          11       I0         in       DD
          12       I1         in       N$80
          13       O          oc       M2
-         14       O          oc       L2
+         14       O          out      N$28
          15       B          io       N$4
 
-E4       1        I0         in       E2
-         2        I1         in       N$197
-         3        O          out      N$158
-         4        I0         in       D2
-         5        I1         in       D2
-         6        O          out      N$57
+E4       1        O          out      N$158
+         2        I0         in       E2
+         3        I1         in       N$197
+         4        O          out      N$57
+         5        I0         in       D2
+         6        I1         in       D2
          7        I1         in       N$31
-         8        O          out      N$154
-         9        I0         in       N$197
-         10       I1         in       C1
-         11       O          out      N$157
-         12       I0         in       B1
-         13       I1         in       B1
+         8        I0         in       N$197
+         9        I1         in       C1
+         10       O          out      N$154
+         11       I0         in       B1
+         12       I1         in       B1
+         13       O          out      N$157
          14       O          out      N$46
 
-E5       1        I0         in       R1
+E5       1        O          oc       S1
          2        O          out      N$77
-         3        O          oc       S1
-         4        I0         in       !V2
-         5        I1         in       M2
+         3        I1         in       !V2
+         4        O          oc       N2
+         5        I0         in       !V2
          6        I0         in       H1
          7        I1         in       H1
-         8        O          oc       N2
+         8        I0         in       L2
          9        I0         in       E1
          10       I1         in       E1
          11       I0         in       F1
@@ -234,20 +234,20 @@ E5       1        I0         in       R1
          13       O          out      N$197
          14       O          out      N$73
 
-E6       1        I0         in       R2
-         2        O          oc       L1
-         3        O          oc       M1
-         4        I0         in       RR
-         5        I1         in       N$80
-         6        I0         in       NN
-         7        I1         in       N$80
-         8        O          out      S1
-         9        I0         in       N$80
-         10       I1         in       TT
+E6       1        O          oc       M1
+         2        I0         in       RR
+         3        I1         in       N$80
+         4        O          oc       L1
+         5        I0         in       NN
+         6        I1         in       N$80
+         7        I1         in       N$11
+         8        I0         in       N$80
+         9        I1         in       TT
+         10       O          oc       N2
          11       I0         in       N$80
          12       I1         in       VV
          13       O          oc       P2
-         14       O          oc       N2
+         14       O          out      N$9
          15       B          io       N$16
 
 E7       1        I0         in       H2
@@ -266,79 +266,77 @@ E7       1        I0         in       H2
          14       R          out      A0
          15       B          io       N$12
 
-E8       1        I          in       N$57
-         2        O          oc       N1
-         3        O          oc       P1
-         4        I0         in       B
-         5        I1         in       N$80
-         6        I0         in       D
-         7        I1         in       N$80
-         8        O          out      N$17
-         9        I0         in       N$80
-         10       I1         in       F
+E8       1        O          oc       P1
+         2        I0         in       B
+         3        I1         in       N$80
+         4        O          oc       N1
+         5        I0         in       D
+         6        I1         in       N$80
+         7        Y3         out      SELECT6
+         8        I0         in       N$80
+         9        I1         in       F
+         10       O          oc       R2
          11       I0         in       N$80
          12       I1         in       J
          13       O          oc       S2
-         14       O          oc       R2
+         14       A          in       A0
          15       G          in       !C1
 
-E9       1        I0         in       A8
-         2        O          oc       R1
-         3        O          oc       S1
-         4        I0         in       T
-         5        I1         in       N$80
-         6        I0         in       R
-         7        I1         in       N$80
-         8        O          oc       N$43
-         9        I0         in       N$80
-         10       I1         in       L
+E9       1        O          oc       S1
+         2        I0         in       T
+         3        I1         in       N$80
+         4        O          oc       R1
+         5        I0         in       R
+         6        I1         in       N$80
+         8        I0         in       N$80
+         9        I1         in       L
+         10       O          oc       T2
          11       I0         in       N$80
          12       I1         in       N
          13       O          oc       U2
-         14       O          oc       T2
 
-J1       AA       P$2        pas      GND
-         A        P$2        pas      GND
+J1       A        P$2        pas      GND
          B        P$2        pas      B
-         C        P$2        pas      GND
          CC       P$2        pas      GND
+         C        P$2        pas      GND
          DD       P$2        pas      DD
+         D        P$2        pas      D
+         EE       P$2        pas      GND
          E        P$2        pas      GND
          F        P$2        pas      F
-         HH       P$2        pas      GND
+         FF       P$2        pas      FF
          H        P$2        pas      GND
-         JJ       P$2        pas      JJ
          J        P$2        pas      J
-         KK       P$2        pas      GND
          K        P$2        pas      GND
+         KK       P$2        pas      GND
          L        P$2        pas      L
-         LL       P$2        pas      LL
          MM       P$2        pas      GND
-         M        P$2        pas      GND
-         NN       P$2        pas      NN
          N        P$2        pas      N
-         P        P$2        pas      GND
+         NN       P$2        pas      NN
          PP       P$2        pas      GND
+         P        P$2        pas      GND
          RR       P$2        pas      RR
+         R        P$2        pas      R
          SS       P$2        pas      GND
+         S        P$2        pas      GND
          T        P$2        pas      T
          TT       P$2        pas      TT
          U        P$2        pas      GND
+         UU       P$2        pas      GND
+         V        P$2        pas      GND
+         VV       P$2        pas      VV
+         2        2          pas      N$10
+         W        P$2        pas      GND
          X        P$2        pas      X
          Y        P$2        pas      GND
          Z        P$2        pas      Z
          1        1          pas      N$17
+         AA       P$2        pas      GND
          BB       P$2        pas      BB
-         D        P$2        pas      D
-         EE       P$2        pas      GND
-         FF       P$2        pas      FF
-         R        P$2        pas      R
-         S        P$2        pas      GND
-         V        P$2        pas      GND
-         W        P$2        pas      GND
-         2        2          pas      N$10
-         UU       P$2        pas      GND
-         VV       P$2        pas      VV
+         HH       P$2        pas      GND
+         JJ       P$2        pas      JJ
+         LL       P$2        pas      LL
+         M        P$2        pas      GND
 
 R1       1        1          pas      +3V3
          2        2          pas      VCC

@@ -28,25 +28,24 @@
 // c21: cpol_use 
 // c23: c_us 
 // e1: sn7430 
-module m707d (n_t_22x, n_t_27x, n_t_8x, a1, ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, b1, b2, bit4, bit6, bit9, bn1, bp1, buffer_strobe, c0_l, c1, c1_l, clr_flag1, clr_flag2, clr_flg1, d1, d2, data10_l, data11_l, data7_l, data8_l, data9_l, e1, e2, echo, enable, enable_ds, f1, f2, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, ioclr, irq, j1, j2, k1, k2, l1, l2, line, load_buffer, m1, m2, md04_l, md05_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_16x, n_t_17x, n_t_35x, n_t_36x, n_t_47x, n_t_52x, n_t_59x, n_t_60x, n_t_63x, p1, p2, r1, r2, s1, s2, serial_in, serial_out, size, skip, skip_l, skp_strobe, stop, t2, tp3, u1, u2, v1, v2, wait_l);
-input n_t_22x;
+module m707d (n_t_27x, n_t_8x, a1, ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, b1, b2, bit4, bit6, bit9, bn1, bp1, buffer_strobe, c0_l, c1, c1_l, clr_flag1, clr_flag2, clr_flg1, d1, d2, data10_l, data11_l, data7_l, data8_l, data9_l, e1, e2, echo, enable, enable_ds, f1, f2, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, ioclr, irq, j1, j2, k1, k2, l1, l2, line, load_buffer, m1, m2, md04_l, md05_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_16x, n_t_17x, n_t_35x, n_t_36x, n_t_47x, n_t_52x, n_t_59x, n_t_60x, n_t_63x, p1, p2, r1, r2, s1, s2, serial_in, serial_out, size, skip, skip_l, skp_strobe, stop, t2, tp3, u1, u2, v1, v2, wait_l);
 output n_t_27x;
 output n_t_8x;
 output a1;
 input ac04;
 input ac05;
 input ac06;
-output ac07;
-output ac08;
+input ac07;
+input ac08;
 input ac09;
 input ac10;
 input ac11;
 inout reg active;
 input ae1;
-output af1;
+input af1;
 input ah1;
 output al1;
-input ar1;
+inout ar1;
 output b1;
 output b2;
 inout reg bit4;
@@ -59,7 +58,7 @@ output c0_l;
 output c1;
 output c1_l;
 input clr_flag1;
-output clr_flag2;
+input clr_flag2;
 output clr_flg1;
 output d1;
 output d2;
@@ -72,9 +71,9 @@ output e1;
 output e2;
 input echo;
 input enable;
-output enable_ds;
+input enable_ds;
 output f1;
-input f2;
+output f2;
 output h1;
 output h2;
 output initialize;
@@ -126,7 +125,7 @@ output serial_out;
 input size;
 output skip;
 output skip_l;
-output skp_strobe;
+input skp_strobe;
 input stop;
 output t2;
 output tp3;
@@ -134,7 +133,7 @@ output u1;
 output u2;
 output v1;
 output v2;
-output wait_l;
+input wait_l;
 
 reg active_m;
 reg bit1_m;
@@ -159,94 +158,21 @@ reg bit2;
 reg bit3;
 reg n_t_166x;
 reg n_t_138x;
-wire a3;
-wire aa1;
-wire ab1;
-wire ab2;
-wire ac1;
-wire ac2_h;
-wire ac2_l;
-wire ac3_h;
-wire ac3_l;
-wire ad1;
-wire ad2;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae2;
-wire ae2w;
-wire af1w;
-wire af2;
-wire ah2;
-wire aj1;
-wire aj1w;
-wire aj2;
-wire ak1;
-wire ak2;
-wire al2;
-wire al2w;
-wire am1;
-wire am1w;
-wire am2;
-wire am2w;
-wire an1;
-wire an1w;
-wire an2;
-wire ap1;
-wire ap1w;
-wire ap2;
-wire ar2;
-wire ar2w;
-wire as1;
-wire as2;
-wire at2;
-wire at2w;
-wire au1;
-wire au2;
-wire au2w;
-wire av1;
-wire av1w;
-wire av2;
-wire av2w;
-wire ba1;
-wire bb2;
-wire bc1;
-wire bd2;
-wire be2;
-wire bf1;
-wire bf2;
-wire bh1;
-wire bl1;
-wire bl2;
-wire bm2;
-wire bu2;
-wire bv1;
-wire bv2;
-wire c3;
-wire data3;
-wire io3;
+wire data1_l;
 wire ioclr_l;
-wire ma2_h;
-wire ma3_h;
-wire ma3_l;
-wire mb2_l;
-wire mb3_h;
 wire md07_l;
 wire n3v3;
+wire n_t_10x;
 wire n_t_11x;
 wire n_t_123x;
 wire n_t_132x;
-wire n_t_133x;
-wire n_t_147x;
 wire n_t_14x;
 wire n_t_161x;
 wire n_t_171x;
-wire n_t_1x;
 wire n_t_20x;
 wire n_t_28x;
 wire n_t_29x;
 wire n_t_2x;
-wire n_t_32x;
 wire n_t_34x;
 wire n_t_378x;
 wire n_t_37x;
@@ -257,7 +183,6 @@ wire n_t_3x;
 wire n_t_41x;
 wire n_t_42x;
 wire n_t_50x;
-wire n_t_51x;
 wire n_t_53x;
 wire n_t_54x;
 wire n_t_55x;
@@ -266,28 +191,19 @@ wire n_t_58x;
 wire n_t_62x;
 wire n_t_64x;
 wire n_t_65x;
-wire n_t_69x;
 wire n_t_6x;
 wire n_t_72x;
 wire n_t_73x;
 wire n_t_74x;
 wire n_t_76x;
-wire n_t_80x;
 wire n_t_81x;
 wire n_t_84x;
 wire n_t_86x;
 wire n_t_9x;
 wire p1_l;
-wire pc2_h;
-wire pc3_h;
-wire pc3_l;
-wire sc3;
 wire selected;
-wire sr3;
-wire tck;
-wire tdo;
 wire tx;
-assign n_t_32x = ~(n_t_17x & ae1 & f2 & n_t_15x & n_t_13x & n_t_12x & n3v & n3v);
+assign n_t_9x = ~(n_t_17x & ae1 & n_t_15x & af1 & n_t_13x & n_t_12x & n3v & n3v);
 // e2: sn7474 
 always @(n_t_16x, ioclr_l, n_t_3x, bit9)
   if (~ioclr_l) begin
@@ -331,14 +247,16 @@ always @(n_t_16x, ioclr_l, n_t_54x, bit1_m)
   end
 assign al1 = ~bit1;
 // e3: sn7400 
-assign tx = ~(n_t_65x & bit6);
+assign tx = ~(echo & line);
 assign n_t_39x = ~(~n_t_16x & ~n_t_6x);
 // e4: sn7400 
-assign n_t_20x = ~(n_t_147x & bit4);
-assign selected = ~(selected & load_buffer);
+assign n_t_20x = ~(enable & ~ar1);
+assign selected = ~(n_t_9x & enable_ds);
+assign ar1 = ~(selected & load_buffer);
 // e5: sn7400 
-assign n_t_53x = ~(n_t_171x & bit2);
-assign n_t_381x = ~(ac05 & ~ar1);
+assign n_t_53x = ~(ac06 & ~ar1);
+assign n_t_381x = ~(~ar1 & ac07);
+assign n_t_378x = ~(ac05 & ~ar1);
 assign n_t_3x = ~(~ar1 & ac04);
 // e6: sn7474 
 always @(n_t_16x, ioclr_l, n_t_20x, 1'b0)
@@ -363,9 +281,9 @@ always @(n_t_16x, ioclr_l, n_t_20x, bit9_m)
   end
 assign al1 = ~bit9;
 // e7: sn7400 
-assign buffer_strobe = ~(~ar1 & ac10);
-assign n_t_37x = ~(n_t_16x & n_t_51x);
+assign n_t_37x = ~(~ar1 & ac10);
 assign n_t_54x = ~(~ar1 & ac11);
+assign n_t_42x = ~(ac08 & ~ar1);
 assign n_t_52x = ~(~ar1 & ac09);
 // e8: sn7474 
 always @(n_t_16x, ioclr_l, n_t_53x, bit7)
@@ -409,7 +327,7 @@ always @(n_t_16x, ioclr_l, n_t_378x, bit7_m)
     bit7 <= bit7_m;
   end
 // e9: sn7430 
-assign n_t_80x = ~(~bit6 & ~bit7 & n_t_22x & ~bit5 & n_t_36x & n_t_6x & ah1 & ~line);
+assign n_t_6x = ~(~bit6 & ~bit7 & ~bit5 & ~bit4 & n_t_36x & ~bit2 & ah1 & ~line);
 // e10: sn7440 
 assign ioclr_l = ~(n3v & ioclr);
 // e11: sn7474 
@@ -454,11 +372,11 @@ always @(n_t_16x, ioclr_l, n_t_381x, bit5_m)
     bit5 <= bit5_m;
   end
 // e12: sn7400 
-assign n_t_28x = ~(n_t_16x & n_t_62x);
+assign n_t_28x = ~(n_t_10x & n_t_62x);
 // e13: sn7410 
-assign ioclr_l = ~(clr_flag1 & n3v & n_t_62x);
-assign n_t_132x = ~(~n_t_35x & selected & n_t_39x);
-assign n_t_35x = ~(n_t_132x & ~irq & selected);
+assign n_t_132x = ~(clr_flag1 & n3v & selected);
+assign n_t_35x = ~(n_t_132x & clr_flag2 & ioclr_l);
+assign skip = ~(skp_strobe & ~irq & selected);
 // e14: sn7474 
 always @(n2xclk, n3v, n_t_16x, n_t_138x)
   if (~n3v) begin
@@ -564,21 +482,21 @@ always @(n2xclk, ioclr_l, n3v, active_m)
   if (n2xclk) begin
     active <= active_m;
   end
-always @(n_t_16x, n3v, n_t_133x, n_t_6x)
+always @(n_t_16x, n3v, n_t_35x, n_t_6x)
   if (~n3v) begin
     irq_m <= 1'b0;
   end else
-  if (n_t_133x) begin
+  if (n_t_35x) begin
     irq_m <= 1'b1;
   end else
   if (~(n_t_16x)) begin
     irq_m <= n_t_6x;
   end
-always @(n_t_16x, n3v, n_t_133x, irq_m)
+always @(n_t_16x, n3v, n_t_35x, irq_m)
   if (~n3v) begin
     irq <= 1'b0;
   end else
-  if (n_t_133x) begin
+  if (n_t_35x) begin
     irq <= 1'b1;
   end else
   if (n_t_16x) begin
@@ -608,8 +526,9 @@ always @(n2xclk, n3v, n_t_16x, n_t_138x_m)
   end
 assign bp1 = ~n_t_138x;
 // e18: sn7400 
-assign serial_in = ~(n_t_39x & active);
-assign n_t_11x = ~(active & ~active);
+assign n_t_10x = ~(n_t_39x & active);
+assign n_t_11x = ~(active & n_t_16x);
+assign n_t_161x = ~(wait_l & ~active);
 assign n_t_62x = ~(stop & size);
 // r1: r_us_ 
 // r2: r_us_ 

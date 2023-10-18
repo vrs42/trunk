@@ -28,7 +28,8 @@
 // r8: r_us_ 
 // r9: r_us_ 
 // open collector 'wire-or's 
-module m660a (a1, aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, n15v, n_t_10x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_21x, n_t_25x, n_t_26x, n_t_28x, n_t_2x, n_t_33x, n_t_34x, n_t_3x, n_t_41x, n_t_42x, n_t_4x, n_t_58x, n_t_5x, n_t_60x, n_t_62x, n_t_66x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+module m660a (n_t_11x, a1, aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, n15v, n_t_10x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_21x, n_t_25x, n_t_26x, n_t_28x, n_t_2x, n_t_33x, n_t_34x, n_t_3x, n_t_41x, n_t_42x, n_t_4x, n_t_58x, n_t_60x, n_t_62x, n_t_66x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+output n_t_11x;
 output a1;
 output aa1;
 output ab1;
@@ -116,7 +117,6 @@ output n_t_41x;
 output n_t_42x;
 output n_t_4x;
 output n_t_58x;
-output n_t_5x;
 output n_t_60x;
 output n_t_62x;
 output n_t_66x;
@@ -126,38 +126,11 @@ input n_t_8x;
 inout n_t_9x;
 
 
-wire ab2;
-wire ac3_h;
-wire adder3;
-wire adder4;
-wire adder5;
-wire ae2w;
-wire af1w;
-wire aj1w;
-wire ak2;
-wire am1w;
-wire am2w;
-wire ap1w;
-wire ar2w;
-wire at2w;
-wire au2w;
-wire av1w;
-wire av2w;
-wire b2;
-wire bb2;
-wire c3;
 wire cbot_l;
 wire ebot_l;
 wire erws_l;
-wire h1;
-wire j1;
-wire mb3_h;
 wire n_t_22x;
 wire n_t_27x;
-wire r1;
-wire s1;
-wire tck;
-wire tdo;
 assign n_t_10x = n_t_9x? ~n_t_9x: 1'bz;
 assign n_t_15x = (n_t_13x & n_t_14x)? 1'b0: 1'bz;
 assign n_t_16x = n_t_15x? ~n_t_15x: 1'bz;

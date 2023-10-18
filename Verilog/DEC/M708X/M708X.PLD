@@ -3,7 +3,7 @@
 
 Name     M708X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -104,6 +104,7 @@ pin = rtur_l;
 pin = set_pulse_h;
 pin = skip_l;
 pin = tb3_h;
+pin = u1;
 pin = v_clamp;
 pin = xrd0_l;
 pin = xrd2_l;
@@ -115,110 +116,30 @@ node n_t_36x;
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node a1;
-node a3;
-node aa1;
-node ab1;
-node ab2;
 node ac06;
-node ac1;
-node ac2_h;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad1;
-node ad2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
+node ac07;
 node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
 node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
-node ba1;
-node bb2;
-node bc1;
-node bd2;
-node be2;
-node bf1;
-node bf2;
-node bh1;
-node bit2;
-node bit4;
 node bit9;
-node bl1;
-node bl2;
-node bm2;
-node bu2;
-node buffer_strobe;
-node bv1;
-node bv2;
-node c3;
 node clr_flag_l;
-node data3;
-node f2;
-node io3;
+node data1_l;
 node ioclr_l;
 node k1;
-node ma2_h;
-node ma3_h;
-node ma3_l;
-node mb2_l;
-node mb3_h;
 node n3v1;
 node n3v3;
 node n_t_10x;
 node n_t_11x;
 node n_t_12x;
 node n_t_13x;
-node n_t_147x;
 node n_t_14x;
 node n_t_152x;
 node n_t_153x;
 node n_t_15x;
 node n_t_16x;
-node n_t_171x;
 node n_t_18x;
 node n_t_19x;
 node n_t_1x;
 node n_t_20x;
-node n_t_22x;
 node n_t_26x;
 node n_t_27x;
 node n_t_29x;
@@ -227,27 +148,21 @@ node n_t_31x;
 node n_t_32x;
 node n_t_34x;
 node n_t_37x;
+node n_t_381x;
 node n_t_38x;
 node n_t_39x;
 node n_t_3x;
 node n_t_40x;
 node n_t_41x;
 node n_t_4x;
-node n_t_51x;
 node n_t_53x;
 node n_t_55x;
 node n_t_5x;
 node n_t_6x;
 node n_t_7x;
 node n_t_86x;
+node n_t_8x;
 node n_t_9x;
-node pc2_h;
-node pc3_h;
-node pc3_l;
-node sc3;
-node sr3;
-node tck;
-node tdo;
 $ENDIF
 
 /* Code nodes */
@@ -273,6 +188,10 @@ $ENDIF
 /* c9: c_us */
 
 /* e1: sn7401 */
+/* io_irq_l = !(flag & irq_enb); */
+/* io_skip_l = !(flag_buffer & n_t_32x); */
+/* clr_flag_l = !(n_t_32x & flag_buffer); */
+/* clr_flag_l = !n_t_14x; */
 
 /* e2: sn7474 */
 flag_buffer.ar = !n_t_29x;
@@ -299,24 +218,24 @@ irq_enb.ap = !n_t_38x;
 n_t_39x = !irq_enb;
 
 /* e4: sn7400 */
-n_t_5x = !(mb11 & load_counter);
-n_t_38x = !(n_t_147x & bit4);
+n_t_38x = !(mb11 & load_counter);
 n_t_41x = !n_t_40x;
+n_t_40x = !(n_t_36x & overflow);
 n_t_19x = !ar1;
 
 /* e5: sn7400 */
-n_t_5x = !(ac06 & n_t_19x);
-n_t_53x = !(n_t_171x & bit2);
+n_t_53x = !(ac06 & n_t_19x);
+n_t_381x = !(n_t_19x & ac07);
 iop1 = !(iop1_l & n3v1);
 iop4 = !(iop4_l & n3v1);
 
 /* e6: sn7430 */
-al1 = !(mb3_l & mb4_l & n_t_5x & mb5 & mb6_l & n_t_26x & n3v1 & n3v1);
+n_t_26x = !(mb3_l & mb4_l & mb5 & mb6_l & mb7 & mb8 & n3v1 & n3v1);
 
 /* e7: sn7400 */
-buffer_strobe = !(clock_iot & iop2);
-n_t_29x = !(n_t_5x & n_t_51x);
+n_t_29x = !(clock_iot & iop2);
 iop2 = !(n3v1 & iop2_l);
+clock_iot = !n_t_26x;
 n_t_34x = !(mb9_l & mb11);
 
 /* e8: sn7420 */
@@ -324,8 +243,8 @@ n_t_31x = !(clock_iot & iop1 & mb10 & mb9_l);
 n_t_35x = !(n_t_34x & clock_iot & iop2);
 
 /* e9: sn7400 */
-n_t_22x = !n_t_31x;
-n_t_32x = !(n_t_153x & n_t_36x);
+n_t_32x = !n_t_31x;
+n_t_37x = !(load_counter & mb9);
 n_t_14x = !(n_t_35x & initialize);
 load_counter = !n_t_35x;
 
@@ -344,3 +263,11 @@ n3v1 = 'b'1;
 /* r6: r_us_ */
 
 /* Open collector 'wire-or's */
+!clr_flag_l = (n_t_32x & flag_buffer)
+              # (n_t_14x);
+property atmel {open_collector= io_irq_l};
+!io_irq_l = (flag & irq_enb);
+io_irq_l.oe = (flag & irq_enb);
+property atmel {open_collector= io_skip_l};
+!io_skip_l = (flag_buffer & n_t_32x);
+io_skip_l.oe = (flag_buffer & n_t_32x);

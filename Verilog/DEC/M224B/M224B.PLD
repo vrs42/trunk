@@ -3,7 +3,7 @@
 
 Name     M224B ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -86,18 +86,8 @@ pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a1;
-node a1p;
-node a2;
-node a3;
 node a8;
-node aa1;
-node ab1;
-node ab2;
-node ac1;
-node ac2_h;
 node ac2_l;
-node ac3_h;
 node ac3_l;
 node ac_2;
 node ad01;
@@ -110,119 +100,48 @@ node ad06h;
 node ad06l;
 node ad07h;
 node ad07l;
-node ad1;
-node ad2;
-node adder1;
-node adder2;
-node adder3;
-node adder4;
-node adder5;
-node ae1;
-node ae2;
-node ae2w;
-node af1;
-node af1w;
-node af2;
-node ah1;
-node ah2;
 node aiot6l;
 node aiotl;
-node aj1;
-node aj1w;
-node aj2;
-node ak1;
-node ak2;
-node al1;
-node al2;
-node al2w;
-node am1;
-node am1w;
-node am2;
-node am2w;
-node an1;
-node an1w;
-node an2;
-node ap1;
-node ap1w;
-node ap2;
-node ar1;
-node ar2;
-node ar2w;
-node as1;
-node as2;
-node at2;
-node at2u;
-node at2w;
-node au1;
-node au2;
-node au2w;
-node av1;
-node av1w;
-node av2;
-node av2w;
-node b2;
-node b3;
-node ba1;
 node bb1;
-node bb2;
-node bc1;
+node bd00;
+node bd03;
 node bd04;
 node bd05;
 node bd07;
 node bd07l;
 node bd08;
 node bd09;
-node bd2;
-node be2;
-node bf1;
-node bf2;
 node bh1;
-node bh2;
 node biot0l;
 node biot5l;
 node biot6l;
 node bj1;
-node bl1;
-node bl2;
-node bm2;
 node bn1;
 node bn1_l;
 node br1_l;
 node bt2;
-node bu2;
-node bv1;
-node bv2;
-node c2;
-node c3;
-node da_enabl;
-node data2;
-node data3;
+node c1_l;
+node data1_l;
 node data5_l;
 node data7;
 node data8_l;
 node data9_l;
-node data_enabl;
 node enable_pc;
-node io2;
-node io3;
+node f2;
+node h1;
 node load_tac;
 node load_tbn;
 node load_tma;
-node ma2_h;
-node ma2_l;
-node ma3_h;
-node ma3_l;
+node m1;
 node mb2_h;
-node mb2_l;
-node mb3_h;
-node mb3_l;
 node mb_2_l;
 node md07_l;
 node md09_l;
 node md09h;
 node md10h;
 node md11_l;
-node n3v;
+node md11h;
+node n2;
 node n3v2;
 node n3v3;
 node n_t_100x;
@@ -240,7 +159,6 @@ node n_t_112x;
 node n_t_113x;
 node n_t_11x;
 node n_t_125x;
-node n_t_147x;
 node n_t_14x;
 node n_t_170x;
 node n_t_17x;
@@ -280,28 +198,19 @@ node n_t_96x;
 node n_t_97x;
 node n_t_98x;
 node n_t_99x;
-node pc2_h;
-node pc2_l;
-node pc3_h;
-node pc3_l;
+node p1;
 node phase;
 node ps_3;
 node ps_left_2;
-node reg_bus2;
 node rsw3;
 node rwb_out;
-node sc2;
-node sc3;
-node shift_l2;
-node sr2;
-node sr3;
+node s1;
+node select6;
 node tape_bus2;
 node tape_bus3;
 node tbn3;
-node tck;
-node tdo;
 node tma3;
-node tt_shift;
+node u2;
 $ENDIF
 
 /* Code nodes */
@@ -581,7 +490,7 @@ n_t_74x = n_t_57x;
         # n_t_82x & n_t_18x
         # n_t_102x & n_t_16x & n_t_16x
         # n_t_77x & n_t_13x); */
-/* n_t_147x = !n_t_24x; */
+/* n_t_2x = !n_t_24x; */
 n_t_109x = n_t_24x;
 
 /* e24: sn74h53 */
@@ -589,7 +498,7 @@ n_t_109x = n_t_24x;
         # n_t_68x & n_t_18x
         # n_t_101x & n_t_16x & n_t_16x
         # n_t_76x & n_t_13x); */
-/* n_t_36x = !n_t_41x; */
+/* n_t_23x = !n_t_41x; */
 n_t_106x = n_t_41x;
 
 /* e25: sn74h53 */
@@ -750,7 +659,6 @@ n_t_13x.oe = (n_t_27x & n_t_23x
         # n_t_28x & n_t_42x
         # n_t_29x & n_t_56x & n_t_56x
         # n_t_30x & n_t_60x);
-!n_t_147x = n_t_24x;
 !n_t_14x = n_t_23x;
 !n_t_17x = n_t_34x;
 !n_t_217x = (n_t_27x & n_t_92x
@@ -761,11 +669,13 @@ property atmel {open_collector= n_t_23x};
 !n_t_23x = (n_t_12x & n_t_14x
         # n_t_13x & n_t_7x
         # n_t_16x & n_t_17x & n_t_17x
-        # n_t_18x & n_t_10x);
+        # n_t_18x & n_t_10x)
+           # (n_t_41x);
 n_t_23x.oe = (n_t_12x & n_t_14x
         # n_t_13x & n_t_7x
         # n_t_16x & n_t_17x & n_t_17x
-        # n_t_18x & n_t_10x);
+        # n_t_18x & n_t_10x)
+           # (n_t_41x);
 property atmel {open_collector= n_t_24x};
 !n_t_24x = (n_t_96x & n_t_12x
         # n_t_82x & n_t_18x
@@ -776,8 +686,10 @@ n_t_24x.oe = (n_t_96x & n_t_12x
         # n_t_102x & n_t_16x & n_t_16x
         # n_t_77x & n_t_13x);
 property atmel {open_collector= n_t_2x};
-!n_t_2x = tape_bus2;
-n_t_2x.oe = tape_bus2;
+!n_t_2x = (tape_bus2)
+          # (n_t_24x);
+n_t_2x.oe = (tape_bus2)
+          # (n_t_24x);
 !n_t_34x = (n_t_27x & n_t_21x
         # n_t_28x & n_t_23x
         # n_t_29x & n_t_41x & n_t_41x
@@ -786,7 +698,6 @@ n_t_2x.oe = tape_bus2;
          # n_t_89x & n_t_4x
          # n_t_3x
          # n_t_88x & n_t_1x);
-!n_t_36x = n_t_41x;
 property atmel {open_collector= n_t_3x};
 !n_t_3x = n_t_4x;
 n_t_3x.oe = n_t_4x;

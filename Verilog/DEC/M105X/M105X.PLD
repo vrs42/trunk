@@ -3,7 +3,7 @@
 
 Name     M105X ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -17,8 +17,8 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = a00;
-pin = a01;
 pin = a06;
+pin = n3v3;
 pin = n_t_33x;
 pin = n_t_34x;
 pin = n_t_35x;
@@ -31,14 +31,12 @@ pin = n_t_42x;
 
 /* Output Pins */
 pin = a0;
-pin = a03;
-pin = a07;
+pin = a01;
 pin = a1;
 pin = a10;
 pin = a11;
 pin = a12;
 pin = a13;
-pin = a1314;
 pin = a14;
 pin = a15;
 pin = a16;
@@ -53,6 +51,7 @@ pin = a8;
 pin = a9;
 pin = c0;
 pin = c1;
+pin = c1_l;
 pin = extgnd;
 pin = msyn;
 pin = n15v;
@@ -102,7 +101,6 @@ pin = testpoint;
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node a09;
-node c1_l;
 node n_t_22x;
 node n_t_31x;
 node n_t_46x;
@@ -173,7 +171,9 @@ n_t_46x = !n_t_31x;
 /* r4: r_us_ */
 
 /* Open collector 'wire-or's */
+property atmel {open_collector= c1_l};
 !c1_l = c1;
+c1_l.oe = c1;
 !n_t_22x = testpoint;
 property atmel {open_collector= syn_l};
 !syn_l = n_t_44x;

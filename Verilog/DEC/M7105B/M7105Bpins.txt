@@ -77,7 +77,7 @@ C15      +        +          pas      VCC
          1        1          pas      VCC
          2        2          pas      GND
 
-C16      +        +          pas      VCC
+C16      +        +          pas      N$22
          -        -          pas      GND
          1        1          pas      VCC
          2        2          pas      GND
@@ -110,13 +110,11 @@ C22      +        +          pas      VCC
          1        1          pas      VCC
          2        2          pas      GND
 
-C23      +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C23      1        1          pas      VCC
          2        2          pas      GND
 
-C24      +        +          pas      GND
-         -        -          pas      -15V
+C24      +        +          pas      VCC
+         -        -          pas      GND
          1        1          pas      VCC
          2        2          pas      GND
 
@@ -125,8 +123,8 @@ C25      +        +          pas      VCC
          1        1          pas      VCC
          2        2          pas      GND
 
-C26      +        +          pas      GND
-         -        -          pas      -15V
+C26      +        +          pas      VCC
+         -        -          pas      GND
          1        1          pas      VCC
          2        2          pas      GND
 
@@ -171,85 +169,29 @@ C37      +        +          pas      VCC
          1        1          pas      N$8
          2        2          pas      GND
 
-E1       1        O          oc       N$15
-         2        O          oc       !EMA1
-         3        O          oc       !EMA2
-         4        I0         in       EMA2
-         5        I1         in       DATA_ENABLE
-         6        I0         in       EMA1
-         7        I1         in       DATA_ENABLE
-         8        I0         in       N$2
-         9        I0         in       DATA_ENABLE
-         10       I1         in       EMA0
+E1       1        O          oc       !EMA2
+         2        I0         in       EMA2
+         3        I1         in       DATA_ENABLE
+         4        O          oc       !EMA1
+         5        I0         in       EMA1
+         6        I1         in       DATA_ENABLE
+         7        D4         in       E2
+         8        I0         in       DATA_ENABLE
+         9        I1         in       EMA0
+         10       O          oc       !EMA0
          11       I0         in       DATA_ENABLE
          12       I1         in       !BRK_DIR
          13       O          oc       !MD_DIR
-         14       O          oc       !EMA0
+         14       !Q2        out      N$29
          15       Q2         out      N$13
          16       Q1         out      N$14
-         17       O5         io       ADDER4
-         18       O6         io       BB2
-         19       O7         io       AJ1
-         20       FB1MC15    io       AH1
-         21       O7         io       AK2
-         22       FB1MC16    io       AF2
-         23       O9         io       MB3_H
-         24       FB1MC17    io       AF1W
-         25       FB2MC17    io       AE2W
-         26       FB2MC16    io       AE1
-         27       FB2MC15    io       AD2
-         28       FB2MC14    io       AD1
-         29       FB2MC13    io       AC1
-         30       TDO        out      N$2
-         31       IO22       io       BH1
-         33       FB2MC12    io       AB2
-         34       FB2MC11    io       AB1
-         35       FB2MC10    io       AA1
-         36       FB2MC9     io       GND
-         37       FB2MC8     io       GND
-         38       FB2MC7     io       GND
-         39       GSR        in       BB2
-         40       GTS@1      in       GND
-         41       IO30       io       BC1
-         42       GTS@0      in       GND
-         43       FB2MC4     io       AV2W
-         44       FB2MC2     io       AV1W
-         45       IO/PD2     io       BA1
-         46       IO33       io       AV1
-         48       IO34       io       AV2
-         49       IO35       io       AU1
-         50       IO36       io       AU2
-         51       IO37       io       AT2
-         52       IO38       io       AS1
-         53       VCCIO      pwr      VCC
-         54       IO39       io       AS2
-         55       IO40       io       AR1
-         56       IO41       io       AR2
-         57       IO42       io       AP1
-         58       IO43       io       AP2
-         60       IO44       io       AN1
-         61       IO45       io       AN2
-         62       TCK        io       TCK
-         63       IO46       io       AM1
-         64       IO47       io       AM2
-         65       IO48       io       AL1
-         66       VCCIO      pwr      VCC
-         67       IO49       io       AL2
-         68       IO50       io       AK1
-         69       IO51       io       AK2
-         70       IO52       io       AJ1
-         71       TDO        io       TDO
-         73       IO53       io       AJ2
-         74       IO54       io       AH1
-         75       IO55       io       AH2
-         76       IO56       io       AF1
-         77       IO57       io       AF2
-         78       VCCIO      pwr      VCC
-         79       IO58       io       AE1
-         80       IO59       io       AE2
-         81       IO/GCLK3   io       AD1
-         83       IN/GCLK1   in       AD2
-         84       IN/OE1     in       AC1
+         17       15         out      N$16
+         18       G1         in       N$15
+         19       G2         in       N$13
+         20       D          in       N$11
+         21       C          in       N$12
+         22       B          in       N$10
+         23       A          in       N$8
 
 E2       1        R          in       !CLR_ALL
          2        I1         in       BDATA1
@@ -258,7 +200,7 @@ E2       1        R          in       !CLR_ALL
          5        Q0         out      FUNCTION00
          6        C          in       !LD-SHFT_CMD_REG
          7        Q1         out      FUNCTION01
-         8        I0         in       !MD1
+         8        !Q         out      AL1
          9        Q2         out      FUNCTION02
          10       L          in       6RK6
          11       Q3         out      ENAB_INT
@@ -267,31 +209,6 @@ E2       1        R          in       !CLR_ALL
          14       I3         in       BDATA3
          15       I2         in       BDATA2
          16       Q1         out      A1
-         17       O5         io       ADDER5
-         18       O6         io       ADDER3
-         19       O7         io       AK2
-         20       FB1MC15    io       AU2W
-         21       O7         io       AK2
-         22       FB1MC16    io       AU1
-         23       O9         io       AC3_H
-         24       FB1MC17    io       AT2W
-         25       FB2MC17    io       AR2W
-         26       FB2MC16    io       GND
-         27       FB2MC15    io       GND
-         28       FB2MC14    io       GND
-         29       FB2MC13    io       AP1W
-         30       TDO        out      N$5
-         33       FB2MC12    io       AM2W
-         34       FB2MC11    io       AM1W
-         35       FB2MC10    io       AJ1W
-         36       FB2MC9     io       AE2W
-         37       FB2MC8     io       B2
-         38       FB2MC7     io       C3
-         39       GSR        in       BM2
-         40       GTS@1      in       GND
-         42       GTS@0      in       GND
-         43       FB2MC4     io       BL2
-         44       FB2MC2     io       BL1
 
 E3       1        R          in       !CLR_ALL
          2        I1         in       BDATA5
@@ -304,7 +221,7 @@ E3       1        R          in       !CLR_ALL
          9        Q2         out      EMA0
          10       L          in       6RK6
          11       Q3         out      EMA1
-         12       O          out      N$103
+         12       QB         out      N$23
          13       S          in       6RK7
          14       I3         in       BDATA7
          15       I2         in       BDATA6
@@ -316,27 +233,9 @@ E3       1        R          in       !CLR_ALL
          21       C2         in       GND
          22       B2         in       N$6
          23       A2         in       N$2
-         24       FB1MC17    io       BF2
-         25       FB2MC17    io       BF1
-         26       FB2MC16    io       BE2
-         27       FB2MC15    io       BD2
-         28       FB2MC14    io       BC1
-         29       FB2MC13    io       AV1W
-         30       TDO        out      N$10
-         33       FB2MC12    io       AP1W
-         34       FB2MC11    io       AN1W
-         35       FB2MC10    io       AM2W
-         36       FB2MC9     io       AL2W
-         37       FB2MC8     io       AF1W
-         38       FB2MC7     io       C3
-         39       GSR        in       B2
-         40       GTS@1      in       BU2
-         42       GTS@0      in       GND
-         43       FB2MC4     io       BV2
-         44       FB2MC2     io       BV1
 
 E4       1        CLK        in       N$2
-         2        Q1         out      N$45
+         2        A          in       BDATA4
          3        B          in       BDATA5
          4        C          in       BDATA6
          5        Q2         out      N$46
@@ -351,74 +250,55 @@ E4       1        CLK        in       N$2
          14       QB         out      CRC10
          15       QA         out      CRC9
          16       CLR        in       !CLR_DSK_AD
-         17       O5         io       MA3_L
-         18       O6         io       MA2_H
-         19       O7         io       MA3_H
 
-E5       1        I0         in       N$68
-         2        O          oc       !DSK_CYL_AD8
+E5       1        I0         in       CRC11
+         2        I1         in       STROBE
          3        O          oc       !DSK_CYL_AD1
-         4        I0         in       CRC11
-         5        I1         in       STROBE
+         4        C          in       BMD6
+         5        O          oc       !DSK_CYL_AD8
          6        I0         in       CRC8
          7        I1         in       STROBE
          8        CK2        in       LD_RD_BUFFER
          9        CK1        in       HI_WRT_CLK
-         10       I1         in       N$39
-         11       QD         out      N$38
-         12       I0         in       N$38
-         13       QC         out      N$37
-         14       QB         out      N$62
-         15       QA         out      N$63
-         16       Y2         hiz      N$7
-         17       A4         in       MB2_L
-         18       Y1         hiz      N$7
-         19       G          in       GND
-         20       O6         io       PC2_H
-         21       O7         io       AK2
-         22       O8         io       PC3_L
-         23       O9         io       PC3_H
+         10       QD         out      N$38
+         11       QC         out      N$37
+         12       QB         out      N$62
+         13       QA         out      N$63
+         14       VCC        pwr      +5V/1
+         15       B0         io       !DATA1
 
-E6       1        I4         in       1_DB2
-         2        O          oc       !DSK_CYL_AD2
+E6       1        I0         in       STROBE
+         2        I1         in       CRC9
          3        O          oc       !DSK_CYL_AD4
-         4        I0         in       STROBE
-         5        I1         in       CRC9
+         4        I1         in       0_DB4
+         5        O          oc       !DSK_CYL_AD2
          6        I0         in       CRC10
          7        I1         in       STROBE
          8        O          out      N$22
          9        I8         in       1_DB3
          10       I7         in       1_DB3
-         11       I0         in       N$96
-         12       I1         in       N$95
+         11       CLK        in       TRANSFER
+         12       D          in       N$29
          13       I3         in       1_DB2
-         14       O          out      N$7
+         14       VCC        pwr      +5V/1
          15       A3         in       GND
-         16       O4         io       AC2_L
-         17       O5         io       AC3_L
-         18       O6         io       AC2_H
-         19       O7         io       AC3_H
-         20       O6         io       MA2_H
-         21       O7         io       AK2
-         22       O8         io       MA3_L
-         23       O9         io       MA3_H
 
-E7       1        I0         in       N$22
-         2        O          oc       !MA2
-         3        O          oc       !MA3
-         4        I0         in       N$39
-         5        I1         in       MAK
-         6        I0         in       N$38
-         7        I1         in       MAK
-         8        !Q         out      !TEST_CLK
-         9        I0         in       MAK
-         10       I1         in       N$37
+E7       1        O          oc       !MA3
+         2        I0         in       N$39
+         3        I1         in       MAK
+         4        O          oc       !MA2
+         5        I0         in       N$38
+         6        I1         in       MAK
+         7        R/C        in       N$24
+         8        I0         in       MAK
+         9        I1         in       N$37
+         10       O          oc       !MA1
          11       I0         in       MAK
          12       I1         in       N$26
          13       O          oc       !MA0
-         14       O          oc       !MA1
+         14       C          in       N$27
          15       R/C        in       N$8
-         16       CLR        in       +3V
+         16       S1         in       N$12
          17       S0         in       N$11
          18       C3         in       GND
          19       B3         in       N$20
@@ -434,7 +314,7 @@ E8       1        CLR        in       !CLR_ALL
          5        C          in       BDATA1
          6        D          in       BDATA0
          7        ENP        in       N$19
-         8        I0         in       N$15
+         8        I0         in       N$27
          9        LD         in       !6RK4
          10       ENT        in       N$19
          11       QD         out      N$26
@@ -456,20 +336,15 @@ E9       1        I1         in       EXT_CYL_ADDRS
          3        I3         in       GND
          4        I4         in       GND
          5        I5         in       GND
-         6        MOD        in       N$1
-         7        I1         in       GND
+         6        MOD        in       !DB_CONT4
+         7        GND        pwr      GND
          8        O8         out      N$1
-         9        SER        in       LO_MAIN_DATA
+         9        CK1        in       !WRT_BUFF_SHFT
          10       I10        in       BDATA4
          11       I11        in       SECTOR_ADDRS_1
          12       I12        in       BDATA2
          13       I13        in       CRC16
-         14       QB         out      RK_DATA1
-         15       QA         out      RK_DATA0
-         16       O4         io       SC3
-         17       O5         io       DATA3
-         18       O6         io       IO3
-         19       O7         io       A3
+         14       VCC        pwr      +5V/2
 
 E10      1        1C         in       +3V
          2        1G         in       LD_CMD_REG
@@ -479,20 +354,20 @@ E10      1        1C         in       +3V
          6        1Y1        out      !DRIVE1
          7        1Y0        out      !DRIVE0
          8        I0         in       N$27
-         9        I0         in       N$16
+         9        CLK        in       DB_CONT3
          10       Q4         out      N$61
          11       D4         in       N$48
          12       Q5         out      N$60
          13       A          in       UNIT_SEL1
          14       D6         in       N$50
          15       Q6         out      N$40
-         16       CLR        in       +3V
+         16       Q1         out      M1
 
-E11      1        I0         in       12TH_BIT_OK
-         2        O          oc       !DSK_DRIVE0
+E11      1        I0         in       !DRIVE1
+         2        I1         in       !DRIVE1
          3        O          oc       !DSK_DRIVE1
-         4        I0         in       !DRIVE1
-         5        I1         in       !DRIVE1
+         4        I0         in       1_DB2
+         5        O          oc       !DSK_DRIVE0
          6        I0         in       !DRIVE0
          7        I1         in       !DRIVE0
          8        O          out      LD_DB4
@@ -504,17 +379,17 @@ E11      1        I0         in       12TH_BIT_OK
          14       !Q2        out      N$123
          15       B          io       N$13
 
-E12      1        CLK        in       N$15
-         2        O          oc       !DSK_DRIVE2
+E12      1        I0         in       !DRIVE3
+         2        I1         in       !DRIVE3
          3        O          oc       !DSK_DRIVE3
-         4        I0         in       !DRIVE3
-         5        I1         in       !DRIVE3
+         4        O          oc       N$23
+         5        O          oc       !DSK_DRIVE2
          6        I0         in       !DRIVE2
          7        I1         in       !DRIVE2
          8        !Q         out      !DB_CONT2
          9        Q          out      DB_CONT2
          10       K          in       1_DB3
-         11       I0         in       D2DATA
+         11       I0         in       N$13
          12       Q          out      DB_CONT1
          13       !Q         out      !DB_CONT1
          14       J          in       N$7
@@ -528,14 +403,14 @@ E12      1        CLK        in       N$15
          22       B2         in       N$76
          23       A2         in       N$73
 
-E13      1        I0         in       LD_RD_BUFFER
+E13      1        O          out      N$14
          2        O          out      BDATA2
          3        O          out      BDATA3
          4        I0         in       !DATA_ENAB
          5        I1         in       !DATA3
          6        I0         in       !DATA2
          7        I1         in       !DATA_ENAB
-         8        O          out      1_DB3
+         8        I0         in       DB_CONT3
          9        I0         in       !DATA_ENAB
          10       I1         in       !DATA0
          11       I0         in       !DATA_ENAB
@@ -553,49 +428,49 @@ E13      1        I0         in       LD_RD_BUFFER
          23       !R         in       +3V3
 
 E14      1        CLK        in       N$2
-         2        I1         in       N$40
+         2        A          in       EXT_CYL_ADDRS
          3        B          in       BDATA0
          4        C          in       BDATA1
-         5        CLK        in       DB_CLK
+         5        Q          out      N$36
          6        D          in       BDATA2
          7        E          in       BDATA3
          8        PE         in       LD_DISK_ADDRS
          9        SER        in       CRC3
          10       QE         out      CRC8
          11       QD         out      CRC7
-         12       Q          out      DB_CONT3
+         12       K          in       0_DB4
          13       QC         out      CRC6
          14       QB         out      CRC5
          15       QA         out      CRC4
          16       CLR        in       !CLR_DSK_AD
 
-E15      1        I0         in       !MD6
-         2        O          oc       !DSK_CYL_AD32
+E15      1        I0         in       STROBE
+         2        I1         in       CRC7
          3        O          oc       !DSK_CYL_AD16
-         4        I0         in       STROBE
-         5        I1         in       CRC7
+         4        I0         in       !MD6
+         5        O          oc       !DSK_CYL_AD32
          6        I0         in       STROBE
          7        I1         in       CRC6
-         8        I0         in       !MD5
-         9        I0         in       !MD_RD_BUFF
-         10       I1         in       !MD4
+         8        !Q         out      N$44
+         9        I0         in       !MD5
+         10       I1         in       !MD_RD_BUFF
          11       I0         in       GND
          12       I1         in       !MD7
          13       O          out      BMD7
-         14       O          oc       N$15
+         14       O          out      BMD5
 
-E16      1        I          in       RK_DATA6
-         2        O          oc       !DSK_CYL_AD64
+E16      1        I0         in       STROBE
+         2        I1         in       CRC4
          3        O          oc       !DSK_CYL_AD128
-         4        I0         in       STROBE
-         5        I1         in       CRC4
+         4        O          out      !RK_DATA1
+         5        O          oc       !DSK_CYL_AD64
          6        I0         in       CRC5
          7        I1         in       STROBE
-         8        O          out      !RK_DATA0
+         8        O          out      !RK_DATA3
          9        I          in       RK_DATA3
          10       O          out      !RK_DATA2
-         11       O          out      !RK_DATA3
-         12       O          out      !RK_DATA6
+         11       I          in       RK_DATA2
+         12       O          out      !RK_DATA5
          13       I          in       RK_DATA5
          14       VCC        pwr      +5V/2
          15       A3         in       N$72
@@ -611,7 +486,7 @@ E17      1        R          in       !CLR_ALL
          9        Q2         out      UNIT_SEL1
          10       L          in       6RK6
          11       Q3         out      EXT_CYL_ADDRS
-         12       D          in       N$48
+         12       QB         out      RK_DATA5
          13       S          in       6RK7
          14       I3         in       BDATA11
          15       I2         in       BDATA10
@@ -631,38 +506,37 @@ E18      1        CLR        in       !CLR_ALL
          13       QB         out      N$44
          14       QA         out      N$47
          15       RCO        out      N$18
-         16       CLR        in       +3V
 
 E19      1        I0         in       N$9
          2        I1         in       IDLE
-         3        I0         in       !6RK3
-         4        I1         in       !IDLE
-         5        I3         in       LOAD_COUNTER
-         6        O          out      6RK3_OK
+         3        O          out      !CLR_SECTOR_AD
+         4        O          out      6RK3_OK
+         5        I0         in       !6RK3
+         6        I1         in       !IDLE
          7        GND        pwr      GND
-         8        O          out      N$17
-         9        I0         in       CLR_ALL
-         10       I1         in       N$16
+         8        I0         in       CLR_ALL
+         9        I1         in       N$16
+         10       O          out      N$17
          11       O          out      DRIVE_STATUS_BAD
          12       I0         in       FILE_RDY
          13       I1         in       RDY_S/R/W
          14       VCC        pwr      +5V/2
          15       B0         io       !DATA5
 
-E20      1        I0         in       !LO_MAIN_SHFT
-         2        O          oc       !MA6
-         3        O          oc       !MA7
-         4        I0         in       MAK
-         5        I1         in       N$48
-         6        I0         in       N$41
-         7        I1         in       MAK
-         8        O          out      N$34
-         9        I0         in       MAK
-         10       I1         in       N$40
+E20      1        O          oc       !MA7
+         2        I0         in       MAK
+         3        I1         in       N$48
+         4        O          oc       !MA6
+         5        I0         in       N$41
+         6        I1         in       MAK
+         7        Q2         out      BD07
+         8        I0         in       MAK
+         9        I1         in       N$40
+         10       O          oc       !MA4
          11       I0         in       MAK
          12       I1         in       N$43
          13       O          oc       !MA5
-         14       O          oc       !MA4
+         14       F3         out      N$31
          15       DOT        in       N$10
          16       S1         in       N$12
          17       S0         in       N$11
@@ -680,7 +554,7 @@ E21      1        CLR        in       !CLR_ALL
          5        C          in       BDATA5
          6        D          in       BDATA4
          7        ENP        in       N$18
-         8        O          out      BTP3_OK
+         8        O          out      LD_DB_AC
          9        LD         in       !6RK4
          10       ENT        in       N$18
          11       QD         out      N$40
@@ -704,7 +578,7 @@ E22      1        A0         in       !DSK_FILE_RDY
          5        I1         in       !DATA_ENAB
          6        I0         in       !DATA_ENAB
          7        I1         in       !DATA7
-         8        I0         in       N$81
+         8        O          out      N$83
          9        I0         in       !DATA5
          10       I1         in       !DATA_ENAB
          11       I0         in       !DATA_ENAB
@@ -713,28 +587,27 @@ E22      1        A0         in       !DSK_FILE_RDY
          14       O          out      BDATA5
          15       A3         in       WRT_LOCK_ER
 
-E23      1        CLK        in       N$2
+E23      1        CLR        in       !CLR_DSK_AD
          2        Q1         out      CRC1
          3        D1         in       N$21
          4        D2         in       CRC1
          5        Q2         out      CRC2
          6        D3         in       N$20
          7        Q3         out      CRC3
-         8        O          out      !RK_DATA9
-         9        I          in       RK_DATA4
+         8        O          out      !RK_DATA4
+         9        CLK        in       N$2
          10       Q4         out      CRC14
          11       D4         in       CRC13
          12       Q5         out      CRC15
          13       D5         in       CRC14
          14       D6         in       N$17
          15       Q6         out      CRC16
-         16       CLR        in       !CLR_DSK_AD
 
 E24      1        I0         in       !CLR_DSK_AD
          2        I1         in       +3V
-         3        I0         in       N$10
-         4        I1         in       CRC2
-         5        Y1         in       Q3
+         3        O          out      N$9
+         4        I0         in       N$10
+         5        I1         in       CRC2
          6        O          out      N$20
          7        Y3         in       Q2
          8        O          out      N$6
@@ -743,14 +616,13 @@ E24      1        I0         in       !CLR_DSK_AD
          11       O          out      N$17
          12       I0         in       CRC15
          13       I1         in       N$12
-         14       QB         out      RK_DATA9
-         15       QA         out      RK_DATA8
+         14       X4         in       Q5
 
 E25      1        I0         in       !CLR_CNTRS
          2        I1         in       !START_CLR
-         3        I0         in       MAIN_ENAB
-         4        I1         in       6RK7_OK
-         5        Q2         out      N$52
+         3        O          out      N$13
+         4        I0         in       MAIN_ENAB
+         5        I1         in       6RK7_OK
          6        O          out      MAIN_PL
          7        Q3         out      N$53
          8        O          out      N$14
@@ -761,22 +633,21 @@ E25      1        I0         in       !CLR_CNTRS
          13       I1         in       BDATA4
          14       D6         in       N$64
          15       Q6         out      N$56
-         16       CLR        in       +3V
 
-E26      1        I4         in       GND
-         2        O          oc       !MSIR_DIS
-         3        O          oc       !BK_CYCLE
-         4        I0         in       DATA_ENABLE
-         5        I1         in       DATA_ENABLE
-         6        I0         in       DATA_ENABLE
-         7        I1         in       DATA_ENABLE
-         8        O          out      DB4_ENA
-         9        I0         in       NBR
-         10       I1         in       NBR
+E26      1        O          oc       !BK_CYCLE
+         2        I0         in       DATA_ENABLE
+         3        I1         in       DATA_ENABLE
+         4        O          oc       !MSIR_DIS
+         5        I0         in       DATA_ENABLE
+         6        I1         in       DATA_ENABLE
+         7        Y3         in       Q2
+         8        I0         in       NBR
+         9        I1         in       NBR
+         10       O          oc       !BRK_IN_PROG
          11       I0         in       MALC
          12       I1         in       MALC
          13       O          oc       !MAMS_LOAD_CONT
-         14       O          oc       !BRK_IN_PROG
+         14       X4         in       Q5
 
 E27      1        I          in       IDLE
          2        O          out      BINT_STROBE
@@ -785,72 +656,73 @@ E27      1        I          in       IDLE
          5        I1         in       GND
          6        I0         in       GND
          7        I1         in       INT_STROBE
-         8        O          out      N$15
+         8        O          out      N$100
          9        I          in       LD_DISK_ADDRS
          10       O          out      !HI_RD_CLK
-         11       O          out      N$100
+         11       I          in       HI_RD_CLK
          12       O          out      N$101
          13       I          in       BTP3
 
-E28      1        I0         in       CLR_ALL
-         2        I1         in       BTP1
-         3        I0         in       N$24
-         4        I1         in       BTP4
-         5        I1         in       N$81
-         6        O          out      N$22
-         8        O          out      !START_CLR
-         9        I0         in       LD_DISK_ADDRS
-         10       I1         in       CLR_ALL
-         11       O          out      N$29
-         12       O          out      N$49
-         13       I1         in       N$23
+E28      1        O          out      N$49
+         2        I0         in       CLR_ALL
+         3        I1         in       BTP1
+         4        O          out      N$22
+         5        I0         in       N$24
+         6        I1         in       BTP4
+         8        I0         in       LD_DISK_ADDRS
+         9        I1         in       CLR_ALL
+         10       O          out      !START_CLR
+         11       I0         in       N$22
+         12       I1         in       N$23
+         13       O          out      N$29
 
 E29      1        I0         in       B_DATA_STATE
          2        I1         in       N$6
-         3        I0         in       !DATA_STATE
-         4        I1         in       MUX_INPUT
-         5        B1         in       N$35
+         3        O          out      N$5
+         4        I0         in       !DATA_STATE
+         5        I1         in       MUX_INPUT
          6        O          out      N$3
          7        S1         in       GND
          8        O          out      N$21
          9        I0         in       N$3
          10       I1         in       N$5
          11       O          out      !CLR_DSK_AD
-         12       O          out      N$5
+         12       I0         in       N$7
          13       I1         in       N$8
          14       X4         in       Q1
+         15       A          in       MD11H
 
 E30      1        I0         in       B_DATA_STATE
          2        I1         in       N$6
-         3        I0         in       !AC7
-         4        I1         in       MAIN
-         5        Y1         in       Q3
+         3        O          out      N$10
+         4        I0         in       !AC7
+         5        I1         in       MAIN
          6        O          out      MAIN_ENAB
-         7        Y3         in       Q2
+         7        I1         in       TP2
          8        O          out      LO_MAIN_DATA
          9        I0         in       N$1
          10       I1         in       MAIN
          11       O          out      N$12
-         12       O          out      N$10
+         12       I0         in       N$6
          13       I1         in       B_DATA_STATE
-         14       X4         in       Q5
+         14       O          out      N$88
 
 E31      1        I0         in       N$11
          2        I1         in       !BDATA2
-         3        I0         in       MAIN_PL
-         4        I1         in       N$16
-         5        I          in       ENAB_RK_DATA
+         3        O          out      N$16
+         4        I0         in       MAIN_PL
+         5        I1         in       N$16
          6        O          out      !LO_MAIN_SHFT
          7        Y3         in       Q6
          8        O          out      N$2
          9        I0         in       !SHIFT_CRC
          10       I1         in       !CRC_MAIN_SHFT
          11       O          out      MUX_INPUT
-         12       O          out      N$16
+         12       I0         in       !CRC_MAIN_DATA
          13       I1         in       !DATA_IN
          14       X4         in       Q1
 
-E32      1        X3         in       Q6
+E32      1        SER        in       N$38
          2        O          out      BTS4
          3        O          out      BTS2
          4        I0         in       TS2
@@ -864,7 +736,7 @@ E32      1        X3         in       Q6
          12       I1         in       N$31
          13       O          out      N$30
          14       O          out      RDY_S/R/W
-         15       QA         out      N$32
+         15       Y3         in       !MD09
 
 E33      1        I0         in       DISK_PRIORITY
          2        I1         in       NBR
@@ -879,11 +751,12 @@ E33      1        I0         in       DISK_PRIORITY
          11       I2         in       +3V
          12       O          out      MAD
          13       I2         in       +3V
-         14       C          in       MD09H
+         14       B          in       MD10H
+         15       A          in       MD11H
 
-E34      1        CLK        in       BTP1
-         2        I1         in       B_IO_PAUSE
-         3        I0         in       CLR_ALL
+E34      1        CLR        in       !CLR_ALL
+         2        D          in       DATA_ENABLE
+         3        CLK        in       BTP1
          4        PRE        in       +3V
          5        Q          out      MALC
          6        !Q         out      !MALC
@@ -893,34 +766,34 @@ E34      1        CLK        in       BTP1
          11       CLK        in       N$14
          12       D          in       N$6
          13       CLR        in       N$13
-         16       CLR        in       !CLR_ALL
 
-E35      1        CLK        in       BTP1
-         2        I1         in       GND
-         3        I6         in       N$18
+E35      1        CLR        in       !CLR_ALL
+         2        D          in       BRK_IN
+         3        CLK        in       BTP1
          4        PRE        in       +3V
          5        Q          out      BRK_DIR
-         6        D          in       BRK_IN
+         6        !Q         out      !BRK_DIR
+         7        I1         in       INITIALIZE
          8        !Q         out      !NBR
          9        Q          out      NBR
          10       PRE        in       +3V
          11       CLK        in       BINT_STROBE
          12       D          in       B_BRK_RQ
          13       CLR        in       N$49
-         16       CLR        in       !CLR_ALL
+         14       O          out      B_IO_PAUSE
 
 E36      1        I0         in       !DATA_ENABLE
          2        I1         in       !NBR
-         3        I0         in       !WRT_BRK
-         4        I1         in       !RD_BRK
-         5        I11        in       N$16
+         3        O          out      N$34
+         4        I0         in       !WRT_BRK
+         5        I1         in       !RD_BRK
          6        O          out      BRK_RQ
          7        D0         in       BIOT5L
          8        O          out      N$32
          9        I0         in       SET_MAIN_BRK
          10       I1         in       !WRT_CMD
          11       O          out      !SET_MAIN_BRK
-         12       O          out      N$34
+         12       I0         in       MAIN_PL
          13       I1         in       BDATA6
          14       O0         in       BD09
          15       B0         io       !DATA9
@@ -941,40 +814,37 @@ E37      1        I0         in       BDATA5
          14       B          in       BMD10
          15       A          in       BMD11
 
-E38      1        CLK        in       BTP2
-         2        I1         in       BD11L
-         3        O          oc       !DATA_ENAB
-         4        I0         in       DEVICE_RK
-         5        I1         in       DEVICE_RK
-         6        D          in       N$71
-         8        O          out      BD08H
-         9        I0         in       NBR
-         10       I1         in       NBR
+E38      1        O          oc       !DATA_ENAB
+         2        I0         in       DEVICE_RK
+         3        I1         in       DEVICE_RK
+         4        PRE        in       +3V
+         5        Q          out      AC7
+         6        !Q         out      !AC7
+         8        I0         in       NBR
+         9        I1         in       NBR
+         10       O          oc       !CPMA_DIS
          11       I0         in       NBR
          12       I1         in       BTS4
          13       O          oc       PRIORITY
-         14       O          oc       !CPMA_DIS
-         16       CLR        in       MAIN
 
-E39      1        CLK        in       6RK7_OK
-         2        I0         in       AD11
-         3        I1         in       N$1
+E39      1        CLR        in       !CLR_ALL
+         2        D          in       BDATA0
+         3        CLK        in       6RK7_OK
          4        PRE        in       !MAIN
          5        Q          out      MAIN
-         6        D          in       BDATA0
+         6        !Q         out      !MAIN
          8        !Q         out      !DATA_ENABLE
          9        Q          out      DATA_ENABLE
          10       PRE        in       +3V
          11       CLK        in       N$55
          12       D          in       MAD
          13       CLR        in       !CLR_ALL
-         16       CLR        in       !CLR_ALL
 
 E40      1        I0         in       MAIN_DATA
          2        I1         in       BDATA2
-         3        I0         in       BDATA2
-         4        I1         in       MAIN_PL
-         5        D2         in       DATA9
+         3        O          out      !CRC_MAIN_DATA
+         4        I0         in       BDATA2
+         5        I1         in       MAIN_PL
          6        O          out      !CRC_MAIN_SHFT
          7        Q2         out      AD09
          8        O          out      N$35
@@ -988,9 +858,9 @@ E40      1        I0         in       MAIN_DATA
 
 E41      1        I0         in       MAIN_PL
          2        I1         in       BDATA3
-         3        I0         in       BTP3_OK
-         4        I1         in       6RK6
-         5        I3         in       BDATA11
+         3        O          out      SHFT_CMD_REG
+         4        I0         in       BTP3_OK
+         5        I1         in       6RK6
          6        O          out      LD_CMD_REG
          8        O          out      N$23
          9        I0         in       N$25
@@ -1000,94 +870,95 @@ E41      1        I0         in       MAIN_PL
          13       I1         in       !START_CLR
 
 E42      1        I          in       GND
-         2        I1         in       !MD_RK
+         2        O          out      +3V
          3        I          in       !DSK_SEEK_FAIL
-         4        I0         in       N$530
+         4        O          out      SEEK_FAIL
          5        I          in       N$27
-         6        O          out      SEEK_FAIL
-         8        O          out      DISK_PRIORITY
+         6        O          out      DISK_PRIORITY
+         7        I1         in       !MD8
+         8        O          out      B_DATA_STATE
          9        I          in       !DATA_STATE
-         10       I1         in       !MD8
+         10       I1         in       !MD_RK
          11       I          in       BTP3_OK
          12       O          out      SET_MAIN_BRK
          13       I          in       !SET_MAIN_BRK
+         14       O          out      BMD9
 
 E43      1        I          in       N$7
-         2        I1         in       AIOT5L
+         2        O          out      N$4
          3        I          in       B_LAST_BRK
-         4        DN         in       +3V
+         4        O          out      N$15
          5        I          in       BDATA2
-         6        O          out      N$15
+         6        O          out      !BDATA2
          7        QD         out      SET_TIME_OUT_ER
-         8        O          out      !BDATA2
+         8        O          out      !RDY_S/R/W
          9        I          in       RDY_S/R/W
          10       O          out      !BDATA11
-         11       O          out      !RDY_S/R/W
+         11       I          in       BDATA11
          12       O          out      !BDATA10
          13       I          in       BDATA10
          14       CLR        in       IDLE
 
-E44      1        I0         in       BDATA10
-         2        O          oc       !MA9
-         3        O          oc       !MA10
-         4        I0         in       N$44
-         5        I1         in       MAK
-         6        I0         in       N$45
-         7        I1         in       MAK
-         8        O          out      N$3
-         9        I0         in       N$42
-         10       I1         in       MAK
+E44      1        O          oc       !MA10
+         2        I0         in       N$44
+         3        I1         in       MAK
+         4        O          oc       !MA9
+         5        I0         in       N$45
+         6        I1         in       MAK
+         7        R/C        in       N$491
+         8        I0         in       N$42
+         9        I1         in       MAK
+         10       O          oc       !MA8
          11       I0         in       MAK
          12       I1         in       N$47
          13       O          oc       !MA11
-         14       O          oc       !MA8
+         14       C          in       N$476
          15       R/C        in       N$586
 
-E45      1        CLK        in       N$55
-         2        I1         in       !BDATA11
-         3        I0         in       ENABLE_STATUS
+E45      1        CLR        in       !CLR_ALL
+         2        D          in       MAD
+         3        CLK        in       N$55
          4        PRE        in       +3V
          5        Q          out      MAK
-         6        D          in       MAD
+         6        !Q         out      !MAK
          8        !Q         out      !LAST_BRK
          9        Q          out      LAST_BRK
          10       PRE        in       +3V
          11       CLK        in       N$15
          12       D          in       +3V
          13       CLR        in       !START_CLR
-         16       CLR        in       !CLR_ALL
 
 E46      1        I0         in       N$10
-         2        O          out      !WRT_BRK
-         3        I0         in       HI_RD_CLK
-         4        I1         in       DB_CONT1
-         5        CLAMP      in       BD11H
-         6        I0         in       !LAST_BRK
-         7        I1         in       BRK_ENABLE
-         8        O          out      N$98
-         9        I0         in       MAIN
-         10       I1         in       LAST_WORD_PL
+         2        I1         in       N$81
+         3        O          out      !SET_IDLE_PL
+         4        I0         in       HI_RD_CLK
+         5        I1         in       DB_CONT1
+         6        O          out      N$99
+         7        CLAMP      in       BD10H
+         8        O          out      !WRT_BRK
+         9        I0         in       !LAST_BRK
+         10       I1         in       BRK_ENABLE
          11       O          out      N$97
          12       I2         in       !BRK_IN
          13       I3         in       !DB_CONT1
 
-E47      1        I0         in       BDATA3
-         2        I1         in       BDATA4
-         3        I0         in       SHFT_CMD_REG
-         4        I1         in       LD_CMD_REG
-         5        I2         in       IDLE
-         6        O          out      !LD-SHFT_CMD_REG
+E47      1        O          out      N$11
+         2        I0         in       BDATA3
+         3        I1         in       BDATA4
+         4        O          out      !LD-SHFT_CMD_REG
+         5        I0         in       SHFT_CMD_REG
+         6        I1         in       LD_CMD_REG
          7        CLAMP      in       AINITH
-         8        O          out      MAIN_DATA
-         9        I0         in       !BDATA10
-         10       I1         in       !MAIN
-         11       O          out      N$25
-         12       I0         in       !6RK4
-         13       I1         in       !IDLE
+         8        I0         in       !BDATA10
+         9        I1         in       !MAIN
+         10       O          out      MAIN_DATA
+         11       I0         in       !6RK4
+         12       I1         in       !IDLE
+         13       O          out      N$25
 
-E48      1        CLK        in       BRK_ENAB_CLK
-         2        I1         in       IDLE
-         3        I0         in       N$85
+E48      1        CLR        in       !SET_MAIN_BRK
+         2        D          in       GND
+         3        CLK        in       BRK_ENAB_CLK
          4        PRE        in       N$33
          5        Q          out      !BRK_ENABLE
          6        !Q         out      BRK_ENABLE
@@ -1098,72 +969,71 @@ E48      1        CLK        in       BRK_ENAB_CLK
          11       CLK        in       BRK_IN_CLK
          12       D          in       GND
          13       CLR        in       N$32
-         16       CLR        in       !SET_MAIN_BRK
 
 E49      1        I0         in       MAIN_DATA
          2        I1         in       BDATA5
-         3        I0         in       !6RK3_OK
-         4        I1         in       !DATA_STATE
-         5        B1         in       !RK_DATA9
+         3        O          out      !HI_MAIN_DATA
+         4        I0         in       !6RK3_OK
+         5        I1         in       !DATA_STATE
          6        O          out      N$7
          7        S1         in       !6RK5
          8        O          out      HI_RD_CLK
          9        I0         in       !RD_SHFT_DB
          10       I1         in       !HI_MAIN_SHFT
          11       O          out      HI_DATA_IN
-         12       O          out      !HI_MAIN_DATA
+         12       I0         in       !HI_MAIN_DATA
          13       I1         in       !DATA_IN
          14       B3         in       !RK_DATA11
          15       A3         in       CYL_ADDRS_ER
 
-E        A2       P          pas      !DSK_SEEK_FAIL
+E        A1       P          pas      CRC_DATA
+         1        I0         in       N$33
+         6        O          out      N$29
+         9        I0         in       N$34
+         A2       P          pas      !DSK_SEEK_FAIL
+         B1       P          pas      RD_CLK1
          B2       P          pas      !DSK_CYL_AD64
+         C1       P          pas      IDLE
          C2       P          pas      !DSK_CYL_AD16
          D1       P          pas      RDY_S/R/W
          D2       P          pas      !DSK_DRIVE0
-         E1       P          pas      FILE_RDY
-         F1       P          pas      !CLR_SECTOR_AD
-         F2       P          pas      STROBE
          H1       P          pas      !CLR_ALL
-         8        O          out      N$28
          H2       P          pas      !DSK_CYL_AD4
-         J1       P          pas      BDATA11
          J2       P          pas      !DSK_CYL_AD32
-         5        I2         in       +3V3
-         9        I0         in       N$34
-         L2       P          pas      !DSK_RDY_S-R-W
-         2        I1         in       N$32
+         11       I2         in       N$34
          K2       P          pas      !DSK_CYL_AD2
-         M1       P          pas      BDATA8
-         N1       P          pas      !DSK_DRIVE3
-         N2       P          pas      CRC16
-         P1       P          pas      !DSK_DRIVE2
-         P2       P          pas      SECTOR_ADDRS_1
-         1        I0         in       N$33
-         3        I0         in       N$31
-         4        I1         in       +3V3
-         13       I2         in       N$35
          R1       P          pas      !DSK_DRIVE1
+         3        I0         in       N$31
+         F1       P          pas      !CLR_SECTOR_AD
+         K1       P          pas      BDATA10
+         P2       P          pas      SECTOR_ADDRS_1
          R2       P          pas      BDATA7
          S1       P          pas      !DSK_CYL_AD1
+         S2       P          pas      HALF_BLOCK
          T1       P          pas      !DSK_CYL_AD8
          T2       P          pas      FUNCTION02
-         6        O          out      N$29
-         B1       P          pas      RD_CLK1
-         E2       P          pas      !DSK_CYL_AD128
-         K1       P          pas      BDATA10
-         11       I2         in       N$34
          U1       P          pas      DATA_ENABLE
-         U2       P          pas      FUNCTION00
-         V1       P          pas      !DATA_ENAB
-         10       I1         in       N$34
-         A1       P          pas      CRC_DATA
-         C1       P          pas      IDLE
+         4        I1         in       +3V3
          L1       P          pas      BDATA9
-         M2       P          pas      LD_DISK_ADDRS
-         S2       P          pas      HALF_BLOCK
-         12       O          out      N$34
+         N1       P          pas      !DSK_DRIVE3
+         10       I1         in       N$34
+         E1       P          pas      FILE_RDY
+         13       I2         in       N$35
+         F2       P          pas      STROBE
+         5        I2         in       +3V3
+         8        O          out      N$28
+         E2       P          pas      !DSK_CYL_AD128
+         L2       P          pas      !DSK_RDY_S-R-W
+         N2       P          pas      CRC16
+         P1       P          pas      !DSK_DRIVE2
+         V1       P          pas      !DATA_ENAB
          V2       P          pas      FUNCTION01
+         12       O          out      N$34
+         J1       P          pas      BDATA11
+         2        I1         in       N$32
+         M1       P          pas      BDATA8
+         M2       P          pas      LD_DISK_ADDRS
+         U2       P          pas      FUNCTION00
 
 F        A1       P          pas      12TH_BIT_OK
          A2       P          pas      6RK3_OK
@@ -1367,19 +1237,13 @@ OMNIBUS  AA2      1          io       VCC
 R1       1        1          pas      GND
          2        2          pas      !DSK_CYL_AD4
 
-R2       E        E          pas      GND
-         1        1          pas      !DSK_CYL_AD4
+R2       1        1          pas      !DSK_CYL_AD4
          2        2          pas      VCC
-         A        A          pas      D2
-         S        S          pas      GND
          3        E          pas      D2
 
-R3       A        A          pas      VCC
-         1        1          pas      GND
+R3       1        1          pas      GND
          2        2          pas      !DSK_CYL_AD2
          3        E          pas      N$6
-         E        E          pas      N$10
-         S        S          pas      N$10
 
 R4       1        1          pas      GND
          2        2          pas      !DSK_RDY_S-R-W
@@ -1394,17 +1258,11 @@ R6       1        1          pas      !DSK_RDY_S-R-W
 R7       1        1          pas      GND
          2        2          pas      !DSK_CYL_AD1
 
-R8       A        A          pas      N$26
+R8       1        1          pas      GND
          2        2          pas      !DSK_CYL_AD32
          3        E          pas      N2
-         E        E          pas      N2
-         S        S          pas      N$26
-         1        1          pas      GND
 
 R9       1        1          pas      !DSK_CYL_AD1
-         A        A          pas      V1
-         E        E          pas      N$9
-         S        S          pas      N$9
          2        2          pas      VCC
 
 R10      1        1          pas      !DSK_CYL_AD32
@@ -1414,24 +1272,15 @@ R11      1        1          pas      GND
          2        2          pas      !DSK_CYL_AD8
          3        E          pas      V1
 
-R12      A        A          pas      A1
-         S        S          pas      N$10
-         1        1          pas      !DSK_CYL_AD8
+R12      1        1          pas      !DSK_CYL_AD8
          2        2          pas      VCC
-         E        E          pas      N$10
 
-R13      S        S          pas      VCC
-         1        1          pas      GND
+R13      1        1          pas      GND
          2        2          pas      !DSK_DRIVE1
-         A        A          pas      N$9
-         E        E          pas      VCC
          3        E          pas      V2
 
 R14      1        1          pas      GND
          2        2          pas      !DSK_CYL_AD128
-         A        A          pas      N$10
-         E        E          pas      VCC
-         S        S          pas      VCC
 
 R15      1        1          pas      !DSK_DRIVE1
          2        2          pas      VCC

@@ -3,7 +3,7 @@
 
 Name     M214A ;
 PartNo   cpld ;
-Date     10/17/2023 ;
+Date     10/18/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -82,11 +82,12 @@ node enable_b;
 node n_t_14x;
 node enable_b;
 node sl_insert;
+node bdflag;
 node adflag;
-node iot4l;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
 node a8;
 node ad01;
 node ad02;
@@ -95,34 +96,34 @@ node bd00;
 node bd00l;
 node bd01;
 node bd03;
-node bdflag;
 node biot5l;
 node clear_reg_l;
 node clock;
 node d1;
 node f2;
+node h1;
 node inb2_l;
 node inb4_l;
 node inb5_l;
-node int_enable;
-node iotl;
 node k1;
 node l1;
 node l2;
 node left_shift;
+node m1;
 node n2;
 node n3v3;
 node n3v4;
 node n_t_10x;
 node n_t_11x;
 node n_t_12x;
+node n_t_136x;
 node n_t_13x;
+node n_t_146x;
 node n_t_27x;
 node n_t_29x;
 node n_t_30x;
 node n_t_31x;
 node n_t_32x;
-node n_t_337x;
 node n_t_33x;
 node n_t_34x;
 node n_t_35x;
@@ -134,12 +135,11 @@ node n_t_54x;
 node n_t_56x;
 node n_t_57x;
 node n_t_7x;
-node n_t_80x;
 node n_t_8x;
 node n_t_9x;
-node r2;
 node right_shift;
 node s1;
+node select6;
 node u2;
 node v2;
 $ENDIF
@@ -251,15 +251,15 @@ n_t_33x = gdollar_2 & n_t_52x
         # n_t_51x & gdollar_2;
 
 /* e12: sn7474 */
-adflag.ar = !iotl;
-adflag.d = n_t_56x;
+bdflag.ar = !n_t_136x;
+bdflag.d = n_t_56x;
+bdflag.ck = n_t_15x;
+bdflag.ap = !n3v4;
+n_t_61x = !bdflag;
+adflag.ar = !n_t_146x;
+adflag.d = n_t_57x;
 adflag.ck = n_t_15x;
 adflag.ap = !n3v4;
-n_t_61x = !adflag;
-iot4l.ar = !bdflag;
-iot4l.d = n_t_57x;
-iot4l.ck = n_t_15x;
-iot4l.ap = !n3v4;
-n_t_60x = !iot4l;
+n_t_60x = !adflag;
 
 /* Open collector 'wire-or's */

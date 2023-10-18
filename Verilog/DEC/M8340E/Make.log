@@ -1,47 +1,91 @@
+~/Verilog/bin/topld.pl M8340E
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: cpol_use ne cpol_use20_8axial
+info: sn97401 ne 7401n
+info: dec23001a1 ne 5600
+info: 74h11n ne 7411n
+info: 74h30n ne 7430n
+info: 74h04n ne 7404n
+info: sp384n ne dil14
+info: dec23002a1 ne 5600
+info: 74h04n ne 7404n
+info: sp380n ne dil14
+info: sp384n ne dil14
+info: 74h30n ne 7430n
+info: 7410n ne dil14
+info: sp380n ne dil14
+info: 74h00n ne 7400n
+info: 74h11n ne 7411n
+info: sp384n ne dil14
+info: 74h20n ne 7420n
+info: 74h74n ne 7474n
+info: 7402n ne dil14
+info: sp384n ne dil14
+info: 7412n ne dil14
+info: 74193n ne dil16
+info: sn97401 ne 7401n
+info: mc8266 ne dil16
+info: 74193n ne dil16
+info: 74h106n ne 7476n
+info: 74h30n ne 7430n
+info: 7402n ne dil14
+info: sn97401 ne 7401n
+info: edge_top ne edge_con2
+warning: making h/edge_top/ a connector
+info: edge_top ne edge_con2
+warning: making j/edge_top/ a connector
+info: quad ne edge_con8
+warning: making u$2/quad/ a connector
+unexpected OC output: bmd05 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 1511.
 ~/Verilog/bin/smaller.pl M8340E.PLD >vv || (rm vv; exit 1)
-36 signals were removed:
-  be: !modea
+42 signals were removed:
+  be: !e_l
   bfetch: fetch
   bmd10: md10
   bmd11: md11
   bmd8: md8
   bmd9: md9
-  carry_in_l: !regbus00
   data_to_sc: !rom_21_l
   e_l: !e
-  fetch_l: !e_l
+  ex1_l: !ex1
+  fetch_l: !bfetch
   init_l: !init
-  ld_eir: !io_time
-  md05_l: !tp2_d
   modea: !link
   n3v: 'b'1
   n3v0: 'b'1
-  n_t_22x: !modeb
+  n_t_15x: !n_t_10x
+  n_t_1x: !pwr_ok
+  n_t_20x: !div_12_l
+  n_t_22x: !swba
   n_t_23x: !swab
-  n_t_24x: 'b'1
+  n_t_26x: !n_t_15x
   n_t_28x: tp1
   n_t_29x: int_in_prog
+  n_t_2x: !right
+  n_t_30x: data8
+  n_t_31x: data9
   n_t_32x: data10
   n_t_33x: data11
-  n_t_39x: !md07_l
   n_t_41x: ma_ms_lc
   n_t_45x: data7
-  n_t_47x: !dad_or_dst_l
+  n_t_47x: !n_t_39x
+  n_t_4x: !n_t_48x
   n_t_50x: tp4
-  n_t_52x: !n_t_54x
-  n_t_55x: !n_t_51x
-  n_t_58x: not_last_l
-  n_t_6x: !ac2bus_l
-  ns1000: !bmd06
-  ns600: 'b'0
-  skip1: !bfetch
+  n_t_52x: !n_t_51x
+  n_t_55x: !tp2_d
+  n_t_5x: !data_t
+  n_t_63x: tp4
+  n_t_67x: !n_t_3x
+  n_t_6x: !eae_inst
+  n_t_7x: !n_t_2x
+  n_t_9x: !n_t_14x
+  regbus01: !regbus00
   tp3_l: !tp3
 ~/Verilog/bin/smaller.pl vv >M8340EX.PLD || (rm M8340EX.PLD; exit 1)
-4 signals were removed:
-  bfetch: fetch
-  io_time: md11_l
-  modea: !link
-  n_t_54x: dad_or_dst
+2 signals were removed:
+  e_l: !e
+  n_t_15x: !n_t_10x
 ~/Verilog/bin/cupl2v.pl M8340EX.PLD >vv || (rm vv; exit 1)
 mv vv M8340E.v
 rm M8340EX.PLD

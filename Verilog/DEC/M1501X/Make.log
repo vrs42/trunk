@@ -82,32 +82,24 @@ info: n8881n ne dil14
 info: n8881n ne dil14
 info: dec40pinsh ne dec40pinh
 warning: making j1/dec40pinsh/ a connector
-info: single ne e12_8
+info: single ne edge_con2
 warning: making u$2/single/ a connector
 warning: non-bypass capacitor deleted: c10
-unexpected OC output: n3v3 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 654.
-unexpected OC output: ll at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 654.
-unexpected OC output: ff at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 654.
-unexpected OC output: rr at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 700.
-unexpected OC output: tt at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 700.
-unexpected OC output: n_t_57x at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 732.
-unexpected OC output: b at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 732.
-unexpected OC output: f at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 732.
-unexpected OC output: a8 at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 747.
-unexpected OC output: t at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 747.
-unexpected OC output: l at /home/vrs/Verilog/bin/topld.pl line 2071, <INPUT> line 747.
 ~/Verilog/bin/smaller.pl M1501X.PLD >vv || (rm vv; exit 1)
-8 signals were removed:
+10 signals were removed:
+  n_t_157x: !b1
   n_t_163x: !d1
   n_t_164x: !a1
   n_t_197x: !f1
   n_t_52x: !n_t_57x
   n_t_55x: !h2
+  n_t_57x: !d2
   n_t_73x: !e1
   n_t_77x: !h1
   n_t_80x: !n_t_1x
 ~/Verilog/bin/smaller.pl vv >M1501XX.PLD || (rm M1501XX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_57x: !d2
 ~/Verilog/bin/cupl2v.pl M1501XX.PLD >vv || (rm vv; exit 1)
 mv vv M1501X.v
 rm M1501XX.PLD
