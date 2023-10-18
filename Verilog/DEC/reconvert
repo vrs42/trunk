@@ -1,0 +1,13 @@
+#!/bin/sh
+
+for d in */.; do
+  case $d in
+    no*) ;;
+    *) (
+         i=`dirname $d`
+         cd $i
+         rm -f *.PLD $i.v
+         make -f ../Makefile $i.PLD $i.v 2>&1 | tee Make.log
+       ) ;;
+  esac
+done

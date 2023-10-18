@@ -1,0 +1,11 @@
+#!/bin/sh
+
+for d in */.; do
+  i=`dirname $d`
+  case $i in
+  no*) ;;
+  *)   if test ! -f $i/$i.v; then
+         echo $i.v
+       fi
+  esac
+done

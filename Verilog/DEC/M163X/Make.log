@@ -1,0 +1,10 @@
+~/Verilog/bin/topld.pl M163X
+info: single ne edge_con2
+warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M163X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M163XX.PLD || (rm M163XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M163XX.PLD >vv || (rm vv; exit 1)
+mv vv M163X.v
+rm M163XX.PLD

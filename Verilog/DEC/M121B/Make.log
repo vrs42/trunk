@@ -1,0 +1,13 @@
+~/Verilog/bin/topld.pl M121B
+info: 7450n ne dil14
+info: 7450n ne dil14
+info: 7450n ne dil14
+info: single ne edge_con2
+warning: making u$4/single/ a connector
+~/Verilog/bin/smaller.pl M121B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M121BX.PLD || (rm M121BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M121BX.PLD >vv || (rm vv; exit 1)
+mv vv M121B.v
+rm M121BX.PLD
