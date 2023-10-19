@@ -28,8 +28,8 @@
 # TODO: sn7405 sn7413 sn74150 sn74153 sn74164 sn74181 sn74182
 # TODO: sn74191 sn74197 sn74221 sn74257 sn74266 sn74287 sn74288
 # TODO: sn74393 sn7452 sn7462 sn7470 sn7472 sn7481 sn74821t sn7483
-# TODO: sn7487 sn7489 sn7490 sn7492 sn74h40n sn74h50 sn74h52
-# TODO: sn74h55 sn74h60 sn74h62n sn74h72
+# TODO: sn7487 sn7489 sn7490 sn7492 sn74h40n sn74h52
+# TODO: sn74h60 sn74h62n sn74h72
 
 #
 # Known bugs:
@@ -430,6 +430,11 @@ die "Unimplemented expander feature used in sn7450" if defined $pad{12};
   &qcode("!$pad{6} = $pad{2}&$pad{3} # $pad{4}&$pad{5};\n") if defined $pad{6};
 }
 $hidden{'sn7450'} = 0;
+
+sub sn74h50 {
+  &sn7450;
+}
+$hidden{'sn74h50'} = 0;
 
 sub sn74h52n {
   # X and is frequently NC, but we'll need a name.

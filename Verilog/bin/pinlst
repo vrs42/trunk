@@ -52,9 +52,11 @@ foreach $if (@ARGV) {
   $pins = "$of/${of}pins.txt";
   $prts = "$of/${of}prts.txt";
   if ((-r $pins)		# ...pins.txt exists
-  &&  (-M $pins < -M $if)	# and is newer
+  &&  (-M $pins < -M $0)	# and is newer than this script
+  &&  (-M $pins < -M $if)	# and is newer than schematic
   &&  (-r $prts)		# ...prts.txt exists
-  &&  (-M $prts < -M $if)) {	# and is also newer
+  &&  (-M $prts < -M $0)	# and is newer than this script
+  &&  (-M $prts < -M $if)) {	# and is also newer than schematic
     next; # Output files are up to date!
   }
   #
@@ -63,9 +65,18 @@ foreach $if (@ARGV) {
   warn "remaking $pins, $prts\n";
   open(INPUT, "$if") || die "$if: $!";
   $sheet = 0;
-  # Undef the databases here to allow iteration to succeed.
-  undef %haspad, %direction, %symbol, %package, %pad;
-  undef %part, %sheet, %partpad;
+  # Clear the databases here to allow iteration to succeed.
+  %haspad, %direction, %symbol, %package, %pad;
+  %haspad = %direction = %symbol = %package = %pad = ();
+  %part = %sheet = %partpad = ();
+  die if %haspad;
+  die if %direction;
+  die if %symbol;
+  die if %package;
+  die if %pad;
+  die if %part;
+  die if %sheet;
+  die if %partpad;
   while (<INPUT>) {
     $sheet++ if /<sheet>/;
     $library = $1 if m:<library\s+name="([^"]*)">:;
