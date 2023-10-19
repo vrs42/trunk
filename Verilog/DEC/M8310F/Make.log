@@ -61,7 +61,6 @@ warning: making q1/2n3009/ a connector
 info: quad ne edge_con8
 warning: making u$2/quad/ a connector
 warning: non-bypass capacitor deleted: c1
-unexpected OC output: and03_l at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2023.
 warning: non-pullup resistor deleted: r35
 warning: non-pullup resistor deleted: r37
 warning: non-pullup resistor deleted: r38
@@ -80,12 +79,12 @@ warning: non-pullup resistor deleted: r38
   bmd10: !md10_l
   bmd11: !md11_l
   bms_dis: !ms_dis_l
+  btp2: tp2
   bts1: !ts1_l
   bts2: !ts2_l
   bts3: !ts3_l
   bts4: !ts4_l
   bus_strobe: !bus_strobe_l
-  cpma11: !'b'0
   cpma_load: !cpma_load_l
   eset_l: !eset
   fset: !fset_l
@@ -97,22 +96,23 @@ warning: non-pullup resistor deleted: r38
   n3va: 'b'1
   n_t_10x: !link_load_l
   n_t_11x: !pagez
-  n_t_13x: !mb06
   n_t_15x: !n_t_23x
   n_t_22x: !link
   n_t_24x: !carry_out_l
+  n_t_25x: !pwr_ok
+  n_t_31x: !c2_l
+  n_t_33x: !skip1
+  n_t_40x: !c0_l
   n_t_41x: !tp3
   n_t_42x: !n_t_44x
   n_t_46x: !n_t_2x
   n_t_47x: !ind2
   n_t_51x: !and_l
+  n_t_52x: !tad_l
   n_t_53x: !dca_l
   n_t_54x: !tp4!malc
   n_t_57x: !dcaets2
   n_t_59x: !tp4
-  n_t_60x: !ac04
-  n_t_61x: !n_t_27x
-  n_t_62x: !ac10
   n_t_65x: !n_t_64x
   n_t_66x: !d!jmp
   n_t_67x: !bts3
@@ -121,55 +121,30 @@ warning: non-pullup resistor deleted: r38
   n_t_71x: !op2ts3
   n_t_74x: !dset_l
   n_t_76x: !n_t_46x
-  n_t_77x: !mb09
-  n_t_78x: !mb10
+  n_t_79x: !ts4fset!ms_dis
   n_t_7x: !initialize
   opr_iot_l: !opr_iot
   oprf_l: !oprf
   pin: tp4!malc
 ~/Verilog/bin/smaller.pl vv >M8310FX.PLD || (rm M8310FX.PLD; exit 1)
-39 signals were removed:
-  ad00_l: !ad06_l
-  ad01_l: !ad02_l
-  btp2: tp2
+15 signals were removed:
   btp3: tp3
   bts3: !ts3_l
-  cpma_load_l: !'b'0
-  djmp_l: d!jmp
   link_l: !link
-  link_load_l: right
-  mac_l: !mq00_l
-  mb_load_l: !btp2
-  n_t_16x: tp4!malc
-  n_t_17x: tp4!malc
-  n_t_1x: tp4!malc
-  n_t_25x: !pwr_ok
-  n_t_28x: tp4!malc
+  mb_load_l: !tp2
   n_t_29x: tp4!malc
   n_t_2x: tp4!malc
   n_t_30x: tp4!malc
-  n_t_31x: !c2_l
-  n_t_32x: !ov
-  n_t_33x: !skip1
   n_t_34x: tp4!malc
-  n_t_35x: tp4!malc
-  n_t_36x: tp4!malc
   n_t_37x: tp4!malc
   n_t_38x: !la_enable_l
   n_t_3x: tp4!malc
-  n_t_40x: !c0_l
   n_t_46x: !n_t_2x
   n_t_48x: !n_t_37x
   n_t_49x: !en1
-  n_t_4x: tp4!malc
-  n_t_50x: tp4!malc
-  n_t_52x: !tad_l
-  n_t_55x: tp4!malc
-  n_t_63x: tp4!malc
-  n_t_79x: !ts4fset!ms_dis
-  tp4malc: !v2
+  tp4malc: !twice_l
 ~/Verilog/bin/cupl2v.pl M8310FX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output link at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 1516.
+OE qualifier on FF output link at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 1177.
 ../Makefile:29: recipe for target 'M8310F.v' failed
 make: *** [M8310F.v] Error 1
 rm M8310FX.PLD

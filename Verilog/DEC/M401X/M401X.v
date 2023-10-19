@@ -18,81 +18,33 @@
 // c11: cpol_use 
 // c12: c_us 
 // e1: sn7400 
-module m401x (n_t_15x, n_t_24x, c0_l, c1_l, cs, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e2, initialize, int_rqst_l, internal_io_l, io_pause_l, j2, k2, m2, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_16x, n_t_17x, n_t_18x, n_t_20x, n_t_21x, n_t_22x, n_t_25x, n_t_26x, n_t_29x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, p2, r2, s2, skip_l, t2, tp3, v2);
+module m401x (n_t_11x, n_t_15x, n_t_21x, n_t_24x, d2, e2, j2, k2, m2, n2, n_t_12x, n_t_30x, p2, r2, s2, t2, v2);
+input n_t_11x;
 input n_t_15x;
+input n_t_21x;
 input n_t_24x;
-output c0_l;
-output c1_l;
-output cs;
 output d2;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
 inout e2;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
 input j2;
 input k2;
 output m2;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
 output n2;
-output n_t_10x;
-input n_t_11x;
 inout n_t_12x;
-output n_t_13x;
-inout n_t_14x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output n_t_20x;
-input n_t_21x;
-output n_t_22x;
-output n_t_25x;
-output n_t_26x;
-output n_t_29x;
-output n_t_2x;
 output n_t_30x;
-output n_t_3x;
-output n_t_4x;
-output n_t_5x;
-output n_t_6x;
-output n_t_8x;
-inout n_t_9x;
 output p2;
 output r2;
 output s2;
-output skip_l;
 output t2;
-output tp3;
 output v2;
 
 
+wire n_t_14x;
+wire n_t_9x;
 assign n_t_12x = ~(k2 & j2);
 assign d2 = ~e2;
 assign e2 = ~n_t_11x;
 assign n_t_30x = ~(n_t_21x & n_t_12x);
 // e2: sn74h00 
-assign n_t_16x = ~n_t_9x;
-assign n_t_17x = ~n_t_9x;
 assign n_t_9x = ~(n_t_15x & n_t_14x);
 assign n_t_14x = ~(n_t_9x & n_t_24x);
 // r1: r_us_ 

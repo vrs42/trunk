@@ -10,33 +10,15 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn74193 
-module m238x (c0_l, c1_l, d1, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e1, e2, f1, f2, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, j2, k1, k2, l1, l2, m1, m2, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n_t_18x, n_t_25x, n_t_28x, n_t_31x, n_t_36x, p1, p2, r1, r2, s1, s2, skip_l, tp3, u1, u2, v1, v2);
-output c0_l;
-output c1_l;
+module m238x (d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, u1, u2, v1, v2);
 input d1;
 input d2;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
 output e1;
 input e2;
 output f1;
 inout reg f2;
 input h1;
 inout reg h2;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
 input j1;
 input j2;
 input k1;
@@ -45,30 +27,14 @@ inout reg l1;
 inout reg l2;
 input m1;
 input m2;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
 output n1;
 input n2;
-output n_t_18x;
-output n_t_25x;
-output n_t_28x;
-output n_t_31x;
-output n_t_36x;
 output p1;
 inout reg p2;
 input r1;
 inout reg r2;
 input s1;
 input s2;
-output skip_l;
-output tp3;
 input u1;
 input u2;
 inout reg v1;
@@ -83,16 +49,6 @@ reg r2_m;
 reg v1_m;
 reg v2_m;
 
-wire mk_blk_mk_l;
-wire mk_end;
-wire n_t_10x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_17x;
-wire n_t_8x;
 always @(k2, j2, h1, d1, j1, d1, j1, l2)
   if (h1
                 | ~d1 & ~j1) begin

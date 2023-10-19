@@ -35,115 +35,10 @@
 // c28: c_us 
 // c29: c_us 
 // e1: sp380n 
-module m8830c (a00_l, cc_sdlc_l, cc_sdrc_l, clear_l, data09, df_db03, dily_l, dire_l, disd, disd_l, evn, md07, md4_l, md5_l, mtr4_l, n3v3, n_t_100x, n_t_101x, n_t_102x, n_t_112x, n_t_14x, n_t_15x, n_t_17x, n_t_19x, n_t_20x, n_t_51x, n_t_52x, n_t_53x, n_t_59x, n_t_5x, n_t_68x, n_t_6x, n_t_70x, n_t_80x, n_t_82x, n_t_84x, n_t_89x, n_t_90x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, nb1, nb2, np, oscin, pause_l, regbus00, reset_dav_l, rx_clk, serial_in, sr08, sr09, tsb, tx_clk, txd_strobe, xr, ad2, ae2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, ap2, ar2, as2, au2, av2, bb1, bd1, be1, bh1, bh2, bj1, bj2, bk2, bl2, bm2, bp2, br2, bs2, bu2, c1_l, cc_tt_en, chan, data00_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, df_db00, dicd, dilx, dily, hz1, hz10m, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_en, int_rqst_l, internal_io_l, io_pause_l, itclk, load_en_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n15v, n3v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_16x, n_t_1x, n_t_22x, n_t_23x, n_t_28x, n_t_34x, n_t_45x, n_t_4x, n_t_54x, n_t_55x, n_t_57x, n_t_58x, n_t_60x, n_t_62x, n_t_64x, n_t_72x, n_t_73x, n_t_75x, n_t_7x, n_t_8x, n_t_92x, n_t_9x, overrun_err, rcni, rcra, rcrb, rcrc, rcse, rd7_l, rd8_l, rd9_l, rx_clr_l, rx_data_av, serial_out, skip_l, sr06, tclr_l, tp1, tp3, tx_buf_empty, xmit_active_l, zone4, zone5);
-output a00_l;
-output cc_sdlc_l;
-output cc_sdrc_l;
-output clear_l;
-output data09;
-output df_db03;
-output dily_l;
-output dire_l;
-output disd;
-output disd_l;
-output evn;
-output md07;
-output md4_l;
-output md5_l;
-output mtr4_l;
-input n3v3;
-output n_t_100x;
-output n_t_101x;
-output n_t_102x;
-output n_t_112x;
-output n_t_14x;
-output n_t_15x;
-output n_t_17x;
+module m8830c (n_t_13x, n_t_19x, oscin, hz1, hz10m, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n_t_10x, n_t_11x, n_t_12x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp1, tp3);
+output n_t_13x;
 output n_t_19x;
-output n_t_20x;
-output n_t_51x;
-output n_t_52x;
-inout reg n_t_53x;
-output n_t_59x;
-output n_t_5x;
-output n_t_68x;
-output n_t_6x;
-output n_t_70x;
-output n_t_80x;
-output n_t_82x;
-output n_t_84x;
-output n_t_89x;
-output n_t_90x;
-output n_t_96x;
-output n_t_97x;
-output n_t_98x;
-output n_t_99x;
-output nb1;
-output nb2;
-output np;
 input oscin;
-output pause_l;
-output regbus00;
-output reset_dav_l;
-output rx_clk;
-output serial_in;
-output sr08;
-output sr09;
-output tsb;
-output tx_clk;
-output txd_strobe;
-output xr;
-output ad2;
-output ae2;
-output ah1;
-output ah2;
-output aj1;
-output aj2;
-output ak1;
-output ak2;
-output al1;
-output al2;
-output am1;
-output am2;
-output ap2;
-output ar2;
-output as2;
-output au2;
-output av2;
-output bb1;
-output bd1;
-output be1;
-output bh1;
-output bh2;
-output bj1;
-output bj2;
-output bk2;
-output bl2;
-output bm2;
-output bp2;
-output br2;
-output bs2;
-output bu2;
-output c1_l;
-output cc_tt_en;
-output chan;
-output data00_l;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output df_db00;
-output dicd;
-output dilx;
-output dily;
 output hz1;
 output hz10m;
 output hz5;
@@ -154,12 +49,9 @@ output hz50k;
 output hz5k;
 output hz5m;
 input init;
-output int_en;
 output int_rqst_l;
 output internal_io_l;
 input io_pause_l;
-output itclk;
-output load_en_l;
 input md03_l;
 input md04_l;
 input md05_l;
@@ -169,133 +61,43 @@ input md08_l;
 input md09_l;
 input md10_l;
 input md11_l;
-output n15v;
-input n3v;
 output n_t_10x;
-input n_t_11x;
-inout reg n_t_12x;
-output n_t_13x;
-input n_t_16x;
-output n_t_1x;
-input n_t_22x;
-output n_t_23x;
-output n_t_28x;
-output n_t_34x;
-output n_t_45x;
-output n_t_4x;
-output n_t_54x;
-output n_t_55x;
-output n_t_57x;
-output n_t_58x;
-output n_t_60x;
-output n_t_62x;
-output n_t_64x;
-output n_t_72x;
-output n_t_73x;
-output n_t_75x;
+output n_t_11x;
+output n_t_12x;
 output n_t_7x;
 output n_t_8x;
-output n_t_92x;
 output n_t_9x;
-output overrun_err;
-output rcni;
-output rcra;
-output rcrb;
-output rcrc;
-output rcse;
-output rd7_l;
-output rd8_l;
-output rd9_l;
-output rx_clr_l;
-output rx_data_av;
-output serial_out;
 output skip_l;
-output sr06;
-output tclr_l;
 input tp1;
 input tp3;
-output tx_buf_empty;
-output xmit_active_l;
-output zone4;
-output zone5;
 
-reg ac01_m;
 reg ck_flag_m;
 reg irq_enable_m;
-reg n_t_12x_m;
-reg n_t_53x_m;
 reg ticked_m;
 
-reg ac01;
+reg gdollar_0;
+reg gdollar_1;
 reg ck_flag;
+reg gdollar_2;
 reg ticked;
 reg irq_enable;
-wire a1;
-wire ac03;
-wire ac2bus_l;
-wire af2;
-wire an2;
-wire cc_sdrd_l;
-wire cc_tpg1;
-wire cc_tpg1_l;
-wire cc_tpg_clk;
 wire cldi;
 wire clie;
 wire clsk;
-wire col_red_l;
-wire color;
-wire data03_l;
-wire data07_l;
-wire data09_l;
 wire do_clsk_l;
-wire int_in_prog_l;
 wire io6131_l;
 wire io6132_l;
 wire io6133_l;
 wire iopmd03;
 wire iopmd04;
 wire iopmd06;
-wire last_unit_l;
-wire load_data_l;
 wire maybe_clei_l;
 wire maybe_clsk_l;
 wire maybecldi_l;
-wire md10p;
-wire md11p;
 wire myiot;
 wire mymd09;
 wire mymd10;
 wire mymd11;
-wire n_t_154x;
-wire n_t_24x;
-wire n_t_2x;
-wire n_t_30x;
-wire n_t_31x;
-wire n_t_32x;
-wire n_t_33x;
-wire n_t_36x;
-wire n_t_3x;
-wire n_t_41x;
-wire n_t_56x;
-wire n_t_65x;
-wire n_t_69x;
-wire n_t_74x;
-wire n_t_76x;
-wire p3_bm2;
-wire p3_bm3;
-wire p3_bm4;
-wire p3_bm5;
-wire p3_bm6;
-wire p3_bm7;
-wire p3_bm8;
-wire p3_hos_l;
-wire p6_eem;
-wire pagez;
-wire preset_l;
-wire regbus01;
-wire sr05;
-wire store_l;
-wire zone1;
 assign iopmd06 = ~(io_pause_l
                     | md06_l);
 assign iopmd04 = ~(md04_l
@@ -326,45 +128,13 @@ assign io6132_l = ~(tp3 & myiot & cldi);
 assign do_clsk_l = ~(ck_flag & tp3 & ~io6133_l);
 assign io6131_l = ~(myiot & tp3 & clie);
 // e7: sn7475 
-always @(preset_l, color, preset_l, color, 1'b0)
-  if (preset_l & ~color) begin
-    n_t_12x_m <= 1'b0;
-  end else
-  if (preset_l & color) begin
-    n_t_12x_m <= 1'b1;
-  end else
-  if (~(1'b0)) begin
-    n_t_12x_m <= 1'b0;
-  end
-always @(preset_l, color, preset_l, color, n_t_12x_m)
-  if (preset_l & ~color) begin
-    n_t_12x <= 1'b0;
-  end else
-  if (preset_l & color) begin
-    n_t_12x <= 1'b1;
-  end else
+always @(posedge 1'b0)
   if (1'b0) begin
-    n_t_12x <= n_t_12x_m;
+    gdollar_0 <= 1'b0;
   end
-always @(preset_l, color, preset_l, color, 1'b0)
-  if (preset_l & ~color) begin
-    ac01_m <= 1'b0;
-  end else
-  if (preset_l & color) begin
-    ac01_m <= 1'b1;
-  end else
-  if (~(1'b0)) begin
-    ac01_m <= 1'b0;
-  end
-always @(preset_l, color, preset_l, color, ac01_m)
-  if (preset_l & ~color) begin
-    ac01 <= 1'b0;
-  end else
-  if (preset_l & color) begin
-    ac01 <= 1'b1;
-  end else
+always @(posedge 1'b0)
   if (1'b0) begin
-    ac01 <= ac01_m;
+    gdollar_1 <= 1'b0;
   end
 always @(tp1, ticked, tp1, ticked, 1'b0)
   if (tp1 & ~ticked) begin
@@ -386,55 +156,28 @@ always @(tp1, ticked, tp1, ticked, ck_flag_m)
   if (1'b0) begin
     ck_flag <= ck_flag_m;
   end
-always @(tp1, ac2bus_l, tp1, ac2bus_l, 1'b0)
-  if (tp1 & ~ac2bus_l) begin
-    n_t_53x_m <= 1'b0;
-  end else
-  if (tp1 & ac2bus_l) begin
-    n_t_53x_m <= 1'b1;
-  end else
-  if (~(1'b0)) begin
-    n_t_53x_m <= 1'b0;
-  end
-always @(tp1, ac2bus_l, tp1, ac2bus_l, n_t_53x_m)
-  if (tp1 & ~ac2bus_l) begin
-    n_t_53x <= 1'b0;
-  end else
-  if (tp1 & ac2bus_l) begin
-    n_t_53x <= 1'b1;
-  end else
+always @(posedge 1'b0)
   if (1'b0) begin
-    n_t_53x <= n_t_53x_m;
+    gdollar_2 <= 1'b0;
   end
-assign col_red_l = ~n_t_12x;
-assign n_t_90x = ~ck_flag;
-assign n_t_92x = ~n_t_53x;
 // e8: n8881n 
 // io_pause_l = io_pause_l; 
-// internal_io_l = !(myiot & n3v3); 
+// internal_io_l = !(myiot & 'b'1); 
 // int_rqst_l = !(ck_flag & irq_enable); 
 // skip_l = !(!io6133_l & ck_flag); 
 // e9: sn7400 
-assign n_t_24x = ~(n_t_56x & n_t_22x);
 assign io6133_l = ~(myiot & clsk);
-assign load_data_l = ~(data09_l & n_t_11x);
 // e10: sn7474 
-always @(oscin, do_clsk_l, n3v3, n3v3)
+always @(oscin, do_clsk_l, 1'b1)
   if (~do_clsk_l) begin
     ticked_m <= 1'b0;
   end else
-  if (~n3v3) begin
-    ticked_m <= 1'b1;
-  end else
   if (~(oscin)) begin
-    ticked_m <= n3v3;
+    ticked_m <= 1'b1;
   end
-always @(oscin, do_clsk_l, n3v3, ticked_m)
+always @(oscin, do_clsk_l, ticked_m)
   if (~do_clsk_l) begin
     ticked <= 1'b0;
-  end else
-  if (~n3v3) begin
-    ticked <= 1'b1;
   end else
   if (oscin) begin
     ticked <= ticked_m;
@@ -468,12 +211,6 @@ assign mymd11 = ~(~myiot
 assign mymd10 = ~(~myiot
                    | md10_l);
 // e14: sn7402 
-assign 'b'0 = ~(n3v
-                 | cc_tpg_clk);
-assign n_t_17x = ~(cc_tpg1
-                    | cc_tpg1_l);
-assign 'b'0 = ~(n_t_16x
-                 | n3v);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -486,6 +223,6 @@ assign 'b'0 = ~(n_t_16x
 // r10: r_us_ 
 // open collector 'wire-or's 
 assign int_rqst_l = (ck_flag & irq_enable)? 1'b0: 1'bz;
-assign internal_io_l = (myiot & n3v3)? 1'b0: 1'bz;
+assign internal_io_l = myiot? ~myiot: 1'bz;
 assign skip_l = (~io6133_l & ck_flag)? 1'b0: 1'bz;
 endmodule

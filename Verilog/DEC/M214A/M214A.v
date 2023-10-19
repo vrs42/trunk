@@ -18,115 +18,44 @@
 // c11: c_us 
 // c12: c_us 
 // e1: sn7450 
-// e2: sn7450 
-// e3: sn7482 
-module m214a (c0_l, c1_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_25x, n_t_26x, n_t_2x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_47x, n_t_48x, n_t_4x, n_t_55x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_6x, skip_l, tp3);
-output c0_l;
-output c1_l;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
+module m214a (n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_25x, n_t_26x, n_t_2x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_47x, n_t_48x, n_t_4x, n_t_55x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_6x);
 input n_t_15x;
-inout n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output n_t_19x;
-output n_t_1x;
-output n_t_20x;
-output n_t_21x;
+inout reg n_t_16x;
+inout reg n_t_17x;
+input n_t_18x;
+input n_t_19x;
+input n_t_1x;
+input n_t_20x;
+input n_t_21x;
 output n_t_22x;
-output n_t_25x;
-output n_t_26x;
-output n_t_2x;
-output n_t_38x;
-output n_t_39x;
-output n_t_3x;
-output n_t_40x;
-output n_t_41x;
-output n_t_42x;
-output n_t_43x;
-output n_t_47x;
-output n_t_48x;
-output n_t_4x;
+input n_t_25x;
+input n_t_26x;
+input n_t_2x;
+inout reg n_t_38x;
+inout reg n_t_39x;
+input n_t_3x;
+input n_t_40x;
+input n_t_41x;
+input n_t_42x;
+input n_t_43x;
+input n_t_47x;
+input n_t_48x;
+input n_t_4x;
 input n_t_55x;
-output n_t_5x;
-output n_t_60x;
-output n_t_61x;
-output n_t_62x;
-output n_t_63x;
-output n_t_64x;
-output n_t_65x;
-output n_t_6x;
-output skip_l;
-output tp3;
+input n_t_5x;
+inout reg n_t_60x;
+inout reg n_t_61x;
+input n_t_62x;
+input n_t_63x;
+input n_t_64x;
+input n_t_65x;
+input n_t_6x;
 
-reg adflag_m;
-reg bdflag_m;
-reg enable_b_m;
-reg n_t_14x_m;
-reg sl_insert_m;
 
-reg enable_b;
-reg n_t_14x;
-reg enable_b;
-reg sl_insert;
-reg bdflag;
-reg adflag;
-wire a0;
-wire a8;
-wire ad01;
-wire ad02;
-wire ad02l;
-wire bd00;
-wire bd00l;
-wire bd01;
-wire bd03;
-wire biot5l;
-wire clear_reg_l;
-wire clock;
-wire d1;
-wire f2;
-wire h1;
-wire inb2_l;
-wire inb4_l;
-wire inb5_l;
-wire k1;
-wire l1;
-wire l2;
-wire left_shift;
-wire m1;
-wire n2;
-wire n3v3;
-wire n3v4;
 wire n_t_10x;
 wire n_t_11x;
 wire n_t_12x;
-wire n_t_136x;
 wire n_t_13x;
-wire n_t_146x;
-wire n_t_27x;
 wire n_t_29x;
 wire n_t_30x;
 wire n_t_31x;
@@ -134,7 +63,6 @@ wire n_t_32x;
 wire n_t_33x;
 wire n_t_34x;
 wire n_t_35x;
-wire n_t_46x;
 wire n_t_51x;
 wire n_t_52x;
 wire n_t_53x;
@@ -144,11 +72,16 @@ wire n_t_57x;
 wire n_t_7x;
 wire n_t_8x;
 wire n_t_9x;
-wire right_shift;
-wire s1;
-wire select6;
-wire u2;
-wire v2;
+assign n_t_9x = ~(n_t_1x & n_t_4x
+                   | n_t_2x & n_t_16x);
+assign n_t_10x = ~(n_t_5x & n_t_20x
+                    | n_t_6x & n_t_21x);
+// e2: sn7450 
+assign n_t_8x = ~(n_t_1x & n_t_3x
+                   | n_t_2x & n_t_17x);
+assign n_t_7x = ~(n_t_5x & n_t_18x
+                   | n_t_6x & n_t_19x);
+// e3: sn7482 
 assign n_t_13x = n_t_11x
                   ^ n_t_10x
                   ^ n_t_9x;
@@ -162,50 +95,24 @@ assign n_t_22x = gdollar_0 & n_t_8x
                   | n_t_8x & n_t_7x
                   | n_t_7x & gdollar_0;
 // e4: sn7474 
-always @(n_t_15x, n_t_16x, inb5_l, n_t_34x)
-  if (~n_t_16x) begin
-    enable_b_m <= 1'b0;
-  end else
-  if (~inb5_l) begin
-    enable_b_m <= 1'b1;
-  end else
-  if (~(n_t_15x)) begin
-    enable_b_m <= n_t_34x;
-  end
-always @(n_t_15x, n_t_16x, inb5_l, enable_b_m)
-  if (~n_t_16x) begin
-    enable_b <= 1'b0;
-  end else
-  if (~inb5_l) begin
-    enable_b <= 1'b1;
-  end else
+always @(posedge n_t_15x)
   if (n_t_15x) begin
-    enable_b <= enable_b_m;
+    n_t_17x <= ~n_t_12x;
   end
-assign n_t_17x = ~enable_b;
-always @(n_t_15x, right_shift, left_shift, n_t_13x)
-  if (~right_shift) begin
-    n_t_14x_m <= 1'b0;
-  end else
-  if (~left_shift) begin
-    n_t_14x_m <= 1'b1;
-  end else
-  if (~(n_t_15x)) begin
-    n_t_14x_m <= n_t_13x;
-  end
-always @(n_t_15x, right_shift, left_shift, n_t_14x_m)
-  if (~right_shift) begin
-    n_t_14x <= 1'b0;
-  end else
-  if (~left_shift) begin
-    n_t_14x <= 1'b1;
-  end else
+always @(posedge n_t_15x)
   if (n_t_15x) begin
-    n_t_14x <= n_t_14x_m;
+    n_t_16x <= ~n_t_13x;
   end
-assign n_t_16x = ~n_t_14x;
 // e5: sn7450 
+assign n_t_31x = ~(n_t_1x & n_t_26x
+                    | n_t_2x & n_t_38x);
+assign n_t_32x = ~(n_t_5x & n_t_42x
+                    | n_t_6x & n_t_43x);
 // e6: sn7450 
+assign n_t_30x = ~(n_t_1x & n_t_25x
+                    | n_t_2x & n_t_39x);
+assign n_t_29x = ~(n_t_5x & n_t_40x
+                    | n_t_6x & n_t_41x);
 // e7: sn7482 
 assign n_t_35x = n_t_33x
                   ^ n_t_32x
@@ -220,30 +127,24 @@ assign n_t_11x = gdollar_1 & n_t_30x
                   | n_t_30x & n_t_29x
                   | n_t_29x & gdollar_1;
 // e8: sn7474 
-assign n_t_39x = ~enable_b;
-always @(n_t_15x, right_shift, left_shift, n_t_35x)
-  if (~right_shift) begin
-    sl_insert_m <= 1'b0;
-  end else
-  if (~left_shift) begin
-    sl_insert_m <= 1'b1;
-  end else
-  if (~(n_t_15x)) begin
-    sl_insert_m <= n_t_35x;
-  end
-always @(n_t_15x, right_shift, left_shift, sl_insert_m)
-  if (~right_shift) begin
-    sl_insert <= 1'b0;
-  end else
-  if (~left_shift) begin
-    sl_insert <= 1'b1;
-  end else
+always @(posedge n_t_15x)
   if (n_t_15x) begin
-    sl_insert <= sl_insert_m;
+    n_t_39x <= ~n_t_34x;
   end
-assign n_t_38x = ~sl_insert;
+always @(posedge n_t_15x)
+  if (n_t_15x) begin
+    n_t_38x <= ~n_t_35x;
+  end
 // e9: sn7450 
+assign n_t_53x = ~(n_t_1x & n_t_48x
+                    | n_t_2x & n_t_60x);
+assign n_t_54x = ~(n_t_5x & n_t_64x
+                    | n_t_6x & n_t_65x);
 // e10: sn7450 
+assign n_t_52x = ~(n_t_1x & n_t_47x
+                    | n_t_2x & n_t_61x);
+assign n_t_51x = ~(n_t_5x & n_t_62x
+                    | n_t_6x & n_t_63x);
 // e11: sn7482 
 assign n_t_57x = n_t_55x
                   ^ n_t_54x
@@ -258,47 +159,13 @@ assign n_t_33x = gdollar_2 & n_t_52x
                   | n_t_52x & n_t_51x
                   | n_t_51x & gdollar_2;
 // e12: sn7474 
-always @(n_t_15x, n_t_136x, n3v4, n_t_56x)
-  if (~n_t_136x) begin
-    bdflag_m <= 1'b0;
-  end else
-  if (~n3v4) begin
-    bdflag_m <= 1'b1;
-  end else
-  if (~(n_t_15x)) begin
-    bdflag_m <= n_t_56x;
-  end
-always @(n_t_15x, n_t_136x, n3v4, bdflag_m)
-  if (~n_t_136x) begin
-    bdflag <= 1'b0;
-  end else
-  if (~n3v4) begin
-    bdflag <= 1'b1;
-  end else
+always @(posedge n_t_15x)
   if (n_t_15x) begin
-    bdflag <= bdflag_m;
+    n_t_61x <= ~n_t_56x;
   end
-assign n_t_61x = ~bdflag;
-always @(n_t_15x, n_t_146x, n3v4, n_t_57x)
-  if (~n_t_146x) begin
-    adflag_m <= 1'b0;
-  end else
-  if (~n3v4) begin
-    adflag_m <= 1'b1;
-  end else
-  if (~(n_t_15x)) begin
-    adflag_m <= n_t_57x;
-  end
-always @(n_t_15x, n_t_146x, n3v4, adflag_m)
-  if (~n_t_146x) begin
-    adflag <= 1'b0;
-  end else
-  if (~n3v4) begin
-    adflag <= 1'b1;
-  end else
+always @(posedge n_t_15x)
   if (n_t_15x) begin
-    adflag <= adflag_m;
+    n_t_60x <= ~n_t_57x;
   end
-assign n_t_60x = ~adflag;
 // open collector 'wire-or's 
 endmodule

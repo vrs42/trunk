@@ -18,7 +18,6 @@ $UNDEF  OPTIMIZE
 /* Input Pins */
 
 /* Output Pins */
-pin = n15v;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
@@ -54,22 +53,10 @@ pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node e1;
-node e2;
-node f2;
-node h1;
-node k1;
-node k2;
-node l2;
-node m1;
 node n_t_1x;
 node n_t_22x;
 node n_t_23x;
-node n_t_46x;
 node n_t_7x;
-node out;
-node r2;
-node s1;
 $ENDIF
 
 /* Code nodes */
@@ -87,20 +74,20 @@ $ENDIF
 /* c5: c_us */
 
 /* e1: sn7453 */
-/* e2 = !(n_t_11x & n_t_3x
-   # n_t_6x & n_t_12x
-   # n_t_5x & n_t_10x
-   # n_t_13x & n_t_4x); */
-/* e1 = !e2; */
-n_t_1x = e2;
+/* gdollar_0 = !(n_t_11x & n_t_3x
+          # n_t_6x & n_t_12x
+          # n_t_5x & n_t_10x
+          # n_t_13x & n_t_4x); */
+/* gdollar_1 = !gdollar_0; */
+n_t_1x = gdollar_0;
 
 /* e2: sn7453 */
-/* k2 = !(n_t_16x & n_t_3x
-   # n_t_6x & n_t_17x
-   # n_t_5x & n_t_15x
-   # n_t_9x & n_t_4x); */
-/* k1 = !k2; */
-n_t_7x = k2;
+/* gdollar_2 = !(n_t_16x & n_t_3x
+          # n_t_6x & n_t_17x
+          # n_t_5x & n_t_15x
+          # n_t_9x & n_t_4x); */
+/* gdollar_3 = !gdollar_2; */
+n_t_7x = gdollar_2;
 
 /* e3: sn7400 */
 n_t_36x = !(n_t_34x & n_t_23x);
@@ -109,46 +96,39 @@ n_t_8x = !(n_t_24x & n_t_7x);
 n_t_2x = !(n_t_14x & n_t_1x);
 
 /* e4: sn7453 */
-/* n_t_23x = !(n_t_32x & n_t_18x
-        # n_t_21x & n_t_33x
-        # n_t_20x & n_t_31x
-        # n_t_25x & n_t_19x); */
-/* n_t_22x = !n_t_23x; */
-n_t_23x = n_t_23x;
+/* gdollar_4 = !(n_t_32x & n_t_18x
+          # n_t_21x & n_t_33x
+          # n_t_20x & n_t_31x
+          # n_t_25x & n_t_19x); */
+/* gdollar_5 = !gdollar_4; */
+n_t_23x = gdollar_4;
 
 /* e5: sn7453 */
-/* n_t_3x = !(n_t_26x & n_t_18x
-       # n_t_21x & n_t_28x
-       # n_t_20x & n_t_27x
-       # n_t_29x & n_t_19x); */
-/* n_t_28x = !n_t_3x; */
-n_t_22x = n_t_3x;
+/* gdollar_6 = !(n_t_26x & n_t_18x
+          # n_t_21x & n_t_28x
+          # n_t_20x & n_t_27x
+          # n_t_29x & n_t_19x); */
+/* gdollar_7 = !gdollar_6; */
+n_t_22x = gdollar_6;
 
 /* Open collector 'wire-or's */
-!e1 = e2;
-!e2 = (n_t_11x & n_t_3x
-   # n_t_6x & n_t_12x
-   # n_t_5x & n_t_10x
-   # n_t_13x & n_t_4x);
-!k1 = k2;
-!k2 = (n_t_16x & n_t_3x
-   # n_t_6x & n_t_17x
-   # n_t_5x & n_t_15x
-   # n_t_9x & n_t_4x);
-!n_t_22x = n_t_23x;
-!n_t_23x = (n_t_32x & n_t_18x
-        # n_t_21x & n_t_33x
-        # n_t_20x & n_t_31x
-        # n_t_25x & n_t_19x);
-property atmel {open_collector= n_t_28x};
-!n_t_28x = n_t_3x;
-n_t_28x.oe = n_t_3x;
-property atmel {open_collector= n_t_3x};
-!n_t_3x = (n_t_26x & n_t_18x
-       # n_t_21x & n_t_28x
-       # n_t_20x & n_t_27x
-       # n_t_29x & n_t_19x);
-n_t_3x.oe = (n_t_26x & n_t_18x
-       # n_t_21x & n_t_28x
-       # n_t_20x & n_t_27x
-       # n_t_29x & n_t_19x);
+!gdollar_0 = (n_t_11x & n_t_3x
+          # n_t_6x & n_t_12x
+          # n_t_5x & n_t_10x
+          # n_t_13x & n_t_4x);
+!gdollar_1 = gdollar_0;
+!gdollar_2 = (n_t_16x & n_t_3x
+          # n_t_6x & n_t_17x
+          # n_t_5x & n_t_15x
+          # n_t_9x & n_t_4x);
+!gdollar_3 = gdollar_2;
+!gdollar_4 = (n_t_32x & n_t_18x
+          # n_t_21x & n_t_33x
+          # n_t_20x & n_t_31x
+          # n_t_25x & n_t_19x);
+!gdollar_5 = gdollar_4;
+!gdollar_6 = (n_t_26x & n_t_18x
+          # n_t_21x & n_t_28x
+          # n_t_20x & n_t_27x
+          # n_t_29x & n_t_19x);
+!gdollar_7 = gdollar_6;

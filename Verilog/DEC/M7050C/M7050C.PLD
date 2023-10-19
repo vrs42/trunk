@@ -17,20 +17,18 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = n_t_17x;
-pin = n_t_20x;
+pin = n_t_30x;
 
 /* Output Pins */
 pin = ac1;
 pin = aj2;
 pin = at2;
-pin = au1;
 pin = ba1;
 pin = ba_lp_0_rp;
 pin = ba_lp_1_rp;
 pin = bb_lp_0_rp;
 pin = bb_lp_1_rp;
 pin = bc1;
-pin = bh1;
 pin = bn1;
 pin = clk_l;
 pin = clock1;
@@ -66,23 +64,12 @@ pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_14x;
-pin = n_t_15x;
-pin = n_t_16x;
-pin = n_t_18x;
-pin = n_t_19x;
 pin = n_t_1x;
 pin = n_t_21x;
-pin = n_t_26x;
-pin = n_t_28x;
 pin = n_t_2x;
-pin = n_t_30x;
 pin = n_t_34x;
 pin = n_t_37x;
 pin = n_t_3x;
-pin = n_t_4x;
-pin = n_t_5x;
-pin = n_t_6x;
-pin = n_t_8x;
 pin = n_t_9x;
 pin = offline;
 pin = out_of_tape;
@@ -97,17 +84,14 @@ pin = rd_hole_7;
 pin = rd_hole_8;
 pin = rdr_run_l;
 pin = rfc_delayed_l;
-pin = sh_st_out;
 pin = shift;
 pin = shift_l;
 pin = skip;
 pin = stop_complete;
 pin = stop_delay;
-pin = w1;
-pin = w2;
-pin = w8;
 node rdr_run;
 node rdr_flag;
+node n_t_27x;
 node enable;
 node bb;
 node ba;
@@ -120,20 +104,15 @@ node binit_l;
 node bv2;
 node clr_flag;
 node clr_run_l;
-node data1_l;
-node data5_l;
 node iot_011_l;
 node iot_012_l;
 node iot_014_l;
-node mb5=0;
-node md07_l;
-node n_t_134x;
-node n_t_149x;
+node n_t_16x;
 node n_t_24x;
 node n_t_25x;
-node n_t_27x;
+node n_t_26x;
+node n_t_28x;
 node n_t_29x;
-node n_t_31x;
 node n_t_32x;
 node n_t_33x;
 node n_t_35x;
@@ -142,20 +121,9 @@ node n_t_38x;
 node n_t_39x;
 node n_t_40x;
 node n_t_41x;
-node n_t_54x;
-node n_t_55x;
-node n_t_56x;
-node n_t_58x;
-node n_t_60x;
-node n_t_62x;
-node n_t_64x;
-node n_t_65x;
-node n_t_70x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
-node n_t_7x;
+node n_t_5x;
+node n_t_6x;
+node n_t_8x;
 node out_of_tape_l;
 $ENDIF
 
@@ -227,7 +195,6 @@ rdr_flag.ar = !clr_flag;
 rdr_flag.d = rdr_run;
 rdr_flag.ck = ac1;
 rdr_flag.ap = !n3v3;
-n_t_15x = !rdr_flag;
 
 /* e6: sn7401 */
 /* int_request = !rdr_flag; */
@@ -268,25 +235,22 @@ n_t_33x = !(iot_012_l & rfc_delayed_l & clr_run_l);
 
 /* e12: sn7440 */
 ac1 = !n_t_39x;
-n_t_31x = !n_t_36x;
 
 /* e13: sn7404 */
 n_t_32x = !initialize_l;
 binit_l = !n_t_32x;
 ba1 = !bv2;
 n_t_8x = !n_t_5x;
-mb5=0 = !n_t_40x;
 iot_011 = !iot_011_l;
 
 /* e14: sn7430 */
 n_t_5x = !(mb8_lp_1_rp & mb6_lp_0_rp & mb4_lp_0_rp & mb4_lp_0_rp & mb5_lp_0_rp & mb7_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp);
 
 /* e15: sn7474 */
-n_t_19x.ar = !binit_l;
-n_t_19x.d = 'b'0;
-n_t_19x.ck = stop_delay;
-n_t_19x.ap = !shift_l;
-n_t_27x = !n_t_19x;
+n_t_27x.ap = !binit_l;
+n_t_27x.d = 'b'1;
+n_t_27x.ck = stop_delay;
+n_t_27x.ar = !shift_l;
 enable.ar = !binit_l;
 enable.d = bn1;
 enable.ck = clock1;
@@ -320,7 +284,6 @@ ba.ap = !n3v3;
 ba_l = !ba;
 
 /* e19: sn7400 */
-n_t_149x = !(n_t_134x & n_t_149x);
 n_t_24x = !(ba & bb);
 n_t_41x = !(n_t_40x & n_t_21x);
 n_t_40x = !(n_t_41x & enable_l);

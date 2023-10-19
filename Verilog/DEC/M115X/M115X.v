@@ -9,7 +9,7 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn7410 
-module m115x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m115x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 input c1;
@@ -30,7 +30,6 @@ input l2;
 input m1;
 output m2;
 output n1;
-output n15v;
 input n2;
 input p1;
 input p2;
@@ -45,14 +44,6 @@ output v1;
 input v2;
 
 
-wire n_t_10x;
-wire n_t_18x;
-wire n_t_22x;
-wire n_t_24x;
-wire n_t_26x;
-wire n_t_28x;
-wire n_t_4x;
-wire n_t_8x;
 assign h2 = ~(e2 & d2 & f2);
 assign j1 = ~(e1 & f1 & h1);
 assign d1 = ~(c1 & b1 & a1);
@@ -61,7 +52,6 @@ assign n1 = ~(k1 & l1 & m1);
 assign u1 = ~(p1 & r1 & s1);
 assign s2 = ~(r2 & p2 & n2);
 // e3: sn7410 
-assign s2 = ~(n2 & p2 & r2);
 assign v1 = ~(v2 & u2 & t2);
 assign m2 = ~(l2 & k2 & j2);
 // open collector 'wire-or's 

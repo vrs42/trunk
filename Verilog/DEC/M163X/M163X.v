@@ -8,8 +8,7 @@
 // c1: c_us 
 // c2: c_us 
 // e1: dec8251 
-module m163x (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
-output n15v;
+module m163x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
 output n_t_10x;
 output n_t_11x;
 output n_t_12x;
@@ -40,7 +39,6 @@ output n_t_8x;
 output n_t_9x;
 
 
-wire n_t_30x;
 assign n_t_5x = ~(~n_t_4x & ~n_t_3x & ~n_t_2x & ~n_t_1x);
 assign n_t_6x = ~(~n_t_4x & ~n_t_3x & ~n_t_2x & n_t_1x);
 assign n_t_7x = ~(~n_t_4x & ~n_t_3x & n_t_2x & ~n_t_1x);

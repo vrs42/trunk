@@ -16,62 +16,9 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = n_t_10x;
-pin = n_t_13x;
-pin = n_t_15x;
-pin = n_t_6x;
-pin = n_t_8x;
 
 /* Output Pins */
-pin = a1;
-pin = b1;
-pin = b_bot;
-pin = b_set;
-pin = b_stop;
-pin = bot_l;
-pin = c1;
-pin = c7ch_l;
-pin = cbot_l;
-pin = ccrce_l;
-pin = ceot_l;
-pin = cfmk_l;
-pin = clrce_l;
-pin = clrcs_l;
-pin = crcs_l;
-pin = crd0_l;
-pin = crd1_l;
-pin = crd2_l;
-pin = crd3_l;
-pin = crd4_l;
-pin = crd5_l;
-pin = crd6_l;
-pin = crd7_l;
-pin = crdp_l;
-pin = crds_l;
-pin = csdwn_l;
-pin = cselr_l;
-pin = ctur_l;
-pin = cvpe_l;
-pin = cwrl_l;
-pin = d1;
-pin = d2;
-pin = e1;
-pin = e2;
-pin = ebot_l;
-pin = f1;
-pin = f2;
 pin = filter_input;
-pin = fmk_l;
-pin = h1;
-pin = h2;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = l1;
-pin = l2;
-pin = m1;
-pin = m2;
 pin = mftp0;
 pin = mftp1;
 pin = mftp2;
@@ -81,54 +28,14 @@ pin = mfts1_h;
 pin = mfts1_l;
 pin = mfts2_h;
 pin = mfts2_l;
-pin = n1;
-pin = n15v;
-pin = n2;
 pin = n_t_11x;
 pin = n_t_12x;
-pin = n_t_16x;
-pin = n_t_28x;
-pin = n_t_2x;
-pin = n_t_35x;
-pin = p1;
-pin = p2;
 pin = power_clear_l;
-pin = r1;
-pin = r2;
-pin = rds_l;
 pin = restart;
-pin = rsdwn_l;
-pin = rtur_l;
 pin = run;
-pin = s1;
-pin = s2;
-pin = selr_l;
-pin = set_pulse_h;
-pin = sw1;
-pin = t2;
-pin = tb3_h;
-pin = u1;
-pin = u2;
-pin = v1;
-pin = v2;
-pin = v_clamp;
-pin = xrd0_l;
-pin = xrd1_l;
-pin = xrd2_l;
-pin = xrd3_l;
-pin = xrd4_l;
-pin = xrd5_l;
-pin = xrd6_l;
-pin = xrd7_l;
-pin = xrdp_l;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node bd00;
-node c1_l;
-node data1_l;
-node erws_l;
-node ewrl_l;
 node n_t_17x;
 node n_t_18x;
 node n_t_19x;
@@ -140,22 +47,21 @@ node n_t_24x;
 node n_t_25x;
 node n_t_26x;
 node n_t_27x;
+node n_t_28x;
 node n_t_29x;
+node n_t_2x;
 node n_t_30x;
 node n_t_31x;
 node n_t_32x;
 node n_t_33x;
 node n_t_34x;
+node n_t_35x;
 node n_t_36x;
 node n_t_38x;
 node n_t_3x;
 node n_t_4x;
-node n_t_57x;
 node n_t_5x;
 node n_t_7x;
-node q5;
-node t2_l;
-node vpe_l;
 $ENDIF
 
 /* Code nodes */
@@ -188,12 +94,10 @@ $ENDIF
 mfts1_h.ar = !n_t_38x;
 mfts1_h.d = n_t_7x;
 mfts1_h.ck = mfts0_h;
-mfts1_h.ap = !f2;
 mfts1_l = !mfts1_h;
 mfts2_h.ar = !n_t_1x;
 mfts2_h.d = n_t_7x;
 mfts2_h.ck = mftp1;
-mfts2_h.ap = !d1;
 mfts2_l = !mfts2_h;
 
 /* e2: sn7400 */
@@ -227,14 +131,11 @@ n_t_36x = !n_t_34x;
 mftp1 = !n_t_31x;
 
 /* e7: sn7400 */
-crd3_l = !xrd3_l;
 mftp2 = !n_t_2x;
 n_t_2x = !n_t_3x;
 n_t_34x = !n_t_33x;
 
 /* e8: sn7400 */
-crd4_l = !xrd4_l;
-rds_l = !(p2 & crds_l);
 mfts0_l = !(n_t_18x & n_t_19x);
 n_t_19x = !(mfts0_l & n_t_21x);
 
@@ -278,6 +179,7 @@ n_t_3x = 'b'1;
 /* r17: r_us_ */
 
 /* r18: r_us_ */
+n_t_17x = 'b'1;
 
 /* r19: r_us_ */
 

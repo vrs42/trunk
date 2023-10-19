@@ -9,126 +9,44 @@
 // c2: c_us 
 // c3: c_us 
 // c4: cpol_use 
-// e2: sn74h00 
-module m628x (c1, e2, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_1x, n_t_2x, n_t_8x, ad00h, ad01h, ad02h, ad03h, ad04h, ad05h, ad06h, ad07h, ad08h, ad09h, ad10h, ad11h, adoneh, adonel, aflagh, ainith, alt_mdl3_h, alt_mdl3_l, alt_mdl4_h, alt_mdl4_l, areadyh, areadyl, astrobeh, astrobel, b2, bd00h, bd01h, bd02h, bd03h, bd04h, bd05h, bd06h, bd07h, bd08h, bd09h, bd10h, bd11h, bdoneh, bdonel, bflagh, binith, breadyh, breadyl, bstrobeh, bstrobel, c0_l, c1_l, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, data_en, e1, f1, h1, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, m1, m2, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, mdl3_h, mdl4_h, n1, n2, n_t_10x, n_t_11x, n_t_16x, n_t_17x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, p1, p2, r, r1, r2, s1, s2, skip_l, t2, tp3, u1, u2, v1, v2);
-output c1;
-output e2;
+// e1: sn74h50 
+module m628x (n3v, n_t_1x, n_t_2x, alt_mdl3_h, alt_mdl3_l, alt_mdl4_h, alt_mdl4_l, data_en, m2, mdl3_h, mdl4_h, n2, n_t_10x, n_t_11x, n_t_4x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
 input n3v;
-output n_t_12x;
-output n_t_13x;
-output n_t_15x;
 input n_t_1x;
 input n_t_2x;
-output n_t_8x;
-output ad00h;
-output ad01h;
-output ad02h;
-output ad03h;
-output ad04h;
-output ad05h;
-output ad06h;
-output ad07h;
-output ad08h;
-output ad09h;
-output ad10h;
-output ad11h;
-output adoneh;
-output adonel;
-output aflagh;
-output ainith;
 inout alt_mdl3_h;
 output alt_mdl3_l;
 inout alt_mdl4_h;
 output alt_mdl4_l;
-output areadyh;
-output areadyl;
-output astrobeh;
-output astrobel;
-output b2;
-output bd00h;
-output bd01h;
-output bd02h;
-output bd03h;
-output bd04h;
-output bd05h;
-output bd06h;
-output bd07h;
-output bd08h;
-output bd09h;
-output bd10h;
-output bd11h;
-output bdoneh;
-output bdonel;
-output bflagh;
-output binith;
-output breadyh;
-output breadyl;
-output bstrobeh;
-output bstrobel;
-output c0_l;
-output c1_l;
-output d2;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output data_en;
-output e1;
-output f1;
-output h1;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output j1;
-output m1;
+input data_en;
 output m2;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
 input mdl3_h;
 input mdl4_h;
-output n1;
 output n2;
 output n_t_10x;
 output n_t_11x;
-output n_t_16x;
-output n_t_17x;
-input n_t_3x;
-output n_t_4x;
-input n_t_5x;
-output n_t_6x;
+input n_t_4x;
 output p1;
 output p2;
-output r;
 output r1;
 output r2;
 output s1;
 output s2;
-output skip_l;
 output t2;
-output tp3;
 output u1;
 output u2;
-output v1;
 output v2;
 
 
+wire n_t_3x;
+wire n_t_5x;
+wire n_t_6x;
 wire n_t_7x;
+assign n_t_3x = ~(n_t_4x & mdl4_h
+                   | data_en & alt_mdl4_h);
+assign n_t_5x = ~(data_en & alt_mdl3_h
+                   | n_t_4x & mdl3_h);
+// e2: sn74h00 
 assign alt_mdl3_l = ~(alt_mdl3_h & n3v);
 assign alt_mdl4_l = ~(n3v & alt_mdl4_h);
 assign n_t_7x = ~(n_t_3x & n3v);
@@ -140,9 +58,6 @@ assign gdollar_0 = n_t_1x & mdl4_h;
 assign alt_mdl3_h = mdl3_h
                      ^ n_t_2x
                      ^ gdollar_0;
-assign t2 = gdollar_0 & mdl3_h
-             | mdl3_h & n_t_2x
-             | n_t_2x & gdollar_0;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

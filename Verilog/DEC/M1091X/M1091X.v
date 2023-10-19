@@ -15,8 +15,9 @@
 // c8: c_us 
 // c9: cpol_use 
 // e1: sp380n 
-module m1091x (n_t_101x, n_t_136x, n_t_2x, n_t_77x, n_t_91x, n_t_96x, n_t_98x, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_10x, n_t_17x, n_t_18x, n_t_45x, n_t_46x, n_t_47x, n_t_56x, n_t_57x, n_t_59x, n_t_68x, n_t_76x, n_t_78x, n_t_82x, n_t_84x, n_t_86x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m1091x (n_t_101x, n_t_10x, n_t_136x, n_t_2x, n_t_77x, n_t_91x, n_t_96x, n_t_98x, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_17x, n_t_18x, n_t_45x, n_t_46x, n_t_47x, n_t_56x, n_t_57x, n_t_59x, n_t_68x, n_t_76x, n_t_78x, n_t_82x, n_t_84x, n_t_86x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input n_t_101x;
+input n_t_10x;
 input n_t_136x;
 input n_t_2x;
 input n_t_77x;
@@ -25,17 +26,17 @@ input n_t_96x;
 input n_t_98x;
 output a1;
 output b1;
-inout c1;
+input c1;
 input d1;
 input d2;
 input e1;
 output e2;
 output f1;
-inout f2;
+input f2;
 output h1;
 input h2;
 input j1;
-inout j2;
+output j2;
 input k1;
 output k2;
 output l1;
@@ -43,9 +44,7 @@ input l2;
 output m1;
 input m2;
 input n1;
-output n15v;
 output n2;
-input n_t_10x;
 output n_t_17x;
 inout n_t_18x;
 output n_t_45x;
@@ -73,22 +72,6 @@ input v1;
 input v2;
 
 
-wire a0;
-wire a11;
-wire a4;
-wire c0;
-wire c1_l;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_16x;
-wire n_t_29x;
-wire n_t_8x;
-wire out_l;
-wire outhigh;
-wire select6;
-wire syn_l;
-assign f2 = ~(j2
-               | f2);
 assign j2 = ~l2;
 assign a1 = ~d1;
 assign b1 = ~c1;
@@ -103,7 +86,6 @@ assign p1 = ~r1;
 assign l1 = ~m2;
 assign m1 = ~n1;
 // e4: sp380n 
-assign testpoint = ~testpoint;
 assign n_t_47x = ~v2;
 assign n_t_46x = ~f2;
 assign n_t_45x = ~e1;
@@ -113,7 +95,6 @@ assign n_t_59x = ~u1;
 assign n_t_18x = ~t2;
 assign n_t_57x = ~u2;
 // e6: sn74h04 
-assign c1 = ~c1_l;
 assign n_t_76x = ~d2;
 assign n_t_68x = ~n_t_46x;
 assign n_t_78x = ~n_t_77x;

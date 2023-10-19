@@ -13,9 +13,7 @@
 // c6: cpol_use 
 // c7: c_us 
 // e1: sn74h00 
-module m510x (n_t_10x, n_t_11x, n_t_12x, n_t_15x, n_t_27x, n_t_34x, n_t_41x, n_t_50x, n_t_58x, n_t_6x, n_t_8x, clear_reg_l, inb4_l, n3v, n_t_16x, n_t_17x, n_t_1x, n_t_20x, n_t_21x, n_t_23x, n_t_28x, n_t_30x, n_t_35x, n_t_37x, n_t_42x, n_t_44x, n_t_48x, n_t_49x, n_t_4x, n_t_52x, n_t_54x, n_t_59x, n_t_61x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_7x, n_t_9x);
-output n_t_10x;
-output n_t_11x;
+module m510x (n_t_12x, n_t_15x, n_t_27x, n_t_34x, n_t_41x, n_t_50x, n_t_58x, n_t_6x, n3v, n_t_16x, n_t_1x, n_t_20x, n_t_21x, n_t_23x, n_t_28x, n_t_30x, n_t_35x, n_t_37x, n_t_42x, n_t_44x, n_t_48x, n_t_49x, n_t_4x, n_t_52x, n_t_54x, n_t_59x, n_t_61x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_7x, n_t_9x);
 input n_t_12x;
 input n_t_15x;
 input n_t_27x;
@@ -24,12 +22,8 @@ input n_t_41x;
 input n_t_50x;
 input n_t_58x;
 input n_t_6x;
-output n_t_8x;
-output clear_reg_l;
-output inb4_l;
 output n3v;
 inout n_t_16x;
-output n_t_17x;
 output n_t_1x;
 output n_t_20x;
 inout n_t_21x;
@@ -55,7 +49,6 @@ output n_t_7x;
 output n_t_9x;
 
 
-wire n_t_13x;
 assign n_t_16x = ~n_t_15x;
 assign n_t_20x = ~n_t_16x;
 assign n_t_9x = ~n_t_4x;

@@ -27,20 +27,15 @@
 // n_t_2x = !(n_t_1x & af1); 
 // n_t_1x = !(ak1 & af1); 
 // e4: sn7475 
-module m7672x (clk_l, n3v, n_t_13x, n_t_14x, n_t_15x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_5x, n_t_6x, n_t_8x, shift_l, ad2, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bd1, be1, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, n15v, n_t_11x, n_t_12x, n_t_16x, n_t_1x, n_t_2x, n_t_7x, n_t_9x);
-output clk_l;
+module m7672x (n3v, n_t_13x, n_t_14x, n_t_17x, n_t_18x, n_t_5x, n_t_6x, n_t_8x, ad2, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bd1, be1, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, n15v, n_t_11x, n_t_12x, n_t_16x, n_t_1x, n_t_2x, n_t_7x);
 input n3v;
 output n_t_13x;
 output n_t_14x;
-output n_t_15x;
 output n_t_17x;
 output n_t_18x;
-output n_t_19x;
-output n_t_20x;
 output n_t_5x;
 output n_t_6x;
 output n_t_8x;
-output shift_l;
 output ad2;
 output ae2;
 input af1;
@@ -103,7 +98,6 @@ output n_t_16x;
 inout n_t_1x;
 output n_t_2x;
 output n_t_7x;
-inout n_t_9x;
 
 reg ar1_m;
 reg av1_m;
@@ -112,26 +106,13 @@ reg bb1_m;
 reg bm2_m;
 reg bn2_m;
 reg bp1_m;
-reg iop2_m;
+reg gdollar_0_m;
 
-reg iop2;
-wire a1;
-wire b_last_brk;
-wire bdata2;
-wire c1;
-wire data_enable;
-wire e2;
-wire iop1;
-wire iop4;
-wire j2;
-wire k2;
-wire n2_8v;
-wire n3v3;
+reg gdollar_0;
 wire n_t_10x;
-wire n_t_39x;
 wire n_t_3x;
 wire n_t_4x;
-wire n_t_55x;
+wire n_t_9x;
 always @(bf1, bj1, bf1, bj1, 1'b0)
   if (bf1 & ~bj1) begin
     bb1_m <= 1'b0;
@@ -291,23 +272,23 @@ always @(bs1, br2, bs1, br2, bp1_m)
   end
 always @(bs1, n3v, bs1, n3v, 1'b0)
   if (bs1 & ~n3v) begin
-    iop2_m <= 1'b0;
+    gdollar_0_m <= 1'b0;
   end else
   if (bs1 & n3v) begin
-    iop2_m <= 1'b1;
+    gdollar_0_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    iop2_m <= 1'b0;
+    gdollar_0_m <= 1'b0;
   end
-always @(bs1, n3v, bs1, n3v, iop2_m)
+always @(bs1, n3v, bs1, n3v, gdollar_0_m)
   if (bs1 & ~n3v) begin
-    iop2 <= 1'b0;
+    gdollar_0 <= 1'b0;
   end else
   if (bs1 & n3v) begin
-    iop2 <= 1'b1;
+    gdollar_0 <= 1'b1;
   end else
   if (1'b0) begin
-    iop2 <= iop2_m;
+    gdollar_0 <= gdollar_0_m;
   end
 assign bu2 = ~bm2;
 assign bp2 = ~bn2;

@@ -20,100 +20,32 @@
 // clr_flag_l = !(!n_t_31x & flag_buffer); 
 // clr_flag_l = !n_t_14x; 
 // e2: sn7474 
-module m708b (, b1, b_bot, b_set, b_stop, ccrce_l, cfmk_l, clear_x, clear_y, clock, clock_enable, clock_iot, clrce_l, clrcs_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, ctur_l, e2, ebot_l, f1, flag, flag_buffer, fmk_l, h2, initialize, interrupt_l, io_irq_l, io_skip_l, iop1, iop1_l, iop2, iop2_l, iop4, iop4_l, irq_enb, j1, light_pen, load_counter, load_x, load_y, m1, mb10, mb10=1, mb11, mb11=1, mb3=0, mb3_l, mb4=0, mb4_l, mb5, mb5=0, mb6=1, mb6_l, mb7, mb7=0, mb7=1, mb8, mb8=0, mb8=1, mb9, mb9=0, mb9_l, mftp0, mfts0_h, n15v, n_t_24x, n_t_35x, n_t_48x, n_t_50x, overflow, power_clear_l, rds_l, rsdwn_l, rtur_l, set_pulse_h, skip_l, tb3_h, u1, v_clamp, xrd0_l, xrd2_l, xrd4_l, xrdp_l, z_axis);
-output ;
-output b1;
-output b_bot;
-output b_set;
-output b_stop;
-output ccrce_l;
-output cfmk_l;
-output clear_x;
-output clear_y;
+module m708b (clock, clock_enable, clock_iot, flag, flag_buffer, initialize, io_irq_l, io_skip_l, iop1_l, iop2_l, iop4, iop4_l, irq_enb, load_counter, mb10, mb11, mb3_l, mb4_l, mb5, mb6_l, mb7, mb8, mb9, mb9_l, overflow);
 input clock;
 output clock_enable;
 inout clock_iot;
-output clrce_l;
-output clrcs_l;
-output crcs_l;
-output crd0_l;
-output crd1_l;
-output crd2_l;
-output crd3_l;
-output crd4_l;
-output crd5_l;
-output crd6_l;
-output crd7_l;
-output crdp_l;
-output crds_l;
-output ctur_l;
-output e2;
-output ebot_l;
-output f1;
 inout reg flag;
 inout reg flag_buffer;
-output fmk_l;
-output h2;
 input initialize;
-output interrupt_l;
 output io_irq_l;
 output io_skip_l;
-inout iop1;
 input iop1_l;
-inout iop2;
 input iop2_l;
 output iop4;
 input iop4_l;
 inout reg irq_enb;
-output j1;
-output light_pen;
 inout load_counter;
-output load_x;
-output load_y;
-output m1;
 input mb10;
-output mb10=1;
 input mb11;
-output mb11=1;
-output mb3=0;
 input mb3_l;
-output mb4=0;
 input mb4_l;
 input mb5;
-output mb5=0;
-output mb6=1;
 input mb6_l;
 input mb7;
-output mb7=0;
-output mb7=1;
 input mb8;
-output mb8=0;
-output mb8=1;
 input mb9;
-output mb9=0;
 input mb9_l;
-output mftp0;
-output mfts0_h;
-output n15v;
-output n_t_24x;
-inout n_t_35x;
-output n_t_48x;
-output n_t_50x;
 input overflow;
-output power_clear_l;
-output rds_l;
-output rsdwn_l;
-output rtur_l;
-output set_pulse_h;
-output skip_l;
-output tb3_h;
-output u1;
-output v_clamp;
-output xrd0_l;
-output xrd2_l;
-output xrd4_l;
-output xrdp_l;
-output z_axis;
 
 reg flag_m;
 reg flag_buffer_m;
@@ -121,104 +53,53 @@ reg irq_enb_m;
 reg n_t_36x_m;
 
 reg n_t_36x;
-wire a1;
-wire ac06;
-wire ac07;
-wire active;
-wire ar1;
-wire bit9;
 wire clr_flag_l;
-wire data1_l;
-wire echo;
-wire ioclr_l;
-wire k1;
-wire n3v3;
-wire n_t_10x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
+wire iop1;
+wire iop2;
 wire n_t_14x;
-wire n_t_152x;
-wire n_t_153x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_18x;
-wire n_t_1x;
-wire n_t_20x;
-wire n_t_27x;
 wire n_t_29x;
-wire n_t_2x;
 wire n_t_31x;
 wire n_t_34x;
 wire n_t_37x;
-wire n_t_381x;
 wire n_t_38x;
-wire n_t_3x;
 wire n_t_40x;
-wire n_t_4x;
-wire n_t_53x;
-wire n_t_54x;
-wire n_t_55x;
-wire n_t_5x;
-wire n_t_6x;
-wire n_t_86x;
-wire n_t_8x;
-wire n_t_9x;
-always @(n_t_31x, n_t_29x, active, flag)
+always @(n_t_31x, n_t_29x, flag)
   if (~n_t_29x) begin
     flag_buffer_m <= 1'b0;
-  end else
-  if (~active) begin
-    flag_buffer_m <= 1'b1;
   end else
   if (~(~n_t_31x)) begin
     flag_buffer_m <= flag;
   end
-always @(n_t_31x, n_t_29x, active, flag_buffer_m)
+always @(n_t_31x, n_t_29x, flag_buffer_m)
   if (~n_t_29x) begin
     flag_buffer <= 1'b0;
-  end else
-  if (~active) begin
-    flag_buffer <= 1'b1;
   end else
   if (~n_t_31x) begin
     flag_buffer <= flag_buffer_m;
   end
-always @(clock, clr_flag_l, n_t_54x, n_t_40x)
+always @(clock, clr_flag_l, n_t_40x)
   if (~clr_flag_l) begin
     flag_m <= 1'b0;
-  end else
-  if (~n_t_54x) begin
-    flag_m <= 1'b1;
   end else
   if (~(clock)) begin
     flag_m <= ~n_t_40x;
   end
-always @(clock, clr_flag_l, n_t_54x, flag_m)
+always @(clock, clr_flag_l, flag_m)
   if (~clr_flag_l) begin
     flag <= 1'b0;
-  end else
-  if (~n_t_54x) begin
-    flag <= 1'b1;
   end else
   if (clock) begin
     flag <= flag_m;
   end
 // e3: sn7474 
-always @(n_t_14x, echo, n_t_37x, 1'b0)
-  if (~echo) begin
-    n_t_36x_m <= 1'b0;
-  end else
+always @(n_t_14x, n_t_37x, 1'b0)
   if (~n_t_37x) begin
     n_t_36x_m <= 1'b1;
   end else
   if (~(n_t_14x)) begin
     n_t_36x_m <= 1'b0;
   end
-always @(n_t_14x, echo, n_t_37x, n_t_36x_m)
-  if (~echo) begin
-    n_t_36x <= 1'b0;
-  end else
+always @(n_t_14x, n_t_37x, n_t_36x_m)
   if (~n_t_37x) begin
     n_t_36x <= 1'b1;
   end else
@@ -226,20 +107,14 @@ always @(n_t_14x, echo, n_t_37x, n_t_36x_m)
     n_t_36x <= n_t_36x_m;
   end
 assign clock_enable = ~n_t_36x;
-always @(n_t_14x, n_t_6x, n_t_38x, 1'b0)
-  if (~n_t_6x) begin
-    irq_enb_m <= 1'b0;
-  end else
+always @(n_t_14x, n_t_38x, 1'b0)
   if (~n_t_38x) begin
     irq_enb_m <= 1'b1;
   end else
   if (~(n_t_14x)) begin
     irq_enb_m <= 1'b0;
   end
-always @(n_t_14x, n_t_6x, n_t_38x, irq_enb_m)
-  if (~n_t_6x) begin
-    irq_enb <= 1'b0;
-  end else
+always @(n_t_14x, n_t_38x, irq_enb_m)
   if (~n_t_38x) begin
     irq_enb <= 1'b1;
   end else
@@ -250,8 +125,6 @@ always @(n_t_14x, n_t_6x, n_t_38x, irq_enb_m)
 assign n_t_38x = ~(mb11 & load_counter);
 assign n_t_40x = ~(n_t_36x & overflow);
 // e5: sn7400 
-assign n_t_53x = ~(ac06 & ~ar1);
-assign n_t_381x = ~(~ar1 & ac07);
 assign iop1 = ~iop1_l;
 assign iop4 = ~iop4_l;
 // e6: sn7430 
@@ -262,11 +135,10 @@ assign iop2 = ~iop2_l;
 assign n_t_34x = ~(mb9_l & mb11);
 // e8: sn7420 
 assign n_t_31x = ~(clock_iot & iop1 & mb10 & mb9_l);
-assign n_t_35x = ~(n_t_34x & clock_iot & iop2);
+assign load_counter = ~(~(n_t_34x & clock_iot & iop2));
 // e9: sn7400 
 assign n_t_37x = ~(load_counter & mb9);
-assign n_t_14x = ~(n_t_35x & initialize);
-assign load_counter = ~n_t_35x;
+assign n_t_14x = ~(~load_counter & initialize);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

@@ -124,22 +124,22 @@ warning: non-bypass capacitor deleted: c13
 warning: non-bypass capacitor deleted: c14
 warning: non-bypass capacitor deleted: c15
 warning: non-bypass capacitor deleted: c16
-unexpected OC output: n_t_87x at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2875.
 warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r7
 warning: non-pullup resistor deleted: r22
 warning: non-pullup resistor deleted: r29
 warning: non-pullup resistor deleted: r30
 ~/Verilog/bin/smaller.pl M865B.PLD >vv || (rm vv; exit 1)
-32 signals were removed:
+33 signals were removed:
   btp3: tp3
+  enable_l: !enable
   freq_div_l: !freq_div
+  initialize: init
   initialize_l: !initialize
   last_unit_l: !last_unit
   n603_l: !n603x
   n604_l: !n604x
   n_t_109x: !n_t_105x
-  n_t_10x: !n_t_131x
   n_t_111x: !n_t_105x
   n_t_122x: !rx_clr_l
   n_t_123x: !rx_clk_l
@@ -150,14 +150,14 @@ warning: non-pullup resistor deleted: r30
   n_t_138x: !n_t_137x
   n_t_20x: !n_t_6x
   n_t_21x: !n_t_18x
+  n_t_22x: !n_t_17x
+  n_t_23x: !n_t_16x
   n_t_24x: !n_t_15x
   n_t_25x: !n_t_14x
   n_t_26x: !n_t_13x
-  n_t_30x: !n_t_28x
   n_t_32x: !tx_busy_l
-  n_t_78x: !dtx_active_l
+  n_t_78x: 'b'1
   n_t_90x: !n_t_89x
-  n_t_92x: !n_t_53x
   n_t_94x: !n_t_134x
   power_ok_l: !power_ok
   preset: !preset_l
@@ -165,11 +165,10 @@ warning: non-pullup resistor deleted: r30
   tp3_l: !btp3
   xmit_active_l: !xmit_active
 ~/Verilog/bin/smaller.pl vv >M865BX.PLD || (rm M865BX.PLD; exit 1)
-4 signals were removed:
-  btp3: tp3
+3 signals were removed:
+  dtx_active_l: !'b'1
+  initialize: init
   n_t_105x: rx_data
-  n_t_13x: n_t_98x
-  rx_flag_l: dtx_active_l
 ~/Verilog/bin/cupl2v.pl M865BX.PLD >vv || (rm vv; exit 1)
 mv vv M865B.v
 rm M865BX.PLD

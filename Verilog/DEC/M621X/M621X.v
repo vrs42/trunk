@@ -13,86 +13,51 @@
 // c6: cpol_use 
 // c7: c_us 
 // e1: sn7450 
-// e2: sn74h00 
-module m621x (n_t_10x, n_t_11x, n_t_12x, n_t_8x, a1, b1, b2, c0_l, c1, c1_l, d1, d2, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, e1, e2, f1, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, j1, k1, k2, l1, m1, m2, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n1, n3v3, n_t_14x, n_t_16x, n_t_17x, n_t_18x, p1, p2, r1, s1, s2, skip_l, t2, tp3, u1, v2);
-output n_t_10x;
-output n_t_11x;
-output n_t_12x;
-output n_t_8x;
-output a1;
-output b1;
-output b2;
-output c0_l;
-output c1;
-output c1_l;
-output d1;
-output d2;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output e1;
+module m621x (c1, d1, d2, e1, e2, f1, h1, h2, j1, k1, k2, l1, m1, m2, n1, p1, p2, r1, s1, s2);
+input c1;
+input d1;
+input d2;
+input e1;
 output e2;
-output f1;
-output h1;
+input f1;
+input h1;
 output h2;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output j1;
-output k1;
-input k2;
-output l1;
-output m1;
+input j1;
+input k1;
+output k2;
+input l1;
+input m1;
 output m2;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
-output n1;
-output n3v3;
-output n_t_14x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output p1;
+input n1;
+input p1;
 output p2;
-output r1;
-output s1;
+input r1;
+input s1;
 output s2;
-output skip_l;
-output t2;
-output tp3;
-output u1;
-output v2;
 
 
-wire l2;
 wire n_t_13x;
-wire n_t_15x;
+wire n_t_14x;
+wire n_t_18x;
 wire n_t_20x;
 wire n_t_25x;
 wire n_t_27x;
-wire r2;
-wire t2_l;
-assign p2 = ~(l2 & k2);
+assign n_t_14x = ~(c1 & e1
+                    | d1 & d2);
+assign n_t_13x = ~(d2 & f1
+                    | c1 & h1);
+// e2: sn74h00 
 // e3: sn7450 
+assign n_t_18x = ~(c1 & k1
+                    | j1 & d2);
+assign n_t_20x = ~(c1 & m1
+                    | d2 & l1);
 // e4: sn74h00 
 // e5: sn7450 
+assign n_t_25x = ~(d2 & n1
+                    | p1 & c1);
+assign n_t_27x = ~(d2 & r1
+                    | c1 & s1);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

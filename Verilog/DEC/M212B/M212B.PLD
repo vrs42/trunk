@@ -53,43 +53,13 @@ pin = sr_insert;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a0;
-node bd00;
-node bd00l;
-node bd01;
-node bd03;
-node biot5l;
-node c1_l;
-node d1;
-node data1_l;
-node f2;
-node h1;
-node k1;
-node l1;
-node l2;
-node m1;
-node n2;
 node n3v3;
-node n_t_119x;
 node n_t_1x;
-node n_t_24x;
-node n_t_27x;
-node n_t_29x;
 node n_t_2x;
-node n_t_30x;
-node n_t_31x;
-node n_t_32x;
 node n_t_3x;
-node n_t_40x;
-node n_t_46x;
 node n_t_4x;
 node n_t_5x;
 node n_t_6x;
-node r1;
-node s1;
-node select6;
-node u2;
-node v2;
 $ENDIF
 
 /* Code nodes */
@@ -117,20 +87,20 @@ $ENDIF
 /* c10: c_us */
 
 /* e1: sn7453 */
-/* n_t_27x = !(sr_insert & right_shift
-        # ina0_l & enable_a
-        # inb0_l & enable_b
-        # n_t_10x & left_shift); */
-/* n_t_8x = !n_t_27x; */
-n_t_1x = n_t_27x;
+/* gdollar_0 = !(sr_insert & right_shift
+          # ina0_l & enable_a
+          # inb0_l & enable_b
+          # n_t_10x & left_shift); */
+/* gdollar_1 = !gdollar_0; */
+n_t_1x = gdollar_0;
 
 /* e2: sn7453 */
-/* l2 = !(n_t_8x & right_shift
-   # ina1_l & enable_a
-   # inb1_l & enable_b
-   # n_t_12x & left_shift); */
-/* l1 = !l2; */
-n_t_2x = l2;
+/* gdollar_2 = !(n_t_8x & right_shift
+          # ina1_l & enable_a
+          # inb1_l & enable_b
+          # n_t_12x & left_shift); */
+/* gdollar_3 = !gdollar_2; */
+n_t_2x = gdollar_2;
 
 /* e3: sn7474 */
 n_t_7x.ar = !n3v3;
@@ -145,20 +115,20 @@ n_t_9x.ap = !clear_reg_l;
 n_t_10x = !n_t_9x;
 
 /* e4: sn7453 */
-/* n_t_29x = !(n_t_10x & right_shift
-        # ina2_l & enable_a
-        # inb2_l & enable_b
-        # n_t_14x & left_shift); */
-/* n_t_30x = !n_t_29x; */
-n_t_3x = n_t_29x;
+/* gdollar_4 = !(n_t_10x & right_shift
+          # ina2_l & enable_a
+          # inb2_l & enable_b
+          # n_t_14x & left_shift); */
+/* gdollar_5 = !gdollar_4; */
+n_t_3x = gdollar_4;
 
 /* e5: sn7453 */
-/* n_t_32x = !(n_t_12x & right_shift
-        # ina3_l & enable_a
-        # inb3_l & enable_b
-        # n_t_16x & left_shift); */
-/* n3v3 = !n_t_32x; */
-n_t_4x = n_t_32x;
+/* gdollar_6 = !(n_t_12x & right_shift
+          # ina3_l & enable_a
+          # inb3_l & enable_b
+          # n_t_16x & left_shift); */
+/* gdollar_7 = !gdollar_6; */
+n_t_4x = gdollar_6;
 
 /* e6: sn7474 */
 n_t_11x.ar = !n3v3;
@@ -173,20 +143,20 @@ n_t_13x.ap = !clear_reg_l;
 n_t_14x = !n_t_13x;
 
 /* e7: sn7453 */
-/* n_t_27x = !(n_t_14x & right_shift
-        # ina4_l & enable_a
-        # inb4_l & enable_b
-        # n_t_18x & left_shift); */
-/* n_t_2x = !n_t_27x; */
-n_t_5x = n_t_27x;
+/* gdollar_8 = !(n_t_14x & right_shift
+          # ina4_l & enable_a
+          # inb4_l & enable_b
+          # n_t_18x & left_shift); */
+/* gdollar_9 = !gdollar_8; */
+n_t_5x = gdollar_8;
 
 /* e8: sn7453 */
-/* n_t_119x = !(n_t_16x & right_shift
-         # ina5_l & enable_a
-         # inb5_l & enable_b
-         # sl_insert & left_shift); */
-/* n_t_24x = !n_t_119x; */
-n_t_6x = n_t_119x;
+/* gdollar_10 = !(n_t_16x & right_shift
+           # ina5_l & enable_a
+           # inb5_l & enable_b
+           # sl_insert & left_shift); */
+/* gdollar_11 = !gdollar_10; */
+n_t_6x = gdollar_10;
 
 /* e9: sn7474 */
 n_t_15x.ar = !n3v3;
@@ -204,35 +174,33 @@ n_t_18x = !n_t_17x;
 n3v3 = 'b'1;
 
 /* Open collector 'wire-or's */
-!l1 = l2;
-!l2 = (n_t_8x & right_shift
-   # ina1_l & enable_a
-   # inb1_l & enable_b
-   # n_t_12x & left_shift);
-!n3v3 = n_t_32x;
-!n_t_119x = (n_t_16x & right_shift
-         # ina5_l & enable_a
-         # inb5_l & enable_b
-         # sl_insert & left_shift);
-!n_t_24x = n_t_119x;
-!n_t_27x = (sr_insert & right_shift
-        # ina0_l & enable_a
-        # inb0_l & enable_b
-        # n_t_10x & left_shift)
-        # (n_t_14x & right_shift
-        # ina4_l & enable_a
-        # inb4_l & enable_b
-        # n_t_18x & left_shift);
-!n_t_29x = (n_t_10x & right_shift
-        # ina2_l & enable_a
-        # inb2_l & enable_b
-        # n_t_14x & left_shift);
-!n_t_2x = n_t_27x;
-!n_t_30x = n_t_29x;
-!n_t_32x = (n_t_12x & right_shift
-        # ina3_l & enable_a
-        # inb3_l & enable_b
-        # n_t_16x & left_shift);
-property atmel {open_collector= n_t_8x};
-!n_t_8x = n_t_27x;
-n_t_8x.oe = n_t_27x;
+!gdollar_0 = (sr_insert & right_shift
+          # ina0_l & enable_a
+          # inb0_l & enable_b
+          # n_t_10x & left_shift);
+!gdollar_1 = gdollar_0;
+!gdollar_10 = (n_t_16x & right_shift
+           # ina5_l & enable_a
+           # inb5_l & enable_b
+           # sl_insert & left_shift);
+!gdollar_11 = gdollar_10;
+!gdollar_2 = (n_t_8x & right_shift
+          # ina1_l & enable_a
+          # inb1_l & enable_b
+          # n_t_12x & left_shift);
+!gdollar_3 = gdollar_2;
+!gdollar_4 = (n_t_10x & right_shift
+          # ina2_l & enable_a
+          # inb2_l & enable_b
+          # n_t_14x & left_shift);
+!gdollar_5 = gdollar_4;
+!gdollar_6 = (n_t_12x & right_shift
+          # ina3_l & enable_a
+          # inb3_l & enable_b
+          # n_t_16x & left_shift);
+!gdollar_7 = gdollar_6;
+!gdollar_8 = (n_t_14x & right_shift
+          # ina4_l & enable_a
+          # inb4_l & enable_b
+          # n_t_18x & left_shift);
+!gdollar_9 = gdollar_8;

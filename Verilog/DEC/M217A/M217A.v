@@ -13,7 +13,7 @@
 // c6: c_us 
 // c7: c_us 
 // e1: sn7400 
-module m217a (ac0, ac1, ac2, ac2bufl, ac3, buf2ac, bus0, bus1, bus2, bus3, clrbufl, clrclkl, cnt2bufh, count, loadclkh, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_35x, n_t_37x, n_t_38x, u1);
+module m217a (ac0, ac1, ac2, ac2bufl, ac3, buf2ac, bus0, bus1, bus2, bus3, clrbufl, clrclkl, cnt2bufh, count, loadclkh, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_35x, n_t_37x, n_t_38x);
 input ac0;
 input ac1;
 input ac2;
@@ -45,7 +45,6 @@ inout n_t_33x;
 inout n_t_35x;
 inout reg n_t_37x;
 inout n_t_38x;
-output u1;
 
 reg n_t_12x_m;
 reg n_t_14x_m;
@@ -56,30 +55,14 @@ reg n_t_2x_m;
 reg n_t_32x_m;
 reg n_t_37x_m;
 
-wire bd00;
-wire bd01;
-wire bd03;
-wire biot5l;
-wire data1_l;
-wire f2;
-wire h1;
-wire k1;
-wire m1;
-wire n2;
-wire n_t_10x;
-wire n_t_11x;
 wire n_t_26x;
 wire n_t_27x;
 wire n_t_28x;
 wire n_t_29x;
-wire n_t_46x;
 wire n_t_6x;
 wire n_t_7x;
 wire n_t_8x;
 wire n_t_9x;
-wire p1;
-wire s1;
-wire u2;
 assign n_t_7x = ~(ac2bufl & ac2);
 assign n_t_6x = ~(ac2bufl & ac3);
 assign n_t_9x = ~(ac0 & ac2bufl);

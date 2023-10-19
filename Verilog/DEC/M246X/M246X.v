@@ -11,34 +11,7 @@
 // c4: cpol_use 
 // c5: c_us 
 // e1: sn74h74 
-module m246x (c0_l, c1_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n3v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp3);
-output c0_l;
-output c1_l;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
+module m246x (n3v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
 output n3v;
 input n_t_10x;
 output n_t_11x;
@@ -70,26 +43,13 @@ input n_t_6x;
 input n_t_7x;
 input n_t_8x;
 input n_t_9x;
-output skip_l;
-output tp3;
 
 reg n_t_12x_m;
 reg n_t_19x_m;
 reg n_t_25x_m;
 reg n_t_2x_m;
-reg n_t_47x_m;
 reg n_t_4x_m;
 
-reg n_t_47x;
-wire f2;
-wire h1;
-wire j1;
-wire n3v3;
-wire n_t_37x;
-wire n_t_48x;
-wire p2;
-wire r1;
-wire s1;
 always @(n_t_7x, n_t_8x, n_t_6x, n_t_5x)
   if (~n_t_8x) begin
     n_t_4x_m <= 1'b0;
@@ -133,26 +93,6 @@ always @(n_t_22x, n_t_21x, n_t_23x, n_t_25x_m)
   end
 assign n_t_24x = ~n_t_25x;
 // e2: sn74h74 
-always @(n3v3, n_t_48x)
-  if (1'b1) begin
-    n_t_47x_m <= 1'b0;
-  end else
-  if (~n3v3) begin
-    n_t_47x_m <= 1'b1;
-  end else
-  if (~(1'b0)) begin
-    n_t_47x_m <= n_t_48x;
-  end
-always @(n3v3, n_t_47x_m)
-  if (1'b1) begin
-    n_t_47x <= 1'b0;
-  end else
-  if (~n3v3) begin
-    n_t_47x <= 1'b1;
-  end else
-  if (1'b0) begin
-    n_t_47x <= n_t_47x_m;
-  end
 always @(n_t_16x, n_t_15x, n_t_20x, n_t_17x)
   if (~n_t_15x) begin
     n_t_19x_m <= 1'b0;

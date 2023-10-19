@@ -60,10 +60,10 @@ warning: non-pullup resistor deleted: r21
 warning: non-pullup resistor deleted: r23
 warning: non-pullup resistor deleted: r24
 ~/Verilog/bin/smaller.pl M701D.PLD >vv || (rm vv; exit 1)
-16 signals were removed:
+14 signals were removed:
   n_t_10x: !load_y
-  n_t_110x: !light_pen_flag
   n_t_15x: !n_t_3x
+  n_t_18x: !n_t_19x
   n_t_21x: !n_t_12x
   n_t_22x: !initialize
   n_t_25x: !n_t_14x
@@ -71,14 +71,13 @@ warning: non-pullup resistor deleted: r24
   n_t_30x: !n_t_31x
   n_t_31x: !n_t_32x
   n_t_49x: 'b'1
-  n_t_53x: !n_t_108x
-  n_t_54x: 'b'1
   n_t_6x: !n_t_5x
   n_t_7x: !n_t_4x
   n_t_8x: !n_t_20x
   n_t_9x: !load_x
 ~/Verilog/bin/smaller.pl vv >M701DX.PLD || (rm M701DX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_31x: !n_t_32x
 ~/Verilog/bin/cupl2v.pl M701DX.PLD >vv || (rm vv; exit 1)
 mv vv M701D.v
 rm M701DX.PLD

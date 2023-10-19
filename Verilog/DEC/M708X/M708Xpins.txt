@@ -2,49 +2,31 @@ Exported from /home/vrs/Eagle/projects/DEC/Mxxx/M708/M708X.sch
 
 Part     Pad      Pin        Dir      Net
 
-C1       +        +          pas      N$6
-         -        -          pas      N$3
-         1        1          pas      VCC
+C1       1        1          pas      VCC
          2        2          pas      GND
 
-C2       +        +          pas      N$7
-         -        -          pas      N$16
-         1        1          pas      VCC
+C2       1        1          pas      VCC
          2        2          pas      GND
 
-C3       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C3       1        1          pas      VCC
          2        2          pas      GND
 
-C4       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C4       1        1          pas      VCC
          2        2          pas      GND
 
-C5       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C5       1        1          pas      VCC
          2        2          pas      GND
 
-C6       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C6       1        1          pas      VCC
          2        2          pas      GND
 
-C7       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C7       1        1          pas      VCC
          2        2          pas      GND
 
-C8       +        +          pas      N$6
-         -        -          pas      GND
-         1        1          pas      VCC
+C8       1        1          pas      VCC
          2        2          pas      GND
 
-C9       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C9       1        1          pas      VCC
          2        2          pas      GND
 
 E1       1        O          oc       !IO_IRQ
@@ -53,40 +35,23 @@ E1       1        O          oc       !IO_IRQ
          4        O          oc       !IO_SKIP
          5        I0         in       FLAG_BUFFER
          6        I1         in       N$32
-         7        D4         in       E2
          8        I0         in       N$32
          9        I1         in       FLAG_BUFFER
          10       O          oc       !CLR_FLAG
          11       I0         in       N$14
          12       I1         in       N$14
          13       O          oc       !CLR_FLAG
-         14       !Q2        out      N$29
-         15       Q2         out      N$13
-         16       Q1         out      N$14
-         17       15         out      N$16
-         18       G1         in       N$15
-         19       G2         in       N$13
-         20       D          in       N$11
-         21       C          in       N$12
-         22       B          in       N$10
-         23       A          in       N$8
 
 E2       1        CLR        in       N$29
          2        D          in       FLAG
          3        CLK        in       N$32
          4        PRE        in       VCC
          5        Q          out      FLAG_BUFFER
-         6        !Q         out      N$7
-         7        S1         in       GND
-         8        !Q         out      AL1
          9        Q          out      FLAG
          10       PRE        in       VCC
          11       CLK        in       CLOCK
          12       D          in       N$41
          13       CLR        in       !CLR_FLAG
-         14       B3         in       F1
-         15       A3         in       N$27
-         16       Q1         out      A1
 
 E3       1        CLR        in       VCC
          2        D          in       GND
@@ -94,23 +59,11 @@ E3       1        CLR        in       VCC
          4        PRE        in       N$37
          5        Q          out      N$36
          6        !Q         out      CLOCK_ENABLE
-         7        Q1         out      N$50
-         8        O          out      N$39
          9        Q          out      IRQ_ENB
          10       PRE        in       N$38
          11       CLK        in       N$14
          12       D          in       GND
          13       CLR        in       VCC
-         14       I3         in       N$152
-         15       I2         in       N$153
-         16       S1         in       N$12
-         17       S0         in       N$11
-         18       C3         in       GND
-         19       B3         in       N$5
-         20       A3         in       N$1
-         21       C2         in       GND
-         22       B2         in       N$6
-         23       A2         in       N$2
 
 E4       1        I0         in       MB11
          2        I1         in       LOAD_COUNTER
@@ -118,32 +71,16 @@ E4       1        I0         in       MB11
          4        I0         in       N$40
          5        I1         in       N$40
          6        O          out      N$41
-         7        Q1         out      K1
          8        O          out      N$40
          9        I0         in       N$36
          10       I1         in       OVERFLOW
-         11       O          out      N$19
-         12       I0         in       AR1
-         13       I1         in       AR1
-         14       D3         in       N$86
-         15       D2         in       B1
-         16       Q1         out      N$3
 
-E5       1        I0         in       AC06
-         2        I1         in       N$19
-         3        O          out      N$53
-         4        I0         in       N$19
-         5        I1         in       AC07
-         6        O          out      N$381
-         7        GND        pwr      GND
-         8        O          out      IOP1
+E5       8        O          out      IOP1
          9        I0         in       !IOP1
          10       I1         in       +3V1
          11       O          out      IOP4
          12       I0         in       !IOP4
          13       I1         in       +3V1
-         14       VCC        pwr      +5V/1
-         15       B0         io       !DATA1
 
 E6       1        I0         in       !MB3
          2        I1         in       !MB4
@@ -151,15 +88,9 @@ E6       1        I0         in       !MB3
          4        I3         in       !MB6
          5        I4         in       MB7
          6        I5         in       MB8
-         7        GND        pwr      GND
          8        O          out      N$26
-         9        Q          out      BIT9
-         10       PRE        in       N$20
          11       I6         in       +3V1
          12       I7         in       +3V1
-         13       CLR        in       !IOCLR
-         14       VCC        pwr      +5V/1
-         15       A3         in       GND
 
 E7       1        I0         in       CLOCK_IOT
          2        I1         in       IOP2
@@ -167,47 +98,23 @@ E7       1        I0         in       CLOCK_IOT
          4        I0         in       +3V1
          5        I1         in       !IOP2
          6        O          out      IOP2
-         7        GND        pwr      GND
          8        O          out      CLOCK_IOT
          9        I0         in       N$26
          10       I1         in       N$26
          11       O          out      N$34
          12       I0         in       !MB9
          13       I1         in       MB11
-         14       VCC        pwr      +5V/2
-         15       DOT        in       N$10
-         16       S1         in       N$12
-         17       S0         in       N$11
-         18       C3         in       GND
-         19       B3         in       N$20
-         20       A3         in       N$16
-         21       C2         in       N$9
-         22       B2         in       N$15
-         23       A2         in       N$19
 
 E8       1        I0         in       CLOCK_IOT
          2        I1         in       IOP1
-         3        CLK        in       N$5
          4        I2         in       MB10
          5        I3         in       !MB9
          6        O          out      N$31
-         7        GND        pwr      GND
          8        O          out      N$35
          9        I0         in       N$34
          10       I1         in       N$34
-         11       CLK        in       N$5
          12       I2         in       CLOCK_IOT
          13       I3         in       IOP2
-         14       VCC        pwr      +5V/1
-         15       8Q         hiz      N$18
-         16       7Q         hiz      N$19
-         17       6Q         hiz      N$16
-         18       5Q         hiz      N$4
-         19       4Q         hiz      N$3
-         20       3Q         hiz      N$2
-         21       2Q         hiz      N$1
-         22       1Q         hiz      N$55
-         23       !R         in       +3V3
 
 E9       1        I0         in       N$31
          2        I1         in       N$31
@@ -215,29 +122,24 @@ E9       1        I0         in       N$31
          4        I0         in       LOAD_COUNTER
          5        I1         in       MB9
          6        O          out      N$37
-         7        GND        pwr      GND
          8        O          out      N$14
          9        I0         in       N$35
          10       I1         in       INITIALIZE
          11       O          out      LOAD_COUNTER
          12       I0         in       N$35
          13       I1         in       N$35
-         14       VCC        pwr      +5V/2
 
 R1       1        1          pas      +3V1
          2        2          pas      VCC
 
 R2       1        1          pas      !CLR_FLAG
          2        2          pas      VCC
-         3        E          pas      D2
 
 R3       1        1          pas      OVERFLOW
          2        2          pas      VCC
-         3        E          pas      N$6
 
 R4       1        1          pas      GND
          2        2          pas      !CLR_FLAG
-         3        E          pas      V1
 
 R5       1        1          pas      GND
          2        2          pas      +3V1
@@ -245,99 +147,20 @@ R5       1        1          pas      GND
 R6       1        1          pas      GND
          2        2          pas      OVERFLOW
 
-U$1      AA1      1          io       XRD0_L
-         AA2      1          io       VCC
-         AC1      1          io       CRCS_L
-         AC2      1          io       GND
-         AD1      1          io       RTUR_L
-         AD2      1          io       EBOT_L
-         AE1      1          io       RSDWN_L
-         AE2      1          io       Z_AXIS
-         AF2      1          io       -
-         AH1      1          io       XRD2_L
-         AH2      1          io       INITIALIZE
-         AJ2      1          io       IOP2
-         AK1      1          io       N$24
-         AL1      1          io       XRD4_L
-         AL2      1          io       POWER_CLEAR_L
-         AM1      1          io       XRDP_L
-         AM2      1          io       MFTS0_H
-         AN1      1          io       MB10=1
-         AN2      1          io       LIGHT_PEN
-         AP1      1          io       MB11=1
-         AP2      1          io       LOAD_Y
-         AR1      1          io       IOP1
-         AR2      1          io       CLEAR_Y
-         A1       1          io       MB11
-         AB1      1          io       N$50
-         AB2      1          io       -15V
-         AJ1      1          io       +
-         AK2      1          io       MB9=0
-         AS1      1          io       LOAD_X
-         AS2      1          io       CLEAR_X
-         AT1      1          io       GND
-         AT2      1          io       MFTP0
-         AU1      1          io       B_BOT
-         AU2      1          io       N$35
-         AV1      1          io       FMK_L
-         AV2      1          io       N$48
+U$1      A1       1          io       MB11
          A2       1          io       VCC
-         AF1      1          io       RDS_L
-         BA1      1          io       CRDS_L
-         BA2      1          io       VCC
-         BB1      1          io       N$50
-         BB2      1          io       -15V
-         BC1      1          io       CTUR_L
-         BC2      1          io       GND
-         BD1      1          io       TB3_H
-         BD2      1          io       IOP4
-         BE1      1          io       B_SET
-         BE2      1          io       MB7=0
-         BF1      1          io       CRD0_L
-         BF2      1          io       MB3=0
-         BH1      1          io       CRD1_L
-         BH2      1          io       MB4=0
-         BJ1      1          io       CRD2_L
-         BJ2      1          io       MB8=0
-         BK1      1          io       CRD3_L
-         BL1      1          io       CRD4_L
-         BL2      1          io       MB7=1
-         B2       1          io       -15V
-         BK2      1          io       MB5=0
-         BM1      1          io       CRD5_L
-         BM2      1          io       MB6=1
-         BN1      1          io       CRD6_L
-         BN2      1          io       MB8=1
-         BP1      1          io       CRD7_L
-         BP2      1          io       INTERRUPT_L
-         BR1      1          io       CRDP_L
-         BR2      1          io       SKIP_L
-         BS1      1          io       CFMK_L
-         BS2      1          io       CCRCE_L
-         BT1      1          io       GND
-         BT2      1          io       CLRCE_L
-         BU1      1          io       V_CLAMP
-         B1       1          io       B1
-         BU2      1          io       CLRCS_L
-         BV1      1          io       B_STOP
-         BV2      1          io       SET_PULSE_H
          C1       1          io       !IO_IRQ
          C2       1          io       GND
          D1       1          io       FLAG
          D2       1          io       CLOCK
          E1       1          io       IRQ_ENB
-         E2       1          io       E2
-         F1       1          io       F1
          F2       1          io       !IOP4
          H1       1          io       !IO_SKIP
-         H2       1          io       H2
-         J1       1          io       J1
          J2       1          io       CLOCK_ENABLE
          K1       1          io       FLAG_BUFFER
          K2       1          io       IOP4
          L1       1          io       MB10
          L2       1          io       !IOP1
-         M1       1          io       M1
          M2       1          io       MB8
          N1       1          io       !MB9
          N2       1          io       MB7
@@ -349,7 +172,6 @@ U$1      AA1      1          io       XRD0_L
          S2       1          io       !MB4
          T1       1          io       GND
          T2       1          io       !MB3
-         U1       1          io       U1
          U2       1          io       MB9
          V1       1          io       OVERFLOW
          V2       1          io       LOAD_COUNTER

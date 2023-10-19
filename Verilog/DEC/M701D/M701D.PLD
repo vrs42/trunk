@@ -19,60 +19,19 @@ $UNDEF  OPTIMIZE
 pin = n_t_14x;
 pin = n_t_26x;
 pin = n_t_32x;
-pin = n_t_34x;
 
 /* Output Pins */
 pin = ;
-pin = a1;
-pin = b1;
-pin = b_bot;
-pin = b_set;
-pin = b_stop;
-pin = c1;
-pin = ccrce_l;
-pin = cfmk_l;
 pin = clear_x;
 pin = clear_y;
-pin = clrce_l;
-pin = clrcs_l;
-pin = crcs_l;
-pin = crd0_l;
-pin = crd1_l;
-pin = crd2_l;
-pin = crd3_l;
-pin = crd4_l;
-pin = crd5_l;
-pin = crd6_l;
-pin = crd7_l;
-pin = crdp_l;
-pin = crds_l;
-pin = ctur_l;
-pin = d1;
-pin = d2;
-pin = e1;
-pin = e2;
-pin = ebot_l;
-pin = f1;
-pin = f2;
-pin = fmk_l;
-pin = h1;
-pin = h2;
 pin = initialize;
 pin = interrupt_l;
 pin = iop1;
 pin = iop2;
 pin = iop4;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = l1;
-pin = l2;
 pin = light_pen;
 pin = load_x;
 pin = load_y;
-pin = m1;
-pin = m2;
 pin = mb10=1;
 pin = mb11=1;
 pin = mb3=0;
@@ -84,71 +43,29 @@ pin = mb7=1;
 pin = mb8=0;
 pin = mb8=1;
 pin = mb9=0;
-pin = mftp0;
-pin = mfts0_h;
-pin = n1;
 pin = n15v;
-pin = n2;
-pin = n_t_16x;
-pin = n_t_17x;
-pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_20x;
-pin = n_t_23x;
 pin = n_t_24x;
-pin = n_t_28x;
-pin = n_t_29x;
-pin = n_t_35x;
 pin = n_t_48x;
 pin = n_t_50x;
-pin = p1;
-pin = p2;
-pin = power_clear_l;
-pin = r1;
-pin = r2;
-pin = rds_l;
-pin = rsdwn_l;
-pin = rtur_l;
-pin = s1;
-pin = s2;
-pin = set_pulse_h;
 pin = skip_l;
-pin = t2;
-pin = tb3_h;
-pin = u1;
-pin = u2;
-pin = v1;
-pin = v2;
-pin = v_clamp;
-pin = xrd0_l;
-pin = xrd2_l;
-pin = xrd4_l;
-pin = xrdp_l;
 pin = z_axis;
 node light_pen_flag;
-node n_t_108x;
 node br0=1;
 node br1=1;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node bn1;
 node br0=0;
 node br1=0;
-node data1_l;
-node eeot_l;
-node erws_l;
-node in;
-node md07_l;
-node n3v3;
-node n_t_109x;
 node n_t_10x;
-node n_t_110x;
 node n_t_11x;
 node n_t_12x;
 node n_t_13x;
-node n_t_143x;
 node n_t_15x;
+node n_t_16x;
+node n_t_18x;
 node n_t_1x;
 node n_t_21x;
 node n_t_22x;
@@ -166,35 +83,11 @@ node n_t_40x;
 node n_t_47x;
 node n_t_49x;
 node n_t_4x;
-node n_t_53x;
-node n_t_54x;
-node n_t_55x;
-node n_t_56x;
-node n_t_58x;
 node n_t_5x;
-node n_t_60x;
-node n_t_62x;
-node n_t_64x;
-node n_t_65x;
-node n_t_67x;
-node n_t_68x;
 node n_t_6x;
-node n_t_70x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
 node n_t_7x;
 node n_t_8x;
 node n_t_9x;
-node out;
-node q1;
-node q6;
-node t2_l;
-node vpe_l;
-node xrd1_l;
-node xrd5_l;
-node y_strobe;
 $ENDIF
 
 /* Code nodes */
@@ -250,12 +143,6 @@ light_pen_flag.ar = !n_t_16x;
 light_pen_flag.d = 'b'0;
 light_pen_flag.ck = initialize;
 light_pen_flag.ap = !n_t_13x;
-n_t_110x = !light_pen_flag;
-n_t_108x.ar = !n_t_110x;
-n_t_108x.d = n_t_109x;
-n_t_108x.ck = n_t_38x;
-n_t_108x.ap = !n_t_108x;
-n_t_53x = !n_t_108x;
 
 /* e3: sn7400 */
 n_t_10x = !(n_t_7x & iop2);
@@ -274,7 +161,6 @@ load_x = !n_t_9x;
 load_y = !n_t_10x;
 
 /* e6: sn7410 */
-n_t_54x = 'b'1;
 n_t_22x = !initialize;
 n_t_16x = !(mb9= 0 & n_t_15x & iop2;
 
@@ -294,12 +180,10 @@ n_t_11x = !(n_t_5x & n_t_4x);
 n_t_47x = !(n_t_49x & mb10= 1;
 
 /* e10: sn7474 */
-br0=1.ar = !n_t_2x;
 br0=1.d = mb10= 1;
 br0=1.ck = n_t_21x;
 br0=1.ap = !n_t_22x;
 br0=0 = !br0= 1;
-br1=1.ar = !n_t_60x;
 br1=1.d = mb11= 1;
 br1=1.ck = n_t_21x;
 br1=1.ap = !n_t_22x;
@@ -317,7 +201,6 @@ n_t_31x = !n_t_32x;
 n_t_30x = !n_t_31x;
 
 /* e13: sn7420 */
-n_t_33x = !(n_t_143x & n_t_36x & n_t_31x & n_t_32x);
 n_t_1x = !(mb4=0 & mb5=0 & mb6=1 & mb3= 0;
 
 /* e14: sn7400 */
@@ -371,9 +254,7 @@ n_t_36x = !(n_t_11x & iop4);
 /* r24: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= n_t_18x};
 !n_t_18x = n_t_19x;
-n_t_18x.oe = n_t_19x;
 property atmel {open_collector= n_t_19x};
 !n_t_19x = (light_pen_flag & n_t_15x & mb9= 0 & iop1;
 n_t_19x.oe = (light_pen_flag & n_t_15x & mb9= 0 & iop1;

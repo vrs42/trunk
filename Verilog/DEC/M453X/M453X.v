@@ -17,79 +17,9 @@
 // c12: c_us 
 // c14: c_us 
 // e2: sn7440 
-module m453x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_15x, n_t_6x, n_t_7x, x2_rate, a1, aa1, ab1, ac1, ad1, ad2, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bc1, bd1, bd2, be1, be2, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, bv2, h2, j1, j2, k2, l1, l2, m1, m2, n1, n2, n3v3, n_t_16x, n_t_17x, n_t_1x, n_t_28x, n_t_2x, n_t_3x, n_t_5x, n_t_60x, n_t_66x, n_t_8x, p1, p2, r1, r2, s1, u1, v1, x8_rate, x8_rate_l);
-output n_t_10x;
-output n_t_11x;
-output n_t_12x;
-output n_t_13x;
-output n_t_15x;
-output n_t_6x;
+module m453x (n_t_7x, a1, h2, j1, j2, k2, l1, l2, m1, m2, n1, n2, n3v3, n_t_5x, n_t_8x, p1, p2, r1, r2, s1, u1, v1);
 output n_t_7x;
-output x2_rate;
 output a1;
-output aa1;
-output ab1;
-output ac1;
-output ad1;
-output ad2;
-output ae1;
-output ae2;
-output af1;
-output af2;
-output ah1;
-output ah2;
-output aj1;
-output aj2;
-output ak1;
-output al1;
-output al2;
-output am1;
-output am2;
-output an1;
-output an2;
-output ap1;
-output ap2;
-output ar1;
-output ar2;
-output as1;
-output as2;
-output at2;
-output au1;
-output au2;
-output av1;
-output av2;
-output ba1;
-output bb1;
-output bc1;
-output bd1;
-output bd2;
-output be1;
-output be2;
-output bf1;
-output bf2;
-output bh1;
-output bh2;
-output bj1;
-output bj2;
-output bk1;
-output bk2;
-output bl1;
-output bl2;
-output bm1;
-output bm2;
-output bn1;
-output bn2;
-output bp1;
-output bp2;
-output br1;
-output br2;
-output bs1;
-output bs2;
-output bt2;
-output bu1;
-output bu2;
-output bv1;
-output bv2;
 input h2;
 output j1;
 output j2;
@@ -101,31 +31,20 @@ inout reg m2;
 output n1;
 inout n2;
 input n3v3;
-output n_t_16x;
-output n_t_17x;
-output n_t_1x;
-output n_t_28x;
-inout n_t_2x;
-output n_t_3x;
 output n_t_5x;
-output n_t_60x;
-output n_t_66x;
 output n_t_8x;
 output p1;
 input p2;
 output r1;
-output r2;
+inout r2;
 output s1;
 output u1;
 output v1;
-output x8_rate;
-output x8_rate_l;
 
 reg k2_m;
 reg m2_m;
 
-wire bd115200;
-wire n_t_20x;
+wire n_t_1x;
 assign j2 = ~h2;
 // e3: sn7474 
 always @(h2, n3v3, n3v3, n2)
@@ -171,9 +90,8 @@ always @(m2, n3v3, n3v3, k2_m)
   end
 assign l2 = k2;
 // e4: sn7400 
-assign n_t_2x = 1'b0;
-assign r2 = ~n_t_2x;
-assign n_t_1x = ~(p2 & n_t_2x);
+assign r2 = 1'b1;
+assign n_t_1x = ~(p2 & ~r2);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

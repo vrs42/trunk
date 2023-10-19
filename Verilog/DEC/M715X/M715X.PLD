@@ -16,151 +16,53 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ac9;
-pin = bdata2;
 pin = n2_8v;
-pin = n3v;
-pin = n_t_18x;
-pin = n_t_20x;
-pin = n_t_26x;
-pin = n_t_27x;
 
 /* Output Pins */
-pin = ;
-pin = a1;
-pin = b1;
-pin = b_bot;
-pin = b_last_brk;
-pin = b_set;
-pin = b_stop;
 pin = be;
 pin = bh;
 pin = catch;
-pin = cfmk_l;
-pin = clear_y;
 pin = clk_l;
-pin = clock;
 pin = clock_1;
-pin = clock_enable;
-pin = clock_iot;
-pin = clrce_l;
-pin = crcs_l;
-pin = crd0_l;
-pin = crd1_l;
-pin = crd2_l;
-pin = crd3_l;
-pin = crd4_l;
-pin = crd5_l;
-pin = crd6_l;
-pin = crd7_l;
-pin = crdp_l;
-pin = crds_l;
-pin = ctur_l;
-pin = e2;
-pin = ebot_l;
 pin = enable_l;
-pin = f1;
 pin = feed_sw_l;
-pin = flag;
-pin = flag_buffer;
-pin = fmk_l;
-pin = h2;
 pin = inh_strobe_l;
-pin = initialize;
-pin = io_irq_l;
-pin = io_skip_l;
-pin = iop1;
-pin = iop1_l;
-pin = iop2;
-pin = iop2_l;
-pin = iop4;
-pin = iop4_l;
-pin = irq_enb;
-pin = j1;
-pin = light_pen;
-pin = load_counter;
-pin = load_x;
-pin = m1;
-pin = mb10;
-pin = mb10=1;
-pin = mb11;
-pin = mb11=1;
-pin = mb3=0;
-pin = mb3_l;
-pin = mb4_l;
-pin = mb5;
-pin = mb5=0;
-pin = mb6_l;
-pin = mb7;
-pin = mb7=1;
-pin = mb8;
-pin = mb8=0;
-pin = mb9;
-pin = mb9_l;
 pin = motor_on_ch;
 pin = n15v;
-pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
-pin = n_t_14x;
-pin = n_t_15x;
-pin = n_t_1x;
-pin = n_t_24x;
 pin = n_t_35x;
 pin = n_t_36x;
 pin = n_t_38x;
 pin = n_t_39x;
 pin = n_t_42x;
-pin = n_t_50x;
-pin = n_t_5x;
-pin = n_t_8x;
 pin = n_t_9x;
-pin = overflow;
-pin = pb2;
-pin = pb3;
-pin = power_clear_l;
-pin = rds_l;
-pin = rsdwn_l;
-pin = rtur_l;
 pin = run_l;
 pin = shift;
 pin = shift_l;
 pin = stop_complete;
 pin = stop_delay;
 pin = strobe;
-pin = tb3_h;
 pin = tp_av;
 pin = tp_bm;
-pin = u1;
-pin = v_clamp;
-pin = xrd0_l;
-pin = xrd2_l;
-pin = xrd4_l;
-pin = xrdp_l;
-pin = z_axis;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node ac7;
-node bdata7;
-node clocka;
-node clr_dsk_ad_l;
-node crc10;
-node data_enable;
-node feed_l;
-node n12th_carry;
-node n16_carry;
+node n_t_10x;
+node n_t_11x;
+node n_t_12x;
 node n_t_13x;
+node n_t_14x;
 node n_t_16x;
+node n_t_18x;
 node n_t_19x;
+node n_t_1x;
 node n_t_29x;
 node n_t_2x;
 node n_t_3x;
 node n_t_43x;
 node n_t_4x;
+node n_t_5x;
 node n_t_6x;
-node pb0;
-node pb1;
+node n_t_8x;
 $ENDIF
 
 /* Code nodes */
@@ -209,8 +111,6 @@ $ENDIF
 
 /* e1: sn7400 */
 n_t_6x = !(n_t_2x & stop_delay);
-n_t_12x = !(n_t_26x & pb0);
-n_t_11x = !(pb1 & n_t_26x);
 shift = !(shift_l & n_t_3x);
 
 /* e3: sn7400 */
@@ -234,8 +134,6 @@ stop_complete = !(feed_sw_l & n_t_6x);
 n_t_3x = !(catch & n_t_43x);
 
 /* e7: sn7402 */
-feed_l = !(ac7
-         # clocka);
 tp_bm = !(n_t_8x
         # n_t_5x);
 n_t_8x = !(clk_l

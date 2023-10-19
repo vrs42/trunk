@@ -16,81 +16,36 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
-pin = n_t_8x;
 
 /* Output Pins */
-pin = a1;
-pin = b1;
-pin = b2;
-pin = c0_l;
 pin = c1;
-pin = c1_l;
 pin = d1;
 pin = d2;
-pin = data0_l;
-pin = data10_l;
-pin = data11_l;
-pin = data1_l;
-pin = data2_l;
-pin = data3_l;
-pin = data4_l;
-pin = data5_l;
-pin = data6_l;
-pin = data7_l;
-pin = data8_l;
-pin = data9_l;
 pin = e1;
 pin = e2;
 pin = f1;
 pin = h1;
 pin = h2;
-pin = initialize;
-pin = int_rqst_l;
-pin = internal_io_l;
-pin = io_pause_l;
 pin = j1;
 pin = k1;
 pin = k2;
 pin = l1;
 pin = m1;
 pin = m2;
-pin = md03_l;
-pin = md04_l;
-pin = md05_l;
-pin = md06_l;
-pin = md07_l;
-pin = md08_l;
-pin = md09_l;
-pin = md10_l;
-pin = md11_l;
 pin = n1;
-pin = n3v3;
-pin = n_t_14x;
-pin = n_t_16x;
-pin = n_t_17x;
-pin = n_t_18x;
 pin = p1;
 pin = p2;
 pin = r1;
 pin = s1;
 pin = s2;
-pin = skip_l;
-pin = t2;
-pin = tp3;
-pin = u1;
-pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node l2;
 node n_t_13x;
-node n_t_15x;
+node n_t_14x;
+node n_t_18x;
 node n_t_1x;
 node n_t_20x;
-node n_t_22x;
 node n_t_25x;
 node n_t_27x;
 node n_t_2x;
@@ -98,8 +53,6 @@ node n_t_3x;
 node n_t_4x;
 node n_t_5x;
 node n_t_6x;
-node r2;
-node t2_l;
 $ENDIF
 
 /* Code nodes */
@@ -121,22 +74,32 @@ $ENDIF
 /* c7: c_us */
 
 /* e1: sn7450 */
+!n_t_14x = c1 & e1
+         # d1 & d2;
+!n_t_13x = d2 & f1
+         # c1 & h1;
 
 /* e2: sn74h00 */
 n_t_3x = !n_t_18x;
-p2 = !(l2 & k2);
 n_t_1x = !n_t_14x;
 n_t_2x = !n_t_13x;
 
 /* e3: sn7450 */
+!n_t_18x = c1 & k1
+         # j1 & d2;
+!n_t_20x = c1 & m1
+         # d2 & l1;
 
 /* e4: sn74h00 */
-n_t_22x = !n3v3;
 n_t_6x = !n_t_27x;
 n_t_5x = !n_t_25x;
 n_t_4x = !n_t_20x;
 
 /* e5: sn7450 */
+!n_t_25x = d2 & n1
+         # p1 & c1;
+!n_t_27x = d2 & r1
+         # c1 & s1;
 
 /* r1: r_us_ */
 

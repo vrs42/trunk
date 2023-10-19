@@ -7,7 +7,6 @@ warning: making e13/sn7462/ a connector
 info: 74h53n ne dil14
 info: 74h00n ne 7400n
 info: 74h50n ne 7450n
-warning: making e4/sn74h50/ a connector
 info: 7462 ne dil14
 warning: making e5/sn7462/ a connector
 info: 74h53n ne dil14
@@ -21,7 +20,8 @@ warning: non-pullup resistor deleted: r4
 warning: non-pullup resistor deleted: r5
 warning: non-pullup resistor deleted: r6
 ~/Verilog/bin/smaller.pl M226A.PLD >vv || (rm vv; exit 1)
-4 signals were removed:
+5 signals were removed:
+  gdollar_1: !gdollar_0
   n_t_18x: !n_t_54x
   n_t_1x: !n_t_2x
   n_t_4x: !n_t_3x
@@ -29,7 +29,7 @@ warning: non-pullup resistor deleted: r6
 ~/Verilog/bin/smaller.pl vv >M226AX.PLD || (rm M226AX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M226AX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output n_t_2x at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 568.
+OE qualifier on FF output n_t_2x at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 525.
 ../Makefile:29: recipe for target 'M226A.v' failed
 make: *** [M226A.v] Error 1
 rm M226AX.PLD

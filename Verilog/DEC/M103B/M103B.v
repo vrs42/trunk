@@ -12,7 +12,7 @@
 // c5: c_us 
 // c6: c_us 
 // e1: sn7430 
-module m103b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n3v3, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
+module m103b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, n1, n2, n3v3, p2, r2, s2, u2, v2);
 output a1;
 inout b1;
 output c1;
@@ -31,19 +31,12 @@ input k2;
 input l1;
 input l2;
 input m1;
-output m2;
 output n1;
-output n15v;
 input n2;
 input n3v3;
-output p1;
 input p2;
-output r1;
 input r2;
-output s1;
 input s2;
-output t2;
-output u1;
 input u2;
 input v2;
 

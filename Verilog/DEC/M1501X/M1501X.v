@@ -17,7 +17,7 @@
 // c10: c_us 
 // c11: cpol_use 
 // e1: sn7474 
-module m1501x (b, d, dd, f, ff, j, jj, l, ll, n, nn, r, rr, t, tt, vv, a1, b1, bb, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n3v3, n_t_10x, p1, p2, r1, r2, s1, s2, t2, u2, x, z);
+module m1501x (b, d, dd, f, ff, j, jj, l, ll, n, nn, r, rr, t, tt, vv, a1, b1, bb, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n3v3, p1, p2, r1, r2, s1, s2, t2, u2, x, z);
 input b;
 input d;
 input dd;
@@ -55,10 +55,8 @@ output l2;
 output m1;
 output m2;
 output n1;
-output n15v;
-inout n2;
+output n2;
 input n3v3;
-output n_t_10x;
 output p1;
 output p2;
 output r1;
@@ -70,32 +68,15 @@ output u2;
 output x;
 output z;
 
+reg n_t_164x_m;
 reg n_t_71x_m;
-reg u2_l_m;
 
 reg n_t_71x;
-reg u2_l;
-wire a0;
-wire c1_l;
-wire n_t_11x;
-wire n_t_12x;
+reg n_t_164x;
 wire n_t_154x;
 wire n_t_158x;
-wire n_t_16x;
-wire n_t_18x;
 wire n_t_1x;
-wire n_t_22x;
-wire n_t_24x;
-wire n_t_26x;
-wire n_t_28x;
-wire n_t_31x;
-wire n_t_46x;
-wire n_t_4x;
 wire n_t_69x;
-wire n_t_8x;
-wire n_t_9x;
-wire select6;
-wire v2_l;
 always @(n_t_69x, n_t_158x, n3v3, e1)
   if (~n_t_158x) begin
     n_t_71x_m <= 1'b0;
@@ -117,29 +98,29 @@ always @(n_t_69x, n_t_158x, n3v3, n_t_71x_m)
     n_t_71x <= n_t_71x_m;
   end
 assign d1 = ~(~n_t_71x);
-always @(d2, n_t_154x, b1, h1)
-  if (~n_t_154x) begin
-    u2_l_m <= 1'b0;
-  end else
+always @(d2, b1, n_t_154x, h1)
   if (b1) begin
-    u2_l_m <= 1'b1;
+    n_t_164x_m <= 1'b0;
+  end else
+  if (~n_t_154x) begin
+    n_t_164x_m <= 1'b1;
   end else
   if (~(d2)) begin
-    u2_l_m <= ~h1;
+    n_t_164x_m <= h1;
   end
-always @(d2, n_t_154x, b1, u2_l_m)
-  if (~n_t_154x) begin
-    u2_l <= 1'b0;
-  end else
+always @(d2, b1, n_t_154x, n_t_164x_m)
   if (b1) begin
-    u2_l <= 1'b1;
+    n_t_164x <= 1'b0;
+  end else
+  if (~n_t_154x) begin
+    n_t_164x <= 1'b1;
   end else
   if (d2) begin
-    u2_l <= u2_l_m;
+    n_t_164x <= n_t_164x_m;
   end
-assign a1 = ~(~u2_l);
 // e2: sn7437 
 assign bb = ~n_t_71x;
+assign a1 = ~n_t_164x;
 // e3: n8881n 
 // k1 = !(ll & !n_t_1x); 
 // j1 = !(jj & !n_t_1x); 
@@ -151,8 +132,6 @@ assign n_t_158x = ~(e2
 assign n_t_154x = ~(~f1
                      | c1);
 // e5: ds8640n 
-assign v2_l = ~(n2
-                 | v2_l);
 // e6: n8881n 
 // m1 = !(rr & !n_t_1x); 
 // l1 = !(nn & !n_t_1x); 

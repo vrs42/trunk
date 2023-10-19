@@ -20,61 +20,8 @@
 // c13: c_us 
 // c14: c_us 
 // e1: sn7474 
-module m700e (n_t_10x, n_t_13x, n_t_15x, n_t_6x, n_t_8x, a1, b1, b_bot, b_set, b_stop, bot_l, c1, c7ch_l, cbot_l, ccrce_l, ceot_l, cfmk_l, clrce_l, clrcs_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, csdwn_l, cselr_l, ctur_l, cvpe_l, cwrl_l, d1, d2, e1, e2, ebot_l, f1, f2, filter_input, fmk_l, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, mftp0, mftp1, mftp2, mfts0_h, mfts0_l, mfts1_h, mfts1_l, mfts2_h, mfts2_l, n1, n15v, n2, n_t_11x, n_t_12x, n_t_16x, n_t_28x, n_t_2x, n_t_35x, p1, p2, power_clear_l, r1, r2, rds_l, restart, rsdwn_l, rtur_l, run, s1, s2, selr_l, set_pulse_h, sw1, t2, tb3_h, u1, u2, v1, v2, v_clamp, xrd0_l, xrd1_l, xrd2_l, xrd3_l, xrd4_l, xrd5_l, xrd6_l, xrd7_l, xrdp_l);
-output n_t_10x;
-output n_t_13x;
-output n_t_15x;
-output n_t_6x;
-output n_t_8x;
-output a1;
-output b1;
-output b_bot;
-output b_set;
-output b_stop;
-output bot_l;
-output c1;
-output c7ch_l;
-output cbot_l;
-output ccrce_l;
-output ceot_l;
-output cfmk_l;
-output clrce_l;
-output clrcs_l;
-output crcs_l;
-output crd0_l;
-output crd1_l;
-output crd2_l;
-output crd3_l;
-output crd4_l;
-output crd5_l;
-output crd6_l;
-output crd7_l;
-output crdp_l;
-input crds_l;
-output csdwn_l;
-output cselr_l;
-output ctur_l;
-output cvpe_l;
-output cwrl_l;
-input d1;
-output d2;
-output e1;
-output e2;
-output ebot_l;
-output f1;
-input f2;
+module m700e (filter_input, mftp0, mftp1, mftp2, mfts0_h, mfts0_l, mfts1_h, mfts1_l, mfts2_h, mfts2_l, n_t_11x, n_t_12x, power_clear_l, restart, run);
 output filter_input;
-output fmk_l;
-output h1;
-output h2;
-output j1;
-output j2;
-output k1;
-output k2;
-output l1;
-output l2;
-output m1;
-output m2;
 output mftp0;
 inout mftp1;
 output mftp2;
@@ -84,115 +31,60 @@ inout reg mfts1_h;
 output mfts1_l;
 inout reg mfts2_h;
 inout mfts2_l;
-output n1;
-output n15v;
-output n2;
 output n_t_11x;
 output n_t_12x;
-output n_t_16x;
-output n_t_28x;
-inout n_t_2x;
-inout n_t_35x;
-output p1;
-input p2;
 input power_clear_l;
-output r1;
-output r2;
-output rds_l;
 input restart;
-output rsdwn_l;
-output rtur_l;
 input run;
-output s1;
-output s2;
-output selr_l;
-output set_pulse_h;
-output sw1;
-output t2;
-output tb3_h;
-output u1;
-output u2;
-output v1;
-output v2;
-output v_clamp;
-output xrd0_l;
-output xrd1_l;
-output xrd2_l;
-input xrd3_l;
-input xrd4_l;
-output xrd5_l;
-output xrd6_l;
-output xrd7_l;
-output xrdp_l;
 
 reg mfts1_h_m;
 reg mfts2_h_m;
 
-wire bd00;
-wire c1_l;
-wire data1_l;
-wire erws_l;
-wire ewrl_l;
-wire n_t_17x;
 wire n_t_18x;
 wire n_t_19x;
 wire n_t_21x;
 wire n_t_22x;
 wire n_t_25x;
+wire n_t_28x;
 wire n_t_32x;
+wire n_t_35x;
 wire n_t_4x;
-wire n_t_57x;
 wire n_t_5x;
-wire q5;
-wire t2_l;
-wire vpe_l;
-always @(mfts0_h, n_t_35x, f2, 1'b1)
+always @(mfts0_h, n_t_35x, 1'b1)
   if (n_t_35x) begin
     mfts1_h_m <= 1'b0;
-  end else
-  if (~f2) begin
-    mfts1_h_m <= 1'b1;
   end else
   if (~(mfts0_h)) begin
     mfts1_h_m <= 1'b1;
   end
-always @(mfts0_h, n_t_35x, f2, mfts1_h_m)
+always @(mfts0_h, n_t_35x, mfts1_h_m)
   if (n_t_35x) begin
     mfts1_h <= 1'b0;
-  end else
-  if (~f2) begin
-    mfts1_h <= 1'b1;
   end else
   if (mfts0_h) begin
     mfts1_h <= mfts1_h_m;
   end
 assign mfts1_l = ~mfts1_h;
-always @(mftp1, n_t_5x, d1, 1'b1)
+always @(mftp1, n_t_5x, 1'b1)
   if (n_t_5x) begin
     mfts2_h_m <= 1'b0;
-  end else
-  if (~d1) begin
-    mfts2_h_m <= 1'b1;
   end else
   if (~(mftp1)) begin
     mfts2_h_m <= 1'b1;
   end
-always @(mftp1, n_t_5x, d1, mfts2_h_m)
+always @(mftp1, n_t_5x, mfts2_h_m)
   if (n_t_5x) begin
     mfts2_h <= 1'b0;
-  end else
-  if (~d1) begin
-    mfts2_h <= 1'b1;
   end else
   if (mftp1) begin
     mfts2_h <= mfts2_h_m;
   end
 assign mfts2_l = ~mfts2_h;
 // e2: sn7400 
-assign n_t_5x = ~(n_t_2x & power_clear_l);
+assign n_t_5x = 1'b1;
 assign n_t_35x = ~(power_clear_l & mfts2_l);
 // e3: sn7400 
-assign n_t_18x = ~(n_t_17x & restart);
+assign n_t_18x = ~restart;
 assign n_t_21x = ~(n_t_18x & run);
 assign mfts0_h = ~mfts0_l;
 // e4: sn7400 
@@ -204,14 +96,10 @@ assign n_t_28x = ~(~mftp1);
 assign mftp1 = 1'b1;
 // e6: sn7400 
 assign n_t_32x = 1'b1;
-assign n_t_4x = ~n_t_2x;
+assign n_t_4x = 1'b1;
 // e7: sn7400 
-assign crd3_l = ~xrd3_l;
-assign mftp2 = ~n_t_2x;
-assign n_t_2x = 1'b0;
+assign mftp2 = 1'b1;
 // e8: sn7400 
-assign crd4_l = ~xrd4_l;
-assign rds_l = ~(p2 & crds_l);
 assign mfts0_l = ~(n_t_18x & n_t_19x);
 assign n_t_19x = ~(mfts0_l & n_t_21x);
 // r1: r_us_ 

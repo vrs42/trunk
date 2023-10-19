@@ -20,10 +20,7 @@ warning: non-pullup resistor deleted: r8
 warning: non-pullup resistor deleted: r9
 warning: non-pullup resistor deleted: r10
 ~/Verilog/bin/smaller.pl M7065X.PLD >vv || (rm vv; exit 1)
-20 signals were removed:
-  aj2: !p1
-  clr_flag: !m1
-  n_t_16x: !e2
+14 signals were removed:
   n_t_4x: 'b'1
   n_t_52x: !n_t_49x
   n_t_56x: !l2
@@ -38,13 +35,8 @@ warning: non-pullup resistor deleted: r10
   n_t_79x: !n_t_19x
   n_t_80x: !n_t_76x
   n_t_88x: !n_t_27x
-  rd_hole_5: !s1
-  rdr_run_l: !p2
-  rfc_delayed: !a1
 ~/Verilog/bin/smaller.pl vv >M7065XX.PLD || (rm M7065XX.PLD; exit 1)
-2 signals were removed:
-  n_t_36x: v2
-  n_t_72x: e2
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M7065XX.PLD >vv || (rm vv; exit 1)
 mv vv M7065X.v
 rm M7065XX.PLD

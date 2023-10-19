@@ -16,17 +16,17 @@
 // c9: c_us 
 // c10: c_us 
 // e1: sn7453 
-// !l2 = !(sr_insert & right_shift
-//        # ina0_l & enable_a
-//        # inb0_l & enable_b
-//        # n_t_10x & left_shift); 
-// n_t_8x = l2; 
+// gdollar_0 = !(sr_insert & right_shift
+//          # ina0_l & enable_a
+//          # inb0_l & enable_b
+//          # n_t_10x & left_shift); 
+// !gdollar_0 = !gdollar_0; 
 // e2: sn7453 
-// l2 = !(n_t_8x & right_shift
-//   # ina1_l & enable_a
-//   # inb1_l & enable_b
-//   # n_t_12x & left_shift); 
-// !l2 = !l2; 
+// gdollar_2 = !(n_t_8x & right_shift
+//          # ina1_l & enable_a
+//          # inb1_l & enable_b
+//          # n_t_12x & left_shift); 
+// !gdollar_2 = !gdollar_2; 
 // e3: sn7474 
 module m212b (clear_reg_l, clock, enable_a, enable_b, ina0_l, ina1_l, ina2_l, ina3_l, ina4_l, ina5_l, inb0_l, inb1_l, inb2_l, inb3_l, inb4_l, inb5_l, left_shift, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_7x, n_t_8x, n_t_9x, right_shift, sl_insert, sr_insert);
 input clear_reg_l;
@@ -69,37 +69,12 @@ reg n_t_17x_m;
 reg n_t_7x_m;
 reg n_t_9x_m;
 
-wire a0;
-wire bd00;
-wire bd00l;
-wire bd01;
-wire bd03;
-wire biot5l;
-wire c1_l;
-wire d1;
-wire data1_l;
-wire f2;
-wire h1;
-wire k1;
-wire l2;
-wire m1;
-wire n2;
-wire n_t_119x;
-wire n_t_29x;
-wire n_t_31x;
-wire n_t_40x;
-wire n_t_46x;
-wire r1;
-wire s1;
-wire select6;
-wire u2;
-wire v2;
-always @(clock, clear_reg_l, l2)
+always @(clock, clear_reg_l, gdollar_0)
   if (~clear_reg_l) begin
     n_t_7x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_7x_m <= ~l2;
+    n_t_7x_m <= gdollar_0;
   end
 always @(clock, clear_reg_l, n_t_7x_m)
   if (~clear_reg_l) begin
@@ -108,12 +83,13 @@ always @(clock, clear_reg_l, n_t_7x_m)
   if (clock) begin
     n_t_7x <= n_t_7x_m;
   end
-always @(clock, clear_reg_l, l2)
+assign n_t_8x = ~n_t_7x;
+always @(clock, clear_reg_l, gdollar_2)
   if (~clear_reg_l) begin
     n_t_9x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_9x_m <= l2;
+    n_t_9x_m <= gdollar_2;
   end
 always @(clock, clear_reg_l, n_t_9x_m)
   if (~clear_reg_l) begin
@@ -124,24 +100,24 @@ always @(clock, clear_reg_l, n_t_9x_m)
   end
 assign n_t_10x = ~n_t_9x;
 // e4: sn7453 
-// n_t_29x = !(n_t_10x & right_shift
-//        # ina2_l & enable_a
-//        # inb2_l & enable_b
-//        # n_t_14x & left_shift); 
-// !n_t_29x = !n_t_29x; 
+// gdollar_4 = !(n_t_10x & right_shift
+//          # ina2_l & enable_a
+//          # inb2_l & enable_b
+//          # n_t_14x & left_shift); 
+// !gdollar_4 = !gdollar_4; 
 // e5: sn7453 
-// !n3v3 = !(n_t_12x & right_shift
-//        # ina3_l & enable_a
-//        # inb3_l & enable_b
-//        # n_t_16x & left_shift); 
-// 'b'1 = n3v3; 
+// gdollar_6 = !(n_t_12x & right_shift
+//          # ina3_l & enable_a
+//          # inb3_l & enable_b
+//          # n_t_16x & left_shift); 
+// !gdollar_6 = !gdollar_6; 
 // e6: sn7474 
-always @(clock, clear_reg_l, n_t_29x)
+always @(clock, clear_reg_l, gdollar_4)
   if (~clear_reg_l) begin
     n_t_11x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_11x_m <= n_t_29x;
+    n_t_11x_m <= gdollar_4;
   end
 always @(clock, clear_reg_l, n_t_11x_m)
   if (~clear_reg_l) begin
@@ -151,12 +127,12 @@ always @(clock, clear_reg_l, n_t_11x_m)
     n_t_11x <= n_t_11x_m;
   end
 assign n_t_12x = ~n_t_11x;
-always @(clock, clear_reg_l, n3v3)
+always @(clock, clear_reg_l, gdollar_6)
   if (~clear_reg_l) begin
     n_t_13x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_13x_m <= ~n3v3;
+    n_t_13x_m <= gdollar_6;
   end
 always @(clock, clear_reg_l, n_t_13x_m)
   if (~clear_reg_l) begin
@@ -167,24 +143,24 @@ always @(clock, clear_reg_l, n_t_13x_m)
   end
 assign n_t_14x = ~n_t_13x;
 // e7: sn7453 
-// !l2 = !(n_t_14x & right_shift
-//        # ina4_l & enable_a
-//        # inb4_l & enable_b
-//        # n_t_18x & left_shift); 
-// l2 = l2; 
+// gdollar_8 = !(n_t_14x & right_shift
+//          # ina4_l & enable_a
+//          # inb4_l & enable_b
+//          # n_t_18x & left_shift); 
+// !gdollar_8 = !gdollar_8; 
 // e8: sn7453 
-// n_t_119x = !(n_t_16x & right_shift
-//         # ina5_l & enable_a
-//         # inb5_l & enable_b
-//         # sl_insert & left_shift); 
-// !n_t_119x = !n_t_119x; 
+// gdollar_10 = !(n_t_16x & right_shift
+//           # ina5_l & enable_a
+//           # inb5_l & enable_b
+//           # sl_insert & left_shift); 
+// !gdollar_10 = !gdollar_10; 
 // e9: sn7474 
-always @(clock, clear_reg_l, l2)
+always @(clock, clear_reg_l, gdollar_8)
   if (~clear_reg_l) begin
     n_t_15x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_15x_m <= ~l2;
+    n_t_15x_m <= gdollar_8;
   end
 always @(clock, clear_reg_l, n_t_15x_m)
   if (~clear_reg_l) begin
@@ -194,12 +170,12 @@ always @(clock, clear_reg_l, n_t_15x_m)
     n_t_15x <= n_t_15x_m;
   end
 assign n_t_16x = ~n_t_15x;
-always @(clock, clear_reg_l, n_t_119x)
+always @(clock, clear_reg_l, gdollar_10)
   if (~clear_reg_l) begin
     n_t_17x_m <= 1'b1;
   end else
   if (~(clock)) begin
-    n_t_17x_m <= n_t_119x;
+    n_t_17x_m <= gdollar_10;
   end
 always @(clock, clear_reg_l, n_t_17x_m)
   if (~clear_reg_l) begin
@@ -211,30 +187,28 @@ always @(clock, clear_reg_l, n_t_17x_m)
 assign n_t_18x = ~n_t_17x;
 // r1: r_us_ 
 // open collector 'wire-or's 
-assign l2 = ~((n_t_8x & right_shift
-                | ina1_l & enable_a
-                | inb1_l & enable_b
-                | n_t_12x & left_shift));
-assign 'b'1 = ~(~n3v3);
-assign n_t_119x = ~((n_t_16x & right_shift
-                      | ina5_l & enable_a
-                      | inb5_l & enable_b
-                      | sl_insert & left_shift));
-assign l2 = (sr_insert & right_shift
-              | ina0_l & enable_a
-              | inb0_l & enable_b
-              | n_t_10x & left_shift)
-             | (n_t_14x & right_shift
-                | ina4_l & enable_a
-                | inb4_l & enable_b
-                | n_t_18x & left_shift);
-assign n_t_29x = ~((n_t_10x & right_shift
-                     | ina2_l & enable_a
-                     | inb2_l & enable_b
-                     | n_t_14x & left_shift));
-assign n3v3 = (n_t_12x & right_shift
-                | ina3_l & enable_a
-                | inb3_l & enable_b
-                | n_t_16x & left_shift);
-assign n_t_8x = ~l2? 1'b0: 1'bz;
+assign gdollar_0 = ~((sr_insert & right_shift
+                       | ina0_l & enable_a
+                       | inb0_l & enable_b
+                       | n_t_10x & left_shift));
+assign gdollar_10 = ~((n_t_16x & right_shift
+                        | ina5_l & enable_a
+                        | inb5_l & enable_b
+                        | sl_insert & left_shift));
+assign gdollar_2 = ~((n_t_8x & right_shift
+                       | ina1_l & enable_a
+                       | inb1_l & enable_b
+                       | n_t_12x & left_shift));
+assign gdollar_4 = ~((n_t_10x & right_shift
+                       | ina2_l & enable_a
+                       | inb2_l & enable_b
+                       | n_t_14x & left_shift));
+assign gdollar_6 = ~((n_t_12x & right_shift
+                       | ina3_l & enable_a
+                       | inb3_l & enable_b
+                       | n_t_16x & left_shift));
+assign gdollar_8 = ~((n_t_14x & right_shift
+                       | ina4_l & enable_a
+                       | inb4_l & enable_b
+                       | n_t_18x & left_shift));
 endmodule

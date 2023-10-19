@@ -4,88 +4,54 @@ Part     Pad      Pin        Dir      Net
 
 C1       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C2       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      +3V3
-         2        2          pas      GND
 
 C3       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C4       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C5       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C6       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C7       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C8       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 C9       +        +          pas      +3V
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 E1       1        I4         in       SHIFT_R1
          2        I5         in       NO_SHIFT
          3        I6         in       ADDER2
          4        I1         in       ADDER3
          5        I2         in       SHIFT_L1
-         6        O          out      N$42
-         7        J          in       F2
          8        O          out      AJ1
          9        I8         in       SHIFT_R2
          10       I7         in       ADDER0
          11       I10        pas      N$13
          12       I9         pas      N$10
          13       I3         in       ADDER1
-         14       A2         in       H1
-         15       A3         in       H1
-         16       14         out      N$17
-         17       15         out      N$16
-         18       G1         in       N$15
-         19       G2         in       N$13
-         20       D          in       N$11
-         21       C          in       N$12
-         22       B          in       N$10
-         23       A          in       N$8
 
 E2       1        I4         in       ADDER4
          2        I5         in       ADDER3
          3        I6         in       NO_SHIFT
          4        I1         in       ADDER2
          5        I2         in       SHIFT_R1
-         6        I2         in       N$13
-         7        J          in       N2
          8        O          out      AK2
          9        I8         in       SHIFT_R2
          10       I7         in       ADDER1
          11       I10        pas      N$11
          12       I9         pas      N$9
          13       I3         in       SHIFT_L1
-         14       J          in       K1
-         15       A3         in       M1
 
 E3       1        A          in       MB2_L
          2        B          in       +3V
@@ -93,30 +59,21 @@ E3       1        A          in       MB2_L
          4        A          in       +3V
          5        B          in       +3V
          6        C          in       ADDER4
-         7        J          in       U2
          8        D          in       SHIFT_L2
          9        !X         out      N$10
          10       X          out      N$13
          11       X          out      N$13
          12       !X         out      N$10
          13       D          in       AND
-         14       A2         in       N$7
-         15       A3         in       S1
 
-E4       1        A          in       +3V
-         2        D          in       AJ1
+E4       2        D          in       AJ1
          3        CLK        in       AK1
-         4        A          in       ADDER5
          5        Q          out      MA2_H
          6        !Q         out      MA2_L
-         7        I1         in       N$31
          8        !Q         out      MA3_L
          9        Q          out      MA3_H
-         10       X          out      N$11
          11       CLK        in       AK1
          12       D          in       AK2
-         13       D          in       N$3
-         14       O          out      N$46
 
 E5       1        A          in       MB3_L
          2        B          in       +3V
@@ -124,15 +81,12 @@ E5       1        A          in       MB3_L
          4        A          in       +3V
          5        B          in       +3V
          6        C          in       ADDER5
-         7        D0         in       BIOT5L
          8        D          in       SHIFT_L2
          9        !X         out      N$9
          10       X          out      N$11
          11       X          out      N$11
          12       !X         out      N$9
          13       D          in       AND
-         14       O0         in       BD01
-         15       B0         io       !DATA1
 
 E6       1        A          in       BB2
          2        B          in       +3V
@@ -140,121 +94,79 @@ E6       1        A          in       BB2
          4        A          in       +3V
          5        B          in       +3V
          6        C          in       ADDER3
-         7        Q2         out      BD03
          8        D          in       TT_SHIFT
          9        !X         out      N$9
          10       X          out      N$11
          11       X          out      N$13
          12       !X         out      N$10
          13       D          in       TT_SHIFT
-         14       A2         in       P1
-         15       Q4         out      BD00
 
 E7       1        I0         in       MB3_L
          2        I1         in       MB3_L
-         3        CLK        in       AN2
          4        I2         in       MB3_L
          5        I3         in       MB3_L
          6        O          out      AS2
-         7        B          io       N$10
          8        O          out      AS1
          9        I0         in       MB3_H
          10       I1         in       MB3_H
-         11       CLK        in       AN2
          12       I2         in       MB3_H
          13       I3         in       MB3_H
-         14       A2         in       N$29
-         15       B          io       N$12
 
-E8       1        I4         in       N$36
-         2        D          in       AJ1
+E8       2        D          in       AJ1
          3        CLK        in       AR1
-         4        J2         in       +3V3
          5        Q          out      MB2_H
          6        !Q         out      MB2_L
-         7        Y3         out      SELECT6
          8        !Q         out      MB3_L
          9        Q          out      MB3_H
-         10       K2         in       +3V3
          11       CLK        in       AR1
          12       D          in       AK2
-         13       PRE        in       N$8
-         14       A          in       A0
-         15       G          in       !C1
 
-E9       1        I0         in       MB3_H
-         2        D          in       AJ1
+E9       2        D          in       AJ1
          3        CLK        in       AN2
-         4        I2         in       MB3_H
          5        Q          out      PC2_H
          6        !Q         out      PC2_L
          8        !Q         out      PC3_L
          9        Q          out      PC3_H
-         10       I1         in       MB3_L
          11       CLK        in       AN2
          12       D          in       AK2
-         13       I3         in       MB3_L
-         14       A2         in       N$40
 
-E10      1        I0         in       MB2_H
-         2        D          in       AJ1
+E10      2        D          in       AJ1
          3        CLK        in       AU1
-         4        I2         in       MB2_H
          5        Q          out      AC2_H
          6        !Q         out      AC2_L
-         7        Q2         out      AD01
          8        !Q         out      AC3_L
          9        Q          out      AC3_H
-         10       I1         in       MB2_L
          11       CLK        in       AU1
          12       D          in       AK2
-         13       I3         in       MB2_L
-         14       !Q4        out      AD02L
-         15       Q4         out      AD02
 
 E11      1        I0         in       MB2_H
          2        I1         in       MB2_H
-         3        B1         in       N$14
          4        I2         in       MB2_H
          5        I3         in       MB2_H
          6        O          out      AU2
-         7        B          io       N$20
          8        O          out      AT2
          9        I0         in       MB2_L
          10       I1         in       MB2_L
-         11       CLK        in       N$27
          12       I2         in       MB2_L
          13       I3         in       MB2_L
-         14       A2         in       N$5
-         15       B          io       N$13
 
 E12      1        I4         in       +3V
          2        I5         in       AC3_H
          3        I6         in       AC_ENABL
          4        I1         in       AC3_L
          5        I2         in       !AC_ENABL
-         6        I5         in       +3V3
-         7        B          io       N$17
          8        O          out      N$8
          9        I8         in       MQ3_H
          10       I7         in       MQ_ENABL
          11       I10        pas      N$4
          12       I9         pas      N$2
          13       I3         in       BE2
-         14       R          out      A8
-         15       B          io       N$15
 
 E13      1        S1         out      ADDER3
          2        A1         in       N$8
          3        B1         in       N$14
-         4        I1         in       DATA2
          5        C0         in       C0
-         6        SPARE      pas      !AC_ENABL
-         7        I1         in       BT2
-         8        O          out      N$5
-         9        I8         in       IO2
          10       C2         out      C2
-         11       I10        pas      N$6
          12       S2         out      ADDER2
          13       B2         in       N$12
          14       A2         in       N$5
@@ -264,59 +176,45 @@ E14      1        I4         in       SR_ENABL
          3        I6         in       SC_ENABL
          4        I1         in       DATA2
          5        I2         in       DATA_ENABL
-         6        O          out      N$88
-         7        FORCE0     in       GND
          8        O          out      N$5
          9        I8         in       IO2
          10       I7         in       IO_ENABL
          11       I10        pas      N$6
          12       I9         pas      N$7
          13       I3         in       SR2
-         14       A3         out      MD07H
-         15       Y3         in       !MD07
 
 E15      1        I4         in       SR_ENABL
          2        I5         in       SC3
          3        I6         in       SC_ENABL
          4        I1         in       DATA3
          5        I2         in       DATA_ENABL
-         6        !Q         out      AC2_L
-         7        I1         in       BH1
          8        O          out      N$8
          9        I8         in       IO3
          10       I7         in       IO_ENABL
          11       I10        pas      N$4
          12       I9         pas      N$2
          13       I3         in       SR3
-         14       O          out      N$170
 
 E16      1        I4         in       GND
          2        I5         in       AC2_H
          3        I6         in       AC_ENABL
          4        I1         in       AC2_L
          5        I2         in       !AC_ENABL
-         6        O          out      N$16
-         7        I1         in       BJ1
          8        O          out      N$5
          9        I8         in       MQ2_H
          10       I7         in       MQ_ENABL
          11       I10        pas      N$6
          12       I9         pas      N$7
          13       I3         in       GND
-         14       O          out      N$182
 
 E17      1        I4         in       MA_ENABL
          2        I5         in       PC2_H
          3        I6         in       PC_ENABL
          4        I1         in       MEM2
          5        I2         in       MEM_ENABL
-         6        O          out      BV2
-         7        CLAMP      in       AD03H
          8        O          out      N$12
          9        I8         in       DA2
          10       I7         in       DA_ENABL
-         11       F          in       N$63
-         12       G          in       N$60
          13       I3         in       MA2_H
 
 E18      1        I4         in       BR2
@@ -324,12 +222,9 @@ E18      1        I4         in       BR2
          3        I6         in       PC_ENABL
          4        I1         in       BV2
          5        I2         in       BV1
-         6        O          out      N$49
          8        O          out      N$14
          9        I8         in       BU1
          10       I7         in       DA_ENABL
-         11       I10        pas      N$4
-         12       I9         pas      N$2
          13       I3         in       MA3_H
 
 R1       1        1          pas      MEM2
@@ -379,25 +274,22 @@ U$1      AA1      1          io       AND
          AL2      1          io       MA3_H
          AM1      1          io       MA2_L
          AM2      1          io       MA2_H
+         AN1      1          io       PC3_H
          AN2      1          io       AN2
          AP1      1          io       PC2_H
+         AP2      1          io       PC3_L
          AR1      1          io       AR1
          AR2      1          io       PC2_L
+         AS1      1          io       AS1
+         AS2      1          io       AS2
          AT1      1          io       GND
          AT2      1          io       AT2
          AU1      1          io       AU1
          AU2      1          io       AU2
          AV1      1          io       AC3_H
-         A1       1          io       A1
          AV2      1          io       AC3_L
-         A2       1          io       VCC
-         AN1      1          io       PC3_H
-         AP2      1          io       PC3_L
-         AS1      1          io       AS1
-         AS2      1          io       AS2
          BA1      1          io       AC2_H
          BA2      1          io       VCC
-         B2       1          io       -15V
          BB1      1          io       AC2_L
          BB2      1          io       BB2
          BC1      1          io       SR_ENABL
@@ -428,40 +320,7 @@ U$1      AA1      1          io       AND
          BS2      1          io       PC_ENABL
          BT1      1          io       GND
          BT2      1          io       DA_ENABL
-         BU2      1          io       MEM_ENABL
-         B1       1          io       B1
          BU1      1          io       BU1
+         BU2      1          io       MEM_ENABL
          BV1      1          io       BV1
          BV2      1          io       BV2
-         C1       1          io       C1
-         C2       1          io       GND
-         D1       1          io       D1
-         D2       1          io       D2
-         E1       1          io       E1
-         E2       1          io       E2
-         F1       1          io       F1
-         F2       1          io       F2
-         H1       1          io       H1
-         H2       1          io       H2
-         J1       1          io       J1
-         J2       1          io       J2
-         K1       1          io       K1
-         K2       1          io       K2
-         L1       1          io       L1
-         L2       1          io       L2
-         M1       1          io       M1
-         M2       1          io       M2
-         N1       1          io       N1
-         N2       1          io       N2
-         P1       1          io       P1
-         P2       1          io       P2
-         R1       1          io       R1
-         R2       1          io       R2
-         S1       1          io       S1
-         S2       1          io       S2
-         T1       1          io       GND
-         T2       1          io       T2
-         U1       1          io       U1
-         U2       1          io       U2
-         V1       1          io       V1
-         V2       1          io       V2

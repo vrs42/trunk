@@ -10,35 +10,7 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn7400 
-module m203x (c0_l, c1_l, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp3);
-output c0_l;
-output c1_l;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
-output n15v;
+module m203x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
 inout n_t_10x;
 input n_t_11x;
 input n_t_12x;
@@ -71,18 +43,8 @@ inout n_t_6x;
 input n_t_7x;
 input n_t_8x;
 inout n_t_9x;
-output skip_l;
-output tp3;
 
 
-wire f2;
-wire h1;
-wire m1;
-wire md03h;
-wire md04h;
-wire n_t_46x;
-wire out;
-wire s1;
 assign n_t_2x = ~(n_t_3x & n_t_1x);
 assign n_t_1x = ~(n_t_2x & n_t_4x);
 assign n_t_6x = ~(n_t_8x & n_t_5x);

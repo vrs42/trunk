@@ -24,7 +24,7 @@
 // s1 = !(n1 & p1); 
 // r1 = !(p1 & m1); 
 // open collector 'wire-or's 
-module m106x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_19x, n_t_21x, p1, p2, r1, r2, s1, s2, t2, u2, v2);
+module m106x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u2, v2);
 input a1;
 input b1;
 input c1;
@@ -45,10 +45,7 @@ input l2;
 input m1;
 input m2;
 input n1;
-output n15v;
 output n2;
-output n_t_19x;
-output n_t_21x;
 input p1;
 output p2;
 output r1;
@@ -60,14 +57,6 @@ output u2;
 output v2;
 
 
-wire a01;
-wire a12;
-wire a16;
-wire n_t_18x;
-wire n_t_2x;
-wire n_t_4x;
-wire n_t_5x;
-wire n_t_8x;
 assign d1 = (c1 & a1)? 1'b0: 1'bz;
 assign e1 = (b1 & c1)? 1'b0: 1'bz;
 assign h2 = (d2 & f2)? 1'b0: 1'bz;

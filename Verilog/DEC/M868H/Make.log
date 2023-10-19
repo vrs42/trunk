@@ -95,7 +95,6 @@ warning: non-bypass capacitor deleted: c42
 warning: non-bypass capacitor deleted: c44
 warning: non-bypass capacitor deleted: c47
 warning: non-bypass capacitor deleted: c48
-unexpected OC output: rx_clr_l at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2514.
 warning: non-pullup resistor deleted: r25
 warning: non-pullup resistor deleted: r29
 warning: non-pullup resistor deleted: r30
@@ -111,7 +110,7 @@ warning: non-pullup resistor deleted: r41
 warning: non-pullup resistor deleted: r43
 warning: non-pullup resistor deleted: r48
 ~/Verilog/bin/smaller.pl M868H.PLD >vv || (rm vv; exit 1)
-41 signals were removed:
+38 signals were removed:
   cc_67x_l: !cc_67x
   cc_btp3: !cc_tp3_l
   cc_dtp0_l: !cc_dtp0
@@ -133,29 +132,26 @@ warning: non-pullup resistor deleted: r48
   io_pause_l: io_pause
   n_t_102x: !sync
   n_t_107x: !tpg0
-  n_t_10x: !n_t_29x
+  n_t_10x: !gdollar_2
   n_t_112x: !cc_tpg_clk
-  n_t_122x: !sr01
   n_t_1x: 'b'1
   n_t_30x: !n_t_2x
-  n_t_32x: !n_t_72x
-  n_t_34x: !rcvr_clk
+  n_t_32x: !gdollar_0
+  n_t_34x: !gdollar_3
   n_t_35x: !cc_dtp0_l
   n_t_44x: !cc_sdst_l
   n_t_45x: !cc_sdsq_l
   n_t_46x: !cc_sdss_l
   n_t_48x: !n_t_47x
+  n_t_5x: 'b'1
   n_t_66x: !cc_wrt_ok
-  n_t_70x: !sr00
   n_t_7x: !n_t_29x
   n_t_83x: !cc_clk_te_l
   n_t_84x: 'b'1
-  n_t_85x: !data07_l
   n_t_88x: !n_t_20x
-  tx_busy_l: !mtr2_l
 ~/Verilog/bin/smaller.pl vv >M868HX.PLD || (rm M868HX.PLD; exit 1)
 1 signals were removed:
-  cc_run_l: !run
+  cc_init: initialize
 ~/Verilog/bin/cupl2v.pl M868HX.PLD >vv || (rm vv; exit 1)
 mv vv M868H.v
 rm M868HX.PLD

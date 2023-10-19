@@ -20,34 +20,15 @@ $UNDEF  OPTIMIZE
 /* Output Pins */
 pin = a1;
 pin = b1;
-pin = b2;
-pin = c0_l;
 pin = c1;
-pin = c1_l;
 pin = d1;
 pin = d2;
-pin = data0_l;
-pin = data10_l;
-pin = data11_l;
-pin = data1_l;
-pin = data2_l;
-pin = data3_l;
-pin = data4_l;
-pin = data5_l;
-pin = data6_l;
-pin = data7_l;
-pin = data8_l;
-pin = data9_l;
 pin = e1;
 pin = e2;
 pin = f1;
 pin = f2;
 pin = h1;
 pin = h2;
-pin = initialize;
-pin = int_rqst_l;
-pin = internal_io_l;
-pin = io_pause_l;
 pin = j1;
 pin = j2;
 pin = k1;
@@ -56,15 +37,6 @@ pin = l1;
 pin = l2;
 pin = m1;
 pin = m2;
-pin = md03_l;
-pin = md04_l;
-pin = md05_l;
-pin = md06_l;
-pin = md07_l;
-pin = md08_l;
-pin = md09_l;
-pin = md10_l;
-pin = md11_l;
 pin = n1;
 pin = n2;
 pin = p1;
@@ -73,9 +45,7 @@ pin = r1;
 pin = r2;
 pin = s1;
 pin = s2;
-pin = skip_l;
 pin = t2;
-pin = tp3;
 pin = u1;
 pin = u2;
 pin = v1;
@@ -93,28 +63,12 @@ node n_t_19x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node aj2;
-node binit_l;
-node bn1;
-node clr_flag;
-node enable_l;
-node feed_switch;
-node initialize_l;
-node iot_012;
-node n3v3;
-node n_t_10x;
-node n_t_11x;
-node n_t_12x;
-node n_t_13x;
-node n_t_14x;
 node n_t_15x;
 node n_t_18x;
-node n_t_20x;
 node n_t_21x;
 node n_t_22x;
 node n_t_23x;
 node n_t_24x;
-node n_t_32x;
 node n_t_33x;
 node n_t_34x;
 node n_t_36x;
@@ -122,40 +76,21 @@ node n_t_49x;
 node n_t_4x;
 node n_t_51x;
 node n_t_52x;
-node n_t_54x;
-node n_t_55x;
 node n_t_56x;
 node n_t_58x;
 node n_t_5x;
 node n_t_60x;
-node n_t_62x;
 node n_t_64x;
-node n_t_65x;
-node n_t_6x;
-node n_t_70x;
 node n_t_71x;
 node n_t_72x;
-node n_t_73x;
-node n_t_74x;
 node n_t_76x;
 node n_t_77x;
 node n_t_78x;
 node n_t_79x;
-node n_t_7x;
 node n_t_80x;
 node n_t_88x;
-node n_t_8x;
 node n_t_90x;
 node n_t_92x;
-node n_t_9x;
-node rd_hole_1;
-node rd_hole_4;
-node rd_hole_5;
-node rd_hole_6;
-node rd_hole_8;
-node rdr_flag;
-node rdr_run_l;
-node rfc_delayed;
 $ENDIF
 
 /* Code nodes */
@@ -227,9 +162,6 @@ e2.ap = r1 & s1;
 e2.ar = r1 & !s1;
 e2.ck = 'b'0;
 e2.d = 'b'0;
-rfc_delayed = !a1;
-aj2 = !d2;
-n_t_16x = !e2;
 
 /* e3: dec8271 */
 n_t_2x.ar = !n_t_23x;
@@ -252,7 +184,6 @@ s1.d = n_t_1x & m2
      # n_t_1x & n_t_4x & !m2
      # s1 & !n_t_4x & !m2;
 s1.ck = !n_t_76x;
-rd_hole_5 = !s1;
 
 /* e4: sn7404 */
 n_t_56x = !l2;
@@ -263,6 +194,10 @@ n_t_58x = !k2;
 n_t_4x = 'b'1;
 
 /* e5: sn7450 */
+!n_t_49x = n_t_3x & k2
+         # n_t_24x & n_t_58x;
+!n_t_51x = n_t_2x & l2
+         # n_t_24x & n_t_56x;
 
 /* e6: sn7474 */
 n_t_27x.ar = !n_t_5x;
@@ -315,9 +250,6 @@ p2.ap = r1 & v2;
 p2.ar = r1 & !v2;
 p2.ck = 'b'0;
 p2.d = 'b'0;
-clr_flag = !m1;
-aj2 = !p1;
-rdr_run_l = !p2;
 
 /* e11: dec8271 */
 n_t_38x.ar = !n_t_23x;
@@ -336,7 +268,6 @@ v2.ar = !n_t_23x;
 v2.d = n_t_37x & n_t_4x
      # v2 & !n_t_4x;
 v2.ck = !n_t_76x;
-n_t_5x = !v2;
 
 /* e12: sn7416 */
 /* n_t_80x = !n_t_76x; */
@@ -348,7 +279,6 @@ n_t_5x = !v2;
 
 /* e13: sn7400 */
 n_t_92x = !(j2 & n_t_88x);
-bn1 = !(feed_switch & n_t_34x);
 n_t_76x = !(n2 & n_t_22x);
 n_t_71x = !(n_t_72x & n_t_90x);
 
@@ -362,7 +292,6 @@ n_t_19x.ar = !n2;
 n_t_19x.d = n_t_4x;
 n_t_19x.ck = n_t_71x;
 n_t_19x.ap = !n_t_5x;
-enable_l = !n_t_19x;
 
 /* r1: r_us_ */
 

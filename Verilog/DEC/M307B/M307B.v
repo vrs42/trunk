@@ -24,11 +24,7 @@
 // c17: c_us 
 // c18: c_us 
 // e1: sn7400 
-module m307b (n_t_15x, n_t_42x, n_t_59x, n_t_8x, a1, c1, e2, e2q, e2q_l, e4q, e4q_l, f2, gnd1, h2, j2, k1, k2, l1, l2, m1, n1, n15v, n3v3, n5v_1, n5v_2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_22x, n_t_23x, n_t_25x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_70x, n_t_7x, p1, s1, u1, v1);
-output n_t_15x;
-output n_t_42x;
-output n_t_59x;
-output n_t_8x;
+module m307b (a1, c1, e2, e2q, e2q_l, e4q, e4q_l, f2, gnd1, h2, j2, k1, k2, l1, l2, m1, n1, n15v, n3v3, n5v_1, n5v_2, n_t_1x, n_t_22x, n_t_25x, n_t_5x, p1, s1, u1, v1);
 output a1;
 output c1;
 output e2;
@@ -50,25 +46,10 @@ output n15v;
 inout n3v3;
 output n5v_1;
 output n5v_2;
-output n_t_10x;
-output n_t_11x;
-output n_t_12x;
-output n_t_13x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output n_t_19x;
 output n_t_1x;
-output n_t_20x;
 output n_t_22x;
-output n_t_23x;
 output n_t_25x;
-output n_t_3x;
-output n_t_4x;
 output n_t_5x;
-output n_t_6x;
-output n_t_70x;
-output n_t_7x;
 output p1;
 output s1;
 output u1;
@@ -76,6 +57,7 @@ output v1;
 
 
 wire n_t_2x;
+wire n_t_3x;
 assign n_t_2x = ~(n3v3 & l1);
 assign k1 = ~e2q_l;
 assign e2 = ~e2q;

@@ -9,15 +9,7 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn74154 
-module m155a (a1, b1, c1, d1, d2, e1, n15v, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, u2, x, z);
-output a1;
-output b1;
-output c1;
-output d1;
-output d2;
-output e1;
-output n15v;
-output n3v3;
+module m155a (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
 input n_t_10x;
 input n_t_11x;
 input n_t_12x;
@@ -40,12 +32,8 @@ output n_t_6x;
 output n_t_7x;
 input n_t_8x;
 output n_t_9x;
-output u2;
-output x;
-output z;
 
 
-wire n_t_25x;
 assign n_t_9x = n_t_15x
                  | n_t_13x
                  | ~(~n_t_11x & ~n_t_12x & ~n_t_10x & ~n_t_8x);

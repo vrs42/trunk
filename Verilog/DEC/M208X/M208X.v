@@ -17,40 +17,39 @@
 // c10: c_us 
 // c11: c_us 
 // e1: sn7474 
-module m208x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m208x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 inout reg c1;
-output d1;
+input d1;
 output d2;
 inout reg e1;
-output e2;
-output f1;
+input e2;
+input f1;
 output f2;
 inout reg h1;
-output h2;
-output j1;
-output j2;
+input h2;
+input j1;
+inout j2;
 inout reg k1;
 input k2;
-output l1;
-output l2;
+input l1;
+inout l2;
 inout reg m1;
 input m2;
-output n1;
-output n15v;
+input n1;
 output n2;
 inout reg p1;
-output p2;
-output r1;
-output r2;
-output s1;
+input p2;
+input r1;
+inout r2;
+input s1;
 inout reg s2;
-output t2;
+inout t2;
 inout reg u1;
 input u2;
-output v1;
-output v2;
+input v1;
+inout v2;
 
 reg c1_m;
 reg e1_m;
@@ -61,46 +60,19 @@ reg p1_m;
 reg s2_m;
 reg u1_m;
 
-wire a0;
-wire ad01;
-wire ad02;
-wire ad02l;
-wire bd00;
-wire bd00l;
-wire bd01;
-wire bd01l;
-wire bd02l;
-wire bd03;
-wire biot5l;
-wire c1_l;
-wire data1_l;
-wire n_t_10x;
-wire n_t_119x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
 wire n_t_14x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_17x;
-wire n_t_18x;
 wire n_t_1x;
-wire n_t_24x;
 wire n_t_27x;
 wire n_t_2x;
-wire n_t_30x;
 wire n_t_31x;
 wire n_t_32x;
 wire n_t_3x;
-wire n_t_40x;
-wire n_t_46x;
 wire n_t_4x;
 wire n_t_5x;
 wire n_t_6x;
 wire n_t_7x;
 wire n_t_8x;
 wire n_t_9x;
-wire select6;
 always @(n_t_27x, n_t_32x, n_t_7x)
   if (~n_t_32x) begin
     e1_m <= 1'b1;
@@ -132,6 +104,10 @@ always @(n_t_27x, n_t_32x, c1_m)
   end
 assign d2 = ~c1;
 // e2: sn7450 
+assign n_t_8x = ~(n_t_9x & d1
+                   | h2 & n_t_14x);
+assign n_t_7x = ~(n_t_9x & f1
+                   | j2 & n_t_14x);
 // e3: sn7474 
 always @(n_t_27x, n_t_32x, n_t_5x)
   if (~n_t_32x) begin
@@ -164,6 +140,10 @@ always @(n_t_27x, n_t_32x, h1_m)
   end
 assign j2 = ~h1;
 // e4: sn7450 
+assign n_t_6x = ~(n_t_9x & j1
+                   | l2 & n_t_14x);
+assign n_t_5x = ~(n_t_9x & l1
+                   | p2 & n_t_14x);
 // e5: sn7400 
 assign n_t_31x = ~b1;
 assign n_t_14x = ~k2;
@@ -203,6 +183,10 @@ always @(n_t_27x, n_t_31x, s2_m)
   end
 assign t2 = ~s2;
 // e8: sn7450 
+assign n_t_2x = ~(n_t_9x & s1
+                   | v2 & n_t_14x);
+assign n_t_1x = ~(n_t_9x & v1
+                   | e2 & n_t_14x);
 // e9: sn7474 
 always @(n_t_27x, n_t_31x, n_t_3x)
   if (~n_t_31x) begin
@@ -235,6 +219,10 @@ always @(n_t_27x, n_t_31x, m1_m)
   end
 assign n2 = ~m1;
 // e10: sn7450 
+assign n_t_4x = ~(n_t_9x & n1
+                   | r2 & n_t_14x);
+assign n_t_3x = ~(n_t_9x & r1
+                   | t2 & n_t_14x);
 // r1: r_us_ 
 // r2: r_us_ 
 // open collector 'wire-or's 

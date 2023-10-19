@@ -10,45 +10,23 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn7440 
-module m360b (n15v, n5v_1, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, v1);
-output n15v;
-output n5v_1;
+module m360b (n_t_10x, n_t_12x, n_t_13x, n_t_17x, n_t_18x, n_t_21x, n_t_22x, n_t_2x, n_t_5x);
 input n_t_10x;
-output n_t_11x;
 input n_t_12x;
 output n_t_13x;
-output n_t_14x;
-output n_t_15x;
-output n_t_16x;
 output n_t_17x;
 output n_t_18x;
-output n_t_19x;
-inout n_t_1x;
-output n_t_20x;
-input n_t_21x;
+output n_t_21x;
 input n_t_22x;
-output n_t_23x;
-output n_t_24x;
-output n_t_25x;
 input n_t_2x;
-inout n_t_3x;
-output n_t_4x;
 output n_t_5x;
-output n_t_6x;
-output n_t_7x;
-output n_t_8x;
-output n_t_9x;
-output v1;
 
 
-wire j2;
-assign n_t_13x = ~n_t_3x;
-assign n_t_5x = ~(n_t_22x & n_t_2x & n_t_1x & n_t_1x);
+wire n_t_11x;
+assign n_t_13x = n_t_12x;
+assign n_t_5x = ~(n_t_22x & n_t_2x);
 // e2: sn7400 
-assign j2 = ~(n_t_1x & n_t_21x);
-assign n_t_11x = ~(n_t_10x & n_t_3x);
-assign n_t_3x = ~n_t_12x;
-assign n_t_1x = 1'b1;
+assign n_t_11x = ~(n_t_10x & ~n_t_12x);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

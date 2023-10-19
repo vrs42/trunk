@@ -140,8 +140,7 @@ warning: non-pullup resistor deleted: r45
 warning: non-pullup resistor deleted: r50
 warning: non-pullup resistor deleted: r51
 ~/Verilog/bin/smaller.pl M840X.PLD >vv || (rm vv; exit 1)
-46 signals were removed:
-  ac_to_mq_ena_l: 'b'1
+45 signals were removed:
   clock_pulse: !clock_pulse_l
   ena_pun_buffr_l: !iot02
   enable_l: !enable
@@ -154,12 +153,13 @@ warning: non-pullup resistor deleted: r51
   n_t_113x: !n_t_119x
   n_t_116x: !rdata_strobe
   n_t_124x: !n_t_123x
-  n_t_126x: !n_t_19x
   n_t_130x: !init_or_eot_l
   n_t_134x: !iot02
   n_t_135x: !iot01
+  n_t_16x: !iot01
+  n_t_18x: !iot02
   n_t_1x: !btp3
-  n_t_33x: !int_ena
+  n_t_33x: 'b'1
   n_t_34x: 'b'1
   n_t_47x: !n_t_48x
   n_t_48x: !bb_l
@@ -177,9 +177,8 @@ warning: non-pullup resistor deleted: r51
   n_t_70x: 'b'1
   n_t_71x: !multi_out_l
   n_t_73x: !n_t_74x
-  n_t_78x: !shift_ok
+  n_t_78x: !motor_power
   n_t_81x: 'b'1
-  n_t_90x: !eae_on
   pause: !pause_l
   piop0: !pce_l
   piop1: !psf_l
@@ -188,14 +187,15 @@ warning: non-pullup resistor deleted: r51
   riop0: !rpe_l
   riop1: !rsf_l
 ~/Verilog/bin/smaller.pl vv >M840XX.PLD || (rm M840XX.PLD; exit 1)
-9 signals were removed:
+10 signals were removed:
   btp3: tp3
-  n_t_49x: !ba_l
+  n_t_48x: !bb_l
   n_t_56x: pn_hole5
   n_t_57x: pn_hole6
   n_t_58x: pn_hole8
   n_t_59x: pn_hole7
   n_t_60x: pn_hole1
+  n_t_61x: pn_hole4
   n_t_62x: pn_hole3
   n_t_63x: pn_hole2
 ~/Verilog/bin/cupl2v.pl M840XX.PLD >vv || (rm vv; exit 1)

@@ -21,89 +21,40 @@
 // c14: c_us 
 // c15: c_us 
 // e1: sn7400 
-module m503x (n3v3, n_t_19x, n_t_27x, n_t_28x, n_t_43x, n_t_44x, n_t_52x, n_t_60x, n_t_6x, n_t_8x, agnd, c0_l, c1_l, cs, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n15v, n_t_10x, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_1x, n_t_20x, n_t_21x, n_t_23x, n_t_26x, n_t_2x, n_t_33x, n_t_34x, n_t_36x, n_t_38x, n_t_3x, n_t_42x, n_t_48x, n_t_49x, n_t_4x, n_t_50x, n_t_51x, n_t_58x, n_t_5x, n_t_9x, skip_l, tp3, tp_m, x4_rate);
-output n3v3;
+module m503x (n_t_14x, n_t_19x, n_t_27x, n_t_28x, n_t_42x, n_t_43x, n_t_5x, n_t_6x, agnd, n15v, n_t_10x, n_t_11x, n_t_15x, n_t_1x, n_t_21x, n_t_23x, n_t_2x, n_t_33x, n_t_34x, n_t_36x, n_t_38x, n_t_3x, n_t_48x, n_t_49x, n_t_50x, n_t_51x);
+input n_t_14x;
 input n_t_19x;
 output n_t_27x;
 output n_t_28x;
+output n_t_42x;
 output n_t_43x;
-output n_t_44x;
-output n_t_52x;
-output n_t_60x;
+input n_t_5x;
 input n_t_6x;
-output n_t_8x;
 output agnd;
-output c0_l;
-output c1_l;
-output cs;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
 output n15v;
 inout n_t_10x;
 inout n_t_11x;
-input n_t_14x;
 output n_t_15x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
 inout n_t_1x;
-output n_t_20x;
 output n_t_21x;
 output n_t_23x;
-output n_t_26x;
 inout n_t_2x;
 output n_t_33x;
 output n_t_34x;
 output n_t_36x;
 output n_t_38x;
-input n_t_3x;
-output n_t_42x;
+output n_t_3x;
 output n_t_48x;
 output n_t_49x;
-output n_t_4x;
 output n_t_50x;
 output n_t_51x;
-output n_t_58x;
-input n_t_5x;
-output n_t_9x;
-output skip_l;
-output tp3;
-output tp_m;
-output x4_rate;
 
 
-wire n_t_13x;
-assign n_t_9x = ~n_t_1x;
 assign n_t_1x = ~(n_t_5x & n_t_2x);
 assign n_t_2x = ~(n_t_1x & n_t_6x);
-assign n_t_4x = ~n_t_3x;
 // e2: sn7400 
 assign n_t_11x = ~(n_t_19x & n_t_10x);
 assign n_t_10x = ~(n_t_11x & n_t_14x);
-assign n_t_18x = ~n_t_10x;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

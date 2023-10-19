@@ -16,31 +16,11 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = a0;
-pin = adonel;
-pin = bd01;
-pin = bd05;
-pin = biot5l;
-pin = c1_l;
-pin = initl;
-pin = k1;
-pin = m1;
-pin = n2;
 pin = n3v3;
 
 /* Output Pins */
-pin = bd04;
-pin = bd04l;
-pin = bd07;
-pin = bd07l;
-pin = bdonel;
-pin = bn1_l;
-pin = data1_l;
-pin = data5_l;
-pin = data7_l;
 pin = n_t_10x;
 pin = n_t_11x;
-pin = n_t_125x;
 pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_14x;
@@ -61,7 +41,6 @@ pin = n_t_2x;
 pin = n_t_30x;
 pin = n_t_33x;
 pin = n_t_34x;
-pin = n_t_36x;
 pin = n_t_37x;
 pin = n_t_38x;
 pin = n_t_39x;
@@ -114,44 +93,16 @@ pin = n_t_90x;
 pin = n_t_91x;
 pin = n_t_96x;
 pin = n_t_97x;
-pin = n_t_99x;
 pin = n_t_9x;
-pin = select6;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a8;
-node ad01;
-node ad02;
-node ad02h;
-node ad02l;
-node ad03h;
-node ad06h;
-node bd00;
-node bd03;
-node bd03h;
-node bd05h;
-node bd05l;
-node bh1;
-node bj1;
-node br1_l;
-node bt2;
-node bv2;
-node f2;
-node h1;
-node md07_l;
-node md07h;
-node n_t_113x;
-node n_t_134x;
-node n_t_170x;
-node n_t_182x;
 node n_t_19x;
-node n_t_219x;
 node n_t_27x;
 node n_t_28x;
 node n_t_31x;
 node n_t_32x;
-node n_t_35x;
+node n_t_36x;
 node n_t_41x;
 node n_t_46x;
 node n_t_50x;
@@ -166,9 +117,6 @@ node n_t_88x;
 node n_t_92x;
 node n_t_93x;
 node n_t_95x;
-node p1;
-node s1;
-node u2;
 $ENDIF
 
 /* Code nodes */
@@ -259,13 +207,12 @@ n_t_73x = !(n_t_68x & n_t_70x & n_t_69x & n_t_69x);
 n_t_43x = !(n_t_20x & n_t_21x & n_t_22x & n_t_24x & n3v3 & n3v3 & n_t_25x & n_t_23x);
 
 /* e13: sn74h55 */
-/* n_t_52x = !(n_t_83x & n_t_84x & n_t_85x
-        # n_t_86x & n_t_85x & n_t_87x & n_t_87x); */
-/* n_t_219x = !n_t_52x; */
-n_t_89x = n_t_52x;
+/* gdollar_0 = !(n_t_83x & n_t_84x & n_t_85x
+          # n_t_86x & n_t_85x & n_t_87x & n_t_87x); */
+/* gdollar_1 = !gdollar_0; */
+n_t_89x = gdollar_0;
 
 /* e14: sn74h00 */
-n_t_74x = !(n_t_75x & n_t_19x);
 n_t_88x = !n_t_87x;
 n_t_74x = !n_t_72x;
 n_t_72x = !(n_t_71x & n_t_68x);
@@ -282,10 +229,10 @@ n_t_34x = !(n_t_6x & n_t_32x);
 n_t_32x = !n_t_33x;
 
 /* e17: sn74h55 */
-/* ad02h = !(n_t_62x & n_t_63x & n_t_45x & n_t_61x
-      # n_t_62x & n_t_63x & n_t_60x & n_t_64x); */
-/* bd03h = !ad02h; */
-n_t_65x = ad02h;
+/* gdollar_2 = !(n_t_62x & n_t_63x & n_t_45x & n_t_61x
+          # n_t_62x & n_t_63x & n_t_60x & n_t_64x); */
+/* gdollar_3 = !gdollar_2; */
+n_t_65x = gdollar_2;
 
 /* e18: sn74h00 */
 n_t_46x = !(n_t_5x & n_t_47x);
@@ -297,7 +244,6 @@ n_t_95x = !(n_t_85x & n_t_92x);
 n_t_55x = !n_t_54x;
 n_t_54x = !(n_t_50x & n_t_53x);
 n_t_50x = !(n_t_51x & n_t_52x);
-bd05h = !bd05l;
 
 /* e22: sn74h00 */
 n_t_58x = !n_t_59x;
@@ -316,12 +262,9 @@ n_t_41x = !(n_t_23x & n_t_24x);
 /* r2: r_us_ */
 
 /* Open collector 'wire-or's */
-!ad02h = (n_t_62x & n_t_63x & n_t_45x & n_t_61x
-      # n_t_62x & n_t_63x & n_t_60x & n_t_64x);
-!bd03h = ad02h;
-!n_t_219x = n_t_52x;
-property atmel {open_collector= n_t_52x};
-!n_t_52x = (n_t_83x & n_t_84x & n_t_85x
-        # n_t_86x & n_t_85x & n_t_87x & n_t_87x);
-n_t_52x.oe = (n_t_83x & n_t_84x & n_t_85x
-        # n_t_86x & n_t_85x & n_t_87x & n_t_87x);
+!gdollar_0 = (n_t_83x & n_t_84x & n_t_85x
+          # n_t_86x & n_t_85x & n_t_87x & n_t_87x);
+!gdollar_1 = gdollar_0;
+!gdollar_2 = (n_t_62x & n_t_63x & n_t_45x & n_t_61x
+          # n_t_62x & n_t_63x & n_t_60x & n_t_64x);
+!gdollar_3 = gdollar_2;

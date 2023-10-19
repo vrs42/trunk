@@ -16,10 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = n_t_11x;
 
 /* Output Pins */
-pin = a1;
 pin = ab2;
 pin = ac1;
 pin = ad2;
@@ -38,7 +36,6 @@ pin = ar2;
 pin = as1;
 pin = as2;
 pin = av1;
-pin = b1;
 pin = bb1;
 pin = bb2;
 pin = bc1;
@@ -60,46 +57,19 @@ pin = bp2;
 pin = br1;
 pin = bs1;
 pin = bu1;
-pin = c1;
 pin = carry_in_l;
 pin = carry_out_l;
-pin = d1;
-pin = d2;
-pin = e1;
-pin = e2;
-pin = f1;
-pin = f2;
-pin = h1;
-pin = h2;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = l1;
-pin = l2;
 pin = load_rwb;
 pin = load_tac;
 pin = load_tb;
 pin = load_tbn;
 pin = load_tma;
 pin = load_tmasu;
-pin = m1;
-pin = m2;
-pin = n1;
-pin = n15v;
-pin = n2;
 pin = n3v3;
-pin = p1;
-pin = p2;
 pin = phase;
-pin = r1;
-pin = r2;
 pin = rwb3_h;
 pin = rwb_out;
-pin = s1;
-pin = s2;
 pin = shift_rwb;
-pin = t2;
 pin = tac2_h;
 pin = tac2_l;
 pin = tac3_h;
@@ -114,61 +84,18 @@ pin = tma2;
 pin = tma3;
 pin = tmasu2;
 pin = tmasu3;
-pin = u1;
-pin = u2;
-pin = v1;
-pin = v2;
 node rwb2_h;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a0;
-node a8;
-node ac2_l;
-node ac3_h;
-node ac3_l;
-node ad01;
-node ad02;
-node ad02l;
-node ad03h;
-node adder3;
-node adder4;
-node adder5;
-node addr_match;
-node bd00;
-node bd03;
-node biot5l;
-node bt2;
-node c1_l;
-node data1_l;
-node lsw3;
-node ma3_l;
-node mb2_l;
-node md07_l;
-node md07h;
-node n_t_10x;
-node n_t_12x;
-node n_t_13x;
 node n_t_15x;
 node n_t_16x;
-node n_t_170x;
 node n_t_17x;
-node n_t_182x;
 node n_t_1x;
-node n_t_20x;
-node n_t_29x;
 node n_t_2x;
-node n_t_31x;
-node n_t_42x;
-node n_t_46x;
-node n_t_5x;
 node n_t_7x;
 node n_t_8x;
-node n_t_9x;
-node ps_3;
-node ps_left_2;
 node rwb2_l;
-node select6;
 node tb2_l;
 node tb3_l;
 $ENDIF
@@ -232,12 +159,10 @@ tmasu3.ar = !n3v3;
 tmasu3.d = tape_bus3;
 tmasu3.ck = load_tmasu;
 tmasu3.ap = !n3v3;
-adder4 = !tmasu3;
 tma3.ar = !n3v3;
 tma3.d = tape_bus3;
 tma3.ck = load_tma;
 tma3.ap = !n3v3;
-addr_match = !tma3;
 
 /* e4: sn7474 */
 tac2_h.ar = !n3v3;
@@ -272,24 +197,20 @@ tma2.ar = !n3v3;
 tma2.d = tape_bus2;
 tma2.ck = load_tma;
 tma2.ap = !n3v3;
-as2 = !tma2;
 tmasu2.ar = !n3v3;
 tmasu2.d = tape_bus2;
 tmasu2.ck = load_tmasu;
 tmasu2.ap = !n3v3;
-ps_left_2 = !tmasu2;
 
 /* e8: sn7474 */
 tbn2.ar = !n3v3;
 tbn2.d = tape_bus2;
 tbn2.ck = load_tbn;
 tbn2.ap = !n3v3;
-ac3_l = !tbn2;
 tbn3.ar = !n3v3;
 tbn3.d = tape_bus3;
 tbn3.ck = load_tbn;
 tbn3.ap = !n3v3;
-ac2_l = !tbn3;
 
 /* e9: sn7482 */
 n_t_1x = carry_in_l
@@ -315,7 +236,6 @@ rwb3_h.ar = !n_t_7x;
 rwb3_h.d = av1;
 rwb3_h.ck = shift_rwb;
 rwb3_h.ap = !n_t_8x;
-ac3_h = !rwb3_h;
 
 /* e11: sn7400 */
 n_t_16x = !(tb2_h & load_rwb);
@@ -346,7 +266,6 @@ bb1 = n_t_13x;
 /* e14: sn7450 */
 
 /* e15: sn7400 */
-mb2_l = !n3v3;
 n_t_15x = !phase;
 tape_bus3 = !n_t_1x;
 tape_bus2 = !n_t_2x;

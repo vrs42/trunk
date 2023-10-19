@@ -21,7 +21,7 @@
 // r7: r_us_ 
 // r8: r_us_ 
 // open collector 'wire-or's 
-module m044x (n15v, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_3x, n_t_5x, n_t_7x, n_t_8x, n_t_9x);
+module m044x (n15v, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_3x, n_t_7x, n_t_8x, n_t_9x);
 output n15v;
 output n_t_13x;
 input n_t_14x;
@@ -37,7 +37,6 @@ input n_t_28x;
 input n_t_29x;
 input n_t_2x;
 output n_t_3x;
-output n_t_5x;
 output n_t_7x;
 output n_t_8x;
 output n_t_9x;

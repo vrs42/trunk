@@ -16,14 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = clr_cntrs_l;
-pin = crc6;
-pin = n_t_17x;
-pin = n_t_36x;
-pin = n_t_50x;
 
 /* Output Pins */
-pin = a1;
 pin = ac10;
 pin = ac11;
 pin = ac4;
@@ -32,105 +26,39 @@ pin = ac6;
 pin = ac7;
 pin = ac8;
 pin = ac9;
-pin = b1;
-pin = b2;
-pin = b_last_brk;
-pin = bmd5;
-pin = c0_l;
-pin = c1;
-pin = c1_l;
 pin = clear_l;
-pin = clk_cla;
 pin = clocka;
 pin = clockb;
-pin = d1;
-pin = d2;
-pin = data10_l;
-pin = data11_l;
-pin = data8_l;
-pin = data9_l;
-pin = data_in;
 pin = del_pun1;
 pin = del_pun2;
-pin = drive0_l;
-pin = e1;
-pin = e2;
-pin = echo;
-pin = f1;
-pin = f2;
 pin = feed_l;
 pin = feed_sw_l;
-pin = h1;
-pin = h2;
-pin = inh_12th_bit;
-pin = inh_12th_bit_l;
-pin = initialize;
 pin = initialize_l;
-pin = int_rqst_l;
-pin = internal_io_l;
 pin = io_in_int_l;
 pin = io_in_skip_l;
-pin = io_pause_l;
 pin = iop1;
 pin = iop2;
 pin = iop4;
 pin = iop_02;
-pin = irq;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = l1;
-pin = l2;
-pin = load_counter;
-pin = m1;
-pin = m2;
-pin = mb10;
-pin = mb10_l;
 pin = mb3_lp_0_rp;
 pin = mb4_lp_0_rp;
 pin = mb5_lp_0_rp;
 pin = mb6_lp_0_rp;
 pin = mb7_lp_1_rp;
 pin = mb8_lp_0_rp;
-pin = md08_l;
-pin = md09_l;
-pin = md10_l;
-pin = md11_l;
 pin = motor;
-pin = n1;
-pin = n12th_carry_l;
-pin = n2;
-pin = n2xclk;
 pin = n4_5ms;
 pin = n4_sec;
-pin = n_t_13x;
 pin = n_t_15x;
-pin = n_t_19x;
 pin = n_t_1x;
-pin = n_t_25x;
-pin = n_t_26x;
-pin = n_t_35x;
 pin = n_t_40x;
 pin = n_t_49x;
 pin = n_t_4x;
-pin = n_t_52x;
 pin = n_t_56x;
 pin = n_t_57x;
-pin = n_t_58x;
 pin = n_t_59x;
-pin = n_t_5x;
-pin = n_t_60x;
 pin = n_t_61x;
 pin = n_t_63x;
-pin = n_t_64x;
-pin = n_t_75x;
-pin = n_t_79x;
-pin = n_t_7x;
-pin = n_t_8x;
-pin = overflow;
-pin = p1;
-pin = p2;
 pin = pb0;
 pin = pb1;
 pin = pb2;
@@ -141,71 +69,32 @@ pin = pb6;
 pin = pb7;
 pin = pun_active_l;
 pin = pun_done;
-pin = pun_flag;
-pin = r1;
-pin = r2;
-pin = s1;
-pin = s2;
 pin = scr_active_l;
-pin = set_count;
-pin = skip_l;
 pin = sync_bias;
 pin = sync_pun;
 pin = sync_pun0;
-pin = t2;
-pin = tp3;
-pin = u1;
-pin = u2;
-pin = v1;
-pin = v2;
-node n_t_22x;
+node n_t_12x;
+node n_t_11x;
+node n_t_9x;
+node n_t_10x;
+node n_t_3x;
 node n_t_2x;
+node n_t_14x;
+node n_t_13x;
+node pun_flag;
 node n_t_53x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node bdata0;
-node bdata2;
-node bdata3;
-node bdata7;
 node clockb_l;
-node clr_dsk_ad_l;
-node crc10;
-node crc4;
-node crc5;
-node data_enab_l;
-node data_enable;
-node drive2_l;
-node n12th_carry;
-node n16_carry;
-node n3v;
-node n3v3;
-node n_t_10x;
-node n_t_11x;
-node n_t_123x;
-node n_t_12x;
-node n_t_14x;
 node n_t_16x;
-node n_t_20x;
-node n_t_24x;
-node n_t_27x;
-node n_t_29x;
-node n_t_39x;
-node n_t_3x;
+node n_t_26x;
 node n_t_41x;
 node n_t_54x;
-node n_t_55x;
-node n_t_62x;
-node n_t_65x;
+node n_t_5x;
 node n_t_6x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
-node n_t_9x;
-node seek_fail;
-node state_enab_b;
-node strobe;
+node n_t_7x;
+node n_t_8x;
 $ENDIF
 
 /* Code nodes */
@@ -265,28 +154,24 @@ $ENDIF
 /* c26: c_us */
 
 /* e1: sn7474 */
-pb0.ar = !feed_l;
-pb0.d = ac11;
-pb0.ck = clockb;
-pb0.ap = !n_t_26x;
-n_t_12x = !pb0;
-pb1.ar = !feed_l;
-pb1.d = ac10;
-pb1.ck = clockb;
-pb1.ap = !n_t_26x;
-n_t_11x = !pb1;
+n_t_12x.ap = !feed_l;
+n_t_12x.d = !ac11;
+n_t_12x.ck = clockb;
+n_t_12x.ar = !n_t_26x;
+n_t_11x.ap = !feed_l;
+n_t_11x.d = !ac10;
+n_t_11x.ck = clockb;
+n_t_11x.ar = !n_t_26x;
 
 /* e2: sn7474 */
-pb2.ar = !feed_l;
-pb2.d = ac8;
-pb2.ck = clockb;
-pb2.ap = !n_t_26x;
-n_t_9x = !pb2;
-pb3.ar = !feed_l;
-pb3.d = ac9;
-pb3.ck = clockb;
-pb3.ap = !n_t_26x;
-n_t_10x = !pb3;
+n_t_9x.ap = !feed_l;
+n_t_9x.d = !ac8;
+n_t_9x.ck = clockb;
+n_t_9x.ar = !n_t_26x;
+n_t_10x.ap = !feed_l;
+n_t_10x.d = !ac9;
+n_t_10x.ck = clockb;
+n_t_10x.ar = !n_t_26x;
 
 /* e3: sn7404 */
 pb1 = !n_t_3x;
@@ -297,16 +182,14 @@ pb5 = !n_t_10x;
 pb6 = !n_t_11x;
 
 /* e4: sn7474 */
-pb6.ar = !feed_l;
-pb6.d = ac5;
-pb6.ck = clocka;
-pb6.ap = !n_t_26x;
-n_t_3x = !pb6;
-pb7.ar = !feed_l;
-pb7.d = ac4;
-pb7.ck = clocka;
-pb7.ap = !n_t_26x;
-n_t_2x = !pb7;
+n_t_3x.ap = !feed_l;
+n_t_3x.d = !ac5;
+n_t_3x.ck = clocka;
+n_t_3x.ar = !n_t_26x;
+n_t_2x.ap = !feed_l;
+n_t_2x.d = !ac4;
+n_t_2x.ck = clocka;
+n_t_2x.ar = !n_t_26x;
 
 /* e6: sn7404 */
 clocka = !clockb_l;
@@ -317,16 +200,14 @@ pb2 = !n_t_13x;
 clockb = !clockb_l;
 
 /* e7: sn7474 */
-n_t_22x.ar = !feed_l;
-n_t_22x.d = ac7;
-n_t_22x.ck = clocka;
-n_t_22x.ap = !n_t_26x;
-n_t_14x = !n_t_22x;
-pun_active_l.ar = !feed_l;
-pun_active_l.d = ac6;
-pun_active_l.ck = clocka;
-pun_active_l.ap = !n_t_26x;
-n_t_13x = !pun_active_l;
+n_t_14x.ap = !feed_l;
+n_t_14x.d = !ac7;
+n_t_14x.ck = clocka;
+n_t_14x.ar = !n_t_26x;
+n_t_13x.ap = !feed_l;
+n_t_13x.d = !ac6;
+n_t_13x.ck = clocka;
+n_t_13x.ar = !n_t_26x;
 
 /* e8: sn7400 */
 n_t_6x = !(n_t_7x & initialize_l);
@@ -335,16 +216,14 @@ n_t_7x = !(iop2 & n_t_8x);
 clockb_l = !(iop4 & n_t_8x);
 
 /* e9: sn7474 */
-n_t_2x.ar = !clear_l;
-n_t_2x.d = 'b'0;
-n_t_2x.ck = n_t_15x;
-n_t_2x.ap = !clockb_l;
-pun_active_l = !n_t_2x;
+pun_active_l.ap = !clear_l;
+pun_active_l.d = 'b'1;
+pun_active_l.ck = n_t_15x;
+pun_active_l.ar = !clockb_l;
 pun_flag.ar = !clear_l;
 pun_flag.d = n_t_26x;
 pun_flag.ck = pun_active_l;
 pun_flag.ap = !n_t_26x;
-pun_done = !pun_flag;
 
 /* e11: sn7430 */
 n_t_5x = !(mb3_lp_0_rp & mb7_lp_1_rp & mb5_lp_0_rp & mb8_lp_0_rp & mb6_lp_0_rp & mb4_lp_0_rp & mb4_lp_0_rp);
@@ -370,7 +249,6 @@ del_pun2.ar = !motor;
 del_pun2.d = n_t_26x;
 del_pun2.ck = n_t_61x;
 del_pun2.ap = !n_t_26x;
-n_t_54x = !del_pun2;
 n_t_53x.ar = !n_t_26x;
 n_t_53x.d = n_t_54x;
 n_t_53x.ck = sync_pun0;
@@ -378,6 +256,7 @@ n_t_53x.ap = !n_t_15x;
 n_t_4x = !n_t_53x;
 
 /* r1: r_us_ */
+n_t_26x = 'b'1;
 
 /* r2: r_us_ */
 

@@ -9,7 +9,7 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn7402 
-module m112e (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m112e (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 output c1;
@@ -30,7 +30,6 @@ input l2;
 input m1;
 input m2;
 output n1;
-output n15v;
 output n2;
 input p1;
 input p2;
@@ -45,13 +44,6 @@ output v1;
 output v2;
 
 
-wire n_t_10x;
-wire n_t_18x;
-wire n_t_22x;
-wire n_t_24x;
-wire n_t_26x;
-wire n_t_28x;
-wire n_t_8x;
 assign k1 = ~(j1
                | h1);
 assign f1 = ~(d1

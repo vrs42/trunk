@@ -46,19 +46,17 @@
 // c44: c_us 
 // c45: c_us 
 // e1: sn74161 
-module m7106c (bdata2, bdata7, btp2, btp3, btp3_ok, btp4, clr_all, clr_all_l, clr_drive_cmd_l, clr_sector_ad_l, data_enab_l, data_enable, dsk_acknowledge_l, dsk_data_in_l, dsk_file_rdy_l, dsk_index_mk_l, dsk_rd_clk_l, dsk_sec1_l, dsk_sec2_l, dsk_sec4_l, dsk_sec8_l, dsk_sector_mk_l, dsk_wrt_status_l, error_clr_l, function00, function01, function02, half_block, hi_main_shft_l, last_brk, lo_main_shft_l, main_l, n3v, n3v3, n6rk3_ok, n_t_21x, n_t_24x, n_t_33x, n_t_50x, n_t_52x, n_t_73x, n_t_74x, n_t_76x, n_t_8x, n_t_90x, n_t_9x, rk_data11, set_idle_pl_l, shft_surf, ac7, ad05h, adoneh, ainith, astrobeh, b_last_brk, bdata10, bdata11, bdata8, bdata9, bk_cycle_l, brk_enab_clk, brk_in_clk, brk_in_prog_l, c0_l, c1_l, clr_cntrs_l, cpma_dis_l, crc16, crc_data, crc_state, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, data_clk_ok, data_clr_l, data_in, data_in_l, data_state, data_state_l, drv_revo, dsk_head_sel1_l, dsk_read_l, dsk_restore_l, dsk_strobe_l, dsk_wrt_clk_data_l, dsk_wrt_erase_gate_l, dsk_wrt_protect_l, ema0_l, ema1_l, ema2_l, end_state, end_state_l, erase_dly_l, file_rdy, header_c, idle, idle_l, initialize, inside_in_l, int_rqst_l, int_strobe, internal_io_l, io_pause_l, last_word_pl, ld_disk_addrs, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_load_cont_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, md_dir_l, msir_dis_l, n12th_bit_ok, n16_carry, n_t_20x, n_t_22x, n_t_23x, n_t_28x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_3x, n_t_47x, n_t_48x, n_t_49x, n_t_53x, n_t_55x, n_t_61x, nbr, outside_clk_l, priority, r, rd_clk1, rd_shft_db_l, rdy_s_r_w, rdy_s_r_w_l, read_dly_l, sector_addrs1, sector_mk, sector_mk_l, sector_seek_l, shft_wrt_buff_l, shift_crc_l, skip_l, state_enab_b, strobe, sync_dly_l, tp1, tp2, tp3, tp4, ts2, ts3_l, ts4, write, wrt_cmd, wrt_cmd_l);
-output bdata2;
-inout reg bdata7;
+module m7106c (bdata7, btp2, btp3, btp3_ok, clr_all_l, clr_drive_cmd_l, clr_sector_ad_l, crc16, data_enab_l, data_enable, dsk_acknowledge_l, dsk_data_in_l, dsk_file_rdy_l, dsk_index_mk_l, dsk_rd_clk_l, dsk_sec1_l, dsk_sec2_l, dsk_sec4_l, dsk_sec8_l, dsk_sector_mk_l, dsk_wrt_status_l, error_clr_l, function00, function01, function02, half_block, hi_main_shft_l, last_brk, lo_main_shft_l, main_l, n3v, n6rk3_ok, n_t_21x, n_t_24x, n_t_49x, n_t_52x, n_t_53x, n_t_74x, n_t_76x, n_t_8x, n_t_90x, n_t_9x, rdy_s_r_w, rk_data11, set_idle_pl_l, shft_surf, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, clr_cntrs_l, crc_data, crc_state, data10_l, data11_l, data8_l, data9_l, data_clk_ok, data_clr_l, data_in, data_in_l, data_state, data_state_l, drv_revo, dsk_head_sel1_l, dsk_read_l, dsk_restore_l, dsk_strobe_l, dsk_wrt_clk_data_l, dsk_wrt_erase_gate_l, dsk_wrt_protect_l, end_state, end_state_l, erase_dly_l, file_rdy, header_c, idle, idle_l, initialize, inside_in_l, last_word_pl, ld_disk_addrs, ma0_l, ma10_l, ma11_l, ma1_l, ma3_l, md0_l, md10_l, md11_l, md1_l, md2_l, md8_l, md9_l, n12th_bit_ok, n16_carry, n_t_20x, n_t_61x, outside_clk_l, rd_clk1, rd_shft_db_l, read_dly_l, sector_addrs1, sector_mk, sector_mk_l, sector_seek_l, shft_wrt_buff_l, shift_crc_l, skip_l, state_enab_b, strobe, sync_dly_l, write, wrt_cmd, wrt_cmd_l);
+input bdata7;
 input btp2;
 input btp3;
 input btp3_ok;
-output btp4;
-output clr_all;
 input clr_all_l;
 input clr_drive_cmd_l;
 input clr_sector_ad_l;
+input crc16;
 input data_enab_l;
-inout reg data_enable;
+input data_enable;
 input dsk_acknowledge_l;
 input dsk_data_in_l;
 input dsk_file_rdy_l;
@@ -80,53 +78,33 @@ input last_brk;
 input lo_main_shft_l;
 input main_l;
 input n3v;
-output n3v3;
 input n6rk3_ok;
 input n_t_21x;
 output n_t_24x;
-output n_t_33x;
-output n_t_50x;
+output n_t_49x;
 output n_t_52x;
-output n_t_73x;
+output n_t_53x;
 output n_t_74x;
 output n_t_76x;
 output n_t_8x;
 output n_t_90x;
 output n_t_9x;
+input rdy_s_r_w;
 input rk_data11;
 input set_idle_pl_l;
 input shft_surf;
-output ac7;
-output ad05h;
-output adoneh;
-output ainith;
-output astrobeh;
 output b_last_brk;
 inout bdata10;
 inout bdata11;
 inout bdata8;
 inout bdata9;
-output bk_cycle_l;
 output brk_enab_clk;
 inout brk_in_clk;
-output brk_in_prog_l;
-output c0_l;
-output c1_l;
 inout clr_cntrs_l;
-output cpma_dis_l;
-input crc16;
 output crc_data;
 inout reg crc_state;
-output data0_l;
 input data10_l;
 input data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
 input data8_l;
 input data9_l;
 output data_clk_ok;
@@ -143,9 +121,6 @@ output dsk_strobe_l;
 output dsk_wrt_clk_data_l;
 output dsk_wrt_erase_gate_l;
 output dsk_wrt_protect_l;
-output ema0_l;
-output ema1_l;
-output ema2_l;
 inout reg end_state;
 output end_state_l;
 input erase_dly_l;
@@ -155,65 +130,27 @@ inout idle;
 inout reg idle_l;
 output initialize;
 input inside_in_l;
-output int_rqst_l;
-output int_strobe;
-output internal_io_l;
-output io_pause_l;
 output last_word_pl;
 inout ld_disk_addrs;
 output ma0_l;
 output ma10_l;
 output ma11_l;
 output ma1_l;
-output ma2_l;
-inout ma3_l;
-output ma4_l;
-output ma5_l;
-output ma6_l;
-output ma7_l;
-output ma8_l;
-output ma9_l;
-output mams_load_cont_l;
+output ma3_l;
 output md0_l;
 output md10_l;
 output md11_l;
 output md1_l;
 output md2_l;
-inout reg md3_l;
-output md4_l;
-output md5_l;
-output md6_l;
-output md7_l;
 output md8_l;
 output md9_l;
-inout reg md_dir_l;
-output msir_dis_l;
 output n12th_bit_ok;
 inout n16_carry;
 inout n_t_20x;
-output n_t_22x;
-inout reg n_t_23x;
-inout n_t_28x;
-inout reg n_t_29x;
-inout reg n_t_31x;
-inout n_t_32x;
-input n_t_34x;
-inout n_t_35x;
-inout n_t_3x;
-output n_t_47x;
-output n_t_48x;
-inout reg n_t_49x;
-output n_t_53x;
-output n_t_55x;
 output n_t_61x;
-output nbr;
 input outside_clk_l;
-output priority;
-output r;
 inout rd_clk1;
 output rd_shft_db_l;
-input rdy_s_r_w;
-output rdy_s_r_w_l;
 input read_dly_l;
 inout reg sector_addrs1;
 inout sector_mk;
@@ -225,51 +162,46 @@ output skip_l;
 inout state_enab_b;
 inout reg strobe;
 input sync_dly_l;
-output tp1;
-output tp2;
-output tp3;
-output tp4;
-output ts2;
-output ts3_l;
-output ts4;
 inout reg write;
 inout wrt_cmd;
 inout wrt_cmd_l;
 
-reg bdata7_m;
-reg brk_dir_l_m;
-reg crc10_m;
-reg crc11_m;
 reg crc_state_m;
-reg data_enable_m;
 reg data_in_m;
 reg data_state_m;
-reg ema1_m;
 reg end_state_m;
 reg gdollar_0_m;
 reg gdollar_1_m;
+reg gdollar_10_m;
+reg gdollar_11_m;
+reg gdollar_12_m;
+reg gdollar_13_m;
+reg gdollar_14_m;
+reg gdollar_15_m;
+reg gdollar_16_m;
+reg gdollar_17_m;
+reg gdollar_18_m;
+reg gdollar_19_m;
+reg gdollar_2_m;
+reg gdollar_3_m;
+reg gdollar_4_m;
+reg gdollar_5_m;
+reg gdollar_6_m;
+reg gdollar_7_m;
+reg gdollar_8_m;
+reg gdollar_9_m;
+reg header_a_m;
 reg header_b_m;
 reg header_c_m;
 reg header_d_m;
 reg header_e_m;
 reg idle_l_m;
 reg inh_12th_bit_l_m;
-reg md3_l_m;
-reg md_dir_l_m;
 reg n128th_word_m;
-reg n1_db2_m;
-reg n6rk3_l_m;
-reg n6rk7_m;
 reg n_t_11x_m;
 reg n_t_13x_m;
 reg n_t_14x_m;
-reg n_t_23x_m;
-reg n_t_29x_m;
 reg n_t_31x_m;
-reg n_t_37x_m;
-reg n_t_49x_m;
-reg n_t_62x_m;
-reg n_t_63x_m;
 reg read_l_m;
 reg restore_m;
 reg sector_addrs1_m;
@@ -279,107 +211,68 @@ reg sector_addrs8_m;
 reg sector_seek_m;
 reg strobe_m;
 reg top_surf_m;
-reg transfer_m;
 reg write_m;
 reg wrt_sync_bit_m;
 
-reg brk_dir_l;
+reg gdollar_0;
+reg gdollar_1;
+reg gdollar_2;
+reg gdollar_3;
 reg n_t_11x;
 reg n_t_13x;
+reg gdollar_4;
 reg n_t_14x;
-reg n6rk7;
-reg ema1;
-reg crc10;
-reg crc11;
+reg gdollar_5;
+reg gdollar_6;
+reg gdollar_7;
+reg gdollar_8;
+reg gdollar_9;
+reg gdollar_10;
+reg gdollar_11;
 reg n128th_word;
-reg gdollar_0;
-reg n_t_63x;
-reg n_t_62x;
-reg n_t_37x;
-reg gdollar_1;
-reg n1_db2;
-reg transfer;
+reg gdollar_12;
+reg gdollar_13;
+reg gdollar_14;
+reg gdollar_15;
+reg gdollar_16;
+reg gdollar_17;
+reg gdollar_18;
+reg gdollar_19;
 reg inh_12th_bit_l;
 reg restore;
-reg n6rk3_l;
+reg header_a;
 reg header_b;
 reg header_e;
 reg sector_seek;
 reg header_d;
 reg wrt_sync_bit;
 reg read_l;
+reg n_t_31x;
 reg top_surf;
 reg sector_addrs8;
 reg sector_addrs4;
 reg sector_addrs2;
-wire gdollar_2;
-wire gdollar_3;
-wire gdollar_4;
-wire gdollar_5;
-wire a1;
-wire ad09;
-wire ad10;
-wire ad10l;
-wire aiot6l;
-wire al1;
-wire b_data_state;
-wire b_io_pause;
+wire gdollar_20;
+wire gdollar_21;
+wire gdollar_22;
+wire gdollar_23;
 wire b_wrt_clk;
-wire bd07;
-wire bd09;
-wire bd11;
-wire bdata0;
-wire bdata10_l;
-wire bdata3;
-wire bdata5;
-wire bdata6;
-wire biot5l;
-wire bmd10;
-wire bmd11;
-wire bmd5;
-wire bmd9;
-wire brk_in;
-wire brk_in_l;
-wire busy_error;
 wire check_header_cmd_l;
 wire clr_cntrs;
-wire clr_dsk_ad_l;
 wire clr_states;
-wire clr_status_l;
 wire clr_strobe_l;
-wire crc3;
-wire crc4;
-wire crc5;
-wire crc6;
-wire crc_error;
-wire cyl_addrs_er;
 wire data_clk;
 wire data_out_pl_l;
-wire db_cont1;
 wire disk_ok;
-wire drive0_l;
-wire drive2_l;
-wire drive_status_er;
-wire error_fl_l;
 wire go;
-wire hi_data_in;
-wire hi_main_data_l;
-wire hi_rd_clk;
 wire in;
 wire inc_brk_cntr_l;
 wire inc_cntrs;
 wire last_word;
 wire last_word_pl_l;
-wire ld_rd_buffer;
-wire m1;
-wire md09_l;
-wire md10h;
-wire md11h;
-wire md_rk_l;
 wire n12th_carry_l;
 wire n16th_bit_l;
 wire n_t_10x;
-wire n_t_123x;
 wire n_t_15x;
 wire n_t_16x;
 wire n_t_17x;
@@ -387,22 +280,28 @@ wire n_t_18x;
 wire n_t_19x;
 wire n_t_1x;
 wire n_t_27x;
+wire n_t_28x;
+wire n_t_29x;
 wire n_t_2x;
+wire n_t_32x;
+wire n_t_35x;
 wire n_t_36x;
+wire n_t_37x;
 wire n_t_38x;
+wire n_t_39x;
+wire n_t_3x;
 wire n_t_42x;
 wire n_t_43x;
 wire n_t_44x;
 wire n_t_45x;
 wire n_t_46x;
-wire n_t_476x;
-wire n_t_491x;
 wire n_t_51x;
 wire n_t_54x;
 wire n_t_57x;
-wire n_t_586x;
 wire n_t_58x;
 wire n_t_60x;
+wire n_t_62x;
+wire n_t_63x;
 wire n_t_65x;
 wire n_t_67x;
 wire n_t_68x;
@@ -418,115 +317,96 @@ wire n_t_7x;
 wire n_t_80x;
 wire n_t_81x;
 wire n_t_85x;
-wire n_t_87x;
-wire n_t_88x;
-wire n_t_89x;
-wire n_t_92x;
 wire not_chk_header_cmd;
-wire not_equal_l;
-wire q1;
-wire q2;
-wire q5;
 wire rd_clk1_l;
 wire rd_clk2;
 wire rd_shft_crc;
 wire rd_sync_bit_l;
 wire read_clk;
 wire read_data_in;
-wire rk_data11_l;
 wire sector_eq;
-wire seek_fail;
 wire seek_l;
 wire seek_only;
 wire set_header_e_l;
-wire set_main_brk;
-wire set_main_brk_l;
 wire set_sector_seek_l;
-wire set_time_out_er;
-wire shft_cmd_reg;
 wire sk_chk_rd_l;
 wire sk_chk_wrt_l;
 wire sk_rd_l;
 wire sk_wrt_l;
-wire start_clr_l;
 wire state_enab_a_l;
-wire time_out_er;
-wire unit_sel0;
-wire wrt_brk_l;
 wire wrt_clk_data;
 wire wrt_clk_l;
-wire wrt_lock_er;
 wire wrt_lock_out_l;
 wire wrt_shft_crc;
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, gdollar_1, n1_db2, n6rk3_ok, data_enable, gdollar_1, n1_db2, n6rk3_ok, n_t_29x)
-  if (~clr_all_l) begin
-    n_t_29x_m <= 1'b0;
-  end else
-  if (~(~inc_brk_cntr_l)) begin
-    n_t_29x_m <= ~n6rk3_ok & ((data_enable & gdollar_1 & n1_db2)
-                                 | n6rk3_ok)? (((data_enable & gdollar_1 & n1_db2)
-                     | n6rk3_ok)? ~n_t_29x: 1'b1) : (((data_enable & gdollar_1 & n1_db2)
-                     | n6rk3_ok)? 1'b0: n_t_29x);
-  end
-always @(inc_brk_cntr_l, clr_all_l, n_t_29x_m)
-  if (~clr_all_l) begin
-    n_t_29x <= 1'b0;
-  end else
-  if (~inc_brk_cntr_l) begin
-    n_t_29x <= n_t_29x_m;
-  end
-always @(inc_cntrs, clr_cntrs_l, n3v, n3v, n_t_29x, n3v, n3v, n_t_29x, n3v, md_dir_l)
+always @(inc_cntrs, clr_cntrs_l, n3v, n3v, n3v, n3v, n3v, gdollar_0)
   if (~clr_cntrs_l) begin
-    md_dir_l_m <= 1'b0;
+    gdollar_0_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    md_dir_l_m <= ~(~n3v) & ((n3v & n_t_29x)
-                                | ~n3v)? (((n3v & n_t_29x)
-                      | ~n3v)? ~md_dir_l: 1'b1) : (((n3v & n_t_29x)
-                      | ~n3v)? 1'b0: md_dir_l);
+    gdollar_0_m <= ~(~n3v) & (n3v
+                                 | ~n3v)? ((n3v
+                       | ~n3v)? ~gdollar_0: 1'b1) : ((n3v
+                       | ~n3v)? 1'b0: gdollar_0);
   end
-always @(inc_cntrs, clr_cntrs_l, md_dir_l_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_0_m)
   if (~clr_cntrs_l) begin
-    md_dir_l <= 1'b0;
+    gdollar_0 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    md_dir_l <= md_dir_l_m;
+    gdollar_0 <= gdollar_0_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n3v, n_t_29x, md_dir_l, n3v, n3v, n_t_29x, md_dir_l, n3v, brk_dir_l)
+always @(inc_cntrs, clr_cntrs_l, n3v, n3v, gdollar_0, n3v, n3v, gdollar_0, n3v, gdollar_1)
   if (~clr_cntrs_l) begin
-    brk_dir_l_m <= 1'b0;
+    gdollar_1_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    brk_dir_l_m <= ~(~n3v) & ((n3v & n_t_29x & md_dir_l)
-                                 | ~n3v)? (((n3v & n_t_29x & md_dir_l)
-                       | ~n3v)? ~brk_dir_l: 1'b1) : (((n3v & n_t_29x & md_dir_l)
-                       | ~n3v)? 1'b0: brk_dir_l);
+    gdollar_1_m <= ~(~n3v) & ((n3v & gdollar_0)
+                                 | ~n3v)? (((n3v & gdollar_0)
+                       | ~n3v)? ~gdollar_1: 1'b1) : (((n3v & gdollar_0)
+                       | ~n3v)? 1'b0: gdollar_1);
   end
-always @(inc_cntrs, clr_cntrs_l, brk_dir_l_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_1_m)
   if (~clr_cntrs_l) begin
-    brk_dir_l <= 1'b0;
+    gdollar_1 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    brk_dir_l <= brk_dir_l_m;
+    gdollar_1 <= gdollar_1_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n3v, n_t_29x, md_dir_l, brk_dir_l, n3v, n3v, n_t_29x, md_dir_l, brk_dir_l, n3v, data_enable)
+always @(inc_cntrs, clr_cntrs_l, n3v, n3v, gdollar_0, gdollar_1, n3v, n3v, gdollar_0, gdollar_1, n3v, gdollar_2)
   if (~clr_cntrs_l) begin
-    data_enable_m <= 1'b0;
+    gdollar_2_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    data_enable_m <= ~(~n3v) & ((n3v & n_t_29x & md_dir_l & brk_dir_l)
-                                   | ~n3v)? (((n3v & n_t_29x & md_dir_l & brk_dir_l)
-                         | ~n3v)? ~data_enable: 1'b1) : (((n3v & n_t_29x & md_dir_l & brk_dir_l)
-                         | ~n3v)? 1'b0: data_enable);
+    gdollar_2_m <= ~(~n3v) & ((n3v & gdollar_0 & gdollar_1)
+                                 | ~n3v)? (((n3v & gdollar_0 & gdollar_1)
+                       | ~n3v)? ~gdollar_2: 1'b1) : (((n3v & gdollar_0 & gdollar_1)
+                       | ~n3v)? 1'b0: gdollar_2);
   end
-always @(inc_cntrs, clr_cntrs_l, data_enable_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_2_m)
   if (~clr_cntrs_l) begin
-    data_enable <= 1'b0;
+    gdollar_2 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    data_enable <= data_enable_m;
+    gdollar_2 <= gdollar_2_m;
   end
-assign n16_carry = n3v & data_enable & brk_dir_l & md_dir_l & n_t_29x;
+always @(inc_cntrs, clr_cntrs_l, n3v, n3v, gdollar_0, gdollar_1, gdollar_2, n3v, n3v, gdollar_0, gdollar_1, gdollar_2, n3v, gdollar_3)
+  if (~clr_cntrs_l) begin
+    gdollar_3_m <= 1'b0;
+  end else
+  if (~(inc_cntrs)) begin
+    gdollar_3_m <= ~(~n3v) & ((n3v & gdollar_0 & gdollar_1 & gdollar_2)
+                                 | ~n3v)? (((n3v & gdollar_0 & gdollar_1 & gdollar_2)
+                       | ~n3v)? ~gdollar_3: 1'b1) : (((n3v & gdollar_0 & gdollar_1 & gdollar_2)
+                       | ~n3v)? 1'b0: gdollar_3);
+  end
+always @(inc_cntrs, clr_cntrs_l, gdollar_3_m)
+  if (~clr_cntrs_l) begin
+    gdollar_3 <= 1'b0;
+  end else
+  if (inc_cntrs) begin
+    gdollar_3 <= gdollar_3_m;
+  end
+assign n16_carry = n3v & gdollar_3 & gdollar_2 & gdollar_1 & gdollar_0;
 // e2: sn74161 
 always @(inc_cntrs, clr_cntrs_l, n12th_carry_l, n3v, n12th_carry_l, n3v, n12th_carry_l, n_t_11x)
   if (~clr_cntrs_l) begin
@@ -562,31 +442,31 @@ always @(inc_cntrs, clr_cntrs_l, n_t_13x_m)
   if (inc_cntrs) begin
     n_t_13x <= n_t_13x_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n12th_carry_l, n3v, n_t_11x, n_t_13x, n12th_carry_l, n3v, n_t_11x, n_t_13x, n12th_carry_l, md3_l)
+always @(inc_cntrs, clr_cntrs_l, n12th_carry_l, n3v, n_t_11x, n_t_13x, n12th_carry_l, n3v, n_t_11x, n_t_13x, n12th_carry_l, gdollar_4)
   if (~clr_cntrs_l) begin
-    md3_l_m <= 1'b0;
+    gdollar_4_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    md3_l_m <= ~(~n12th_carry_l) & ((n3v & n_t_11x & n_t_13x)
-                                       | ~n12th_carry_l)? (((n3v & n_t_11x & n_t_13x)
-                   | ~n12th_carry_l)? ~md3_l: 1'b1) : (((n3v & n_t_11x & n_t_13x)
-                   | ~n12th_carry_l)? 1'b0: md3_l);
+    gdollar_4_m <= ~(~n12th_carry_l) & ((n3v & n_t_11x & n_t_13x)
+                                           | ~n12th_carry_l)? (((n3v & n_t_11x & n_t_13x)
+                       | ~n12th_carry_l)? ~gdollar_4: 1'b1) : (((n3v & n_t_11x & n_t_13x)
+                       | ~n12th_carry_l)? 1'b0: gdollar_4);
   end
-always @(inc_cntrs, clr_cntrs_l, md3_l_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_4_m)
   if (~clr_cntrs_l) begin
-    md3_l <= 1'b0;
+    gdollar_4 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    md3_l <= md3_l_m;
+    gdollar_4 <= gdollar_4_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n12th_carry_l, n3v, n_t_11x, n_t_13x, md3_l, n12th_carry_l, n3v, n_t_11x, n_t_13x, md3_l, n12th_carry_l, n_t_14x)
+always @(inc_cntrs, clr_cntrs_l, n12th_carry_l, n3v, n_t_11x, n_t_13x, gdollar_4, n12th_carry_l, n3v, n_t_11x, n_t_13x, gdollar_4, n12th_carry_l, n_t_14x)
   if (~clr_cntrs_l) begin
     n_t_14x_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    n_t_14x_m <= ~(~n12th_carry_l) & ((n3v & n_t_11x & n_t_13x & md3_l)
-                                         | ~n12th_carry_l)? (((n3v & n_t_11x & n_t_13x & md3_l)
-                     | ~n12th_carry_l)? ~n_t_14x: 1'b1) : (((n3v & n_t_11x & n_t_13x & md3_l)
+    n_t_14x_m <= ~(~n12th_carry_l) & ((n3v & n_t_11x & n_t_13x & gdollar_4)
+                                         | ~n12th_carry_l)? (((n3v & n_t_11x & n_t_13x & gdollar_4)
+                     | ~n12th_carry_l)? ~n_t_14x: 1'b1) : (((n3v & n_t_11x & n_t_13x & gdollar_4)
                      | ~n12th_carry_l)? 1'b0: n_t_14x);
   end
 always @(inc_cntrs, clr_cntrs_l, n_t_14x_m)
@@ -596,137 +476,136 @@ always @(inc_cntrs, clr_cntrs_l, n_t_14x_m)
   if (inc_cntrs) begin
     n_t_14x <= n_t_14x_m;
   end
-assign bdata2 = n3v & n_t_14x & md3_l & n_t_13x & n_t_11x;
 // e3: sn74161 
-always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, n3v, n12th_carry_l, n3v, bdata7)
+always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, n3v, n12th_carry_l, n3v, gdollar_5)
   if (~clr_cntrs_l) begin
-    bdata7_m <= 1'b0;
+    gdollar_5_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    bdata7_m <= ~(~n3v) & (~n12th_carry_l
-                              | ~n3v)? ((~n12th_carry_l
-                    | ~n3v)? ~bdata7: 1'b1) : ((~n12th_carry_l
-                    | ~n3v)? 1'b0: bdata7);
+    gdollar_5_m <= ~(~n3v) & (~n12th_carry_l
+                                 | ~n3v)? ((~n12th_carry_l
+                       | ~n3v)? ~gdollar_5: 1'b1) : ((~n12th_carry_l
+                       | ~n3v)? 1'b0: gdollar_5);
   end
-always @(inc_cntrs, clr_cntrs_l, bdata7_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_5_m)
   if (~clr_cntrs_l) begin
-    bdata7 <= 1'b0;
+    gdollar_5 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    bdata7 <= bdata7_m;
+    gdollar_5 <= gdollar_5_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, bdata7, n3v, n12th_carry_l, bdata7, n3v, n6rk7)
+always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, gdollar_5, n3v, n12th_carry_l, gdollar_5, n3v, gdollar_6)
   if (~clr_cntrs_l) begin
-    n6rk7_m <= 1'b0;
+    gdollar_6_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    n6rk7_m <= ~(~n3v) & ((~n12th_carry_l & bdata7)
-                             | ~n3v)? (((~n12th_carry_l & bdata7)
-                   | ~n3v)? ~n6rk7: 1'b1) : (((~n12th_carry_l & bdata7)
-                   | ~n3v)? 1'b0: n6rk7);
+    gdollar_6_m <= ~(~n3v) & ((~n12th_carry_l & gdollar_5)
+                                 | ~n3v)? (((~n12th_carry_l & gdollar_5)
+                       | ~n3v)? ~gdollar_6: 1'b1) : (((~n12th_carry_l & gdollar_5)
+                       | ~n3v)? 1'b0: gdollar_6);
   end
-always @(inc_cntrs, clr_cntrs_l, n6rk7_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_6_m)
   if (~clr_cntrs_l) begin
-    n6rk7 <= 1'b0;
+    gdollar_6 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    n6rk7 <= n6rk7_m;
+    gdollar_6 <= gdollar_6_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, bdata7, n6rk7, n3v, n12th_carry_l, bdata7, n6rk7, n3v, n_t_23x)
+always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, gdollar_5, gdollar_6, n3v, n12th_carry_l, gdollar_5, gdollar_6, n3v, gdollar_7)
   if (~clr_cntrs_l) begin
-    n_t_23x_m <= 1'b0;
+    gdollar_7_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    n_t_23x_m <= ~(~n3v) & ((~n12th_carry_l & bdata7 & n6rk7)
-                               | ~n3v)? (((~n12th_carry_l & bdata7 & n6rk7)
-                     | ~n3v)? ~n_t_23x: 1'b1) : (((~n12th_carry_l & bdata7 & n6rk7)
-                     | ~n3v)? 1'b0: n_t_23x);
+    gdollar_7_m <= ~(~n3v) & ((~n12th_carry_l & gdollar_5 & gdollar_6)
+                                 | ~n3v)? (((~n12th_carry_l & gdollar_5 & gdollar_6)
+                       | ~n3v)? ~gdollar_7: 1'b1) : (((~n12th_carry_l & gdollar_5 & gdollar_6)
+                       | ~n3v)? 1'b0: gdollar_7);
   end
-always @(inc_cntrs, clr_cntrs_l, n_t_23x_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_7_m)
   if (~clr_cntrs_l) begin
-    n_t_23x <= 1'b0;
+    gdollar_7 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    n_t_23x <= n_t_23x_m;
+    gdollar_7 <= gdollar_7_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, bdata7, n6rk7, n_t_23x, n3v, n12th_carry_l, bdata7, n6rk7, n_t_23x, n3v, ema1)
+always @(inc_cntrs, clr_cntrs_l, n3v, n12th_carry_l, gdollar_5, gdollar_6, gdollar_7, n3v, n12th_carry_l, gdollar_5, gdollar_6, gdollar_7, n3v, gdollar_8)
   if (~clr_cntrs_l) begin
-    ema1_m <= 1'b0;
+    gdollar_8_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    ema1_m <= ~(~n3v) & ((~n12th_carry_l & bdata7 & n6rk7 & n_t_23x)
-                            | ~n3v)? (((~n12th_carry_l & bdata7 & n6rk7 & n_t_23x)
-                  | ~n3v)? ~ema1: 1'b1) : (((~n12th_carry_l & bdata7 & n6rk7 & n_t_23x)
-                  | ~n3v)? 1'b0: ema1);
+    gdollar_8_m <= ~(~n3v) & ((~n12th_carry_l & gdollar_5 & gdollar_6 & gdollar_7)
+                                 | ~n3v)? (((~n12th_carry_l & gdollar_5 & gdollar_6 & gdollar_7)
+                       | ~n3v)? ~gdollar_8: 1'b1) : (((~n12th_carry_l & gdollar_5 & gdollar_6 & gdollar_7)
+                       | ~n3v)? 1'b0: gdollar_8);
   end
-always @(inc_cntrs, clr_cntrs_l, ema1_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_8_m)
   if (~clr_cntrs_l) begin
-    ema1 <= 1'b0;
+    gdollar_8 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    ema1 <= ema1_m;
+    gdollar_8 <= gdollar_8_m;
   end
-assign n_t_15x = ~n12th_carry_l & ema1 & n_t_23x & n6rk7 & bdata7;
+assign n_t_15x = ~n12th_carry_l & gdollar_8 & gdollar_7 & gdollar_6 & gdollar_5;
 // e4: sn74161 
-always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, n3v, n_t_15x, n3v, crc10)
+always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, n3v, n_t_15x, n3v, gdollar_9)
   if (~clr_cntrs_l) begin
-    crc10_m <= 1'b0;
+    gdollar_9_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    crc10_m <= ~(~n3v) & (n_t_15x
-                             | ~n3v)? ((n_t_15x
-                   | ~n3v)? ~crc10: 1'b1) : ((n_t_15x
-                   | ~n3v)? 1'b0: crc10);
+    gdollar_9_m <= ~(~n3v) & (n_t_15x
+                                 | ~n3v)? ((n_t_15x
+                       | ~n3v)? ~gdollar_9: 1'b1) : ((n_t_15x
+                       | ~n3v)? 1'b0: gdollar_9);
   end
-always @(inc_cntrs, clr_cntrs_l, crc10_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_9_m)
   if (~clr_cntrs_l) begin
-    crc10 <= 1'b0;
+    gdollar_9 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    crc10 <= crc10_m;
+    gdollar_9 <= gdollar_9_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, crc10, n3v, n_t_15x, crc10, n3v, crc11)
+always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, gdollar_9, n3v, n_t_15x, gdollar_9, n3v, gdollar_10)
   if (~clr_cntrs_l) begin
-    crc11_m <= 1'b0;
+    gdollar_10_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    crc11_m <= ~(~n3v) & ((n_t_15x & crc10)
-                             | ~n3v)? (((n_t_15x & crc10)
-                   | ~n3v)? ~crc11: 1'b1) : (((n_t_15x & crc10)
-                   | ~n3v)? 1'b0: crc11);
+    gdollar_10_m <= ~(~n3v) & ((n_t_15x & gdollar_9)
+                                  | ~n3v)? (((n_t_15x & gdollar_9)
+                        | ~n3v)? ~gdollar_10: 1'b1) : (((n_t_15x & gdollar_9)
+                        | ~n3v)? 1'b0: gdollar_10);
   end
-always @(inc_cntrs, clr_cntrs_l, crc11_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_10_m)
   if (~clr_cntrs_l) begin
-    crc11 <= 1'b0;
+    gdollar_10 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    crc11 <= crc11_m;
+    gdollar_10 <= gdollar_10_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, crc10, crc11, n3v, n_t_15x, crc10, crc11, n3v, n_t_49x)
+always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, gdollar_9, gdollar_10, n3v, n_t_15x, gdollar_9, gdollar_10, n3v, gdollar_11)
   if (~clr_cntrs_l) begin
-    n_t_49x_m <= 1'b0;
+    gdollar_11_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    n_t_49x_m <= ~(~n3v) & ((n_t_15x & crc10 & crc11)
-                               | ~n3v)? (((n_t_15x & crc10 & crc11)
-                     | ~n3v)? ~n_t_49x: 1'b1) : (((n_t_15x & crc10 & crc11)
-                     | ~n3v)? 1'b0: n_t_49x);
+    gdollar_11_m <= ~(~n3v) & ((n_t_15x & gdollar_9 & gdollar_10)
+                                  | ~n3v)? (((n_t_15x & gdollar_9 & gdollar_10)
+                        | ~n3v)? ~gdollar_11: 1'b1) : (((n_t_15x & gdollar_9 & gdollar_10)
+                        | ~n3v)? 1'b0: gdollar_11);
   end
-always @(inc_cntrs, clr_cntrs_l, n_t_49x_m)
+always @(inc_cntrs, clr_cntrs_l, gdollar_11_m)
   if (~clr_cntrs_l) begin
-    n_t_49x <= 1'b0;
+    gdollar_11 <= 1'b0;
   end else
   if (inc_cntrs) begin
-    n_t_49x <= n_t_49x_m;
+    gdollar_11 <= gdollar_11_m;
   end
-always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, crc10, crc11, n_t_49x, n3v, n_t_15x, crc10, crc11, n_t_49x, n3v, n128th_word)
+always @(inc_cntrs, clr_cntrs_l, n3v, n_t_15x, gdollar_9, gdollar_10, gdollar_11, n3v, n_t_15x, gdollar_9, gdollar_10, gdollar_11, n3v, n128th_word)
   if (~clr_cntrs_l) begin
     n128th_word_m <= 1'b0;
   end else
   if (~(inc_cntrs)) begin
-    n128th_word_m <= ~(~n3v) & ((n_t_15x & crc10 & crc11 & n_t_49x)
-                                   | ~n3v)? (((n_t_15x & crc10 & crc11 & n_t_49x)
-                         | ~n3v)? ~n128th_word: 1'b1) : (((n_t_15x & crc10 & crc11 & n_t_49x)
+    n128th_word_m <= ~(~n3v) & ((n_t_15x & gdollar_9 & gdollar_10 & gdollar_11)
+                                   | ~n3v)? (((n_t_15x & gdollar_9 & gdollar_10 & gdollar_11)
+                         | ~n3v)? ~n128th_word: 1'b1) : (((n_t_15x & gdollar_9 & gdollar_10 & gdollar_11)
                          | ~n3v)? 1'b0: n128th_word);
   end
 always @(inc_cntrs, clr_cntrs_l, n128th_word_m)
@@ -736,130 +615,147 @@ always @(inc_cntrs, clr_cntrs_l, n128th_word_m)
   if (inc_cntrs) begin
     n128th_word <= n128th_word_m;
   end
-assign n_t_16x = n_t_15x & n128th_word & n_t_49x & crc11 & crc10;
+assign n_t_16x = n_t_15x & n128th_word & gdollar_11 & gdollar_10 & gdollar_9;
 // e5: sn74161 
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, n_t_1x, n3v, n6rk3_ok, n_t_1x, n3v, n6rk3_ok, gdollar_0)
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, n_t_1x, n3v, n6rk3_ok, n_t_1x, n3v, n6rk3_ok, gdollar_12)
   if (~clr_all_l) begin
-    gdollar_0_m <= 1'b0;
+    gdollar_12_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    gdollar_0_m <= ~n6rk3_ok & ((n_t_1x & n3v)
-                                   | n6rk3_ok)? (((n_t_1x & n3v)
-                       | n6rk3_ok)? ~gdollar_0: 1'b1) : (((n_t_1x & n3v)
-                       | n6rk3_ok)? 1'b0: gdollar_0);
+    gdollar_12_m <= ~n6rk3_ok & ((n_t_1x & n3v)
+                                    | n6rk3_ok)? (((n_t_1x & n3v)
+                        | n6rk3_ok)? ~gdollar_12: 1'b1) : (((n_t_1x & n3v)
+                        | n6rk3_ok)? 1'b0: gdollar_12);
   end
-always @(inc_brk_cntr_l, clr_all_l, gdollar_0_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_12_m)
   if (~clr_all_l) begin
-    gdollar_0 <= 1'b0;
+    gdollar_12 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    gdollar_0 <= gdollar_0_m;
+    gdollar_12 <= gdollar_12_m;
   end
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, n_t_1x, n3v, gdollar_0, n6rk3_ok, n_t_1x, n3v, gdollar_0, n6rk3_ok, n_t_63x)
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, n_t_1x, n3v, gdollar_12, n6rk3_ok, n_t_1x, n3v, gdollar_12, n6rk3_ok, gdollar_13)
   if (~clr_all_l) begin
-    n_t_63x_m <= 1'b0;
+    gdollar_13_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    n_t_63x_m <= ~n6rk3_ok & ((n_t_1x & n3v & gdollar_0)
-                                 | n6rk3_ok)? (((n_t_1x & n3v & gdollar_0)
-                     | n6rk3_ok)? ~n_t_63x: 1'b1) : (((n_t_1x & n3v & gdollar_0)
-                     | n6rk3_ok)? 1'b0: n_t_63x);
+    gdollar_13_m <= ~n6rk3_ok & ((n_t_1x & n3v & gdollar_12)
+                                    | n6rk3_ok)? (((n_t_1x & n3v & gdollar_12)
+                        | n6rk3_ok)? ~gdollar_13: 1'b1) : (((n_t_1x & n3v & gdollar_12)
+                        | n6rk3_ok)? 1'b0: gdollar_13);
   end
-always @(inc_brk_cntr_l, clr_all_l, n_t_63x_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_13_m)
   if (~clr_all_l) begin
-    n_t_63x <= 1'b0;
+    gdollar_13 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    n_t_63x <= n_t_63x_m;
+    gdollar_13 <= gdollar_13_m;
   end
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, n_t_1x, n3v, gdollar_0, n_t_63x, n6rk3_ok, n_t_1x, n3v, gdollar_0, n_t_63x, n6rk3_ok, n_t_62x)
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, n_t_1x, n3v, gdollar_12, gdollar_13, n6rk3_ok, n_t_1x, n3v, gdollar_12, gdollar_13, n6rk3_ok, gdollar_14)
   if (~clr_all_l) begin
-    n_t_62x_m <= 1'b0;
+    gdollar_14_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    n_t_62x_m <= ~n6rk3_ok & ((n_t_1x & n3v & gdollar_0 & n_t_63x)
-                                 | n6rk3_ok)? (((n_t_1x & n3v & gdollar_0 & n_t_63x)
-                     | n6rk3_ok)? ~n_t_62x: 1'b1) : (((n_t_1x & n3v & gdollar_0 & n_t_63x)
-                     | n6rk3_ok)? 1'b0: n_t_62x);
+    gdollar_14_m <= ~n6rk3_ok & ((n_t_1x & n3v & gdollar_12 & gdollar_13)
+                                    | n6rk3_ok)? (((n_t_1x & n3v & gdollar_12 & gdollar_13)
+                        | n6rk3_ok)? ~gdollar_14: 1'b1) : (((n_t_1x & n3v & gdollar_12 & gdollar_13)
+                        | n6rk3_ok)? 1'b0: gdollar_14);
   end
-always @(inc_brk_cntr_l, clr_all_l, n_t_62x_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_14_m)
   if (~clr_all_l) begin
-    n_t_62x <= 1'b0;
+    gdollar_14 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    n_t_62x <= n_t_62x_m;
+    gdollar_14 <= gdollar_14_m;
   end
-always @(inc_brk_cntr_l, clr_all_l, half_block, n6rk3_ok, n_t_1x, n3v, gdollar_0, n_t_63x, n_t_62x, n6rk3_ok, half_block, n6rk3_ok, n_t_1x, n3v, gdollar_0, n_t_63x, n_t_62x, n6rk3_ok, n_t_37x)
+always @(inc_brk_cntr_l, clr_all_l, half_block, n6rk3_ok, n_t_1x, n3v, gdollar_12, gdollar_13, gdollar_14, n6rk3_ok, half_block, n6rk3_ok, n_t_1x, n3v, gdollar_12, gdollar_13, gdollar_14, n6rk3_ok, gdollar_15)
   if (~clr_all_l) begin
-    n_t_37x_m <= 1'b0;
+    gdollar_15_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    n_t_37x_m <= ~(~half_block & n6rk3_ok) & ((n_t_1x & n3v & gdollar_0 & n_t_63x & n_t_62x)
-                                                 | n6rk3_ok)? (~(half_block & n6rk3_ok) & ((n_t_1x & n3v & gdollar_0 & n_t_63x & n_t_62x)
-                                                | n6rk3_ok)? ~n_t_37x: 1'b1) : (~(half_block & n6rk3_ok) & ((n_t_1x & n3v & gdollar_0 & n_t_63x & n_t_62x)
-                                                | n6rk3_ok)? 1'b0: n_t_37x);
+    gdollar_15_m <= ~(~half_block & n6rk3_ok) & ((n_t_1x & n3v & gdollar_12 & gdollar_13 & gdollar_14)
+                                                    | n6rk3_ok)? (~(half_block & n6rk3_ok) & ((n_t_1x & n3v & gdollar_12 & gdollar_13 & gdollar_14)
+                                                   | n6rk3_ok)? ~gdollar_15: 1'b1) : (~(half_block & n6rk3_ok) & ((n_t_1x & n3v & gdollar_12 & gdollar_13 & gdollar_14)
+                                                   | n6rk3_ok)? 1'b0: gdollar_15);
   end
-always @(inc_brk_cntr_l, clr_all_l, n_t_37x_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_15_m)
   if (~clr_all_l) begin
-    n_t_37x <= 1'b0;
+    gdollar_15 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    n_t_37x <= n_t_37x_m;
+    gdollar_15 <= gdollar_15_m;
   end
-assign b_last_brk = n3v & n_t_37x & n_t_62x & n_t_63x & gdollar_0;
+assign b_last_brk = n3v & gdollar_15 & gdollar_14 & gdollar_13 & gdollar_12;
 // e6: sn74161 
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, n6rk3_ok, data_enable, n6rk3_ok, gdollar_1)
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, n6rk3_ok, data_enable, n6rk3_ok, gdollar_16)
   if (~clr_all_l) begin
-    gdollar_1_m <= 1'b0;
+    gdollar_16_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    gdollar_1_m <= ~n6rk3_ok & (data_enable
-                                   | n6rk3_ok)? ((data_enable
-                       | n6rk3_ok)? ~gdollar_1: 1'b1) : ((data_enable
-                       | n6rk3_ok)? 1'b0: gdollar_1);
+    gdollar_16_m <= ~n6rk3_ok & (data_enable
+                                    | n6rk3_ok)? ((data_enable
+                        | n6rk3_ok)? ~gdollar_16: 1'b1) : ((data_enable
+                        | n6rk3_ok)? 1'b0: gdollar_16);
   end
-always @(inc_brk_cntr_l, clr_all_l, gdollar_1_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_16_m)
   if (~clr_all_l) begin
-    gdollar_1 <= 1'b0;
+    gdollar_16 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    gdollar_1 <= gdollar_1_m;
+    gdollar_16 <= gdollar_16_m;
   end
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, gdollar_1, n6rk3_ok, data_enable, gdollar_1, n6rk3_ok, n1_db2)
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, gdollar_16, n6rk3_ok, data_enable, gdollar_16, n6rk3_ok, gdollar_17)
   if (~clr_all_l) begin
-    n1_db2_m <= 1'b0;
+    gdollar_17_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    n1_db2_m <= ~n6rk3_ok & ((data_enable & gdollar_1)
-                                | n6rk3_ok)? (((data_enable & gdollar_1)
-                    | n6rk3_ok)? ~n1_db2: 1'b1) : (((data_enable & gdollar_1)
-                    | n6rk3_ok)? 1'b0: n1_db2);
+    gdollar_17_m <= ~n6rk3_ok & ((data_enable & gdollar_16)
+                                    | n6rk3_ok)? (((data_enable & gdollar_16)
+                        | n6rk3_ok)? ~gdollar_17: 1'b1) : (((data_enable & gdollar_16)
+                        | n6rk3_ok)? 1'b0: gdollar_17);
   end
-always @(inc_brk_cntr_l, clr_all_l, n1_db2_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_17_m)
   if (~clr_all_l) begin
-    n1_db2 <= 1'b0;
+    gdollar_17 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    n1_db2 <= n1_db2_m;
+    gdollar_17 <= gdollar_17_m;
   end
-always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, gdollar_1, n1_db2, n_t_29x, n6rk3_ok, data_enable, gdollar_1, n1_db2, n_t_29x, n6rk3_ok, transfer)
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, gdollar_16, gdollar_17, n6rk3_ok, data_enable, gdollar_16, gdollar_17, n6rk3_ok, gdollar_18)
   if (~clr_all_l) begin
-    transfer_m <= 1'b0;
+    gdollar_18_m <= 1'b0;
   end else
   if (~(~inc_brk_cntr_l)) begin
-    transfer_m <= ~n6rk3_ok & ((data_enable & gdollar_1 & n1_db2 & n_t_29x)
-                                  | n6rk3_ok)? (((data_enable & gdollar_1 & n1_db2 & n_t_29x)
-                      | n6rk3_ok)? ~transfer: 1'b1) : (((data_enable & gdollar_1 & n1_db2 & n_t_29x)
-                      | n6rk3_ok)? 1'b0: transfer);
+    gdollar_18_m <= ~n6rk3_ok & ((data_enable & gdollar_16 & gdollar_17)
+                                    | n6rk3_ok)? (((data_enable & gdollar_16 & gdollar_17)
+                        | n6rk3_ok)? ~gdollar_18: 1'b1) : (((data_enable & gdollar_16 & gdollar_17)
+                        | n6rk3_ok)? 1'b0: gdollar_18);
   end
-always @(inc_brk_cntr_l, clr_all_l, transfer_m)
+always @(inc_brk_cntr_l, clr_all_l, gdollar_18_m)
   if (~clr_all_l) begin
-    transfer <= 1'b0;
+    gdollar_18 <= 1'b0;
   end else
   if (~inc_brk_cntr_l) begin
-    transfer <= transfer_m;
+    gdollar_18 <= gdollar_18_m;
   end
-assign n_t_1x = data_enable & transfer & n_t_29x & n1_db2 & gdollar_1;
+always @(inc_brk_cntr_l, clr_all_l, n6rk3_ok, data_enable, gdollar_16, gdollar_17, gdollar_18, n6rk3_ok, data_enable, gdollar_16, gdollar_17, gdollar_18, n6rk3_ok, gdollar_19)
+  if (~clr_all_l) begin
+    gdollar_19_m <= 1'b0;
+  end else
+  if (~(~inc_brk_cntr_l)) begin
+    gdollar_19_m <= ~n6rk3_ok & ((data_enable & gdollar_16 & gdollar_17 & gdollar_18)
+                                    | n6rk3_ok)? (((data_enable & gdollar_16 & gdollar_17 & gdollar_18)
+                        | n6rk3_ok)? ~gdollar_19: 1'b1) : (((data_enable & gdollar_16 & gdollar_17 & gdollar_18)
+                        | n6rk3_ok)? 1'b0: gdollar_19);
+  end
+always @(inc_brk_cntr_l, clr_all_l, gdollar_19_m)
+  if (~clr_all_l) begin
+    gdollar_19 <= 1'b0;
+  end else
+  if (~inc_brk_cntr_l) begin
+    gdollar_19 <= gdollar_19_m;
+  end
+assign n_t_1x = data_enable & gdollar_19 & gdollar_18 & gdollar_17 & gdollar_16;
 // e7: sn74h04 
 assign rd_clk1 = ~rd_clk1_l;
 // e8: sn7400 
@@ -988,25 +884,25 @@ always @(clr_drive_cmd_l, clr_strobe_l, n3v, restore_m)
     restore <= restore_m;
   end
 // e19: sn7474 
-always @(disk_ok, n3v, n_t_75x, check_header_cmd_l)
-  if (~n3v) begin
-    n6rk3_l_m <= 1'b0;
-  end else
+always @(disk_ok, n_t_75x, n3v, check_header_cmd_l)
   if (~n_t_75x) begin
-    n6rk3_l_m <= 1'b1;
+    header_a_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    header_a_m <= 1'b1;
   end else
   if (~(disk_ok)) begin
-    n6rk3_l_m <= check_header_cmd_l;
+    header_a_m <= ~check_header_cmd_l;
   end
-always @(disk_ok, n3v, n_t_75x, n6rk3_l_m)
-  if (~n3v) begin
-    n6rk3_l <= 1'b0;
-  end else
+always @(disk_ok, n_t_75x, n3v, header_a_m)
   if (~n_t_75x) begin
-    n6rk3_l <= 1'b1;
+    header_a <= 1'b0;
+  end else
+  if (~n3v) begin
+    header_a <= 1'b1;
   end else
   if (disk_ok) begin
-    n6rk3_l <= n6rk3_l_m;
+    header_a <= header_a_m;
   end
 always @(go, clr_strobe_l, n3v, file_rdy)
   if (~clr_strobe_l) begin
@@ -1028,9 +924,8 @@ always @(go, clr_strobe_l, n3v, strobe_m)
   if (go) begin
     strobe <= strobe_m;
   end
-assign clr_all = ~strobe;
 // e20: sn7474 
-always @(sector_mk, n_t_77x, n3v, n6rk3_l)
+always @(sector_mk, n_t_77x, n3v, header_a)
   if (~n_t_77x) begin
     header_b_m <= 1'b0;
   end else
@@ -1038,7 +933,7 @@ always @(sector_mk, n_t_77x, n3v, n6rk3_l)
     header_b_m <= 1'b1;
   end else
   if (~(sector_mk)) begin
-    header_b_m <= ~n6rk3_l;
+    header_b_m <= header_a;
   end
 always @(sector_mk, n_t_77x, n3v, header_b_m)
   if (~n_t_77x) begin
@@ -1207,6 +1102,7 @@ always @(sector_mk_l, n_t_81x, n3v, header_d_m)
   end
 // e25: sn7400 
 assign n_t_67x = ~(n_t_68x & erase_dly_l);
+assign n_t_62x = ~(error_clr_l & clr_all_l);
 assign n_t_68x = ~(strobe & seek_only);
 assign seek_only = ~(seek_l & ~restore);
 // e26: sn7402 
@@ -1219,6 +1115,7 @@ assign clr_strobe_l = ~(clr_states
 assign clr_states = ~(~(n_t_62x
                          | n_t_63x));
 // e27: sn7400 
+assign n_t_63x = ~(n_t_58x & set_idle_pl_l);
 assign set_sector_seek_l = ~(header_c & ~n16th_bit_l);
 assign set_header_e_l = ~(b_wrt_clk & wrt_sync_bit);
 assign wrt_clk_data = ~(wrt_clk_l & data_out_pl_l);
@@ -1243,8 +1140,6 @@ assign n_t_45x = ~(wrt_cmd
 // e31: sn74155 
 assign sk_chk_wrt_l = ~(~function01 & ~function02 & function00);
 assign sk_wrt_l = ~(~function01 & function02 & function00);
-assign n_t_16x = ~(function01 & ~function02 & function00);
-assign bdata6 = ~(~(function01 & function02 & function00));
 assign sk_chk_rd_l = ~(~function01 & function02 & ~function00);
 assign sk_rd_l = ~(~function01 & ~function02 & ~function00);
 assign wrt_lock_out_l = ~(function01 & function02 & ~function00);
@@ -1256,18 +1151,17 @@ assign check_header_cmd_l = (sk_chk_rd_l & sk_chk_wrt_l);
 assign n_t_65x = (n6rk3_ok & wrt_lock_out_l);
 // e33: sn7400 
 assign n_t_35x = ~(crc16 & n_t_37x);
+assign n_t_37x = ~(~header_e & ~crc_state);
 assign n_t_32x = ~(rk_data11 & data_state);
 assign wrt_cmd = ~(sk_chk_wrt_l & sk_wrt_l);
 // e34: sn7410 
-assign ma3_l = ~(~(n_t_32x & n_t_35x & ~wrt_sync_bit));
-assign data_out_pl_l = ~(n_t_31x & n_t_29x & ~ma3_l);
+assign n_t_39x = ~(n_t_32x & n_t_35x & ~wrt_sync_bit);
+assign data_out_pl_l = ~(n_t_31x & n_t_29x & n_t_39x);
 assign not_chk_header_cmd = ~(sk_rd_l & sk_wrt_l & sk_wrt_l);
 // e35: sn7404 
 assign sector_mk_l = ~sector_mk;
 // e36: sn7404 
-assign wrt_brk_l = ~n_t_34x;
 assign wrt_cmd_l = ~wrt_cmd;
-assign n_t_32x = ~set_main_brk;
 // e37: sn7474 
 always @(b_wrt_clk, header_d, n3v, sync_dly_l)
   if (~header_d) begin
@@ -1364,15 +1258,12 @@ always @(header_d, idle_l, n3v, write_m)
     write <= write_m;
   end
 // e42: sp380n 
-assign bmd9 = ~(data_state_l
-                 | md_rk_l);
-assign set_main_brk_l = ~(btp3_ok
-                           | set_main_brk);
 // e44: ds75452n 
 // dsk_wrt_clk_data_l = !(!wrt_clk_data); 
 // e45: sn7400 
 assign n_t_28x = ~(~n_t_20x & inside_in_l);
 assign n_t_27x = ~(n_t_28x & outside_clk_l);
+assign n_t_29x = ~(n_t_27x & write);
 assign go = ~(n_t_69x & clr_drive_cmd_l);
 // e46: sn7496 
 always @(shft_surf, ld_disk_addrs, clr_sector_ad_l, ld_disk_addrs, bdata7, 1'b0)
@@ -1476,25 +1367,15 @@ always @(shft_surf, ld_disk_addrs, clr_sector_ad_l, ld_disk_addrs, bdata11, sect
     sector_addrs1 <= sector_addrs1_m;
   end
 // e47: sn7485 
-assign gdollar_2 = sector_addrs8 & dsk_sec8_l
-                    | ~sector_addrs8 & ~dsk_sec8_l;
-assign gdollar_3 = sector_addrs4 & dsk_sec4_l
-                    | ~sector_addrs4 & ~dsk_sec4_l;
-assign gdollar_4 = sector_addrs2 & dsk_sec2_l
-                    | ~sector_addrs2 & ~dsk_sec2_l;
-assign gdollar_5 = sector_addrs1 & dsk_sec1_l
-                    | ~sector_addrs1 & ~dsk_sec1_l;
-assign sector_eq = sector_seek & ~gdollar_2 & ~gdollar_3 & ~gdollar_4 & ~gdollar_5;
-assign shft_cmd_reg = ~sector_seek & ~in & ~gdollar_2 & ~gdollar_3 & ~gdollar_4 & ~gdollar_5
-                       | ~sector_addrs1 & ~gdollar_2 & ~gdollar_3 & ~gdollar_4 & gdollar_5
-                       | ~sector_addrs2 & ~gdollar_2 & ~gdollar_3 & gdollar_4
-                       | ~sector_addrs4 & ~gdollar_2 & gdollar_3
-                       | ~sector_addrs8 & gdollar_2;
-assign ainith = ~sector_seek & ~in & ~gdollar_2 & ~gdollar_3 & ~gdollar_4 & ~gdollar_5
-                 | sector_addrs1 & ~gdollar_2 & ~gdollar_3 & ~gdollar_4 & gdollar_5
-                 | sector_addrs2 & ~gdollar_2 & ~gdollar_3 & gdollar_4
-                 | sector_addrs4 & ~gdollar_2 & gdollar_3
-                 | sector_addrs8 & gdollar_2;
+assign gdollar_20 = sector_addrs8 & dsk_sec8_l
+                     | ~sector_addrs8 & ~dsk_sec8_l;
+assign gdollar_21 = sector_addrs4 & dsk_sec4_l
+                     | ~sector_addrs4 & ~dsk_sec4_l;
+assign gdollar_22 = sector_addrs2 & dsk_sec2_l
+                     | ~sector_addrs2 & ~dsk_sec2_l;
+assign gdollar_23 = sector_addrs1 & dsk_sec1_l
+                     | ~sector_addrs1 & ~dsk_sec1_l;
+assign sector_eq = sector_seek & ~gdollar_20 & ~gdollar_21 & ~gdollar_22 & ~gdollar_23;
 // e48: ds75452n 
 // dsk_strobe_l = !(!strobe); 
 // dsk_head_sel1_l = !(!top_surf); 

@@ -31,21 +31,27 @@
 //       # rs_msc2
 //       # rsw2 & enable_rsw
 //       # enable_pc & pc2_h); 
-// carry_ok_l = !ps_2; 
+// n_t_4x = !ps_2; 
 // e2: sn7453 
 // reg_bus2 = !(rot_right & adder1
-//        # rot_left & adder3
-//        # no_rot & adder2
-//        # !reg_bus2 & lsw); 
+//          # rot_left & adder3
+//          # no_rot & adder2
+//          # !lsw2 & lsw); 
 // !reg_bus2 = !reg_bus2; 
 // e3: sn7453 
-// reg_bus3 = !(lsw2 & ma2_l
-//        # lsw3 & ma3_l
-//        # !lsw3 & ma3_h
-//        # !reg_bus2 & ma2_h); 
-// !lsw3 = !reg_bus3; 
-module m221d (a1, a=b, ac_2, ac_2_l, ac_3, ac_3_l, adder1, adder2, adder3, adder4, addr_match, b1, bb2, c1, carry_in, carry_ok_l, carry_out_2, d1, d2, data_add, data_add_2, data_add_3, e1, e2, enable_ac, enable_ac_l, enable_ac_r, enable_bcl, enable_bse, enable_ma2, enable_ma3, enable_mb2, enable_mb3, enable_mem, enable_mq, enable_pc, enable_rsw, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, load_ac, load_ma, load_mb, load_pc, ls_msc2, ls_msc3, lsw, lsw2, lsw3, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, mb_2, mb_2_l, mb_3, mb_3_l, mem2, mem3, mq2, mq3, n1, n15v, n2, no_rot, p1, p2, pc2_l, pc3_l, ps_2, ps_3, ps_left_2, ps_left_3, r1, r2, reg_bus2, reg_bus3, rot_left, rot_right, rs_msc2, rs_msc3, rsw2, rsw3, s1, s2, t2, u1, u2, v1, v2);
-output a1;
+// addr_match = !(lsw2 & ma2_l
+//          # lsw3 & ma3_l
+//          # !lsw3 & ma3_h
+//          # !lsw2 & ma2_h); 
+// !addr_match = !addr_match; 
+// e4: sn7453 
+// ps_2 = !(data_add_2 & data_add
+//       # mb2_h & enable_mb2
+//       # ma2_h & enable_ma2
+//       # enable_mem & mem2); 
+// n_t_4x = !ps_2; 
+// e5: sn7482 
+module m221d (a=b, ac_2, ac_2_l, ac_3, ac_3_l, adder1, adder2, adder3, adder4, addr_match, carry_in, carry_ok_l, carry_out_2, data_add, data_add_2, data_add_3, enable_ac, enable_ac_l, enable_ac_r, enable_bcl, enable_bse, enable_ma2, enable_ma3, enable_mb2, enable_mb3, enable_mem, enable_mq, enable_pc, enable_rsw, load_ac, load_ma, load_mb, load_pc, ls_msc2, ls_msc3, lsw, lsw2, lsw3, ma2_h, ma2_l, ma3_h, ma3_l, mb_2, mb_2_l, mb_3, mb_3_l, mem2, mem3, mq2, mq3, no_rot, pc2_l, pc3_l, ps_2, ps_3, ps_left_2, ps_left_3, reg_bus2, reg_bus3, rot_left, rot_right, rs_msc2, rs_msc3, rsw2, rsw3);
 output a=b;
 output ac_2;
 output ac_2_l;
@@ -55,20 +61,13 @@ input adder1;
 inout adder2;
 inout adder3;
 input adder4;
-output addr_match;
-output b1;
-output bb2;
-output c1;
+inout addr_match;
 input carry_in;
-inout carry_ok_l;
+output carry_ok_l;
 output carry_out_2;
-output d1;
-output d2;
 input data_add;
 input data_add_2;
 input data_add_3;
-output e1;
-output e2;
 input enable_ac;
 input enable_ac_l;
 input enable_ac_r;
@@ -82,16 +81,6 @@ input enable_mem;
 input enable_mq;
 input enable_pc;
 input enable_rsw;
-output f1;
-output f2;
-output h1;
-output h2;
-output j1;
-output j2;
-output k1;
-output k2;
-output l1;
-output l2;
 input load_ac;
 input load_ma;
 input load_mb;
@@ -100,9 +89,7 @@ input ls_msc2;
 input ls_msc3;
 input lsw;
 input lsw2;
-inout lsw3;
-output m1;
-output m2;
+input lsw3;
 inout reg ma2_h;
 inout ma2_l;
 inout reg ma3_h;
@@ -115,20 +102,13 @@ input mem2;
 input mem3;
 input mq2;
 input mq3;
-output n1;
-output n15v;
-output n2;
 input no_rot;
-output p1;
-output p2;
 output pc2_l;
 output pc3_l;
 inout ps_2;
 inout ps_3;
 inout ps_left_2;
 inout ps_left_3;
-output r1;
-output r2;
 inout reg_bus2;
 inout reg_bus3;
 input rot_left;
@@ -137,22 +117,7 @@ input rs_msc2;
 input rs_msc3;
 input rsw2;
 input rsw3;
-output s1;
-output s2;
-output t2;
-output u1;
-output u2;
-output v1;
-output v2;
 
-reg ac2_h_m;
-reg ac3_h_m;
-reg ma2_h_m;
-reg ma3_h_m;
-reg mb2_h_m;
-reg mb3_h_m;
-reg pc2_h_m;
-reg pc3_h_m;
 
 reg ac3_h;
 reg ac2_h;
@@ -160,81 +125,26 @@ reg mb3_h;
 reg mb2_h;
 reg pc3_h;
 reg pc2_h;
-wire a0;
-wire a8;
-wire ad01;
-wire ad02;
-wire ad02l;
-wire ad03h;
-wire adder5;
-wire as2;
-wire bd00;
-wire bd03;
-wire bd04;
-wire bd04l;
-wire bd05;
-wire bd07;
-wire bd07l;
-wire bh1;
-wire biot5l;
-wire bj1;
-wire bt2;
-wire c1_l;
-wire da_enabl;
-wire data1_l;
-wire data2;
-wire data5_l;
-wire io_enabl;
-wire ma_enabl;
-wire md07_l;
-wire md07h;
-wire n3v;
-wire n3v3;
-wire n_t_12x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_170x;
-wire n_t_17x;
-wire n_t_182x;
-wire n_t_29x;
 wire n_t_2x;
-wire n_t_31x;
-wire n_t_36x;
-wire n_t_40x;
-wire n_t_42x;
-wire n_t_46x;
 wire n_t_5x;
-wire n_t_7x;
-wire select6;
-wire shift_l2;
-wire sr2;
-wire sr_enabl;
-assign addr_match = reg_bus3;
-// e4: sn7453 
-// ps_2 = !(data_add_2 & data_add
-//       # mb2_h & enable_mb2
-//       # ma2_h & enable_ma2
-//       # enable_mem & mem2); 
-// carry_ok_l = !ps_2; 
-// e5: sn7482 
 assign adder3 = carry_in
                  ^ ps_left_3
                  ^ ps_3;
-assign gdollar_0 = carry_in & ps_left_3
+assign gdollar_4 = carry_in & ps_left_3
                     | ps_left_3 & ps_3
                     | carry_in & ps_3;
 assign adder2 = ps_2
                  ^ ps_left_2
-                 ^ gdollar_0;
-assign carry_out_2 = gdollar_0 & ps_2
+                 ^ gdollar_4;
+assign carry_out_2 = gdollar_4 & ps_2
                       | ps_2 & ps_left_2
-                      | ps_left_2 & gdollar_0;
+                      | ps_left_2 & gdollar_4;
 // e6: sn7453 
 // reg_bus3 = !(adder2 & rot_right
-//        # adder4 & rot_left
-//        # lsw & !lsw3
-//        # no_rot & adder3); 
-// !lsw3 = !reg_bus3; 
+//          # adder4 & rot_left
+//          # lsw & !lsw3
+//          # no_rot & adder3); 
+// !reg_bus3 = !reg_bus3; 
 // e7: sn7453 
 // ps_left_2 = !(enable_mq & mq2
 //       # ls_msc2
@@ -242,155 +152,58 @@ assign carry_out_2 = gdollar_0 & ps_2
 //       # enable_ac & !ac2_h); 
 // n_t_5x = !ps_left_2; 
 // e8: sn7474 
-always @(load_ac, n_t_36x, n3v3, reg_bus3)
-  if (~n_t_36x) begin
-    ac3_h_m <= 1'b0;
-  end else
-  if (~n3v3) begin
-    ac3_h_m <= 1'b1;
-  end else
-  if (~(load_ac)) begin
-    ac3_h_m <= reg_bus3;
-  end
-always @(load_ac, n_t_36x, n3v3, ac3_h_m)
-  if (~n_t_36x) begin
-    ac3_h <= 1'b0;
-  end else
-  if (~n3v3) begin
-    ac3_h <= 1'b1;
-  end else
+always @(posedge load_ac)
   if (load_ac) begin
-    ac3_h <= ac3_h_m;
+    ac3_h <= reg_bus3;
   end
-always @(load_ac, ps_3, n3v3, reg_bus2)
-  if (~ps_3) begin
-    ac2_h_m <= 1'b0;
-  end else
-  if (~n3v3) begin
-    ac2_h_m <= 1'b1;
-  end else
-  if (~(load_ac)) begin
-    ac2_h_m <= reg_bus2;
-  end
-always @(load_ac, ps_3, n3v3, ac2_h_m)
-  if (~ps_3) begin
-    ac2_h <= 1'b0;
-  end else
-  if (~n3v3) begin
-    ac2_h <= 1'b1;
-  end else
+always @(posedge load_ac)
   if (load_ac) begin
-    ac2_h <= ac2_h_m;
+    ac2_h <= reg_bus2;
   end
 // e9: sn7400 
-assign reg_bus2 = ~(~lsw2);
 // e10: sn7460 
 // ps_left_2 = !(!mb2_h & enable_bcl & enable_bcl & ac2_h); 
 // n_t_5x = !ps_left_2; 
 // ps_left_3 = !(enable_bcl & !mb3_h & ac3_h); 
 // n_t_2x = !ps_left_3; 
 // e11: sn7474 
-always @(load_mb, mb2_h, mb2_h, reg_bus3)
-  if (~mb2_h) begin
-    mb3_h_m <= 1'b0;
-  end else
-  if (~mb2_h) begin
-    mb3_h_m <= 1'b1;
-  end else
-  if (~(load_mb)) begin
-    mb3_h_m <= reg_bus3;
-  end
-always @(load_mb, mb2_h, mb2_h, mb3_h_m)
-  if (~mb2_h) begin
-    mb3_h <= 1'b0;
-  end else
-  if (~mb2_h) begin
-    mb3_h <= 1'b1;
-  end else
+always @(posedge load_mb)
   if (load_mb) begin
-    mb3_h <= mb3_h_m;
+    mb3_h <= reg_bus3;
   end
-always @(load_mb, mb2_h, mb2_h, reg_bus2)
-  if (mb2_h) begin
-    mb2_h_m <= 1'b0;
-  end else
-  if (mb2_h) begin
-    mb2_h_m <= 1'b1;
-  end else
-  if (~(load_mb)) begin
-    mb2_h_m <= reg_bus2;
-  end
-always @(load_mb, mb2_h, mb2_h, mb2_h_m)
-  if (mb2_h) begin
-    mb2_h <= 1'b0;
-  end else
-  if (mb2_h) begin
-    mb2_h <= 1'b1;
-  end else
+always @(posedge load_mb)
   if (load_mb) begin
-    mb2_h <= mb2_h_m;
+    mb2_h <= reg_bus2;
   end
 // e12: sn7453 
 // carry_ok_l = !(!ac3_h & ps_3
-//       # ac2_h & !ps_2
-//       # !ac2_h & ps_2
-//       # !ps_3 & ac3_h); 
-// n_t_2x = !carry_ok_l; 
+//          # ac2_h & !ps_2
+//          # !ac2_h & ps_2
+//          # !ps_3 & ac3_h); 
+// !carry_ok_l = !carry_ok_l; 
 // e13: sn7460 
 // ps_left_2 = !(mb2_h & enable_bse & enable_bse & !ac2_h); 
 // n_t_5x = !ps_left_2; 
 // ps_left_3 = !(enable_bse & !ac3_h & mb3_h); 
 // n_t_2x = !ps_left_3; 
 // e14: sn7474 
-always @(load_pc, sr_enabl, data2, reg_bus3)
-  if (~sr_enabl) begin
-    pc3_h_m <= 1'b0;
-  end else
-  if (~data2) begin
-    pc3_h_m <= 1'b1;
-  end else
-  if (~(load_pc)) begin
-    pc3_h_m <= reg_bus3;
-  end
-always @(load_pc, sr_enabl, data2, pc3_h_m)
-  if (~sr_enabl) begin
-    pc3_h <= 1'b0;
-  end else
-  if (~data2) begin
-    pc3_h <= 1'b1;
-  end else
+always @(posedge load_pc)
   if (load_pc) begin
-    pc3_h <= pc3_h_m;
+    pc3_h <= reg_bus3;
   end
 assign pc3_l = ~pc3_h;
-always @(load_pc, sr2, io_enabl, reg_bus2)
-  if (~sr2) begin
-    pc2_h_m <= 1'b0;
-  end else
-  if (~io_enabl) begin
-    pc2_h_m <= 1'b1;
-  end else
-  if (~(load_pc)) begin
-    pc2_h_m <= reg_bus2;
-  end
-always @(load_pc, sr2, io_enabl, pc2_h_m)
-  if (~sr2) begin
-    pc2_h <= 1'b0;
-  end else
-  if (~io_enabl) begin
-    pc2_h <= 1'b1;
-  end else
+always @(posedge load_pc)
   if (load_pc) begin
-    pc2_h <= pc2_h_m;
+    pc2_h <= reg_bus2;
   end
 assign pc2_l = ~pc2_h;
 // e15: sn7453 
-// carry_ok_l = !(!ac3_h & mb3_h
-//       # ac2_h & !mb2_h
-//       # !ac2_h & mb2_h
-//       # !mb3_h & ac3_h); 
-// n_t_2x = !carry_ok_l; 
-assign a=b = carry_ok_l;
+// gdollar_9 = !(!ac3_h & mb3_h
+//          # ac2_h & !mb2_h
+//          # !ac2_h & mb2_h
+//          # !mb3_h & ac3_h); 
+// !gdollar_9 = !gdollar_9; 
+assign a=b = gdollar_9;
 // e16: sn7453 
 // ps_left_3 = !(enable_mq & mq3
 //       # ls_msc3
@@ -398,46 +211,14 @@ assign a=b = carry_ok_l;
 //       # enable_ac & !ac3_h); 
 // n_t_2x = !ps_left_3; 
 // e17: sn7474 
-always @(load_ma, ma_enabl, mem2, reg_bus3)
-  if (~ma_enabl) begin
-    ma3_h_m <= 1'b0;
-  end else
-  if (~mem2) begin
-    ma3_h_m <= 1'b1;
-  end else
-  if (~(load_ma)) begin
-    ma3_h_m <= reg_bus3;
-  end
-always @(load_ma, ma_enabl, mem2, ma3_h_m)
-  if (~ma_enabl) begin
-    ma3_h <= 1'b0;
-  end else
-  if (~mem2) begin
-    ma3_h <= 1'b1;
-  end else
+always @(posedge load_ma)
   if (load_ma) begin
-    ma3_h <= ma3_h_m;
+    ma3_h <= reg_bus3;
   end
 assign ma3_l = ~ma3_h;
-always @(load_ma, ma2_h, da_enabl, reg_bus2)
-  if (~ma2_h) begin
-    ma2_h_m <= 1'b0;
-  end else
-  if (~da_enabl) begin
-    ma2_h_m <= 1'b1;
-  end else
-  if (~(load_ma)) begin
-    ma2_h_m <= reg_bus2;
-  end
-always @(load_ma, ma2_h, da_enabl, ma2_h_m)
-  if (~ma2_h) begin
-    ma2_h <= 1'b0;
-  end else
-  if (~da_enabl) begin
-    ma2_h <= 1'b1;
-  end else
+always @(posedge load_ma)
   if (load_ma) begin
-    ma2_h <= ma2_h_m;
+    ma2_h <= reg_bus2;
   end
 assign ma2_l = ~ma2_h;
 // e18: sn74h00 
@@ -477,30 +258,33 @@ assign mb_2_l = ~mb2_h;
 // r13: r_us_ 
 // r14: r_us_ 
 // open collector 'wire-or's 
-assign lsw3 = reg_bus3;
 assign reg_bus2 = ~((rot_right & adder1
                       | rot_left & adder3
                       | no_rot & adder2
-                      | ~reg_bus2 & lsw));
-assign reg_bus3 = ~((lsw2 & ma2_l
-                      | lsw3 & ma3_l
-                      | ~lsw3 & ma3_h
-                      | ~reg_bus2 & ma2_h)
-                     | (adder2 & rot_right
-                        | adder4 & rot_left
-                        | lsw & ~lsw3
-                        | no_rot & adder3));
+                      | ~lsw2 & lsw));
+assign addr_match = ~((lsw2 & ma2_l
+                        | lsw3 & ma3_l
+                        | ~lsw3 & ma3_h
+                        | ~lsw2 & ma2_h));
+assign reg_bus3 = ~((adder2 & rot_right
+                      | adder4 & rot_left
+                      | lsw & ~lsw3
+                      | no_rot & adder3));
+assign carry_ok_l = ~((~ac3_h & ps_3
+                        | ac2_h & ~ps_2
+                        | ~ac2_h & ps_2
+                        | ~ps_3 & ac3_h));
+assign gdollar_9 = ~((~ac3_h & mb3_h
+                       | ac2_h & ~mb2_h
+                       | ~ac2_h & mb2_h
+                       | ~mb3_h & ac3_h));
 assign ps_left_3 = ~((enable_bcl & ~mb3_h & ac3_h)
                       | (enable_bse & ~ac3_h & mb3_h)
                       | (enable_mq & mq3
                          | ls_msc3
                          | enable_ac_l & ac3_h
                          | enable_ac & ~ac3_h));
-assign n_t_2x = ~(ps_left_3
-                   | carry_ok_l
-                   | ps_left_3
-                   | carry_ok_l
-                   | ps_left_3);
+assign n_t_2x = ~ps_left_3;
 assign ps_2 = ~((ac2_h & enable_ac_r
                   | rs_msc2
                   | rsw2 & enable_rsw
@@ -509,15 +293,7 @@ assign ps_2 = ~((ac2_h & enable_ac_r
                     | mb2_h & enable_mb2
                     | ma2_h & enable_ma2
                     | enable_mem & mem2));
-assign carry_ok_l = ~(ps_2
-                       | (~ac3_h & ps_3
-                          | ac2_h & ~ps_2
-                          | ~ac2_h & ps_2
-                          | ~ps_3 & ac3_h)
-                       | (~ac3_h & mb3_h
-                          | ac2_h & ~mb2_h
-                          | ~ac2_h & mb2_h
-                          | ~mb3_h & ac3_h));
+assign n_t_4x = ~ps_2;
 assign n_t_5x = ~ps_left_2;
 assign ps_left_2 = ~((enable_mq & mq2
                        | ls_msc2

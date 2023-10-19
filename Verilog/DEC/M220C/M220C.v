@@ -32,10 +32,8 @@
 // aj1 = !('b'1 & adder4 & shift_l2); 
 // n_t_10x = !aj1; 
 // e4: sn7474 
-module m220c (n_t_3x, tt_shift, a1, ac2_h, ac2_l, ac3_h, ac3_l, ac_enabl, ac_enabl_l, adder0, adder1, adder2, adder3, adder4, adder5, aj1, ak1, ak2, an2, and_h, ar1, as1, as2, at2, au1, au2, b1, bb2, be2, br2, bu1, bv1, bv2, c0, c1, c2, d1, d2, da2, da_enabl, data2, data3, data_enabl, e1, e2, f1, f2, h1, h2, io2, io3, io_enabl, j1, j2, k1, k2, l1, l2, m1, m2, ma2_h, ma2_l, ma3_h, ma3_l, ma_enabl, mem2, mem_enabl, mq2_h, mq3_h, mq_enabl, n1, n15v, n2, no_shift, p1, p2, pc2_h, pc2_l, pc3_h, pc3_l, pc_enabl, r1, r2, s1, s2, sc2, sc3, sc_enabl, shift_l1, shift_l2, shift_r1, shift_r2, sr2, sr3, sr_enabl, t2, tt_shift_l, u1, u2, v1, v2);
-input n_t_3x;
+module m220c (tt_shift, ac2_h, ac2_l, ac3_h, ac3_l, ac_enabl, ac_enabl_l, adder0, adder1, adder2, adder3, adder4, adder5, aj1, ak1, ak2, an2, and_h, ar1, as1, as2, at2, au1, au2, bb2, be2, br2, bu1, bv1, bv2, c0, c2, da2, da_enabl, data2, data3, data_enabl, io2, io3, io_enabl, ma2_h, ma2_l, ma3_h, ma3_l, ma_enabl, mem2, mem_enabl, mq2_h, mq3_h, mq_enabl, no_shift, pc2_h, pc2_l, pc3_h, pc3_l, pc_enabl, sc2, sc3, sc_enabl, shift_l1, shift_l2, shift_r1, shift_r2, sr2, sr3, sr_enabl, tt_shift_l);
 input tt_shift;
-output a1;
 inout reg ac2_h;
 inout ac2_l;
 inout reg ac3_h;
@@ -59,7 +57,6 @@ output as2;
 output at2;
 input au1;
 output au2;
-output b1;
 input bb2;
 input be2;
 input br2;
@@ -67,32 +64,15 @@ input bu1;
 input bv1;
 input bv2;
 input c0;
-output c1;
 output c2;
-output d1;
-output d2;
 input da2;
 input da_enabl;
 input data2;
 input data3;
 input data_enabl;
-output e1;
-output e2;
-output f1;
-output f2;
-output h1;
-output h2;
 input io2;
 input io3;
 input io_enabl;
-output j1;
-output j2;
-output k1;
-output k2;
-output l1;
-output l2;
-output m1;
-output m2;
 inout reg ma2_h;
 output ma2_l;
 inout reg ma3_h;
@@ -103,21 +83,12 @@ input mem_enabl;
 input mq2_h;
 input mq3_h;
 input mq_enabl;
-output n1;
-output n15v;
-output n2;
 input no_shift;
-output p1;
-output p2;
 inout reg pc2_h;
 output pc2_l;
 inout reg pc3_h;
 output pc3_l;
 input pc_enabl;
-output r1;
-output r2;
-output s1;
-output s2;
 input sc2;
 input sc3;
 input sc_enabl;
@@ -128,96 +99,21 @@ input shift_r2;
 input sr2;
 input sr3;
 input sr_enabl;
-output t2;
 output tt_shift_l;
-output u1;
-output u2;
-output v1;
-output v2;
 
-reg ac2_h_m;
-reg ac3_h_m;
-reg ma2_h_m;
-reg ma3_h_m;
-reg mb2_h_m;
-reg mb3_h_m;
-reg pc2_h_m;
-reg pc3_h_m;
 
 reg mb2_h;
 reg mb3_h;
-wire a0;
-wire a8;
-wire ad01;
-wire ad02;
-wire ad02l;
-wire ad03h;
-wire bd00;
-wire bd01;
-wire bd03;
-wire bh1;
-wire biot5l;
-wire bj1;
-wire bt2;
-wire c1_l;
-wire data1_l;
-wire md07_l;
-wire md07h;
-wire n3v3;
 wire n_t_10x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_170x;
-wire n_t_17x;
-wire n_t_182x;
-wire n_t_20x;
-wire n_t_27x;
-wire n_t_29x;
-wire n_t_31x;
-wire n_t_36x;
-wire n_t_40x;
-wire n_t_42x;
-wire n_t_46x;
-wire n_t_49x;
-wire n_t_63x;
-wire n_t_7x;
-wire n_t_88x;
 wire n_t_9x;
-wire select6;
-always @(ak1, adder5, aj1)
-  if (~adder5) begin
-    ma2_h_m <= 1'b1;
-  end else
-  if (~(ak1)) begin
-    ma2_h_m <= aj1;
-  end
-always @(ak1, adder5, ma2_h_m)
-  if (~adder5) begin
-    ma2_h <= 1'b1;
-  end else
+always @(posedge ak1)
   if (ak1) begin
-    ma2_h <= ma2_h_m;
+    ma2_h <= aj1;
   end
 assign ma2_l = ~ma2_h;
-always @(ak1, n_t_3x, ak2, ak2)
-  if (~n_t_3x) begin
-    ma3_h_m <= 1'b0;
-  end else
-  if (~ak2) begin
-    ma3_h_m <= 1'b1;
-  end else
-  if (~(ak1)) begin
-    ma3_h_m <= ak2;
-  end
-always @(ak1, n_t_3x, ak2, ma3_h_m)
-  if (~n_t_3x) begin
-    ma3_h <= 1'b0;
-  end else
-  if (~ak2) begin
-    ma3_h <= 1'b1;
-  end else
+always @(posedge ak1)
   if (ak1) begin
-    ma3_h <= ma3_h_m;
+    ma3_h <= ak2;
   end
 assign ma3_l = ~ma3_h;
 // e5: sn7460 
@@ -234,130 +130,34 @@ assign ma3_l = ~ma3_h;
 assign as2 = mb3_h;
 assign as1 = ~mb3_h;
 // e8: sn7474 
-always @(ar1, n_t_36x, n3v3, aj1)
-  if (~n_t_36x) begin
-    mb2_h_m <= 1'b0;
-  end else
-  if (~n3v3) begin
-    mb2_h_m <= 1'b1;
-  end else
-  if (~(ar1)) begin
-    mb2_h_m <= aj1;
-  end
-always @(ar1, n_t_36x, n3v3, mb2_h_m)
-  if (~n_t_36x) begin
-    mb2_h <= 1'b0;
-  end else
-  if (~n3v3) begin
-    mb2_h <= 1'b1;
-  end else
+always @(posedge ar1)
   if (ar1) begin
-    mb2_h <= mb2_h_m;
+    mb2_h <= aj1;
   end
-always @(ar1, n_t_4x, n3v3, ak2)
-  if (~n_t_4x) begin
-    mb3_h_m <= 1'b0;
-  end else
-  if (~n3v3) begin
-    mb3_h_m <= 1'b1;
-  end else
-  if (~(ar1)) begin
-    mb3_h_m <= ak2;
-  end
-always @(ar1, n_t_4x, n3v3, mb3_h_m)
-  if (~n_t_4x) begin
-    mb3_h <= 1'b0;
-  end else
-  if (~n3v3) begin
-    mb3_h <= 1'b1;
-  end else
+always @(posedge ar1)
   if (ar1) begin
-    mb3_h <= mb3_h_m;
+    mb3_h <= ak2;
   end
 // e9: sn7474 
-always @(an2, mb3_h, mb3_h, aj1)
-  if (~mb3_h) begin
-    pc2_h_m <= 1'b0;
-  end else
-  if (~mb3_h) begin
-    pc2_h_m <= 1'b1;
-  end else
-  if (~(an2)) begin
-    pc2_h_m <= aj1;
-  end
-always @(an2, mb3_h, mb3_h, pc2_h_m)
-  if (~mb3_h) begin
-    pc2_h <= 1'b0;
-  end else
-  if (~mb3_h) begin
-    pc2_h <= 1'b1;
-  end else
+always @(posedge an2)
   if (an2) begin
-    pc2_h <= pc2_h_m;
+    pc2_h <= aj1;
   end
 assign pc2_l = ~pc2_h;
-always @(an2, mb3_h, mb3_h, ak2)
-  if (mb3_h) begin
-    pc3_h_m <= 1'b0;
-  end else
-  if (mb3_h) begin
-    pc3_h_m <= 1'b1;
-  end else
-  if (~(an2)) begin
-    pc3_h_m <= ak2;
-  end
-always @(an2, mb3_h, mb3_h, pc3_h_m)
-  if (mb3_h) begin
-    pc3_h <= 1'b0;
-  end else
-  if (mb3_h) begin
-    pc3_h <= 1'b1;
-  end else
+always @(posedge an2)
   if (an2) begin
-    pc3_h <= pc3_h_m;
+    pc3_h <= ak2;
   end
 assign pc3_l = ~pc3_h;
 // e10: sn7474 
-always @(au1, mb2_h, mb2_h, aj1)
-  if (~mb2_h) begin
-    ac2_h_m <= 1'b0;
-  end else
-  if (~mb2_h) begin
-    ac2_h_m <= 1'b1;
-  end else
-  if (~(au1)) begin
-    ac2_h_m <= aj1;
-  end
-always @(au1, mb2_h, mb2_h, ac2_h_m)
-  if (~mb2_h) begin
-    ac2_h <= 1'b0;
-  end else
-  if (~mb2_h) begin
-    ac2_h <= 1'b1;
-  end else
+always @(posedge au1)
   if (au1) begin
-    ac2_h <= ac2_h_m;
+    ac2_h <= aj1;
   end
 assign ac2_l = ~ac2_h;
-always @(au1, mb2_h, mb2_h, ak2)
-  if (mb2_h) begin
-    ac3_h_m <= 1'b0;
-  end else
-  if (mb2_h) begin
-    ac3_h_m <= 1'b1;
-  end else
-  if (~(au1)) begin
-    ac3_h_m <= ak2;
-  end
-always @(au1, mb2_h, mb2_h, ac3_h_m)
-  if (mb2_h) begin
-    ac3_h <= 1'b0;
-  end else
-  if (mb2_h) begin
-    ac3_h <= 1'b1;
-  end else
+always @(posedge au1)
   if (au1) begin
-    ac3_h <= ac3_h_m;
+    ac3_h <= ak2;
   end
 assign ac3_l = ~ac3_h;
 // e11: sn7440 
@@ -372,15 +172,15 @@ assign at2 = mb2_h;
 // e13: sn7482 
 assign adder3 = c0
                  ^ n_t_4x
-                 ^ n_t_4x;
+                 ^ gdollar_3;
 assign gdollar_0 = c0 & n_t_4x
-                    | n_t_4x
-                    | c0 & n_t_4x;
-assign adder2 = n_t_63x
+                    | n_t_4x & gdollar_3
+                    | c0 & gdollar_3;
+assign adder2 = gdollar_1
                  ^ n_t_6x
                  ^ gdollar_0;
-assign c2 = gdollar_0 & n_t_63x
-             | n_t_63x & n_t_6x
+assign c2 = gdollar_0 & gdollar_1
+             | gdollar_1 & n_t_6x
              | n_t_6x & gdollar_0;
 // e14: sn7453 
 // n_t_6x = !(sr_enabl & sr2
@@ -400,17 +200,17 @@ assign c2 = gdollar_0 & n_t_63x
 //       # mq2_h & mq_enabl); 
 // n_t_7x = !n_t_6x; 
 // e17: sn7453 
-// n_t_63x = !(ma_enabl & ma2_h
-//        # pc2_h & pc_enabl
-//        # mem2 & mem_enabl
-//        # da2 & da_enabl); 
-// !n_t_63x = !n_t_63x; 
+// gdollar_1 = !(ma_enabl & ma2_h
+//          # pc2_h & pc_enabl
+//          # mem2 & mem_enabl
+//          # da2 & da_enabl); 
+// !gdollar_1 = !gdollar_1; 
 // e18: sn7453 
-// n_t_4x = !(br2 & ma3_h
-//       # pc3_h & pc_enabl
-//       # bv2 & bv1
-//       # bu1 & da_enabl); 
-// n_t_2x = !n_t_4x; 
+// gdollar_3 = !(br2 & ma3_h
+//          # pc3_h & pc_enabl
+//          # bv2 & bv1
+//          # bu1 & da_enabl); 
+// !gdollar_3 = !gdollar_3; 
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -419,6 +219,14 @@ assign c2 = gdollar_0 & n_t_63x
 // r6: r_us_ 
 // r7: r_us_ 
 // open collector 'wire-or's 
+assign gdollar_1 = ~((ma_enabl & ma2_h
+                       | pc2_h & pc_enabl
+                       | mem2 & mem_enabl
+                       | da2 & da_enabl));
+assign gdollar_3 = ~((br2 & ma3_h
+                       | pc3_h & pc_enabl
+                       | bv2 & bv1
+                       | bu1 & da_enabl));
 assign n_t_10x = ~aj1;
 assign ak2 = ~((adder4 & shift_l1
                  | adder3 & no_shift
@@ -442,15 +250,7 @@ assign n_t_4x = ~((be2
                    | (sr_enabl & sr3
                       | sc3 & sc_enabl
                       | data3 & data_enabl
-                      | io3 & io_enabl)
-                   | (br2 & ma3_h
-                      | pc3_h & pc_enabl
-                      | bv2 & bv1
-                      | bu1 & da_enabl));
-assign n_t_63x = ~((ma_enabl & ma2_h
-                     | pc2_h & pc_enabl
-                     | mem2 & mem_enabl
-                     | da2 & da_enabl));
+                      | io3 & io_enabl));
 assign n_t_6x = ~((sr_enabl & sr2
                     | sc2 & sc_enabl
                     | data2 & data_enabl

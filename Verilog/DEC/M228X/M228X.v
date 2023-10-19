@@ -77,7 +77,6 @@ inout reg w7;
 inout reg w8;
 inout reg w9;
 
-reg ah1_m;
 reg data_m;
 reg st_blk_mk_m;
 reg st_ck_m;
@@ -94,63 +93,6 @@ reg w7_m;
 reg w8_m;
 reg w9_m;
 
-reg ah1;
-wire aa1;
-wire ad01;
-wire ad02;
-wire ad02l;
-wire ad03h;
-wire ad2;
-wire ah2;
-wire aj1;
-wire aj2;
-wire an1;
-wire ar1;
-wire as1;
-wire at2;
-wire av2;
-wire bb1;
-wire bd00;
-wire bd04;
-wire bd05;
-wire bd07;
-wire be2;
-wire bf2;
-wire bh2;
-wire biot5l;
-wire bj1;
-wire bl2;
-wire bn1;
-wire bp2;
-wire bu2;
-wire c1_l;
-wire data1_l;
-wire data5_l;
-wire f2;
-wire h1;
-wire m1;
-wire md07_l;
-wire n2;
-wire n_t_108x;
-wire n_t_10x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_17x;
-wire n_t_182x;
-wire n_t_20x;
-wire n_t_29x;
-wire n_t_57x;
-wire n_t_5x;
-wire n_t_8x;
-wire q1;
-wire q2;
-wire q5;
-wire q6;
-wire s1;
-wire select6;
 assign mk_data_sync = ~mk_data_sync_l;
 assign mk_blk_start = ~mk_blk_start_l;
 assign mk_end = ~mk_end_l;
@@ -166,8 +108,6 @@ assign sh_st_out = ~(n_t_2x
                       | tp0_l);
 assign w1_and_w5 = ~(~w5
                       | ~w1);
-assign aj1 = ~(n_t_6x
-                | n_t_5x);
 // e5: sn7474 
 always @(tp1, n0_to_state_l, w7)
   if (~n0_to_state_l) begin
@@ -274,26 +214,6 @@ always @(tp1, n0_to_w_l, w8_m)
   end else
   if (tp1) begin
     w8 <= w8_m;
-  end
-always @(st_ck, be2, bb1, aj1)
-  if (~be2) begin
-    ah1_m <= 1'b0;
-  end else
-  if (~bb1) begin
-    ah1_m <= 1'b1;
-  end else
-  if (~(~st_ck)) begin
-    ah1_m <= aj1;
-  end
-always @(st_ck, be2, bb1, ah1_m)
-  if (~be2) begin
-    ah1 <= 1'b0;
-  end else
-  if (~bb1) begin
-    ah1 <= 1'b1;
-  end else
-  if (~st_ck) begin
-    ah1 <= ah1_m;
   end
 // e12: sn7430 
 assign mk_data_l = ~(~w3 & ~w8 & ~w2 & ~w7 & ~w9 & w1_and_w5 & w4 & w6);

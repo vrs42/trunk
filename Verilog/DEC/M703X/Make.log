@@ -53,18 +53,21 @@ warning: non-pullup resistor deleted: r30
 warning: non-pullup resistor deleted: r35
 warning: non-pullup resistor deleted: r36
 ~/Verilog/bin/smaller.pl M703X.PLD >vv || (rm vv; exit 1)
-9 signals were removed:
+11 signals were removed:
   n_t_11x: !n_t_10x
+  n_t_18x: !n_t_4x
   n_t_23x: !n_t_24x
   n_t_28x: !n_t_26x
   n_t_30x: 'b'1
+  n_t_38x: 'b'1
   n_t_3x: !n_t_1x
   n_t_4x: 'b'1
   n_t_5x: !n_t_26x
   n_t_8x: !n_t_24x
   n_t_9x: 'b'1
 ~/Verilog/bin/smaller.pl vv >M703XX.PLD || (rm M703XX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_4x: 'b'1
 ~/Verilog/bin/cupl2v.pl M703XX.PLD >vv || (rm vv; exit 1)
 mv vv M703X.v
 rm M703XX.PLD

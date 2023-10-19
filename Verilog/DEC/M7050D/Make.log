@@ -65,23 +65,20 @@ warning: non-pullup resistor deleted: r14
 warning: non-pullup resistor deleted: r15
 warning: non-pullup resistor deleted: r16
 ~/Verilog/bin/smaller.pl M7050D.PLD >vv || (rm vv; exit 1)
-12 signals were removed:
+10 signals were removed:
   ba_l: !ba
   bb_l: !bb
-  n_t_15x: !rdr_flag
-  n_t_27x: !pwr
-  n_t_31x: !n_t_36x
   n_t_32x: !binit_l
   n_t_33x: !clr_flag
   n_t_35x: !out_of_tape_l
   n_t_36x: !rfc_delayed_l
   n_t_38x: !n_t_40x
   n_t_39x: !ac1
+  n_t_6x: !clr_run_l
   n_t_8x: !n_t_5x
 ~/Verilog/bin/smaller.pl vv >M7050DX.PLD || (rm M7050DX.PLD; exit 1)
-2 signals were removed:
+1 signals were removed:
   binit_l: initialize_l
-  n_t_36x: !rfc_delayed_l
 ~/Verilog/bin/cupl2v.pl M7050DX.PLD >vv || (rm vv; exit 1)
 mv vv M7050D.v
 rm M7050DX.PLD

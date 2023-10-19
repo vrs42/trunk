@@ -28,10 +28,7 @@
 // c21: cpol_use 
 // c23: c_us 
 // e1: sn7430 
-module m707x (n_t_27x, n_t_8x, a1, ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, b1, b2, bit4, bit6, bit9, bn1, bp1, buffer_strobe, c0_l, c1, c1_l, clr_flag1, clr_flag2, clr_flg1, d1, d2, data10_l, data11_l, data7_l, data8_l, data9_l, e1, e2, echo, enable, enable_ds, f1, f2, h1, h2, initialize, int_rqst_l, internal_io_l, io_pause_l, ioclr, irq, j1, j2, k1, k2, l1, l2, line, load_buffer, m1, m2, md04_l, md05_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_16x, n_t_17x, n_t_35x, n_t_36x, n_t_47x, n_t_52x, n_t_59x, n_t_60x, n_t_63x, p1, p2, r1, r2, s1, s2, serial_in, serial_out, size, skip, skip_l, skp_strobe, stop, t2, tp3, u1, u2, v1, v2, wait_l);
-output n_t_27x;
-output n_t_8x;
-output a1;
+module m707x (ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, bit6, bit9, bn1, bp1, clr_flag1, clr_flag2, echo, enable, enable_ds, ioclr, irq, line, load_buffer, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_17x, n_t_63x, serial_out, size, skip, skp_strobe, stop, wait_l);
 input ac04;
 input ac05;
 input ac06;
@@ -46,93 +43,31 @@ input af1;
 input ah1;
 output al1;
 inout ar1;
-output b1;
-output b2;
-inout reg bit4;
 inout reg bit6;
 inout reg bit9;
-output bn1;
+output reg bn1;
 output bp1;
-output buffer_strobe;
-output c0_l;
-output c1;
-output c1_l;
 input clr_flag1;
 input clr_flag2;
-output clr_flg1;
-output d1;
-output d2;
-output data10_l;
-output data11_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output e1;
-output e2;
 input echo;
 input enable;
 input enable_ds;
-output f1;
-output f2;
-output h1;
-output h2;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
 input ioclr;
 inout reg irq;
-output j1;
-output j2;
-output k1;
-output k2;
-output l1;
-output l2;
 inout reg line;
 input load_buffer;
-output m1;
-output m2;
-output md04_l;
-output md05_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
-output n1;
-output n2;
 input n2xclk;
 input n3v;
 input n_t_12x;
 input n_t_13x;
 input n_t_15x;
-inout reg n_t_16x;
 input n_t_17x;
-inout n_t_35x;
-inout n_t_36x;
-output n_t_47x;
-inout n_t_52x;
-output n_t_59x;
-output n_t_60x;
 output n_t_63x;
-output p1;
-output p2;
-output r1;
-output r2;
-output s1;
-output s2;
-output serial_in;
 output serial_out;
 input size;
 output skip;
-output skip_l;
 input skp_strobe;
 input stop;
-output t2;
-output tp3;
-output u1;
-output u2;
-output v1;
-output v2;
 input wait_l;
 
 reg active_m;
@@ -143,7 +78,9 @@ reg bit4_m;
 reg bit5_m;
 reg bit6_m;
 reg bit7_m;
+reg bit8_m;
 reg bit9_m;
+reg bn1_m;
 reg irq_m;
 reg line_m;
 reg n_t_138x_m;
@@ -151,75 +88,54 @@ reg n_t_166x_m;
 reg n_t_16x_m;
 
 reg bit1;
+reg bit8;
 reg bit7;
+reg bit4;
 reg bit5;
 reg n_t_166x;
+reg n_t_16x;
 reg bit2;
 reg bit3;
-reg n_t_166x;
 reg n_t_138x;
-wire data1_l;
 wire ioclr_l;
-wire md07_l;
-wire n3v3;
 wire n_t_10x;
 wire n_t_11x;
-wire n_t_123x;
 wire n_t_132x;
-wire n_t_14x;
 wire n_t_161x;
-wire n_t_171x;
 wire n_t_20x;
 wire n_t_28x;
-wire n_t_29x;
-wire n_t_2x;
-wire n_t_34x;
+wire n_t_35x;
 wire n_t_378x;
 wire n_t_37x;
 wire n_t_381x;
-wire n_t_387x;
 wire n_t_39x;
 wire n_t_3x;
-wire n_t_41x;
 wire n_t_42x;
-wire n_t_50x;
+wire n_t_52x;
 wire n_t_53x;
 wire n_t_54x;
-wire n_t_55x;
-wire n_t_56x;
-wire n_t_58x;
 wire n_t_62x;
-wire n_t_64x;
-wire n_t_65x;
 wire n_t_6x;
-wire n_t_72x;
-wire n_t_73x;
-wire n_t_74x;
-wire n_t_76x;
-wire n_t_81x;
-wire n_t_84x;
-wire n_t_86x;
 wire n_t_9x;
-wire p1_l;
 wire selected;
 wire tx;
 assign n_t_9x = ~(n_t_17x & ae1 & n_t_15x & af1 & n_t_13x & n_t_12x & n3v & n3v);
 // e2: sn7474 
-always @(n_t_16x, ioclr_l, n_t_3x, bit9)
-  if (~ioclr_l) begin
+always @(n_t_16x, active, bit1)
+  if (1'b1) begin
     line_m <= 1'b0;
   end else
-  if (~n_t_3x) begin
+  if (~active) begin
     line_m <= 1'b1;
   end else
   if (~(n_t_16x)) begin
-    line_m <= bit9;
+    line_m <= bit1;
   end
-always @(n_t_16x, ioclr_l, n_t_3x, line_m)
-  if (~ioclr_l) begin
+always @(n_t_16x, active, line_m)
+  if (1'b1) begin
     line <= 1'b0;
   end else
-  if (~n_t_3x) begin
+  if (~active) begin
     line <= 1'b1;
   end else
   if (n_t_16x) begin
@@ -245,7 +161,6 @@ always @(n_t_16x, ioclr_l, n_t_54x, bit1_m)
   if (n_t_16x) begin
     bit1 <= bit1_m;
   end
-assign al1 = ~bit1;
 // e3: sn7400 
 assign tx = ~(echo & line);
 assign n_t_39x = ~(~n_t_16x & ~n_t_6x);
@@ -259,6 +174,26 @@ assign n_t_381x = ~(~ar1 & ac07);
 assign n_t_378x = ~(ac05 & ~ar1);
 assign n_t_3x = ~(~ar1 & ac04);
 // e6: sn7474 
+always @(n_t_16x, ioclr_l, n_t_3x, bit9)
+  if (~ioclr_l) begin
+    bit8_m <= 1'b0;
+  end else
+  if (~n_t_3x) begin
+    bit8_m <= 1'b1;
+  end else
+  if (~(n_t_16x)) begin
+    bit8_m <= bit9;
+  end
+always @(n_t_16x, ioclr_l, n_t_3x, bit8_m)
+  if (~ioclr_l) begin
+    bit8 <= 1'b0;
+  end else
+  if (~n_t_3x) begin
+    bit8 <= 1'b1;
+  end else
+  if (n_t_16x) begin
+    bit8 <= bit8_m;
+  end
 always @(n_t_16x, ioclr_l, n_t_20x, 1'b0)
   if (~ioclr_l) begin
     bit9_m <= 1'b0;
@@ -306,7 +241,7 @@ always @(n_t_16x, ioclr_l, n_t_53x, bit6_m)
   if (n_t_16x) begin
     bit6 <= bit6_m;
   end
-always @(n_t_16x, ioclr_l, n_t_378x, line)
+always @(n_t_16x, ioclr_l, n_t_378x, bit8)
   if (~ioclr_l) begin
     bit7_m <= 1'b0;
   end else
@@ -314,7 +249,7 @@ always @(n_t_16x, ioclr_l, n_t_378x, line)
     bit7_m <= 1'b1;
   end else
   if (~(n_t_16x)) begin
-    bit7_m <= line;
+    bit7_m <= bit8;
   end
 always @(n_t_16x, ioclr_l, n_t_378x, bit7_m)
   if (~ioclr_l) begin
@@ -327,7 +262,7 @@ always @(n_t_16x, ioclr_l, n_t_378x, bit7_m)
     bit7 <= bit7_m;
   end
 // e9: sn7430 
-assign n_t_6x = ~(~bit6 & ~bit7 & ~bit5 & ~bit4 & n_t_36x & ~bit2 & ah1 & ~line);
+assign n_t_6x = ~(~bit6 & ~bit7 & ~bit5 & ~bit4 & ~bit3 & ~bit2 & ah1 & ~bit8);
 // e10: sn7440 
 assign ioclr_l = ~(n3v & ioclr);
 // e11: sn7474 
@@ -378,7 +313,7 @@ assign n_t_132x = ~(clr_flag1 & n3v & selected);
 assign n_t_35x = ~(n_t_132x & clr_flag2 & ioclr_l);
 assign skip = ~(skp_strobe & ~irq & selected);
 // e14: sn7474 
-always @(n2xclk, n3v, n_t_16x, n_t_138x)
+always @(n2xclk, n3v, n_t_16x, n_t_161x)
   if (~n3v) begin
     n_t_166x_m <= 1'b0;
   end else
@@ -386,7 +321,7 @@ always @(n2xclk, n3v, n_t_16x, n_t_138x)
     n_t_166x_m <= 1'b1;
   end else
   if (~(n2xclk)) begin
-    n_t_166x_m <= n_t_138x;
+    n_t_166x_m <= n_t_161x;
   end
 always @(n2xclk, n3v, n_t_16x, n_t_166x_m)
   if (~n3v) begin
@@ -460,7 +395,6 @@ always @(n_t_16x, ioclr_l, n_t_52x, bit3_m)
   if (n_t_16x) begin
     bit3 <= bit3_m;
   end
-assign n_t_36x = ~bit3;
 // e16: sn7474 
 always @(n2xclk, ioclr_l, n3v, n_t_28x)
   if (~ioclr_l) begin
@@ -503,7 +437,26 @@ always @(n_t_16x, n3v, n_t_35x, irq_m)
     irq <= irq_m;
   end
 // e17: sn7474 
-assign bn1 = ~n_t_166x;
+always @(n2xclk, n_t_16x, n3v, n_t_138x)
+  if (~n_t_16x) begin
+    bn1_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    bn1_m <= 1'b1;
+  end else
+  if (~(n2xclk)) begin
+    bn1_m <= ~n_t_138x;
+  end
+always @(n2xclk, n_t_16x, n3v, bn1_m)
+  if (~n_t_16x) begin
+    bn1 <= 1'b0;
+  end else
+  if (~n3v) begin
+    bn1 <= 1'b1;
+  end else
+  if (n2xclk) begin
+    bn1 <= bn1_m;
+  end
 always @(n2xclk, n3v, n_t_16x, n_t_166x)
   if (~n3v) begin
     n_t_138x_m <= 1'b0;

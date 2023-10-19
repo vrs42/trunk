@@ -16,11 +16,9 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = n_t_20x;
-pin = n_t_24x;
+pin = n_t_4x;
 
 /* Output Pins */
-pin = a1;
 pin = ac10;
 pin = ac11;
 pin = ac4;
@@ -29,93 +27,30 @@ pin = ac6;
 pin = ac7;
 pin = ac8;
 pin = ac9;
-pin = b1;
-pin = b2;
-pin = c0_l;
-pin = c1;
-pin = c1_l;
 pin = clear_l;
-pin = clk_cla;
-pin = clock_iop4;
-pin = clock_iot;
 pin = clocka;
 pin = clockb;
-pin = d1;
-pin = d2;
-pin = data10_l;
-pin = data11_l;
-pin = data7_l;
-pin = data8_l;
-pin = data9_l;
 pin = del_pun1;
-pin = e1;
-pin = e2;
-pin = echo;
-pin = f1;
-pin = f2;
 pin = feed_sw_l;
-pin = h1;
-pin = h2;
-pin = initialize;
 pin = initialize_l;
-pin = int_rqst_l;
-pin = internal_io_l;
 pin = io_in_int_l;
 pin = io_in_skip_l;
-pin = io_pause_l;
 pin = iop1;
 pin = iop2;
 pin = iop4;
 pin = iop_02;
-pin = irq;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = l1;
-pin = l2;
-pin = load_counter;
-pin = m1;
-pin = m2;
-pin = mb10;
-pin = mb10_l;
 pin = mb3_lp_0_rp;
 pin = mb4_lp_0_rp;
 pin = mb5_lp_0_rp;
 pin = mb6_lp_0_rp;
 pin = mb7_lp_1_rp;
 pin = mb8_lp_0_rp;
-pin = md08_l;
-pin = md09_l;
-pin = md10_l;
-pin = md11_l;
-pin = n1;
-pin = n2;
-pin = n2xclk;
 pin = n4_5usec;
 pin = n_t_11x;
 pin = n_t_12x;
-pin = n_t_13x;
-pin = n_t_14x;
 pin = n_t_1x;
 pin = n_t_23x;
-pin = n_t_25x;
-pin = n_t_26x;
-pin = n_t_27x;
-pin = n_t_35x;
-pin = n_t_39x;
-pin = n_t_40x;
-pin = n_t_4x;
-pin = n_t_52x;
-pin = n_t_60x;
-pin = n_t_63x;
 pin = n_t_6x;
-pin = n_t_75x;
-pin = n_t_79x;
-pin = n_t_8x;
-pin = overflow;
-pin = p1;
-pin = p2;
 pin = pb0;
 pin = pb1;
 pin = pb2;
@@ -126,66 +61,25 @@ pin = pb6;
 pin = pb7;
 pin = pun_active_l;
 pin = pun_done;
-pin = r1;
-pin = r2;
-pin = s1;
-pin = s2;
-pin = set_count;
-pin = skip_l;
 pin = sync_bias;
 pin = sync_pun;
-pin = t2;
-pin = tp3;
-pin = u1;
-pin = u2;
-pin = v1;
-pin = v2;
+node n_t_26x;
 node pun_flag;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node al1;
-node b_last_brk;
-node bdata2;
-node bdata7;
 node clock_l;
-node clr_drive_cmd_l;
-node clr_dsk_ad_l;
-node crc10;
-node data_enable;
-node data_in;
-node drive0_l;
-node drive2_l;
-node ld_disk_addrs;
-node ld_rd_buffer;
-node n12th_carry;
-node n12th_carry_l;
-node n16_carry;
-node n3v;
-node n3v3;
 node n_t_10x;
-node n_t_123x;
-node n_t_15x;
 node n_t_16x;
 node n_t_19x;
 node n_t_21x;
 node n_t_22x;
-node n_t_29x;
 node n_t_2x;
 node n_t_3x;
-node n_t_50x;
-node n_t_55x;
 node n_t_5x;
-node n_t_65x;
-node n_t_67x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
 node n_t_7x;
+node n_t_8x;
 node n_t_9x;
-node rd_clk2;
-node read_clk;
-node seek_fail;
 $ENDIF
 
 /* Code nodes */
@@ -234,49 +128,33 @@ $ENDIF
 pb0.ar = !clear_l;
 pb0.d = ac4;
 pb0.ck = clocka;
-pb0.ap = 'b'1;
-'b'0 = !pb0;
 pb1.ar = !clear_l;
 pb1.d = ac5;
 pb1.ck = clocka;
-pb1.ap = !n3v;
-data_enable = !pb1;
 
 /* e2: sn7474 */
 pb2.ar = !clear_l;
 pb2.d = ac6;
 pb2.ck = clocka;
-pb2.ap = 'b'1;
-'b'0 = !pb2;
 pb3.ar = !clear_l;
 pb3.d = ac7;
 pb3.ck = clocka;
-pb3.ap = !n3v;
-al1 = !pb3;
 
 /* e3: sn7474 */
 pb4.ar = !clear_l;
 pb4.d = ac8;
 pb4.ck = clockb;
-pb4.ap = 'b'1;
-'b'0 = !pb4;
 pb5.ar = !clear_l;
 pb5.d = ac9;
 pb5.ck = clockb;
-pb5.ap = !n12th_carry;
-ld_rd_buffer = !pb5;
 
 /* e4: sn7474 */
 pb6.ar = !clear_l;
 pb6.d = ac10;
 pb6.ck = clockb;
-pb6.ap = 'b'1;
-'b'0 = !pb6;
 pb7.ar = !clear_l;
 pb7.d = ac11;
 pb7.ck = clockb;
-pb7.ap = !n_t_15x;
-ld_disk_addrs = !pb7;
 
 /* e5: sn7400 */
 clock_l = !(iop4 & n_t_8x);
@@ -311,8 +189,6 @@ pun_active_l = !n_t_26x;
 pun_flag.ar = !clear_l;
 pun_flag.d = n_t_26x;
 pun_flag.ck = n_t_1x;
-pun_flag.ap = !n_t_13x;
-n12th_carry_l = !pun_flag;
 
 /* e11: sn7460 */
 /* n_t_11x = !(pun_flag & iop_02); */

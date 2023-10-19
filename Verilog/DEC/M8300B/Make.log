@@ -79,14 +79,8 @@ info: quad ne edge_con8
 warning: making u$2/quad/ a connector
 warning: non-bypass capacitor deleted: c15
 ~/Verilog/bin/smaller.pl M8300B.PLD >vv || (rm vv; exit 1)
-34 signals were removed:
-  an1: !mb00
+23 signals were removed:
   b_init_l: !init
-  brk_in_l: !cpma9
-  dsk_sec2: !pc11_l
-  dsk_sector_mk_l: !mq11_l
-  header_b: !pc01_l
-  inh_12th_bit_l: !mq03_l
   left: !left_l
   n3a: 'b'1
   n3b: 'b'1
@@ -94,7 +88,6 @@ warning: non-bypass capacitor deleted: c15
   n_t_12x: !n_t_5x
   n_t_1x: !mac_l
   n_t_5x: !md_dir_l
-  n_t_69x: !mq07_l
   regbus00: !regbus00_l
   regbus01: !regbus01_l
   regbus02: !regbus02_l
@@ -109,11 +102,7 @@ warning: non-bypass capacitor deleted: c15
   regbus11: !regbus11_l
   right: !right_l
   right2: !right_l
-  sector_eq: !mb04
-  seek_l: !cpma5
-  set_main_brk: !pc05_l
   twice: !twice_l
-  wrt_clk_l: !ac04
 ~/Verilog/bin/smaller.pl vv >M8300BX.PLD || (rm M8300BX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M8300BX.PLD >vv || (rm vv; exit 1)

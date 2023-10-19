@@ -16,29 +16,16 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = f2;
-pin = h1;
-pin = load_tac;
-pin = load_tma;
-pin = p1;
-pin = s1;
-pin = tape_bus3;
-pin = u2;
 
 /* Output Pins */
-pin = bd00;
-pin = bd03;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_13x;
-pin = n_t_14x;
-pin = n_t_15x;
 pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_18x;
 pin = n_t_19x;
-pin = n_t_1x;
 pin = n_t_20x;
 pin = n_t_21x;
 pin = n_t_22x;
@@ -49,37 +36,25 @@ pin = n_t_26x;
 pin = n_t_27x;
 pin = n_t_28x;
 pin = n_t_29x;
-pin = n_t_2x;
 pin = n_t_30x;
 pin = n_t_31x;
-pin = n_t_32x;
 pin = n_t_33x;
 pin = n_t_34x;
 pin = n_t_36x;
 pin = n_t_3x;
-pin = n_t_46x;
 pin = n_t_4x;
 pin = n_t_5x;
 pin = n_t_6x;
 pin = n_t_7x;
 pin = n_t_8x;
 pin = n_t_9x;
-node af2;
-node tma3;
-node as1;
-node am2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node biot5l;
-node data1_l;
-node k1;
-node m1;
-node n2;
-node n3v3;
-node ps_left_2;
-node tape_bus2;
-node tma2;
+node n_t_14x;
+node n_t_15x;
+node n_t_1x;
+node n_t_2x;
 $ENDIF
 
 /* Code nodes */
@@ -100,35 +75,55 @@ $ENDIF
 
 /* c7: c_us */
 
+/* e1: sn74h50 */
+!n_t_2x = n_t_4x & n_t_6x
+        # n_t_5x & n_t_7x;
+!n_t_1x = n_t_6x & n_t_8x
+        # n_t_7x & n_t_9x;
+
 /* e2: sn7474 */
-af2.ar = !n_t_24x;
-af2.d = n_t_1x;
-af2.ck = n_t_23x;
-af2.ap = !n_t_28x;
-n_t_20x = !af2;
-tma3.ar = !n_t_24x;
-tma3.d = n_t_2x;
-tma3.ck = n_t_23x;
-tma3.ap = !n_t_25x;
-n_t_19x = !tma3;
+n_t_20x.ap = !n_t_24x;
+n_t_20x.d = !n_t_1x;
+n_t_20x.ck = n_t_23x;
+n_t_20x.ar = !n_t_28x;
+n_t_19x.ap = !n_t_24x;
+n_t_19x.d = !n_t_2x;
+n_t_19x.ck = n_t_23x;
+n_t_19x.ar = !n_t_25x;
+
+/* e3: sn74h50 */
+!n_t_3x = n_t_31x & n_t_29x
+        # n_t_15x & n_t_30x;
+!n_t_16x = n_t_33x & n_t_29x
+         # n_t_30x & n_t_14x;
+
+/* e4: sn74h50 */
+!n_t_14x = n_t_10x & n_t_6x
+         # n_t_12x & n_t_7x;
+!n_t_15x = n_t_6x & n_t_11x
+         # n_t_7x & n_t_13x;
 
 /* e5: sn7474 */
-as1.ar = !n_t_24x;
-as1.d = n_t_15x;
-as1.ck = n_t_23x;
-as1.ap = !n_t_26x;
-n_t_22x = !as1;
-am2.ar = !n_t_24x;
-am2.d = n_t_14x;
-am2.ck = n_t_23x;
-am2.ap = !n_t_27x;
-n_t_21x = !am2;
+n_t_22x.ap = !n_t_24x;
+n_t_22x.d = !n_t_15x;
+n_t_22x.ck = n_t_23x;
+n_t_22x.ar = !n_t_26x;
+n_t_21x.ap = !n_t_24x;
+n_t_21x.d = !n_t_14x;
+n_t_21x.ck = n_t_23x;
+n_t_21x.ar = !n_t_27x;
+
+/* e6: sn74h50 */
+!n_t_17x = n_t_34x & n_t_29x
+         # n_t_1x & n_t_30x;
+!n_t_18x = n_t_36x & n_t_29x
+         # n_t_30x & n_t_2x;
 
 /* e7: sn74h00 */
-n_t_31x = !(n_t_3x & tape_bus2);
-n_t_33x = !(n_t_16x & tma2);
-n_t_36x = !(n_t_18x & n3v3);
-n_t_34x = !(n_t_17x & n3v3);
+n_t_31x = !(n_t_3x & );
+n_t_33x = !(n_t_16x & );
+n_t_36x = !(n_t_18x & );
+n_t_34x = !(n_t_17x & );
 
 /* r1: r_us_ */
 

@@ -18,25 +18,13 @@ $UNDEF  OPTIMIZE
 /* Input Pins */
 
 /* Output Pins */
-pin = a1;
-pin = b1;
-pin = c1;
 pin = clr_flag_l;
-pin = d1;
-pin = d2;
 pin = en_in;
 pin = en_out;
 pin = flag;
 pin = grant;
 pin = io_sync;
-pin = k1;
 pin = k2;
-pin = l1;
-pin = l2;
-pin = m1;
-pin = n15v;
-pin = n2;
-pin = n3v3;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
@@ -47,17 +35,12 @@ pin = n_t_1x;
 pin = n_t_2x;
 pin = n_t_3x;
 pin = n_t_4x;
-pin = p2;
 pin = pwr_clr;
-pin = r1;
-pin = r2;
-pin = t2;
-pin = u1;
-pin = v2;
 node n_t_16x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node n3v3;
 node n_t_5x;
 node n_t_6x;
 node n_t_7x;
@@ -123,8 +106,10 @@ n_t_2x.ap = !n3v3;
 n_t_3x = !n_t_2x;
 
 /* r1: r_us_ */
+n3v3 = 'b'1;
 
 /* r2: r_us_ */
+n3v3 = 'b'1;
 
 /* r3: r_us_ */
 

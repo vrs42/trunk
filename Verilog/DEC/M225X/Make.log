@@ -68,18 +68,25 @@ warning: making q8/pn3569/ a connector
 info: double ne edge_con4
 warning: making u$3/double/ a connector
 ~/Verilog/bin/smaller.pl M225X.PLD >vv || (rm vv; exit 1)
-9 signals were removed:
-  ac2_l: !ac_2
+14 signals were removed:
+  gdollar_1: !gdollar_0
+  gdollar_3: !gdollar_2
+  gdollar_5: !gdollar_4
+  gdollar_7: !gdollar_6
   n_t_26x: !n_t_69x
   n_t_30x: !n_t_11x
-  n_t_65x: n_t_14x
-  n_t_67x: n_t_57x
-  n_t_68x: ac_2
+  n_t_65x: gdollar_2
+  n_t_66x: gdollar_0
+  n_t_67x: gdollar_6
+  n_t_68x: gdollar_4
   n_t_70x: !n_t_65x
   n_t_71x: !n_t_66x
+  n_t_72x: !n_t_67x
   n_t_74x: !n_t_68x
 ~/Verilog/bin/smaller.pl vv >M225XX.PLD || (rm M225XX.PLD; exit 1)
-0 signals were removed:
+2 signals were removed:
+  n_t_66x: gdollar_0
+  n_t_67x: gdollar_6
 ~/Verilog/bin/cupl2v.pl M225XX.PLD >vv || (rm vv; exit 1)
 mv vv M225X.v
 rm M225XX.PLD

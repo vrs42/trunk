@@ -1,13 +1,15 @@
-#!/bin/sh
+#!/usr/bin/perl
 
-for d in */.; do
-  case $d in
-    no*) ;;
-    *) (
-         i=`dirname $d`
-         cd $i
-         rm -f *.PLD $i.v
-         make -f ../Makefile $i.PLD $i.v 2>&1 | tee Make.log
-       ) ;;
-  esac
-done
+$verilog = "$ENV{'HOME'}/Verilog/bin";
+$eagle = "$ENV{'HOME'}/Eagle/projects/DEC/Mxxx";
+
+opendir(DIR, ".") || die ".: $!";
+foreach $d (readdir DIR) {
+  next unless -d $d;
+  next if $d =~ /^[.]/;
+  next if $d =~ /^no/;
+  $p = $d; $p =~ s/.$//;
+  $f = "$eagle/$p/$d.sch";
+# print "$verilog/pinlst $f\n";
+  system "$verilog/pinlst $f";
+}

@@ -12,8 +12,7 @@
 // c5: c_us 
 // c6: c_us 
 // e1: sn7440 
-module m452x (n_t_42x, x16_rate, bd109, bd115200, bd1200, bd150, bd1745, bd19200, bd218, bd230400, bd2400, bd300, bd38400, bd436, bd4800, bd600, bd76800, bd873, bd9600, c0_l, c1_l, cs, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, div11, div3, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n3v, n_t_10x, n_t_12x, n_t_13x, n_t_14x, n_t_17x, n_t_18x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp3, tp_l, tp_m, tp_n, v2, x2_rate, x2_rate_l, x4_rate, x8_rate, x8_rate_l);
-output n_t_42x;
+module m452x (x16_rate, bd109, bd115200, bd1200, bd150, bd1745, bd19200, bd218, bd230400, bd2400, bd300, bd38400, bd436, bd4800, bd600, bd76800, bd873, bd9600, div11, div3, n_t_12x, n_t_21x, n_t_24x, n_t_25x, x2_rate, x2_rate_l, x4_rate, x8_rate, x8_rate_l);
 output x16_rate;
 output bd109;
 output bd115200;
@@ -32,65 +31,12 @@ output bd600;
 input bd76800;
 output bd873;
 output bd9600;
-output c0_l;
-output c1_l;
-output cs;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
 output div11;
 output div3;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
-output n3v;
-output n_t_10x;
 input n_t_12x;
-output n_t_13x;
-input n_t_14x;
-inout n_t_17x;
-output n_t_18x;
-output n_t_20x;
 output n_t_21x;
-output n_t_22x;
-output n_t_23x;
 input n_t_24x;
-inout n_t_25x;
-output n_t_26x;
-output n_t_2x;
-output n_t_30x;
-output n_t_3x;
-input n_t_4x;
-output n_t_5x;
-output n_t_6x;
-output n_t_7x;
-output n_t_8x;
-output n_t_9x;
-output skip_l;
-output tp3;
-output tp_l;
-output tp_m;
-output tp_n;
-output v2;
+input n_t_25x;
 input x2_rate;
 output x2_rate_l;
 output x4_rate;
@@ -98,29 +44,15 @@ input x8_rate;
 output x8_rate_l;
 
 
-wire bd00;
-wire n_t_11x;
-wire n_t_15x;
 wire n_t_16x;
-wire n_t_31x;
-wire n_t_34x;
-wire n_t_39x;
-wire n_t_50x;
-wire q1;
-wire q2;
-wire q5;
-wire q6;
 assign x8_rate_l = ~x8_rate;
 assign x2_rate_l = ~x2_rate;
 // e5: sn7411 
 assign div11 = n_t_25x & n_t_24x & bd1745;
 assign div3 = bd76800 & bd38400;
-assign n_t_22x = n_t_39x & n_t_4x;
 // e6: sn7400 
-assign n_t_21x = ~n_t_17x;
-assign n_t_17x = ~n_t_14x;
-assign n_t_25x = ~n_t_50x;
-assign n_t_16x = ~(n_t_17x & n_t_12x);
+assign n_t_21x = 1'b1;
+assign n_t_16x = 1'b1;
 // r14: r_us_ 
 // r15: r_us_ 
 // open collector 'wire-or's 

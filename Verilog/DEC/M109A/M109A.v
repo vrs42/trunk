@@ -23,8 +23,7 @@
 // c6: c_us 
 // c7: cpol_use 
 // e1: sp380n 
-module m109a (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_34x, n_t_37x, n_t_38x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x);
-output n15v;
+module m109a (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_34x, n_t_37x, n_t_38x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x);
 input n_t_10x;
 input n_t_11x;
 output n_t_12x;
@@ -59,25 +58,11 @@ output n_t_7x;
 output n_t_8x;
 
 
-wire a4;
-wire b1;
 wire bit13;
 wire bit14;
 wire bit15;
 wire bit16;
 wire bit17;
-wire e1;
-wire f2;
-wire h1;
-wire h2;
-wire n1;
-wire n2;
-wire n_t_57x;
-wire n_t_59x;
-wire n_t_76x;
-wire out_l;
-wire syn_l;
-wire u2;
 assign n_t_3x = ~n_t_1x;
 assign n_t_4x = ~n_t_18x;
 assign n_t_22x = ~n_t_19x;

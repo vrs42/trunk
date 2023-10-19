@@ -46,21 +46,12 @@ pin = r2;
 pin = s1;
 pin = s2;
 pin = t2;
-pin = u1;
 pin = u2;
 pin = v1;
 pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n_t_10x;
-node n_t_18x;
-node n_t_22x;
-node n_t_24x;
-node n_t_26x;
-node n_t_28x;
-node n_t_4x;
-node n_t_8x;
 $ENDIF
 
 /* Code nodes */
@@ -78,67 +69,46 @@ $ENDIF
 /* c5: cpol_use */
 
 /* e1: sn74h53 */
-/* a1 = !(b1 & a1
-   # c1 & d1
-   # e1 & h2 & f2
-   # e2 & d2); */
-/* b1 = !a1; */
-j2 = a1;
+/* gdollar_0 = !(b1 & a1
+          # c1 & d1
+          # e1 & h2 & f2
+          # e2 & d2); */
+/* gdollar_1 = !gdollar_0; */
+j2 = gdollar_0;
 
 /* e2: sn74h53 */
-/* n2 = !(f1 & h1
-   # k2 & l2
-   # l1 & n2 & m2
-   # k1 & j1); */
-/* h1 = !n2; */
-p2 = n2;
+/* gdollar_2 = !(f1 & h1
+          # k2 & l2
+          # l1 & n2 & m2
+          # k1 & j1); */
+/* gdollar_3 = !gdollar_2; */
+p2 = gdollar_2;
 
 /* e3: sn74h53 */
-/* j2 = !(m1 & n1
-   # r2 & s2
-   # s1 & u2 & t2
-   # r1 & p1); */
-/* n1 = !j2; */
-v2 = j2;
+/* gdollar_4 = !(m1 & n1
+          # r2 & s2
+          # s1 & u2 & t2
+          # r1 & p1); */
+/* gdollar_5 = !gdollar_4; */
+v2 = gdollar_4;
 
 /* r3: r_us_ */
 
 /* r4: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= a1};
-!a1 = (b1 & a1
-   # c1 & d1
-   # e1 & h2 & f2
-   # e2 & d2);
-a1.oe = (b1 & a1
-   # c1 & d1
-   # e1 & h2 & f2
-   # e2 & d2);
-property atmel {open_collector= b1};
-!b1 = a1;
-b1.oe = a1;
-property atmel {open_collector= h1};
-!h1 = n2;
-h1.oe = n2;
-property atmel {open_collector= j2};
-!j2 = (m1 & n1
-   # r2 & s2
-   # s1 & u2 & t2
-   # r1 & p1);
-j2.oe = (m1 & n1
-   # r2 & s2
-   # s1 & u2 & t2
-   # r1 & p1);
-property atmel {open_collector= n1};
-!n1 = j2;
-n1.oe = j2;
-property atmel {open_collector= n2};
-!n2 = (f1 & h1
-   # k2 & l2
-   # l1 & n2 & m2
-   # k1 & j1);
-n2.oe = (f1 & h1
-   # k2 & l2
-   # l1 & n2 & m2
-   # k1 & j1);
+!gdollar_0 = (b1 & a1
+          # c1 & d1
+          # e1 & h2 & f2
+          # e2 & d2);
+!gdollar_1 = gdollar_0;
+!gdollar_2 = (f1 & h1
+          # k2 & l2
+          # l1 & n2 & m2
+          # k1 & j1);
+!gdollar_3 = gdollar_2;
+!gdollar_4 = (m1 & n1
+          # r2 & s2
+          # s1 & u2 & t2
+          # r1 & p1);
+!gdollar_5 = gdollar_4;

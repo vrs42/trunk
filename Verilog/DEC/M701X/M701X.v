@@ -25,62 +25,21 @@
 // c21: c_us 
 // c22: cpol_use 
 // e1: sn7400 
-module m701x (n_t_14x, n_t_26x, n_t_32x, n_t_34x, , a1, b1, b_bot, b_set, b_stop, c1, ccrce_l, cfmk_l, clear_x, clear_y, clrce_l, clrcs_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, ctur_l, d1, d2, e1, e2, ebot_l, f1, f2, fmk_l, h1, h2, initialize, interrupt_l, iop1, iop2, iop4, j1, j2, k1, k2, l1, l2, light_pen, load_x, load_y, m1, m2, mb10=1, mb11=1, mb3=0, mb4=0, mb5=0, mb6=1, mb7=0, mb7=1, mb8=0, mb8=1, mb9=0, mftp0, mfts0_h, n1, n15v, n2, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_23x, n_t_24x, n_t_28x, n_t_29x, n_t_35x, n_t_48x, n_t_50x, p1, p2, power_clear_l, r1, r2, rds_l, rsdwn_l, rtur_l, s1, s2, set_pulse_h, skip_l, t2, tb3_h, u1, u2, v1, v2, v_clamp, xrd0_l, xrd2_l, xrd4_l, xrdp_l, z_axis);
+module m701x (n_t_14x, n_t_26x, n_t_32x, , clear_x, clear_y, initialize, interrupt_l, iop1, iop2, iop4, light_pen, load_x, load_y, mb10=1, mb11=1, mb3=0, mb4=0, mb5=0, mb6=1, mb7=0, mb7=1, mb8=0, mb8=1, mb9=0, n15v, n_t_19x, n_t_20x, n_t_24x, n_t_48x, n_t_50x, skip_l, z_axis);
 input n_t_14x;
 output n_t_26x;
 input n_t_32x;
-output n_t_34x;
 input ;
-output a1;
-output b1;
-output b_bot;
-output b_set;
-output b_stop;
-output c1;
-output ccrce_l;
-output cfmk_l;
 output clear_x;
 output clear_y;
-output clrce_l;
-output clrcs_l;
-output crcs_l;
-output crd0_l;
-output crd1_l;
-output crd2_l;
-output crd3_l;
-output crd4_l;
-output crd5_l;
-output crd6_l;
-output crd7_l;
-output crdp_l;
-output crds_l;
-output ctur_l;
-output d1;
-output d2;
-output e1;
-output e2;
-output ebot_l;
-output f1;
-output f2;
-output fmk_l;
-output h1;
-output h2;
 input initialize;
 output interrupt_l;
 input iop1;
 input iop2;
 input iop4;
-output j1;
-output j2;
-output k1;
-output k2;
-output l1;
-output l2;
 output light_pen;
 output load_x;
 output load_y;
-output m1;
-output m2;
 output mb10=1;
 output mb11=1;
 output mb3=0;
@@ -92,71 +51,28 @@ output mb7=1;
 input mb8=0;
 input mb8=1;
 output mb9=0;
-output mftp0;
-output mfts0_h;
-output n1;
 output n15v;
-output n2;
-inout n_t_16x;
-output n_t_17x;
-output n_t_18x;
-inout n_t_19x;
+output n_t_19x;
 output n_t_20x;
-output n_t_23x;
 input n_t_24x;
-output n_t_28x;
-output n_t_29x;
-output n_t_35x;
 output n_t_48x;
 output n_t_50x;
-output p1;
-output p2;
-output power_clear_l;
-output r1;
-output r2;
-output rds_l;
-output rsdwn_l;
-output rtur_l;
-output s1;
-output s2;
-output set_pulse_h;
 output skip_l;
-output t2;
-output tb3_h;
-output u1;
-output u2;
-output v1;
-output v2;
-output v_clamp;
-output xrd0_l;
-output xrd2_l;
-output xrd4_l;
-output xrdp_l;
 output z_axis;
 
 reg br0=1_m;
 reg br1=1_m;
 reg light_pen_flag_m;
-reg n_t_108x_m;
 
 reg light_pen_flag;
-reg n_t_108x;
 reg br0=1;
 reg br1=1;
-wire bn1;
 wire br0=0;
 wire br1=0;
-wire data1_l;
-wire eeot_l;
-wire erws_l;
-wire in;
-wire md07_l;
-wire n3v3;
-wire n_t_109x;
 wire n_t_11x;
 wire n_t_12x;
 wire n_t_13x;
-wire n_t_143x;
+wire n_t_16x;
 wire n_t_1x;
 wire n_t_27x;
 wire n_t_33x;
@@ -167,29 +83,7 @@ wire n_t_3x;
 wire n_t_40x;
 wire n_t_47x;
 wire n_t_4x;
-wire n_t_55x;
-wire n_t_56x;
-wire n_t_58x;
 wire n_t_5x;
-wire n_t_60x;
-wire n_t_62x;
-wire n_t_64x;
-wire n_t_65x;
-wire n_t_67x;
-wire n_t_68x;
-wire n_t_70x;
-wire n_t_72x;
-wire n_t_73x;
-wire n_t_74x;
-wire n_t_76x;
-wire out;
-wire q1;
-wire q6;
-wire t2_l;
-wire vpe_l;
-wire xrd1_l;
-wire xrd5_l;
-wire y_strobe;
 assign n_t_13x = ~( & ~n_t_14x);
 // e2: sn7474 
 always @(initialize, n_t_16x, n_t_13x, 1'b0)
@@ -212,26 +106,6 @@ always @(initialize, n_t_16x, n_t_13x, light_pen_flag_m)
   if (initialize) begin
     light_pen_flag <= light_pen_flag_m;
   end
-always @(n_t_38x, light_pen_flag, n_t_108x, n_t_109x)
-  if (light_pen_flag) begin
-    n_t_108x_m <= 1'b0;
-  end else
-  if (~n_t_108x) begin
-    n_t_108x_m <= 1'b1;
-  end else
-  if (~(n_t_38x)) begin
-    n_t_108x_m <= n_t_109x;
-  end
-always @(n_t_38x, light_pen_flag, n_t_108x, n_t_108x_m)
-  if (light_pen_flag) begin
-    n_t_108x <= 1'b0;
-  end else
-  if (~n_t_108x) begin
-    n_t_108x <= 1'b1;
-  end else
-  if (n_t_38x) begin
-    n_t_108x <= n_t_108x_m;
-  end
 // e3: sn7400 
 assign load_y = ~(~(~n_t_4x & iop2));
 assign load_x = ~(~(iop2 & ~n_t_5x));
@@ -239,7 +113,7 @@ assign load_x = ~(~(iop2 & ~n_t_5x));
 // n_t_20x = !light_pen_flag; 
 // !n_t_20x = !n_t_20x; 
 // n_t_19x = !(light_pen_flag & !n_t_3x & mb9= 0 & iop1; 
-// n_t_18x = !n_t_19x; 
+// !n_t_19x = !n_t_19x; 
 // e5: sn7420 
 // e6: sn7410 
 assign n_t_16x = ~mb9=;
@@ -254,20 +128,14 @@ assign n_t_40x = ~(br0=0 & n_t_24x & br1=);
 assign n_t_11x = ~(n_t_5x & n_t_4x);
 assign n_t_47x = ~mb10=;
 // e10: sn7474 
-always @(n_t_12x, n_t_1x, initialize, mb10=)
-  if (n_t_1x) begin
-    br0=1_m <= 1'b0;
-  end else
+always @(n_t_12x, initialize, mb10=)
   if (initialize) begin
     br0=1_m <= 1'b1;
   end else
   if (~(~n_t_12x)) begin
     br0=1_m <= mb10=;
   end
-always @(n_t_12x, n_t_1x, initialize, br0=1_m)
-  if (n_t_1x) begin
-    br0=1 <= 1'b0;
-  end else
+always @(n_t_12x, initialize, br0=1_m)
   if (initialize) begin
     br0=1 <= 1'b1;
   end else
@@ -275,20 +143,14 @@ always @(n_t_12x, n_t_1x, initialize, br0=1_m)
     br0=1 <= br0=1_m;
   end
 assign br0=0 = ~br0=;
-always @(n_t_12x, n_t_60x, initialize, mb11=)
-  if (~n_t_60x) begin
-    br1=1_m <= 1'b0;
-  end else
+always @(n_t_12x, initialize, mb11=)
   if (initialize) begin
     br1=1_m <= 1'b1;
   end else
   if (~(~n_t_12x)) begin
     br1=1_m <= mb11=;
   end
-always @(n_t_12x, n_t_60x, initialize, br1=1_m)
-  if (~n_t_60x) begin
-    br1=1 <= 1'b0;
-  end else
+always @(n_t_12x, initialize, br1=1_m)
   if (initialize) begin
     br1=1 <= 1'b1;
   end else
@@ -304,7 +166,6 @@ assign n_t_4x = ~(mb8=0 & ~n_t_1x & mb7=);
 assign n_t_27x = ~( & n_t_32x);
 assign n_t_33x = ~(n_t_36x & ~n_t_32x);
 // e13: sn7420 
-assign n_t_33x = ~(n_t_143x & n_t_36x & ~n_t_32x & n_t_32x);
 assign n_t_1x = ~(mb4=0 & mb5=0 & mb6=1 & mb3=);
 // e14: sn7400 
 assign n_t_12x = ~(iop4 & ~n_t_3x);
@@ -332,7 +193,6 @@ assign n_t_36x = ~(n_t_11x & iop4);
 // r23: r_us_ 
 // r24: r_us_ 
 // open collector 'wire-or's 
-assign n_t_18x = n_t_19x? ~n_t_19x: 1'bz;
 assign n_t_19x = (light_pen_flag & ~n_t_3x & mb9=)? 1'b0: 1'bz;
 assign n_t_20x = light_pen_flag? ~light_pen_flag: 1'bz;
 endmodule

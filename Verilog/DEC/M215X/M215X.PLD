@@ -20,33 +20,15 @@ $UNDEF  OPTIMIZE
 /* Output Pins */
 pin = a1;
 pin = b1;
-pin = c0_l;
 pin = c1;
-pin = c1_l;
 pin = d1;
 pin = d2;
-pin = data0_l;
-pin = data10_l;
-pin = data11_l;
-pin = data1_l;
-pin = data2_l;
-pin = data3_l;
-pin = data4_l;
-pin = data5_l;
-pin = data6_l;
-pin = data7_l;
-pin = data8_l;
-pin = data9_l;
 pin = e1;
 pin = e2;
 pin = f1;
 pin = f2;
 pin = h1;
 pin = h2;
-pin = initialize;
-pin = int_rqst_l;
-pin = internal_io_l;
-pin = io_pause_l;
 pin = j1;
 pin = j2;
 pin = k1;
@@ -55,27 +37,15 @@ pin = l1;
 pin = l2;
 pin = m1;
 pin = m2;
-pin = md03_l;
-pin = md04_l;
-pin = md05_l;
-pin = md06_l;
-pin = md07_l;
-pin = md08_l;
-pin = md09_l;
-pin = md10_l;
-pin = md11_l;
 pin = n1;
 pin = n2;
-pin = n_t_18x;
 pin = p1;
 pin = p2;
 pin = r1;
 pin = r2;
 pin = s1;
 pin = s2;
-pin = skip_l;
 pin = t2;
-pin = tp3;
 pin = u1;
 pin = u2;
 pin = v1;
@@ -83,40 +53,6 @@ pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a0;
-node bd00;
-node bd01;
-node bd03;
-node biot5l;
-node clear_reg_l;
-node clock;
-node inb2_l;
-node inb4_l;
-node inb5_l;
-node left_shift;
-node n_t_10x;
-node n_t_11x;
-node n_t_12x;
-node n_t_13x;
-node n_t_15x;
-node n_t_16x;
-node n_t_17x;
-node n_t_22x;
-node n_t_27x;
-node n_t_29x;
-node n_t_2x;
-node n_t_30x;
-node n_t_31x;
-node n_t_32x;
-node n_t_38x;
-node n_t_39x;
-node n_t_46x;
-node n_t_5x;
-node n_t_6x;
-node n_t_7x;
-node n_t_8x;
-node n_t_9x;
-node select6;
 $ENDIF
 
 /* Code nodes */
@@ -159,49 +95,30 @@ v1 = gdollar_0 & j1
 f2.ar = !u2;
 f2.d = f1;
 f2.ck = c1;
-f2.ap = !n_t_6x;
-n_t_7x = !f2;
 e2.ar = !t2;
 e2.d = f1;
 e2.ck = b1;
-e2.ap = !n_t_17x;
-n_t_8x = !e2;
 
 /* e3: sn7474 */
-h2.ar = !n_t_13x;
 h2.d = k1;
 h2.ck = a1;
-h2.ap = !clear_reg_l;
-n_t_8x = !h2;
-d2.ar = !n_t_8x;
 d2.d = f1;
 d2.ck = a1;
-d2.ap = !n_t_22x;
-n_t_10x = !d2;
 
 /* e4: sn7474 */
-l2.ar = !n_t_10x;
 l2.d = n1;
 l2.ck = a1;
-l2.ap = !inb2_l;
-n_t_17x = !l2;
 k2.ar = !u2;
 k2.d = k1;
 k2.ck = c1;
-k2.ap = !left_shift;
-n_t_16x = !k2;
 
 /* e5: sn7474 */
 m2.ar = !t2;
 m2.d = n1;
 m2.ck = b1;
-m2.ap = !n_t_6x;
-n_t_32x = !m2;
 j2.ar = !t2;
 j2.d = k1;
 j2.ck = b1;
-j2.ap = !n_t_38x;
-n_t_31x = !j2;
 
 /* e6: sn7482 */
 n1 = v1
@@ -221,24 +138,15 @@ v2 = gdollar_1 & r1
 r2.ar = !t2;
 r2.d = s1;
 r2.ck = b1;
-r2.ap = !inb4_l;
-v2 = !r2;
-p2.ar = !n_t_30x;
 p2.d = s1;
 p2.ck = a1;
-p2.ap = !n_t_11x;
-n_t_5x = !p2;
 
 /* e8: sn7474 */
 s2.ar = !u2;
 s2.d = s1;
 s2.ck = c1;
-s2.ap = !inb5_l;
-n_t_39x = !s2;
 n2.ar = !u2;
 n2.d = n1;
 n2.ck = c1;
-n2.ap = !left_shift;
-n_t_38x = !n2;
 
 /* Open collector 'wire-or's */

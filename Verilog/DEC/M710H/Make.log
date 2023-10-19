@@ -38,21 +38,18 @@ warning: non-bypass capacitor deleted: c26
 warning: non-pullup resistor deleted: r6
 warning: non-pullup resistor deleted: r11
 ~/Verilog/bin/smaller.pl M710H.PLD >vv || (rm vv; exit 1)
-11 signals were removed:
-  n_t_10x: !pb5
-  n_t_11x: !pb6
-  n_t_12x: !pb7
-  n_t_14x: !n_t_22x
+9 signals were removed:
+  n_t_13x: !pb2
+  n_t_14x: !pb3
   n_t_16x: !iop_02
-  n_t_2x: !pb7
-  n_t_3x: !pb6
+  n_t_26x: 'b'1
+  n_t_2x: !pb0
+  n_t_3x: !pb1
   n_t_41x: !feed_sw_l
-  n_t_54x: !del_pun2
   n_t_6x: !clear_l
-  n_t_9x: !pb4
+  n_t_8x: !n_t_5x
 ~/Verilog/bin/smaller.pl vv >M710HX.PLD || (rm M710HX.PLD; exit 1)
-1 signals were removed:
-  n_t_22x: pb3
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M710HX.PLD >vv || (rm vv; exit 1)
 mv vv M710H.v
 rm M710HX.PLD

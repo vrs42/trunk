@@ -16,10 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ac05;
-pin = data9;
 pin = data_strobe;
-pin = etp_or_tp3;
 pin = i00;
 pin = i01;
 pin = i02;
@@ -32,45 +29,12 @@ pin = i08;
 pin = i09;
 pin = i10;
 pin = i11;
-pin = n_t_13x;
 pin = n_t_22x;
-pin = n_t_34x;
-pin = n_t_52x;
-pin = n_t_81x;
-pin = p3_binit_l;
-pin = p3_inioen;
 
 /* Output Pins */
-pin = ad2;
-pin = ae2;
-pin = ah1;
-pin = ah2;
-pin = aj1;
 pin = aj2;
-pin = ak1;
 pin = ak2;
-pin = al1;
 pin = al2;
-pin = am1;
-pin = am2;
-pin = ap2;
-pin = ar2;
-pin = as2;
-pin = au2;
-pin = av2;
-pin = bd1;
-pin = be1;
-pin = bh1;
-pin = bh2;
-pin = bj1;
-pin = bj2;
-pin = bk2;
-pin = bl2;
-pin = bm2;
-pin = bp2;
-pin = br2;
-pin = bs2;
-pin = bu2;
 pin = c1_l;
 pin = data0_l;
 pin = data10_l;
@@ -98,28 +62,13 @@ pin = md08_l;
 pin = md09_l;
 pin = md10_l;
 pin = md11_l;
-pin = n15v;
-pin = n6rk2_l;
 pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_14x;
-pin = n_t_15x;
 pin = n_t_28x;
-pin = n_t_33x;
-pin = n_t_40x;
-pin = n_t_41x;
-pin = n_t_4x;
-pin = n_t_5x;
-pin = n_t_61x;
-pin = n_t_63x;
 pin = n_t_6x;
 pin = n_t_7x;
-pin = n_t_82x;
-pin = n_t_95x;
 pin = n_t_9x;
-pin = p4_fatal_lp_0_rp;
-pin = p4_usint;
-pin = p4_usint_l;
 pin = rcni;
 pin = rcra;
 pin = rcrb;
@@ -130,7 +79,7 @@ pin = read;
 pin = skip_l;
 pin = tclr_l;
 pin = tp3;
-node rd6_l;
+node read_l;
 node transit;
 node zone1;
 node zone10;
@@ -151,74 +100,31 @@ node zone6;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a00_l;
-node a04_l;
-node a1;
-node ac01;
-node ac03;
-node ac2bus_l;
-node ad02_l;
-node ad04_l;
-node ad05_l;
-node ad11_l;
-node adlk_l;
-node af2;
-node an2;
-node ba;
-node bac0;
-node bb1;
 node bcd1;
 node bcd1_l;
 node bcd2;
 node bcd4;
-node bdata5;
 node btp3;
 node btransit;
 node cdone_l;
 node cerr;
-node data01_l;
-node data03_l;
-node data06_l;
-node data07_l;
 node dclr;
 node drdy_l;
-node en2;
-node ena_pun_buffr_l;
-node fd_set;
 node initialize_l;
-node int_in_prog_l;
 node iot63;
 node iot63_l;
 node iot67;
 node iot67_l;
-node la_en_l;
-node ma00_l;
-node ma04_l;
-node mams_ld_ctl;
-node md00_l;
 node md05p;
 node md06p;
 node md09p;
 node md10p;
 node md11p;
-node md6_l;
-node md8_l;
-node modea;
-node motor_stopping_l;
-node mq01_l;
-node mq05_l;
 node n3v;
-node n3v3;
-node n3vc;
-node n_t_100x;
 node n_t_10x;
-node n_t_113x;
-node n_t_124x;
-node n_t_130x;
-node n_t_134x;
-node n_t_138x;
+node n_t_13x;
+node n_t_15x;
 node n_t_16x;
-node n_t_179x;
 node n_t_18x;
 node n_t_19x;
 node n_t_1x;
@@ -234,97 +140,25 @@ node n_t_2x;
 node n_t_30x;
 node n_t_31x;
 node n_t_32x;
+node n_t_33x;
+node n_t_34x;
 node n_t_35x;
 node n_t_37x;
 node n_t_38x;
 node n_t_39x;
 node n_t_3x;
+node n_t_40x;
+node n_t_41x;
 node n_t_42x;
 node n_t_43x;
 node n_t_44x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
-node n_t_51x;
-node n_t_53x;
-node n_t_54x;
-node n_t_55x;
-node n_t_56x;
-node n_t_57x;
-node n_t_58x;
-node n_t_59x;
-node n_t_60x;
-node n_t_62x;
-node n_t_64x;
-node n_t_65x;
-node n_t_66x;
-node n_t_68x;
-node n_t_69x;
-node n_t_70x;
-node n_t_71x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
-node n_t_77x;
-node n_t_78x;
-node n_t_79x;
-node n_t_84x;
-node n_t_89x;
+node n_t_4x;
+node n_t_5x;
 node n_t_8x;
-node n_t_90x;
-node n_t_92x;
-node out_of_tape;
-node p1_enrf_l;
-node p3_bd0;
-node p3_bd1;
-node p3_bd11;
-node p3_bd3;
-node p3_bd5;
-node p3_bd7;
-node p3_bd8;
-node p3_binit;
-node p3_bm10;
-node p3_bm11;
-node p3_bm2;
-node p3_bm3;
-node p3_bm4;
-node p3_bm5;
-node p3_bm6;
-node p3_bm7;
-node p3_bm8;
-node p3_bm9;
-node p3_bm9_l;
-node p3_bpause;
-node p3_btp3;
-node p3_decen_l;
-node p3_e2cfrom_l;
-node p3_hos_l;
-node p4_cuf_l;
-node p4_gtf_l;
-node p4_int_in;
-node p4_lusr_l;
-node p4_lxa;
-node p4_pclr;
-node p4_plxa;
-node p4_raca_l;
-node p4_racb_l;
-node p4_rlb_l;
-node p4_rmf_l;
-node p4_rxm_l;
-node p4_sint_l;
-node p4_suf_l;
-node p6_dioi_l;
-node p6_eem;
-node p6_eem_l;
-node p6_en5;
-node p6_en5_l;
-node p6_en9;
-node pagez;
 node pause_l;
-node pce_l;
-node piop2;
-node pls;
 node rcni_l;
 node rcno_l;
 node rcr;
@@ -338,24 +172,11 @@ node rcsf_l;
 node rcsi;
 node rcsi_l;
 node rctf_l;
-node rd4_l;
-node rd5_l;
-node rd7_l;
-node rd8_l;
-node rd9_l;
-node rd_hole2;
 node rdy;
 node rdy1_l;
-node read_l;
-node regbus00;
-node regbus01;
-node regbus04;
-node regbus04_l;
-node regbus05;
 node strobe;
 node tp3_l;
 node transit_l;
-node wrt_lock_er;
 node zone10_l;
 node zone11_l;
 node zone12_l;
@@ -488,28 +309,20 @@ itclk = !(tp3_l
         # rcno_l);
 
 /* e2: dec8251 */
-!initialize_l = !iot63_l & !md09p & !md10p & !md11p;
 !rcsf_l = !iot63_l & !md09p & !md10p & md11p;
 !rcra_l = !iot63_l & !md09p & md10p & !md11p;
-!n_t_113x = !iot63_l & !md09p & md10p & md11p;
 !rcrb_l = !iot63_l & md09p & !md10p & !md11p;
 !rcno_l = !iot63_l & md09p & !md10p & md11p;
 !rcrc_l = !iot63_l & md09p & md10p & !md11p;
 !rcni_l = !iot63_l & md09p & md10p & md11p;
-!n_t_45x = iot63_l & !md09p & !md10p & !md11p;
-!n3v = iot63_l & !md09p & !md10p & md11p;
 
 /* e3: dec8251 */
-!n_t_26x = !iot67_l & !md09p & !md10p & !md11p;
 !rcsd_l = !iot67_l & !md09p & !md10p & md11p;
 !rcse_l = !iot67_l & !md09p & md10p & !md11p;
-!n_t_71x = !iot67_l & !md09p & md10p & md11p;
 !rcrd_l = !iot67_l & md09p & !md10p & !md11p;
 !rcsi_l = !iot67_l & md09p & !md10p & md11p;
-!mams_ld_ctl = !iot67_l & md09p & md10p & !md11p;
+! = !iot67_l & md09p & md10p & !md11p;
 !rctf_l = !iot67_l & md09p & md10p & md11p;
-!'b'0 = iot67_l & !md09p & !md10p & !md11p;
-!int_in_prog_l = iot67_l & !md09p & !md10p & md11p;
 
 /* e4: sp380n */
 !md09p = md09_l
@@ -533,11 +346,10 @@ n_t_4x = !(n_t_29x & initialize_l);
 btransit = !transit_l;
 
 /* e7: sn7474 */
-rd6_l.ar = !n_t_35x;
-rd6_l.d = 'b'0;
-rd6_l.ck = dclr;
-rd6_l.ap = !n_t_38x;
-read_l = !rd6_l;
+read_l.ap = !n_t_35x;
+read_l.d = 'b'1;
+read_l.ck = dclr;
+read_l.ar = !n_t_38x;
 transit.ar = !tclr_l;
 transit.d = 'b'0;
 transit.ck = 'b'0;
@@ -653,6 +465,10 @@ zone3_l = !zone3;
 zone2_l = !zone2;
 
 /* e19: sn7450 */
+!n_t_15x = trbl & btransit
+         # int & n_t_40x;
+!n_t_31x = rdy & n_t_22x
+         # n_t_26x & rdy2_l;
 
 /* e20: n8881n */
 /* skip_l = !(rdy & rcse); */
@@ -675,12 +491,10 @@ int.ar = !n3v;
 int.d = n_t_37x;
 int.ck = itclk;
 int.ap = !initialize_l;
-n_t_55x = !int;
 trbl.ar = !initialize_l;
 trbl.d = n_t_45x;
 trbl.ck = itclk;
 trbl.ap = !n3v;
-out_of_tape = !trbl;
 
 /* e24: sn7400 */
 n_t_28x = !(initialize_l & n_t_41x);
@@ -701,14 +515,9 @@ n_t_33x = !(zone5_l & zone4_l & zone1_l);
 
 /* e27: sn7410 */
 n_t_38x = !(btp3 & rdy & rcse);
-n_t_179x = !(p6_dioi_l & p1_enrf_l);
 rcr = !(rcra_l & rcrc_l & rcrb_l);
 
 /* e28: sp380n */
-!p3_bm4 = p3_bm5
-        # p3_bm11;
-!p6_en9 = p3_bm10
-        # p3_bm9;
 !iot63_l = iot63;
 !md06p = pause_l
        # md06_l;
@@ -750,15 +559,11 @@ n_t_5x = !(rcni_l
          # transit_l);
 n_t_35x = !(n_t_44x
           # rdy1_l);
-p3_bd0 = !(p6_en5_l
-         # p3_bd1);
 
 /* e36: sn7404 */
-p3_bm9_l = !p3_bm4;
 bcd1_l = !bcd1;
 n_t_39x = !n_t_15x;
 n_t_3x = !dclr;
-p3_bm9 = !ena_pun_buffr_l;
 n_t_44x = !initialize_l;
 
 /* e37: n8881n */
@@ -821,6 +626,7 @@ n_t_40x = !(drdy_l & cdone_l);
 /* r4: r_us_ */
 
 /* r5: r_us_ */
+n_t_34x = 'b'1;
 
 /* r6: r_us_ */
 n3v = 'b'1;

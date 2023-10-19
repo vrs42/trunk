@@ -8,7 +8,7 @@
 // c1: c_us 
 // c2: c_us 
 // e1: sn7400 
-module m113b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m113b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 output c1;
@@ -24,12 +24,11 @@ input j1;
 input j2;
 output k1;
 output k2;
-inout l1;
+input l1;
 input l2;
 input m1;
 input m2;
-inout n1;
-output n15v;
+output n1;
 output n2;
 input p1;
 input p2;
@@ -44,23 +43,13 @@ output v1;
 output v2;
 
 
-wire n_t_10x;
-wire n_t_18x;
-wire n_t_22x;
-wire n_t_24x;
-wire n_t_26x;
-wire n_t_28x;
-wire n_t_4x;
-wire n_t_8x;
 assign c1 = ~(a1 & b1);
 assign f1 = ~(d1 & e1);
 assign k2 = ~(j2 & h2);
 assign f2 = ~(e2 & d2);
 // e2: sn7400 
 assign k1 = ~(h1 & j1);
-assign l1 = ~(n1 & m1);
 assign n2 = ~(m2 & l2);
-assign 'b'0 = 1'b1;
 // e3: sn7400 
 assign n1 = ~(l1 & m1);
 assign s1 = ~(p1 & r1);

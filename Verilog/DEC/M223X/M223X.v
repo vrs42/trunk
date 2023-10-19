@@ -12,163 +12,154 @@
 // c5: c_us 
 // c6: c_us 
 // c7: c_us 
-// e2: sn7474 
-module m223x (f2, h1, load_tac, load_tma, p1, s1, tape_bus3, u2, bd00, bd03, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_36x, n_t_3x, n_t_46x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
-output f2;
-output h1;
-output load_tac;
-output load_tma;
-output p1;
-output s1;
-output tape_bus3;
-output u2;
-output bd00;
-output bd03;
-output n_t_10x;
-output n_t_11x;
-output n_t_12x;
-output n_t_13x;
-input n_t_14x;
-input n_t_15x;
-input n_t_16x;
-input n_t_17x;
-input n_t_18x;
-output n_t_19x;
-input n_t_1x;
-output n_t_20x;
-output n_t_21x;
-output n_t_22x;
+// e1: sn74h50 
+module m223x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_30x, n_t_31x, n_t_33x, n_t_34x, n_t_36x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+input n_t_10x;
+input n_t_11x;
+input n_t_12x;
+input n_t_13x;
+inout n_t_16x;
+inout n_t_17x;
+inout n_t_18x;
+output reg n_t_19x;
+output reg n_t_20x;
+output reg n_t_21x;
+output reg n_t_22x;
 input n_t_23x;
 input n_t_24x;
 input n_t_25x;
 input n_t_26x;
 input n_t_27x;
 input n_t_28x;
-output n_t_29x;
-input n_t_2x;
-output n_t_30x;
-output n_t_31x;
-output n_t_32x;
-output n_t_33x;
-output n_t_34x;
-output n_t_36x;
-input n_t_3x;
-output n_t_46x;
-output n_t_4x;
-output n_t_5x;
-output n_t_6x;
-output n_t_7x;
-output n_t_8x;
-output n_t_9x;
+input n_t_29x;
+input n_t_30x;
+inout n_t_31x;
+inout n_t_33x;
+inout n_t_34x;
+inout n_t_36x;
+inout n_t_3x;
+input n_t_4x;
+input n_t_5x;
+input n_t_6x;
+input n_t_7x;
+input n_t_8x;
+input n_t_9x;
 
-reg af2_m;
-reg am2_m;
-reg as1_m;
-reg tma3_m;
+reg n_t_19x_m;
+reg n_t_20x_m;
+reg n_t_21x_m;
+reg n_t_22x_m;
 
-reg af2;
-reg tma3;
-reg as1;
-reg am2;
-wire biot5l;
-wire data1_l;
-wire k1;
-wire m1;
-wire n2;
-wire n3v3;
-wire ps_left_2;
-wire tape_bus2;
-wire tma2;
-always @(n_t_23x, n_t_24x, n_t_28x, n_t_1x)
-  if (~n_t_24x) begin
-    af2_m <= 1'b0;
-  end else
+wire n_t_14x;
+wire n_t_15x;
+wire n_t_1x;
+wire n_t_2x;
+assign n_t_2x = ~(n_t_4x & n_t_6x
+                   | n_t_5x & n_t_7x);
+assign n_t_1x = ~(n_t_6x & n_t_8x
+                   | n_t_7x & n_t_9x);
+// e2: sn7474 
+always @(n_t_23x, n_t_28x, n_t_24x, n_t_1x)
   if (~n_t_28x) begin
-    af2_m <= 1'b1;
+    n_t_20x_m <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_20x_m <= 1'b1;
   end else
   if (~(n_t_23x)) begin
-    af2_m <= n_t_1x;
+    n_t_20x_m <= ~n_t_1x;
   end
-always @(n_t_23x, n_t_24x, n_t_28x, af2_m)
-  if (~n_t_24x) begin
-    af2 <= 1'b0;
-  end else
+always @(n_t_23x, n_t_28x, n_t_24x, n_t_20x_m)
   if (~n_t_28x) begin
-    af2 <= 1'b1;
+    n_t_20x <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_20x <= 1'b1;
   end else
   if (n_t_23x) begin
-    af2 <= af2_m;
+    n_t_20x <= n_t_20x_m;
   end
-assign n_t_20x = ~af2;
-always @(n_t_23x, n_t_24x, n_t_25x, n_t_2x)
-  if (~n_t_24x) begin
-    tma3_m <= 1'b0;
-  end else
+always @(n_t_23x, n_t_25x, n_t_24x, n_t_2x)
   if (~n_t_25x) begin
-    tma3_m <= 1'b1;
+    n_t_19x_m <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_19x_m <= 1'b1;
   end else
   if (~(n_t_23x)) begin
-    tma3_m <= n_t_2x;
+    n_t_19x_m <= ~n_t_2x;
   end
-always @(n_t_23x, n_t_24x, n_t_25x, tma3_m)
-  if (~n_t_24x) begin
-    tma3 <= 1'b0;
-  end else
+always @(n_t_23x, n_t_25x, n_t_24x, n_t_19x_m)
   if (~n_t_25x) begin
-    tma3 <= 1'b1;
+    n_t_19x <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_19x <= 1'b1;
   end else
   if (n_t_23x) begin
-    tma3 <= tma3_m;
+    n_t_19x <= n_t_19x_m;
   end
-assign n_t_19x = ~tma3;
+// e3: sn74h50 
+assign n_t_3x = ~(n_t_31x & n_t_29x
+                   | n_t_15x & n_t_30x);
+assign n_t_16x = ~(n_t_33x & n_t_29x
+                    | n_t_30x & n_t_14x);
+// e4: sn74h50 
+assign n_t_14x = ~(n_t_10x & n_t_6x
+                    | n_t_12x & n_t_7x);
+assign n_t_15x = ~(n_t_6x & n_t_11x
+                    | n_t_7x & n_t_13x);
 // e5: sn7474 
-always @(n_t_23x, n_t_24x, n_t_26x, n_t_15x)
-  if (~n_t_24x) begin
-    as1_m <= 1'b0;
-  end else
+always @(n_t_23x, n_t_26x, n_t_24x, n_t_15x)
   if (~n_t_26x) begin
-    as1_m <= 1'b1;
+    n_t_22x_m <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_22x_m <= 1'b1;
   end else
   if (~(n_t_23x)) begin
-    as1_m <= n_t_15x;
+    n_t_22x_m <= ~n_t_15x;
   end
-always @(n_t_23x, n_t_24x, n_t_26x, as1_m)
-  if (~n_t_24x) begin
-    as1 <= 1'b0;
-  end else
+always @(n_t_23x, n_t_26x, n_t_24x, n_t_22x_m)
   if (~n_t_26x) begin
-    as1 <= 1'b1;
+    n_t_22x <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_22x <= 1'b1;
   end else
   if (n_t_23x) begin
-    as1 <= as1_m;
+    n_t_22x <= n_t_22x_m;
   end
-assign n_t_22x = ~as1;
-always @(n_t_23x, n_t_24x, n_t_27x, n_t_14x)
-  if (~n_t_24x) begin
-    am2_m <= 1'b0;
-  end else
+always @(n_t_23x, n_t_27x, n_t_24x, n_t_14x)
   if (~n_t_27x) begin
-    am2_m <= 1'b1;
+    n_t_21x_m <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_21x_m <= 1'b1;
   end else
   if (~(n_t_23x)) begin
-    am2_m <= n_t_14x;
+    n_t_21x_m <= ~n_t_14x;
   end
-always @(n_t_23x, n_t_24x, n_t_27x, am2_m)
-  if (~n_t_24x) begin
-    am2 <= 1'b0;
-  end else
+always @(n_t_23x, n_t_27x, n_t_24x, n_t_21x_m)
   if (~n_t_27x) begin
-    am2 <= 1'b1;
+    n_t_21x <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_21x <= 1'b1;
   end else
   if (n_t_23x) begin
-    am2 <= am2_m;
+    n_t_21x <= n_t_21x_m;
   end
-assign n_t_21x = ~am2;
+// e6: sn74h50 
+assign n_t_17x = ~(n_t_34x & n_t_29x
+                    | n_t_1x & n_t_30x);
+assign n_t_18x = ~(n_t_36x & n_t_29x
+                    | n_t_30x & n_t_2x);
 // e7: sn74h00 
-assign n_t_31x = ~(n_t_3x & tape_bus2);
-assign n_t_33x = ~(n_t_16x & tma2);
-assign n_t_36x = ~(n_t_18x & n3v3);
-assign n_t_34x = ~(n_t_17x & n3v3);
+assign n_t_31x = ~(n_t_3x & );
+assign n_t_33x = ~(n_t_16x & );
+assign n_t_36x = ~(n_t_18x & );
+assign n_t_34x = ~(n_t_17x & );
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

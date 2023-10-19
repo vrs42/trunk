@@ -16,26 +16,20 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = c1_l;
 
 /* Output Pins */
-pin = a0;
-pin = n15v;
 pin = n_t_10x;
 pin = n_t_15x;
 pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_18x;
-pin = n_t_19x;
 pin = n_t_1x;
-pin = n_t_20x;
 pin = n_t_21x;
 pin = n_t_22x;
 pin = n_t_23x;
 pin = n_t_24x;
 pin = n_t_26x;
 pin = n_t_2x;
-pin = n_t_31x;
 pin = n_t_33x;
 pin = n_t_34x;
 pin = n_t_37x;
@@ -50,32 +44,26 @@ pin = n_t_6x;
 pin = n_t_7x;
 pin = n_t_8x;
 pin = n_t_9x;
-pin = select6;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a7;
-node aj1;
-node d2;
-node h1;
 node n_t_11x;
 node n_t_12x;
 node n_t_13x;
 node n_t_14x;
+node n_t_19x;
+node n_t_20x;
 node n_t_25x;
 node n_t_27x;
 node n_t_28x;
 node n_t_29x;
 node n_t_30x;
-node n_t_35x;
 node n_t_36x;
 node n_t_43x;
 node n_t_44x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
-node n_t_69x;
-node v2;
 $ENDIF
 
 /* Code nodes */
@@ -139,8 +127,14 @@ n_t_16x = gdollar_1 & n_t_7x
         # n_t_8x & gdollar_1;
 
 /* e3: sn7450 */
+!n_t_17x = n_t_13x & n_t_9x
+         # n_t_14x & n_t_10x;
+!n_t_18x = n_t_9x & n_t_11x
+         # n_t_12x & n_t_10x;
 
 /* e4: sn7450 */
+!n_t_9x = n_t_4x & n_t_1x
+        # n_t_3x & n_t_2x;
 
 /* e5: sn7482 */
 n_t_30x = n_t_47x
@@ -171,6 +165,10 @@ n_t_20x = gdollar_3 & n_t_23x
         # n_t_24x & gdollar_3;
 
 /* e7: sn7450 */
+!n_t_33x = n_t_29x & n_t_9x
+         # n_t_30x & n_t_10x;
+!n_t_34x = n_t_9x & n_t_27x
+         # n_t_28x & n_t_10x;
 
 /* e9: sn7482 */
 n_t_46x = n_t_25x
@@ -198,9 +196,15 @@ n_t_36x = gdollar_5 & n_t_39x
         # n_t_40x & gdollar_5;
 
 /* e11: sn7450 */
+!n_t_49x = n_t_45x & n_t_9x
+         # n_t_46x & n_t_10x;
+!n_t_50x = n_t_9x & n_t_43x
+         # n_t_44x & n_t_10x;
 
 /* r1: r_us_ */
+n_t_25x = 'b'1;
 
 /* r2: r_us_ */
+n_t_25x = 'b'1;
 
 /* Open collector 'wire-or's */

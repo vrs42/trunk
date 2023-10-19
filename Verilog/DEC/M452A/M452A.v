@@ -12,71 +12,22 @@
 // c5: cpol_use 
 // c6: c_us 
 // e1: sn7440 
-module m452a (n_t_15x, c0_l, c1_l, cs, data0_l, data10_l, data11_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, initialize, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n220_baud, n3v, n880_baud, n_t_10x, n_t_12x, n_t_13x, n_t_14x, n_t_16x, n_t_17x, n_t_18x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_26x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp3, tp_l, tp_m, tp_n, v2);
-output n_t_15x;
-output c0_l;
-output c1_l;
-output cs;
-output data0_l;
-output data10_l;
-output data11_l;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
-output data7_l;
-output data8_l;
-output data9_l;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_pause_l;
-output md03_l;
-output md04_l;
-output md05_l;
-output md06_l;
-output md07_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
-output n220_baud;
+module m452a (n220_baud, n3v, n880_baud, n_t_12x, n_t_13x, n_t_21x, n_t_22x, n_t_23x, tp_l, tp_m, tp_n);
+inout reg n220_baud;
 output n3v;
 output n880_baud;
-output n_t_10x;
 input n_t_12x;
 input n_t_13x;
-input n_t_14x;
-output n_t_16x;
-inout n_t_17x;
-output n_t_18x;
-output n_t_20x;
 output n_t_21x;
 output n_t_22x;
 output n_t_23x;
-output n_t_26x;
-output n_t_2x;
-output n_t_30x;
-output n_t_3x;
-inout reg n_t_4x;
-output n_t_5x;
-output n_t_6x;
-output n_t_7x;
-output n_t_8x;
-output n_t_9x;
-output skip_l;
-output tp3;
 inout tp_l;
 inout reg tp_m;
 inout tp_n;
-output v2;
 
+reg n220_baud_m;
 
-wire n_t_31x;
-wire n_t_34x;
-assign n220_baud = ~n_t_4x;
+wire n_t_16x;
 assign n880_baud = ~n_t_13x;
 // e2: sn7474 
 always @(posedge n_t_13x)
@@ -84,15 +35,30 @@ always @(posedge n_t_13x)
     tp_m <= tp_n;
   end
 assign tp_n = ~tp_m;
-always @(posedge tp_m)
-  if (tp_m) begin
-    n_t_4x <= tp_l;
+always @(tp_m, tp_l)
+  if (1'b1) begin
+    n220_baud_m <= 1'b0;
+  end else
+  if (1'b1) begin
+    n220_baud_m <= 1'b1;
+  end else
+  if (~(~tp_m)) begin
+    n220_baud_m <= ~tp_l;
   end
-assign tp_l = ~n_t_4x;
+always @(tp_m, n220_baud_m)
+  if (1'b1) begin
+    n220_baud <= 1'b0;
+  end else
+  if (1'b1) begin
+    n220_baud <= 1'b1;
+  end else
+  if (~tp_m) begin
+    n220_baud <= n220_baud_m;
+  end
+assign tp_l = n220_baud;
 // e3: sn7400 
-assign n_t_17x = ~n_t_14x;
-assign n_t_21x = ~n_t_17x;
-assign n_t_16x = ~(n_t_17x & n_t_12x);
+assign n_t_21x = 1'b1;
+assign n_t_16x = 1'b1;
 // r1: r_us_ 
 // r2: r_us_ 
 // r4: r_us_ 

@@ -16,95 +16,30 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = idle;
 pin = incr_sc;
 pin = tp2_d;
 
 /* Output Pins */
-pin = a1;
 pin = adlk_dis_l;
-pin = b1;
-pin = b2;
-pin = brk_cycle_l;
-pin = brk_d_ctl_l;
-pin = brk_in_prog_l;
-pin = bus_strobe_l;
 pin = c0;
-pin = c1;
-pin = c1_l;
-pin = c2_l;
-pin = cpma_disabl_l;
-pin = d1;
-pin = d2;
 pin = dad_or_dst;
 pin = dad_or_dst_l;
-pin = data0_l;
 pin = data10;
 pin = data11;
-pin = data1_l;
-pin = data2_l;
-pin = data3_l;
-pin = data4_l;
-pin = data5_l;
-pin = data6_l;
 pin = data7;
 pin = data8;
 pin = data9;
 pin = defer;
 pin = div_12_l;
 pin = e;
-pin = e1;
-pin = e2;
 pin = eir2;
 pin = eir3;
-pin = ema0_l;
-pin = ema1_l;
-pin = ema2_l;
-pin = f1;
-pin = f2;
-pin = f_set_l;
 pin = fd_set;
 pin = fe_set;
 pin = fetch;
-pin = h1;
-pin = h2;
-pin = ind1_l;
-pin = ind2_l;
-pin = inhibit;
 pin = init;
 pin = int_in_prog;
-pin = int_req_l;
-pin = int_strobe;
-pin = internal_io_l;
-pin = ir0_l;
-pin = ir1_l;
-pin = ir2_l;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = key_ctl_l;
-pin = l1;
-pin = l2;
-pin = la_enable_l;
 pin = last_step_l;
-pin = link_data_l;
-pin = link_l;
-pin = link_load_l;
-pin = m1;
-pin = m2;
-pin = ma0_l;
-pin = ma10_l;
-pin = ma11_l;
-pin = ma1_l;
-pin = ma2_l;
-pin = ma3_l;
-pin = ma4_l;
-pin = ma5_l;
-pin = ma6_l;
-pin = ma7_l;
-pin = ma8_l;
-pin = ma9_l;
 pin = ma_ms_lc;
 pin = md0;
 pin = md1;
@@ -118,31 +53,8 @@ pin = md6;
 pin = md7;
 pin = md8;
 pin = md9;
-pin = mem_dir_in_l;
-pin = mem_start_l;
 pin = modeb;
-pin = ms_ir_disabl_l;
-pin = n1;
-pin = n15v;
-pin = n2;
-pin = n_t_16x;
-pin = n_t_24x;
-pin = n_t_25x;
-pin = n_t_35x;
-pin = n_t_79x;
 pin = next_loc;
-pin = not_lst_xfr_l;
-pin = overflow_l;
-pin = p1;
-pin = p2;
-pin = pause_l;
-pin = power_ok;
-pin = pulse_la;
-pin = r1;
-pin = r2;
-pin = res1;
-pin = res2;
-pin = return;
 pin = rom_11_l;
 pin = rom_12_l;
 pin = rom_13_l;
@@ -151,37 +63,17 @@ pin = rom_15_l;
 pin = rom_17_l;
 pin = rom_22_l;
 pin = rom_24_l;
-pin = rom_addr_l;
-pin = run_l;
-pin = s1;
-pin = s2;
 pin = sc_0_l;
-pin = skip_l;
-pin = source;
-pin = stop_l;
-pin = strobe;
-pin = sw_l;
-pin = t2;
 pin = tp1;
 pin = tp2;
 pin = tp3;
 pin = tp4;
-pin = ts1_l;
-pin = ts2_l;
 pin = ts3;
-pin = ts4_l;
-pin = u1;
-pin = u2;
-pin = user_mode_l;
-pin = v1;
-pin = v2;
-pin = write;
-node regbus00;
-node link;
-node pwr_ok;
-node right;
-node n_t_48x;
-node data_t;
+node modea;
+node n_t_1x;
+node n_t_2x;
+node n_t_4x;
+node n_t_5x;
 node n_t_3x;
 node n_t_8x;
 node n_t_14x;
@@ -189,13 +81,13 @@ node n_t_10x;
 node n_t_11x;
 node n_t_17x;
 node n_t_18x;
-node n_t_2x;
-node n_t_15x;
+node n_t_7x;
+node n_t_26x;
 node ex1;
 node n_t_38x;
-node bf;
-node bd;
-node al2mq_ena_l;
+node gdollar_0;
+node gdollar_1;
+node gdollar_2;
 node n_t_39x;
 node n_t_40x;
 node n_t_19x;
@@ -203,105 +95,33 @@ node n_t_42x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a00_l;
-node a04_l;
-node ac00;
-node ac01;
-node ac02;
-node ac03;
-node ac05;
-node ac2bus_l;
-node ac_load_l;
-node aceq0;
-node ad00_l;
-node ad01_l;
-node ad02_l;
-node ad03_l;
-node ad04_l;
-node ad05_l;
-node ad10_l;
-node ad11_l;
-node ad2;
-node adlk_l;
-node ae2;
-node af2;
-node ah2;
-node aj2;
-node ak2;
-node al2;
-node am2;
-node an2;
-node ap2;
-node av2;
-node b02_l;
-node b_init_l;
-node b_io_pause;
-node bb1;
-node bdata2;
-node bdata5;
 node be;
 node bfetch;
-node bm2;
-node bmd05;
-node bmd06;
-node bmd07;
 node bmd10;
 node bmd11;
 node bmd8;
 node bmd9;
-node bms_dis;
-node bts1;
-node bts3;
-node bts4;
-node c0_l;
-node carry_in_l;
-node carry_out_l;
-node clr_dsk_ad_l;
-node data7_l;
 node data_to_sc;
-node drive0_l;
 node e_l;
 node eae_inst;
-node en0;
-node en2;
-node eset_l;
 node ex1_l;
 node exec_divide;
 node exec_multiply;
-node fe_fd_l;
 node fetch_l;
-node function00;
-node header_d_l;
 node init_l;
-node initialize;
-node iszets2;
-node jmp;
 node ld_eir;
-node left_l;
-node ma04_l;
-node malc_l;
-node mb03;
-node md06_l;
-node md07_l;
-node md_dis;
-node modea;
-node mq01_l;
-node mq03_l;
-node mq2bus_l;
 node n0_to_eir;
 node n0_to_sc;
-node n3b;
 node n3v;
 node n3v0;
-node n3v3;
-node n_t_12x;
-node n_t_13x;
-node n_t_1x;
+node n_t_15x;
+node n_t_16x;
 node n_t_20x;
 node n_t_21x;
 node n_t_22x;
 node n_t_23x;
-node n_t_26x;
+node n_t_24x;
+node n_t_25x;
 node n_t_27x;
 node n_t_28x;
 node n_t_29x;
@@ -310,6 +130,7 @@ node n_t_31x;
 node n_t_32x;
 node n_t_33x;
 node n_t_34x;
+node n_t_35x;
 node n_t_36x;
 node n_t_37x;
 node n_t_41x;
@@ -318,45 +139,16 @@ node n_t_44x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
+node n_t_48x;
 node n_t_49x;
-node n_t_4x;
 node n_t_50x;
 node n_t_51x;
 node n_t_52x;
 node n_t_53x;
 node n_t_54x;
 node n_t_55x;
-node n_t_5x;
-node n_t_60x;
-node n_t_62x;
-node n_t_63x;
-node n_t_65x;
-node n_t_67x;
-node n_t_68x;
 node n_t_6x;
-node n_t_70x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
-node n_t_7x;
-node n_t_82x;
-node n_t_84x;
-node n_t_90x;
-node n_t_92x;
 node n_t_9x;
-node op1_l;
-node op1ts3;
-node op2ts3;
-node opets3;
-node oprf;
-node oprf_l;
-node pagez;
-node pc02_l;
-node regbus00_l;
-node regbus01;
-node regbus04;
-node regbus05;
-node right_l;
 node rom_19_l;
 node rom_21_l;
 node rom_23_l;
@@ -364,13 +156,9 @@ node rom_25_l;
 node rom_26_l;
 node sc_load_l;
 node sc_to_data;
-node sk_chk_wrt_l;
 node swab;
 node swba;
-node tadets3;
 node tp3_l;
-node twice_l;
-node wrt_lock_er;
 $ENDIF
 
 /* Code nodes */
@@ -466,30 +254,21 @@ n_t_25x = !(swab & swba & n_t_24x & eae_inst);
 n_t_21x = !(eae_inst & fetch_l & swba & swab);
 
 /* e4: sn74h106 */
-regbus00.ar = !bmd06;
-regbus00.j = md_dis;
-regbus00.k = bb1;
-regbus00.ck = n_t_35x;
-regbus00.ap = !aceq0;
-regbus01 = !regbus00;
-link.ar = !init_l;
-link.j = n_t_23x;
-link.k = n_t_22x;
-link.ck = n_t_27x;
-link.ap = !n3v0;
-modea = !link;
+modea.ap = !init_l;
+modea.k = n_t_23x;
+modea.j = n_t_22x;
+modea.ck = n_t_27x;
+modea.ar = !n3v0;
 
 /* e6: sn7474 */
-pwr_ok.ar = !n3v0;
-pwr_ok.d = md0;
-pwr_ok.ck = ld_eir;
-pwr_ok.ap = !n0_to_eir;
-n_t_1x = !pwr_ok;
-right.ar = !n3v0;
-right.d = md1;
-right.ck = ld_eir;
-right.ap = !n0_to_eir;
-n_t_2x = !right;
+n_t_1x.ap = !n3v0;
+n_t_1x.d = !md0;
+n_t_1x.ck = ld_eir;
+n_t_1x.ar = !n0_to_eir;
+n_t_2x.ap = !n3v0;
+n_t_2x.d = !md1;
+n_t_2x.ck = ld_eir;
+n_t_2x.ar = !n0_to_eir;
 
 /* e7: sn74h30 */
 n_t_6x = !(n3v0 & n_t_1x & n_t_2x & n_t_4x & n_t_5x & n_t_7x & n3v0 & n3v0);
@@ -501,8 +280,6 @@ exec_divide = !(rom_12_l
               # rom_14_l);
 n0_to_sc = !(tp3_l
            # rom_23_l);
-iszets2 = !(tadets3
-          # carry_in_l);
 
 /* e9: sn97401 */
 /* n_t_44x = !(data_to_sc & n_t_45x); */
@@ -510,16 +287,14 @@ iszets2 = !(tadets3
 /* n_t_44x = !n_t_43x; */
 
 /* e10: sn7474 */
-n_t_48x.ar = !n3v0;
-n_t_48x.d = md2;
-n_t_48x.ck = ld_eir;
-n_t_48x.ap = !n0_to_eir;
-n_t_4x = !n_t_48x;
-data_t.ar = !n3v0;
-data_t.d = md3;
-data_t.ck = ld_eir;
-data_t.ap = !n0_to_eir;
-n_t_5x = !data_t;
+n_t_4x.ap = !n3v0;
+n_t_4x.d = !md2;
+n_t_4x.ck = ld_eir;
+n_t_4x.ar = !n0_to_eir;
+n_t_5x.ap = !n3v0;
+n_t_5x.d = !md3;
+n_t_5x.ck = ld_eir;
+n_t_5x.ar = !n0_to_eir;
 
 /* e11: dec23001a1 */
 e11_10x01 = (eir3 & !eir2 & !dad_or_dst & n_t_21x);
@@ -579,8 +354,6 @@ e11_10101 = (eir3 & !eir2 & n_t_16x & !dad_or_dst & n_t_21x);
                      # e11_10101)); */
 
 /* e12: sn74h11 */
-n_t_39x = n_t_40x & c2_l & c1_l;
-n_t_5x = jmp & bts3 & bf;
 ld_eir = tp2 & fetch_l & fetch_l;
 
 /* e14: sn7474 */
@@ -588,12 +361,10 @@ n_t_3x.ar = !n3v0;
 n_t_3x.d = md4;
 n_t_3x.ck = ld_eir;
 n_t_3x.ap = !n0_to_eir;
-n_t_67x = !n_t_3x;
 n_t_8x.ar = !n3v0;
 n_t_8x.d = md5;
 n_t_8x.ck = ld_eir;
 n_t_8x.ap = !n0_to_eir;
-op2ts3 = !n_t_8x;
 
 /* e15: sn74h30 */
 swba = !(n_t_3x & n_t_8x & n_t_9x & n_t_10x & n_t_11x & eir2 & eir3 & n3v0);
@@ -723,18 +494,11 @@ e19_10x01 = (eir3 & !eir2 & !n_t_9x & modea);
                    # e19_1x010)); */
 
 /* e20: sp380n */
-!md06_l = bmd06
-        # md07_l;
-!oprf_l = bmd07
-        # pc02_l;
 !init_l = init;
 !n_t_53x = dad_or_dst_l
          # defer;
 
 /* e21: sp384n */
-n_t_54x = oprf
-        # n_t_46x;
-tp4 = n_t_63x;
 n_t_28x = tp1;
 bfetch = fetch;
 
@@ -754,9 +518,7 @@ eir2 = !n_t_17x;
 swab = !(n_t_3x & n_t_8x & n_t_14x & n_t_15x & n_t_16x & n_t_17x & n_t_18x & n3v);
 
 /* e24: sn7410 */
-n_t_16x = !(ad11_l & ad10_l & n_t_16x);
 sc_0_l = !(n_t_47x & n_t_48x & n_t_49x);
-header_d_l = !(right_l & left_l & twice_l);
 
 /* e25: sp380n */
 !n_t_43x = data_to_sc
@@ -772,17 +534,15 @@ n_t_18x.d = md10;
 n_t_18x.ck = ld_eir;
 n_t_18x.ap = !n0_to_eir;
 eir3 = !n_t_18x;
-n_t_2x.ar = !n3v;
-n_t_2x.d = md11;
-n_t_2x.ck = ld_eir;
-n_t_2x.ap = !n0_to_eir;
-n_t_7x = !n_t_2x;
+n_t_7x.ap = !n3v;
+n_t_7x.d = !md11;
+n_t_7x.ck = ld_eir;
+n_t_7x.ar = !n0_to_eir;
 
 /* e27: sn74h00 */
 next_loc = !(rom_26_l & ex1_l);
 n_t_24x = !(be & bfetch);
 n_t_51x = !(n_t_50x & n_t_41x);
-n_t_29x = !(data_t & n_t_38x);
 
 /* e28: sn74h11 */
 n_t_27x = eae_inst & ld_eir;
@@ -796,11 +556,10 @@ bmd8 = md8;
 bmd9 = md9;
 
 /* e30: sn74h74 */
-n_t_15x.ar = !n3v;
-n_t_15x.d = rom_21_l;
-n_t_15x.ck = tp2_d;
-n_t_15x.ap = !tp3_l;
-n_t_26x = !n_t_15x;
+n_t_26x.ap = !n3v;
+n_t_26x.d = !rom_21_l;
+n_t_26x.ck = tp2_d;
+n_t_26x.ar = !tp3_l;
 ex1.ar = !bfetch;
 ex1.d = n_t_53x;
 ex1.ck = n_t_52x;
@@ -835,26 +594,24 @@ n_t_38x.ar = n0_to_sc
 n_t_38x.t = 'b'1;
 n_t_38x.ck = !(!n3v
              # !n_t_46x);
-bf.ap = 'b'0;
-bf.ar = n0_to_sc
-      # !sc_load_l;
-bf.t = 'b'1;
-bf.ck = !(!n3v & !n_t_38x
-        # !n_t_46x & n_t_38x);
-bd.ap = 'b'0;
-bd.ar = n0_to_sc
-      # !sc_load_l;
-bd.t = 'b'1;
-bd.ck = !(!n3v & !n_t_38x & !bf
-        # !n_t_46x & n_t_38x & bf);
-al2mq_ena_l.ap = 'b'0;
-al2mq_ena_l.ar = n0_to_sc
-               # !sc_load_l;
-al2mq_ena_l.t = 'b'1;
-al2mq_ena_l.ck = !(!n3v & !bd & !n_t_38x & !bf
-                 # !n_t_46x & bd & n_t_38x & bf);
-n_t_7x = n_t_38x & bf & bd & al2mq_ena_l;
-initialize = !n_t_38x & !bf & !bd & !al2mq_ena_l;
+gdollar_0.ap = 'b'0;
+gdollar_0.ar = n0_to_sc
+             # !sc_load_l;
+gdollar_0.t = 'b'1;
+gdollar_0.ck = !(!n3v & !n_t_38x
+               # !n_t_46x & n_t_38x);
+gdollar_1.ap = 'b'0;
+gdollar_1.ar = n0_to_sc
+             # !sc_load_l;
+gdollar_1.t = 'b'1;
+gdollar_1.ck = !(!n3v & !n_t_38x & !gdollar_0
+               # !n_t_46x & n_t_38x & gdollar_0);
+gdollar_2.ap = 'b'0;
+gdollar_2.ar = n0_to_sc
+             # !sc_load_l;
+gdollar_2.t = 'b'1;
+gdollar_2.ck = !(!n3v & !gdollar_1 & !n_t_38x & !gdollar_0
+               # !n_t_46x & gdollar_1 & n_t_38x & gdollar_0);
 
 /* e35: sn97401 */
 /* data11 = !(n_t_39x & sc_to_data); */
@@ -898,7 +655,6 @@ n_t_42x.t = 'b'1;
 n_t_42x.ck = !(!n3v & !n_t_19x & !n_t_39x & !n_t_40x
              # !incr_sc & n_t_19x & n_t_39x & n_t_40x);
 n_t_46x = n_t_39x & n_t_40x & n_t_19x & n_t_42x;
-n_t_20x = !n_t_39x & !n_t_40x & !n_t_19x & !n_t_42x;
 
 /* r1: r_us_ */
 

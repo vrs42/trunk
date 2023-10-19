@@ -11,8 +11,7 @@
 // c4: c_us 
 // c5: cpol_use 
 // e1: sn74h30 
-module m139a (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
-output n15v;
+module m139a (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_2x, n_t_30x, n_t_31x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
 input n_t_10x;
 input n_t_11x;
 input n_t_12x;
@@ -32,7 +31,6 @@ input n_t_24x;
 input n_t_25x;
 input n_t_26x;
 input n_t_27x;
-output n_t_29x;
 input n_t_2x;
 output n_t_30x;
 output n_t_31x;
@@ -45,16 +43,6 @@ input n_t_8x;
 output n_t_9x;
 
 
-wire b1;
-wire c1;
-wire f2;
-wire h1;
-wire k2;
-wire l2;
-wire n_t_28x;
-wire p2;
-wire r2;
-wire t2;
 assign n_t_9x = ~(n_t_1x & n_t_2x & n_t_3x & n_t_4x & n_t_6x & n_t_5x & n_t_7x & n_t_8x);
 // e2: sn74h30 
 assign n_t_16x = ~(n_t_10x & n_t_11x & n_t_12x & n_t_13x & n_t_14x & n_t_15x & n_t_17x & n_t_18x);

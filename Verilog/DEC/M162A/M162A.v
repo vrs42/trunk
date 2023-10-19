@@ -12,10 +12,7 @@
 // c5: cpol_use 
 // c6: cpol_use 
 // e1: sn7420 
-module m162a (d2, n15v, n3v3, n_t_109x, n_t_113x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_25x, n_t_2x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_86x, n_t_8x, z);
-output d2;
-output n15v;
-output n3v3;
+module m162a (n_t_109x, n_t_113x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_25x, n_t_2x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_86x, n_t_8x);
 input n_t_109x;
 input n_t_113x;
 inout n_t_17x;
@@ -30,28 +27,14 @@ inout n_t_34x;
 output n_t_35x;
 output n_t_36x;
 input n_t_37x;
-inout n_t_3x;
 input n_t_4x;
 input n_t_5x;
 input n_t_6x;
 input n_t_7x;
 input n_t_86x;
 input n_t_8x;
-output z;
 
 
-wire a0;
-wire a7;
-wire aj1;
-wire an1;
-wire an1clk;
-wire ba1clk;
-wire c1_l;
-wire h1;
-wire h2;
-wire j2;
-wire n2;
-wire n3v;
 wire n_t_10x;
 wire n_t_11x;
 wire n_t_12x;
@@ -59,25 +42,15 @@ wire n_t_13x;
 wire n_t_14x;
 wire n_t_15x;
 wire n_t_16x;
-wire n_t_22x;
-wire n_t_23x;
 wire n_t_24x;
 wire n_t_26x;
 wire n_t_27x;
-wire n_t_28x;
 wire n_t_29x;
 wire n_t_30x;
-wire n_t_31x;
 wire n_t_33x;
-wire n_t_46x;
-wire n_t_68x;
-wire n_t_69x;
-wire n_t_73x;
+wire n_t_3x;
 wire n_t_9x;
-wire p2;
 wire s_t_14;
-wire select6;
-wire v2;
 assign n_t_15x = ~(n_t_8x & n_t_6x & n_t_1x & n_t_37x);
 assign n_t_9x = ~(n_t_8x & n_t_6x & n_t_4x & n_t_2x);
 // e2: sn7420 

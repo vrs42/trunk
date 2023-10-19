@@ -20,56 +20,20 @@
 // c13: c_us 
 // c14: c_us 
 // e1: sn7475 
-module m7075x (n_t_12x, n_t_65x, n_t_73x, n_t_7x, n_t_8x, a1, active_l, b1, b2, bit1, bit2, bit3, bit4, bit5, bit6, bit7, bit8, buffer_strobe, c0_l, c1, c1_l, clock8_baud, clr_flg1, clr_flg2, d1, d2, data10_l, data11_l, data2_l, data7_l, data8_l, data9_l, e1, e2, enable, f1, f2, h1, h2, i_o_clear, i_o_skip, initialize, int_rqst_l, internal_io_l, io_clear_l, io_pause_l, irq_l, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, md04_l, md05_l, md08_l, md09_l, md10_l, md11_l, n1, n2, n3v, n3v3, n_t_115x, n_t_11x, n_t_123x, n_t_125x, n_t_14x, n_t_152x, n_t_153x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_25x, n_t_26x, n_t_27x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_3x, n_t_46x, n_t_47x, n_t_4x, n_t_50x, n_t_52x, n_t_57x, n_t_59x, n_t_60x, n_t_62x, n_t_63x, n_t_74x, n_t_76x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p2, preset, r1, r2, read_buffer, reader_enable, s1, s2, s_t_1, s_t_4, serial, serial_in, shift, skip_l, skip_strobe, t2, tp3, u1, u2, v1, v2);
-output n_t_12x;
-output n_t_65x;
-output n_t_73x;
-output n_t_7x;
-output n_t_8x;
+module m7075x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, n3v, n_t_115x, n_t_123x, n_t_125x, n_t_152x, n_t_153x, n_t_20x, n_t_21x, n_t_27x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_3x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p2, r1, r2, s1, s2, s_t_1, s_t_4, t2, u1, u2, v1, v2);
 input a1;
-output active_l;
 input b1;
-output b2;
-output bit1;
-output bit2;
-output bit3;
-output bit4;
-output bit5;
-output bit6;
-output bit7;
-output bit8;
-output buffer_strobe;
-output c0_l;
 inout reg c1;
-output c1_l;
-output clock8_baud;
-output clr_flg1;
-output clr_flg2;
 output d1;
 input d2;
-output data10_l;
-output data11_l;
-output data2_l;
-output data7_l;
-output data8_l;
-output data9_l;
 inout reg e1;
 input e2;
-output enable;
 output f1;
-inout reg f2;
+input f2;
 output h1;
 input h2;
-output i_o_clear;
-output i_o_skip;
-output initialize;
-output int_rqst_l;
-output internal_io_l;
-output io_clear_l;
-output io_pause_l;
-output irq_l;
 output j1;
-inout reg j2;
+input j2;
 output k1;
 input k2;
 input l1;
@@ -77,32 +41,16 @@ output l2;
 inout m1;
 input m2;
 inout m2_l;
-output md04_l;
-output md05_l;
-output md08_l;
-output md09_l;
-output md10_l;
-output md11_l;
 output n1;
 input n2;
 inout n3v;
-output n3v3;
 output n_t_115x;
-output n_t_11x;
 output n_t_123x;
 output n_t_125x;
-inout reg n_t_14x;
 input n_t_152x;
 input n_t_153x;
-output n_t_15x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output n_t_19x;
 input n_t_20x;
 input n_t_21x;
-output n_t_25x;
-output n_t_26x;
 output n_t_27x;
 output n_t_29x;
 input n_t_31x;
@@ -110,20 +58,7 @@ output n_t_32x;
 input n_t_34x;
 input n_t_35x;
 input n_t_36x;
-output n_t_37x;
 output n_t_3x;
-output n_t_46x;
-output n_t_47x;
-output n_t_4x;
-inout reg n_t_50x;
-inout reg n_t_52x;
-output n_t_57x;
-output n_t_59x;
-output n_t_60x;
-output n_t_62x;
-output n_t_63x;
-inout n_t_74x;
-inout n_t_76x;
 input n_t_82x;
 input n_t_84x;
 inout n_t_86x;
@@ -131,22 +66,13 @@ output n_t_91x;
 output n_t_92x;
 input p1;
 input p2;
-output preset;
 output r1;
 input r2;
-output read_buffer;
-output reader_enable;
 output s1;
 input s2;
 output s_t_1;
 output s_t_4;
-inout reg serial;
-output serial_in;
-inout reg shift;
-output skip_l;
-output skip_strobe;
 output t2;
-output tp3;
 output u1;
 output u2;
 input v1;
@@ -154,12 +80,15 @@ input v2;
 
 reg c1_m;
 reg e1_m;
-reg f2_m;
 reg gdollar_0_m;
-reg j2_m;
+reg gdollar_1_m;
+reg gdollar_2_m;
+reg gdollar_3_m;
+reg gdollar_4_m;
+reg gdollar_5_m;
+reg gdollar_6_m;
+reg gdollar_7_m;
 reg n_t_101x_m;
-reg n_t_13x_m;
-reg n_t_14x_m;
 reg n_t_38x_m;
 reg n_t_39x_m;
 reg n_t_41x_m;
@@ -167,123 +96,115 @@ reg n_t_42x_m;
 reg n_t_50x_m;
 reg n_t_51x_m;
 reg n_t_52x_m;
-reg serial_m;
-reg shift_m;
 
-reg n_t_13x;
+reg gdollar_0;
+reg gdollar_1;
+reg gdollar_2;
+reg gdollar_3;
+reg n_t_52x;
+reg n_t_50x;
 reg n_t_38x;
 reg n_t_42x;
-reg gdollar_0;
-reg n_t_13x;
+reg gdollar_4;
+reg gdollar_5;
+reg gdollar_6;
+reg gdollar_7;
 reg n_t_39x;
 reg n_t_41x;
 reg n_t_51x;
 reg n_t_101x;
-wire data1_l;
-wire md07_l;
-wire n_t_10x;
 wire n_t_129x;
 wire n_t_132x;
 wire n_t_133x;
 wire n_t_136x;
-wire n_t_1x;
-wire n_t_28x;
-wire n_t_2x;
 wire n_t_54x;
-wire n_t_55x;
-wire n_t_56x;
-wire n_t_58x;
-wire n_t_5x;
-wire n_t_64x;
 wire n_t_69x;
-wire n_t_6x;
-wire n_t_72x;
+wire n_t_74x;
 wire n_t_99x;
-wire n_t_9x;
 always @(p1, h2, p1, h2, 1'b0)
   if (~p1 & ~h2) begin
-    n_t_14x_m <= 1'b0;
+    gdollar_0_m <= 1'b0;
   end else
   if (~p1 & h2) begin
-    n_t_14x_m <= 1'b1;
+    gdollar_0_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    n_t_14x_m <= 1'b0;
+    gdollar_0_m <= 1'b0;
   end
-always @(p1, h2, p1, h2, n_t_14x_m)
+always @(p1, h2, p1, h2, gdollar_0_m)
   if (~p1 & ~h2) begin
-    n_t_14x <= 1'b0;
+    gdollar_0 <= 1'b0;
   end else
   if (~p1 & h2) begin
-    n_t_14x <= 1'b1;
+    gdollar_0 <= 1'b1;
   end else
   if (1'b0) begin
-    n_t_14x <= n_t_14x_m;
+    gdollar_0 <= gdollar_0_m;
   end
-always @(p1, r2, p1, r2, 1'b0)
-  if (~p1 & ~r2) begin
-    n_t_13x_m <= 1'b0;
+always @(p1, f2, p1, f2, 1'b0)
+  if (~p1 & ~f2) begin
+    gdollar_1_m <= 1'b0;
   end else
-  if (~p1 & r2) begin
-    n_t_13x_m <= 1'b1;
+  if (~p1 & f2) begin
+    gdollar_1_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    n_t_13x_m <= 1'b0;
+    gdollar_1_m <= 1'b0;
   end
-always @(p1, r2, p1, r2, n_t_13x_m)
-  if (~p1 & ~r2) begin
-    n_t_13x <= 1'b0;
+always @(p1, f2, p1, f2, gdollar_1_m)
+  if (~p1 & ~f2) begin
+    gdollar_1 <= 1'b0;
   end else
-  if (~p1 & r2) begin
-    n_t_13x <= 1'b1;
+  if (~p1 & f2) begin
+    gdollar_1 <= 1'b1;
   end else
   if (1'b0) begin
-    n_t_13x <= n_t_13x_m;
+    gdollar_1 <= gdollar_1_m;
   end
 always @(p1, d2, p1, d2, 1'b0)
   if (~p1 & ~d2) begin
-    j2_m <= 1'b0;
+    gdollar_2_m <= 1'b0;
   end else
   if (~p1 & d2) begin
-    j2_m <= 1'b1;
+    gdollar_2_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    j2_m <= 1'b0;
+    gdollar_2_m <= 1'b0;
   end
-always @(p1, d2, p1, d2, j2_m)
+always @(p1, d2, p1, d2, gdollar_2_m)
   if (~p1 & ~d2) begin
-    j2 <= 1'b0;
+    gdollar_2 <= 1'b0;
   end else
   if (~p1 & d2) begin
-    j2 <= 1'b1;
+    gdollar_2 <= 1'b1;
   end else
   if (1'b0) begin
-    j2 <= j2_m;
+    gdollar_2 <= gdollar_2_m;
   end
 always @(p1, e2, p1, e2, 1'b0)
   if (~p1 & ~e2) begin
-    f2_m <= 1'b0;
+    gdollar_3_m <= 1'b0;
   end else
   if (~p1 & e2) begin
-    f2_m <= 1'b1;
+    gdollar_3_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    f2_m <= 1'b0;
+    gdollar_3_m <= 1'b0;
   end
-always @(p1, e2, p1, e2, f2_m)
+always @(p1, e2, p1, e2, gdollar_3_m)
   if (~p1 & ~e2) begin
-    f2 <= 1'b0;
+    gdollar_3 <= 1'b0;
   end else
   if (~p1 & e2) begin
-    f2 <= 1'b1;
+    gdollar_3 <= 1'b1;
   end else
   if (1'b0) begin
-    f2 <= f2_m;
+    gdollar_3 <= gdollar_3_m;
   end
-assign s_t_4 = ~n_t_14x;
-assign n_t_29x = ~n_t_13x;
-assign n_t_27x = ~j2;
-assign n_t_32x = ~f2;
+assign s_t_4 = ~gdollar_0;
+assign n_t_29x = ~gdollar_1;
+assign n_t_27x = ~gdollar_2;
+assign n_t_32x = ~gdollar_3;
 // e3: dec8271 
 always @(v2, m2_l, n_t_54x, n_t_74x, n_t_133x, n3v, n_t_74x, n_t_52x, n3v, n_t_74x)
   if (~m2_l) begin
@@ -372,7 +293,7 @@ assign n_t_132x = ~(k2 & n_t_20x);
 // m1 = !n_t_38x; 
 // e9: sn7400 
 assign n_t_69x = ~(e1 & m1);
-assign n_t_74x = ~(n_t_76x & m1);
+assign n_t_74x = ~(~n_t_99x & m1);
 assign n_t_54x = ~(v1 & n_t_84x);
 assign u1 = ~(~(n_t_82x & ~n_t_101x));
 // e10: sn7474 
@@ -419,68 +340,88 @@ always @(v2, m2_l, n3v, e1_m)
 // e11: sn7475 
 always @(p1, s2, p1, s2, 1'b0)
   if (~p1 & ~s2) begin
-    gdollar_0_m <= 1'b0;
+    gdollar_4_m <= 1'b0;
   end else
   if (~p1 & s2) begin
-    gdollar_0_m <= 1'b1;
+    gdollar_4_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    gdollar_0_m <= 1'b0;
+    gdollar_4_m <= 1'b0;
   end
-always @(p1, s2, p1, s2, gdollar_0_m)
+always @(p1, s2, p1, s2, gdollar_4_m)
   if (~p1 & ~s2) begin
-    gdollar_0 <= 1'b0;
+    gdollar_4 <= 1'b0;
   end else
   if (~p1 & s2) begin
-    gdollar_0 <= 1'b1;
+    gdollar_4 <= 1'b1;
   end else
   if (1'b0) begin
-    gdollar_0 <= gdollar_0_m;
+    gdollar_4 <= gdollar_4_m;
+  end
+always @(p1, r2, p1, r2, 1'b0)
+  if (~p1 & ~r2) begin
+    gdollar_5_m <= 1'b0;
+  end else
+  if (~p1 & r2) begin
+    gdollar_5_m <= 1'b1;
+  end else
+  if (~(1'b0)) begin
+    gdollar_5_m <= 1'b0;
+  end
+always @(p1, r2, p1, r2, gdollar_5_m)
+  if (~p1 & ~r2) begin
+    gdollar_5 <= 1'b0;
+  end else
+  if (~p1 & r2) begin
+    gdollar_5 <= 1'b1;
+  end else
+  if (1'b0) begin
+    gdollar_5 <= gdollar_5_m;
   end
 always @(p1, n2, p1, n2, 1'b0)
   if (~p1 & ~n2) begin
-    serial_m <= 1'b0;
+    gdollar_6_m <= 1'b0;
   end else
   if (~p1 & n2) begin
-    serial_m <= 1'b1;
+    gdollar_6_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    serial_m <= 1'b0;
+    gdollar_6_m <= 1'b0;
   end
-always @(p1, n2, p1, n2, serial_m)
+always @(p1, n2, p1, n2, gdollar_6_m)
   if (~p1 & ~n2) begin
-    serial <= 1'b0;
+    gdollar_6 <= 1'b0;
   end else
   if (~p1 & n2) begin
-    serial <= 1'b1;
+    gdollar_6 <= 1'b1;
   end else
   if (1'b0) begin
-    serial <= serial_m;
+    gdollar_6 <= gdollar_6_m;
   end
 always @(p1, p2, p1, p2, 1'b0)
   if (~p1 & ~p2) begin
-    shift_m <= 1'b0;
+    gdollar_7_m <= 1'b0;
   end else
   if (~p1 & p2) begin
-    shift_m <= 1'b1;
+    gdollar_7_m <= 1'b1;
   end else
   if (~(1'b0)) begin
-    shift_m <= 1'b0;
+    gdollar_7_m <= 1'b0;
   end
-always @(p1, p2, p1, p2, shift_m)
+always @(p1, p2, p1, p2, gdollar_7_m)
   if (~p1 & ~p2) begin
-    shift <= 1'b0;
+    gdollar_7 <= 1'b0;
   end else
   if (~p1 & p2) begin
-    shift <= 1'b1;
+    gdollar_7 <= 1'b1;
   end else
   if (1'b0) begin
-    shift <= shift_m;
+    gdollar_7 <= gdollar_7_m;
   end
-assign n_t_125x = ~gdollar_0;
-assign n_t_123x = ~n_t_13x;
-assign n_t_3x = ~serial;
-assign s_t_1 = ~shift;
+assign n_t_125x = ~gdollar_4;
+assign n_t_123x = ~gdollar_5;
+assign n_t_3x = ~gdollar_6;
+assign s_t_1 = ~gdollar_7;
 // e13: dec8271 
 always @(v2, m2_l, n_t_42x, n_t_74x, n_t_21x, n3v, n_t_74x, n_t_39x, n3v, n_t_74x)
   if (~m2_l) begin
@@ -546,12 +487,10 @@ always @(v2, m2_l, n_t_101x_m)
   if (~v2) begin
     n_t_101x <= n_t_101x_m;
   end
-assign 'b'0 = ~n_t_101x;
 // e14: sn7404 
 assign n3v = 1'b1;
 assign n_t_91x = ~v2;
 assign l2 = ~n_t_42x;
-assign n_t_76x = ~n_t_99x;
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 

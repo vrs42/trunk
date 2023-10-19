@@ -273,8 +273,6 @@ warning: non-bypass capacitor deleted: c38
 warning: non-bypass capacitor deleted: c39
 warning: non-bypass capacitor deleted: c40
 warning: non-bypass capacitor deleted: c41
-unexpected OC output: 'b'0 at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2525.
-unexpected OC output: myiot_l at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2525.
 warning: non-pullup resistor deleted: r8
 warning: non-pullup resistor deleted: r11
 warning: non-pullup resistor deleted: r12
@@ -380,11 +378,17 @@ warning: non-pullup resistor deleted: r147
 warning: non-pullup resistor deleted: r148
 warning: non-pullup resistor deleted: r149
 ~/Verilog/bin/smaller.pl M885E.PLD >vv || (rm vv; exit 1)
-6 signals were removed:
+12 signals were removed:
+  n_t_11x: !y03
+  n_t_13x: !y02
+  n_t_1x: !y11
   n_t_2x: !y10
   n_t_3x: !y09
   n_t_4x: !y08
+  n_t_5x: !y07
   n_t_76x: !x02
+  n_t_7x: !y06
+  n_t_8x: !y05
   n_t_91x: !y02
   n_t_9x: !y04
 ~/Verilog/bin/smaller.pl vv >M885EX.PLD || (rm M885EX.PLD; exit 1)

@@ -11,14 +11,29 @@
 // c4: c_us 
 // c5: cpol_use 
 // e1: sn74h53 
-// a1 = !(b1 & a1
-//   # c1 & d1
-//   # e1 & h2 & f2
-//   # e2 & d2); 
-// b1 = !a1; 
-module m127a (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
-inout a1;
-inout b1;
+// j2 = !(b1 & a1
+//          # c1 & d1
+//          # e1 & h2 & f2
+//          # e2 & d2); 
+// !j2 = !j2; 
+// e2: sn74h53 
+// p2 = !(f1 & h1
+//          # k2 & l2
+//          # l1 & n2 & m2
+//          # k1 & j1); 
+// !p2 = !p2; 
+// e3: sn74h53 
+// v2 = !(m1 & n1
+//          # r2 & s2
+//          # s1 & u2 & t2
+//          # r1 & p1); 
+// !v2 = !v2; 
+// r3: r_us_ 
+// r4: r_us_ 
+// open collector 'wire-or's 
+module m127a (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u2, v1, v2);
+input a1;
+input b1;
 input c1;
 input d1;
 input d2;
@@ -26,7 +41,7 @@ input e1;
 input e2;
 input f1;
 input f2;
-inout h1;
+input h1;
 input h2;
 input j1;
 inout j2;
@@ -36,59 +51,30 @@ input l1;
 input l2;
 input m1;
 input m2;
-inout n1;
-inout n2;
+input n1;
+input n2;
 input p1;
-output p2;
+inout p2;
 input r1;
 input r2;
 input s1;
 input s2;
 input t2;
-output u1;
 input u2;
 output v1;
-output v2;
+inout v2;
 
 
-wire n_t_10x;
-wire n_t_18x;
-wire n_t_22x;
-wire n_t_24x;
-wire n_t_26x;
-wire n_t_28x;
-wire n_t_4x;
-wire n_t_8x;
-// e2: sn74h53 
-// n2 = !(f1 & h1
-//   # k2 & l2
-//   # l1 & n2 & m2
-//   # k1 & j1); 
-// h1 = !n2; 
-assign p2 = n2;
-// e3: sn74h53 
-// j2 = !(m1 & n1
-//   # r2 & s2
-//   # s1 & u2 & t2
-//   # r1 & p1); 
-// n1 = !j2; 
-assign v2 = j2;
-// r3: r_us_ 
-// r4: r_us_ 
-// open collector 'wire-or's 
-assign a1 = (b1 & (1'b0)
-              | c1 & d1
-              | e1 & h2 & f2
-              | e2 & d2)? 1'b0: 1'bz;
-assign b1 = a1? ~a1: 1'bz;
-assign h1 = n2? ~n2: 1'bz;
-assign j2 = (m1 & n1
-              | r2 & s2
-              | s1 & u2 & t2
-              | r1 & p1)? 1'b0: 1'bz;
-assign n1 = j2? ~j2: 1'bz;
-assign n2 = (f1 & h1
-              | k2 & l2
-              | l1 & (1'b0) & m2
-              | k1 & j1)? 1'b0: 1'bz;
+assign j2 = ~((b1 & a1
+                | c1 & d1
+                | e1 & h2 & f2
+                | e2 & d2));
+assign p2 = ~((f1 & h1
+                | k2 & l2
+                | l1 & n2 & m2
+                | k1 & j1));
+assign v2 = ~((m1 & n1
+                | r2 & s2
+                | s1 & u2 & t2
+                | r1 & p1));
 endmodule

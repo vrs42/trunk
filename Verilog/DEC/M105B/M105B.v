@@ -21,9 +21,8 @@
 // c14: c_us 
 // c15: cpol_use 
 // e1: sp380n 
-module m105b (c1_l, n15v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_23x, n_t_24x, n_t_2x, n_t_3x, n_t_43x, n_t_44x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, out_high, out_l, select0, select2, select4, select6, ssyn_l);
+module m105b (c1_l, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_23x, n_t_24x, n_t_2x, n_t_3x, n_t_43x, n_t_44x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, out_high, out_l, select0, select2, select4, select6, ssyn_l);
 inout c1_l;
-output n15v;
 input n_t_10x;
 input n_t_11x;
 input n_t_12x;
@@ -75,7 +74,6 @@ wire a1516;
 wire a17syn;
 wire c0;
 wire c1;
-wire n3v3;
 wire n_t_25x;
 wire n_t_38x;
 wire n_t_41x;

@@ -12,10 +12,8 @@
 // c5: c_us 
 // c6: c_us 
 // e1: sn74h40n 
-module m240x (n_t_14x, n_t_17x, n_t_31x, n_t_41x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_49x, n_t_50x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_69x, n_t_70x);
+module m240x (n_t_14x, n_t_41x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_49x, n_t_50x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_59x, n_t_60x, n_t_61x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_69x, n_t_70x);
 inout n_t_14x;
-output n_t_17x;
-output n_t_31x;
 inout n_t_41x;
 input n_t_43x;
 input n_t_44x;
@@ -47,36 +45,6 @@ input n_t_69x;
 input n_t_70x;
 
 
-wire bd00;
-wire data1_l;
-wire f2;
-wire h1;
-wire j1;
-wire n_t_10x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_18x;
-wire n_t_20x;
-wire n_t_24x;
-wire n_t_30x;
-wire n_t_32x;
-wire n_t_36x;
-wire n_t_37x;
-wire n_t_3x;
-wire n_t_4x;
-wire n_t_8x;
-wire p2;
-wire q1;
-wire q2;
-wire q5;
-wire q6;
-wire r1;
-wire s1;
-wire w1_and_w5;
-wire w6;
 assign n_t_14x = ~(n_t_43x & n_t_41x);
 assign n_t_41x = ~(n_t_14x & n_t_44x & n_t_45x);
 // e2: sn74h40n 

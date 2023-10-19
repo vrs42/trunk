@@ -9,7 +9,7 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn7485 
-module m168a (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, n_t_49x, n_t_50x, p1, p2, r1, r2, s1, s2, t2, u2, v2);
+module m168a (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u2, v2);
 output a1;
 input b1;
 output c1;
@@ -30,10 +30,7 @@ input l2;
 input m1;
 input m2;
 input n1;
-output n15v;
 input n2;
-output n_t_49x;
-output n_t_50x;
 input p1;
 input p2;
 input r1;
@@ -58,18 +55,8 @@ wire gdollar_9;
 wire gdollar_10;
 wire gdollar_11;
 wire in;
-wire n_t_10x;
-wire n_t_11x;
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_17x;
-wire n_t_21x;
 wire n_t_32x;
 wire n_t_46x;
-wire n_t_8x;
-wire n_t_9x;
 wire out;
 assign gdollar_0 = h2 & ~h1
                     | ~h2 & h1;

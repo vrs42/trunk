@@ -7,9 +7,7 @@
 // equations 
 // c1: c_us 
 // e2: sn74h40 
-module m311a (n15v, n5v_1, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, v1);
-output n15v;
-output n5v_1;
+module m311a (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
 input n_t_10x;
 input n_t_11x;
 output n_t_12x;
@@ -40,10 +38,8 @@ output n_t_6x;
 output n_t_7x;
 input n_t_8x;
 input n_t_9x;
-output v1;
 
 
-wire j2;
 assign n_t_21x = ~(n_t_8x & n_t_9x & n_t_20x & n_t_10x);
 assign n_t_22x = ~(n_t_11x & n_t_5x & n_t_3x & n_t_2x);
 // r9: r_us_ 

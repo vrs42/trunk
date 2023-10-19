@@ -18,7 +18,6 @@ $UNDEF  OPTIMIZE
 /* Input Pins */
 
 /* Output Pins */
-pin = a1;
 pin = a=b;
 pin = ac_2;
 pin = ac_2_l;
@@ -29,19 +28,12 @@ pin = adder2;
 pin = adder3;
 pin = adder4;
 pin = addr_match;
-pin = b1;
-pin = bb2;
-pin = c1;
 pin = carry_in;
 pin = carry_ok_l;
 pin = carry_out_2;
-pin = d1;
-pin = d2;
 pin = data_add;
 pin = data_add_2;
 pin = data_add_3;
-pin = e1;
-pin = e2;
 pin = enable_ac;
 pin = enable_ac_l;
 pin = enable_ac_r;
@@ -55,16 +47,6 @@ pin = enable_mem;
 pin = enable_mq;
 pin = enable_pc;
 pin = enable_rsw;
-pin = f1;
-pin = f2;
-pin = h1;
-pin = h2;
-pin = j1;
-pin = j2;
-pin = k1;
-pin = k2;
-pin = l1;
-pin = l2;
 pin = load_ac;
 pin = load_ma;
 pin = load_mb;
@@ -74,8 +56,6 @@ pin = ls_msc3;
 pin = lsw;
 pin = lsw2;
 pin = lsw3;
-pin = m1;
-pin = m2;
 pin = ma2_h;
 pin = ma2_l;
 pin = ma3_h;
@@ -88,20 +68,13 @@ pin = mem2;
 pin = mem3;
 pin = mq2;
 pin = mq3;
-pin = n1;
-pin = n15v;
-pin = n2;
 pin = no_rot;
-pin = p1;
-pin = p2;
 pin = pc2_l;
 pin = pc3_l;
 pin = ps_2;
 pin = ps_3;
 pin = ps_left_2;
 pin = ps_left_3;
-pin = r1;
-pin = r2;
 pin = reg_bus2;
 pin = reg_bus3;
 pin = rot_left;
@@ -110,13 +83,6 @@ pin = rs_msc2;
 pin = rs_msc3;
 pin = rsw2;
 pin = rsw3;
-pin = s1;
-pin = s2;
-pin = t2;
-pin = u1;
-pin = u2;
-pin = v1;
-pin = v2;
 node ac3_h;
 node ac2_h;
 node mb3_h;
@@ -126,68 +92,18 @@ node pc2_h;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a0;
-node a8;
 node ac2_l;
 node ac3_l;
-node ad01;
-node ad02;
-node ad02l;
-node ad03h;
-node adder5;
-node as2;
-node bd00;
-node bd03;
-node bd04;
-node bd04l;
-node bd05;
-node bd07;
-node bd07l;
-node bh1;
-node biot5l;
-node bj1;
-node bt2;
-node c1_l;
-node da_enabl;
-node data1_l;
-node data2;
-node data5_l;
-node io_enabl;
-node ma_enabl;
 node mb2_l;
 node mb3_l;
-node md07_l;
-node md07h;
-node n3v;
-node n3v3;
 node n_t_10x;
-node n_t_11x;
-node n_t_12x;
-node n_t_13x;
-node n_t_15x;
-node n_t_16x;
-node n_t_170x;
-node n_t_17x;
-node n_t_182x;
 node n_t_19x;
 node n_t_1x;
 node n_t_20x;
-node n_t_29x;
 node n_t_2x;
-node n_t_31x;
-node n_t_36x;
-node n_t_40x;
-node n_t_42x;
-node n_t_46x;
 node n_t_5x;
 node n_t_6x;
-node n_t_7x;
-node n_t_8x;
 node n_t_9x;
-node select6;
-node shift_l2;
-node sr2;
-node sr_enabl;
 $ENDIF
 
 /* Code nodes */
@@ -245,20 +161,20 @@ $ENDIF
 ps_2 = n_t_3x;
 
 /* e2: sn7453 */
-/* n_t_11x = !(rot_right & adder1
-        # rot_left & adder3
-        # no_rot & adder2
-        # n_t_9x & lsw); */
-/* n_t_9x = !n_t_11x; */
-reg_bus2 = n_t_11x;
+/* gdollar_0 = !(rot_right & adder1
+          # rot_left & adder3
+          # no_rot & adder2
+          # n_t_9x & lsw); */
+/* gdollar_1 = !gdollar_0; */
+reg_bus2 = gdollar_0;
 
 /* e3: sn7453 */
-/* n_t_13x = !(lsw2 & ma2_l
-        # lsw3 & ma3_l
-        # n_t_10x & ma3_h
-        # n_t_9x & ma2_h); */
-/* n_t_10x = !n_t_13x; */
-addr_match = n_t_13x;
+/* gdollar_2 = !(lsw2 & ma2_l
+          # lsw3 & ma3_l
+          # n_t_10x & ma3_h
+          # n_t_9x & ma2_h); */
+/* gdollar_3 = !gdollar_2; */
+addr_match = gdollar_2;
 
 /* e4: sn7453 */
 /* n_t_3x = !(data_add_2 & data_add
@@ -272,23 +188,23 @@ ps_2 = n_t_3x;
 adder3 = carry_in
        $ ps_left_3
        $ ps_3;
-gdollar_0 = carry_in & ps_left_3
+gdollar_4 = carry_in & ps_left_3
           # ps_left_3 & ps_3
           # carry_in & ps_3;
 adder2 = ps_2
        $ ps_left_2
-       $ gdollar_0;
-carry_out_2 = gdollar_0 & ps_2
+       $ gdollar_4;
+carry_out_2 = gdollar_4 & ps_2
             # ps_2 & ps_left_2
-            # ps_left_2 & gdollar_0;
+            # ps_left_2 & gdollar_4;
 
 /* e6: sn7453 */
-/* n_t_13x = !(adder2 & rot_right
-        # adder4 & rot_left
-        # lsw & n_t_10x
-        # no_rot & adder3); */
-/* n_t_10x = !n_t_13x; */
-reg_bus3 = n_t_13x;
+/* gdollar_5 = !(adder2 & rot_right
+          # adder4 & rot_left
+          # lsw & n_t_10x
+          # no_rot & adder3); */
+/* gdollar_6 = !gdollar_5; */
+reg_bus3 = gdollar_5;
 
 /* e7: sn7453 */
 /* n_t_6x = !(enable_mq & mq2
@@ -299,15 +215,11 @@ reg_bus3 = n_t_13x;
 ps_left_2 = n_t_6x;
 
 /* e8: sn7474 */
-ac3_h.ar = !n_t_36x;
 ac3_h.d = reg_bus3;
 ac3_h.ck = load_ac;
-ac3_h.ap = !n3v3;
 ac3_l = !ac3_h;
-ac2_h.ar = !n_t_8x;
 ac2_h.d = reg_bus2;
 ac2_h.ck = load_ac;
-ac2_h.ap = !n3v3;
 ac2_l = !ac2_h;
 
 /* e9: sn7400 */
@@ -323,24 +235,20 @@ n_t_9x = !lsw2;
 /* n_t_2x = !n_t_1x; */
 
 /* e11: sn7474 */
-mb3_h.ar = !mb2_h;
 mb3_h.d = reg_bus3;
 mb3_h.ck = load_mb;
-mb3_h.ap = !mb2_h;
 mb3_l = !mb3_h;
-mb2_h.ar = !mb2_l;
 mb2_h.d = reg_bus2;
 mb2_h.ck = load_mb;
-mb2_h.ap = !mb2_l;
 mb2_l = !mb2_h;
 
 /* e12: sn7453 */
-/* n_t_4x = !(ac3_l & ps_3
-       # ac2_h & n_t_19x
-       # ac2_l & ps_2
-       # n_t_20x & ac3_h); */
-/* n_t_2x = !n_t_4x; */
-carry_ok_l = n_t_4x;
+/* gdollar_7 = !(ac3_l & ps_3
+          # ac2_h & n_t_19x
+          # ac2_l & ps_2
+          # n_t_20x & ac3_h); */
+/* gdollar_8 = !gdollar_7; */
+carry_ok_l = gdollar_7;
 
 /* e13: sn7460 */
 /* n_t_6x = !(mb2_h & enable_bse & enable_bse & ac2_l); */
@@ -349,24 +257,20 @@ carry_ok_l = n_t_4x;
 /* n_t_2x = !n_t_1x; */
 
 /* e14: sn7474 */
-pc3_h.ar = !sr_enabl;
 pc3_h.d = reg_bus3;
 pc3_h.ck = load_pc;
-pc3_h.ap = !data2;
 pc3_l = !pc3_h;
-pc2_h.ar = !sr2;
 pc2_h.d = reg_bus2;
 pc2_h.ck = load_pc;
-pc2_h.ap = !io_enabl;
 pc2_l = !pc2_h;
 
 /* e15: sn7453 */
-/* n_t_4x = !(ac3_l & mb3_h
-       # ac2_h & mb2_l
-       # ac2_l & mb2_h
-       # mb3_l & ac3_h); */
-/* n_t_2x = !n_t_4x; */
-a=b = n_t_4x;
+/* gdollar_9 = !(ac3_l & mb3_h
+          # ac2_h & mb2_l
+          # ac2_l & mb2_h
+          # mb3_l & ac3_h); */
+/* gdollar_10 = !gdollar_9; */
+a=b = gdollar_9;
 
 /* e16: sn7453 */
 /* n_t_1x = !(enable_mq & mq3
@@ -377,15 +281,11 @@ a=b = n_t_4x;
 ps_left_3 = n_t_1x;
 
 /* e17: sn7474 */
-ma3_h.ar = !ma_enabl;
 ma3_h.d = reg_bus3;
 ma3_h.ck = load_ma;
-ma3_h.ap = !mem2;
 ma3_l = !ma3_h;
-ma2_h.ar = !ma2_h;
 ma2_h.d = reg_bus2;
 ma2_h.ck = load_ma;
-ma2_h.ap = !da_enabl;
 ma2_l = !ma2_h;
 
 /* e18: sn74h00 */
@@ -445,20 +345,31 @@ mb_2_l = !mb2_h;
 /* r14: r_us_ */
 
 /* Open collector 'wire-or's */
-!n_t_10x = (n_t_13x)
-           # (n_t_13x);
-!n_t_11x = (rot_right & adder1
-        # rot_left & adder3
-        # no_rot & adder2
-        # n_t_9x & lsw);
-!n_t_13x = (lsw2 & ma2_l
-        # lsw3 & ma3_l
-        # n_t_10x & ma3_h
-        # n_t_9x & ma2_h)
-        # (adder2 & rot_right
-        # adder4 & rot_left
-        # lsw & n_t_10x
-        # no_rot & adder3);
+!gdollar_0 = (rot_right & adder1
+          # rot_left & adder3
+          # no_rot & adder2
+          # n_t_9x & lsw);
+!gdollar_1 = gdollar_0;
+!gdollar_10 = gdollar_9;
+!gdollar_2 = (lsw2 & ma2_l
+          # lsw3 & ma3_l
+          # n_t_10x & ma3_h
+          # n_t_9x & ma2_h);
+!gdollar_3 = gdollar_2;
+!gdollar_5 = (adder2 & rot_right
+          # adder4 & rot_left
+          # lsw & n_t_10x
+          # no_rot & adder3);
+!gdollar_6 = gdollar_5;
+!gdollar_7 = (ac3_l & ps_3
+          # ac2_h & n_t_19x
+          # ac2_l & ps_2
+          # n_t_20x & ac3_h);
+!gdollar_8 = gdollar_7;
+!gdollar_9 = (ac3_l & mb3_h
+          # ac2_h & mb2_l
+          # ac2_l & mb2_h
+          # mb3_l & ac3_h);
 !n_t_1x = (enable_bcl & mb3_l & ac3_h)
           # (enable_bse & ac3_l & mb3_h)
        # (enable_mq & mq3
@@ -466,9 +377,7 @@ mb_2_l = !mb2_h;
        # enable_ac_l & ac3_h
        # enable_ac & ac3_l);
 !n_t_2x = (n_t_1x)
-          # (n_t_4x)
           # (n_t_1x)
-          # (n_t_4x)
           # (n_t_1x);
 !n_t_3x = (ac2_h & enable_ac_r
        # rs_msc2
@@ -479,15 +388,7 @@ mb_2_l = !mb2_h;
        # ma2_h & enable_ma2
        # enable_mem & mem2);
 !n_t_4x = (n_t_3x)
-          # (n_t_3x)
-       # (ac3_l & ps_3
-       # ac2_h & n_t_19x
-       # ac2_l & ps_2
-       # n_t_20x & ac3_h)
-       # (ac3_l & mb3_h
-       # ac2_h & mb2_l
-       # ac2_l & mb2_h
-       # mb3_l & ac3_h);
+          # (n_t_3x);
 !n_t_5x = (n_t_6x)
           # (n_t_6x)
           # (n_t_6x);
@@ -507,4 +408,3 @@ mb_2_l = !mb2_h;
        # rs_msc3
        # rsw3 & enable_rsw
        # enable_pc & pc3_h);
-!n_t_9x = n_t_11x;

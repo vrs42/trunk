@@ -16,19 +16,14 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = clk_l;
 pin = n3v;
 pin = n_t_13x;
 pin = n_t_14x;
-pin = n_t_15x;
 pin = n_t_17x;
 pin = n_t_18x;
-pin = n_t_19x;
-pin = n_t_20x;
 pin = n_t_5x;
 pin = n_t_6x;
 pin = n_t_8x;
-pin = shift_l;
 
 /* Output Pins */
 pin = ad2;
@@ -93,33 +88,14 @@ pin = n_t_16x;
 pin = n_t_1x;
 pin = n_t_2x;
 pin = n_t_7x;
-pin = n_t_9x;
-node iop2;
+node gdollar_0;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a1;
-node b1;
-node b_last_brk;
-node bdata2;
-node c1;
-node d1;
-node d2;
-node data_enable;
-node e2;
-node f2;
-node h2;
-node iop1;
-node iop4;
-node j2;
-node k2;
-node n2_8v;
-node n3v3;
 node n_t_10x;
-node n_t_39x;
 node n_t_3x;
 node n_t_4x;
-node n_t_55x;
+node n_t_9x;
 $ENDIF
 
 /* Code nodes */
@@ -213,22 +189,16 @@ bp1.ap = bs1 & br2;
 bp1.ar = bs1 & !br2;
 bp1.ck = 'b'0;
 bp1.d = 'b'0;
-iop2.ap = bs1 & n3v;
-iop2.ar = bs1 & !n3v;
-iop2.ck = 'b'0;
-iop2.d = 'b'0;
+gdollar_0.ap = bs1 & n3v;
+gdollar_0.ar = bs1 & !n3v;
+gdollar_0.ck = 'b'0;
+gdollar_0.d = 'b'0;
 bu2 = !bm2;
 bp2 = !bn2;
 br1 = !bp1;
-n_t_7x = !iop2;
 
 /* ic1: sn7404 */
-h2 = !j2;
-d2 = !k2;
-f2 = !e2;
 n_t_11x = !aj1;
-d1 = !c1;
-b1 = !a1;
 
 /* r1: r_us_ */
 

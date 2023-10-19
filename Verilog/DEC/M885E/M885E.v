@@ -44,61 +44,26 @@
 // c40: cpol_use 
 // c41: c_us 
 // e1: sn74193 
-module m885e (a00_l, bit10, bit11, cc_sdrc_l, df_db03, grn_delay, hz10m, hz500, load_en_l, load_x, load_y, mtr4_l, n_t_103x, n_t_105x, n_t_132x, n_t_156x, n_t_15x, n_t_19x, n_t_20x, n_t_27x, n_t_31x, n_t_41x, n_t_51x, n_t_52x, n_t_53x, n_t_59x, n_t_65x, n_t_69x, p3_bm2, p3_bm3, p3_bm4, p3_bm5, p3_bm6, p3_bm7, p3_bm8, red_delay, sr08, sr09, x_ac_l, x_dec, x_inc, y_ac_l, y_dec, y_inc, bk_cycle_l, brk_in_prog_l, c0_l, c1_l, cc_tpg1, chan_l, col_red_l, con_all_halt, cpma_dis_l, data00_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, data1_l, df_db00, ema0_l, ema1_l, ema2_l, erase_interval_l, erase_l, f_not_r, hz50, initialize, int_strobe, internal_io_l, interrupt_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, mams_load_cont_l, md0_l, md10_l, md11_l, md1_l, md2_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, md_dir_l, motor_stopping_l, msir_dis_l, mymd10, mymd10_l, n15v, n3v, n5v_x, n5v_y, n_t_107x, n_t_11x, n_t_121x, n_t_12x, n_t_13x, n_t_145x, n_t_14x, n_t_16x, n_t_1x, n_t_22x, n_t_23x, n_t_28x, n_t_34x, n_t_54x, n_t_55x, n_t_56x, n_t_57x, n_t_58x, n_t_5x, n_t_60x, n_t_61x, n_t_62x, n_t_64x, n_t_72x, n_t_73x, n_t_74x, n_t_75x, n_t_7x, n_t_8x, n_t_92x, non_store_l, p3_hos_l, pause_l, pls, rd7_l, rd8_l, rd9_l, rdata_to_bus, skip_l, tp1, tp2, tp3, tp4, ts2, ts3_l, ts4, write_thru_l, wrt_echo, x_analog, xmit_active_l, y_analog, z_axis);
-output a00_l;
+module m885e (bit10, bit11, load_en_l, load_x, load_y, n_t_103x, n_t_105x, n_t_132x, n_t_156x, n_t_27x, n_t_52x, x_ac_l, x_dec, x_inc, y_ac_l, y_dec, y_inc, chan_l, col_red_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, erase_interval_l, erase_l, n15v, n5v_x, n5v_y, n_t_107x, n_t_121x, n_t_145x, non_store_l, write_thru_l, x_analog, y_analog, z_axis);
 input bit10;
 input bit11;
-output cc_sdrc_l;
-output df_db03;
-output grn_delay;
-output hz10m;
-output hz500;
 input load_en_l;
 input load_x;
 input load_y;
-output mtr4_l;
 output n_t_103x;
 output n_t_105x;
 output n_t_132x;
 output n_t_156x;
-output n_t_15x;
-output n_t_19x;
-output n_t_20x;
 output n_t_27x;
-inout reg n_t_31x;
-output n_t_41x;
-output n_t_51x;
 output n_t_52x;
-output n_t_53x;
-output n_t_59x;
-output n_t_65x;
-output n_t_69x;
-output p3_bm2;
-output p3_bm3;
-output p3_bm4;
-output p3_bm5;
-output p3_bm6;
-output p3_bm7;
-output p3_bm8;
-output red_delay;
-output sr08;
-output sr09;
 input x_ac_l;
 input x_dec;
 input x_inc;
 input y_ac_l;
 input y_dec;
 input y_inc;
-output bk_cycle_l;
-output brk_in_prog_l;
-output c0_l;
-output c1_l;
-output cc_tpg1;
 output chan_l;
 output col_red_l;
-output con_all_halt;
-output cpma_dis_l;
-output data00_l;
 inout data02_l;
 inout data03_l;
 inout data04_l;
@@ -109,110 +74,24 @@ inout data08_l;
 inout data09_l;
 output data10_l;
 output data11_l;
-output data1_l;
-output df_db00;
-output ema0_l;
-output ema1_l;
-output ema2_l;
 output erase_interval_l;
 output erase_l;
-output f_not_r;
-output hz50;
-output initialize;
-output int_strobe;
-output internal_io_l;
-output interrupt_l;
-output ma0_l;
-output ma10_l;
-output ma11_l;
-output ma1_l;
-output ma2_l;
-output ma3_l;
-output ma4_l;
-output ma5_l;
-output ma6_l;
-output ma7_l;
-output ma8_l;
-output ma9_l;
-output mams_load_cont_l;
-output md0_l;
-output md10_l;
-output md11_l;
-output md1_l;
-output md2_l;
-output md3_l;
-output md4_l;
-output md5_l;
-output md6_l;
-output md7_l;
-output md8_l;
-output md9_l;
-output md_dir_l;
-output motor_stopping_l;
-output msir_dis_l;
-output mymd10;
-output mymd10_l;
 output n15v;
-output n3v;
 output n5v_x;
 output n5v_y;
 output n_t_107x;
-inout n_t_11x;
 output n_t_121x;
-inout n_t_12x;
-inout n_t_13x;
 output n_t_145x;
-inout n_t_14x;
-output n_t_16x;
-inout n_t_1x;
-inout n_t_22x;
-inout n_t_23x;
-output n_t_28x;
-output n_t_34x;
-output n_t_54x;
-output n_t_55x;
-output n_t_56x;
-output n_t_57x;
-output n_t_58x;
-inout n_t_5x;
-output n_t_60x;
-output n_t_61x;
-output n_t_62x;
-output n_t_64x;
-output n_t_72x;
-output n_t_73x;
-output n_t_74x;
-output n_t_75x;
-inout n_t_7x;
-inout n_t_8x;
-output n_t_92x;
 output non_store_l;
-output p3_hos_l;
-output pause_l;
-output pls;
-output rd7_l;
-output rd8_l;
-output rd9_l;
-output rdata_to_bus;
-output skip_l;
-output tp1;
-output tp2;
-output tp3;
-output tp4;
-output ts2;
-output ts3_l;
-output ts4;
 output write_thru_l;
-output wrt_echo;
 output x_analog;
-output xmit_active_l;
 output y_analog;
 output z_axis;
 
-reg biopause_l_m;
-reg md04_l_m;
-reg mymd09_m;
-reg n_t_31x_m;
+reg gdollar_0_m;
+reg gdollar_1_m;
+reg gdollar_2_m;
+reg gdollar_3_m;
 reg x02_m;
 reg x03_m;
 reg x04_m;
@@ -236,11 +115,12 @@ reg y11_m;
 
 reg y03;
 reg y02;
-reg md04_l;
-reg biopause_l;
+reg gdollar_0;
+reg gdollar_1;
 reg x03;
 reg x02;
-reg mymd09;
+reg gdollar_2;
+reg gdollar_3;
 reg y07;
 reg y06;
 reg y05;
@@ -257,20 +137,6 @@ reg x11;
 reg x10;
 reg x09;
 reg x08;
-wire a1;
-wire ad2;
-wire ae2;
-wire af2;
-wire ak2;
-wire al2;
-wire am2;
-wire an2;
-wire ap2;
-wire bb1;
-wire bm2;
-wire btp3;
-wire cc_sdrd_l;
-wire ck_flag;
 wire di02;
 wire di03;
 wire di04;
@@ -279,25 +145,14 @@ wire di06;
 wire di07;
 wire di08;
 wire di09;
-wire io6131_l;
-wire io6133_l;
-wire io_pause;
-wire maybe_clei_l;
-wire md11p;
-wire myiot;
-wire myiot_l;
-wire mymd11;
-wire mymd11_l;
-wire n3v3;
 wire n_t_10x;
+wire n_t_12x;
+wire n_t_14x;
 wire n_t_21x;
+wire n_t_22x;
+wire n_t_23x;
 wire n_t_24x;
 wire n_t_6x;
-wire rx_clr_l;
-wire sr05;
-wire store_l;
-wire tp1_l;
-wire zone1;
 always @(n_t_6x, n_t_10x, load_y, di03, load_y, di03, y03)
   if (~load_y & ~di03) begin
     y03_m <= 1'b0;
@@ -342,40 +197,38 @@ always @(n_t_6x, y03, n_t_10x, y03, load_y, di02, load_y, di02, y02_m)
                    | ~n_t_10x & y03)) begin
     y02 <= y02_m;
   end
-always @(n_t_6x, y03, y02, n_t_10x, y03, y02, load_y, md04_l)
+always @(n_t_6x, y03, y02, n_t_10x, y03, y02, load_y, gdollar_0)
   if (~load_y) begin
-    md04_l_m <= 1'b0;
+    gdollar_0_m <= 1'b0;
   end else
   if (~(~(~n_t_6x & ~y03 & ~y02
-                      | ~n_t_10x & y03 & y02))) begin
-    md04_l_m <= ~md04_l;
+                         | ~n_t_10x & y03 & y02))) begin
+    gdollar_0_m <= ~gdollar_0;
   end
-always @(n_t_6x, y03, y02, n_t_10x, y03, y02, load_y, md04_l_m)
+always @(n_t_6x, y03, y02, n_t_10x, y03, y02, load_y, gdollar_0_m)
   if (~load_y) begin
-    md04_l <= 1'b0;
+    gdollar_0 <= 1'b0;
   end else
   if (~(~n_t_6x & ~y03 & ~y02
-                      | ~n_t_10x & y03 & y02)) begin
-    md04_l <= md04_l_m;
+                         | ~n_t_10x & y03 & y02)) begin
+    gdollar_0 <= gdollar_0_m;
   end
-always @(n_t_6x, md04_l, y03, y02, n_t_10x, md04_l, y03, y02, load_y, biopause_l)
+always @(n_t_6x, gdollar_0, y03, y02, n_t_10x, gdollar_0, y03, y02, load_y, gdollar_1)
   if (~load_y) begin
-    biopause_l_m <= 1'b0;
+    gdollar_1_m <= 1'b0;
   end else
-  if (~(~(~n_t_6x & ~md04_l & ~y03 & ~y02
-                          | ~n_t_10x & md04_l & y03 & y02))) begin
-    biopause_l_m <= ~biopause_l;
+  if (~(~(~n_t_6x & ~gdollar_0 & ~y03 & ~y02
+                         | ~n_t_10x & gdollar_0 & y03 & y02))) begin
+    gdollar_1_m <= ~gdollar_1;
   end
-always @(n_t_6x, md04_l, y03, y02, n_t_10x, md04_l, y03, y02, load_y, biopause_l_m)
+always @(n_t_6x, gdollar_0, y03, y02, n_t_10x, gdollar_0, y03, y02, load_y, gdollar_1_m)
   if (~load_y) begin
-    biopause_l <= 1'b0;
+    gdollar_1 <= 1'b0;
   end else
-  if (~(~n_t_6x & ~md04_l & ~y03 & ~y02
-                          | ~n_t_10x & md04_l & y03 & y02)) begin
-    biopause_l <= biopause_l_m;
+  if (~(~n_t_6x & ~gdollar_0 & ~y03 & ~y02
+                         | ~n_t_10x & gdollar_0 & y03 & y02)) begin
+    gdollar_1 <= gdollar_1_m;
   end
-assign 'b'0 = y03 & y02 & md04_l & biopause_l;
-assign io_pause = ~y03 & ~y02 & ~md04_l & ~biopause_l;
 // e2: sn74193 
 always @(n_t_21x, n_t_22x, load_x, di03, load_x, di03, x03)
   if (~load_x & ~di03) begin
@@ -421,40 +274,38 @@ always @(n_t_21x, x03, n_t_22x, x03, load_x, di02, load_x, di02, x02_m)
                    | ~n_t_22x & x03)) begin
     x02 <= x02_m;
   end
-always @(n_t_21x, x03, x02, n_t_22x, x03, x02, load_x, mymd09)
+always @(n_t_21x, x03, x02, n_t_22x, x03, x02, load_x, gdollar_2)
   if (~load_x) begin
-    mymd09_m <= 1'b0;
+    gdollar_2_m <= 1'b0;
   end else
   if (~(~(~n_t_21x & ~x03 & ~x02
-                      | ~n_t_22x & x03 & x02))) begin
-    mymd09_m <= ~mymd09;
+                         | ~n_t_22x & x03 & x02))) begin
+    gdollar_2_m <= ~gdollar_2;
   end
-always @(n_t_21x, x03, x02, n_t_22x, x03, x02, load_x, mymd09_m)
+always @(n_t_21x, x03, x02, n_t_22x, x03, x02, load_x, gdollar_2_m)
   if (~load_x) begin
-    mymd09 <= 1'b0;
+    gdollar_2 <= 1'b0;
   end else
   if (~(~n_t_21x & ~x03 & ~x02
-                      | ~n_t_22x & x03 & x02)) begin
-    mymd09 <= mymd09_m;
+                         | ~n_t_22x & x03 & x02)) begin
+    gdollar_2 <= gdollar_2_m;
   end
-always @(n_t_21x, mymd09, x03, x02, n_t_22x, mymd09, x03, x02, load_x, n_t_31x)
+always @(n_t_21x, gdollar_2, x03, x02, n_t_22x, gdollar_2, x03, x02, load_x, gdollar_3)
   if (~load_x) begin
-    n_t_31x_m <= 1'b0;
+    gdollar_3_m <= 1'b0;
   end else
-  if (~(~(~n_t_21x & ~mymd09 & ~x03 & ~x02
-                       | ~n_t_22x & mymd09 & x03 & x02))) begin
-    n_t_31x_m <= ~n_t_31x;
+  if (~(~(~n_t_21x & ~gdollar_2 & ~x03 & ~x02
+                         | ~n_t_22x & gdollar_2 & x03 & x02))) begin
+    gdollar_3_m <= ~gdollar_3;
   end
-always @(n_t_21x, mymd09, x03, x02, n_t_22x, mymd09, x03, x02, load_x, n_t_31x_m)
+always @(n_t_21x, gdollar_2, x03, x02, n_t_22x, gdollar_2, x03, x02, load_x, gdollar_3_m)
   if (~load_x) begin
-    n_t_31x <= 1'b0;
+    gdollar_3 <= 1'b0;
   end else
-  if (~(~n_t_21x & ~mymd09 & ~x03 & ~x02
-                       | ~n_t_22x & mymd09 & x03 & x02)) begin
-    n_t_31x <= n_t_31x_m;
+  if (~(~n_t_21x & ~gdollar_2 & ~x03 & ~x02
+                         | ~n_t_22x & gdollar_2 & x03 & x02)) begin
+    gdollar_3 <= gdollar_3_m;
   end
-assign mymd11 = x03 & x02 & mymd09 & n_t_31x;
-assign mymd11_l = ~x03 & ~x02 & ~mymd09 & ~n_t_31x;
 // e3: sp380n 
 assign di03 = ~(data03_l
                  | load_en_l);
@@ -838,7 +689,7 @@ always @(x_dec, x09, x11, x10, x_inc, x09, x11, x10, load_x, di08, load_x, di08,
 assign n_t_24x = x11 & x10 & x09 & x08;
 assign n_t_23x = ~x11 & ~x10 & ~x09 & ~x08;
 // e9: dec8235 
-// data10_l = !(!n_t_1x & !y_ac_l
+// data10_l = !(y11 & !y_ac_l
 //         # x11 & !x_ac_l); 
 // data11_l = !(y10 & !y_ac_l
 //         # x10 & !x_ac_l); 
@@ -847,26 +698,20 @@ assign n_t_23x = ~x11 & ~x10 & ~x09 & ~x08;
 // data08_l = !(y08 & !y_ac_l
 //         # x08 & !x_ac_l); 
 // e10: sn7404 
-assign n_t_7x = ~y06;
-assign n_t_5x = ~y07;
-assign n_t_8x = ~y05;
 // e11: dec8235 
-// data07_l = !(!n_t_5x & !y_ac_l
+// data07_l = !(y07 & !y_ac_l
 //         # x07 & !x_ac_l); 
-// data06_l = !(!n_t_7x & !y_ac_l
+// data06_l = !(y06 & !y_ac_l
 //         # x06 & !x_ac_l); 
-// data05_l = !(!n_t_8x & !y_ac_l
+// data05_l = !(y05 & !y_ac_l
 //         # x05 & !x_ac_l); 
 // data04_l = !(y04 & !y_ac_l
 //         # x04 & !x_ac_l); 
 // e12: sn7404 
-assign n_t_13x = ~y02;
-assign n_t_11x = ~y03;
-assign n_t_1x = ~y11;
 // e13: dec8235 
-// data03_l = !(!n_t_11x & !y_ac_l
+// data03_l = !(y03 & !y_ac_l
 //         # x03 & !x_ac_l); 
-// data02_l = !(!n_t_13x & !y_ac_l
+// data02_l = !(y02 & !y_ac_l
 //         # x02 & !x_ac_l); 
 // r1: r_us_ 
 // r2: r_us_ 
@@ -1000,23 +845,23 @@ assign n_t_1x = ~y11;
 // r148: r_us_ 
 // r149: r_us_ 
 // open collector 'wire-or's 
-assign data02_l = (~n_t_13x & ~y_ac_l
+assign data02_l = (y02 & ~y_ac_l
                     | x02 & ~x_ac_l)? 1'b0: 1'bz;
-assign data03_l = (~n_t_11x & ~y_ac_l
+assign data03_l = (y03 & ~y_ac_l
                     | x03 & ~x_ac_l)? 1'b0: 1'bz;
 assign data04_l = (y04 & ~y_ac_l
                     | x04 & ~x_ac_l)? 1'b0: 1'bz;
-assign data05_l = (~n_t_8x & ~y_ac_l
+assign data05_l = (y05 & ~y_ac_l
                     | x05 & ~x_ac_l)? 1'b0: 1'bz;
-assign data06_l = (~n_t_7x & ~y_ac_l
+assign data06_l = (y06 & ~y_ac_l
                     | x06 & ~x_ac_l)? 1'b0: 1'bz;
-assign data07_l = (~n_t_5x & ~y_ac_l
+assign data07_l = (y07 & ~y_ac_l
                     | x07 & ~x_ac_l)? 1'b0: 1'bz;
 assign data08_l = (y08 & ~y_ac_l
                     | x08 & ~x_ac_l)? 1'b0: 1'bz;
 assign data09_l = (y09 & ~y_ac_l
                     | x09 & ~x_ac_l)? 1'b0: 1'bz;
-assign data10_l = (~n_t_1x & ~y_ac_l
+assign data10_l = (y11 & ~y_ac_l
                     | x11 & ~x_ac_l)? 1'b0: 1'bz;
 assign data11_l = (y10 & ~y_ac_l
                     | x10 & ~x_ac_l)? 1'b0: 1'bz;

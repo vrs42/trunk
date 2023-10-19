@@ -49,11 +49,9 @@ input n_t_7x;
 input n_t_9x;
 
 
-wire aj1;
 wire n_t_1x;
 wire n_t_21x;
 wire n_t_22x;
-wire n_t_46x;
 wire n_t_8x;
 assign n_t_16x = n_t_1x;
 // e2: sn7460 

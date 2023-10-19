@@ -44,96 +44,31 @@
 // n0_to_eir = !(!n_t_51x & int_in_prog); 
 // n0_to_eir = !(!fetch & tp1); 
 // fe_set = !(ex1 & !e); 
-// c0 = !(n_t_10x & modeb); 
+// c0 = !(n_t_26x & modeb); 
 // e2: sn74h04 
-module m8340e (idle, incr_sc, tp2_d, a1, adlk_dis_l, b1, b2, brk_cycle_l, brk_d_ctl_l, brk_in_prog_l, bus_strobe_l, c0, c1, c1_l, c2_l, cpma_disabl_l, d1, d2, dad_or_dst, dad_or_dst_l, data0_l, data10, data11, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7, data8, data9, defer, div_12_l, e, e1, e2, eir2, eir3, ema0_l, ema1_l, ema2_l, f1, f2, f_set_l, fd_set, fe_set, fetch, h1, h2, ind1_l, ind2_l, inhibit, init, int_in_prog, int_req_l, int_strobe, internal_io_l, ir0_l, ir1_l, ir2_l, j1, j2, k1, k2, key_ctl_l, l1, l2, la_enable_l, last_step_l, link_data_l, link_l, link_load_l, m1, m2, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, ma_ms_lc, md0, md1, md10, md11, md2, md3, md4, md5, md6, md7, md8, md9, mem_dir_in_l, mem_start_l, modeb, ms_ir_disabl_l, n1, n15v, n2, n_t_16x, n_t_24x, n_t_25x, n_t_35x, n_t_79x, next_loc, not_lst_xfr_l, overflow_l, p1, p2, pause_l, power_ok, pulse_la, r1, r2, res1, res2, return, rom_11_l, rom_12_l, rom_13_l, rom_14_l, rom_15_l, rom_17_l, rom_22_l, rom_24_l, rom_addr_l, run_l, s1, s2, sc_0_l, skip_l, source, stop_l, strobe, sw_l, t2, tp1, tp2, tp3, tp4, ts1_l, ts2_l, ts3, ts4_l, u1, u2, user_mode_l, v1, v2, write);
-output idle;
+module m8340e (incr_sc, tp2_d, adlk_dis_l, c0, dad_or_dst, dad_or_dst_l, data10, data11, data7, data8, data9, defer, div_12_l, e, eir2, eir3, fd_set, fe_set, fetch, init, int_in_prog, last_step_l, ma_ms_lc, md0, md1, md10, md11, md2, md3, md4, md5, md6, md7, md8, md9, modeb, next_loc, rom_11_l, rom_12_l, rom_13_l, rom_14_l, rom_15_l, rom_17_l, rom_22_l, rom_24_l, sc_0_l, tp1, tp2, tp3, tp4, ts3);
 input incr_sc;
 input tp2_d;
-output a1;
 output adlk_dis_l;
-output b1;
-output b2;
-output brk_cycle_l;
-output brk_d_ctl_l;
-output brk_in_prog_l;
-output bus_strobe_l;
 output c0;
-output c1;
-input c1_l;
-input c2_l;
-output cpma_disabl_l;
-output d1;
-output d2;
 inout dad_or_dst;
 inout dad_or_dst_l;
-output data0_l;
 inout data10;
 inout data11;
-output data1_l;
-output data2_l;
-output data3_l;
-output data4_l;
-output data5_l;
-output data6_l;
 inout data7;
 inout data8;
 inout data9;
 input defer;
 inout div_12_l;
 input e;
-output e1;
-output e2;
 inout eir2;
 inout eir3;
-output ema0_l;
-output ema1_l;
-output ema2_l;
-output f1;
-output f2;
-output f_set_l;
 output fd_set;
 output fe_set;
 input fetch;
-output h1;
-output h2;
-output ind1_l;
-output ind2_l;
-output inhibit;
 input init;
-inout int_in_prog;
-output int_req_l;
-output int_strobe;
-output internal_io_l;
-output ir0_l;
-output ir1_l;
-output ir2_l;
-output j1;
-output j2;
-output k1;
-output k2;
-output key_ctl_l;
-output l1;
-output l2;
-output la_enable_l;
+input int_in_prog;
 output last_step_l;
-output link_data_l;
-output link_l;
-output link_load_l;
-output m1;
-output m2;
-output ma0_l;
-output ma10_l;
-output ma11_l;
-output ma1_l;
-output ma2_l;
-output ma3_l;
-output ma4_l;
-output ma5_l;
-output ma6_l;
-output ma7_l;
-output ma8_l;
-output ma9_l;
 input ma_ms_lc;
 input md0;
 input md1;
@@ -147,31 +82,8 @@ input md6;
 input md7;
 input md8;
 input md9;
-output mem_dir_in_l;
-output mem_start_l;
 inout modeb;
-output ms_ir_disabl_l;
-output n1;
-output n15v;
-output n2;
-inout n_t_16x;
-inout n_t_24x;
-inout n_t_25x;
-inout n_t_35x;
-output n_t_79x;
 output next_loc;
-output not_lst_xfr_l;
-output overflow_l;
-output p1;
-output p2;
-output pause_l;
-output power_ok;
-output pulse_la;
-output r1;
-output r2;
-output res1;
-output res2;
-output return;
 output rom_11_l;
 inout rom_12_l;
 output rom_13_l;
@@ -180,61 +92,42 @@ output rom_15_l;
 output rom_17_l;
 output rom_22_l;
 output rom_24_l;
-output rom_addr_l;
-output run_l;
-output s1;
-output s2;
 output sc_0_l;
-output skip_l;
-output source;
-output stop_l;
-output strobe;
-output sw_l;
-output t2;
 input tp1;
 input tp2;
 input tp3;
 input tp4;
-output ts1_l;
-output ts2_l;
 input ts3;
-output ts4_l;
-output u1;
-output u2;
-output user_mode_l;
-output v1;
-output v2;
-output write;
 
-reg al2mq_ena_l_m;
-reg bd_m;
-reg bf_m;
-reg data_t_m;
 reg ex1_m;
-reg link_m;
+reg gdollar_0_m;
+reg gdollar_1_m;
+reg gdollar_2_m;
+reg modea_m;
 reg n_t_10x_m;
 reg n_t_11x_m;
 reg n_t_14x_m;
 reg n_t_17x_m;
 reg n_t_18x_m;
 reg n_t_19x_m;
+reg n_t_1x_m;
+reg n_t_26x_m;
+reg n_t_2x_m;
 reg n_t_38x_m;
 reg n_t_39x_m;
 reg n_t_3x_m;
 reg n_t_40x_m;
 reg n_t_42x_m;
-reg n_t_48x_m;
+reg n_t_4x_m;
+reg n_t_5x_m;
+reg n_t_7x_m;
 reg n_t_8x_m;
-reg pwr_ok_m;
-reg regbus00_m;
-reg right_m;
 
-reg regbus00;
-reg link;
-reg pwr_ok;
-reg right;
-reg n_t_48x;
-reg data_t;
+reg modea;
+reg n_t_1x;
+reg n_t_2x;
+reg n_t_4x;
+reg n_t_5x;
 reg n_t_3x;
 reg n_t_8x;
 reg n_t_14x;
@@ -242,130 +135,39 @@ reg n_t_10x;
 reg n_t_11x;
 reg n_t_17x;
 reg n_t_18x;
+reg n_t_7x;
+reg n_t_26x;
 reg ex1;
 reg n_t_38x;
-reg bf;
-reg bd;
-reg al2mq_ena_l;
+reg gdollar_0;
+reg gdollar_1;
+reg gdollar_2;
 reg n_t_39x;
 reg n_t_40x;
 reg n_t_19x;
 reg n_t_42x;
-wire a00_l;
-wire a04_l;
-wire ac00;
-wire ac01;
-wire ac02;
-wire ac03;
-wire ac05;
-wire ac2bus_l;
-wire ac_load_l;
-wire aceq0;
-wire ad00_l;
-wire ad01_l;
-wire ad02_l;
-wire ad03_l;
-wire ad04_l;
-wire ad05_l;
-wire ad10_l;
-wire ad11_l;
-wire ad2;
-wire adlk_l;
-wire ae2;
-wire af2;
-wire ah2;
-wire aj2;
-wire ak2;
-wire al2;
-wire am2;
-wire an2;
-wire ap2;
-wire av2;
-wire b02_l;
-wire b_init_l;
-wire b_io_pause;
-wire bb1;
-wire bdata2;
-wire bdata5;
-wire bm2;
-wire bmd05;
-wire bmd06;
-wire bmd07;
-wire bms_dis;
-wire bts1;
-wire bts3;
-wire bts4;
-wire c0_l;
-wire carry_in_l;
-wire carry_out_l;
-wire clr_dsk_ad_l;
-wire data7_l;
-wire drive0_l;
 wire eae_inst;
-wire en0;
-wire en2;
-wire eset_l;
 wire exec_divide;
 wire exec_multiply;
-wire fe_fd_l;
-wire function00;
-wire header_d_l;
-wire initialize;
-wire iszets2;
-wire jmp;
 wire ld_eir;
-wire left_l;
-wire ma04_l;
-wire malc_l;
-wire mb03;
-wire md06_l;
-wire md07_l;
-wire md_dis;
-wire mq01_l;
-wire mq03_l;
-wire mq2bus_l;
 wire n0_to_eir;
 wire n0_to_sc;
-wire n3b;
-wire n3v3;
-wire n_t_12x;
-wire n_t_13x;
 wire n_t_21x;
+wire n_t_24x;
+wire n_t_25x;
 wire n_t_27x;
 wire n_t_34x;
+wire n_t_35x;
 wire n_t_36x;
 wire n_t_37x;
 wire n_t_43x;
 wire n_t_44x;
 wire n_t_46x;
+wire n_t_48x;
 wire n_t_49x;
 wire n_t_51x;
 wire n_t_53x;
 wire n_t_54x;
-wire n_t_60x;
-wire n_t_62x;
-wire n_t_65x;
-wire n_t_68x;
-wire n_t_70x;
-wire n_t_73x;
-wire n_t_74x;
-wire n_t_76x;
-wire n_t_82x;
-wire n_t_84x;
-wire n_t_90x;
-wire n_t_92x;
-wire op1_l;
-wire op1ts3;
-wire op2ts3;
-wire opets3;
-wire oprf;
-wire oprf_l;
-wire pagez;
-wire pc02_l;
-wire regbus00_l;
-wire regbus04;
-wire regbus05;
-wire right_l;
 wire rom_19_l;
 wire rom_21_l;
 wire rom_23_l;
@@ -373,88 +175,58 @@ wire rom_25_l;
 wire rom_26_l;
 wire sc_load_l;
 wire sc_to_data;
-wire sk_chk_wrt_l;
 wire swab;
 wire swba;
-wire tadets3;
-wire twice_l;
-wire wrt_lock_er;
-assign modeb = link;
+assign modeb = ~modea;
 // e3: sn74h20 
 assign n_t_25x = ~(swab & swba & n_t_24x & eae_inst);
 assign n_t_21x = ~(eae_inst & ~fetch & swba & swab);
 // e4: sn74h106 
-always @(n_t_35x, bmd06, aceq0, md_dis, bb1, regbus00)
-  if (~bmd06) begin
-    regbus00_m <= 1'b0;
-  end else
-  if (~aceq0) begin
-    regbus00_m <= 1'b1;
-  end else
-  if (~(n_t_35x)) begin
-    regbus00_m <= md_dis? (bb1? ~regbus00: 1'b1) : (bb1? 1'b0: regbus00);
-  end
-always @(n_t_35x, bmd06, aceq0, regbus00_m)
-  if (~bmd06) begin
-    regbus00 <= 1'b0;
-  end else
-  if (~aceq0) begin
-    regbus00 <= 1'b1;
-  end else
-  if (n_t_35x) begin
-    regbus00 <= regbus00_m;
-  end
-always @(n_t_27x, init, swab, swba, link)
+always @(n_t_27x, init, swba, swab, modea)
   if (init) begin
-    link_m <= 1'b0;
+    modea_m <= 1'b1;
   end else
   if (~(n_t_27x)) begin
-    link_m <= ~swab? (~swba? ~link: 1'b1) : (~swba? 1'b0: link);
+    modea_m <= ~swba? (~swab? ~modea: 1'b1) : (~swab? 1'b0: modea);
   end
-always @(n_t_27x, init, link_m)
+always @(n_t_27x, init, modea_m)
   if (init) begin
-    link <= 1'b0;
+    modea <= 1'b1;
   end else
   if (n_t_27x) begin
-    link <= link_m;
+    modea <= modea_m;
   end
 // e6: sn7474 
 always @(ld_eir, n0_to_eir, md0)
   if (~n0_to_eir) begin
-    pwr_ok_m <= 1'b1;
+    n_t_1x_m <= 1'b0;
   end else
   if (~(ld_eir)) begin
-    pwr_ok_m <= md0;
+    n_t_1x_m <= ~md0;
   end
-always @(ld_eir, n0_to_eir, pwr_ok_m)
+always @(ld_eir, n0_to_eir, n_t_1x_m)
   if (~n0_to_eir) begin
-    pwr_ok <= 1'b1;
+    n_t_1x <= 1'b0;
   end else
   if (ld_eir) begin
-    pwr_ok <= pwr_ok_m;
+    n_t_1x <= n_t_1x_m;
   end
-always @(ld_eir, n0_to_eir, md11)
-  if (1'b1) begin
-    right_m <= 1'b0;
+always @(ld_eir, n0_to_eir, md1)
+  if (~n0_to_eir) begin
+    n_t_2x_m <= 1'b0;
   end else
-  if (~(~n0_to_eir)) begin
-    right_m <= 1'b1;
-  end else
-  if (~(~ld_eir)) begin
-    right_m <= ~md11;
+  if (~(ld_eir)) begin
+    n_t_2x_m <= ~md1;
   end
-always @(ld_eir, n0_to_eir, right_m)
-  if (1'b1) begin
-    right <= 1'b0;
+always @(ld_eir, n0_to_eir, n_t_2x_m)
+  if (~n0_to_eir) begin
+    n_t_2x <= 1'b0;
   end else
-  if (~(~n0_to_eir)) begin
-    right <= 1'b1;
-  end else
-  if (~ld_eir) begin
-    right <= right_m;
+  if (ld_eir) begin
+    n_t_2x <= n_t_2x_m;
   end
 // e7: sn74h30 
-assign eae_inst = ~(~(~pwr_ok & ~right & ~n_t_48x & ~data_t & right));
+assign eae_inst = ~(~(n_t_1x & n_t_2x & n_t_4x & n_t_5x & n_t_7x));
 // e8: sn7402 
 assign exec_multiply = ~(rom_12_l
                           | exec_divide);
@@ -462,8 +234,6 @@ assign exec_divide = ~(rom_12_l
                         | rom_14_l);
 assign n0_to_sc = ~(~tp3
                      | rom_23_l);
-assign iszets2 = ~(tadets3
-                    | carry_in_l);
 // e9: sn97401 
 // n_t_44x = !(!rom_21_l & data7); 
 // data7 = !(sc_to_data & n_t_38x); 
@@ -471,43 +241,43 @@ assign iszets2 = ~(tadets3
 // e10: sn7474 
 always @(ld_eir, n0_to_eir, md2)
   if (~n0_to_eir) begin
-    n_t_48x_m <= 1'b1;
+    n_t_4x_m <= 1'b0;
   end else
   if (~(ld_eir)) begin
-    n_t_48x_m <= md2;
+    n_t_4x_m <= ~md2;
   end
-always @(ld_eir, n0_to_eir, n_t_48x_m)
+always @(ld_eir, n0_to_eir, n_t_4x_m)
   if (~n0_to_eir) begin
-    n_t_48x <= 1'b1;
+    n_t_4x <= 1'b0;
   end else
   if (ld_eir) begin
-    n_t_48x <= n_t_48x_m;
+    n_t_4x <= n_t_4x_m;
   end
 always @(ld_eir, n0_to_eir, md3)
   if (~n0_to_eir) begin
-    data_t_m <= 1'b1;
+    n_t_5x_m <= 1'b0;
   end else
   if (~(ld_eir)) begin
-    data_t_m <= md3;
+    n_t_5x_m <= ~md3;
   end
-always @(ld_eir, n0_to_eir, data_t_m)
+always @(ld_eir, n0_to_eir, n_t_5x_m)
   if (~n0_to_eir) begin
-    data_t <= 1'b1;
+    n_t_5x <= 1'b0;
   end else
   if (ld_eir) begin
-    data_t <= data_t_m;
+    n_t_5x <= n_t_5x_m;
   end
 // e11: dec23001a1 
 assign e11_10x01 = (eir3 & ~eir2 & ~dad_or_dst & n_t_21x);
-assign e11_1011x = (eir3 & ~eir2 & n_t_16x & dad_or_dst);
+assign e11_1011x = (eir3 & ~eir2 & ~n_t_11x & dad_or_dst);
 // rom_11_l = !(!n_t_25x & (e11_10x01
 //                     # e11_1011x)); 
 assign e11_00x10 = (~eir3 & ~eir2 & dad_or_dst & ~n_t_21x);
-assign e11_x1001 = (eir2 & ~n_t_16x & ~dad_or_dst & n_t_21x);
-assign e11_0x111 = (~eir3 & n_t_16x & dad_or_dst & n_t_21x);
-assign e11_01101 = (~eir3 & eir2 & n_t_16x & ~dad_or_dst & n_t_21x);
-assign e11_01110 = (~eir3 & eir2 & n_t_16x & dad_or_dst & ~n_t_21x);
-assign e11_10011 = (eir3 & ~eir2 & ~n_t_16x & dad_or_dst & n_t_21x);
+assign e11_x1001 = (eir2 & n_t_11x & ~dad_or_dst & n_t_21x);
+assign e11_0x111 = (~eir3 & ~n_t_11x & dad_or_dst & n_t_21x);
+assign e11_01101 = (~eir3 & eir2 & ~n_t_11x & ~dad_or_dst & n_t_21x);
+assign e11_01110 = (~eir3 & eir2 & ~n_t_11x & dad_or_dst & ~n_t_21x);
+assign e11_10011 = (eir3 & ~eir2 & n_t_11x & dad_or_dst & n_t_21x);
 // rom_12_l = !(!n_t_25x & (e11_00x10
 //                     # e11_x1001
 //                     # e11_0x111
@@ -515,36 +285,36 @@ assign e11_10011 = (eir3 & ~eir2 & ~n_t_16x & dad_or_dst & n_t_21x);
 //                     # e11_01101
 //                     # e11_01110
 //                     # e11_10011)); 
-assign e11_00010 = (~eir3 & ~eir2 & ~n_t_16x & dad_or_dst & ~n_t_21x);
-assign e11_00100 = (~eir3 & ~eir2 & n_t_16x & ~dad_or_dst & ~n_t_21x);
-assign e11_100x1 = (eir3 & ~eir2 & ~n_t_16x & n_t_21x);
+assign e11_00010 = (~eir3 & ~eir2 & n_t_11x & dad_or_dst & ~n_t_21x);
+assign e11_00100 = (~eir3 & ~eir2 & ~n_t_11x & ~dad_or_dst & ~n_t_21x);
+assign e11_100x1 = (eir3 & ~eir2 & n_t_11x & n_t_21x);
 // rom_13_l = !(!n_t_25x & (e11_00010
 //                     # e11_00100
 //                     # e11_x1001
 //                     # e11_100x1)); 
-assign e11_0111x = (~eir3 & eir2 & n_t_16x & dad_or_dst);
-assign e11_10010 = (eir3 & ~eir2 & ~n_t_16x & dad_or_dst & ~n_t_21x);
+assign e11_0111x = (~eir3 & eir2 & ~n_t_11x & dad_or_dst);
+assign e11_10010 = (eir3 & ~eir2 & n_t_11x & dad_or_dst & ~n_t_21x);
 // rom_14_l = !(!n_t_25x & (e11_00100
 //                     # e11_0111x
 //                     # e11_10x01
 //                     # e11_10010)); 
 assign e11_01x01 = (~eir3 & eir2 & ~dad_or_dst & n_t_21x);
-assign e11_00111 = (~eir3 & ~eir2 & n_t_16x & dad_or_dst & n_t_21x);
+assign e11_00111 = (~eir3 & ~eir2 & ~n_t_11x & dad_or_dst & n_t_21x);
 // rom_15_l = !(!n_t_25x & (e11_00x10
 //                     # e11_00100
 //                     # e11_01x01
 //                     # e11_00111)); 
-assign e11_x0010 = (~eir2 & ~n_t_16x & dad_or_dst & ~n_t_21x);
-assign e11_011x1 = (~eir3 & eir2 & n_t_16x & n_t_21x);
+assign e11_x0010 = (~eir2 & n_t_11x & dad_or_dst & ~n_t_21x);
+assign e11_011x1 = (~eir3 & eir2 & ~n_t_11x & n_t_21x);
 // adlk_dis_l = !(!n_t_25x & (e11_x0010
 //                       # e11_011x1
 //                       # e11_01110
 //                       # e11_100x1)); 
 // rom_17_l = !(!n_t_25x & (e11_x0010
 //                     # e11_100x1)); 
-assign e11_x0111 = (~eir2 & n_t_16x & dad_or_dst & n_t_21x);
+assign e11_x0111 = (~eir2 & ~n_t_11x & dad_or_dst & n_t_21x);
 assign e11_10x10 = (eir3 & ~eir2 & dad_or_dst & ~n_t_21x);
-assign e11_10101 = (eir3 & ~eir2 & n_t_16x & ~dad_or_dst & n_t_21x);
+assign e11_10101 = (eir3 & ~eir2 & ~n_t_11x & ~dad_or_dst & n_t_21x);
 // rom_19_l = !(!n_t_25x & (e11_00x10
 //                     # e11_00100
 //                     # e11_x0111
@@ -584,7 +354,6 @@ always @(ld_eir, n0_to_eir, n_t_8x_m)
   if (ld_eir) begin
     n_t_8x <= n_t_8x_m;
   end
-assign op2ts3 = ~n_t_8x;
 // e15: sn74h30 
 assign swba = ~(n_t_3x & n_t_8x & ~n_t_14x & n_t_10x & n_t_11x & eir2 & eir3);
 // e16: sn74h04 
@@ -605,35 +374,29 @@ always @(ld_eir, n0_to_eir, n_t_14x_m)
   if (ld_eir) begin
     n_t_14x <= n_t_14x_m;
   end
-always @(tp2_d, tp3, rom_21_l)
-  if (1'b1) begin
-    n_t_10x_m <= 1'b0;
-  end else
-  if (~tp3) begin
+always @(ld_eir, n0_to_eir, md7)
+  if (~n0_to_eir) begin
     n_t_10x_m <= 1'b1;
   end else
-  if (~(~tp2_d)) begin
-    n_t_10x_m <= ~rom_21_l;
+  if (~(ld_eir)) begin
+    n_t_10x_m <= md7;
   end
-always @(tp2_d, tp3, n_t_10x_m)
-  if (1'b1) begin
-    n_t_10x <= 1'b0;
-  end else
-  if (~tp3) begin
+always @(ld_eir, n0_to_eir, n_t_10x_m)
+  if (~n0_to_eir) begin
     n_t_10x <= 1'b1;
   end else
-  if (~tp2_d) begin
+  if (ld_eir) begin
     n_t_10x <= n_t_10x_m;
   end
 // e19: dec23002a1 
-assign e19_001x1 = (~eir3 & ~eir2 & n_t_16x & ~link);
-assign e19_x0110 = (~eir2 & n_t_16x & ~n_t_14x & link);
-assign e19_1111x = (eir3 & eir2 & n_t_16x & ~n_t_14x);
-assign e19_100x1 = (eir3 & ~eir2 & ~n_t_16x & ~link);
-assign e19_1x010 = (eir3 & ~n_t_16x & ~n_t_14x & link);
-assign e19_110x1 = (eir3 & eir2 & ~n_t_16x & ~link);
-assign e19_1x101 = (eir3 & n_t_16x & n_t_14x & ~link);
-assign e19_10111 = (eir3 & ~eir2 & n_t_16x & ~n_t_14x & ~link);
+assign e19_001x1 = (~eir3 & ~eir2 & ~n_t_11x & modea);
+assign e19_x0110 = (~eir2 & ~n_t_11x & ~n_t_14x & ~modea);
+assign e19_1111x = (eir3 & eir2 & ~n_t_11x & ~n_t_14x);
+assign e19_100x1 = (eir3 & ~eir2 & n_t_11x & modea);
+assign e19_1x010 = (eir3 & n_t_11x & ~n_t_14x & ~modea);
+assign e19_110x1 = (eir3 & eir2 & n_t_11x & modea);
+assign e19_1x101 = (eir3 & ~n_t_11x & n_t_14x & modea);
+assign e19_10111 = (eir3 & ~eir2 & ~n_t_11x & ~n_t_14x & modea);
 // rom_21_l = !(!n_t_21x & (e19_001x1
 //                     # e19_x0110
 //                     # e19_1111x
@@ -642,41 +405,41 @@ assign e19_10111 = (eir3 & ~eir2 & n_t_16x & ~n_t_14x & ~link);
 //                     # e19_110x1
 //                     # e19_1x101
 //                     # e19_10111)); 
-assign e19_0001x = (~eir3 & ~eir2 & ~n_t_16x & ~n_t_14x);
-assign e19_00101 = (~eir3 & ~eir2 & n_t_16x & n_t_14x & ~link);
-assign e19_x1001 = (eir2 & ~n_t_16x & n_t_14x & ~link);
-assign e19_01010 = (~eir3 & eir2 & ~n_t_16x & ~n_t_14x & link);
-assign e19_10001 = (eir3 & ~eir2 & ~n_t_16x & n_t_14x & ~link);
+assign e19_0001x = (~eir3 & ~eir2 & n_t_11x & ~n_t_14x);
+assign e19_00101 = (~eir3 & ~eir2 & ~n_t_11x & n_t_14x & modea);
+assign e19_x1001 = (eir2 & n_t_11x & n_t_14x & modea);
+assign e19_01010 = (~eir3 & eir2 & n_t_11x & ~n_t_14x & ~modea);
+assign e19_10001 = (eir3 & ~eir2 & n_t_11x & n_t_14x & modea);
 // rom_22_l = !(!n_t_21x & (e19_0001x
 //                     # e19_1x101
 //                     # e19_00101
 //                     # e19_x1001
 //                     # e19_01010
 //                     # e19_10001)); 
-assign e19_1x011 = (eir3 & ~n_t_16x & ~n_t_14x & ~link);
-assign e19_x1010 = (eir2 & ~n_t_16x & ~n_t_14x & link);
-assign e19_10010 = (eir3 & ~eir2 & ~n_t_16x & ~n_t_14x & link);
+assign e19_1x011 = (eir3 & n_t_11x & ~n_t_14x & modea);
+assign e19_x1010 = (eir2 & n_t_11x & ~n_t_14x & ~modea);
+assign e19_10010 = (eir3 & ~eir2 & n_t_11x & ~n_t_14x & ~modea);
 // rom_23_l = !(!n_t_21x & (e19_0001x
 //                     # e19_1x011
 //                     # e19_x1001
 //                     # e19_x1010
 //                     # e19_10001
 //                     # e19_10010)); 
-assign e19_x0101 = (~eir2 & n_t_16x & n_t_14x & ~link);
-assign e19_010x0 = (~eir3 & eir2 & ~n_t_16x & link);
-assign e19_11x00 = (eir3 & eir2 & n_t_14x & link);
-assign e19_1101x = (eir3 & eir2 & ~n_t_16x & ~n_t_14x);
+assign e19_x0101 = (~eir2 & ~n_t_11x & n_t_14x & modea);
+assign e19_010x0 = (~eir3 & eir2 & n_t_11x & ~modea);
+assign e19_11x00 = (eir3 & eir2 & n_t_14x & ~modea);
+assign e19_1101x = (eir3 & eir2 & n_t_11x & ~n_t_14x);
 // rom_24_l = !(!n_t_21x & (e19_x0101
 //                     # e19_010x0
 //                     # e19_1111x
 //                     # e19_10001
 //                     # e19_11x00
 //                     # e19_1101x)); 
-assign e19_11x11 = (eir3 & eir2 & ~n_t_14x & ~link);
-assign e19_00110 = (~eir3 & ~eir2 & n_t_16x & ~n_t_14x & link);
-assign e19_11x10 = (eir3 & eir2 & ~n_t_14x & link);
-assign e19_0100x = (~eir3 & eir2 & ~n_t_16x & n_t_14x);
-assign e19_01100 = (~eir3 & eir2 & n_t_16x & n_t_14x & link);
+assign e19_11x11 = (eir3 & eir2 & ~n_t_14x & modea);
+assign e19_00110 = (~eir3 & ~eir2 & ~n_t_11x & ~n_t_14x & ~modea);
+assign e19_11x10 = (eir3 & eir2 & ~n_t_14x & ~modea);
+assign e19_0100x = (~eir3 & eir2 & n_t_11x & n_t_14x);
+assign e19_01100 = (~eir3 & eir2 & ~n_t_11x & n_t_14x & ~modea);
 // rom_25_l = !(!n_t_21x & (e19_0001x
 //                     # e19_11x11
 //                     # e19_001x1
@@ -684,9 +447,9 @@ assign e19_01100 = (~eir3 & eir2 & n_t_16x & n_t_14x & link);
 //                     # e19_11x10
 //                     # e19_0100x
 //                     # e19_01100)); 
-assign e19_1110x = (eir3 & eir2 & n_t_16x & n_t_14x);
-assign e19_0x100 = (~eir3 & n_t_16x & n_t_14x & link);
-assign e19_10100 = (eir3 & ~eir2 & n_t_16x & n_t_14x & link);
+assign e19_1110x = (eir3 & eir2 & ~n_t_11x & n_t_14x);
+assign e19_0x100 = (~eir3 & ~n_t_11x & n_t_14x & ~modea);
+assign e19_10100 = (eir3 & ~eir2 & ~n_t_11x & n_t_14x & ~modea);
 // rom_26_l = !(!n_t_21x & (e19_0001x
 //                     # e19_1110x
 //                     # e19_0x100
@@ -694,21 +457,21 @@ assign e19_10100 = (eir3 & ~eir2 & n_t_16x & n_t_14x & link);
 //                     # e19_10001
 //                     # e19_1x010
 //                     # e19_10100)); 
-assign e19_011x1 = (~eir3 & eir2 & n_t_16x & ~link);
-assign e19_01110 = (~eir3 & eir2 & n_t_16x & ~n_t_14x & link);
+assign e19_011x1 = (~eir3 & eir2 & ~n_t_11x & modea);
+assign e19_01110 = (~eir3 & eir2 & ~n_t_11x & ~n_t_14x & ~modea);
 // fd_set = !(!n_t_21x & (e19_0001x
 //                   # e19_1x011
 //                   # e19_011x1
 //                   # e19_01110
 //                   # e19_1x010
 //                   # e19_10001)); 
-assign e19_000x1 = (~eir3 & ~eir2 & ~n_t_16x & ~link);
-assign e19_00x10 = (~eir3 & ~eir2 & ~n_t_14x & link);
-assign e19_0010x = (~eir3 & ~eir2 & n_t_16x & n_t_14x);
-assign e19_0x111 = (~eir3 & n_t_16x & ~n_t_14x & ~link);
-assign e19_0110x = (~eir3 & eir2 & n_t_16x & n_t_14x);
-assign e19_1011x = (eir3 & ~eir2 & n_t_16x & ~n_t_14x);
-assign e19_10x01 = (eir3 & ~eir2 & n_t_14x & ~link);
+assign e19_000x1 = (~eir3 & ~eir2 & n_t_11x & modea);
+assign e19_00x10 = (~eir3 & ~eir2 & ~n_t_14x & ~modea);
+assign e19_0010x = (~eir3 & ~eir2 & ~n_t_11x & n_t_14x);
+assign e19_0x111 = (~eir3 & ~n_t_11x & ~n_t_14x & modea);
+assign e19_0110x = (~eir3 & eir2 & ~n_t_11x & n_t_14x);
+assign e19_1011x = (eir3 & ~eir2 & ~n_t_11x & ~n_t_14x);
+assign e19_10x01 = (eir3 & ~eir2 & n_t_14x & modea);
 // fe_set = !(!n_t_21x & (e19_000x1
 //                   # e19_00x10
 //                   # e19_1111x
@@ -723,15 +486,9 @@ assign e19_10x01 = (eir3 & ~eir2 & n_t_14x & ~link);
 //                   # e19_10100
 //                   # e19_1x010)); 
 // e20: sp380n 
-assign md06_l = ~(bmd06
-                   | md07_l);
-assign oprf_l = ~(bmd07
-                   | pc02_l);
 assign n_t_53x = ~(dad_or_dst_l
                     | defer);
 // e21: sp384n 
-assign n_t_54x = oprf
-                  | n_t_46x;
 // e22: sn7474 
 always @(ld_eir, n0_to_eir, md8)
   if (~n0_to_eir) begin
@@ -747,7 +504,6 @@ always @(ld_eir, n0_to_eir, n_t_11x_m)
   if (ld_eir) begin
     n_t_11x <= n_t_11x_m;
   end
-assign n_t_16x = ~n_t_11x;
 always @(ld_eir, n0_to_eir, md9)
   if (~n0_to_eir) begin
     n_t_17x_m <= 1'b1;
@@ -764,11 +520,9 @@ always @(ld_eir, n0_to_eir, n_t_17x_m)
   end
 assign eir2 = ~n_t_17x;
 // e23: sn74h30 
-assign swab = ~(n_t_3x & n_t_8x & n_t_14x & ~n_t_10x & n_t_16x & n_t_17x & n_t_18x);
+assign swab = ~(n_t_3x & n_t_8x & n_t_14x & ~n_t_10x & ~n_t_11x & n_t_17x & n_t_18x);
 // e24: sn7410 
-assign n_t_16x = ~(ad11_l & ad10_l & n_t_16x);
 assign sc_0_l = ~(~n_t_39x & n_t_48x & n_t_49x);
-assign header_d_l = ~(right_l & left_l & twice_l);
 // e25: sp380n 
 assign n_t_43x = ~(~rom_21_l
                     | md7);
@@ -790,17 +544,44 @@ always @(ld_eir, n0_to_eir, n_t_18x_m)
     n_t_18x <= n_t_18x_m;
   end
 assign eir3 = ~n_t_18x;
+always @(ld_eir, n0_to_eir, md11)
+  if (~n0_to_eir) begin
+    n_t_7x_m <= 1'b0;
+  end else
+  if (~(ld_eir)) begin
+    n_t_7x_m <= ~md11;
+  end
+always @(ld_eir, n0_to_eir, n_t_7x_m)
+  if (~n0_to_eir) begin
+    n_t_7x <= 1'b0;
+  end else
+  if (ld_eir) begin
+    n_t_7x <= n_t_7x_m;
+  end
 // e27: sn74h00 
 assign next_loc = ~(rom_26_l & ~ex1);
 assign n_t_24x = ~(e & fetch);
 assign n_t_51x = ~(tp4 & ma_ms_lc);
-assign int_in_prog = ~(data_t & n_t_38x);
 // e28: sn74h11 
 assign n_t_27x = eae_inst & ld_eir;
 assign div_12_l = ~(n_t_42x & n_t_39x & n_t_40x);
 assign dad_or_dst = ~n_t_14x & modeb & eae_inst;
 // e29: sp384n 
 // e30: sn74h74 
+always @(tp2_d, tp3, rom_21_l)
+  if (tp3) begin
+    n_t_26x_m <= 1'b0;
+  end else
+  if (~(tp2_d)) begin
+    n_t_26x_m <= ~rom_21_l;
+  end
+always @(tp2_d, tp3, n_t_26x_m)
+  if (tp3) begin
+    n_t_26x <= 1'b0;
+  end else
+  if (tp2_d) begin
+    n_t_26x <= n_t_26x_m;
+  end
 always @(n_t_51x, fetch, n_t_53x)
   if (~fetch) begin
     ex1_m <= 1'b0;
@@ -818,8 +599,10 @@ always @(n_t_51x, fetch, ex1_m)
 // e31: sn7402 
 assign n_t_49x = ~(n_t_38x
                     | n_t_19x);
+assign n_t_48x = ~(n_t_42x
+                    | n_t_40x);
 assign sc_load_l = ~(n_t_54x
-                      | n_t_10x);
+                      | n_t_26x);
 assign n_t_54x = ~(rom_19_l
                     | ~tp2_d);
 // e32: sp384n 
@@ -850,55 +633,54 @@ always @(n_t_46x, n0_to_sc, sc_load_l, n_t_44x, sc_load_l, n_t_44x, n_t_38x_m)
   if (~(~n_t_46x)) begin
     n_t_38x <= n_t_38x_m;
   end
-always @(n_t_46x, n_t_38x, n0_to_sc, sc_load_l, bf)
+always @(n_t_46x, n_t_38x, n0_to_sc, sc_load_l, gdollar_0)
   if (n0_to_sc
-                | ~sc_load_l) begin
-    bf_m <= 1'b0;
+                       | ~sc_load_l) begin
+    gdollar_0_m <= 1'b0;
   end else
   if (~(~(~n_t_46x & n_t_38x))) begin
-    bf_m <= ~bf;
+    gdollar_0_m <= ~gdollar_0;
   end
-always @(n_t_46x, n_t_38x, n0_to_sc, sc_load_l, bf_m)
+always @(n_t_46x, n_t_38x, n0_to_sc, sc_load_l, gdollar_0_m)
   if (n0_to_sc
-                | ~sc_load_l) begin
-    bf <= 1'b0;
+                       | ~sc_load_l) begin
+    gdollar_0 <= 1'b0;
   end else
   if (~(~n_t_46x & n_t_38x)) begin
-    bf <= bf_m;
+    gdollar_0 <= gdollar_0_m;
   end
-always @(n_t_46x, n_t_38x, bf, n0_to_sc, sc_load_l, bd)
+always @(n_t_46x, n_t_38x, gdollar_0, n0_to_sc, sc_load_l, gdollar_1)
   if (n0_to_sc
-                | ~sc_load_l) begin
-    bd_m <= 1'b0;
+                       | ~sc_load_l) begin
+    gdollar_1_m <= 1'b0;
   end else
-  if (~(~(~n_t_46x & n_t_38x & bf))) begin
-    bd_m <= ~bd;
+  if (~(~(~n_t_46x & n_t_38x & gdollar_0))) begin
+    gdollar_1_m <= ~gdollar_1;
   end
-always @(n_t_46x, n_t_38x, bf, n0_to_sc, sc_load_l, bd_m)
+always @(n_t_46x, n_t_38x, gdollar_0, n0_to_sc, sc_load_l, gdollar_1_m)
   if (n0_to_sc
-                | ~sc_load_l) begin
-    bd <= 1'b0;
+                       | ~sc_load_l) begin
+    gdollar_1 <= 1'b0;
   end else
-  if (~(~n_t_46x & n_t_38x & bf)) begin
-    bd <= bd_m;
+  if (~(~n_t_46x & n_t_38x & gdollar_0)) begin
+    gdollar_1 <= gdollar_1_m;
   end
-always @(n_t_46x, bd, n_t_38x, bf, n0_to_sc, sc_load_l, al2mq_ena_l)
+always @(n_t_46x, gdollar_1, n_t_38x, gdollar_0, n0_to_sc, sc_load_l, gdollar_2)
   if (n0_to_sc
-                         | ~sc_load_l) begin
-    al2mq_ena_l_m <= 1'b0;
+                       | ~sc_load_l) begin
+    gdollar_2_m <= 1'b0;
   end else
-  if (~(~(~n_t_46x & bd & n_t_38x & bf))) begin
-    al2mq_ena_l_m <= ~al2mq_ena_l;
+  if (~(~(~n_t_46x & gdollar_1 & n_t_38x & gdollar_0))) begin
+    gdollar_2_m <= ~gdollar_2;
   end
-always @(n_t_46x, bd, n_t_38x, bf, n0_to_sc, sc_load_l, al2mq_ena_l_m)
+always @(n_t_46x, gdollar_1, n_t_38x, gdollar_0, n0_to_sc, sc_load_l, gdollar_2_m)
   if (n0_to_sc
-                         | ~sc_load_l) begin
-    al2mq_ena_l <= 1'b0;
+                       | ~sc_load_l) begin
+    gdollar_2 <= 1'b0;
   end else
-  if (~(~n_t_46x & bd & n_t_38x & bf)) begin
-    al2mq_ena_l <= al2mq_ena_l_m;
+  if (~(~n_t_46x & gdollar_1 & n_t_38x & gdollar_0)) begin
+    gdollar_2 <= gdollar_2_m;
   end
-assign initialize = ~n_t_38x & ~bf & ~bd & ~al2mq_ena_l;
 // e35: sn97401 
 // data11 = !(n_t_39x & sc_to_data); 
 // data10 = !(n_t_40x & sc_to_data); 
@@ -1003,7 +785,6 @@ always @(incr_sc, n_t_19x, n_t_39x, n_t_40x, n0_to_sc, sc_load_l, n_t_37x, sc_lo
     n_t_42x <= n_t_42x_m;
   end
 assign n_t_46x = n_t_39x & n_t_40x & n_t_19x & n_t_42x;
-assign div_12_l = ~(~n_t_39x & ~n_t_40x & ~n_t_19x & ~n_t_42x);
 // r1: r_us_ 
 // r2: r_us_ 
 // r3: r_us_ 
@@ -1021,7 +802,7 @@ assign adlk_dis_l = (~n_t_25x & (e11_x0010
                                   | e11_011x1
                                   | e11_01110
                                   | e11_100x1))? 1'b0: 1'bz;
-assign c0 = (n_t_10x & modeb)? 1'b0: 1'bz;
+assign c0 = (n_t_26x & modeb)? 1'b0: 1'bz;
 assign data10 = (n_t_40x & sc_to_data)? 1'b0: 1'bz;
 assign data11 = (n_t_39x & sc_to_data)? 1'b0: 1'bz;
 assign data7 = (sc_to_data & n_t_38x)? 1'b0: 1'bz;

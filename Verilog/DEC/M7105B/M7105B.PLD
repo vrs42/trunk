@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = ac7_l;
 pin = b_brk_rq;
 pin = b_last_brk;
 pin = bdata10;
@@ -24,7 +25,6 @@ pin = bdata8;
 pin = bdata9;
 pin = brk_enab_clk;
 pin = brk_in_clk;
-pin = btp3;
 pin = btp3_l;
 pin = btp3_ok;
 pin = clr_all;
@@ -33,34 +33,31 @@ pin = clr_cntrs_l;
 pin = crc_data;
 pin = data_in_l;
 pin = data_state_l;
+pin = db_cont1_l;
 pin = db_cont4;
-pin = db_cont4_l;
 pin = device_rk;
-pin = dsk_file_rdy_l;
 pin = dsk_rdy_s_r_w_l;
 pin = dsk_seek_fail_l;
 pin = file_rdy;
 pin = idle;
 pin = idle_l;
 pin = ld_disk_addrs;
-pin = n3v3;
 pin = n6rk3_ok_l;
 pin = n6rk4_l;
 pin = n6rk6;
 pin = n6rk7;
 pin = n6rk7_ok;
 pin = n_t_27x;
+pin = n_t_31x;
 pin = rd_clk1;
 pin = rd_shft_db_l;
 pin = sector_addrs_1;
 pin = shift_crc_l;
 pin = state_enab_b;
 pin = strobe;
-pin = wrt_buff_shft_l;
 pin = wrt_cmd_l;
 
 /* Output Pins */
-pin = ac7_l;
 pin = b_data_state;
 pin = bdata1;
 pin = bdata10_l;
@@ -73,14 +70,10 @@ pin = bk_cycle_l;
 pin = brk_dir_l;
 pin = brk_in_prog_l;
 pin = brk_rq;
-pin = c0_l;
-pin = c1_l;
 pin = clr_sector_ad_l;
 pin = cpma_dis_l;
 pin = crc16;
 pin = data0_l;
-pin = data10_l;
-pin = data11_l;
 pin = data1_l;
 pin = data2_l;
 pin = data3_l;
@@ -88,11 +81,8 @@ pin = data4_l;
 pin = data5_l;
 pin = data6_l;
 pin = data7_l;
-pin = data8_l;
-pin = data9_l;
 pin = data_enab_l;
 pin = data_enable;
-pin = db_cont1_l;
 pin = drive_status_bad;
 pin = dsk_cyl_ad128_l;
 pin = dsk_cyl_ad16_l;
@@ -119,11 +109,7 @@ pin = half_block;
 pin = hi_data_in;
 pin = hi_main_shft_l;
 pin = hi_rd_clk;
-pin = initialize;
-pin = int_rqst_l;
 pin = int_strobe;
-pin = internal_io_l;
-pin = io_pause_l;
 pin = last_brk;
 pin = ld_cmd_reg;
 pin = lo_main_data;
@@ -145,46 +131,20 @@ pin = main_l;
 pin = main_pl;
 pin = mak_l;
 pin = mams_load_cont_l;
-pin = md0_l;
-pin = md10_l;
-pin = md11_l;
-pin = md1_l;
-pin = md2_l;
-pin = md3_l;
-pin = md4_l;
-pin = md5_l;
-pin = md6_l;
-pin = md7_l;
-pin = md8_l;
-pin = md9_l;
 pin = md_dir_l;
 pin = msir_dis_l;
-pin = n6rk3_ok;
 pin = n_t_1x;
-pin = n_t_28x;
-pin = n_t_29x;
 pin = n_t_30x;
-pin = n_t_31x;
-pin = n_t_32x;
-pin = n_t_33x;
-pin = n_t_34x;
-pin = n_t_35x;
 pin = not_equal_l;
-pin = power_ok;
 pin = priority;
 pin = rd_brk_l;
 pin = rdy_s_r_w;
 pin = rdy_s_r_w_l;
 pin = seek_fail;
-pin = set_idle_pl_l;
 pin = shft_surf;
-pin = skip_l;
 pin = tp1;
-pin = tp2;
-pin = tp3;
 pin = tp4;
 pin = ts2;
-pin = ts3_l;
 pin = ts4;
 pin = wrt_brk_l;
 pin = wt_buff_data_l;
@@ -230,32 +190,11 @@ node brk_in_l;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a1;
-node ac7;
-node ad09;
-node ad10;
-node ad10l;
-node ainith;
-node aiot6l;
-node al1;
-node b_io_pause;
-node bd07;
-node bd09;
-node bd10h;
-node bd11;
 node bdata0;
 node bdata2_l;
 node bdata5;
 node bdata6;
-node binith;
 node bint_strobe;
-node biot5l;
-node bmd10;
-node bmd11;
-node bmd5;
-node bmd6;
-node bmd7;
-node bmd9;
 node brk_enable;
 node brk_in;
 node btp1;
@@ -265,50 +204,23 @@ node bts4;
 node clr_dsk_ad_l;
 node crc_main_data_l;
 node crc_main_shft_l;
-node cyl_addrs_er;
 node data_enable_l;
-node db_clk;
-node db_cont1;
-node db_cont2;
-node db_cont2_l;
-node db_cont3;
 node disk_priority;
 node drive0_l;
 node drive1_l;
 node drive2_l;
 node drive3_l;
-node e2;
 node hi_main_data_l;
-node hi_rd_clk_l;
-node hi_wrt_clk;
 node last_brk_l;
-node ld_db4;
-node ld_db_ac;
-node ld_rd_buffer;
 node ld_shft_cmd_reg_l;
-node m1;
 node mad;
 node main_data;
 node main_enab;
 node malc_l;
-node md09_l;
-node md10h;
-node md11h;
-node md_rd_buff_l;
-node md_rk_l;
 node mux_input;
-node n0_db4;
-node n1_db2;
-node n1_db3;
-node n1_db4;
 node n3v;
-node n6rk3_l;
-node n6rk5_l;
-node n_t_100x;
-node n_t_101x;
 node n_t_10x;
 node n_t_11x;
-node n_t_123x;
 node n_t_12x;
 node n_t_13x;
 node n_t_14x;
@@ -323,68 +235,26 @@ node n_t_22x;
 node n_t_23x;
 node n_t_24x;
 node n_t_25x;
+node n_t_29x;
 node n_t_2x;
-node n_t_36x;
+node n_t_32x;
+node n_t_33x;
+node n_t_34x;
+node n_t_35x;
 node n_t_3x;
-node n_t_46x;
-node n_t_476x;
-node n_t_491x;
 node n_t_49x;
 node n_t_4x;
-node n_t_50x;
-node n_t_53x;
-node n_t_54x;
 node n_t_55x;
-node n_t_56x;
-node n_t_586x;
-node n_t_58x;
 node n_t_5x;
-node n_t_60x;
-node n_t_61x;
-node n_t_62x;
-node n_t_63x;
-node n_t_64x;
-node n_t_65x;
-node n_t_68x;
 node n_t_6x;
-node n_t_70x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
 node n_t_7x;
-node n_t_81x;
-node n_t_82x;
-node n_t_83x;
-node n_t_84x;
-node n_t_88x;
 node n_t_8x;
-node n_t_90x;
-node n_t_92x;
-node n_t_97x;
-node n_t_99x;
 node n_t_9x;
 node nbr_l;
-node q1;
-node q2;
-node q5;
-node q6;
-node rk_data11_l;
-node rk_data1_l;
-node rk_data2;
-node rk_data2_l;
-node rk_data3;
-node rk_data3_l;
-node rk_data4_l;
-node rk_data5;
-node rk_data5_l;
 node set_main_brk;
 node set_main_brk_l;
-node set_time_out_er;
 node shft_cmd_reg;
 node start_clr_l;
-node transfer;
-node wrt_lock_er;
 $ENDIF
 
 /* Code nodes */
@@ -491,7 +361,6 @@ enab_int.d = function02 & n6rk7
            # bdata3 & n6rk6 & !n6rk7
            # enab_int & !n6rk6 & !n6rk7;
 enab_int.ck = !ld_shft_cmd_reg_l;
-md3_l = !enab_int;
 
 /* e3: dec8271 */
 enab_seek_done.ar = !clr_all_l;
@@ -514,7 +383,6 @@ ema1.d = ema0 & n6rk7
        # bdata7 & n6rk6 & !n6rk7
        # ema1 & !n6rk6 & !n6rk7;
 ema1.ck = !ld_shft_cmd_reg_l;
-n_t_23x = !ema1;
 
 /* e4: sn7496 */
 crc9.ck = n_t_2x;
@@ -577,17 +445,12 @@ n_t_26x.j = !(!bdata0 & !n6rk4_l) & ((n_t_19x & n_t_39x & n_t_38x & n_t_37x)
                                    # !n6rk4_l);
 n_t_26x.k = !(bdata0 & !n6rk4_l) & ((n_t_19x & n_t_39x & n_t_38x & n_t_37x)
                                   # !n6rk4_l);
-seek_fail = n_t_19x & n_t_26x & n_t_37x & n_t_38x & n_t_39x;
 
 /* e10: sn74155 */
 drive0_l = !(!unit_sel0 & !unit_sel1 & !ld_cmd_reg & n3v);
 drive1_l = !(!unit_sel0 & unit_sel1 & !ld_cmd_reg & n3v);
 drive2_l = !(unit_sel0 & !unit_sel1 & !ld_cmd_reg & n3v);
 drive3_l = !(unit_sel0 & unit_sel1 & !ld_cmd_reg & n3v);
-db_cont3 = !(!unit_sel0 & unit_sel1 & !n_t_40x & !n_t_50x);
-n_t_61x = !(!unit_sel0 & !unit_sel1 & !n_t_40x & !n_t_50x);
-n_t_48x = !(unit_sel0 & unit_sel1 & !n_t_40x & !n_t_50x);
-n_t_60x = !(unit_sel0 & !unit_sel1 & !n_t_40x & !n_t_50x);
 
 /* e11: ds75451n */
 /* dsk_drive1_l = !drive1_l; */
@@ -658,7 +521,6 @@ ext_cyl_addrs.d = unit_sel1 & n6rk7
                 # bdata11 & n6rk6 & !n6rk7
                 # ext_cyl_addrs & !n6rk6 & !n6rk7;
 ext_cyl_addrs.ck = !ld_shft_cmd_reg_l;
-rk_data5 = !ext_cyl_addrs;
 
 /* e18: sn74161 */
 n_t_47x.ar = !clr_all_l;
@@ -689,8 +551,6 @@ n_t_18x = n3v & n_t_42x & n_t_45x & n_t_44x & n_t_47x;
 
 /* e19: sn74h00 */
 clr_sector_ad_l = !(n_t_9x & idle);
-idle_l = !(n6rk3_ok & n6rk3_l);
-clr_all = !(n_t_16x & n_t_17x);
 drive_status_bad = !(file_rdy & rdy_s_r_w);
 
 /* e20: n8881n */
@@ -781,8 +641,6 @@ shft_surf = (main_pl & bdata4);
 /* e27: sp384n */
 btp1 = tp1;
 bint_strobe = int_strobe;
-btp3 = hi_rd_clk
-     # n_t_101x;
 
 /* e28: sn7402 */
 n_t_49x = !(clr_all
@@ -892,7 +750,6 @@ n3v = 'b'1;
 seek_fail = !dsk_seek_fail_l;
 disk_priority = !n_t_27x;
 b_data_state = !data_state_l;
-md_rk_l = !btp3_ok;
 set_main_brk = !set_main_brk_l;
 
 /* e43: sn7404 */
@@ -922,7 +779,6 @@ last_brk.ap = !n3v;
 last_brk_l = !last_brk;
 
 /* e46: sn7440 */
-n_t_99x = !(n_t_10x & n_t_81x & hi_rd_clk & db_cont1);
 wrt_brk_l = !(last_brk_l & brk_enable & brk_in_l & db_cont1_l);
 
 /* e47: sn7402 */

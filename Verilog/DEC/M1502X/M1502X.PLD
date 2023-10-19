@@ -91,8 +91,6 @@ pin = l;
 pin = ll;
 pin = n;
 pin = n3v3;
-pin = n_t_10x;
-pin = n_t_17x;
 pin = nn;
 pin = r;
 pin = rr;
@@ -102,8 +100,7 @@ pin = v;
 pin = vv;
 pin = x;
 pin = z;
-node d2;
-node c1;
+node n_t_56x;
 node n_t_89x;
 node n_t_90x;
 node n_t_109x;
@@ -125,17 +122,11 @@ node n_t_125x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a0;
-node a12;
-node a7;
-node a8;
-node a9;
 node an1_l;
 node an1clk;
 node an1clr_l;
 node an1d;
 node as1clr_l;
-node b1;
 node ba1_l;
 node ba1clk;
 node ba1clr_l;
@@ -156,22 +147,14 @@ node bs2_l;
 node bu1_l;
 node bu2_l;
 node bv2_l;
-node c1_l;
-node d1;
 node dataclr_l;
-node f2;
-node h1;
 node hclk;
 node lclk;
 node n3v;
-node n_t_11x;
-node n_t_12x;
 node n_t_132x;
 node n_t_133x;
 node n_t_134x;
 node n_t_135x;
-node n_t_13x;
-node n_t_154x;
 node n_t_156x;
 node n_t_157x;
 node n_t_158x;
@@ -186,30 +169,15 @@ node n_t_180x;
 node n_t_181x;
 node n_t_182x;
 node n_t_183x;
-node n_t_18x;
 node n_t_194x;
-node n_t_197x;
-node n_t_20x;
-node n_t_22x;
 node n_t_23x;
 node n_t_25x;
-node n_t_28x;
-node n_t_31x;
 node n_t_36x;
 node n_t_40x;
-node n_t_46x;
 node n_t_49x;
-node n_t_4x;
-node n_t_55x;
-node n_t_56x;
 node n_t_62x;
 node n_t_68x;
-node n_t_69x;
-node n_t_71x;
-node n_t_73x;
 node n_t_8x;
-node n_t_9x;
-node select6;
 $ENDIF
 
 /* Code nodes */
@@ -289,16 +257,10 @@ ba1clr_l = !(n_t_8x
            # af2);
 
 /* e4: sn7474 */
-d2.ar = !as1clr_l;
-d2.d = n_t_40x;
-d2.ck = n_t_49x;
-d2.ap = !n3v;
-n_t_56x = !d2;
-c1.ar = !n_t_157x;
-c1.d = b1;
-c1.ck = b1;
-c1.ap = !n_t_154x;
-n_t_197x = !c1;
+n_t_56x.ap = !as1clr_l;
+n_t_56x.d = !n_t_40x;
+n_t_56x.ck = n_t_49x;
+n_t_56x.ar = !n3v;
 
 /* e5: sn7402 */
 lclk = !(n_t_16x
@@ -318,7 +280,6 @@ n_t_15x = !am1;
 an1 = !an1_l;
 ba1 = !ba1_l;
 as1 = !n_t_56x;
-n_t_69x = !(f2 & n_t_55x);
 
 /* e8: sn7474 */
 n_t_89x.ar = !ba1clr_l;

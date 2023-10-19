@@ -26,8 +26,7 @@
 // c19: c_us 
 // c20: c_us 
 // e1: sn7402 
-module m633b (n_t_13x, n15v, n_t_10x, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_23x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_30x, n_t_33x, n_t_34x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x);
-output n_t_13x;
+module m633b (n15v, n_t_10x, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_23x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_30x, n_t_33x, n_t_34x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x);
 output n15v;
 input n_t_10x;
 input n_t_11x;
@@ -61,9 +60,6 @@ output n_t_65x;
 output n_t_66x;
 
 
-wire bd00;
-wire data1_l;
-wire h2;
 wire n_t_19x;
 wire n_t_1x;
 wire n_t_22x;
@@ -76,9 +72,6 @@ wire n_t_56x;
 wire n_t_59x;
 wire n_t_5x;
 wire n_t_7x;
-wire q2;
-wire q5;
-wire t2_l;
 assign n_t_1x = ~(n_t_14x
                    | n_t_15x);
 assign n_t_4x = ~(n_t_16x

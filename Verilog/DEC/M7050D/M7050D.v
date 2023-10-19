@@ -30,20 +30,17 @@
 // c23: c_us 
 // c24: c_us 
 // e1: sn7475 
-module m7050d (n_t_17x, n_t_20x, ac1, aj2, at2, au1, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bh1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n3v, n5v_1, n5v_2, n_t_10x, n_t_11x, n_t_12x, n_t_18x, n_t_19x, n_t_1x, n_t_21x, n_t_26x, n_t_28x, n_t_2x, n_t_30x, n_t_34x, n_t_37x, n_t_4x, n_t_5x, n_t_6x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, sh_st_out, shift, shift_l, skip, stop_complete, stop_delay, w1, w2, w8);
+module m7050d (n_t_17x, n_t_30x, ac1, at2, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n3v, n5v_1, n5v_2, n_t_1x, n_t_21x, n_t_34x, n_t_37x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, shift, shift_l, skip, stop_complete, stop_delay);
 input n_t_17x;
-output n_t_20x;
+input n_t_30x;
 input ac1;
-output aj2;
 inout at2;
-output au1;
 inout ba1;
 output ba_lp_0_rp;
 output ba_lp_1_rp;
 output bb_lp_0_rp;
 output bb_lp_1_rp;
 input bc1;
-output bh1;
 inout bn1;
 input clk_l;
 input clock1;
@@ -74,44 +71,28 @@ input mb8_lp_1_rp;
 inout n3v;
 output n5v_1;
 output n5v_2;
-inout reg n_t_10x;
-inout reg n_t_11x;
-inout reg n_t_12x;
-output n_t_18x;
-inout reg n_t_19x;
 output n_t_1x;
 inout n_t_21x;
-output n_t_26x;
-inout n_t_28x;
-inout reg n_t_2x;
-input n_t_30x;
 input n_t_34x;
 output n_t_37x;
-output n_t_4x;
-inout n_t_5x;
-inout n_t_6x;
 input offline;
 output out_of_tape;
 output pwr;
-inout rd_hole_1;
+input rd_hole_1;
 input rd_hole_2;
 input rd_hole_3;
-inout rd_hole_4;
+input rd_hole_4;
 input rd_hole_5;
-inout rd_hole_6;
+input rd_hole_6;
 input rd_hole_7;
-inout rd_hole_8;
+input rd_hole_8;
 inout rdr_run_l;
 inout rfc_delayed_l;
-output sh_st_out;
 input shift;
 input shift_l;
 output skip;
 input stop_complete;
 input stop_delay;
-output w1;
-output w2;
-output w8;
 
 reg ba_m;
 reg bb_m;
@@ -121,7 +102,7 @@ reg n_t_11x_m;
 reg n_t_12x_m;
 reg n_t_13x_m;
 reg n_t_14x_m;
-reg n_t_19x_m;
+reg n_t_27x_m;
 reg n_t_2x_m;
 reg n_t_3x_m;
 reg n_t_9x_m;
@@ -130,46 +111,33 @@ reg rdr_run_m;
 
 reg n_t_14x;
 reg n_t_13x;
+reg n_t_12x;
+reg n_t_11x;
 reg n_t_3x;
+reg n_t_2x;
+reg n_t_10x;
 reg n_t_9x;
 reg rdr_run;
 reg rdr_flag;
+reg n_t_27x;
 reg enable;
 reg bb;
 reg ba;
 wire bv2;
 wire clr_flag;
 wire clr_run_l;
-wire data1_l;
-wire data5_l;
 wire iot_011_l;
 wire iot_012_l;
 wire iot_014_l;
-wire mb5=0;
-wire md07_l;
-wire n3v3;
-wire n_t_134x;
-wire n_t_149x;
 wire n_t_16x;
 wire n_t_24x;
 wire n_t_25x;
+wire n_t_26x;
+wire n_t_28x;
 wire n_t_29x;
 wire n_t_40x;
 wire n_t_41x;
-wire n_t_54x;
-wire n_t_55x;
-wire n_t_56x;
-wire n_t_58x;
-wire n_t_60x;
-wire n_t_62x;
-wire n_t_64x;
-wire n_t_65x;
-wire n_t_70x;
-wire n_t_72x;
-wire n_t_73x;
-wire n_t_74x;
-wire n_t_76x;
-wire n_t_7x;
+wire n_t_5x;
 wire out_of_tape_l;
 always @(ac1, rd_hole_1, ac1, rd_hole_1, 1'b0)
   if (ac1 & ~rd_hole_1) begin
@@ -251,14 +219,11 @@ always @(ac1, rd_hole_4, ac1, rd_hole_4, n_t_11x_m)
   if (1'b0) begin
     n_t_11x <= n_t_11x_m;
   end
-assign rd_hole_6 = ~n_t_14x;
-assign rd_hole_8 = ~n_t_13x;
-assign n3v3 = ~n_t_12x;
 // e2: sn7400 
 assign rfc_delayed_l = ~(out_of_tape_l & n_t_30x);
 assign out_of_tape_l = ~(~(n_t_34x & offline));
 assign n_t_16x = ~(~out_of_tape_l & clock1);
-assign n_t_6x = ~(n_t_16x & initialize_l);
+assign clr_run_l = ~(~(n_t_16x & initialize_l));
 // e4: sn7475 
 always @(ac1, rd_hole_7, ac1, rd_hole_7, 1'b0)
   if (ac1 & ~rd_hole_7) begin
@@ -340,9 +305,6 @@ always @(ac1, rd_hole_6, ac1, rd_hole_6, n_t_9x_m)
   if (1'b0) begin
     n_t_9x <= n_t_9x_m;
   end
-assign rd_hole_4 = ~n_t_3x;
-assign rd_hole_1 = ~n_t_2x;
-assign n3v3 = ~n_t_10x;
 // e5: sn7474 
 always @(ac1, clr_run_l, rfc_delayed_l, 1'b0)
   if (~clr_run_l) begin
@@ -396,7 +358,6 @@ always @(ac1, clr_flag, n3v, rdr_flag_m)
 // iob_in_7 = !(at2 & n_t_10x); 
 // iob_in_11 = !(at2 & n_t_14x); 
 // e8: sn7404 
-assign clr_run_l = ~n_t_6x;
 assign n3v = 1'b1;
 // e9: sn7400 
 assign iot_011_l = ~(iop1 & ~n_t_5x);
@@ -415,32 +376,30 @@ assign clr_flag = ~(~(iot_012_l & rfc_delayed_l & clr_run_l));
 // e12: sn7440 
 // e13: sn7404 
 assign ba1 = ~bv2;
-assign mb5=0 = ~n_t_40x;
 assign iot_011 = ~iot_011_l;
 // e14: sn7430 
 assign n_t_5x = ~(mb8_lp_1_rp & mb6_lp_0_rp & mb4_lp_0_rp & mb4_lp_0_rp & mb5_lp_0_rp & mb7_lp_0_rp & mb3_lp_0_rp & mb3_lp_0_rp);
 // e15: sn7474 
-always @(stop_delay, initialize_l, shift_l, 1'b0)
-  if (~initialize_l) begin
-    n_t_19x_m <= 1'b0;
-  end else
+always @(stop_delay, shift_l, initialize_l, 1'b1)
   if (~shift_l) begin
-    n_t_19x_m <= 1'b1;
+    n_t_27x_m <= 1'b0;
+  end else
+  if (~initialize_l) begin
+    n_t_27x_m <= 1'b1;
   end else
   if (~(stop_delay)) begin
-    n_t_19x_m <= 1'b0;
+    n_t_27x_m <= 1'b1;
   end
-always @(stop_delay, initialize_l, shift_l, n_t_19x_m)
-  if (~initialize_l) begin
-    n_t_19x <= 1'b0;
-  end else
+always @(stop_delay, shift_l, initialize_l, n_t_27x_m)
   if (~shift_l) begin
-    n_t_19x <= 1'b1;
+    n_t_27x <= 1'b0;
+  end else
+  if (~initialize_l) begin
+    n_t_27x <= 1'b1;
   end else
   if (stop_delay) begin
-    n_t_19x <= n_t_19x_m;
+    n_t_27x <= n_t_27x_m;
   end
-assign pwr = ~(~n_t_19x);
 always @(clock1, initialize_l, n_t_28x, bn1)
   if (~initialize_l) begin
     enable_m <= 1'b0;
@@ -471,6 +430,7 @@ assign n_t_26x = ~(inhibit_strobe_l & enable);
 assign ba_lp_0_rp = ~ba;
 assign bb_lp_0_rp = ~bb;
 assign bb_lp_1_rp = bb;
+assign pwr = ~n_t_27x;
 assign ba_lp_1_rp = ba;
 assign n_t_21x = ~n_t_17x;
 // e18: sn7474 
@@ -515,7 +475,6 @@ always @(shift, n3v, n3v, ba_m)
     ba <= ba_m;
   end
 // e19: sn7400 
-assign n_t_149x = ~(n_t_134x & n_t_149x);
 assign n_t_24x = ~(ba & bb);
 assign n_t_41x = ~(n_t_40x & n_t_21x);
 assign n_t_40x = ~(n_t_41x & enable_l);

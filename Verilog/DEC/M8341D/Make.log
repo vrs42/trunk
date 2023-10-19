@@ -43,33 +43,28 @@ info: edge_top ne edge_con2
 warning: making h/edge_top/ a connector
 info: quad ne edge_con8
 warning: making u$2/quad/ a connector
-unexpected OC output: swba at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 1822.
-unexpected OC output: n_t_8x at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 1966.
-unexpected OC output: n_t_34x at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2173.
 ~/Verilog/bin/smaller.pl M8341D.PLD >vv || (rm vv; exit 1)
-52 signals were removed:
-  be: !ande_l
+44 signals were removed:
   bmq0: !mq0_l
   btp3: tp3
-  carry_in_l: !tadets3
   clock_l: !clock
   eae_on_l: !eae_on
-  f_l: !opr_l
   fetch_l: !fetch
+  gdollar_0: shift_ok
+  gdollar_1: !gdollar_0
   init_l: !init
-  modea: !link
   n3va: 'b'1
   n3vb: 'b'1
   n3vc: 'b'1
   n3vd: 'b'1
   n_t_11x: !bac0
   n_t_12x: !n_t_33x
-  n_t_13x: !ets2_l
   n_t_14x: !rom_24_l
+  n_t_16x: !ad0_l
   n_t_17x: !n_t_77x
   n_t_1x: !mq11_l
   n_t_20x: !n_t_19x
-  n_t_22x: !link_l
+  n_t_25x: !btp3
   n_t_29x: !n_t_28x
   n_t_2x: !tp2
   n_t_30x: !last_step_l
@@ -79,11 +74,8 @@ unexpected OC output: n_t_34x at /home/vrs/Verilog/bin/topld.pl line 2088, <INPU
   n_t_37x: !ac_load_l
   n_t_39x: !sgt_l
   n_t_41x: !n_t_43x
-  n_t_42x: !jmp
   n_t_47x: !shift_ok
   n_t_50x: !rom_11_l
-  n_t_51x: !be
-  n_t_53x: !dcae_l
   n_t_55x: !msir_disable
   n_t_57x: !en2
   n_t_58x: !rom_14_l
@@ -92,20 +84,15 @@ unexpected OC output: n_t_34x at /home/vrs/Verilog/bin/topld.pl line 2088, <INPU
   n_t_6x: !ac4_11_0
   n_t_71x: !rom_17_l
   n_t_7x: !n_t_84x
-  n_t_81x: btp3
   n_t_8x: !rom_12
   n_t_91x: !last_step_l
-  n_t_9x: n_t_9x
   rom_12: !rom_12_l
   shift3: !rom_15_l
-  shift_ok: tadets3
   ts3_l: !ts3
 ~/Verilog/bin/smaller.pl vv >M8341DX.PLD || (rm M8341DX.PLD; exit 1)
-4 signals were removed:
-  bd: link_l
-  btp3: tp3
+2 signals were removed:
+  n_t_31x: !ac_to_mq_ena_l
   rom_12: !rom_12_l
-  shift_ok: tadets3
 ~/Verilog/bin/cupl2v.pl M8341DX.PLD >vv || (rm vv; exit 1)
 mv vv M8341D.v
 rm M8341DX.PLD

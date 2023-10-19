@@ -16,40 +16,23 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_10x;
+pin = n_t_12x;
 
 /* Output Pins */
-pin = n15v;
-pin = n5v_1;
-pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
 pin = n_t_13x;
-pin = n_t_14x;
-pin = n_t_15x;
-pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_18x;
-pin = n_t_19x;
-pin = n_t_1x;
-pin = n_t_20x;
 pin = n_t_21x;
 pin = n_t_22x;
-pin = n_t_23x;
-pin = n_t_24x;
-pin = n_t_25x;
 pin = n_t_2x;
-pin = n_t_3x;
-pin = n_t_4x;
 pin = n_t_5x;
-pin = n_t_6x;
-pin = n_t_7x;
-pin = n_t_8x;
-pin = n_t_9x;
-pin = v1;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node j2;
+node n_t_11x;
+node n_t_1x;
+node n_t_3x;
 $ENDIF
 
 /* Code nodes */
@@ -69,7 +52,6 @@ n_t_13x = !n_t_3x;
 n_t_5x = !(n_t_22x & n_t_2x & n_t_1x & n_t_1x);
 
 /* e2: sn7400 */
-j2 = !(n_t_1x & n_t_21x);
 n_t_11x = !(n_t_10x & n_t_3x);
 n_t_3x = !n_t_12x;
 n_t_1x = 'b'1;

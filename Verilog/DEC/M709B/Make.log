@@ -15,11 +15,7 @@ warning: non-bypass capacitor deleted: c26
 warning: non-bypass capacitor deleted: c27
 warning: non-pullup resistor deleted: r3
 ~/Verilog/bin/smaller.pl M709B.PLD >vv || (rm vv; exit 1)
-22 signals were removed:
-  n_t_26x: !n_t_12x
-  n_t_32x: !n_t_1x
-  n_t_381x: !n_t_10x
-  n_t_39x: !n_t_6x
+18 signals were removed:
   n_t_40x: !n_t_39x
   n_t_41x: !n_t_38x
   n_t_42x: !n_t_37x
@@ -32,17 +28,14 @@ warning: non-pullup resistor deleted: r3
   n_t_49x: !n_t_30x
   n_t_50x: !n_t_29x
   n_t_51x: !n_t_28x
+  n_t_52x: !overflow
   n_t_57x: !gate
   n_t_58x: !gate
-  n_t_7x: !n_t_4x
   n_t_83x: !clk_count
   n_t_86x: !transfer
   n_t_89x: !n_t_84x
 ~/Verilog/bin/smaller.pl vv >M709BX.PLD || (rm M709BX.PLD; exit 1)
-3 signals were removed:
-  n_t_1x: n_t_2x
-  n_t_38x: n_t_8x
-  n_t_39x: !n_t_6x
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M709BX.PLD >vv || (rm vv; exit 1)
 mv vv M709B.v
 rm M709BX.PLD

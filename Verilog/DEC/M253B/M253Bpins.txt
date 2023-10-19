@@ -2,35 +2,23 @@ Exported from /home/vrs/Eagle/projects/DEC/Mxxx/M253/M253B.sch
 
 Part     Pad      Pin        Dir      Net
 
-C1       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C1       1        1          pas      VCC
          2        2          pas      GND
 
-C2       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C2       1        1          pas      VCC
          2        2          pas      GND
 
-C3       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C3       1        1          pas      VCC
          2        2          pas      GND
 
-C4       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      VCC
+C4       1        1          pas      VCC
          2        2          pas      GND
 
-C5       +        +          pas      VCC
-         -        -          pas      GND
-         1        1          pas      +3V3
+C5       1        1          pas      +3V3
          2        2          pas      GND
 
 C6       +        +          pas      VCC
          -        -          pas      GND
-         1        1          pas      VCC
-         2        2          pas      GND
 
 E1       1        A0         in       N$2
          2        CS         in       N$1
@@ -39,7 +27,6 @@ E1       1        A0         in       N$2
          5        Q0         out      N$20
          6        D1         in       N$7
          7        Q1         out      N$19
-         8        CK2        in       N$7
          9        Q2         out      N$22
          10       D2         in       N$9
          11       Q3         out      N$21
@@ -47,14 +34,6 @@ E1       1        A0         in       N$2
          13       A3         in       N$4
          14       A2         in       N$3
          15       A1         in       N$6
-         16       14         out      N$17
-         17       15         out      N$16
-         18       G1         in       N$15
-         19       G2         in       N$13
-         20       D          in       N$11
-         21       C          in       N$12
-         22       B          in       N$10
-         23       A          in       N$8
 
 E2       1        A0         in       N$2
          2        CS         in       N$1
@@ -63,7 +42,6 @@ E2       1        A0         in       N$2
          5        Q0         out      N$23
          6        D1         in       N$11
          7        Q1         out      N$24
-         8        CK2        in       N$19
          9        Q2         out      N$25
          10       D2         in       N$13
          11       Q3         out      N$26
@@ -79,7 +57,6 @@ E3       1        A0         in       N$2
          5        Q0         out      N$28
          6        D1         in       N$18
          7        Q1         out      N$29
-         8        !Q         out      N$11
          9        Q2         out      N$30
          10       D2         in       N$17
          11       Q3         out      N$27
@@ -93,16 +70,10 @@ E4       1        I0         in       CS
          3        O          out      N$1
          4        I0         in       GND
          5        I1         in       GND
-         6        O          out      N$56
-         7        QD         out      N$14
-         8        O          out      N$57
          9        I0         in       GND
          10       I1         in       GND
-         11       I3         in       N$37
          12       I0         in       GND
          13       I1         in       GND
-         14       CLK        in       N$30
-         15       A          in       N$20
 
 R1       1        1          pas      +3V3
          2        2          pas      VCC
@@ -110,78 +81,13 @@ R1       1        1          pas      +3V3
 R2       1        1          pas      GND
          2        2          pas      +3V3
 
-U$2      AA2      1          io       VCC
-         AC1      1          io       GND
-         AC2      1          io       GND
-         AF1      1          io       GND
-         AF2      1          io       GND
-         AN1      1          io       GND
+U$2      A1       1          io       N$3
          A2       1          io       VCC
-         AN2      1          io       GND
-         AP1      1          io       !MD03
-         A1       1          io       N$3
-         AR1      1          io       !DATA0
-         AS1      1          io       !DATA1
-         AT1      1          io       GND
-         AT2      1          io       GND
-         AU1      1          io       !DATA2
-         AV1      1          io       !DATA3
-         BA2      1          io       VCC
-         BF1      1          io       GND
-         BF2      1          io       GND
-         BM1      1          io       !MD06
-         BN1      1          io       GND
-         B2       1          io       N$18
-         BP1      1          io       !MD07
-         BR1      1          io       !DATA4
-         BS1      1          io       !DATA5
-         BU1      1          io       !DATA6
          B1       1          io       N$10
-         BC1      1          io       GND
-         BC2      1          io       GND
-         BK1      1          io       !MD04
-         BL1      1          io       !MD05
-         BN2      1          io       GND
-         BT1      1          io       GND
-         BT2      1          io       GND
-         BV1      1          io       !DATA7
          C1       1          io       N$9
-         CA2      1          io       VCC
-         CC1      1          io       GND
-         CE1      1          io       !C0
-         CF1      1          io       GND
-         CF2      1          io       GND
-         CH1      1          io       !C1
-         CH2      1          io       TP3
-         CL1      1          io       !INTERNAL_IO
-         CN1      1          io       GND
-         CN2      1          io       GND
-         CR1      1          io       INITIALIZE
-         CS1      1          io       !SKIP
-         CT1      1          io       GND
-         CT2      1          io       GND
          C2       1          io       GND
-         CC2      1          io       GND
-         CD1      1          io       !IO_PAUSE
-         CP1      1          io       !INT_RQST
-         DC1      1          io       GND
-         DC2      1          io       GND
-         D2       1          io       N$19
-         DF1      1          io       GND
-         DF2      1          io       GND
-         DK1      1          io       !MD08
-         DL1      1          io       !MD09
-         DM1      1          io       !MD10
-         DN1      1          io       GND
-         DN2      1          io       GND
-         DP1      1          io       !MD11
-         DR1      1          io       !DATA8
-         DS1      1          io       !DATA9
-         DT1      1          io       GND
-         DT2      1          io       GND
-         DU1      1          io       !DATA10
          D1       1          io       N$22
-         DV1      1          io       !DATA11
+         D2       1          io       N$19
          E1       1          io       N$21
          E2       1          io       N$7
          F1       1          io       N$5

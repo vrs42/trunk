@@ -16,9 +16,6 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = a00;
-pin = a06;
-pin = n3v3;
 pin = n_t_33x;
 pin = n_t_34x;
 pin = n_t_35x;
@@ -27,11 +24,11 @@ pin = n_t_37x;
 pin = n_t_38x;
 pin = n_t_39x;
 pin = n_t_40x;
+pin = n_t_41x;
 pin = n_t_42x;
 
 /* Output Pins */
 pin = a0;
-pin = a01;
 pin = a1;
 pin = a10;
 pin = a11;
@@ -51,10 +48,8 @@ pin = a8;
 pin = a9;
 pin = c0;
 pin = c1;
-pin = c1_l;
 pin = extgnd;
 pin = msyn;
-pin = n15v;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
@@ -78,7 +73,6 @@ pin = n_t_29x;
 pin = n_t_2x;
 pin = n_t_30x;
 pin = n_t_3x;
-pin = n_t_41x;
 pin = n_t_43x;
 pin = n_t_44x;
 pin = n_t_45x;
@@ -88,7 +82,6 @@ pin = n_t_6x;
 pin = n_t_7x;
 pin = n_t_8x;
 pin = n_t_9x;
-pin = out_l;
 pin = outhigh;
 pin = outlow;
 pin = select0;
@@ -100,7 +93,7 @@ pin = testpoint;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node a09;
+node c1_l;
 node n_t_22x;
 node n_t_31x;
 node n_t_46x;
@@ -157,8 +150,6 @@ n_t_46x = !n_t_31x;
 !select2 = [a1,a2]:'b'01;
 !select4 = [a1,a2]:'b'10;
 !select6 = [a1,a2]:'b'11;
-!a09 = !c1_l & [a0,c0]:'b'00;
-!n_t_43x = !c1_l & [a0,c0]:'b'01;
 !outhigh = !c1_l & [a0,c0]:'b'10;
 !outlow = !c1_l & [a0,c0]:'b'11;
 
@@ -171,9 +162,7 @@ n_t_46x = !n_t_31x;
 /* r4: r_us_ */
 
 /* Open collector 'wire-or's */
-property atmel {open_collector= c1_l};
 !c1_l = c1;
-c1_l.oe = c1;
 !n_t_22x = testpoint;
 property atmel {open_collector= syn_l};
 !syn_l = n_t_44x;

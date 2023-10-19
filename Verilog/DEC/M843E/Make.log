@@ -60,14 +60,12 @@ warning: non-bypass capacitor deleted: c49
 warning: non-bypass capacitor deleted: c50
 warning: non-bypass capacitor deleted: c51
 warning: non-bypass capacitor deleted: c52
-unexpected OC output: p3_bd7 at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 1926.
-unexpected OC output: p3_bd7 at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 1971.
 warning: non-pullup resistor deleted: r1
 warning: non-pullup resistor deleted: r2
 warning: non-pullup resistor deleted: r8
 warning: non-pullup resistor deleted: r9
 ~/Verilog/bin/smaller.pl M843E.PLD >vv || (rm vv; exit 1)
-40 signals were removed:
+36 signals were removed:
   bcd1_l: !bcd1
   btp3: !tp3_l
   btransit: !transit_l
@@ -82,18 +80,14 @@ warning: non-pullup resistor deleted: r9
   n_t_27x: !n_t_28x
   n_t_2x: !io_pause_l
   n_t_30x: !n_t_4x
+  n_t_34x: 'b'1
   n_t_39x: !n_t_15x
   n_t_3x: !dclr
   n_t_42x: !rcsf_l
   n_t_43x: !rcsd_l
   n_t_44x: !initialize_l
-  n_t_55x: !int
-  out_of_tape: !trbl
-  p3_bm9: !ena_pun_buffr_l
-  p3_bm9_l: !p3_bm4
   rcsi: !rcsi_l
   rdy: !rdy1_l
-  read_l: !rd6_l
   tp3_l: !tp3
   transit_l: !transit
   zone10_l: !zone10
@@ -110,7 +104,7 @@ warning: non-pullup resistor deleted: r9
   zone9_l: !zone9
 ~/Verilog/bin/smaller.pl vv >M843EX.PLD || (rm M843EX.PLD; exit 1)
 4 signals were removed:
-  initialize_l: !initialize
+  n_t_13x: dclr
   pause_l: io_pause_l
   tp3_l: !tp3
   transit_l: !transit

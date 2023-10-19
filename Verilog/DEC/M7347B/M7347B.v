@@ -10,155 +10,23 @@
 // c3: c_us 
 // c4: cpol_use 
 // e1: sn7404 
-module m7347b (n_t_1x, , b1, b_bot, b_set, b_stop, be, bh, cfmk_l, clear_y, clk_l, clock_1, clock_iot, clrce_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, ctur_l, d, e, ebot_l, enable_l, f, f1, feed_sw_l, flag, flag_buffer, fmk_l, h, inh_strobe_l, initialize, io_irq_l, io_skip_l, iop1, iop1_l, iop2, iop2_l, iop4, irq_enb, j, j1, light_pen, load_counter, load_x, m1, mb10, mb10=1, mb11, mb11=1, mb3=0, mb3_l, mb4_l, mb5, mb5=0, mb6_l, mb7, mb7=1, mb8, mb8=0, mb9, mb9_l, motor_on_ch, n15v, n_t_24x, n_t_26x, n_t_36x, n_t_50x, n_t_6x, overflow, power_clear_l, rds_l, rsdwn_l, rtur_l, run_l, shift, shift_l, stop_complete, stop_delay, strobe, tb3_h, tp_av, tp_bm, u1, v_clamp, xrd0_l, xrd2_l, xrd4_l, xrdp_l, z_axis);
-output n_t_1x;
-output ;
-output b1;
-output b_bot;
-output b_set;
-output b_stop;
-output be;
-output bh;
-output cfmk_l;
-output clear_y;
-output clk_l;
-output clock_1;
-output clock_iot;
-output clrce_l;
-output crcs_l;
-output crd0_l;
-output crd1_l;
-output crd2_l;
-output crd3_l;
-output crd4_l;
-output crd5_l;
-output crd6_l;
-output crd7_l;
-output crdp_l;
-output crds_l;
-output ctur_l;
+// e2: sn7400 
+module m7347b (d, e, f, h, j, n15v, n_t_26x);
 input d;
 input e;
-output ebot_l;
-output enable_l;
 input f;
-output f1;
-output feed_sw_l;
-output flag;
-output flag_buffer;
-output fmk_l;
 input h;
-output inh_strobe_l;
-output initialize;
-output io_irq_l;
-output io_skip_l;
-output iop1;
-output iop1_l;
-output iop2;
-output iop2_l;
-output iop4;
-output irq_enb;
 input j;
-output j1;
-output light_pen;
-output load_counter;
-output load_x;
-output m1;
-output mb10;
-output mb10=1;
-output mb11;
-output mb11=1;
-output mb3=0;
-output mb3_l;
-output mb4_l;
-output mb5;
-output mb5=0;
-output mb6_l;
-output mb7;
-output mb7=1;
-output mb8;
-output mb8=0;
-output mb9;
-output mb9_l;
-output motor_on_ch;
 output n15v;
-output n_t_24x;
-inout reg n_t_26x;
-output n_t_36x;
-output n_t_50x;
-inout n_t_6x;
-output overflow;
-output power_clear_l;
-output rds_l;
-output rsdwn_l;
-output rtur_l;
-output run_l;
-input shift;
-inout shift_l;
-output stop_complete;
-output stop_delay;
-output strobe;
-output tb3_h;
-output tp_av;
-output tp_bm;
-output u1;
-output v_clamp;
-output xrd0_l;
-output xrd2_l;
-output xrd4_l;
-output xrdp_l;
-output z_axis;
+output reg n_t_26x;
 
-reg n_t_10x_m;
 reg n_t_26x_m;
 
-reg n_t_10x;
-wire a1;
-wire ac9;
-wire bdata2;
-wire bdata7;
-wire n12th_carry;
-wire n16_carry;
-wire n3v;
-wire n_t_13x;
-wire n_t_14x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_19x;
-wire n_t_29x;
-wire n_t_35x;
-wire n_t_5x;
-wire n_t_8x;
+wire n_t_6x;
 wire n_t_9x;
-wire pb1;
-wire pb3;
-assign shift_l = ~(~e);
-// e2: sn7400 
-assign n_t_6x = ~(d & ~shift_l);
+assign n_t_6x = ~(d & ~e);
 assign n_t_9x = ~(f & ~h);
-assign n_t_36x = ~(ac9 & n_t_35x);
 // e3: sn7474 
-always @(shift_l, n_t_9x, n_t_19x, n_t_9x)
-  if (n_t_9x) begin
-    n_t_10x_m <= 1'b0;
-  end else
-  if (~n_t_19x) begin
-    n_t_10x_m <= 1'b1;
-  end else
-  if (~(shift_l)) begin
-    n_t_10x_m <= n_t_9x;
-  end
-always @(shift_l, n_t_9x, n_t_19x, n_t_10x_m)
-  if (n_t_9x) begin
-    n_t_10x <= 1'b0;
-  end else
-  if (~n_t_19x) begin
-    n_t_10x <= 1'b1;
-  end else
-  if (shift_l) begin
-    n_t_10x <= n_t_10x_m;
-  end
-assign clk_l = ~n_t_10x;
 always @(n_t_6x, j, n_t_9x, 1'b0)
   if (~j) begin
     n_t_26x_m <= 1'b0;

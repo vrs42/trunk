@@ -139,21 +139,16 @@ warning: making q1/2n3009/ a connector
 info: hex ne edge_con12
 warning: making u$1/hex/ a connector
 warning: non-bypass capacitor deleted: c12
-unexpected OC output: motor_stopping_l at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 2882.
-unexpected OC output: pause at /home/vrs/Verilog/bin/topld.pl line 2088, <INPUT> line 3204.
 warning: non-pullup resistor deleted: r5
 ~/Verilog/bin/smaller.pl M8416P.PLD >vv || (rm vv; exit 1)
-100 signals were removed:
-  gdollar_10: p1_us0
-  gdollar_8: 'b'0
+95 signals were removed:
+  gdollar_10: 'b'0
+  gdollar_11: p1_us0
   gdollar_9: 'b'0
-  isz_l: 'b'1
-  ma04_l: !p3_e2cfrom_l
   n_t_102x: !n_t_103x
   n_t_107x: !p4_jmp_or_jms
   n_t_108x: !mams_ld_ctl
   n_t_110x: !p4_cksv
-  n_t_113x: !clock_pulse
   n_t_126x: !n_t_101x
   n_t_127x: !ir1_l
   n_t_128x: !internal_io
@@ -171,11 +166,9 @@ warning: non-pullup resistor deleted: r5
   n_t_161x: !n_t_162x
   n_t_165x: ind1_l
   n_t_166x: !n_t_165x
-  n_t_168x: !mq_data_l
   n_t_16x: !n_t_17x
   n_t_170x: !p4_rmf_l
   n_t_171x: !p4_suf_l
-  n_t_176x: !mq08_l
   n_t_177x: 'b'1
   n_t_26x: !link_l
   n_t_28x: !la_en_l
@@ -187,6 +180,7 @@ warning: non-pullup resistor deleted: r5
   n_t_46x: ema2_l
   n_t_47x: ema1_l
   n_t_48x: ema0_l
+  n_t_50x: 'b'1
   n_t_56x: !p2_suf_out
   n_t_70x: !rd11_l
   n_t_71x: !rd8_l
@@ -195,7 +189,8 @@ warning: non-pullup resistor deleted: r5
   n_t_78x: !rd6_l
   n_t_79x: !rd7_l
   n_t_7x: !n_t_4x
-  n_t_81x: 'b'1
+  n_t_80x: !rd5_l
+  n_t_81x: !rd4_l
   n_t_82x: !rd3_l
   n_t_83x: !rd2_l
   n_t_84x: !rd1_l
@@ -206,7 +201,6 @@ warning: non-pullup resistor deleted: r5
   n_t_91x: 'b'1
   n_t_94x: !p4_sint_l
   n_t_95x: !n_t_96x
-  out_of_tape: !have_tape
   p2_3v: 'b'1
   p2_emaen_l: !p2_emaen
   p2_enbs_l: !p2_elar_l
@@ -241,17 +235,13 @@ warning: non-pullup resistor deleted: r5
   p6_eem_l: !p6_eem
   p6_en5_l: !p6_en5
   p6_en9_l: !p6_en9
-  p6_maint_l: !cpma11
   p6_prup: !p6_prup_l
   p6_rvfen_l: !p6_rvfen
 ~/Verilog/bin/smaller.pl vv >M8416PX.PLD || (rm M8416PX.PLD; exit 1)
-4 signals were removed:
-  n_t_165x: ind1_l
-  n_t_4x: p3_bpause
-  p3_binit: initialize
-  p3_bm0: !md00_l
+1 signals were removed:
+  p3_btp2: tp2
 ~/Verilog/bin/cupl2v.pl M8416PX.PLD >vv || (rm vv; exit 1)
-OE qualifier on FF output gdollar_0 at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 2995.
+OE qualifier on FF output gdollar_0 at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 2614.
 ../Makefile:29: recipe for target 'M8416P.v' failed
 make: *** [M8416P.v] Error 1
 rm M8416PX.PLD

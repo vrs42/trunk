@@ -18,7 +18,9 @@ info: edge_1 ne edge_con1
 warning: making u$2/edge_1/ a connector
 warning: non-bypass capacitor deleted: c6
 ~/Verilog/bin/smaller.pl M452X.PLD >vv || (rm vv; exit 1)
-0 signals were removed:
+2 signals were removed:
+  n_t_14x: 'b'1
+  n_t_17x: !n_t_14x
 ~/Verilog/bin/smaller.pl vv >M452XX.PLD || (rm M452XX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M452XX.PLD >vv || (rm vv; exit 1)

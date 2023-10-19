@@ -16,35 +16,12 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = ah1;
-pin = aj1;
-pin = ap1;
-pin = bn2;
-pin = mfts0_l;
 pin = n3v3;
 pin = n_t_121x;
 pin = n_t_123x;
 pin = n_t_52x;
-pin = q1;
-pin = q6;
-pin = st_blk_mk;
-pin = sync_l;
-pin = w6;
-pin = xrd1_l;
-pin = xrd2_l;
-pin = xrdp_l;
 
 /* Output Pins */
-pin = a1;
-pin = as2;
-pin = bd07;
-pin = bp2;
-pin = br1;
-pin = mfts0_h;
-pin = mk_blk_sync_l;
-pin = mk_data;
-pin = mk_data_l;
-pin = n15v;
 pin = n_t_104x;
 pin = n_t_105x;
 pin = n_t_106x;
@@ -57,7 +34,6 @@ pin = n_t_115x;
 pin = n_t_118x;
 pin = n_t_11x;
 pin = n_t_122x;
-pin = n_t_125x;
 pin = n_t_129x;
 pin = n_t_12x;
 pin = n_t_131x;
@@ -71,7 +47,6 @@ pin = n_t_149x;
 pin = n_t_14x;
 pin = n_t_15x;
 pin = n_t_16x;
-pin = n_t_17x;
 pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_1x;
@@ -150,20 +125,7 @@ node gdollar_8, gdollar_9, gdollar_10, gdollar_11;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node ad03h;
-node ad06h;
-node bd05;
-node biot5l;
-node bk1;
-node bn1;
-node br1_l;
-node data1_l;
-node data5_l;
-node ebot_l;
-node eeot_l;
-node erws_l;
 node in;
-node md07_l;
 node n_t_102x;
 node n_t_107x;
 node n_t_110x;
@@ -171,23 +133,19 @@ node n_t_114x;
 node n_t_116x;
 node n_t_117x;
 node n_t_120x;
+node n_t_125x;
 node n_t_134x;
 node n_t_140x;
 node n_t_141x;
 node n_t_142x;
 node n_t_145x;
+node n_t_17x;
 node n_t_51x;
 node n_t_53x;
 node n_t_99x;
 node out;
-node q2;
-node q5;
 node shift_clock;
-node t2_l;
-node vpe_l;
 node x_strobe;
-node xrd0_l;
-node xrd5_l;
 node y_strobe;
 $ENDIF
 
@@ -282,11 +240,6 @@ gdollar_2 = n_t_55x & !n_t_54x
 gdollar_3 = n_t_1x & !n_t_56x
           # !n_t_1x & n_t_56x;
 n_t_73x = n_t_102x & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3;
-n_t_2x = !n_t_102x & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
-       # !n_t_1x & !gdollar_0 & !gdollar_1 & !gdollar_2 & gdollar_3
-       # !n_t_55x & !gdollar_0 & !gdollar_1 & gdollar_2
-       # !gdollar_0 & gdollar_1
-       # gdollar_0;
 out = !n_t_102x & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
     # n_t_1x & !gdollar_0 & !gdollar_1 & !gdollar_2 & gdollar_3
     # n_t_55x & !gdollar_0 & !gdollar_1 & gdollar_2;

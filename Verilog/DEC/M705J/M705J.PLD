@@ -19,25 +19,18 @@ $UNDEF  OPTIMIZE
 pin = n_t_30x;
 
 /* Output Pins */
-pin = ac1;
 pin = aj2;
-pin = au1;
 pin = ba;
-pin = ba1;
 pin = ba_l;
 pin = bb;
 pin = bb_l;
-pin = bc1;
-pin = bh1;
 pin = binit_l;
 pin = bn1;
 pin = bv2;
-pin = clk_l;
 pin = clock1;
 pin = enable_l;
 pin = feed_hole;
 pin = feed_switch;
-pin = inhibit_strobe_l;
 pin = initialize_l;
 pin = int_request;
 pin = iob_in_10;
@@ -60,8 +53,6 @@ pin = mb5_lp_0_rp;
 pin = mb6_lp_0_rp;
 pin = mb7_lp_0_rp;
 pin = mb8_lp_1_rp;
-pin = offline;
-pin = out_of_tape;
 pin = pwr;
 pin = rd_hole_1;
 pin = rd_hole_2;
@@ -72,13 +63,10 @@ pin = rd_hole_6;
 pin = rd_hole_7;
 pin = rd_hole_8;
 pin = rdr_run_l;
-pin = sh_st_out;
 pin = shift;
 pin = shift_l;
 pin = skip;
 pin = stop_complete;
-pin = stop_delay;
-pin = w8;
 node n_t_11x;
 node n_t_12x;
 node n_t_13x;
@@ -89,49 +77,26 @@ node n_t_2x;
 node n_t_3x;
 node rdr_flag;
 node rdr_run;
-node n_t_34x;
+node n_t_27x;
 node n_t_23x;
 node n_t_1x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node clr_flag;
-node data1_l;
-node md07_l;
-node n3v3;
-node n3va;
 node n_t_15x;
-node n_t_16x;
-node n_t_18x;
-node n_t_19x;
-node n_t_20x;
 node n_t_24x;
 node n_t_25x;
 node n_t_26x;
-node n_t_27x;
 node n_t_28x;
 node n_t_29x;
 node n_t_31x;
 node n_t_32x;
 node n_t_33x;
-node n_t_35x;
-node n_t_36x;
+node n_t_34x;
 node n_t_4x;
-node n_t_54x;
-node n_t_55x;
-node n_t_56x;
-node n_t_58x;
 node n_t_5x;
-node n_t_60x;
-node n_t_62x;
-node n_t_64x;
-node n_t_65x;
 node n_t_6x;
-node n_t_70x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
-node n_t_76x;
 node n_t_7x;
 node n_t_8x;
 node rfc_delayed;
@@ -191,47 +156,33 @@ $ENDIF
 n_t_11x.ar = !rfc_delayed;
 n_t_11x.d = rd_hole_4;
 n_t_11x.ck = aj2;
-n_t_11x.ap = !ac1;
-rd_hole_3 = !n_t_11x;
 n_t_12x.ar = !rfc_delayed;
 n_t_12x.d = rd_hole_3;
 n_t_12x.ck = aj2;
-n_t_12x.ap = !n_t_12x;
 
 /* e2: sn7474 */
 n_t_13x.ar = !rfc_delayed;
 n_t_13x.d = rd_hole_2;
 n_t_13x.ck = aj2;
-n_t_13x.ap = !n_t_34x;
-n_t_35x = !n_t_13x;
 n_t_14x.ar = !rfc_delayed;
 n_t_14x.d = rd_hole_1;
 n_t_14x.ck = aj2;
-n_t_14x.ap = !clock1;
-n_t_16x = !n_t_14x;
 
 /* e3: sn7474 */
 n_t_9x.ar = !rfc_delayed;
 n_t_9x.d = rd_hole_6;
 n_t_9x.ck = aj2;
-n_t_9x.ap = !n3va;
-n_t_5x = !n_t_9x;
 n_t_10x.ar = !rfc_delayed;
 n_t_10x.d = rd_hole_5;
 n_t_10x.ck = aj2;
-n_t_10x.ap = !n_t_26x;
-n_t_34x = !n_t_10x;
 
 /* e4: sn7474 */
 n_t_2x.ar = !rfc_delayed;
 n_t_2x.d = rd_hole_8;
 n_t_2x.ck = aj2;
-n_t_2x.ap = !ac1;
-rd_hole_5 = !n_t_2x;
 n_t_3x.ar = !rfc_delayed;
 n_t_3x.d = rd_hole_7;
 n_t_3x.ck = aj2;
-n_t_3x.ap = !n_t_10x;
 
 /* e5: sn7401 */
 /* iob_in_4 = !(n_t_2x & iot_012); */
@@ -241,7 +192,6 @@ n_t_3x.ap = !n_t_10x;
 
 /* e6: sn7401 */
 /* n_t_31x = !feed_hole; */
-/* iob_in_6 = !(n_t_9x & iot_012); */
 /* int_request = !rdr_flag; */
 /* skip = !(rdr_flag & iot_011); */
 
@@ -265,8 +215,6 @@ aj2 = !n_t_26x;
 rdr_flag.ar = !clr_flag;
 rdr_flag.d = rdr_run;
 rdr_flag.ck = aj2;
-rdr_flag.ap = !mb7_lp_0_rp;
-mb8_lp_1_rp = !rdr_flag;
 rdr_run.ar = !binit_l;
 rdr_run.d = 'b'0;
 rdr_run.ck = aj2;
@@ -288,16 +236,14 @@ bn1 = !(rdr_run_l & feed_switch & n_t_34x);
 n_t_33x = !(n_t_6x & binit_l & rfc_delayed);
 
 /* e14: sn7474 */
-n_t_34x.ar = !binit_l;
-n_t_34x.d = bn1;
-n_t_34x.ck = stop_complete;
-n_t_34x.ap = !shift_l;
-n_t_27x = !n_t_34x;
-iop4.ar = !binit_l;
-iop4.d = bn1;
-iop4.ck = clock1;
-iop4.ap = !n_t_28x;
-enable_l = !iop4;
+n_t_27x.ap = !binit_l;
+n_t_27x.d = !bn1;
+n_t_27x.ck = stop_complete;
+n_t_27x.ar = !shift_l;
+enable_l.ap = !binit_l;
+enable_l.d = !bn1;
+enable_l.ck = clock1;
+enable_l.ar = !n_t_28x;
 
 /* e15: sn7400 */
 n_t_29x = !(iot_014_l & rfc_delayed);
@@ -318,15 +264,11 @@ n_t_24x = !(n_t_23x & n_t_1x);
 n_t_26x = !(clock1 & bv2);
 
 /* e18: sn7474 */
-n_t_23x.ar = !clock1;
 n_t_23x.d = n_t_15x;
 n_t_23x.ck = shift;
-n_t_23x.ap = !bv2;
 n_t_4x = !n_t_23x;
-n_t_1x.ar = !rfc_delayed;
 n_t_1x.d = n_t_23x;
 n_t_1x.ck = shift;
-n_t_1x.ap = !n_t_25x;
 n_t_15x = !n_t_1x;
 
 /* r1: r_us_ */
@@ -354,10 +296,8 @@ property atmel {open_collector= iob_in_5};
 !iob_in_5 = (n_t_3x & iot_012);
 iob_in_5.oe = (n_t_3x & iot_012);
 property atmel {open_collector= iob_in_6};
-!iob_in_6 = (n_t_9x & iot_012)
-            # (n_t_9x & iot_012);
-iob_in_6.oe = (n_t_9x & iot_012)
-            # (n_t_9x & iot_012);
+!iob_in_6 = (n_t_9x & iot_012);
+iob_in_6.oe = (n_t_9x & iot_012);
 property atmel {open_collector= iob_in_7};
 !iob_in_7 = (iot_012 & n_t_10x);
 iob_in_7.oe = (iot_012 & n_t_10x);

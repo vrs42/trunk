@@ -9,22 +9,22 @@ info: edge_2connector ne edge_con2
 warning: making edge1/edge_2connector/ a connector
 warning: non-bypass capacitor deleted: c1
 ~/Verilog/bin/smaller.pl M212X.PLD >vv || (rm vv; exit 1)
-11 signals were removed:
-  l1: !l2
+13 signals were removed:
+  gdollar_1: !gdollar_0
+  gdollar_11: !gdollar_10
+  gdollar_3: !gdollar_2
+  gdollar_5: !gdollar_4
+  gdollar_7: !gdollar_6
+  gdollar_9: !gdollar_8
   n3v3: 'b'1
-  n_t_1x: n_t_27x
-  n_t_24x: !n_t_119x
-  n_t_2x: !n_t_27x
-  n_t_30x: !n_t_29x
-  n_t_32x: !n3v3
-  n_t_3x: n_t_29x
-  n_t_4x: n_t_32x
-  n_t_5x: n_t_27x
-  n_t_6x: n_t_119x
+  n_t_1x: gdollar_0
+  n_t_2x: gdollar_2
+  n_t_3x: gdollar_4
+  n_t_4x: gdollar_6
+  n_t_5x: gdollar_8
+  n_t_6x: gdollar_10
 ~/Verilog/bin/smaller.pl vv >M212XX.PLD || (rm M212XX.PLD; exit 1)
-2 signals were removed:
-  n_t_27x: !l2
-  n_t_32x: !'b'1
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M212XX.PLD >vv || (rm vv; exit 1)
 mv vv M212X.v
 rm M212XX.PLD
