@@ -9,35 +9,31 @@ info: 74h10n ne 7410n
 info: 74h55n ne 7455n
 info: 74h00n ne 7400n
 info: 74h72n ne 7472n
-warning: making e19/sn74h72/ a connector
 info: 74h72n ne 7472n
-warning: making e2/sn74h72/ a connector
 info: 74h72n ne 7472n
-warning: making e20/sn74h72/ a connector
 info: 74h00n ne 7400n
 info: 74h00n ne 7400n
 info: 74h72n ne 7472n
-warning: making e23/sn74h72/ a connector
 info: 74h72n ne 7472n
-warning: making e5/sn74h72/ a connector
 info: 74h00n ne 7400n
 info: 74h72n ne 7472n
-warning: making e8/sn74h72/ a connector
 info: 74h72n ne 7472n
-warning: making e9/sn74h72/ a connector
 info: double ne edge_con4
 warning: making u$3/double/ a connector
 warning: non-bypass capacitor deleted: c1
 warning: non-bypass capacitor deleted: c2
 ~/Verilog/bin/smaller.pl M219B.PLD >vv || (rm vv; exit 1)
-11 signals were removed:
+14 signals were removed:
   gdollar_1: !gdollar_0
   gdollar_3: !gdollar_2
+  n3v3: 'b'1
   n_t_19x: !n_t_10x
   n_t_27x: !n_t_13x
   n_t_28x: !n_t_12x
+  n_t_30x: !n_t_31x
   n_t_32x: !n_t_33x
   n_t_36x: !n_t_37x
+  n_t_39x: !n_t_41x
   n_t_58x: !n_t_59x
   n_t_7x: !n_t_3x
   n_t_88x: !n_t_87x
@@ -45,5 +41,7 @@ warning: non-bypass capacitor deleted: c2
 ~/Verilog/bin/smaller.pl vv >M219BX.PLD || (rm M219BX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M219BX.PLD >vv || (rm vv; exit 1)
-mv vv M219B.v
+no n_t_5x.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 546.
+../Makefile:29: recipe for target 'M219B.v' failed
+make: *** [M219B.v] Error 1
 rm M219BX.PLD

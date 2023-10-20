@@ -1,0 +1,16 @@
+~/Verilog/bin/topld.pl M242X
+info: cpol_use ne cpol_use20_8axial
+info: 74h72n ne 7472n
+info: 74h72n ne 7472n
+info: 74h72n ne 7472n
+info: single ne edge_con2
+warning: making u$2/single/ a connector
+warning: non-bypass capacitor deleted: c6
+~/Verilog/bin/smaller.pl M242X.PLD >vv || (rm vv; exit 1)
+1 signals were removed:
+  n_t_26x: 'b'1
+~/Verilog/bin/smaller.pl vv >M242XX.PLD || (rm M242XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M242XX.PLD >vv || (rm vv; exit 1)
+mv vv M242X.v
+rm M242XX.PLD

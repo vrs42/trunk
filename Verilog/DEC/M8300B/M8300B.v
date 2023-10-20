@@ -31,18 +31,18 @@
 // md00_l = !(md_dir_l & mb00); 
 // md01_l = !(md_dir_l & mb01); 
 // e3: dec8271 
-module m8300b (ac2bus_l, ac_load_l, adlk_l, al2mq_ena_l, carry_in_l, cpma_load_l, data_f, data_t, en0, en1, en2, left_l, mac_l, mb_load_l, mq2bus_l, mq_data_l, mq_load_l, pagez, pc_load_l, right_l, shl_ena_l, twice_l, a00_l, a01_l, a02_l, a03_l, a04_l, a05_l, a06_l, a07_l, a08_l, a09_l, a10_l, a11_l, ac00, ac01, ac02, ac03, ac04_11eq0_l, ad00_l, ad01_l, ad02_l, ad03_l, ad04_l, ad05_l, ad06_l, ad07_l, ad08_l, ad09_l, ad10_l, ad11_l, b00_l, b01_l, b02_l, b03_l, b04_l, b05_l, b06_l, b07_l, b08_l, b09_l, b10_l, b11_l, carry04_l, carry08_l, carry_out_l, data00, data01, data02, data03, data04, data05, data06, data07, data08, data09, data10, data11, init, ma00_l, ma01_l, ma02_l, ma03_l, ma04_l, ma05_l, ma06_l, ma07_l, ma08_l, ma09_l, ma10_l, ma11_l, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, md_dir_l, mq00_03eq0_l, mq00_l, mq01_l, mq02_l, mq03_l, mq04_11eq0_l, mq04_l, mq05_l, mq06_l, mq07_l, mq08_l, mq09_l, mq10_l, mq11_l, n_t_10x, n_t_13x, n_t_21x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_40x, n_t_42x, n_t_43x, n_t_8x, n_t_9x, pc00_l, pc01_l, pc02_l, pc03_l, pc04_l, pc05_l, pc06_l, pc07_l, pc08_l, pc09_l, pc10_l, pc11_l);
+module m8300b (ac2bus_l, ac_load_l, adlk_l, al2mq_ena_l, carry_in_l, cpma_load_l, data_f, data_t, en0, en1, en2, left_l, mac_l, mb_load_l, mq2bus_l, mq_data_l, mq_load_l, pagez, pc_load_l, right_l, shl_ena_l, twice_l, ac00, ac01, ac02, ac03, ac04_11eq0_l, ad00_l, ad01_l, ad10_l, ad11_l, carry_out_l, data00, data01, data02, data03, data04, data05, data06, data07, data08, data09, data10, data11, init, ma00_l, ma01_l, ma02_l, ma03_l, ma04_l, ma05_l, ma06_l, ma07_l, ma08_l, ma09_l, ma10_l, ma11_l, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, md_dir_l, mq00_03eq0_l, mq00_l, mq04_11eq0_l, mq10_l, mq11_l);
 input ac2bus_l;
 input ac_load_l;
 input adlk_l;
 input al2mq_ena_l;
-output carry_in_l;
+input carry_in_l;
 input cpma_load_l;
-output data_f;
-output data_t;
+input data_f;
+input data_t;
 input en0;
 output en1;
-output en2;
+input en2;
 input left_l;
 input mac_l;
 input mb_load_l;
@@ -54,80 +54,46 @@ input pc_load_l;
 input right_l;
 input shl_ena_l;
 input twice_l;
-output a00_l;
-output a01_l;
-output a02_l;
-output a03_l;
-output a04_l;
-output a05_l;
-output a06_l;
-output a07_l;
-output a08_l;
-output a09_l;
-output a10_l;
-output a11_l;
 inout reg ac00;
 inout reg ac01;
 inout reg ac02;
 inout reg ac03;
 output ac04_11eq0_l;
-input ad00_l;
-input ad01_l;
-input ad02_l;
-input ad03_l;
-input ad04_l;
-input ad05_l;
-input ad06_l;
-input ad07_l;
-input ad08_l;
-input ad09_l;
-input ad10_l;
-input ad11_l;
-output b00_l;
-output b01_l;
-output b02_l;
-output b03_l;
-output b04_l;
-output b05_l;
-output b06_l;
-output b07_l;
-output b08_l;
-output b09_l;
-output b10_l;
-output b11_l;
-output carry04_l;
-output carry08_l;
+inout ad00_l;
+inout ad01_l;
+inout ad10_l;
+inout ad11_l;
 output carry_out_l;
-output data00;
-output data01;
-output data02;
-output data03;
-output data04;
-output data05;
-output data06;
-output data07;
-output data08;
-output data09;
-output data10;
-output data11;
+inout data00;
+inout data01;
+inout data02;
+inout data03;
+inout data04;
+inout data05;
+inout data06;
+inout data07;
+inout data08;
+inout data09;
+inout data10;
+inout data11;
 input init;
 inout ma00_l;
 inout ma01_l;
 inout ma02_l;
 inout ma03_l;
 inout ma04_l;
-output ma05_l;
-output ma06_l;
-output ma07_l;
-output ma08_l;
-output ma09_l;
-output ma10_l;
-output ma11_l;
-output md00_l;
-output md01_l;
-output md02_l;
-output md03_l;
-output md04_l;
+inout ma05_l;
+inout ma06_l;
+inout ma07_l;
+inout ma08_l;
+inout ma09_l;
+inout ma10_l;
+inout ma11_l;
+inout md00_l;
+inout md01_l;
+inout md02_l;
+inout md03_l;
+inout md04_l;
 inout md05_l;
 inout md06_l;
 inout md07_l;
@@ -138,42 +104,9 @@ inout md11_l;
 input md_dir_l;
 output mq00_03eq0_l;
 inout reg mq00_l;
-inout reg mq01_l;
-inout reg mq02_l;
-inout reg mq03_l;
 output mq04_11eq0_l;
-inout reg mq04_l;
-inout reg mq05_l;
-inout reg mq06_l;
-inout reg mq07_l;
-inout reg mq08_l;
-inout reg mq09_l;
 inout reg mq10_l;
 inout reg mq11_l;
-input n_t_10x;
-input n_t_13x;
-input n_t_21x;
-input n_t_36x;
-input n_t_37x;
-input n_t_38x;
-input n_t_39x;
-input n_t_40x;
-input n_t_42x;
-input n_t_43x;
-input n_t_8x;
-input n_t_9x;
-inout reg pc00_l;
-inout reg pc01_l;
-inout reg pc02_l;
-inout reg pc03_l;
-inout reg pc04_l;
-inout reg pc05_l;
-inout reg pc06_l;
-inout reg pc07_l;
-inout reg pc08_l;
-inout reg pc09_l;
-inout reg pc10_l;
-inout reg pc11_l;
 
 reg ac00_m;
 reg ac01_m;
@@ -196,6 +129,13 @@ reg cpma3;
 reg cpma2;
 reg cpma0;
 reg cpma1;
+reg mq01_l;
+reg mq02_l;
+reg mq03_l;
+reg pc03_l;
+reg pc02_l;
+reg pc00_l;
+reg pc01_l;
 reg mb06;
 reg mb07;
 reg mb05;
@@ -208,18 +148,52 @@ reg ac06;
 reg ac07;
 reg ac05;
 reg ac04;
+reg mq04_l;
+reg mq05_l;
+reg mq06_l;
+reg mq07_l;
+reg pc07_l;
+reg pc06_l;
+reg pc04_l;
+reg pc05_l;
 reg cpma10;
 reg cpma11;
 reg cpma8;
 reg cpma9;
+reg pc08_l;
+reg pc09_l;
+reg pc10_l;
+reg pc11_l;
 reg mb10;
 reg mb11;
 reg mb09;
 reg mb08;
+reg mq08_l;
+reg mq09_l;
 reg ac10;
 reg ac11;
 reg ac09;
 reg ac08;
+wire a00_l;
+wire a01_l;
+wire a02_l;
+wire a03_l;
+wire a04_l;
+wire a05_l;
+wire a06_l;
+wire a07_l;
+wire a08_l;
+wire a09_l;
+wire a10_l;
+wire a11_l;
+wire ad02_l;
+wire ad03_l;
+wire ad04_l;
+wire ad05_l;
+wire ad06_l;
+wire ad07_l;
+wire ad08_l;
+wire ad09_l;
 wire and00_l;
 wire and01_l;
 wire and02_l;
@@ -232,10 +206,27 @@ wire and08_l;
 wire and09_l;
 wire and10_l;
 wire and11_l;
+wire b00_l;
+wire b01_l;
+wire b02_l;
+wire b03_l;
+wire b04_l;
+wire b05_l;
+wire b06_l;
+wire b07_l;
+wire b08_l;
+wire b09_l;
+wire b10_l;
+wire b11_l;
+wire carry04_l;
+wire carry08_l;
+wire n_t_10x;
 wire n_t_11x;
+wire n_t_13x;
 wire n_t_18x;
 wire n_t_19x;
 wire n_t_20x;
+wire n_t_21x;
 wire n_t_22x;
 wire n_t_23x;
 wire n_t_24x;
@@ -244,10 +235,19 @@ wire n_t_29x;
 wire n_t_2x;
 wire n_t_30x;
 wire n_t_31x;
+wire n_t_36x;
+wire n_t_37x;
+wire n_t_38x;
+wire n_t_39x;
 wire n_t_3x;
+wire n_t_40x;
+wire n_t_42x;
+wire n_t_43x;
 wire n_t_4x;
 wire n_t_6x;
 wire n_t_7x;
+wire n_t_8x;
+wire n_t_9x;
 wire pg00_l;
 wire pg01_l;
 wire pg02_l;
@@ -382,6 +382,28 @@ always @(ac_load_l, init, ac00_m)
   if (~ac_load_l) begin
     ac00 <= ac00_m;
   end
+// e9: sn74153 
+assign n_t_9x = (~pad{1} & ~en2 & pc00_l
+                         | ~pad{1} & en2 & md00_l
+                         | pad{1} & ~en2 & mq00_l
+                         | pad{1} & en2 & ma00_l);
+assign n_t_8x = (~pad{1} & ~en2 & pc01_l
+                         | ~pad{1} & en2 & md01_l
+                         | pad{1} & ~en2 & mq01_l
+                         | pad{1} & en2 & ma01_l);
+// e10: sn7487 
+assign b02_l = data_t & ~data_f
+                | data_f & data02
+                | ~data_f & ~data02;
+assign b03_l = data_t & ~data_f
+                | data_f & data03
+                | ~data_f & ~data03;
+assign b01_l = data_t & ~data_f
+                | data_f & data01
+                | ~data_f & ~data01;
+assign b00_l = data_t & ~data_f
+                | data_f & data00
+                | ~data_f & ~data00;
 // e11: sn74151 
 assign regbus01_l = ad01_l & right_l & left_l & twice_l
                      | ad07_l & right_l & left_l & ~twice_l
@@ -414,6 +436,31 @@ assign a01_l = ~(~n_t_8x & ~en0
                   | n_t_8x & en0 & ~en0);
 assign a00_l = ~(~n_t_9x & ~en0
                   | n_t_9x & en0 & ~en0);
+// e15: sn7483 
+assign ad03_l = a03_l
+                 ^ b03_l
+                 ^ carry04_l;
+assign gdollar_0 = a03_l & b03_l
+                    | a03_l & carry04_l
+                    | pad{11} & carry04_l;
+assign ad02_l = a02_l
+                 ^ b02_l
+                 ^ gdollar_0;
+assign gdollar_1 = a02_l & b02_l
+                    | a02_l & gdollar_0
+                    | pad{7} & gdollar_0;
+assign ad01_l = b01_l
+                 ^ a01_l
+                 ^ gdollar_1;
+assign gdollar_2 = b01_l & a01_l
+                    | b01_l & gdollar_1
+                    | pad{4} & gdollar_1;
+assign ad00_l = b00_l
+                 ^ a00_l
+                 ^ gdollar_2;
+assign carry_out_l = b00_l & a00_l
+                      | b00_l & gdollar_2
+                      | pad{16} & gdollar_2;
 // e16: sn74151 
 assign regbus02_l = ad02_l & right_l & left_l & twice_l
                      | ad08_l & right_l & left_l & ~twice_l
@@ -447,6 +494,15 @@ always @(negedge mq_load_l)
 // e18: sn7420 
 assign ac04_11eq0_l = ~(n_t_31x & n_t_29x & n_t_28x & n_t_30x);
 assign mq00_03eq0_l = ~(mq03_l & mq02_l & mq00_l & mq01_l);
+// e19: sn74153 
+assign n_t_21x = (~pad{1} & ~en2 & pc02_l
+                          | ~pad{1} & en2 & md02_l
+                          | pad{1} & ~en2 & mq02_l
+                          | pad{1} & en2 & ma02_l);
+assign n_t_13x = (~pad{1} & ~en2 & pc03_l
+                          | ~pad{1} & en2 & md03_l
+                          | pad{1} & ~en2 & mq03_l
+                          | pad{1} & en2 & ma03_l);
 // e20: dec8271 
 always @(negedge pc_load_l)
   if (~pc_load_l) begin
@@ -595,6 +651,28 @@ always @(ac_load_l, init, ac04_m)
   if (~ac_load_l) begin
     ac04 <= ac04_m;
   end
+// e30: sn74153 
+assign n_t_36x = (~pad{1} & ~en2 & pc04_l
+                          | ~pad{1} & en2 & md04_l
+                          | pad{1} & ~en2 & mq04_l
+                          | pad{1} & en2 & ma04_l);
+assign n_t_37x = (~pad{1} & ~en2 & pc05_l
+                          | ~pad{1} & en2 & md05_l
+                          | pad{1} & ~en2 & mq05_l
+                          | pad{1} & en2 & ma05_l);
+// e31: sn7487 
+assign b04_l = data_t & ~data_f
+                | data_f & data04
+                | ~data_f & ~data04;
+assign b07_l = data_t & ~data_f
+                | data_f & data07
+                | ~data_f & ~data07;
+assign b06_l = data_t & ~data_f
+                | data_f & data06
+                | ~data_f & ~data06;
+assign b05_l = data_t & ~data_f
+                | data_f & data05
+                | ~data_f & ~data05;
 // e32: dec8235 
 // data07 = !(!mq07_l & !mq2bus_l
 //       # ac07 & !ac2bus_l); 
@@ -636,6 +714,31 @@ assign a05_l = ~(~n_t_37x & ~en0
                   | n_t_37x & en0 & ~en0);
 assign a04_l = ~(~n_t_36x & ~en0
                   | n_t_36x & en0 & ~en0);
+// e37: sn7483 
+assign ad07_l = a07_l
+                 ^ b07_l
+                 ^ carry08_l;
+assign gdollar_3 = a07_l & b07_l
+                    | a07_l & carry08_l
+                    | pad{11} & carry08_l;
+assign ad06_l = a06_l
+                 ^ b06_l
+                 ^ gdollar_3;
+assign gdollar_4 = a06_l & b06_l
+                    | a06_l & gdollar_3
+                    | pad{7} & gdollar_3;
+assign ad05_l = b05_l
+                 ^ a05_l
+                 ^ gdollar_4;
+assign gdollar_5 = b05_l & a05_l
+                    | b05_l & gdollar_4
+                    | pad{4} & gdollar_4;
+assign ad04_l = b04_l
+                 ^ a04_l
+                 ^ gdollar_5;
+assign carry04_l = b04_l & a04_l
+                    | b04_l & gdollar_5
+                    | pad{16} & gdollar_5;
 // e38: sn74151 
 assign regbus07_l = ad07_l & right_l & left_l & twice_l
                      | ad01_l & right_l & left_l & ~twice_l
@@ -675,6 +778,15 @@ assign n_t_31x = ~(ac05
                     | ac04);
 assign n_t_29x = ~(ac07
                     | ac06);
+// e41: sn74153 
+assign n_t_39x = (~pad{1} & ~en2 & pc06_l
+                          | ~pad{1} & en2 & md06_l
+                          | pad{1} & ~en2 & mq06_l
+                          | pad{1} & en2 & ma06_l);
+assign n_t_38x = (~pad{1} & ~en2 & pc07_l
+                          | ~pad{1} & en2 & md07_l
+                          | pad{1} & ~en2 & mq07_l
+                          | pad{1} & en2 & ma07_l);
 // e42: dec8271 
 always @(negedge pc_load_l)
   if (~pc_load_l) begin
@@ -773,6 +885,40 @@ always @(negedge mb_load_l)
   if (~mb_load_l) begin
     mb08 <= ~regbus08_l;
   end
+// e51: sn74153 
+assign n_t_10x = (~pad{1} & ~en2 & pc08_l
+                          | ~pad{1} & en2 & md08_l
+                          | pad{1} & ~en2 & mq08_l
+                          | pad{1} & en2 & ma08_l);
+assign n_t_40x = (~pad{1} & ~en2 & pc09_l
+                          | ~pad{1} & en2 & md09_l
+                          | pad{1} & ~en2 & mq09_l
+                          | pad{1} & en2 & ma09_l);
+// e52: sn7483 
+assign ad11_l = a11_l
+                 ^ b11_l
+                 ^ carry_in_l;
+assign gdollar_6 = a11_l & b11_l
+                    | a11_l & carry_in_l
+                    | pad{11} & carry_in_l;
+assign ad10_l = a10_l
+                 ^ b10_l
+                 ^ gdollar_6;
+assign gdollar_7 = a10_l & b10_l
+                    | a10_l & gdollar_6
+                    | pad{7} & gdollar_6;
+assign ad09_l = b09_l
+                 ^ a09_l
+                 ^ gdollar_7;
+assign gdollar_8 = b09_l & a09_l
+                    | b09_l & gdollar_7
+                    | pad{4} & gdollar_7;
+assign ad08_l = a08_l
+                 ^ b08_l
+                 ^ gdollar_8;
+assign carry08_l = a08_l & b08_l
+                    | a08_l & gdollar_8
+                    | pad{16} & gdollar_8;
 // e53: sn74151 
 assign regbus10_l = ad10_l & right_l & left_l & twice_l
                      | ad04_l & right_l & left_l & ~twice_l
@@ -869,6 +1015,19 @@ assign a08_l = ~(~n_t_10x & ~en0
                   | n_t_10x & en0 & ~en0);
 assign a09_l = ~(~n_t_40x & ~en0
                   | n_t_40x & en0 & ~en0);
+// e57: sn7487 
+assign b08_l = data_t & ~data_f
+                | data_f & data08
+                | ~data_f & ~data08;
+assign b11_l = data_t & ~data_f
+                | data_f & data11
+                | ~data_f & ~data11;
+assign b10_l = data_t & ~data_f
+                | data_f & data10
+                | ~data_f & ~data10;
+assign b09_l = data_t & ~data_f
+                | data_f & data09
+                | ~data_f & ~data09;
 // e58: sn74151 
 assign regbus11_l = ad11_l & right_l & left_l & twice_l
                      | ad05_l & right_l & left_l & ~twice_l
@@ -901,6 +1060,15 @@ assign and08_l = ~(mb08 & ac08);
 assign and09_l = ~(mb09 & ac09);
 assign and11_l = ~(ac11 & mb11);
 assign and10_l = ~(ac10 & mb10);
+// e62: sn74153 
+assign n_t_42x = (~pad{1} & ~en2 & pc10_l
+                          | ~pad{1} & en2 & md10_l
+                          | pad{1} & ~en2 & mq10_l
+                          | pad{1} & en2 & ma10_l);
+assign n_t_43x = (~pad{1} & ~en2 & pc11_l
+                          | ~pad{1} & en2 & md11_l
+                          | pad{1} & ~en2 & mq11_l
+                          | pad{1} & en2 & ma11_l);
 // e63: sn74h04 
 // e64: sn74h04 
 // r1: r_us_ 

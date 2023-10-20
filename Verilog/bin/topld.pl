@@ -25,11 +25,10 @@
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
 # TODO: (n)8266 is a quad 2-1 MUX (with common selects).
-# TODO: sn7405 sn7413 sn74150 sn74153 sn74164 sn74181 sn74182
+# TODO: sn7413 sn74150 sn74164 sn74181 sn74182
 # TODO: sn74191 sn74197 sn74221 sn74257 sn74266 sn74287 sn74288
-# TODO: sn74393 sn7452 sn7462 sn7470 sn7472 sn7481 sn74821t sn7483
-# TODO: sn7487 sn7489 sn7490 sn7492 sn74h40n sn74h52
-# TODO: sn74h60 sn74h62n sn74h72
+# TODO: sn74393 sn7452 sn7462 sn7470 sn7481 sn74821t sn7489
+# TODO: sn7490 sn7492 sn74h40n sn74h52 sn74h60 sn74h62n
 
 #
 # Known bugs:
@@ -249,6 +248,13 @@ sub sn74h04 {
   &sn7404;
 }
 $hidden{'sn74h04'} = 0;
+
+# sn7405 is basically a low current sn7406
+sub sn7405 {
+  &sn7406;
+}
+$hidden{'sn74h05'} = 0;
+
 
 sub sn7406 {
   &ocassign($pad{2}, $pad{1}) if defined $pad{2};
@@ -497,6 +503,31 @@ sub sn7460 {
 }
 $hidden{'sn7460'} = 0;
 
+sub sn7472 {
+  if (defined $pad{6} && !defined $pad{8}) {
+    &pinnode($pad{6});
+    &qcode("$pad{6}.ap = !$pad{2};\n") if defined $pad{2};
+    &qcode("$pad{6}.ar = !$pad{13};\n") if defined $pad{13};
+    &qcode("$pad{6}.ck = $pad{12};\n");
+    &qcode("$pad{8}.k = $pad{3}&$pad{4}&$pad{5};\n");
+    &qcode("$pad{8}.j = $pad{9}&$pad{10}&$pad{11};\n");
+  } elsif (defined $pad{8}) {
+    &pinnode($pad{8});
+    &qcode("$pad{8}.ar = !$pad{2};\n") if defined $pad{2};
+    &qcode("$pad{8}.ap = !$pad{13};\n") if defined $pad{13};
+    &qcode("$pad{8}.ck = $pad{12};\n");
+    &qcode("$pad{8}.j = $pad{3}&$pad{4}&$pad{5};\n");
+    &qcode("$pad{8}.k = $pad{9}&$pad{10}&$pad{11};\n");
+    &qcode("$pad{6} = !$pad{8};\n") if defined $pad{6};
+  }
+}
+$hidden{'sn7472'} = 0;
+
+sub sn74h72 {
+  &sn7472;
+}
+$hidden{'sn74h72'} = 0;
+
 sub sn7473 {
   if (defined $pad{13} && !defined $pad{12}) {
     &pinnode($pad{13});
@@ -646,6 +677,28 @@ sub sn7482 {
 }
 $hidden{'sn7482'} = 0;
 
+# 4 bit full adder.
+# LSB a1=10 a2=8 a3=3 a4=1  MSB
+# LSB b1=11 b2=7 b3=4 b4=16 MSB
+# LSB s1=9  s2=6 s3=2 s4=15 MSB
+# c0=13 c4=14
+sub sn7483 {
+  &qcode("$pad{ 9} = $pad{10} \$ $pad{11} \$ $pad{13};\n");
+# If these carry terms are too slow, use the more complex
+# look-ahead gating from the data sheet.
+  $temp1 = &gnext;
+  &qcode("$temp1 = $pad{10}&$pad{11} # $pad{10}&$pad{13} # pad{11}&$pad{13};\n");
+  &qcode("$pad{ 6} = $pad{ 8} \$ $pad{ 7} \$ $temp1;\n");
+  $temp2 = &gnext;
+  &qcode("$temp2 = $pad{8}&$pad{7} # $pad{8}&$temp1 # pad{7}&$temp1;\n");
+  &qcode("$pad{ 2} = $pad{ 3} \$ $pad{ 4} \$ $temp2;\n");
+  $temp3 = &gnext;
+  &qcode("$temp3 = $pad{3}&$pad{4} # $pad{3}&$temp2 # pad{4}&$temp2;\n");
+  &qcode("$pad{15} = $pad{ 1} \$ $pad{16} \$ $temp3;\n");
+  &qcode("$pad{14} = $pad{1}&$pad{16} # $pad{1}&$temp3 # pad{16}&$temp3;\n");
+}
+$hidden{'sn7483'} = 0;
+
 sub sn7485 {
   ($n3e, $n2e, $n1e, $n0e) = (&gnext, &gnext, &gnext, &gnext);
   print "node $n3e, $n2e, $n1e, $n0e;\r\n";
@@ -667,6 +720,28 @@ sub sn7486 {
   &qcode("$pad{11} = $pad{12} \$ $pad{13};\n") if defined $pad{11};
 }
 $hidden{'sn7486'} = 0;
+
+# 4 Bit True/Complement
+# If B, then !C
+# else C? A : !A
+# a1=2 a2=5 a3=10 a4=13
+# y1=3 y2=6 y3= 9 y4=12
+# b=8 c=1
+sub sn7487 {
+@temp = %pad;
+warn "@temp\n";
+# BUGBUG: ? : doesn't work like this!!
+  &qcode("$pad{ 3} = $pad{8}&!$pad{1} # $pad{1}&$pad{ 2} # !$pad{1}&!$pad{2};\n");
+  &qcode("$pad{ 6} = $pad{8}&!$pad{1} # $pad{1}&$pad{ 5} # !$pad{1}&!$pad{5};\n");
+  &qcode("$pad{ 9} = $pad{8}&!$pad{1} # $pad{1}&$pad{10} # !$pad{1}&!$pad{10};\n");
+  &qcode("$pad{12} = $pad{8}&!$pad{1} # $pad{1}&$pad{13} # !$pad{1}&!$pad{13};\n");
+}
+$hidden{'sn7487'} = 0;
+
+sub sn74h87 {
+  &sn7487;
+}
+$hidden{'sn74h87'} = 0;
 
 # Note: Negative going clock transition!
 sub sn7493 {
@@ -839,6 +914,25 @@ sub sn74151 {
   &qcode("$pad{6} = !$pad{5};\n") if defined $pad{5} && defined $pad{6};
 }
 $hidden{'sn74151'} = 0;
+
+#
+# sn74153 is a pair of 4 input MUX.
+# !g is a disable, holds output low.
+# a, b are LSB, MSB of select.
+# c0, c1, c2, c3 are output for 00 to 11 in B,A.
+sub sn74153 {
+  $result  = "$pad{7} = !$pad{1} & ( !pad{1}&!$pad{14}&$pad{6}\n";
+  $result .= "                     # !pad{1}& $pad{14}&$pad{5}\n";
+  $result .= "                     #  pad{1}&!$pad{14}&$pad{4}\n";
+  $result .= "                     #  pad{1}& $pad{14}&$pad{3});\n";
+  &qcode($result);
+  $result  = "$pad{9} = !$pad{15} & ( !pad{1}&!$pad{14}&$pad{10}\n";
+  $result .= "                      # !pad{1}& $pad{14}&$pad{11}\n";
+  $result .= "                      #  pad{1}&!$pad{14}&$pad{12}\n";
+  $result .= "                      #  pad{1}& $pad{14}&$pad{13});\n";
+  &qcode($result);
+}
+$hidden{'sn74153'} = 0;
 
 sub sn74154 {
   &qcode("$pad{1} = $pad{18}#$pad{19}#!(!$pad{20} & !$pad{21} & !$pad{22} & !$pad{23});\n") if defined $pad{1};

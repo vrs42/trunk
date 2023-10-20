@@ -97,6 +97,7 @@ assign mftp1 = 1'b1;
 // e6: sn7400 
 assign n_t_32x = 1'b1;
 assign n_t_4x = 1'b1;
+assign n_t_33x = 1'b1;
 // e7: sn7400 
 assign mftp2 = 1'b1;
 // e8: sn7400 

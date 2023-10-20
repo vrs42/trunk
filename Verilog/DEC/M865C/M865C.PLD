@@ -3,7 +3,7 @@
 
 Name     M865C ;
 PartNo   cpld ;
-Date     10/18/2023 ;
+Date     10/20/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -16,7 +16,6 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
-pin = n3v;
 pin = n_t_119x;
 pin = n_t_121x;
 pin = n_t_124x;
@@ -53,11 +52,8 @@ pin = n_t_114x;
 pin = n_t_117x;
 pin = n_t_31x;
 pin = n_t_52x;
-pin = n_t_53x;
-pin = n_t_54x;
 pin = n_t_77x;
 pin = n_t_82x;
-pin = n_t_83x;
 pin = power_ok;
 pin = rx_active;
 pin = skip_l;
@@ -80,6 +76,7 @@ node n_t_84x;
 node gdollar_5;
 node gdollar_6;
 node n_t_85x;
+node n_t_54x;
 node n_t_89x;
 node last_unit;
 node n_t_86x;
@@ -132,6 +129,7 @@ node krb_l;
 node krs_l;
 node ksf_l;
 node last_unit_l;
+node n3v;
 node n603_l;
 node n603x;
 node n604_l;
@@ -184,6 +182,7 @@ node n_t_46x;
 node n_t_47x;
 node n_t_4x;
 node n_t_51x;
+node n_t_53x;
 node n_t_58x;
 node n_t_5x;
 node n_t_68x;
@@ -193,6 +192,7 @@ node n_t_71x;
 node n_t_78x;
 node n_t_7x;
 node n_t_81x;
+node n_t_83x;
 node n_t_88x;
 node n_t_90x;
 node n_t_94x;
@@ -450,6 +450,12 @@ gdollar_6.ar = initialize & n3v;
 n_t_85x.ck = !gdollar_6;
 n_t_85x.t = 'b'1;
 n_t_85x.ar = initialize & n3v;
+
+/* e9: sn74h72 */
+n_t_54x.ck = n_t_83x;
+n_t_54x.j = n3v & n_t_53x;
+n_t_54x.k = n_t_54x & n3v & n3v;
+n_t_53x = !n_t_54x;
 
 /* e10: sp380n */
 !power_ok_l = power_ok;
@@ -819,8 +825,10 @@ n_t_100x.ck = rx_clk;
 n_t_100x.ap = !rx_clr_l;
 
 /* r1: r_us_ */
+n3v = 'b'1;
 
 /* r2: r_us_ */
+n3v = 'b'1;
 
 /* r3: r_us_ */
 
