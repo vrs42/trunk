@@ -37,7 +37,6 @@ pin = ac2_ac3_l;
 pin = ac2bus_l;
 pin = ac_load_l;
 pin = aceq0;
-pin = andets3;
 pin = bk_dc_l;
 pin = bus_strobe_l;
 pin = c0_l;
@@ -48,12 +47,9 @@ pin = cpma_dis_l;
 pin = cpma_load_l;
 pin = data_f;
 pin = data_t;
-pin = dcaets2;
 pin = en0;
 pin = en1;
 pin = en2;
-pin = fe_fd;
-pin = fe_fd_l;
 pin = feset_l;
 pin = fset_l;
 pin = ind1;
@@ -63,9 +59,6 @@ pin = intinprog;
 pin = ir0_l;
 pin = ir1_l;
 pin = ir2_l;
-pin = iszets2;
-pin = jmsets2;
-pin = jmsets3;
 pin = keycontrol_l;
 pin = la_enable_l;
 pin = left_l;
@@ -92,14 +85,6 @@ pin = mq_load_l;
 pin = mqeq0;
 pin = ms_ir_dis_l;
 pin = n15v;
-pin = n_t_29x;
-pin = n_t_30x;
-pin = n_t_34x;
-pin = n_t_37x;
-pin = n_t_38x;
-pin = n_t_3x;
-pin = n_t_48x;
-pin = n_t_49x;
 pin = ope;
 pin = overflow_l;
 pin = pagez;
@@ -111,12 +96,10 @@ pin = right_l;
 pin = rom_l;
 pin = run;
 pin = skip_l;
-pin = tadets3;
 pin = tp1;
 pin = tp2;
 pin = tp3;
 pin = tp4;
-pin = tp4!malc;
 pin = ts1_l;
 pin = ts2_l;
 pin = ts3_l;
@@ -137,6 +120,7 @@ $IFNDEF OPTIMIZE
 node ad_ld_d15_l;
 node and_l;
 node ande_l;
+node andets3;
 node bd;
 node be;
 node bf;
@@ -162,6 +146,7 @@ node d!jmp;
 node d_l;
 node dca_l;
 node dcae_l;
+node dcaets2;
 node dset_l;
 node e_l;
 node eset;
@@ -169,14 +154,19 @@ node eset_l;
 node ets2_l;
 node ets3_l;
 node f_l;
+node fe_fd;
+node fe_fd_l;
 node fset;
 node iot_l;
 node isz_l;
+node iszets2;
 node iszets3;
 node jmp;
 node jmp_l;
 node jms_l;
 node jmse;
+node jmsets2;
+node jmsets3;
 node link_data_l;
 node ms_dis_l;
 node n3b;
@@ -200,12 +190,18 @@ node n_t_24x;
 node n_t_25x;
 node n_t_26x;
 node n_t_28x;
+node n_t_29x;
+node n_t_30x;
 node n_t_31x;
 node n_t_32x;
 node n_t_33x;
+node n_t_34x;
 node n_t_35x;
 node n_t_36x;
+node n_t_37x;
+node n_t_38x;
 node n_t_39x;
+node n_t_3x;
 node n_t_40x;
 node n_t_41x;
 node n_t_42x;
@@ -214,6 +210,8 @@ node n_t_44x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
+node n_t_48x;
+node n_t_49x;
 node n_t_4x;
 node n_t_51x;
 node n_t_52x;
@@ -256,6 +254,8 @@ node oprf;
 node oprf_l;
 node tad_l;
 node tade_l;
+node tadets3;
+node tp4!malc;
 node ts4fset!ms_dis;
 $ENDIF
 
@@ -364,10 +364,26 @@ n_t_48x = !n_t_37x;
 n_t_28x = !(tade_l & dcae_l & ande_l & oprf_l);
 n_t_4x = !(bts4 & fe_fd_l & fset_l & bf);
 
+/* e8: sn7405 */
+/* en0 = !n_t_49x; */
+/* en0 = !n_t_48x; */
+/* en1 = !n_t_48x; */
+/* n_t_37x = !jmsets2; */
+/* en1 = !tadets3; */
+/* carry_in_l = !iszets2; */
+
 /* e9: sn7412 */
 /* ac2bus_l = !(bf & n_t_45x & n_t_42x); */
 /* mq2bus_l = !(ind1 & bts1 & n_t_47x); */
 /* mq2bus_l = !(opets3 & bmd05 & pause_l); */
+
+/* e10: sn7405 */
+/* ac2bus_l = !dcaets2; */
+/* data_t = !dcaets2; */
+/* en2 = !n_t_48x; */
+/* data_f = !data_t; */
+/* data_t = !tadets3; */
+/* ac2bus_l = !tadets3; */
 
 /* e11: sn7412 */
 /* data_t = !(bts3 & opr_iot & n_t_39x); */
@@ -489,6 +505,22 @@ n_t_76x = !n_t_46x;
 n_t_46x = !n_t_2x;
 bmd11 = !md11_l;
 tp4!malc = !n_t_54x;
+
+/* e27: sn7405 */
+/* cpma_load_l = !tp4; */
+/* fe_fd_l = !fe_fd; */
+/* en0 = !jmsets3; */
+/* feset_l = !intinprog; */
+/* n_t_30x = !n_t_29x; */
+/* data_t = !n_t_38x; */
+
+/* e28: sn7405 */
+/* n_t_34x = !initialize; */
+/* right_l = !andets3; */
+/* left_l = !andets3; */
+/* left_l = !n_t_3x; */
+/* twice_l = !n_t_3x; */
+/* right_l = !n_t_3x; */
 
 /* e29: sp384n */
 ets2_l = ts2_l
@@ -767,11 +799,15 @@ property atmel {open_collector= ac2bus_l};
 !ac2bus_l = (n_t_56x & c2_l)
             # (n_t_55x & bts1)
             # (bf & bts2)
-            # (bf & n_t_45x & n_t_42x);
+            # (bf & n_t_45x & n_t_42x)
+            # (dcaets2)
+            # (tadets3);
 ac2bus_l.oe = (n_t_56x & c2_l)
             # (n_t_55x & bts1)
             # (bf & bts2)
-            # (bf & n_t_45x & n_t_42x);
+            # (bf & n_t_45x & n_t_42x)
+            # (dcaets2)
+            # (tadets3);
 property atmel {open_collector= ac_load_l};
 !ac_load_l = (btp3 & n_t_28x)
              # (c2_l & bus_strobe);
@@ -783,35 +819,64 @@ property atmel {open_collector= carry_in_l};
               # (bf_kc & bts1)
               # (bmd11 & op1ts3)
               # (bd & bts2)
+              # (iszets2)
               # (rom_l & cpma_dis_l & jmsets3);
 carry_in_l.oe = (skip1 & ts4fset)
               # (jmsets2 & skip1)
               # (bf_kc & bts1)
               # (bmd11 & op1ts3)
               # (bd & bts2)
+              # (iszets2)
               # (rom_l & cpma_dis_l & jmsets3);
 property atmel {open_collector= cpma_load_l};
-!cpma_load_l = (pulse_la & keycontrol_l);
-cpma_load_l.oe = (pulse_la & keycontrol_l);
+!cpma_load_l = (tp4)
+               # (pulse_la & keycontrol_l);
+cpma_load_l.oe = (tp4)
+               # (pulse_la & keycontrol_l);
 !d_l = (n_t_77x & ms_dis_l);
 property atmel {open_collector= data_f};
-!data_f = (bmd06 & op1ts3);
-data_f.oe = (bmd06 & op1ts3);
+!data_f = (bmd06 & op1ts3)
+          # (data_t);
+data_f.oe = (bmd06 & op1ts3)
+          # (data_t);
 property atmel {open_collector= data_t};
 !data_t = (bts2 & bms_dis)
-          # (bts3 & opr_iot & n_t_39x);
+          # (dcaets2)
+          # (tadets3)
+          # (bts3 & opr_iot & n_t_39x)
+          # (n_t_38x);
 data_t.oe = (bts2 & bms_dis)
-          # (bts3 & opr_iot & n_t_39x);
+          # (dcaets2)
+          # (tadets3)
+          # (bts3 & opr_iot & n_t_39x)
+          # (n_t_38x);
 !e_l = (n_t_73x & ms_dis_l);
 property atmel {open_collector= en0};
-!en0 = (bts1 & bf_kc);
-en0.oe = (bts1 & bf_kc);
+!en0 = (bts1 & bf_kc)
+       # (n_t_49x)
+       # (n_t_48x)
+       # (jmsets3);
+en0.oe = (bts1 & bf_kc)
+       # (n_t_49x)
+       # (n_t_48x)
+       # (jmsets3);
 property atmel {open_collector= en1};
 !en1 = (bts4 & d)
+       # (n_t_48x)
+       # (tadets3)
        # (bd & bts3 & jmp);
 en1.oe = (bts4 & d)
+       # (n_t_48x)
+       # (tadets3)
        # (bd & bts3 & jmp);
+property atmel {open_collector= en2};
+!en2 = n_t_48x;
+en2.oe = n_t_48x;
 !f_l = (n_t_78x & ms_dis_l);
+!fe_fd_l = fe_fd;
+property atmel {open_collector= feset_l};
+!feset_l = intinprog;
+feset_l.oe = intinprog;
 property atmel {open_collector= fset_l};
 !fset_l = (dset_l & eset_l);
 fset_l.oe = (dset_l & eset_l);
@@ -825,8 +890,12 @@ property atmel {open_collector= ir2_l};
 !ir2_l = (ms_dis_l & n_t_62x);
 ir2_l.oe = (ms_dis_l & n_t_62x);
 property atmel {open_collector= left_l};
-!left_l = (bmd09 & op1ts3);
-left_l.oe = (bmd09 & op1ts3);
+!left_l = (bmd09 & op1ts3)
+          # (andets3)
+          # (n_t_3x);
+left_l.oe = (bmd09 & op1ts3)
+          # (andets3)
+          # (n_t_3x);
 property atmel {open_collector= link_l};
 !link_l = link;
 link_l.oe = link;
@@ -844,26 +913,19 @@ mq_load_l.oe = (ope & bmd07 & btp3);
 !n3v = 'b'0;
 !n_t_16x = (n_t_15x & n_t_14x);
 !n_t_17x = (n_t_25x & run);
-property atmel {open_collector= n_t_30x};
 !n_t_30x = (op2ts3 & n_t_43x)
+           # (n_t_29x)
            # (ov & iszets3);
-n_t_30x.oe = (op2ts3 & n_t_43x)
-           # (ov & iszets3);
-property atmel {open_collector= n_t_34x};
-!n_t_34x = (bf & tp1)
-           # (jmse & btp2);
-n_t_34x.oe = (bf & tp1)
+!n_t_34x = (initialize)
+           # (bf & tp1)
            # (jmse & btp2);
 !n_t_35x = (aceq0 & bmd06)
            # (ac00 & bmd05)
            # (bmd07 & link);
-property atmel {open_collector= n_t_37x};
 !n_t_37x = (bts4 & bkc)
            # (fe_fd_l & ts4fset)
-           # (n_t_36x & c1_l);
-n_t_37x.oe = (bts4 & bkc)
-           # (fe_fd_l & ts4fset)
-           # (n_t_36x & c1_l);
+           # (n_t_36x & c1_l)
+           # (jmsets2);
 !n_t_44x = (bts3 & md04_l & oprf);
 !n_t_6x = n_t_9x;
 !n_t_9x = (n_t_81x & btp3)
@@ -881,8 +943,14 @@ pc_load_l.oe = (bus_strobe & n_t_31x)
              # (bf_kc & tp1)
              # (jmse & btp3);
 property atmel {open_collector= right_l};
-!right_l = (bmd08 & op1ts3);
-right_l.oe = (bmd08 & op1ts3);
+!right_l = (bmd08 & op1ts3)
+           # (andets3)
+           # (n_t_3x);
+right_l.oe = (bmd08 & op1ts3)
+           # (andets3)
+           # (n_t_3x);
 property atmel {open_collector= twice_l};
-!twice_l = (op1ts3 & bmd10);
-twice_l.oe = (op1ts3 & bmd10);
+!twice_l = (op1ts3 & bmd10)
+           # (n_t_3x);
+twice_l.oe = (op1ts3 & bmd10)
+           # (n_t_3x);

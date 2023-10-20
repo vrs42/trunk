@@ -253,7 +253,7 @@ $hidden{'sn74h04'} = 0;
 sub sn7405 {
   &sn7406;
 }
-$hidden{'sn74h05'} = 0;
+$hidden{'sn7405'} = 0;
 
 
 sub sn7406 {

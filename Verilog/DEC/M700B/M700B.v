@@ -90,9 +90,10 @@ assign mfts0_h = ~mfts0_l;
 // e4: sn7400 
 assign n_t_22x = 1'b1;
 assign n_t_25x = 1'b1;
+assign n_t_26x = 1'b1;
 assign mftp0 = 1'b1;
 // e5: sn7400 
-assign n_t_28x = ~(~mftp1);
+assign n_t_28x = ~(n_t_26x & ~mftp1);
 assign mftp1 = 1'b1;
 // e6: sn7400 
 assign n_t_32x = 1'b1;
