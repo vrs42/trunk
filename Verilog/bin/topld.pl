@@ -25,9 +25,9 @@
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
 # TODO: (n)8266 is a quad 2-1 MUX (with common selects).
-# TODO: sn7413 sn74150 sn74164 sn74181 sn74182
+# TODO: sn7413 sn74182
 # TODO: sn74191 sn74197 sn74221 sn74257 sn74266 sn74287 sn74288
-# TODO: sn74393 sn7452 sn7462 sn7470 sn7481 sn74821t sn7489
+# TODO: sn74393 sn7462 sn7470 sn7481 sn74821t sn7489
 # TODO: sn7490 sn7492 sn74h40n sn74h52 sn74h60 sn74h62n
 
 #
@@ -442,11 +442,16 @@ sub sn74h50 {
 }
 $hidden{'sn74h50'} = 0;
 
-sub sn74h52n {
+sub sn7452 {
   # X and is frequently NC, but we'll need a name.
   $pad{9} = &gnext unless defined $pad{9};
   $oc{$pad{9}} = 1;
   &qcode("$pad{8} = $pad{1}&$pad{2} # $pad{3}&$pad{4}&$pad{5} # $pad{10}&$pad{11} # $pad{12}&$pad{13}");
+}
+$hidden{'sn7452'} = 0;
+
+sub sn74h52n {
+  &sn7452n;
 }
 $hidden{'sn74h52n'} = 0;
 
@@ -891,6 +896,28 @@ sub sn74148 {
 }
 $hidden{"sn74148"} = 0;
 
+# 16 Input MUX.  Pin 9 is a disable.  Output is inverted.
+sub sn74150 {
+  $result  = "$pad{10} = !([$pad{ 8},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100000\n";
+  $result .= "           # [$pad{ 7},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100001\n";
+  $result .= "           # [$pad{ 6},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100010\n";
+  $result .= "           # [$pad{ 5},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100011\n";
+  $result .= "           # [$pad{ 4},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100100\n";
+  $result .= "           # [$pad{ 3},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100101\n";
+  $result .= "           # [$pad{ 2},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100110\n";
+  $result .= "           # [$pad{ 1},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'100111\n";
+  $result .= "           # [$pad{23},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101000\n";
+  $result .= "           # [$pad{22},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101001\n";
+  $result .= "           # [$pad{21},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101010\n";
+  $result .= "           # [$pad{20},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101011\n";
+  $result .= "           # [$pad{19},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101100\n";
+  $result .= "           # [$pad{18},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101101\n";
+  $result .= "           # [$pad{17},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101110\n";
+  $result .= "           # [$pad{16},$pad{9},$pad{11},$pad{13},$pad{14},$pad{15}]:'b'101111);\n";
+  &qcode($result);
+}
+$hidden{"sn74150"} = 0;
+
 sub sn74151 {
   $result = $pad{5} if defined $pad{5};
   $result = "!$pad{6}" if !defined $pad{5};
@@ -1005,6 +1032,52 @@ sub sn74161 {
   &qcode("$pad{15} = $pad{10} & $pad{11} & $pad{12} & $pad{13} & $pad{14};\n") if defined $pad{15};
 }
 $hidden{'sn74161'} = 0;
+
+# 8 stage shift register.
+sub sn74164 {
+  # We'll need Qa..Qh even if their pads are NC.
+  $pad{ 3} = &gnext unless defined $pad{ 3};
+  &pinnode($pad{ 3});
+  &pinnode($pad{ 6});
+  &qcode("$pad{ 3}.ar = !$pad{9};\n");
+  &qcode("$pad{ 3}.ck = $pad{8};\n");
+  &qcode("$pad{ 3}.d = $pad{1} & $pad{2};\n");
+  $pad{ 4} = &gnext unless defined $pad{ 4};
+  &pinnode($pad{ 4});
+  &qcode("$pad{ 4}.ar = !$pad{9};\n");
+  &qcode("$pad{ 4}.ck = $pad{8};\n");
+  &qcode("$pad{ 4}.d = $pad{3};\n");
+  $pad{ 5} = &gnext unless defined $pad{ 5};
+  &pinnode($pad{ 5});
+  &qcode("$pad{ 5}.ar = !$pad{9};\n");
+  &qcode("$pad{ 5}.ck = $pad{8};\n");
+  &qcode("$pad{ 5}.d = $pad{4};\n");
+  $pad{ 6} = &gnext unless defined $pad{ 6};
+  &qcode("$pad{ 6}.ar = !$pad{9};\n");
+  &qcode("$pad{ 6}.ck = $pad{8};\n");
+  &qcode("$pad{ 6}.d = $pad{5};\n");
+  $pad{10} = &gnext unless defined $pad{10};
+  &pinnode($pad{10});
+  &qcode("$pad{10}.ar = !$pad{9};\n");
+  &qcode("$pad{10}.ck = $pad{8};\n");
+  &qcode("$pad{10}.d = $pad{6};\n");
+  $pad{11} = &gnext unless defined $pad{11};
+  &pinnode($pad{11});
+  &qcode("$pad{11}.ar = !$pad{9};\n");
+  &qcode("$pad{11}.ck = $pad{8};\n");
+  &qcode("$pad{11}.d = $pad{10};\n");
+  $pad{12} = &gnext unless defined $pad{12};
+  &pinnode($pad{12});
+  &qcode("$pad{12}.ar = !$pad{9};\n");
+  &qcode("$pad{12}.ck = $pad{8};\n");
+  &qcode("$pad{12}.d = $pad{11};\n");
+  $pad{13} = &gnext unless defined $pad{13};
+  &pinnode($pad{13});
+  &qcode("$pad{13}.ar = !$pad{9};\n");
+  &qcode("$pad{13}.ck = $pad{8};\n");
+  &qcode("$pad{13}.d = $pad{12};\n");
+}
+$hidden{'sn74164'} = 0;
 
 sub sn74173 {
   if (defined $pad{3}) {
@@ -1167,6 +1240,53 @@ sub sn74180 {
   &qcode("$pad{6} = (!$pad{3} & !$pad{4}) # !($pad{3}&$pad{4})&($pad{8} \$ $pad{9} \$ $pad{10} \$ $pad{11} \$ $pad{12} \$ $pad{13} \$ $pad{1} \$ $pad{2} \$ $pad{4});\n") if defined $pad{6};
 }
 $hidden{'sn74180'} = 0;
+
+# 4 BitALU 
+# [$m,$s0,$s1,$s2,$s3]:
+#	00000: A-1		10000: !A
+#	00001: (AB)-1		10001: !(AB)
+#	00010: (A!B)-1		10010: !A#B
+#	00011: -1		10011: 1
+#	00100: A+(A#!B) 	10100: !(A#B)
+#	00101: AB+(A#!B) 	10101: !B
+#	00110: A-B-1		10110: !(A$B)
+#	00111: A#!B		10111: A#!B
+#	01000: A+(A#B)		11000: (!A)B
+#	01001: A+B		11001: A$B
+#	01010: A!B+(A#B) 	11010: B
+#	01011: A#B		11011: A#B
+#	01100: A+A		11100: 0
+#	01101: AB+A		11101: A(!B)
+#	01110: A!B+A		11110: AB
+#	01111: A		11111: A
+# $ci in adds 1 to results when $m is 0.
+sub sn74181 {
+  local($a0, $a1, $a2, $a3) = ($pad{2}, $pad{23}, $pad{21}, $pad{19});
+  local($b0, $b1, $b2, $b3) = ($pad{1}, $pad{22}, $pad{20}, $pad{18});
+  local($f0, $f1, $f2, $f3) = ($pad{9}, $pad{10}, $pad{11}, $pad{13});
+  local($s0, $s1, $s2, $s3) = ($pad{6}, $pad{ 5}, $pad{ 4}, $pad{ 3});
+  local($m,  $ci, $co) = ($pad{8}, $pad{7}, $pad{16});
+  local($g_, $p_, $eq) = ($pad{17}, $pad{15}, $pad{14});
+  local($l0, $l1, $l2, $l3);
+  local($r0, $r1, $r2, $r3);
+  $l0 = "!($a0&$b0&$s3 # $a0&!$b0&$s2)";
+  $l1 = "!($a1&$b1&$s3 # $a1&!$b1&$s2)";
+  $l2 = "!($a2&$b2&$s3 # $a2&!$b2&$s2)";
+  $l3 = "!($a3&$b3&$s3 # $a3&!$b3&$s2)";
+  $r0 = "!($a0 # $b0&$s0 # !$b0&$s1)";
+  $r1 = "!($a1 # $b1&$s0 # !$b1&$s1)";
+  $r2 = "!($a2 # $b2&$s0 # !$b2&$s1)";
+  $r3 = "!($a3 # $b3&$s0 # !$b3&$s1)";
+  &qcode("$f0 = $l0 \$ $r0 \$ !(!$m&$ci);\n");
+  &qcode("$f1 = $l1 \$ $r1 \$ !(!$m&$r0 # !$m&$ci&$l0);\n");
+  &qcode("$f2 = $l2 \$ $r2 \$ !(!$m&$r1 # !$m&$r0&$l1 # !$m&$ci&l0&$l1);\n");
+  &qcode("$f3 = $l3 \$ $r3 \$ !(!$m&$r2 # # !$m&$r1&$l2 # !$m&$r0&$l1&$l2 # !$m&$ci&l0&l1&$l2);\n");
+  &qcode("$eq = $f0&$f1&$f2&$f3;\n");
+  &qcode("$p_ = !($l0&$l1&$l2&$l3);\n");
+  &qcode("$g_ = !($r0&$l1&$l2&$l3 # i$r1&$l2&$l3 # $r2&$l3 # $r3);\n");
+  &qcode("$co = $l0&$l1&$l2&$l3&$ci # !$g_;\n");
+}
+$hidden{'sn74181'} = 0;
 
 sub sn74189 {
   $oc{$pad{5}} = 1 if defined $pad{5};
@@ -2035,9 +2155,9 @@ sub m220 {
   &qcode("$pad{'av1'}.ck = $pad{'au1'};\n");
   &qcode("$pad{'av2'} = !$pad{'av1'};\n");
   &qcode("!$t8x = $pad{'be2'} # $pad{'av1'}&$pad{'bh2'} # $pad{'av2'}&$pad{'bj2'} # $pad{'bn2'}&$pad{'bf1'} # $pad{'bc1'}&$pad{'bd2'} # $pad{'bn1'}&$pad{'bf2'} # $pad{'bp2'}&$pad{'bl1'} # $pad{'bm1'}&$pad{'bl2'};\n");
-  &qcode("$pad{'af1'} = $pad{'bj1'} $ $t8x $ $t14x;\n");
+  &qcode("$pad{'af1'} = $pad{'bj1'} \$ $t8x \$ $t14x;\n");
   &qcode("$t1x = $pad{'bj1'}&$t8x # $t8x&$t14x # $pad{'bj1'}&$t14x;\n");
-  &qcode("$pad{'ae2'} = $t12x $ $t5x $ $t1x;\n");
+  &qcode("$pad{'ae2'} = $t12x \$ $t5x \$ $t1x;\n");
   &qcode("$pad{'bk2'} = $t1x&$t12x # $t12x&$t5x # $t5x&$t1x;\n");
   &qcode("!$t5x = $pad{'bc1'}&$pad{'be1'} # $pad{'bd1'}&$pad{'bf2'} # $pad{'bm2'}&$pad{'bl1'} # $pad{'bk1'}&$pad{'bl2'} # $pad{'ba1'}&$pad{'bh2'} # $pad{'bb1'}&$pad{'bj2'} # $pad{'bh1'}&$pad{'bf1'};\n");
   &qcode("!$t12x = $pad{'bp1'}&$pad{'am2'} # $pad{'ap1'}&$pad{'bs2'} # $pad{'br1'}&$pad{'bu2'} # $pad{'bs1'}&$pad{'bt2'};\n");

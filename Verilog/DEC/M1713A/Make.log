@@ -1,0 +1,11 @@
+~/Verilog/bin/topld.pl M1713A
+info: 74150n ne dil24_6
+info: edge_2connector ne edge_con2
+warning: making u$2/edge_2connector/ a connector
+~/Verilog/bin/smaller.pl M1713A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M1713AX.PLD || (rm M1713AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M1713AX.PLD >vv || (rm vv; exit 1)
+mv vv M1713A.v
+rm M1713AX.PLD
