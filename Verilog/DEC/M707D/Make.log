@@ -45,8 +45,9 @@ warning: non-pullup resistor deleted: r12
   n_t_5x: !n_t_38x
   n_t_7x: !bit8
 ~/Verilog/bin/smaller.pl vv >M707DX.PLD || (rm M707DX.PLD; exit 1)
-1 signals were removed:
-  n_t_38x: !n_t_16x
+2 signals were removed:
+  active_l: !active
+  n_t_2x: 'b'1
 ~/Verilog/bin/cupl2v.pl M707DX.PLD >vv || (rm vv; exit 1)
 mv vv M707D.v
 rm M707DX.PLD

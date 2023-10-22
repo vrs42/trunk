@@ -3,7 +3,7 @@
 
 Name     M7105B ;
 PartNo   cpld ;
-Date     10/20/2023 ;
+Date     10/22/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -62,9 +62,6 @@ pin = b_data_state;
 pin = bdata1;
 pin = bdata10_l;
 pin = bdata11_l;
-pin = bdata2;
-pin = bdata3;
-pin = bdata4;
 pin = bdata7;
 pin = bk_cycle_l;
 pin = brk_dir_l;
@@ -101,7 +98,6 @@ pin = ema1_l;
 pin = ema2_l;
 pin = enab_int;
 pin = enab_seek_done;
-pin = ext_cyl_addrs;
 pin = function00;
 pin = function01;
 pin = function02;
@@ -133,7 +129,6 @@ pin = mak_l;
 pin = mams_load_cont_l;
 pin = md_dir_l;
 pin = msir_dis_l;
-pin = n_t_1x;
 pin = n_t_30x;
 pin = not_equal_l;
 pin = priority;
@@ -167,6 +162,7 @@ node crc8;
 node ema2;
 node unit_sel0;
 node unit_sel1;
+node ext_cyl_addrs;
 node n_t_47x;
 node n_t_44x;
 node n_t_45x;
@@ -191,7 +187,10 @@ node brk_in_l;
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node bdata0;
+node bdata2;
 node bdata2_l;
+node bdata3;
+node bdata4;
 node bdata5;
 node bdata6;
 node bint_strobe;
@@ -229,6 +228,7 @@ node n_t_16x;
 node n_t_17x;
 node n_t_18x;
 node n_t_19x;
+node n_t_1x;
 node n_t_20x;
 node n_t_21x;
 node n_t_22x;
@@ -445,6 +445,11 @@ n_t_26x.j = !(!bdata0 & !n6rk4_l) & ((n_t_19x & n_t_39x & n_t_38x & n_t_37x)
                                    # !n6rk4_l);
 n_t_26x.k = !(bdata0 & !n6rk4_l) & ((n_t_19x & n_t_39x & n_t_38x & n_t_37x)
                                   # !n6rk4_l);
+
+/* e9: sn7452 */
+n_t_1x = ext_cyl_addrs & bdata3
+       # bdata4 & sector_addrs_1
+       # bdata2 & crc16;
 
 /* e10: sn74155 */
 drive0_l = !(!unit_sel0 & !unit_sel1 & !ld_cmd_reg & n3v);

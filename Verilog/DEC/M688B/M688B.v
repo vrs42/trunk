@@ -52,7 +52,6 @@ assign e1 = k2 & j2
              | d1 & c1
              | b1 & n_t_1x;
 // e2: sn7404 
-assign n_t_20x = 1'b0;
 // e3: sn7405 
 // !n_t_12x = !n_t_12x; 
 // !n1 = !n1; 

@@ -126,10 +126,11 @@ warning: non-pullup resistor deleted: r38
   opr_iot_l: !opr_iot
   oprf_l: !oprf
 ~/Verilog/bin/smaller.pl vv >M8310FX.PLD || (rm M8310FX.PLD; exit 1)
-3 signals were removed:
+4 signals were removed:
   btp3: tp3
   djmp_l: d!jmp
   n_t_37x: en2
+  n_t_46x: !n_t_2x
 ~/Verilog/bin/cupl2v.pl M8310FX.PLD >vv || (rm vv; exit 1)
 mv vv M8310F.v
 rm M8310FX.PLD

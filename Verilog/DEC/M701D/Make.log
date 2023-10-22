@@ -76,7 +76,8 @@ warning: non-pullup resistor deleted: r24
   n_t_8x: !n_t_20x
   n_t_9x: !load_x
 ~/Verilog/bin/smaller.pl vv >M701DX.PLD || (rm M701DX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_31x: !n_t_32x
 ~/Verilog/bin/cupl2v.pl M701DX.PLD >vv || (rm vv; exit 1)
 mv vv M701D.v
 rm M701DX.PLD

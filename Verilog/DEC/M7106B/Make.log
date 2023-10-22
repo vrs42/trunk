@@ -30,7 +30,6 @@ info: 7402n ne dil14
 info: 7402n ne dil14
 info: 7400n ne dil14
 info: 7452 ne dil14
-warning: making e28/sn7452/ a connector
 info: 7402n ne dil14
 info: 74161n ne dil16
 info: 7402n ne dil14
@@ -134,7 +133,8 @@ warning: non-pullup resistor deleted: r55
   wrt_lock_out: !wrt_lock_out_l
   wrt_sync_bit_l: !wrt_sync_bit
 ~/Verilog/bin/smaller.pl vv >M7106BX.PLD || (rm M7106BX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_5x: !n_t_2x
 ~/Verilog/bin/cupl2v.pl M7106BX.PLD >vv || (rm vv; exit 1)
 mv vv M7106B.v
 rm M7106BX.PLD

@@ -46,7 +46,7 @@
 // c44: c_us 
 // c45: c_us 
 // e1: sn74161 
-module m7106c (bdata7, btp2, btp3, btp3_ok, clr_all_l, clr_drive_cmd_l, clr_sector_ad_l, crc16, data_enab_l, data_enable, dsk_acknowledge_l, dsk_data_in_l, dsk_file_rdy_l, dsk_index_mk_l, dsk_rd_clk_l, dsk_sec1_l, dsk_sec2_l, dsk_sec4_l, dsk_sec8_l, dsk_sector_mk_l, dsk_wrt_status_l, error_clr_l, function00, function01, function02, half_block, hi_main_shft_l, last_brk, lo_main_shft_l, main_l, n3v, n6rk3_ok, n_t_21x, n_t_24x, n_t_49x, n_t_52x, n_t_53x, n_t_74x, n_t_76x, n_t_8x, n_t_90x, n_t_9x, rdy_s_r_w, rk_data11, set_idle_pl_l, shft_surf, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, clr_cntrs_l, crc_data, crc_state, data10_l, data11_l, data8_l, data9_l, data_clk_ok, data_clr_l, data_in, data_in_l, data_state, data_state_l, drv_revo, dsk_head_sel1_l, dsk_read_l, dsk_restore_l, dsk_strobe_l, dsk_wrt_clk_data_l, dsk_wrt_erase_gate_l, dsk_wrt_protect_l, end_state, end_state_l, erase_dly_l, file_rdy, header_c, idle, idle_l, initialize, inside_in_l, last_word_pl, ld_disk_addrs, ma0_l, ma10_l, ma11_l, ma1_l, ma3_l, md0_l, md10_l, md11_l, md1_l, md2_l, md8_l, md9_l, n12th_bit_ok, n16_carry, n_t_20x, n_t_61x, outside_clk_l, rd_clk1, rd_shft_db_l, read_dly_l, sector_addrs1, sector_mk, sector_mk_l, sector_seek_l, shft_wrt_buff_l, shift_crc_l, skip_l, state_enab_b, strobe, sync_dly_l, write, wrt_cmd, wrt_cmd_l);
+module m7106c (bdata7, btp2, btp3, btp3_ok, clr_all_l, clr_drive_cmd_l, clr_sector_ad_l, crc16, data_enab_l, data_enable, dsk_acknowledge_l, dsk_data_in_l, dsk_file_rdy_l, dsk_index_mk_l, dsk_rd_clk_l, dsk_sec1_l, dsk_sec2_l, dsk_sec4_l, dsk_sec8_l, dsk_sector_mk_l, dsk_wrt_status_l, error_clr_l, function00, function01, function02, half_block, hi_main_shft_l, last_brk, lo_main_shft_l, main_l, n3v, n6rk3_ok, n_t_21x, n_t_24x, n_t_49x, n_t_52x, n_t_53x, n_t_74x, n_t_76x, n_t_8x, n_t_90x, n_t_9x, rdy_s_r_w, rk_data11, set_idle_pl_l, shft_surf, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, clr_cntrs_l, crc_data, data10_l, data11_l, data8_l, data9_l, data_clk_ok, data_clr_l, data_in_l, data_state, data_state_l, drv_revo, dsk_head_sel1_l, dsk_read_l, dsk_restore_l, dsk_strobe_l, dsk_wrt_clk_data_l, dsk_wrt_erase_gate_l, dsk_wrt_protect_l, end_state, end_state_l, erase_dly_l, file_rdy, idle, idle_l, initialize, inside_in_l, last_word_pl, ld_disk_addrs, ma0_l, ma10_l, ma11_l, ma1_l, ma3_l, md0_l, md10_l, md11_l, md1_l, md2_l, md8_l, md9_l, n12th_bit_ok, n16_carry, n_t_20x, n_t_61x, outside_clk_l, rd_clk1, rd_shft_db_l, read_dly_l, sector_addrs1, sector_mk, sector_mk_l, sector_seek_l, shft_wrt_buff_l, shift_crc_l, skip_l, state_enab_b, strobe, sync_dly_l, write, wrt_cmd, wrt_cmd_l);
 input bdata7;
 input btp2;
 input btp3;
@@ -102,14 +102,12 @@ output brk_enab_clk;
 inout brk_in_clk;
 inout clr_cntrs_l;
 output crc_data;
-inout reg crc_state;
 input data10_l;
 input data11_l;
 input data8_l;
 input data9_l;
 output data_clk_ok;
 input data_clr_l;
-inout reg data_in;
 output data_in_l;
 inout reg data_state;
 inout data_state_l;
@@ -125,7 +123,6 @@ inout reg end_state;
 output end_state_l;
 input erase_dly_l;
 inout file_rdy;
-inout reg header_c;
 inout idle;
 inout reg idle_l;
 output initialize;
@@ -238,10 +235,13 @@ reg gdollar_16;
 reg gdollar_17;
 reg gdollar_18;
 reg gdollar_19;
+reg data_in;
 reg inh_12th_bit_l;
 reg restore;
 reg header_a;
 reg header_b;
+reg header_c;
+reg crc_state;
 reg header_e;
 reg sector_seek;
 reg header_d;
@@ -252,10 +252,10 @@ reg top_surf;
 reg sector_addrs8;
 reg sector_addrs4;
 reg sector_addrs2;
-wire gdollar_20;
 wire gdollar_21;
 wire gdollar_22;
 wire gdollar_23;
+wire gdollar_24;
 wire b_wrt_clk;
 wire check_header_cmd_l;
 wire clr_cntrs;
@@ -1119,6 +1119,11 @@ assign n_t_63x = ~(n_t_58x & set_idle_pl_l);
 assign set_sector_seek_l = ~(header_c & ~n16th_bit_l);
 assign set_header_e_l = ~(b_wrt_clk & wrt_sync_bit);
 assign wrt_clk_data = ~(wrt_clk_l & data_out_pl_l);
+// e28: sn7452 
+assign crc_data = data_in & data_state
+                   | data_state & rk_data11 & write
+                   | header_c & data_in
+                   | crc_state & data_in;
 // e29: sn7402 
 assign n_t_70x = ~(idle
                     | header_d);
@@ -1367,15 +1372,15 @@ always @(shft_surf, ld_disk_addrs, clr_sector_ad_l, ld_disk_addrs, bdata11, sect
     sector_addrs1 <= sector_addrs1_m;
   end
 // e47: sn7485 
-assign gdollar_20 = sector_addrs8 & dsk_sec8_l
+assign gdollar_21 = sector_addrs8 & dsk_sec8_l
                      | ~sector_addrs8 & ~dsk_sec8_l;
-assign gdollar_21 = sector_addrs4 & dsk_sec4_l
+assign gdollar_22 = sector_addrs4 & dsk_sec4_l
                      | ~sector_addrs4 & ~dsk_sec4_l;
-assign gdollar_22 = sector_addrs2 & dsk_sec2_l
+assign gdollar_23 = sector_addrs2 & dsk_sec2_l
                      | ~sector_addrs2 & ~dsk_sec2_l;
-assign gdollar_23 = sector_addrs1 & dsk_sec1_l
+assign gdollar_24 = sector_addrs1 & dsk_sec1_l
                      | ~sector_addrs1 & ~dsk_sec1_l;
-assign sector_eq = sector_seek & ~gdollar_20 & ~gdollar_21 & ~gdollar_22 & ~gdollar_23;
+assign sector_eq = sector_seek & ~gdollar_21 & ~gdollar_22 & ~gdollar_23 & ~gdollar_24;
 // e48: ds75452n 
 // dsk_strobe_l = !(!strobe); 
 // dsk_head_sel1_l = !(!top_surf); 

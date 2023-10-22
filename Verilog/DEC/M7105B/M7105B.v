@@ -48,7 +48,7 @@
 // ema0_l = !(data_enable & ema0); 
 // md_dir_l = !(data_enable & brk_dir_l); 
 // e2: dec8271 
-module m7105b (ac7_l, b_brk_rq, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, btp3_l, btp3_ok, clr_all, clr_all_l, clr_cntrs_l, crc_data, data_in_l, data_state_l, db_cont1_l, db_cont4, device_rk, dsk_rdy_s_r_w_l, dsk_seek_fail_l, file_rdy, idle, idle_l, ld_disk_addrs, n6rk3_ok_l, n6rk4_l, n6rk6, n6rk7, n6rk7_ok, n_t_27x, n_t_31x, rd_clk1, rd_shft_db_l, sector_addrs_1, shift_crc_l, state_enab_b, strobe, wrt_cmd_l, b_data_state, bdata1, bdata10_l, bdata11_l, bdata2, bdata3, bdata4, bdata7, bk_cycle_l, brk_dir_l, brk_in_prog_l, brk_rq, clr_sector_ad_l, cpma_dis_l, crc16, data0_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data_enab_l, data_enable, drive_status_bad, dsk_cyl_ad128_l, dsk_cyl_ad16_l, dsk_cyl_ad1_l, dsk_cyl_ad2_l, dsk_cyl_ad32_l, dsk_cyl_ad4_l, dsk_cyl_ad64_l, dsk_cyl_ad8_l, dsk_drive0_l, dsk_drive1_l, dsk_drive2_l, dsk_drive3_l, ema0_l, ema1_l, ema2_l, enab_int, enab_seek_done, ext_cyl_addrs, function00, function01, function02, half_block, hi_data_in, hi_main_shft_l, hi_rd_clk, int_strobe, last_brk, ld_cmd_reg, lo_main_data, lo_main_shft_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, main, main_l, main_pl, mak_l, mams_load_cont_l, md_dir_l, msir_dis_l, n_t_1x, n_t_30x, not_equal_l, priority, rd_brk_l, rdy_s_r_w, rdy_s_r_w_l, seek_fail, shft_surf, tp1, tp4, ts2, ts4, wrt_brk_l, wt_buff_data_l);
+module m7105b (ac7_l, b_brk_rq, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, btp3_l, btp3_ok, clr_all, clr_all_l, clr_cntrs_l, crc_data, data_in_l, data_state_l, db_cont1_l, db_cont4, device_rk, dsk_rdy_s_r_w_l, dsk_seek_fail_l, file_rdy, idle, idle_l, ld_disk_addrs, n6rk3_ok_l, n6rk4_l, n6rk6, n6rk7, n6rk7_ok, n_t_27x, n_t_31x, rd_clk1, rd_shft_db_l, sector_addrs_1, shift_crc_l, state_enab_b, strobe, wrt_cmd_l, b_data_state, bdata1, bdata10_l, bdata11_l, bdata7, bk_cycle_l, brk_dir_l, brk_in_prog_l, brk_rq, clr_sector_ad_l, cpma_dis_l, crc16, data0_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data_enab_l, data_enable, drive_status_bad, dsk_cyl_ad128_l, dsk_cyl_ad16_l, dsk_cyl_ad1_l, dsk_cyl_ad2_l, dsk_cyl_ad32_l, dsk_cyl_ad4_l, dsk_cyl_ad64_l, dsk_cyl_ad8_l, dsk_drive0_l, dsk_drive1_l, dsk_drive2_l, dsk_drive3_l, ema0_l, ema1_l, ema2_l, enab_int, enab_seek_done, function00, function01, function02, half_block, hi_data_in, hi_main_shft_l, hi_rd_clk, int_strobe, last_brk, ld_cmd_reg, lo_main_data, lo_main_shft_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, main, main_l, main_pl, mak_l, mams_load_cont_l, md_dir_l, msir_dis_l, n_t_30x, not_equal_l, priority, rd_brk_l, rdy_s_r_w, rdy_s_r_w_l, seek_fail, shft_surf, tp1, tp4, ts2, ts4, wrt_brk_l, wt_buff_data_l);
 input ac7_l;
 input b_brk_rq;
 input b_last_brk;
@@ -84,7 +84,7 @@ input n_t_27x;
 input n_t_31x;
 input rd_clk1;
 input rd_shft_db_l;
-output sector_addrs_1;
+input sector_addrs_1;
 input shift_crc_l;
 input state_enab_b;
 input strobe;
@@ -93,9 +93,6 @@ inout b_data_state;
 inout bdata1;
 inout bdata10_l;
 output bdata11_l;
-inout bdata2;
-inout bdata3;
-inout bdata4;
 inout bdata7;
 output bk_cycle_l;
 inout brk_dir_l;
@@ -132,7 +129,6 @@ output ema1_l;
 output ema2_l;
 inout reg enab_int;
 inout reg enab_seek_done;
-inout reg ext_cyl_addrs;
 inout reg function00;
 inout reg function01;
 inout reg function02;
@@ -164,7 +160,6 @@ output mak_l;
 output mams_load_cont_l;
 output md_dir_l;
 output msir_dis_l;
-input n_t_1x;
 output n_t_30x;
 inout not_equal_l;
 output priority;
@@ -250,6 +245,7 @@ reg crc8;
 reg ema2;
 reg unit_sel0;
 reg unit_sel1;
+reg ext_cyl_addrs;
 reg n_t_47x;
 reg n_t_44x;
 reg n_t_45x;
@@ -271,6 +267,9 @@ reg mak;
 reg brk_enable_l;
 reg brk_in_l;
 wire bdata0;
+wire bdata2;
+wire bdata3;
+wire bdata4;
 wire bdata5;
 wire bdata6;
 wire btp4;
@@ -297,6 +296,7 @@ wire n_t_16x;
 wire n_t_17x;
 wire n_t_18x;
 wire n_t_19x;
+wire n_t_1x;
 wire n_t_20x;
 wire n_t_21x;
 wire n_t_22x;
@@ -617,6 +617,10 @@ always @(n_t_29x, clr_all_l, n_t_26x_m)
   if (~n_t_29x) begin
     n_t_26x <= n_t_26x_m;
   end
+// e9: sn7452 
+assign n_t_1x = ext_cyl_addrs & bdata3
+                 | bdata4 & sector_addrs_1
+                 | bdata2 & crc16;
 // e10: sn74155 
 assign drive0_l = ~(~unit_sel0 & ~unit_sel1 & ~ld_cmd_reg);
 assign drive1_l = ~(~unit_sel0 & unit_sel1 & ~ld_cmd_reg);

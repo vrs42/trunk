@@ -3,7 +3,7 @@
 
 Name     M7106C ;
 PartNo   cpld ;
-Date     10/20/2023 ;
+Date     10/22/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -73,14 +73,12 @@ pin = brk_enab_clk;
 pin = brk_in_clk;
 pin = clr_cntrs_l;
 pin = crc_data;
-pin = crc_state;
 pin = data10_l;
 pin = data11_l;
 pin = data8_l;
 pin = data9_l;
 pin = data_clk_ok;
 pin = data_clr_l;
-pin = data_in;
 pin = data_in_l;
 pin = data_state;
 pin = data_state_l;
@@ -96,7 +94,6 @@ pin = end_state;
 pin = end_state_l;
 pin = erase_dly_l;
 pin = file_rdy;
-pin = header_c;
 pin = idle;
 pin = idle_l;
 pin = initialize;
@@ -160,10 +157,13 @@ node gdollar_16;
 node gdollar_17;
 node gdollar_18;
 node gdollar_19;
+node data_in;
 node inh_12th_bit_l;
 node restore;
 node header_a;
 node header_b;
+node header_c;
+node crc_state;
 node header_e;
 node sector_seek;
 node header_d;
@@ -174,7 +174,7 @@ node top_surf;
 node sector_addrs8;
 node sector_addrs4;
 node sector_addrs2;
-node gdollar_20, gdollar_21, gdollar_22, gdollar_23;
+node gdollar_21, gdollar_22, gdollar_23, gdollar_24;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
@@ -726,6 +726,12 @@ set_sector_seek_l = !(header_c & n16th_bit);
 set_header_e_l = !(b_wrt_clk & wrt_sync_bit);
 wrt_clk_data = !(wrt_clk_l & data_out_pl_l);
 
+/* e28: sn7452 */
+crc_data = data_in & data_state
+         # data_state & rk_data11 & write
+         # header_c & data_in
+         # crc_state & data_in;
+
 /* e29: sn7402 */
 n_t_70x = !(idle
           # header_d);
@@ -858,15 +864,15 @@ sector_addrs1.ap = ld_disk_addrs & bdata11;
 sector_addrs1.ar = !ld_disk_addrs & !clr_sector_ad_l;
 
 /* e47: sn7485 */
-gdollar_20 = sector_addrs8 & !n_t_82x
+gdollar_21 = sector_addrs8 & !n_t_82x
            # !sector_addrs8 & n_t_82x;
-gdollar_21 = sector_addrs4 & !n_t_83x
+gdollar_22 = sector_addrs4 & !n_t_83x
            # !sector_addrs4 & n_t_83x;
-gdollar_22 = sector_addrs2 & !dsk_sec2
+gdollar_23 = sector_addrs2 & !dsk_sec2
            # !sector_addrs2 & dsk_sec2;
-gdollar_23 = sector_addrs1 & !n_t_84x
+gdollar_24 = sector_addrs1 & !n_t_84x
            # !sector_addrs1 & n_t_84x;
-sector_eq = sector_seek & !gdollar_20 & !gdollar_21 & !gdollar_22 & !gdollar_23;
+sector_eq = sector_seek & !gdollar_21 & !gdollar_22 & !gdollar_23 & !gdollar_24;
 
 /* e48: ds75452n */
 /* dsk_strobe_l = !(!strobe); */
