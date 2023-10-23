@@ -3,7 +3,7 @@
 
 Name     M8655B ;
 PartNo   cpld ;
-Date     10/22/2023 ;
+Date     10/23/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -51,7 +51,6 @@ pin = trans_246_l;
 pin = tsb;
 
 /* Output Pins */
-pin = btp3_l;
 pin = c0_l;
 pin = c1_l;
 pin = data00_l;
@@ -69,15 +68,10 @@ pin = data11_l;
 pin = eia_in;
 pin = eia_out;
 pin = framing_err;
-pin = init_l;
 pin = initialize;
 pin = int_rqst_l;
 pin = internal_io_l;
-pin = io_kcf_l;
 pin = io_pause_l;
-pin = io_rdrrun_l;
-pin = io_tcf_l;
-pin = io_tpc_l;
 pin = lf_decoded_l;
 pin = md03;
 pin = md04;
@@ -97,17 +91,8 @@ pin = n_t_126x;
 pin = n_t_133x;
 pin = n_t_145x;
 pin = n_t_146x;
-pin = n_t_14x;
-pin = n_t_15x;
-pin = n_t_16x;
-pin = n_t_17x;
-pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_20x;
-pin = n_t_24x;
-pin = n_t_31x;
-pin = n_t_32x;
-pin = n_t_33x;
 pin = n_t_40x;
 pin = n_t_41x;
 pin = n_t_50x;
@@ -116,7 +101,6 @@ pin = n_t_56x;
 pin = n_t_57x;
 pin = n_t_59x;
 pin = n_t_60x;
-pin = n_t_7x;
 pin = n_t_89x;
 pin = n_t_96x;
 pin = n_t_97x;
@@ -197,13 +181,19 @@ node filch_h;
 $IFNDEF OPTIMIZE
 node b_pause_h;
 node b_pause_l;
+node btp3_l;
 node btx_buf_empty;
 node count_fillchar;
 node filch_l;
 node has_error;
 node init_h;
+node init_l;
 node int_enab_l;
+node io_kcf_l;
+node io_rdrrun_l;
 node io_read_h;
+node io_tcf_l;
+node io_tpc_l;
 node n_t_103x;
 node n_t_104x;
 node n_t_105x;
@@ -214,15 +204,24 @@ node n_t_110x;
 node n_t_111x;
 node n_t_113x;
 node n_t_115x;
+node n_t_14x;
+node n_t_15x;
+node n_t_16x;
+node n_t_17x;
+node n_t_18x;
 node n_t_21x;
 node n_t_22x;
 node n_t_23x;
+node n_t_24x;
 node n_t_25x;
 node n_t_26x;
 node n_t_27x;
 node n_t_28x;
 node n_t_29x;
 node n_t_30x;
+node n_t_31x;
+node n_t_32x;
+node n_t_33x;
 node n_t_35x;
 node n_t_36x;
 node n_t_37x;
@@ -248,6 +247,7 @@ node n_t_72x;
 node n_t_74x;
 node n_t_75x;
 node n_t_79x;
+node n_t_7x;
 node n_t_81x;
 node n_t_82x;
 node n_t_83x;
@@ -401,10 +401,40 @@ $ENDIF
 
 /* c63: cpol_use */
 
+/* e1: dec8242 */
+/* n_t_20x = !(!n_t_17x & !n_t_12x
+        # n_t_17x & n_t_12x); */
+/* n_t_20x = !(!n_t_14x & !n_t_9x
+        # n_t_14x & n_t_9x); */
+/* n_t_20x = !(!n_t_10x & !n_t_15x
+        # n_t_10x & n_t_15x); */
+/* n_t_20x = !(!n_t_11x & !n_t_16x
+        # n_t_11x & n_t_16x); */
+
+/* e2: dec8242 */
+/* n_t_19x = !(!n_t_18x & !n_t_6x
+        # n_t_18x & n_t_6x); */
+/* n_t_19x = !(!n_t_7x & !n_t_1x
+        # n_t_7x & n_t_1x); */
+/* n_t_20x = !(!n_t_8x & !n_t_7x
+        # n_t_8x & n_t_7x); */
+/* n_t_20x = !(!n_t_13x & !n_t_18x
+        # n_t_13x & n_t_18x); */
+
 /* e3: sn7400 */
 n_t_49x = !(tclki & tclko);
 n_t_44x = !n_t_49x;
 tclko = !(clko_en & n_t_50x);
+
+/* e5: dec8242 */
+/* n_t_19x = !(!n_t_17x & !n_t_5x
+        # n_t_17x & n_t_5x); */
+/* n_t_19x = !(!n_t_14x & !n_t_2x
+        # n_t_14x & n_t_2x); */
+/* n_t_19x = !(!n_t_3x & !n_t_15x
+        # n_t_3x & n_t_15x); */
+/* n_t_19x = !(!n_t_4x & !n_t_16x
+        # n_t_4x & n_t_16x); */
 
 /* e7: sn7486 */
 n_t_58x = n_t_60x
@@ -664,6 +694,16 @@ n_t_32x = !(trans_246
 n_t_39x = !(recv_5
           # btp3_l);
 
+/* e36: dec8266 */
+/* io_rdrrun_l = !(!n3v3 & !init_l
+            # n_t_24x & init_l & !btp3_l); */
+/* io_kcf_l = !(!init_l
+         # n_t_33x & init_l & !btp3_l); */
+/* io_tpc_l = !(!n3v3 & !init_l
+         # n_t_32x & init_l & !btp3_l); */
+/* io_tcf_l = !(!init_l
+         # n_t_31x & init_l & !btp3_l); */
+
 /* e37: sn7402 */
 n_t_71x = !(n_t_73x
           # n_t_79x);
@@ -856,6 +896,64 @@ int_rqst_l.oe = (n_t_48x & int_enab_h);
 property atmel {open_collector= internal_io_l};
 !internal_io_l = (selected_h & b_pause_h);
 internal_io_l.oe = (selected_h & b_pause_h);
+!io_kcf_l = (!init_l
+         # n_t_33x & init_l & !btp3_l);
+!io_rdrrun_l = (!n3v3 & !init_l
+            # n_t_24x & init_l & !btp3_l);
+!io_tcf_l = (!init_l
+         # n_t_31x & init_l & !btp3_l);
+!io_tpc_l = (!n3v3 & !init_l
+         # n_t_32x & init_l & !btp3_l);
+property atmel {open_collector= n_t_19x};
+!n_t_19x = (!n_t_18x & !n_t_6x
+        # n_t_18x & n_t_6x)
+        # (!n_t_7x & !n_t_1x
+        # n_t_7x & n_t_1x)
+        # (!n_t_17x & !n_t_5x
+        # n_t_17x & n_t_5x)
+        # (!n_t_14x & !n_t_2x
+        # n_t_14x & n_t_2x)
+        # (!n_t_3x & !n_t_15x
+        # n_t_3x & n_t_15x)
+        # (!n_t_4x & !n_t_16x
+        # n_t_4x & n_t_16x);
+n_t_19x.oe = (!n_t_18x & !n_t_6x
+        # n_t_18x & n_t_6x)
+        # (!n_t_7x & !n_t_1x
+        # n_t_7x & n_t_1x)
+        # (!n_t_17x & !n_t_5x
+        # n_t_17x & n_t_5x)
+        # (!n_t_14x & !n_t_2x
+        # n_t_14x & n_t_2x)
+        # (!n_t_3x & !n_t_15x
+        # n_t_3x & n_t_15x)
+        # (!n_t_4x & !n_t_16x
+        # n_t_4x & n_t_16x);
+property atmel {open_collector= n_t_20x};
+!n_t_20x = (!n_t_17x & !n_t_12x
+        # n_t_17x & n_t_12x)
+        # (!n_t_14x & !n_t_9x
+        # n_t_14x & n_t_9x)
+        # (!n_t_10x & !n_t_15x
+        # n_t_10x & n_t_15x)
+        # (!n_t_11x & !n_t_16x
+        # n_t_11x & n_t_16x)
+        # (!n_t_8x & !n_t_7x
+        # n_t_8x & n_t_7x)
+        # (!n_t_13x & !n_t_18x
+        # n_t_13x & n_t_18x);
+n_t_20x.oe = (!n_t_17x & !n_t_12x
+        # n_t_17x & n_t_12x)
+        # (!n_t_14x & !n_t_9x
+        # n_t_14x & n_t_9x)
+        # (!n_t_10x & !n_t_15x
+        # n_t_10x & n_t_15x)
+        # (!n_t_11x & !n_t_16x
+        # n_t_11x & n_t_16x)
+        # (!n_t_8x & !n_t_7x
+        # n_t_8x & n_t_7x)
+        # (!n_t_13x & !n_t_18x
+        # n_t_13x & n_t_18x);
 property atmel {open_collector= skip_l};
 !skip_l = (rflag_h & n_t_45x)
           # (n_t_47x & n_t_48x)

@@ -66,8 +66,26 @@
 // c61: cpol_use 
 // c62: cpol_use 
 // c63: cpol_use 
+// e1: dec8242 
+// n_t_20x = !(!n_t_17x & !n_t_12x
+//        # n_t_17x & n_t_12x); 
+// n_t_20x = !(!n_t_14x & !n_t_9x
+//        # n_t_14x & n_t_9x); 
+// n_t_20x = !(!n_t_10x & !n_t_15x
+//        # n_t_10x & n_t_15x); 
+// n_t_20x = !(!n_t_11x & !n_t_16x
+//        # n_t_11x & n_t_16x); 
+// e2: dec8242 
+// n_t_19x = !(!n_t_18x & !n_t_6x
+//        # n_t_18x & n_t_6x); 
+// n_t_19x = !(!n_t_7x & !n_t_1x
+//        # n_t_7x & n_t_1x); 
+// n_t_20x = !(!n_t_8x & !n_t_7x
+//        # n_t_8x & n_t_7x); 
+// n_t_20x = !(!n_t_13x & !n_t_18x
+//        # n_t_13x & n_t_18x); 
 // e3: sn7400 
-module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, btp3_l, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, init_l, initialize, int_rqst_l, internal_io_l, io_kcf_l, io_pause_l, io_rdrrun_l, io_tcf_l, io_tpc_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_24x, n_t_31x, n_t_32x, n_t_33x, n_t_40x, n_t_41x, n_t_50x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_7x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, sync_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
+module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, initialize, int_rqst_l, internal_io_l, io_pause_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_19x, n_t_20x, n_t_40x, n_t_41x, n_t_50x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, sync_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
 input b1;
 input b2;
 input b3;
@@ -76,22 +94,22 @@ input clko_en;
 output evn;
 input fill;
 input n3v3;
-output n_t_10x;
+input n_t_10x;
 output n_t_112x;
-output n_t_11x;
+input n_t_11x;
 output n_t_122x;
-output n_t_12x;
+input n_t_12x;
 output n_t_139x;
-output n_t_13x;
+input n_t_13x;
 output n_t_144x;
-output n_t_1x;
-output n_t_2x;
-output n_t_3x;
-output n_t_4x;
-output n_t_5x;
-output n_t_6x;
-output n_t_8x;
-output n_t_9x;
+input n_t_1x;
+input n_t_2x;
+input n_t_3x;
+input n_t_4x;
+input n_t_5x;
+input n_t_6x;
+input n_t_8x;
+input n_t_9x;
 output nb1;
 output nb2;
 output np;
@@ -101,8 +119,7 @@ input tclki;
 input test_sync;
 input trans_246_l;
 output tsb;
-inout btp3_l;
-output c0_l;
+inout c0_l;
 output c1_l;
 output data00_l;
 output data01_l;
@@ -119,15 +136,10 @@ inout data11_l;
 output eia_in;
 output eia_out;
 input framing_err;
-inout init_l;
 input initialize;
 output int_rqst_l;
 output internal_io_l;
-input io_kcf_l;
 input io_pause_l;
-input io_rdrrun_l;
-input io_tcf_l;
-input io_tpc_l;
 inout lf_decoded_l;
 input md03;
 input md04;
@@ -147,17 +159,8 @@ output n_t_126x;
 input n_t_133x;
 output n_t_145x;
 output n_t_146x;
-output n_t_14x;
-output n_t_15x;
-output n_t_16x;
-output n_t_17x;
-output n_t_18x;
-input n_t_19x;
-input n_t_20x;
-inout n_t_24x;
-output n_t_31x;
-output n_t_32x;
-output n_t_33x;
+inout n_t_19x;
+inout n_t_20x;
 input n_t_40x;
 input n_t_41x;
 input n_t_50x;
@@ -166,7 +169,6 @@ output n_t_56x;
 input n_t_57x;
 inout reg n_t_59x;
 inout reg n_t_60x;
-output n_t_7x;
 inout reg n_t_89x;
 inout reg n_t_96x;
 inout reg n_t_97x;
@@ -291,15 +293,27 @@ reg tflag_h;
 reg filch_h;
 wire count_fillchar;
 wire has_error;
+wire io_kcf_l;
+wire io_rdrrun_l;
 wire io_read_h;
+wire io_tcf_l;
+wire io_tpc_l;
 wire n_t_110x;
 wire n_t_113x;
+wire n_t_14x;
+wire n_t_15x;
+wire n_t_16x;
+wire n_t_17x;
+wire n_t_18x;
 wire n_t_21x;
 wire n_t_22x;
 wire n_t_23x;
 wire n_t_25x;
 wire n_t_26x;
 wire n_t_28x;
+wire n_t_31x;
+wire n_t_32x;
+wire n_t_33x;
 wire n_t_35x;
 wire n_t_39x;
 wire n_t_42x;
@@ -317,6 +331,7 @@ wire n_t_70x;
 wire n_t_71x;
 wire n_t_72x;
 wire n_t_74x;
+wire n_t_7x;
 wire n_t_83x;
 wire n_t_84x;
 wire n_t_85x;
@@ -337,6 +352,15 @@ wire trans_246;
 wire trans_5;
 assign n_t_49x = ~(tclki & tclko);
 assign tclko = ~(clko_en & n_t_50x);
+// e5: dec8242 
+// n_t_19x = !(!n_t_17x & !n_t_5x
+//        # n_t_17x & n_t_5x); 
+// n_t_19x = !(!n_t_14x & !n_t_2x
+//        # n_t_14x & n_t_2x); 
+// n_t_19x = !(!n_t_3x & !n_t_15x
+//        # n_t_3x & n_t_15x); 
+// n_t_19x = !(!n_t_4x & !n_t_16x
+//        # n_t_4x & n_t_16x); 
 // e7: sn7486 
 assign n_t_58x = n_t_60x
                   ^ n_t_57x;
@@ -910,33 +934,40 @@ always @(count_fillchar, io_tpc_l, n_t_97x_m)
 // skip_l = !(n_t_47x & n_t_48x); 
 // skip_l = !(!trans_1 & tflag_h); 
 // e34: sn7401 
-// c1_l = !n_t_24x; 
+// c1_l = c0_l; 
 // internal_io_l = !(selected_h & !io_pause_l); 
-// c0_l = !n_t_24x; 
+// c0_l = c0_l; 
 // c1_l = !(n3v3 & io_read_h); 
 // e35: sn7402 
-assign n_t_24x = ~(~n_t_21x
-                    | recv_246);
 assign n_t_31x = ~(~n_t_21x
                     | trans_246);
 assign n_t_32x = ~(trans_246
                     | ~n_t_22x);
 assign n_t_39x = ~(recv_5
-                    | btp3_l);
+                    | ~tp3);
+// e36: dec8266 
+// io_rdrrun_l = !(!n3v3 & initialize
+//            # !c0_l & !initialize & tp3); 
+// io_kcf_l = !(initialize
+//         # n_t_33x & !initialize & tp3); 
+// io_tpc_l = !(!n3v3 & initialize
+//         # n_t_32x & !initialize & tp3); 
+// io_tcf_l = !(initialize
+//         # n_t_31x & !initialize & tp3); 
 // e37: sn7402 
 assign n_t_71x = ~(n_t_73x
                     | ~n_t_78x);
 assign n_t_72x = ~(n_t_71x
                     | initialize);
-assign n_t_42x = ~(btp3_l
+assign n_t_42x = ~(~tp3
                     | trans_0);
 assign count_fillchar = ~(n_t_76x
                            | filch_h);
 // e38: sn7400 
 assign n_t_48x = ~(rflag_l & ~tflag_h);
 // e39: sn7474 
-always @(n_t_116x, init_l, io_rdrrun_l, 1'b0)
-  if (~init_l) begin
+always @(n_t_116x, initialize, io_rdrrun_l, 1'b0)
+  if (initialize) begin
     n_t_117x_m <= 1'b0;
   end else
   if (~io_rdrrun_l) begin
@@ -945,8 +976,8 @@ always @(n_t_116x, init_l, io_rdrrun_l, 1'b0)
   if (~(n_t_116x)) begin
     n_t_117x_m <= 1'b0;
   end
-always @(n_t_116x, init_l, io_rdrrun_l, n_t_117x_m)
-  if (~init_l) begin
+always @(n_t_116x, initialize, io_rdrrun_l, n_t_117x_m)
+  if (initialize) begin
     n_t_117x <= 1'b0;
   end else
   if (~io_rdrrun_l) begin
@@ -957,7 +988,7 @@ always @(n_t_116x, init_l, io_rdrrun_l, n_t_117x_m)
   end
 assign n_t_118x = ~n_t_117x;
 // e40: sn7400 
-assign n_t_33x = ~(recv_0 & ~n_t_24x);
+assign n_t_33x = ~(recv_0 & c0_l);
 assign n_t_26x = ~(n_t_23x & n_t_21x);
 assign n_t_74x = ~(n_t_70x & io_tpc_l);
 assign n_t_70x = ~(tx_buf_empty & ~filch_h);
@@ -1012,41 +1043,41 @@ always @(n_t_73x, n_t_76x, n3v3, n_t_78x_m)
     n_t_78x <= n_t_78x_m;
   end
 // e43: sn7474 
-always @(n_t_80x, n3v3, init_l, n_t_77x)
+always @(n_t_80x, n3v3, initialize, n_t_77x)
   if (~n3v3) begin
     n_t_77x_m <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     n_t_77x_m <= 1'b1;
   end else
   if (~(n_t_80x)) begin
     n_t_77x_m <= ~n_t_77x;
   end
-always @(n_t_80x, n3v3, init_l, n_t_77x_m)
+always @(n_t_80x, n3v3, initialize, n_t_77x_m)
   if (~n3v3) begin
     n_t_77x <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     n_t_77x <= 1'b1;
   end else
   if (n_t_80x) begin
     n_t_77x <= n_t_77x_m;
   end
-always @(count_fillchar, n3v3, init_l, n_t_80x)
+always @(count_fillchar, n3v3, initialize, n_t_80x)
   if (~n3v3) begin
     n_t_80x_m <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     n_t_80x_m <= 1'b1;
   end else
   if (~(count_fillchar)) begin
     n_t_80x_m <= ~n_t_80x;
   end
-always @(count_fillchar, n3v3, init_l, n_t_80x_m)
+always @(count_fillchar, n3v3, initialize, n_t_80x_m)
   if (~n3v3) begin
     n_t_80x <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     n_t_80x <= 1'b1;
   end else
   if (count_fillchar) begin
@@ -1116,7 +1147,6 @@ assign n_t_25x = n_t_21x
 assign n_t_83x = ~(n_t_77x & ~tx_buf_empty & n_t_80x);
 assign n_t_28x = ~(n_t_26x & ~io_pause_l & selected_h);
 // e48: sn7440 
-assign init_l = ~initialize;
 assign n_t_84x = ~(n_t_77x & ~txd_strobe & n_t_80x & ~filch_h);
 // e49: sn7404 
 assign n_t_126x = ~n_t_133x;
@@ -1127,7 +1157,6 @@ assign n_t_21x = ~(~selected_h
                     | md10);
 assign n_t_22x = ~(md09
                     | ~selected_h);
-assign btp3_l = ~tp3;
 // e53: n8815 
 assign n_t_47x = ~(~int_enab_h
                     | trans_5
@@ -1141,41 +1170,41 @@ assign n_t_113x = ~(rx20ma_data_l & n_t_117x);
 assign n_t_85x = ~(n_t_84x & n_t_83x);
 assign txd_strobe = ~(n_t_78x & n_t_53x);
 // e56: sn7474 
-always @(n_t_39x, n3v3, init_l, n_t_40x)
+always @(n_t_39x, n3v3, initialize, n_t_40x)
   if (~n3v3) begin
     int_enab_h_m <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     int_enab_h_m <= 1'b1;
   end else
   if (~(n_t_39x)) begin
     int_enab_h_m <= n_t_40x;
   end
-always @(n_t_39x, n3v3, init_l, int_enab_h_m)
+always @(n_t_39x, n3v3, initialize, int_enab_h_m)
   if (~n3v3) begin
     int_enab_h <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     int_enab_h <= 1'b1;
   end else
   if (n_t_39x) begin
     int_enab_h <= int_enab_h_m;
   end
-always @(n_t_39x, n3v3, init_l, n_t_41x)
+always @(n_t_39x, n3v3, initialize, n_t_41x)
   if (~n3v3) begin
     stat_enab_l_m <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     stat_enab_l_m <= 1'b1;
   end else
   if (~(n_t_39x)) begin
     stat_enab_l_m <= ~n_t_41x;
   end
-always @(n_t_39x, n3v3, init_l, stat_enab_l_m)
+always @(n_t_39x, n3v3, initialize, stat_enab_l_m)
   if (~n3v3) begin
     stat_enab_l <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     stat_enab_l <= 1'b1;
   end else
   if (n_t_39x) begin
@@ -1202,29 +1231,31 @@ always @(tx_buf_empty, io_tcf_l, n_t_42x, tflag_h_m)
   if (tx_buf_empty) begin
     tflag_h <= tflag_h_m;
   end
-always @(n_t_85x, n3v3, init_l, lf_decoded_l)
+always @(n_t_85x, n3v3, initialize, lf_decoded_l)
   if (~n3v3) begin
     filch_h_m <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     filch_h_m <= 1'b1;
   end else
   if (~(n_t_85x)) begin
     filch_h_m <= lf_decoded_l;
   end
-always @(n_t_85x, n3v3, init_l, filch_h_m)
+always @(n_t_85x, n3v3, initialize, filch_h_m)
   if (~n3v3) begin
     filch_h <= 1'b0;
   end else
-  if (~init_l) begin
+  if (initialize) begin
     filch_h <= 1'b1;
   end else
   if (n_t_85x) begin
     filch_h <= filch_h_m;
   end
 // open collector 'wire-or's 
-assign c0_l = n_t_24x? ~n_t_24x: 1'bz;
-assign c1_l = n_t_24x
+assign c0_l = ~(~(~(~n_t_21x
+                   | recv_246)))? ~(~(~n_t_21x
+                   | recv_246)): 1'bz;
+assign c1_l = (~c0_l)
                | (n3v3 & io_read_h)? 1'b0: 1'bz;
 assign data00_l = (has_error & n_t_110x)? 1'b0: 1'bz;
 assign data01_l = (parity_err & n_t_110x)? 1'b0: 1'bz;
@@ -1240,6 +1271,38 @@ assign data10_l = (rd1 & io_read_h)? 1'b0: 1'bz;
 assign data11_l = (rd0 & io_read_h)? 1'b0: 1'bz;
 assign int_rqst_l = (n_t_48x & int_enab_h)? 1'b0: 1'bz;
 assign internal_io_l = (selected_h & ~io_pause_l)? 1'b0: 1'bz;
+assign io_kcf_l = ~((initialize
+                      | n_t_33x & ~initialize & tp3));
+assign io_rdrrun_l = ~((~n3v3 & initialize
+                         | ~c0_l & ~initialize & tp3));
+assign io_tcf_l = ~((initialize
+                      | n_t_31x & ~initialize & tp3));
+assign io_tpc_l = ~((~n3v3 & initialize
+                      | n_t_32x & ~initialize & tp3));
+assign n_t_19x = (~n_t_18x & ~n_t_6x
+                   | n_t_18x & n_t_6x)
+                  | (~n_t_7x & ~n_t_1x
+                     | n_t_7x & n_t_1x)
+                  | (~n_t_17x & ~n_t_5x
+                     | n_t_17x & n_t_5x)
+                  | (~n_t_14x & ~n_t_2x
+                     | n_t_14x & n_t_2x)
+                  | (~n_t_3x & ~n_t_15x
+                     | n_t_3x & n_t_15x)
+                  | (~n_t_4x & ~n_t_16x
+                     | n_t_4x & n_t_16x)? 1'b0: 1'bz;
+assign n_t_20x = (~n_t_17x & ~n_t_12x
+                   | n_t_17x & n_t_12x)
+                  | (~n_t_14x & ~n_t_9x
+                     | n_t_14x & n_t_9x)
+                  | (~n_t_10x & ~n_t_15x
+                     | n_t_10x & n_t_15x)
+                  | (~n_t_11x & ~n_t_16x
+                     | n_t_11x & n_t_16x)
+                  | (~n_t_8x & ~n_t_7x
+                     | n_t_8x & n_t_7x)
+                  | (~n_t_13x & ~n_t_18x
+                     | n_t_13x & n_t_18x)? 1'b0: 1'bz;
 assign skip_l = (~rflag_l & ~recv_1)
                  | (n_t_47x & n_t_48x)
                  | (~trans_1 & tflag_h)? 1'b0: 1'bz;

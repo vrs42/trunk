@@ -27,7 +27,6 @@ warning: making d7/1n3606/ a connector
 info: 1n3606 ne diode_do35_10
 warning: making d8/1n3606/ a connector
 info: 8242 ne 74266n
-warning: making e1/8242/ a connector
 info: sp384n ne dil14
 info: 97401 ne 7401n
 info: sp384n ne dil14
@@ -36,7 +35,6 @@ info: 7404n ne dil14
 info: 1808 ne ay_5_1013a
 warning: making e19/1808/ a connector
 info: 8242 ne 74266n
-warning: making e2/8242/ a connector
 info: 7400n ne dil14
 info: 74151n ne dil16
 info: 97401 ne 7401n
@@ -54,7 +52,6 @@ info: 97401n ne 7401n
 info: 97401n ne 7401n
 info: 7402n ne dil14
 info: 8266 ne dil16
-warning: making e36/8266/ a connector
 info: 7402n ne dil14
 info: 7400n ne dil14
 info: 7400n ne dil14
@@ -65,7 +62,6 @@ info: 7410n ne dil14
 info: 7440 ne 7420n
 info: 7404n ne dil14
 info: 8242 ne 74266n
-warning: making e5/8242/ a connector
 info: 1488n ne dil14
 warning: making e50/1488n/ a connector
 info: 11380n ne sp380n
@@ -142,12 +138,14 @@ warning: non-bypass capacitor deleted: c56
 warning: non-bypass capacitor deleted: c62
 warning: non-bypass capacitor deleted: c63
 ~/Verilog/bin/smaller.pl M8655B.PLD >vv || (rm vv; exit 1)
-32 signals were removed:
+35 signals were removed:
   b_pause_h: !b_pause_l
   b_pause_l: io_pause_l
+  btp3_l: !tp3
   btx_buf_empty: tx_buf_empty
   filch_l: !filch_h
   init_h: initialize
+  init_l: !init_h
   int_enab_l: !int_enab_h
   n_t_103x: !n_t_89x
   n_t_104x: !n_t_97x
@@ -157,6 +155,7 @@ warning: non-bypass capacitor deleted: c63
   n_t_108x: !n_t_102x
   n_t_111x: !has_error
   n_t_115x: !io_read_h
+  n_t_24x: !c0_l
   n_t_27x: !n_t_21x
   n_t_29x: !n_t_22x
   n_t_30x: !n_t_24x

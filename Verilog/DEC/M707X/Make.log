@@ -40,7 +40,8 @@ warning: non-bypass capacitor deleted: c19
   n_t_5x: !n_t_38x
   n_t_7x: !bit8
 ~/Verilog/bin/smaller.pl vv >M707XX.PLD || (rm M707XX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_38x: !n_t_16x
 ~/Verilog/bin/cupl2v.pl M707XX.PLD >vv || (rm vv; exit 1)
 mv vv M707X.v
 rm M707XX.PLD

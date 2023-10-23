@@ -13,21 +13,21 @@
 #   The 7413 has hysteresis, which is not a logic function.
 #   The 7412x are monostables.
 #   The dec2501 is a diode clamp array.
+#   The 74287 ROM is a memory too large for the CPLD.
+#   The 74288 ROM is a memory too large for the CPLD.
 #   The mc1439 is an op amp.
 #   The mc1709 is an op amp.
 
 # TODO: 11380n (Fast sp380)
 # TODO: (n)8t38 is a quad bus tranceiver.
-# TODO: AM26s10 is a quad bus tranceiver.
+# TODO: am26s10 is a quad bus tranceiver.
 # TODO: dec3001n is a buffer with 7408 pinout.
 # TODO: dec4015 is a quad R/S latch (with common R).
-# TODO: The {dec|n}8234 is a {dec|n}8235 in which S0 inhibits S1.
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
-# TODO: (n)8266 is a quad 2-1 MUX (with common selects).
-# TODO: sn74191 sn74197 sn74221 sn74257 sn74266 sn74287 sn74288
-# TODO: sn74393 sn7462 sn7470 sn7481 sn7489
+# TODO: sn7462 sn7470 sn7481 sn7489
 # TODO: sn7490 sn7492 sn74h40n sn74h52 sn74h60 sn74h62n
+# TODO: sn74191 sn74221 sn74266 sn74393
 
 #
 # Known bugs:
@@ -35,6 +35,12 @@
 #  values on pins that weren't explicitly used in the Eagle
 #  model.  Things will currently fail if there are more than 
 #  32 of these.
+#
+#  OC outputs are not the only signals with high impedance states.
+#  A facility is needed to accumulate .oe information for tri-state
+#  outputs, and merge them appropriately at the end.  The OC assign
+#  routine can then be recoded to use it, and direct assignments to
+#  <foo>.oe can be recoded.
 #
 $edebug = 0;
 sub term {
@@ -413,6 +419,8 @@ sub sn74h40n {
 }
 $hidden{'sn74h40n'} = 0;
 
+# TODO: sn74h40n
+
 sub sn7442 {
   &qcode("!$pad{1} = !$pad{12} & !$pad{13} & !$pad{14} & !$pad{15};\n") if defined $pad{1};
   &qcode("!$pad{2} = !$pad{12} & !$pad{13} & !$pad{14} & $pad{15};\n") if defined $pad{2};
@@ -453,6 +461,8 @@ sub sn74h52n {
   &sn7452n;
 }
 $hidden{'sn74h52n'} = 0;
+
+# TODO: sn74h52
 
 sub sn7453 {
   # X and X\ are frequently NC, but we'll need a name.
@@ -506,6 +516,11 @@ sub sn7460 {
   &ocassign($pad{9}, $pad{10});
 }
 $hidden{'sn7460'} = 0;
+
+# TODO: sn74h60
+# TODO: sn74h62n
+# TODO: sn7462
+# TODO: sn7470
 
 sub sn7472 {
   if (defined $pad{6} && !defined $pad{8}) {
@@ -672,6 +687,8 @@ sub sn7476 {
 }
 $hidden{'sn7476'} = 0;
 
+# TODO: sn7481
+
 sub sn7482 {
   $temp = &gnext;
   &qcode("$pad{1} = $pad{5} \$ $pad{2} \$ $pad{3};\n");
@@ -743,6 +760,10 @@ sub sn74h87 {
   &sn7487;
 }
 $hidden{'sn74h87'} = 0;
+
+# TODO: sn7489
+# TODO: sn7490
+# TODO: sn7492
 
 # Note: Negative going clock transition!
 sub sn7493 {
@@ -1480,6 +1501,8 @@ sub sn74189 {
 }
 $hidden{"sn74189"} = 0;
 
+# TODO: sn74191
+
 sub sn74193 {
   # We need Qa..Qd even if their pads are NC.
   $pad{3} = &gnext unless defined $pad{3};
@@ -1540,6 +1563,40 @@ sub sn74195 {
 }
 $hidden{'sn74195'} = 0;
 
+sub sn74197 {
+  # We need Q0..Q3 even if their pads are NC.
+  $pad{5}  = &gnext unless defined $pad{5};
+  $pad{9}  = &gnext unless defined $pad{9};
+  $pad{2}  = &gnext unless defined $pad{2};
+  $pad{12} = &gnext unless defined $pad{12};
+  local($q0, $q1, $q2, $q3) = ($pad{5}, $pad{9},  $pad{2},  $pad{12});
+  local($p0, $p1, $p2, $p3) = ($pad{4}, $pad{10}, $pad{3},  $pad{11});
+  local($c0, $c1, $r_, $l_) = ($pad{8}, $pad{6},  $pad{13}, $pad{1});
+  &pinnode($q0);
+  &pinnode($q1);
+  &pinnode($q2);
+  &pinnode($q3);
+  &qcode("$q0.ap = !($r_&$l_) & $p0 & !$r_;\n");
+  &qcode("$q0.ar = !($r_&$l_) & !($p0 & !$r_);\n");
+  &qcode("$q0.d  = !$q0;\n");
+  &qcode("$q0.ck = !$c0;\n");
+  &qcode("$q1.ap = !($r_&$l_) & $p1 & !$r_;\n");
+  &qcode("$q1.ar = !($r_&$l_) & !($p1 & !$r_);\n");
+  &qcode("$q1.d  = !$q1;\n");
+  &qcode("$q1.ck = !$c1;\n");
+  &qcode("$q2.ap = !($r_&$l_) & $p2 & !$r_;\n");
+  &qcode("$q2.ar = !($r_&$l_) & !($p2 & !$r_);\n");
+  &qcode("$q2.d  = !$q2;\n");
+  &qcode("$q2.ck = !$q1;\n");
+  &qcode("$q3.ap = !($r_&$l_) & $p3 & !$r_;\n");
+  &qcode("$q3.ar = !($r_&$l_) & !($p3 & !$r_);\n");
+  &qcode("$q3.d  = !$q3;\n");
+  &qcode("$q3.ck = !$q2;\n");
+}
+$hidden{'sn74197'} = 0;
+
+# TODO: sn74221
+
 sub sn74240 {
   &qcode("$pad{18} = !$pad{2};\n") if defined $pad{18};
   &qcode("$pad{18}.oe = !$pad{1};\n") if defined $pad{18};
@@ -1580,17 +1637,35 @@ sub sn74244 {
 }
 $hidden{'sn74244'} = 0;
 
+# Quad 2:1 MUX with tristate outputs.
+sub sn74257 {
+  &qcode("$pad{4} = $pad{j}&$pad{3} # !$pad{1}&$pad{2};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+  &qcode("$pad{4} = $pad{1}&$pad{6} # !$pad{1}&$pad{5};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+  &qcode("$pad{4} = $pad{1}&$pad{10} # !$pad{1}&$pad{11};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+  &qcode("$pad{4} = $pad{1}&$pad{13} # !$pad{1}&$pad{14};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+}
+$hidden{'sn74257'} = 0;
+
+# Quad 2:1 inverting MUX with tristate outputs.
 sub sn74258 {
-  $oc{$pad{4}} = 1 if defined $pad{4};
-  $oc{$pad{7}} = 1 if defined $pad{7};
-  $oc{$pad{9}} = 1 if defined $pad{9};
-  $oc{$pad{12}} = 1 if defined $pad{12};
-  &ocassign($pad{4}, "!$pad{15}&($pad{1}&!$pad{3}#!$pad{1}&!$pad{2})") if defined $pad{4};
-  &ocassign($pad{7}, "!$pad{15}&($pad{1}&!$pad{6}#!$pad{1}&!$pad{5})") if defined $pad{7};
-  &ocassign($pad{9}, "!$pad{15}&($pad{1}&!$pad{10}#!$pad{1}&!$pad{11})") if defined $pad{9};
-  &ocassign($pad{12}, "!$pad{15}&($pad{1}&!$pad{13}#!$pad{1}&!$pad{14})") if defined $pad{12};
+  &qcode("$pad{4} = $pad{j}&!$pad{3} # !$pad{1}&!$pad{2};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+  &qcode("$pad{4} = $pad{1}&!$pad{6} # !$pad{1}&!$pad{5};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+  &qcode("$pad{4} = $pad{1}&!$pad{10} # !$pad{1}&!$pad{11};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
+  &qcode("$pad{4} = $pad{1}&!$pad{13} # !$pad{1}&!$pad{14};\n");
+  &qcode("$pad{4}.oe = !$pad{15};\n");
 }
 $hidden{'sn74258'} = 0;
+
+# TODO: sn74266
+# sn74287 is a ROM
+# sn74288 is a ROM
 
 sub sn74367 {
   $oc{$pad{3}} = 1 if defined $pad{3};
@@ -1623,6 +1698,8 @@ sub sn74368 {
   &ocassign($pad{13}, "!$pad{15}&$pad{14}") if defined $pad{13};
 }
 $hidden{'sn74368'} = 0;
+
+# TODO: sn74393
 
 # 10 bit latch (positive edge)
 # These are actually preposterously rare.  Even more so than
@@ -1759,7 +1836,25 @@ sub dec8202 {
 }
 $hidden{'dec8202'} = 0;
 
+# Similar to dec8235, except that $pad{9} low inhibits $pad{7} low,
+# and "s0" inputs do not invert.
+sub dec8234 {
+  $oc{$pad{3}} = 1;
+  $oc{$pad{4}} = 1;
+  $oc{$pad{12}} = 1;
+  $oc{$pad{13}} = 1;
+  &ocassign($pad{3}, "$pad{2}&!$pad{9} # $pad{1}&$pad{9}&!$pad{7}") if defined $pad{3};
+  &ocassign($pad{4}, "$pad{5}&!$pad{9} # $pad{6}&$pad{9}&!$pad{7}") if defined $pad{4};
+  &ocassign($pad{12}, "$pad{11}&!$pad{9} # $pad{10}&$pad{9}&!$pad{7}") if defined $pad{12};
+  &ocassign($pad{13}, "$pad{14}&!$pad{9} # $pad{15}&$pad{9}&!$pad{7}") if defined $pad{13};
+}
+$hidden{'dec8234'} = 0;
+
 sub dec8235 {
+  $oc{$pad{3}} = 1;
+  $oc{$pad{4}} = 1;
+  $oc{$pad{12}} = 1;
+  $oc{$pad{13}} = 1;
   &ocassign($pad{3}, "!$pad{2}&!$pad{9} # $pad{1}&!$pad{7}") if defined $pad{3};
   &ocassign($pad{4}, "!$pad{5}&!$pad{9} # $pad{6}&!$pad{7}") if defined $pad{4};
   &ocassign($pad{12}, "!$pad{11}&!$pad{9} # $pad{10}&!$pad{7}") if defined $pad{12};
@@ -1768,6 +1863,10 @@ sub dec8235 {
 $hidden{'dec8235'} = 0;
 
 sub dec8242 {
+  $oc{$pad{3}} = 1;
+  $oc{$pad{4}} = 1;
+  $oc{$pad{10}} = 1;
+  $oc{$pad{11}} = 1;
   &ocassign($pad{3}, "!$pad{1}&!$pad{2} # $pad{1}&$pad{2}") if defined $pad{3};
   &ocassign($pad{4}, "!$pad{5}&!$pad{6} # $pad{5}&$pad{6}") if defined $pad{4};
   &ocassign($pad{10}, "!$pad{8}&!$pad{9} # $pad{8}&$pad{9}") if defined $pad{10};
@@ -1788,6 +1887,19 @@ sub dec8251 {
   &qcode("!$pad{7} = $pad{2} & !$pad{1} & !$pad{14} & $pad{15};\n") if defined $pad{7};
 }
 $hidden{'dec8251'} = 0;
+
+# Just like dec8235, except that $pad{9} low inhibits $pad{7} low.
+sub dec8266 {
+  $oc{$pad{3}} = 1;
+  $oc{$pad{4}} = 1;
+  $oc{$pad{12}} = 1;
+  $oc{$pad{13}} = 1;
+  &ocassign($pad{3}, "!$pad{2}&!$pad{9} # $pad{1}&$pad{9}&!$pad{7}") if defined $pad{3};
+  &ocassign($pad{4}, "!$pad{5}&!$pad{9} # $pad{6}&$pad{9}&!$pad{7}") if defined $pad{4};
+  &ocassign($pad{12}, "!$pad{11}&!$pad{9} # $pad{10}&$pad{9}&!$pad{7}") if defined $pad{12};
+  &ocassign($pad{13}, "!$pad{14}&!$pad{9} # $pad{15}&$pad{9}&!$pad{7}") if defined $pad{13};
+}
+$hidden{'dec8266'} = 0;
 
 sub dec9301 {
   &dec8251;
@@ -2532,6 +2644,7 @@ while (<INPUT>) {
   $value =~ s/^74(.*)n/sn74\1/;
   $value =~ s/^(\d*74\d*)$/sn\1/;
   $value =~ s/^(\d*88\d*)$/ds\1/;
+  $value =~ s/^(\d*82\d*)$/dec\1/;
   $value =~ s/^74(.*)/sn74\1n/;
   $partlist{$part} = $value;
   #

@@ -20,19 +20,19 @@
 // c13: c_us 
 // c14: c_us 
 // e1: sn7475 
-module m7075x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, n3v, n_t_115x, n_t_123x, n_t_125x, n_t_152x, n_t_153x, n_t_20x, n_t_21x, n_t_27x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_3x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p1_l, p2, r1, r2, s1, s2, s_t_1, s_t_4, t2, u1, u2, v1, v2);
+module m7075x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, n3v, n_t_115x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p1_l, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 inout reg c1;
-output d1;
+input d1;
 input d2;
 inout reg e1;
 input e2;
-output f1;
+input f1;
 input f2;
-output h1;
+input h1;
 input h2;
-output j1;
+input j1;
 input j2;
 output k1;
 input k2;
@@ -45,20 +45,6 @@ output n1;
 input n2;
 inout n3v;
 output n_t_115x;
-output n_t_123x;
-output n_t_125x;
-input n_t_152x;
-input n_t_153x;
-input n_t_20x;
-input n_t_21x;
-output n_t_27x;
-output n_t_29x;
-input n_t_31x;
-output n_t_32x;
-input n_t_34x;
-input n_t_35x;
-input n_t_36x;
-output n_t_3x;
 input n_t_82x;
 input n_t_84x;
 inout n_t_86x;
@@ -67,15 +53,13 @@ output n_t_92x;
 input p1;
 inout p1_l;
 input p2;
-output r1;
+input r1;
 input r2;
-output s1;
+input s1;
 input s2;
-output s_t_1;
-output s_t_4;
-output t2;
+input t2;
 output u1;
-output u2;
+input u2;
 input v1;
 input v2;
 
@@ -118,10 +102,20 @@ wire n_t_129x;
 wire n_t_132x;
 wire n_t_133x;
 wire n_t_136x;
+wire n_t_152x;
+wire n_t_153x;
+wire n_t_20x;
+wire n_t_21x;
+wire n_t_31x;
+wire n_t_34x;
+wire n_t_35x;
+wire n_t_36x;
 wire n_t_54x;
 wire n_t_69x;
 wire n_t_74x;
 wire n_t_99x;
+wire s_t_1;
+wire s_t_4;
 always @(p1_l, h2, p1_l, h2, 1'b0)
   if (p1_l & ~h2) begin
     gdollar_0_m <= 1'b0;
@@ -203,9 +197,15 @@ always @(p1_l, e2, p1_l, e2, gdollar_3_m)
     gdollar_3 <= gdollar_3_m;
   end
 assign s_t_4 = ~gdollar_0;
-assign n_t_29x = ~gdollar_1;
-assign n_t_27x = ~gdollar_2;
-assign n_t_32x = ~gdollar_3;
+// e2: dec8266 
+// n_t_20x = !(!j1 & !e1
+//        # !gdollar_3 & e1); 
+// n_t_35x = !(!h1 & !e1
+//        # s_t_4 & e1); 
+// n_t_153x = !(!d1 & !e1
+//         # !gdollar_1 & e1); 
+// n_t_152x = !(!f1 & !e1
+//         # !gdollar_2 & e1); 
 // e3: dec8271 
 always @(v2, m2_l, n_t_54x, n_t_74x, n_t_133x, n3v, n_t_74x, n_t_52x, n3v, n_t_74x)
   if (~m2_l) begin
@@ -419,10 +419,16 @@ always @(p1_l, p2, p1_l, p2, gdollar_7_m)
   if (1'b0) begin
     gdollar_7 <= gdollar_7_m;
   end
-assign n_t_125x = ~gdollar_4;
-assign n_t_123x = ~gdollar_5;
-assign n_t_3x = ~gdollar_6;
 assign s_t_1 = ~gdollar_7;
+// e12: dec8266 
+// n_t_21x = !(!u2 & !e1
+//        # s_t_1 & e1); 
+// n_t_31x = !(!t2 & !e1
+//        # !gdollar_4 & e1); 
+// n_t_36x = !(!s1 & !e1
+//        # !gdollar_5 & e1); 
+// n_t_34x = !(!r1 & !e1
+//        # !gdollar_6 & e1); 
 // e13: dec8271 
 always @(v2, m2_l, n_t_42x, n_t_74x, n_t_21x, n3v, n_t_74x, n_t_39x, n3v, n_t_74x)
   if (~m2_l) begin
@@ -502,5 +508,21 @@ assign m1 = n_t_50x
              | n_t_38x? 1'b0: 1'bz;
 assign m2_l = m2? ~m2: 1'bz;
 assign n1 = n_t_51x? ~n_t_51x: 1'bz;
+assign n_t_152x = ~((~f1 & ~e1
+                      | ~gdollar_2 & e1));
+assign n_t_153x = ~((~d1 & ~e1
+                      | ~gdollar_1 & e1));
+assign n_t_20x = ~((~j1 & ~e1
+                     | ~gdollar_3 & e1));
+assign n_t_21x = ~((~u2 & ~e1
+                     | s_t_1 & e1));
+assign n_t_31x = ~((~t2 & ~e1
+                     | ~gdollar_4 & e1));
+assign n_t_34x = ~((~r1 & ~e1
+                     | ~gdollar_6 & e1));
+assign n_t_35x = ~((~h1 & ~e1
+                     | s_t_4 & e1));
+assign n_t_36x = ~((~s1 & ~e1
+                     | ~gdollar_5 & e1));
 assign p1_l = p1? ~p1: 1'bz;
 endmodule

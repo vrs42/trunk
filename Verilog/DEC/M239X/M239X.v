@@ -12,57 +12,296 @@
 // c5: c_us 
 // c6: cpol_use 
 // e1: sn74h04 
-module m239x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+// e2: sn74h04 
+// e3: sn74197 
+module m239x (n_t_10x, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_2x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_4x, n_t_5x, n_t_9x);
 input n_t_10x;
 input n_t_11x;
-output n_t_12x;
-output n_t_13x;
-output n_t_14x;
+inout reg n_t_14x;
 input n_t_15x;
 input n_t_16x;
-output n_t_17x;
-output n_t_18x;
-output n_t_19x;
-output n_t_1x;
-output n_t_20x;
-output n_t_21x;
-output n_t_22x;
-output n_t_23x;
-output n_t_24x;
-output n_t_25x;
-output n_t_26x;
-output n_t_27x;
-output n_t_28x;
-output n_t_29x;
-output n_t_2x;
-output n_t_30x;
+input n_t_17x;
+input n_t_18x;
+input n_t_19x;
+input n_t_1x;
+input n_t_20x;
+inout reg n_t_21x;
+inout reg n_t_22x;
+inout reg n_t_23x;
+inout reg n_t_24x;
+inout reg n_t_25x;
+inout reg n_t_26x;
+inout reg n_t_27x;
+input n_t_2x;
 input n_t_31x;
 input n_t_32x;
 input n_t_33x;
-output n_t_34x;
-output n_t_35x;
-output n_t_36x;
-output n_t_37x;
-output n_t_38x;
-output n_t_39x;
-output n_t_3x;
-output n_t_40x;
-output n_t_4x;
-output n_t_5x;
-output n_t_6x;
-output n_t_7x;
-output n_t_8x;
+input n_t_34x;
+input n_t_35x;
+input n_t_36x;
+input n_t_37x;
+inout reg n_t_38x;
+inout reg n_t_39x;
+input n_t_3x;
+inout reg n_t_40x;
+input n_t_4x;
+inout reg n_t_5x;
 input n_t_9x;
 
+reg n_t_14x_m;
+reg n_t_21x_m;
+reg n_t_22x_m;
+reg n_t_23x_m;
+reg n_t_24x_m;
+reg n_t_25x_m;
+reg n_t_26x_m;
+reg n_t_27x_m;
+reg n_t_38x_m;
+reg n_t_39x_m;
+reg n_t_40x_m;
+reg n_t_5x_m;
 
-assign n_t_30x = ~n_t_31x;
-assign n_t_28x = ~n_t_32x;
-assign n_t_29x = ~n_t_33x;
-// e2: sn74h04 
-assign n_t_6x = ~n_t_9x;
-assign n_t_7x = ~n_t_10x;
-assign n_t_8x = ~n_t_11x;
-assign n_t_12x = ~n_t_15x;
-assign n_t_13x = ~n_t_16x;
+always @(n_t_16x, n_t_10x, n_t_15x, n_t_20x, n_t_10x, n_t_10x, n_t_15x, n_t_20x, n_t_10x, n_t_14x)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_20x & n_t_10x)) begin
+    n_t_14x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_20x & n_t_10x) begin
+    n_t_14x_m <= 1'b1;
+  end else
+  if (~(n_t_16x)) begin
+    n_t_14x_m <= ~n_t_14x;
+  end
+always @(n_t_16x, n_t_10x, n_t_15x, n_t_20x, n_t_10x, n_t_10x, n_t_15x, n_t_20x, n_t_10x, n_t_14x_m)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_20x & n_t_10x)) begin
+    n_t_14x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_20x & n_t_10x) begin
+    n_t_14x <= 1'b1;
+  end else
+  if (n_t_16x) begin
+    n_t_14x <= n_t_14x_m;
+  end
+always @(n_t_14x, n_t_10x, n_t_15x, n_t_19x, n_t_10x, n_t_10x, n_t_15x, n_t_19x, n_t_10x, n_t_24x)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_19x & n_t_10x)) begin
+    n_t_24x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_19x & n_t_10x) begin
+    n_t_24x_m <= 1'b1;
+  end else
+  if (~(~n_t_14x)) begin
+    n_t_24x_m <= ~n_t_24x;
+  end
+always @(n_t_14x, n_t_10x, n_t_15x, n_t_19x, n_t_10x, n_t_10x, n_t_15x, n_t_19x, n_t_10x, n_t_24x_m)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_19x & n_t_10x)) begin
+    n_t_24x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_19x & n_t_10x) begin
+    n_t_24x <= 1'b1;
+  end else
+  if (~n_t_14x) begin
+    n_t_24x <= n_t_24x_m;
+  end
+always @(n_t_24x, n_t_10x, n_t_15x, n_t_18x, n_t_10x, n_t_10x, n_t_15x, n_t_18x, n_t_10x, n_t_25x)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_18x & n_t_10x)) begin
+    n_t_25x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_18x & n_t_10x) begin
+    n_t_25x_m <= 1'b1;
+  end else
+  if (~(~n_t_24x)) begin
+    n_t_25x_m <= ~n_t_25x;
+  end
+always @(n_t_24x, n_t_10x, n_t_15x, n_t_18x, n_t_10x, n_t_10x, n_t_15x, n_t_18x, n_t_10x, n_t_25x_m)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_18x & n_t_10x)) begin
+    n_t_25x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_18x & n_t_10x) begin
+    n_t_25x <= 1'b1;
+  end else
+  if (~n_t_24x) begin
+    n_t_25x <= n_t_25x_m;
+  end
+always @(n_t_25x, n_t_10x, n_t_15x, n_t_17x, n_t_10x, n_t_10x, n_t_15x, n_t_17x, n_t_10x, n_t_26x)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_17x & n_t_10x)) begin
+    n_t_26x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_17x & n_t_10x) begin
+    n_t_26x_m <= 1'b1;
+  end else
+  if (~(~n_t_25x)) begin
+    n_t_26x_m <= ~n_t_26x;
+  end
+always @(n_t_25x, n_t_10x, n_t_15x, n_t_17x, n_t_10x, n_t_10x, n_t_15x, n_t_17x, n_t_10x, n_t_26x_m)
+  if (~(~n_t_10x & ~n_t_15x) & ~(n_t_17x & n_t_10x)) begin
+    n_t_26x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_15x) & n_t_17x & n_t_10x) begin
+    n_t_26x <= 1'b1;
+  end else
+  if (~n_t_25x) begin
+    n_t_26x <= n_t_26x_m;
+  end
+// e4: sn74197 
+always @(n_t_33x, n_t_32x, n_t_31x, n_t_34x, n_t_32x, n_t_32x, n_t_31x, n_t_34x, n_t_32x, n_t_27x)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_34x & n_t_32x)) begin
+    n_t_27x_m <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_34x & n_t_32x) begin
+    n_t_27x_m <= 1'b1;
+  end else
+  if (~(n_t_33x)) begin
+    n_t_27x_m <= ~n_t_27x;
+  end
+always @(n_t_33x, n_t_32x, n_t_31x, n_t_34x, n_t_32x, n_t_32x, n_t_31x, n_t_34x, n_t_32x, n_t_27x_m)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_34x & n_t_32x)) begin
+    n_t_27x <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_34x & n_t_32x) begin
+    n_t_27x <= 1'b1;
+  end else
+  if (n_t_33x) begin
+    n_t_27x <= n_t_27x_m;
+  end
+always @(n_t_27x, n_t_32x, n_t_31x, n_t_35x, n_t_32x, n_t_32x, n_t_31x, n_t_35x, n_t_32x, n_t_38x)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_35x & n_t_32x)) begin
+    n_t_38x_m <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_35x & n_t_32x) begin
+    n_t_38x_m <= 1'b1;
+  end else
+  if (~(~n_t_27x)) begin
+    n_t_38x_m <= ~n_t_38x;
+  end
+always @(n_t_27x, n_t_32x, n_t_31x, n_t_35x, n_t_32x, n_t_32x, n_t_31x, n_t_35x, n_t_32x, n_t_38x_m)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_35x & n_t_32x)) begin
+    n_t_38x <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_35x & n_t_32x) begin
+    n_t_38x <= 1'b1;
+  end else
+  if (~n_t_27x) begin
+    n_t_38x <= n_t_38x_m;
+  end
+always @(n_t_38x, n_t_32x, n_t_31x, n_t_36x, n_t_32x, n_t_32x, n_t_31x, n_t_36x, n_t_32x, n_t_39x)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_36x & n_t_32x)) begin
+    n_t_39x_m <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_36x & n_t_32x) begin
+    n_t_39x_m <= 1'b1;
+  end else
+  if (~(~n_t_38x)) begin
+    n_t_39x_m <= ~n_t_39x;
+  end
+always @(n_t_38x, n_t_32x, n_t_31x, n_t_36x, n_t_32x, n_t_32x, n_t_31x, n_t_36x, n_t_32x, n_t_39x_m)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_36x & n_t_32x)) begin
+    n_t_39x <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_36x & n_t_32x) begin
+    n_t_39x <= 1'b1;
+  end else
+  if (~n_t_38x) begin
+    n_t_39x <= n_t_39x_m;
+  end
+always @(n_t_39x, n_t_32x, n_t_31x, n_t_37x, n_t_32x, n_t_32x, n_t_31x, n_t_37x, n_t_32x, n_t_40x)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_37x & n_t_32x)) begin
+    n_t_40x_m <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_37x & n_t_32x) begin
+    n_t_40x_m <= 1'b1;
+  end else
+  if (~(~n_t_39x)) begin
+    n_t_40x_m <= ~n_t_40x;
+  end
+always @(n_t_39x, n_t_32x, n_t_31x, n_t_37x, n_t_32x, n_t_32x, n_t_31x, n_t_37x, n_t_32x, n_t_40x_m)
+  if (~(~n_t_32x & ~n_t_31x) & ~(n_t_37x & n_t_32x)) begin
+    n_t_40x <= 1'b0;
+  end else
+  if (~(~n_t_32x & ~n_t_31x) & n_t_37x & n_t_32x) begin
+    n_t_40x <= 1'b1;
+  end else
+  if (~n_t_39x) begin
+    n_t_40x <= n_t_40x_m;
+  end
+// e5: sn74197 
+always @(n_t_11x, n_t_10x, n_t_9x, n_t_1x, n_t_10x, n_t_10x, n_t_9x, n_t_1x, n_t_10x, n_t_5x)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_1x & n_t_10x)) begin
+    n_t_5x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_1x & n_t_10x) begin
+    n_t_5x_m <= 1'b1;
+  end else
+  if (~(n_t_11x)) begin
+    n_t_5x_m <= ~n_t_5x;
+  end
+always @(n_t_11x, n_t_10x, n_t_9x, n_t_1x, n_t_10x, n_t_10x, n_t_9x, n_t_1x, n_t_10x, n_t_5x_m)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_1x & n_t_10x)) begin
+    n_t_5x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_1x & n_t_10x) begin
+    n_t_5x <= 1'b1;
+  end else
+  if (n_t_11x) begin
+    n_t_5x <= n_t_5x_m;
+  end
+always @(n_t_5x, n_t_10x, n_t_9x, n_t_2x, n_t_10x, n_t_10x, n_t_9x, n_t_2x, n_t_10x, n_t_21x)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_2x & n_t_10x)) begin
+    n_t_21x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_2x & n_t_10x) begin
+    n_t_21x_m <= 1'b1;
+  end else
+  if (~(~n_t_5x)) begin
+    n_t_21x_m <= ~n_t_21x;
+  end
+always @(n_t_5x, n_t_10x, n_t_9x, n_t_2x, n_t_10x, n_t_10x, n_t_9x, n_t_2x, n_t_10x, n_t_21x_m)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_2x & n_t_10x)) begin
+    n_t_21x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_2x & n_t_10x) begin
+    n_t_21x <= 1'b1;
+  end else
+  if (~n_t_5x) begin
+    n_t_21x <= n_t_21x_m;
+  end
+always @(n_t_21x, n_t_10x, n_t_9x, n_t_3x, n_t_10x, n_t_10x, n_t_9x, n_t_3x, n_t_10x, n_t_22x)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_3x & n_t_10x)) begin
+    n_t_22x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_3x & n_t_10x) begin
+    n_t_22x_m <= 1'b1;
+  end else
+  if (~(~n_t_21x)) begin
+    n_t_22x_m <= ~n_t_22x;
+  end
+always @(n_t_21x, n_t_10x, n_t_9x, n_t_3x, n_t_10x, n_t_10x, n_t_9x, n_t_3x, n_t_10x, n_t_22x_m)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_3x & n_t_10x)) begin
+    n_t_22x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_3x & n_t_10x) begin
+    n_t_22x <= 1'b1;
+  end else
+  if (~n_t_21x) begin
+    n_t_22x <= n_t_22x_m;
+  end
+always @(n_t_22x, n_t_10x, n_t_9x, n_t_4x, n_t_10x, n_t_10x, n_t_9x, n_t_4x, n_t_10x, n_t_23x)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_4x & n_t_10x)) begin
+    n_t_23x_m <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_4x & n_t_10x) begin
+    n_t_23x_m <= 1'b1;
+  end else
+  if (~(~n_t_22x)) begin
+    n_t_23x_m <= ~n_t_23x;
+  end
+always @(n_t_22x, n_t_10x, n_t_9x, n_t_4x, n_t_10x, n_t_10x, n_t_9x, n_t_4x, n_t_10x, n_t_23x_m)
+  if (~(~n_t_10x & ~n_t_9x) & ~(n_t_4x & n_t_10x)) begin
+    n_t_23x <= 1'b0;
+  end else
+  if (~(~n_t_10x & ~n_t_9x) & n_t_4x & n_t_10x) begin
+    n_t_23x <= 1'b1;
+  end else
+  if (~n_t_22x) begin
+    n_t_23x <= n_t_23x_m;
+  end
 // open collector 'wire-or's 
 endmodule

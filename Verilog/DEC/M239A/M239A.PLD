@@ -3,7 +3,7 @@
 
 Name     M239A ;
 PartNo   cpld ;
-Date     10/22/2023 ;
+Date     10/23/2023 ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -20,8 +20,6 @@ $UNDEF  OPTIMIZE
 /* Output Pins */
 pin = n_t_10x;
 pin = n_t_11x;
-pin = n_t_12x;
-pin = n_t_13x;
 pin = n_t_14x;
 pin = n_t_15x;
 pin = n_t_16x;
@@ -37,10 +35,7 @@ pin = n_t_24x;
 pin = n_t_25x;
 pin = n_t_26x;
 pin = n_t_27x;
-pin = n_t_28x;
-pin = n_t_29x;
 pin = n_t_2x;
-pin = n_t_30x;
 pin = n_t_31x;
 pin = n_t_32x;
 pin = n_t_33x;
@@ -54,13 +49,18 @@ pin = n_t_3x;
 pin = n_t_40x;
 pin = n_t_4x;
 pin = n_t_5x;
-pin = n_t_6x;
-pin = n_t_7x;
-pin = n_t_8x;
 pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node n_t_12x;
+node n_t_13x;
+node n_t_28x;
+node n_t_29x;
+node n_t_30x;
+node n_t_6x;
+node n_t_7x;
+node n_t_8x;
 $ENDIF
 
 /* Code nodes */
@@ -90,5 +90,59 @@ n_t_7x = !n_t_10x;
 n_t_8x = !n_t_11x;
 n_t_12x = !n_t_15x;
 n_t_13x = !n_t_16x;
+
+/* e3: sn74197 */
+n_t_14x.ap = !(n_t_7x & n_t_12x) & n_t_20x & !n_t_7x;
+n_t_14x.ar = !(n_t_7x & n_t_12x) & !(n_t_20x & !n_t_7x);
+n_t_14x.d  = !n_t_14x;
+n_t_14x.ck = !n_t_13x;
+n_t_24x.ap = !(n_t_7x & n_t_12x) & n_t_19x & !n_t_7x;
+n_t_24x.ar = !(n_t_7x & n_t_12x) & !(n_t_19x & !n_t_7x);
+n_t_24x.d  = !n_t_24x;
+n_t_24x.ck = !n_t_14x;
+n_t_25x.ap = !(n_t_7x & n_t_12x) & n_t_18x & !n_t_7x;
+n_t_25x.ar = !(n_t_7x & n_t_12x) & !(n_t_18x & !n_t_7x);
+n_t_25x.d  = !n_t_25x;
+n_t_25x.ck = !n_t_24x;
+n_t_26x.ap = !(n_t_7x & n_t_12x) & n_t_17x & !n_t_7x;
+n_t_26x.ar = !(n_t_7x & n_t_12x) & !(n_t_17x & !n_t_7x);
+n_t_26x.d  = !n_t_26x;
+n_t_26x.ck = !n_t_25x;
+
+/* e4: sn74197 */
+n_t_27x.ap = !(n_t_28x & n_t_30x) & n_t_34x & !n_t_28x;
+n_t_27x.ar = !(n_t_28x & n_t_30x) & !(n_t_34x & !n_t_28x);
+n_t_27x.d  = !n_t_27x;
+n_t_27x.ck = !n_t_29x;
+n_t_38x.ap = !(n_t_28x & n_t_30x) & n_t_35x & !n_t_28x;
+n_t_38x.ar = !(n_t_28x & n_t_30x) & !(n_t_35x & !n_t_28x);
+n_t_38x.d  = !n_t_38x;
+n_t_38x.ck = !n_t_27x;
+n_t_39x.ap = !(n_t_28x & n_t_30x) & n_t_36x & !n_t_28x;
+n_t_39x.ar = !(n_t_28x & n_t_30x) & !(n_t_36x & !n_t_28x);
+n_t_39x.d  = !n_t_39x;
+n_t_39x.ck = !n_t_38x;
+n_t_40x.ap = !(n_t_28x & n_t_30x) & n_t_37x & !n_t_28x;
+n_t_40x.ar = !(n_t_28x & n_t_30x) & !(n_t_37x & !n_t_28x);
+n_t_40x.d  = !n_t_40x;
+n_t_40x.ck = !n_t_39x;
+
+/* e5: sn74197 */
+n_t_5x.ap = !(n_t_7x & n_t_6x) & n_t_1x & !n_t_7x;
+n_t_5x.ar = !(n_t_7x & n_t_6x) & !(n_t_1x & !n_t_7x);
+n_t_5x.d  = !n_t_5x;
+n_t_5x.ck = !n_t_8x;
+n_t_21x.ap = !(n_t_7x & n_t_6x) & n_t_2x & !n_t_7x;
+n_t_21x.ar = !(n_t_7x & n_t_6x) & !(n_t_2x & !n_t_7x);
+n_t_21x.d  = !n_t_21x;
+n_t_21x.ck = !n_t_5x;
+n_t_22x.ap = !(n_t_7x & n_t_6x) & n_t_3x & !n_t_7x;
+n_t_22x.ar = !(n_t_7x & n_t_6x) & !(n_t_3x & !n_t_7x);
+n_t_22x.d  = !n_t_22x;
+n_t_22x.ck = !n_t_21x;
+n_t_23x.ap = !(n_t_7x & n_t_6x) & n_t_4x & !n_t_7x;
+n_t_23x.ar = !(n_t_7x & n_t_6x) & !(n_t_4x & !n_t_7x);
+n_t_23x.d  = !n_t_23x;
+n_t_23x.ck = !n_t_22x;
 
 /* Open collector 'wire-or's */
