@@ -1,0 +1,18 @@
+~/Verilog/bin/topld.pl M900X
+warning: making bot/flex19/ a connector
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: 7404n ne dil14
+info: single ne edge_con2
+warning: making edge/single/ a connector
+warning: making sv1/ml34l/ a connector
+warning: making top/flex19/ a connector
+~/Verilog/bin/smaller.pl M900X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M900XX.PLD || (rm M900XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M900XX.PLD >vv || (rm vv; exit 1)
+mv vv M900X.v
+rm M900XX.PLD

@@ -1,0 +1,16 @@
+~/Verilog/bin/topld.pl M901X
+warning: making bflex/flex19/ a connector
+warning: making tflex/flex19/ a connector
+info: single ne edge_con2
+warning: making u$1/single/ a connector
+warning: non-pullup resistor deleted: r1
+warning: non-pullup resistor deleted: r2
+warning: non-pullup resistor deleted: r3
+warning: non-pullup resistor deleted: r4
+~/Verilog/bin/smaller.pl M901X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M901XX.PLD || (rm M901XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M901XX.PLD >vv || (rm vv; exit 1)
+mv vv M901X.v
+rm M901XX.PLD

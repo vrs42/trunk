@@ -732,9 +732,6 @@ $hidden{'sn7486'} = 0;
 # y1=3 y2=6 y3= 9 y4=12
 # b=8 c=1
 sub sn7487 {
-@temp = %pad;
-warn "@temp\n";
-# BUGBUG: ? : doesn't work like this!!
   &qcode("$pad{ 3} = $pad{8}&!$pad{1} # $pad{1}&$pad{ 2} # !$pad{1}&!$pad{2};\n");
   &qcode("$pad{ 6} = $pad{8}&!$pad{1} # $pad{1}&$pad{ 5} # !$pad{1}&!$pad{5};\n");
   &qcode("$pad{ 9} = $pad{8}&!$pad{1} # $pad{1}&$pad{10} # !$pad{1}&!$pad{10};\n");
@@ -2426,11 +2423,18 @@ $hidden{'cpol_use'} = 0;
 
 # Resistors generate a warning unless one of their pins is 
 # a supply pin.
+# BUGBUG: This is never called -- resistors are now modeled
+# as connectors!
 sub r_us_ {
   local($tmp) = $pad{1};
   $tmp = $pad{2} unless $tmp =~ /'/;
-  warn "warning: non-pullup resistor deleted: $part\n" unless $tmp =~ /'/;
-  return unless $tmp =~ /'/;
+die "got here\n";
+  if ($tmp !~ /'/) {
+    # It is too late to declare the signals as %con here.
+    # (The interface for the module has already been output.)
+    warn "warning: non-pullup resistor converted to connector: $part\n";
+    return;
+  }
   $tmp = $pad{1};
   $tmp = $pad{2} if $tmp =~ /'/;
   &qcode("$tmp = 'b'1;\n") if !$out{$tmp} && !defined $con{$tmp};
@@ -2540,6 +2544,7 @@ while (<INPUT>) {
   $connector{$part} = 1 if $pack =~ /^to5$/;
   $connector{$part} = 1 if $device =~ /^edg/;
   $connector{$part} = 1 if $pack =~ /^edg/;
+  $connector{$part} = 1 if $device =~ /^r_us/;
   $connector{$part} = 1 if $device =~ /^j5mm/;
   $connector{$part} = 1 if $device =~ /^j10mm/;
   $connector{$part} = 1 if $device =~ /^jumper4/;
@@ -2548,11 +2553,6 @@ while (<INPUT>) {
   $connector{$part} = 1 if $device =~ /^0r2/;
   $connector{$part} = 1 if $device =~ /^275p$/;
   $connector{$part} = 1 if $device =~ /^g09r/;
-# $connector{$part} = 1 if $device =~ /^74123/; # BUGBUG vrs kludge
-# $connector{$part} = 1 if $device =~ /^9601/; # BUGBUG vrs kludge
-# $connector{$part} = 1 if $device =~ /^m916$/;
-# $connector{$part} = 1 if $device =~ /^m708$/; # BUGBUG vrs kludge
-# $connector{$part} = 1 if $device =~ /^m709$/; # BUGBUG vrs kludge
   $connector{$part} = 1 if $device =~ /^w\d\d\d$/;
   # If we will be unable to translate it later, mark it a connector now.
   warn "warning: making $part/$value/$hidden{$value} a connector\n"

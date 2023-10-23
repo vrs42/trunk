@@ -1,0 +1,12 @@
+~/Verilog/bin/topld.pl M903X
+warning: making bflex/flex19/ a connector
+warning: making tflex/flex19/ a connector
+info: single ne edge_con2
+warning: making u$1/single/ a connector
+~/Verilog/bin/smaller.pl M903X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M903XX.PLD || (rm M903XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M903XX.PLD >vv || (rm vv; exit 1)
+mv vv M903X.v
+rm M903XX.PLD
