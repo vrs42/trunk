@@ -1,0 +1,15 @@
+~/Verilog/bin/topld.pl M597D
+info: cpol_use ne cpol_use20_8axial
+info: 8t14 ne dil16
+warning: making e1/8t14/ a connector
+info: 8t14 ne dil16
+warning: making e2/8t14/ a connector
+info: single ne edge_con2
+warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M597D.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M597DX.PLD || (rm M597DX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M597DX.PLD >vv || (rm vv; exit 1)
+mv vv M597D.v
+rm M597DX.PLD

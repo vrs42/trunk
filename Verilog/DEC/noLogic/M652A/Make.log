@@ -1,0 +1,85 @@
+~/Verilog/bin/topld.pl M652A
+info: cpol_use ne cpol_use12_4axial
+info: cpol_use ne cpol_use12_4axial
+info: 1n3606 ne 1n4148do35_10
+warning: making d1/1n3606/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d10/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d11/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d12/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d13/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d14/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d15/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d16/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d17/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d18/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d19/1n645/ a connector
+info: 1n3606 ne 1n4148do35_10
+warning: making d2/1n3606/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d20/1n645/ a connector
+info: 1n645 ne 1n4148do35_10
+warning: making d21/1n645/ a connector
+info: 1n3606 ne 1n4148do35_10
+warning: making d3/1n3606/ a connector
+info: 1n3606 ne 1n4148do35_10
+warning: making d4/1n3606/ a connector
+info: 1n3606 ne 1n4148do35_10
+warning: making d5/1n3606/ a connector
+info: 1n3606 ne 1n4148do35_10
+warning: making d6/1n3606/ a connector
+info: 2n3639 ne 2n5415
+warning: making q1/2n3639/ a connector
+info: 2n3639 ne 2n5415
+warning: making q2/2n3639/ a connector
+info: 2n3009 ne 2n2219
+warning: making q3/2n3009/ a connector
+info: 2n3639 ne 2n5415
+warning: making q4/2n3639/ a connector
+info: 2n3009 ne 2n2219
+warning: making q5/2n3009/ a connector
+info: 2n3639 ne 2n5415
+warning: making q6/2n3639/ a connector
+info: 2n3639 ne 2n5415
+warning: making q7/2n3639/ a connector
+info: 2n3639 ne 2n5415
+warning: making q8/2n3639/ a connector
+info: edge_1 ne edge_con1
+warning: making u$3/edge_1/ a connector
+warning: non-bypass capacitor deleted: c1
+warning: non-bypass capacitor deleted: c2
+warning: non-bypass capacitor deleted: c3
+warning: non-bypass capacitor deleted: c5
+warning: non-bypass capacitor deleted: c6
+warning: non-bypass capacitor deleted: c7
+warning: non-bypass capacitor deleted: c8
+warning: non-pullup resistor deleted: r2
+warning: non-pullup resistor deleted: r6
+warning: non-pullup resistor deleted: r8
+warning: non-pullup resistor deleted: r9
+warning: non-pullup resistor deleted: r11
+warning: non-pullup resistor deleted: r13
+warning: non-pullup resistor deleted: r14
+warning: non-pullup resistor deleted: r15
+warning: non-pullup resistor deleted: r16
+warning: non-pullup resistor deleted: r17
+warning: non-pullup resistor deleted: r18
+warning: non-pullup resistor deleted: r19
+warning: non-pullup resistor deleted: r20
+warning: non-pullup resistor deleted: r21
+~/Verilog/bin/smaller.pl M652A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M652AX.PLD || (rm M652AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M652AX.PLD >vv || (rm vv; exit 1)
+mv vv M652A.v
+rm M652AX.PLD

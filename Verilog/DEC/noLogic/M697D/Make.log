@@ -1,0 +1,15 @@
+~/Verilog/bin/topld.pl M697D
+info: cpol_use ne cpol_use20_8axial
+info: 8t13 ne dil16
+warning: making e3/8t13/ a connector
+info: 8t13 ne dil16
+warning: making e4/8t13/ a connector
+info: single ne edge_con2
+warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M697D.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M697DX.PLD || (rm M697DX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M697DX.PLD >vv || (rm vv; exit 1)
+mv vv M697D.v
+rm M697DX.PLD

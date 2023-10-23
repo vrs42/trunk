@@ -8,26 +8,25 @@
 #   The DEC4011 is a transistor array.
 #   7545x are higher power drivers than can be emulated in the CPLD.
 #   The 1808 is a 1013-style UART.
+#   The f3341 FIFO is a memory too large for the CPLD.
 #   The 9601 is a monostable.
+#   The 7413 has hysteresis, which is not a logic function.
 #   The 7412x are monostables.
 #   The dec2501 is a diode clamp array.
 #   The mc1439 is an op amp.
 #   The mc1709 is an op amp.
 
-# TODO: f3341 (FIFO)
 # TODO: 11380n (Fast sp380)
 # TODO: (n)8t38 is a quad bus tranceiver.
 # TODO: AM26s10 is a quad bus tranceiver.
 # TODO: dec3001n is a buffer with 7408 pinout.
 # TODO: dec4015 is a quad R/S latch (with common R).
-# TODO: n8202 is a 10 bit latch.
 # TODO: The {dec|n}8234 is a {dec|n}8235 in which S0 inhibits S1.
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
 # TODO: (n)8266 is a quad 2-1 MUX (with common selects).
-# TODO: sn7413 sn74182
 # TODO: sn74191 sn74197 sn74221 sn74257 sn74266 sn74287 sn74288
-# TODO: sn74393 sn7462 sn7470 sn7481 sn74821t sn7489
+# TODO: sn74393 sn7462 sn7470 sn7481 sn7489
 # TODO: sn7490 sn7492 sn74h40n sn74h52 sn74h60 sn74h62n
 
 #
@@ -1288,6 +1287,22 @@ sub sn74181 {
 }
 $hidden{'sn74181'} = 0;
 
+# Look-ahead Carry Generators
+sub sn74182 {
+  local($cx, $cy, $cz)  = ($pad{12}, $pad{11}, $pad{9});
+  local($x, $y)  = ($pad{7}, $pad{10});
+  local($x0, $x1, $x2, $x3) = ($pad{4}, $pad{2}, $pad{15}, $pad{6});
+  local($y0, $y1, $y2, $y3) = ($pad{3}, $pad{1}, $pad{14}, $pad{5});
+  local($c0) = ($pad{13});
+# Do these get faster if flattened?
+  &qcode("$cx = $y0 & ($x0 # $c0);\n");
+  &qcode("$cy = $y1 & ($x1 # $cx;\n");
+  &qcode("$cz = $y2 & ($x2 # $cy;\n");
+  &qcode("$y = $y3 & ($x3 # $y2) & ($x3 # $x2 # $y1) & ($x3 # $x2 # $x1 # $y0);\n");
+  &qcode("$x = $x3 # $x2 # $x1 # $x0;\n");
+}
+$hidden{'sn74182'} = 0;
+
 sub sn74189 {
   $oc{$pad{5}} = 1 if defined $pad{5};
   ($ra1, $rb1, $rc1, $rd1, $re1, $rf1, $rg1, $rh1)
@@ -1611,6 +1626,141 @@ sub sn74368 {
   &ocassign($pad{13}, "!$pad{15}&$pad{14}") if defined $pad{13};
 }
 $hidden{'sn74368'} = 0;
+
+# 10 bit latch (positive edge)
+# These are actually preposterously rare.  Even more so than
+# the dec8202.
+# BUGBUG: These latches have output enables, which is currently
+# not allowed by cupl2v.pl!
+sub sn74821 {
+  if (defined $pad{23}) {
+    &pinnode($pad{23});
+    &qcode("$pad{23}.d = !$pad{2};\n");
+warn "!oe is $pad{1}\n";
+    &qcode("$pad{23}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{23}.ck = $pad{13};\n");
+  }
+  if (defined $pad{22}) {
+    &pinnode($pad{22});
+    &qcode("$pad{22}.d = !$pad{3};\n");
+    &qcode("$pad{22}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{22}.ck = $pad{13};\n");
+  }
+  if (defined $pad{21}) {
+    &pinnode($pad{21});
+    &qcode("$pad{21}.d = !$pad{4};\n");
+    &qcode("$pad{21}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{21}.ck = $pad{13};\n");
+  }
+  if (defined $pad{20}) {
+    &pinnode($pad{20});
+    &qcode("$pad{20}.d = !$pad{5};\n");
+    &qcode("$pad{20}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{20}.ck = $pad{13};\n");
+  }
+  if (defined $pad{19}) {
+    &pinnode($pad{19});
+    &qcode("$pad{19}.d = !$pad{6};\n");
+    &qcode("$pad{19}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{19}.ck = $pad{13};\n");
+  }
+  if (defined $pad{18}) {
+    &pinnode($pad{18});
+    &qcode("$pad{18}.d = !$pad{7};\n");
+    &qcode("$pad{18}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{18}.ck = $pad{13};\n");
+  }
+  if (defined $pad{17}) {
+    &pinnode($pad{17});
+    &qcode("$pad{17}.d = !$pad{8};\n");
+    &qcode("$pad{17}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{17}.ck = $pad{13};\n");
+  }
+  if (defined $pad{16}) {
+    &pinnode($pad{16});
+    &qcode("$pad{16}.d = !$pad{9};\n");
+    &qcode("$pad{16}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{16}.ck = $pad{13};\n");
+  }
+  if (defined $pad{15}) {
+    &pinnode($pad{15});
+    &qcode("$pad{15}.d = !$pad{10};\n");
+    &qcode("$pad{15}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{15}.ck = $pad{13};\n");
+  }
+  if (defined $pad{14}) {
+    &pinnode($pad{14});
+    &qcode("$pad{14}.d = !$pad{11};\n");
+    &qcode("$pad{14}.oe = !$pad{1};\n") unless $pad{1} eq "'b'0";
+    &qcode("$pad{14}.ck = $pad{13};\n");
+  }
+}
+$hidden{'sn74821'} = 0;
+
+# 10 bit latch (negative edge)
+sub dec8202 {
+  if (defined $pad{22}) {
+    &pinnode($pad{22});
+    &qcode("$pad{22}.d = !$pad{2};\n");
+    &qcode("$pad{22}.ck = !$pad{1};\n");
+    &qcode("$pad{22}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{21}) {
+    &pinnode($pad{21});
+    &qcode("$pad{21}.d = !$pad{3};\n");
+    &qcode("$pad{21}.ck = !$pad{1};\n");
+    &qcode("$pad{21}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{20}) {
+    &pinnode($pad{20});
+    &qcode("$pad{20}.d = !$pad{4};\n");
+    &qcode("$pad{20}.ck = !$pad{1};\n");
+    &qcode("$pad{20}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{19}) {
+    &pinnode($pad{19});
+    &qcode("$pad{19}.d = !$pad{5};\n");
+    &qcode("$pad{19}.ck = !$pad{1};\n");
+    &qcode("$pad{19}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{18}) {
+    &pinnode($pad{18});
+    &qcode("$pad{18}.d = !$pad{6};\n");
+    &qcode("$pad{18}.ck = !$pad{1};\n");
+    &qcode("$pad{18}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{17}) {
+    &pinnode($pad{17});
+    &qcode("$pad{17}.d = !$pad{7};\n");
+    &qcode("$pad{17}.ck = !$pad{1};\n");
+    &qcode("$pad{17}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{16}) {
+    &pinnode($pad{16});
+    &qcode("$pad{16}.d = !$pad{8};\n");
+    &qcode("$pad{16}.ck = !$pad{1};\n");
+    &qcode("$pad{16}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{15}) {
+    &pinnode($pad{15});
+    &qcode("$pad{15}.d = !$pad{9};\n");
+    &qcode("$pad{15}.ck = !$pad{1};\n");
+    &qcode("$pad{15}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{14}) {
+    &pinnode($pad{14});
+    &qcode("$pad{14}.d = !$pad{10};\n");
+    &qcode("$pad{14}.ck = !$pad{1};\n");
+    &qcode("$pad{14}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+  if (defined $pad{13}) {
+    &pinnode($pad{13});
+    &qcode("$pad{13}.d = !$pad{11};\n");
+    &qcode("$pad{13}.ck = !$pad{1};\n");
+    &qcode("$pad{13}.ar = !$pad{23};\n") if defined $pad{23};
+  }
+}
+$hidden{'dec8202'} = 0;
 
 sub dec8235 {
   &ocassign($pad{3}, "!$pad{2}&!$pad{9} # $pad{1}&!$pad{7}") if defined $pad{3};
@@ -2374,6 +2524,7 @@ while (<INPUT>) {
   $value =~ s/^74hct/74/;
   $value =~ s/^74als/74/;
   $value =~ s/^lm(.*)n/lm\1/;
+  $value =~ s/^74(.*)nt$/sn74\1/;
   $value =~ s/^74(.*)n/sn74\1/;
   $value =~ s/^(\d*74\d*)$/sn\1/;
   $value =~ s/^(\d*88\d*)$/ds\1/;

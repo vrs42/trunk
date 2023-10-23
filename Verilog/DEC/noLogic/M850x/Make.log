@@ -1,0 +1,8 @@
+~/Verilog/bin/topld.pl M850x
+~/Verilog/bin/smaller.pl M850x.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M850xX.PLD || (rm M850xX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M850xX.PLD >vv || (rm vv; exit 1)
+mv vv M850x.v
+rm M850xX.PLD

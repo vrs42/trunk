@@ -1,0 +1,26 @@
+~/Verilog/bin/topld.pl M002A
+info: edge_1 ne edge_con1
+warning: making u$2/edge_1/ a connector
+warning: non-bypass capacitor deleted: c1
+warning: non-pullup resistor deleted: r16
+warning: non-pullup resistor deleted: r17
+warning: non-pullup resistor deleted: r18
+warning: non-pullup resistor deleted: r19
+warning: non-pullup resistor deleted: r20
+warning: non-pullup resistor deleted: r21
+warning: non-pullup resistor deleted: r22
+warning: non-pullup resistor deleted: r23
+warning: non-pullup resistor deleted: r24
+warning: non-pullup resistor deleted: r25
+warning: non-pullup resistor deleted: r26
+warning: non-pullup resistor deleted: r27
+warning: non-pullup resistor deleted: r28
+warning: non-pullup resistor deleted: r29
+warning: non-pullup resistor deleted: r30
+~/Verilog/bin/smaller.pl M002A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M002AX.PLD || (rm M002AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M002AX.PLD >vv || (rm vv; exit 1)
+mv vv M002A.v
+rm M002AX.PLD

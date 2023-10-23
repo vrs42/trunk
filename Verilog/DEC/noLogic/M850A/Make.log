@@ -1,0 +1,44 @@
+~/Verilog/bin/topld.pl M850A
+info: 1n4004 ne 1n4148do35_10
+warning: making d1/1n4004/ a connector
+info: 1n4004 ne 1n4148do35_10
+warning: making d2/1n4004/ a connector
+info: 1n4004 ne 1n4148do35_10
+warning: making d3/1n4004/ a connector
+info: 1n753 ne zener_diodedo35z10
+warning: making d4/1n753/ a connector
+info: 1n4004 ne 1n4148do35_10
+warning: making d5/1n4004/ a connector
+info: 1n4004 ne 1n4148do35_10
+warning: making d6/1n4004/ a connector
+info: 1n4004 ne 1n4148do35_10
+warning: making d7/1n4004/ a connector
+info: edge_1 ne edge_con1
+warning: making edge/edge_1/ a connector
+info: 6534b ne _pnp_to92/
+warning: making q1/6534b/ a connector
+info: 6534b ne _pnp_to92/
+warning: making q2/6534b/ a connector
+info: 3009b ne _npn_to18_
+warning: making q3/3009b/ a connector
+info: 6534b ne _pnp_to92/
+warning: making q4/6534b/ a connector
+warning: making sv2/l08p/ a connector
+warning: non-bypass capacitor deleted: c1
+warning: non-pullup resistor deleted: r1
+warning: non-pullup resistor deleted: r3
+warning: non-pullup resistor deleted: r4
+warning: non-pullup resistor deleted: r5
+warning: non-pullup resistor deleted: r6
+warning: non-pullup resistor deleted: r7
+warning: non-pullup resistor deleted: r8
+warning: non-pullup resistor deleted: r10
+warning: non-pullup resistor deleted: r13
+warning: non-pullup resistor deleted: r17
+~/Verilog/bin/smaller.pl M850A.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M850AX.PLD || (rm M850AX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M850AX.PLD >vv || (rm vv; exit 1)
+mv vv M850A.v
+rm M850AX.PLD

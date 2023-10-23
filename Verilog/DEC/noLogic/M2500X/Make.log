@@ -1,0 +1,15 @@
+~/Verilog/bin/topld.pl M2500X
+info: cpol_use ne cpol_use20_8axial
+info: 3341 ne 67c4013
+warning: making e1/f3341/ a connector
+info: 3341 ne 67c4013
+warning: making e2/f3341/ a connector
+info: single ne edge_con2
+warning: making u$2/single/ a connector
+~/Verilog/bin/smaller.pl M2500X.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M2500XX.PLD || (rm M2500XX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M2500XX.PLD >vv || (rm vv; exit 1)
+mv vv M2500X.v
+rm M2500XX.PLD

@@ -1,0 +1,50 @@
+~/Verilog/bin/topld.pl M908B
+warning: making a1/2,54/ a connector
+warning: making a2/2,54/ a connector
+warning: making b1/2,54/ a connector
+warning: making b2/2,54/ a connector
+warning: making c1/2,54/ a connector
+warning: making c2/2,54/ a connector
+warning: making d1/2,54/ a connector
+warning: making d2/2,54/ a connector
+warning: making e1/2,54/ a connector
+warning: making e2/2,54/ a connector
+warning: making f1/2,54/ a connector
+warning: making f2/2,54/ a connector
+warning: making h1/2,54/ a connector
+warning: making h2/2,54/ a connector
+warning: making j1/2,54/ a connector
+warning: making j2/2,54/ a connector
+warning: making k1/2,54/ a connector
+warning: making k2/2,54/ a connector
+warning: making l1/2,54/ a connector
+warning: making l2/2,54/ a connector
+warning: making m1/2,54/ a connector
+warning: making m2/2,54/ a connector
+warning: making n1/2,54/ a connector
+warning: making n2/2,54/ a connector
+warning: making p1/2,54/ a connector
+warning: making p2/2,54/ a connector
+warning: making r1/2,54/ a connector
+warning: making r2/2,54/ a connector
+warning: making s1/2,54/ a connector
+warning: making s2/2,54/ a connector
+warning: making t1/2,54/ a connector
+warning: making t2/2,54/ a connector
+info: single ne edge_con2
+warning: making u$1/single/ a connector
+warning: making u1/2,54/ a connector
+warning: making u2/2,54/ a connector
+warning: making v1/2,54/ a connector
+warning: making v2/2,54/ a connector
+warning: non-pullup resistor deleted: rn1
+warning: non-pullup resistor deleted: rn2
+warning: non-pullup resistor deleted: rn3
+warning: non-pullup resistor deleted: rn4
+~/Verilog/bin/smaller.pl M908B.PLD >vv || (rm vv; exit 1)
+0 signals were removed:
+~/Verilog/bin/smaller.pl vv >M908BX.PLD || (rm M908BX.PLD; exit 1)
+0 signals were removed:
+~/Verilog/bin/cupl2v.pl M908BX.PLD >vv || (rm vv; exit 1)
+mv vv M908B.v
+rm M908BX.PLD
