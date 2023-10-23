@@ -27,6 +27,7 @@ pin = e4q;
 pin = e4q_l;
 pin = f2;
 pin = h2;
+pin = j1;
 pin = j2;
 pin = k1;
 pin = k2;
@@ -46,6 +47,7 @@ pin = n_t_1x;
 pin = n_t_20x;
 pin = n_t_22x;
 pin = n_t_25x;
+pin = n_t_2x;
 pin = n_t_4x;
 pin = n_t_5x;
 pin = n_t_6x;
@@ -58,8 +60,6 @@ pin = v1;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node j1;
-node n_t_2x;
 $ENDIF
 
 /* Code nodes */
@@ -112,29 +112,13 @@ e2 = !e2q;
 /* n_t_6x = !n_t_2x; */
 /* n_t_7x = !j1; */
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
 /* Open collector 'wire-or's */
+property atmel {open_collector= j1};
 !j1 = (n3v3 & m1);
+j1.oe = (n3v3 & m1);
+property atmel {open_collector= n_t_2x};
 !n_t_2x = (n3v3 & l1);
+n_t_2x.oe = (n3v3 & l1);
 property atmel {open_collector= n_t_6x};
 !n_t_6x = n_t_2x;
 n_t_6x.oe = n_t_2x;

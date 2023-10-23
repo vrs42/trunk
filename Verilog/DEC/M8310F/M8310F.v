@@ -37,10 +37,10 @@
 // c32: c_us 
 // c33: c_us 
 // e1: n8881n 
-// en2 = !(!ts4_l & !keycontrol_l); 
-// en2 = !(!fe_fd & ts4fset); 
+// n_t_37x = !(!ts4_l & !keycontrol_l); 
+// n_t_37x = !(fe_fd_l & ts4fset); 
 // data_f = !(!md06_l & op1ts3); 
-// en2 = !(n_t_36x & c1_l); 
+// n_t_37x = !(n_t_36x & c1_l); 
 // e2: n8881n 
 // carry_in_l = !(skip1 & ts4fset); 
 // ac2bus_l = !(n_t_56x & c2_l); 
@@ -62,8 +62,7 @@
 // carry_in_l = !(!d_l & !ts2_l); 
 // n_t_35x = !(ac00 & !md05_l); 
 // e6: sn7404 
-// e7: sn7420 
-module m8310f (ac00, ac01, ac02, ac03, ac04_11eq0_l, ad00_l, ad01_l, ad10_l, ad11_l, carry_out_l, fdset_l, mq00_03eq0_l, mq04_11eq0_l, n_t_2x, ac0eqac1_l, ac2_ac3_l, ac2bus_l, ac_load_l, aceq0, bk_dc_l, bus_strobe_l, c0_l, c1_l, c2_l, carry_in_l, cpma_dis_l, cpma_load_l, data_f, data_t, en0, en1, en2, feset_l, fset_l, ind1, ind2, initialize, intinprog, ir0_l, ir1_l, ir2_l, keycontrol_l, la_enable_l, left_l, link_l, link_load_l, mac_l, malc_l, mb_load_l, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, md_dis, mq2bus_l, mq_load_l, mqeq0, ms_ir_dis_l, n15v, ope, overflow_l, pagez, pause_l, pc_load_l, pulse_la, pwr_ok, right_l, rom_l, run, skip_l, tp1, tp2, tp3, tp4, ts1_l, ts2_l, ts3_l, ts4_l, twice_l);
+module m8310f (ac00, ac01, ac02, ac03, ac04_11eq0_l, ad00_l, ad01_l, ad10_l, ad11_l, ad_ld_d15_l, carry_out_l, fdset_l, link_data_l, mq00_03eq0_l, mq04_11eq0_l, n3b, n3va, n_t_26x, n_t_2x, ac0eqac1_l, ac2_ac3_l, ac2bus_l, ac_load_l, aceq0, bk_dc_l, bus_strobe_l, c0_l, c1_l, c2_l, carry_in_l, cpma_dis_l, cpma_load_l, data_f, data_t, en0, en1, en2, fe_fd_l, feset_l, fset_l, ind1, ind2, initialize, intinprog, ir0_l, ir1_l, ir2_l, keycontrol_l, la_enable_l, left_l, link_l, link_load_l, mac_l, malc_l, mb_load_l, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, md_dis, mq2bus_l, mq_load_l, mqeq0, ms_ir_dis_l, n15v, n3v, n_t_16x, n_t_17x, n_t_30x, n_t_34x, n_t_35x, n_t_37x, n_t_44x, n_t_6x, n_t_9x, ope, overflow_l, pagez, pause_l, pc_load_l, pulse_la, pwr_ok, right_l, rom_l, run, skip_l, tp1, tp2, tp3, tp4, ts1_l, ts2_l, ts3_l, ts4_l, twice_l);
 input ac00;
 input ac01;
 input ac02;
@@ -73,10 +72,15 @@ input ad00_l;
 input ad01_l;
 input ad10_l;
 input ad11_l;
+input ad_ld_d15_l;
 input carry_out_l;
 input fdset_l;
+input link_data_l;
 input mq00_03eq0_l;
 input mq04_11eq0_l;
+input n3b;
+input n3va;
+input n_t_26x;
 input n_t_2x;
 output ac0eqac1_l;
 inout ac2_ac3_l;
@@ -96,6 +100,7 @@ inout data_t;
 output en0;
 inout en1;
 inout en2;
+inout fe_fd_l;
 inout feset_l;
 inout fset_l;
 input ind1;
@@ -131,6 +136,16 @@ output mq_load_l;
 output mqeq0;
 input ms_ir_dis_l;
 output n15v;
+inout n3v;
+inout n_t_16x;
+output n_t_17x;
+inout n_t_30x;
+inout n_t_34x;
+inout n_t_35x;
+inout n_t_37x;
+inout n_t_44x;
+inout n_t_6x;
+inout n_t_9x;
 inout ope;
 output overflow_l;
 output pagez;
@@ -157,6 +172,10 @@ reg mac_l_m;
 reg n_t_60x_m;
 reg n_t_61x_m;
 reg n_t_62x_m;
+reg n_t_73x_m;
+reg n_t_77x_m;
+reg n_t_78x_m;
+reg ov_m;
 reg skip1_m;
 
 reg skip1;
@@ -196,25 +215,18 @@ wire jmsets3;
 wire n_t_12x;
 wire n_t_13x;
 wire n_t_14x;
-wire n_t_16x;
-wire n_t_17x;
 wire n_t_18x;
 wire n_t_19x;
 wire n_t_20x;
 wire n_t_21x;
 wire n_t_23x;
-wire n_t_26x;
 wire n_t_28x;
 wire n_t_29x;
-wire n_t_30x;
 wire n_t_32x;
-wire n_t_34x;
-wire n_t_35x;
 wire n_t_36x;
 wire n_t_39x;
 wire n_t_3x;
 wire n_t_43x;
-wire n_t_44x;
 wire n_t_45x;
 wire n_t_4x;
 wire n_t_55x;
@@ -230,7 +242,6 @@ wire n_t_80x;
 wire n_t_81x;
 wire n_t_85x;
 wire n_t_8x;
-wire n_t_9x;
 wire op1_l;
 wire op1ts3;
 wire op2ts3;
@@ -243,13 +254,14 @@ wire tade_l;
 wire tadets3;
 wire tp4!malc;
 wire ts4fset!ms_dis;
+// e7: sn7420 
 assign n_t_28x = ~(tade_l & dcae_l & ande_l & ~oprf);
-assign n_t_4x = ~(~ts4_l & ~fe_fd & fset_l & ~f_l);
+assign n_t_4x = ~(~ts4_l & fe_fd_l & fset_l & ~f_l);
 // e8: sn7405 
 // en0 = en1; 
 // en0 = en2; 
 // en1 = en2; 
-// en2 = !jmsets2; 
+// n_t_37x = !jmsets2; 
 // en1 = !tadets3; 
 // carry_in_l = !iszets2; 
 // e9: sn7412 
@@ -282,30 +294,42 @@ assign n_t_32x = ~(n_t_30x & ~skip1);
 // ac_load_l = !(c2_l & !bus_strobe_l); 
 // e16: sn7404 
 // e17: sn7474 
-always @(tp4, n_t_26x, cpma_dis_l)
+always @(tp4, n_t_26x, n3b, cpma_dis_l)
   if (~n_t_26x) begin
     mac_l_m <= 1'b0;
+  end else
+  if (~n3b) begin
+    mac_l_m <= 1'b1;
   end else
   if (~(tp4)) begin
     mac_l_m <= ~cpma_dis_l;
   end
-always @(tp4, n_t_26x, mac_l_m)
+always @(tp4, n_t_26x, n3b, mac_l_m)
   if (~n_t_26x) begin
     mac_l <= 1'b0;
+  end else
+  if (~n3b) begin
+    mac_l <= 1'b1;
   end else
   if (tp4) begin
     mac_l <= mac_l_m;
   end
-always @(tp3, n_t_34x, n_t_32x)
+always @(tp3, n_t_34x, n3b, n_t_32x)
   if (~n_t_34x) begin
     skip1_m <= 1'b0;
+  end else
+  if (~n3b) begin
+    skip1_m <= 1'b1;
   end else
   if (~(tp3)) begin
     skip1_m <= n_t_32x;
   end
-always @(tp3, n_t_34x, skip1_m)
+always @(tp3, n_t_34x, n3b, skip1_m)
   if (~n_t_34x) begin
     skip1 <= 1'b0;
+  end else
+  if (~n3b) begin
+    skip1 <= 1'b1;
   end else
   if (tp3) begin
     skip1 <= skip1_m;
@@ -365,7 +389,7 @@ assign op1ts3 = ~(ts3_l
 // e26: sn7404 
 // e27: sn7405 
 // cpma_load_l = !tp4; 
-// !fe_fd = !fe_fd; 
+// fe_fd_l = !fe_fd; 
 // en0 = !jmsets3; 
 // feset_l = !intinprog; 
 // n_t_30x = !n_t_29x; 
@@ -387,36 +411,58 @@ assign n_t_12x = ~(n_t_13x & ~n_t_23x & ~n_t_23x);
 assign n_t_72x = ~(~opr_iot & ~f_l & n_t_2x & jmp_l);
 // e31: sn7410 
 assign ts4fset!ms_dis = ~(~(~fset_l & ms_ir_dis_l & ~ts4_l));
-assign eset = ~(feset_l & n_t_72x & ~d);
+assign eset = ~(feset_l & n_t_72x & ~djmp_l);
 assign n_t_75x = ~(~f_l & ~opr_iot & ~n_t_2x);
 // e32: sn7400 
-assign n_t_8x = ~n_t_12x;
+assign n_t_8x = ~(link_data_l & n_t_12x);
 assign pagez = ~(~(n_t_3x & md04_l));
-assign n_t_23x = ~iot_l;
+assign n_t_23x = ~(iot_l & ad_ld_d15_l);
 // e33: sn7474 
-always @(n_t_9x, initialize, n_t_8x)
+always @(n_t_6x, initialize, n3va, n_t_8x)
   if (initialize) begin
     link_m <= 1'b0;
   end else
-  if (~(~n_t_9x)) begin
+  if (~n3va) begin
+    link_m <= 1'b1;
+  end else
+  if (~(n_t_6x)) begin
     link_m <= n_t_8x;
   end
-always @(n_t_9x, initialize, link_m)
+always @(n_t_6x, initialize, n3va, link_m)
   if (initialize) begin
     link <= 1'b0;
   end else
-  if (~n_t_9x) begin
+  if (~n3va) begin
+    link <= 1'b1;
+  end else
+  if (n_t_6x) begin
     link <= link_m;
   end
-always @(posedge tp2)
+always @(tp2, n3va, n3va, carry_out_l)
+  if (~n3va) begin
+    ov_m <= 1'b0;
+  end else
+  if (~n3va) begin
+    ov_m <= 1'b1;
+  end else
+  if (~(tp2)) begin
+    ov_m <= carry_out_l;
+  end
+always @(tp2, n3va, n3va, ov_m)
+  if (~n3va) begin
+    ov <= 1'b0;
+  end else
+  if (~n3va) begin
+    ov <= 1'b1;
+  end else
   if (tp2) begin
-    ov <= carry_out_l;
+    ov <= ov_m;
   end
 // e34: sn7404 
 // e35: sn74h00 
 assign opr_iot = ~(opr_l & iot_l);
 assign n_t_64x = ~(tp2 & ~f_l);
-assign d!jmp = ~(~(jmp_l & ~d_l));
+assign djmp_l = ~(~(jmp_l & ~d_l));
 // e36: sn74h04 
 // e37: sn7402 
 assign jmse = ~(e_l
@@ -441,28 +487,40 @@ assign bf_kc = ~(f_l & keycontrol_l);
 assign dset_l = ~(~(n_t_75x & fdset_l));
 assign fe_fd = ~(fdset_l & feset_l);
 // e40: sn74h74 
-always @(n_t_64x, tp4, md02_l)
+always @(n_t_64x, tp4, n3v, md02_l)
   if (tp4) begin
     n_t_62x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_62x_m <= 1'b1;
   end else
   if (~(~n_t_64x)) begin
     n_t_62x_m <= ~md02_l;
   end
-always @(n_t_64x, tp4, n_t_62x_m)
+always @(n_t_64x, tp4, n3v, n_t_62x_m)
   if (tp4) begin
     n_t_62x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_62x <= 1'b1;
   end else
   if (~n_t_64x) begin
     n_t_62x <= n_t_62x_m;
   end
-always @(n_t_64x, tp4, md00_l)
+always @(n_t_64x, n3v, tp4, md00_l)
+  if (~n3v) begin
+    n_t_60x_m <= 1'b0;
+  end else
   if (tp4) begin
     n_t_60x_m <= 1'b1;
   end else
   if (~(~n_t_64x)) begin
     n_t_60x_m <= ~md00_l;
   end
-always @(n_t_64x, tp4, n_t_60x_m)
+always @(n_t_64x, n3v, tp4, n_t_60x_m)
+  if (~n3v) begin
+    n_t_60x <= 1'b0;
+  end else
   if (tp4) begin
     n_t_60x <= 1'b1;
   end else
@@ -484,30 +542,52 @@ assign dcae_l = ~(~e_l & ~dca_l);
 assign tade_l = ~(~tad_l & ~e_l);
 assign n_t_81x = ~(tade_l & op1_l);
 // e43: n8881n 
-// !n_t_9x = !n_t_9x; 
+// n_t_6x = !n_t_9x; 
 // n_t_35x = !(!md07_l & link); 
 // n_t_9x = !(n_t_81x & tp3); 
 // n_t_9x = link_load_l; 
 // e44: n8881n 
-// !'b'0 = 'b'1; 
+// n3v = 'b'1; 
 // ir2_l = !(ms_ir_dis_l & n_t_62x); 
 // ir0_l = !(n_t_60x & ms_ir_dis_l); 
 // ir1_l = !(n_t_61x & ms_ir_dis_l); 
 // e45: sn74h74 
-always @(negedge cpma_load_l)
-  if (~cpma_load_l) begin
-    n_t_73x <= eset;
+always @(cpma_load_l, n3v, n3v, eset)
+  if (~n3v) begin
+    n_t_73x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_73x_m <= 1'b1;
+  end else
+  if (~(~cpma_load_l)) begin
+    n_t_73x_m <= eset;
   end
-always @(n_t_64x, tp4, md01_l)
+always @(cpma_load_l, n3v, n3v, n_t_73x_m)
+  if (~n3v) begin
+    n_t_73x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_73x <= 1'b1;
+  end else
+  if (~cpma_load_l) begin
+    n_t_73x <= n_t_73x_m;
+  end
+always @(n_t_64x, tp4, n3v, md01_l)
   if (tp4) begin
     n_t_61x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_61x_m <= 1'b1;
   end else
   if (~(~n_t_64x)) begin
     n_t_61x_m <= ~md01_l;
   end
-always @(n_t_64x, tp4, n_t_61x_m)
+always @(n_t_64x, tp4, n3v, n_t_61x_m)
   if (tp4) begin
     n_t_61x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_61x <= 1'b1;
   end else
   if (~n_t_64x) begin
     n_t_61x <= n_t_61x_m;
@@ -530,13 +610,45 @@ assign mb_load_l = ~tp2;
 // d_l = !(n_t_77x & ms_ir_dis_l); 
 // f_l = !(n_t_78x & ms_ir_dis_l); 
 // e50: sn7474 
-always @(negedge cpma_load_l)
-  if (~cpma_load_l) begin
-    n_t_78x <= ~fset_l;
+always @(cpma_load_l, n3v, n3v, fset_l)
+  if (~n3v) begin
+    n_t_78x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_78x_m <= 1'b1;
+  end else
+  if (~(~cpma_load_l)) begin
+    n_t_78x_m <= ~fset_l;
   end
-always @(negedge cpma_load_l)
+always @(cpma_load_l, n3v, n3v, n_t_78x_m)
+  if (~n3v) begin
+    n_t_78x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_78x <= 1'b1;
+  end else
   if (~cpma_load_l) begin
-    n_t_77x <= ~dset_l;
+    n_t_78x <= n_t_78x_m;
+  end
+always @(cpma_load_l, n3v, n3v, dset_l)
+  if (~n3v) begin
+    n_t_77x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_77x_m <= 1'b1;
+  end else
+  if (~(~cpma_load_l)) begin
+    n_t_77x_m <= ~dset_l;
+  end
+always @(cpma_load_l, n3v, n3v, n_t_77x_m)
+  if (~n3v) begin
+    n_t_77x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_77x <= 1'b1;
+  end else
+  if (~cpma_load_l) begin
+    n_t_77x <= n_t_77x_m;
   end
 // e51: sn7402 
 assign andets3 = ~(ets3_l
@@ -557,43 +669,6 @@ assign iszets3 = ~(isz_l
 // pc_load_l = !(bf_kc & tp1); 
 // pc_load_l = !(jmse & tp3); 
 // n_t_34x = !(jmse & tp2); 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r38: r_us_ 
 // open collector 'wire-or's 
 assign ac2bus_l = (n_t_56x & c2_l)
                    | (n_t_55x & ~ts1_l)
@@ -629,14 +704,9 @@ assign en1 = (~ts4_l & d)
               | (~en2)
               | tadets3
               | (~d_l & ~ts3_l & ~jmp_l)? 1'b0: 1'bz;
-assign en2 = ~(~((~ts4_l & ~keycontrol_l)
-                | (~fe_fd & ts4fset)
-                | (n_t_36x & c1_l)
-                | jmsets2))? ~((~ts4_l & ~keycontrol_l)
-                | (~fe_fd & ts4fset)
-                | (n_t_36x & c1_l)
-                | jmsets2): 1'bz;
+assign en2 = ~(~(~n_t_37x))? ~(~n_t_37x): 1'bz;
 assign f_l = ~((n_t_78x & ms_ir_dis_l));
+assign fe_fd_l = fe_fd? ~fe_fd: 1'bz;
 assign feset_l = intinprog? ~intinprog: 1'bz;
 assign fset_l = (dset_l & ~eset)? 1'b0: 1'bz;
 assign ir0_l = (n_t_60x & ms_ir_dis_l)? 1'b0: 1'bz;
@@ -650,20 +720,26 @@ assign md_dis = (~ms_ir_dis_l & bk_dc_l)? 1'b0: 1'bz;
 assign mq2bus_l = (ind1 & ~ts1_l & ~ind2)
                    | (opets3 & ~md05_l & pause_l)? 1'b0: 1'bz;
 assign mq_load_l = (ope & ~md07_l & tp3)? 1'b0: 1'bz;
-assign n_t_16x = ~((~n_t_23x & n_t_14x));
-assign n_t_17x = ~((~pwr_ok & run));
-assign n_t_30x = ~((op2ts3 & n_t_43x)
-                    | n_t_29x
-                    | (ov & iszets3));
-assign n_t_34x = ~(initialize
-                    | (~f_l & tp1)
-                    | (jmse & tp2));
-assign n_t_35x = ~((aceq0 & ~md06_l)
-                    | (ac00 & ~md05_l)
-                    | (~md07_l & link));
-assign n_t_44x = ~((~ts3_l & md04_l & oprf));
-assign n_t_9x = ~((n_t_81x & tp3)
-                   | (~link_load_l));
+assign n3v = 1'b0? 1'b1: 1'bz;
+assign n_t_16x = (~n_t_23x & n_t_14x)? 1'b0: 1'bz;
+assign n_t_17x = (~pwr_ok & run)? 1'b0: 1'bz;
+assign n_t_30x = (op2ts3 & n_t_43x)
+                  | n_t_29x
+                  | (ov & iszets3)? 1'b0: 1'bz;
+assign n_t_34x = initialize
+                  | (~f_l & tp1)
+                  | (jmse & tp2)? 1'b0: 1'bz;
+assign n_t_35x = (aceq0 & ~md06_l)
+                  | (ac00 & ~md05_l)
+                  | (~md07_l & link)? 1'b0: 1'bz;
+assign n_t_37x = (~ts4_l & ~keycontrol_l)
+                  | (fe_fd_l & ts4fset)
+                  | (n_t_36x & c1_l)
+                  | jmsets2? 1'b0: 1'bz;
+assign n_t_44x = (~ts3_l & md04_l & oprf)? 1'b0: 1'bz;
+assign n_t_6x = n_t_9x? ~n_t_9x: 1'bz;
+assign n_t_9x = (n_t_81x & tp3)
+                 | (~link_load_l)? 1'b0: 1'bz;
 assign overflow_l = (ov & ~ts3_l)? 1'b0: 1'bz;
 assign pc_load_l = (~bus_strobe_l & ~c2_l)
                     | (~jmp_l & tp3)

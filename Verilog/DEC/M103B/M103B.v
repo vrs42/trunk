@@ -12,7 +12,7 @@
 // c5: c_us 
 // c6: c_us 
 // e1: sn7430 
-module m103b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, n1, n2, n3v3, p2, r2, s2, u2, v2);
+module m103b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, n1, n2, n3v3, n_t_2x, p2, r2, s2, u2, v2);
 output a1;
 inout b1;
 output c1;
@@ -34,6 +34,7 @@ input m1;
 output n1;
 input n2;
 input n3v3;
+output n_t_2x;
 input p2;
 input r2;
 input s2;
@@ -51,19 +52,12 @@ assign e1 = ~(n3v3 & f1);
 assign d1 = ~(n3v3 & v2 & r2);
 assign c1 = ~(n3v3 & d1);
 // e4: sn7400 
+assign n_t_2x = ~n_t_9x;
 assign n1 = ~(l1 & m1);
 assign n_t_9x = ~(u2 & n_t_8x);
 assign k1 = ~(h1 & j1);
 // e5: sn74h40 
 assign b1 = ~(n3v3 & v2 & p2);
 assign a1 = ~(n3v3 & b1);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
 // open collector 'wire-or's 
 endmodule

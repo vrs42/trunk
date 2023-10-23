@@ -21,13 +21,8 @@
 // c14: cpol_use 
 // c15: cpol_use 
 // c16: cpol_use 
-// e2: sn7401 
-// n_t_3x = !(bf1 & an2); 
-// n_t_7x = !ah1; 
-// n_t_2x = !(n_t_1x & af1); 
-// n_t_1x = !(ak1 & af1); 
-// e4: sn7475 
-module m7672x (n3v, n_t_13x, n_t_14x, n_t_17x, n_t_18x, n_t_5x, n_t_6x, n_t_8x, ad2, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bd1, be1, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, n15v, n_t_11x, n_t_12x, n_t_16x, n_t_1x, n_t_2x, n_t_7x);
+// e1: sn74821 
+module m7672x (n3v, n_t_13x, n_t_14x, n_t_17x, n_t_18x, n_t_5x, n_t_6x, n_t_8x, ad2, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am1, am2, an1, an2, ap1, ap2, ar1, ar2, as1, as2, at2, au1, au2, av1, av2, ba1, bb1, bd1, be1, bf1, bf2, bh1, bh2, bj1, bj2, bk1, bk2, bl1, bl2, bm1, bm2, bn1, bn2, bp1, bp2, br1, br2, bs1, bs2, bt2, bu1, bu2, bv1, n15v, n_t_12x, n_t_16x, n_t_1x, n_t_2x, n_t_3x, n_t_7x);
 input n3v;
 output n_t_13x;
 output n_t_14x;
@@ -36,33 +31,33 @@ output n_t_18x;
 output n_t_5x;
 output n_t_6x;
 output n_t_8x;
-output ad2;
-output ae2;
+output reg ad2;
+output reg ae2;
 input af1;
-output af2;
+output reg af2;
 input ah1;
-output ah2;
+output reg ah2;
 input aj1;
-output aj2;
+output reg aj2;
 input ak1;
-output ak2;
-output al1;
-output al2;
-output am1;
-output am2;
+output reg ak2;
+input al1;
+output reg al2;
+input am1;
+output reg am2;
 output an1;
-input an2;
+inout reg an2;
 output ap1;
-output ap2;
+output reg ap2;
 inout reg ar1;
-output ar2;
+input ar2;
 output as1;
-output as2;
-output at2;
+input as2;
+input at2;
 output au1;
-output au2;
+input au2;
 inout reg av1;
-output av2;
+input av2;
 inout reg ba1;
 inout reg bb1;
 input bd1;
@@ -92,11 +87,11 @@ input bu1;
 inout bu2;
 output bv1;
 output n15v;
-output n_t_11x;
 output n_t_12x;
 output n_t_16x;
 inout n_t_1x;
-output n_t_2x;
+inout n_t_2x;
+inout n_t_3x;
 output n_t_7x;
 
 reg ar1_m;
@@ -110,9 +105,54 @@ reg gdollar_0_m;
 
 reg gdollar_0;
 wire n_t_10x;
-wire n_t_3x;
 wire n_t_4x;
 wire n_t_9x;
+always @(negedge aj1)
+  if (~aj1) begin
+    ap2 <= ~n_t_1x;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    an2 <= ~ak1;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    am2 <= ~n_t_2x;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    al2 <= ~al1;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    ak2 <= ~am1;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    ad2 <= ~av2;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    ae2 <= ~au2;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    af2 <= ~at2;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    ah2 <= ~as2;
+  end
+always @(negedge aj1)
+  if (~aj1) begin
+    aj2 <= ~ar2;
+  end
+// e2: sn7401 
+// n_t_3x = !(bf1 & an2); 
+// n_t_7x = !ah1; 
+// n_t_2x = !(n_t_1x & af1); 
+// n_t_1x = !(ak1 & af1); 
+// e4: sn7475 
 always @(bf1, bj1, bf1, bj1, 1'b0)
   if (bf1 & ~bj1) begin
     bb1_m <= 1'b0;
@@ -294,18 +334,9 @@ assign bu2 = ~bm2;
 assign bp2 = ~bn2;
 assign br1 = ~bp1;
 // ic1: sn7404 
-assign n_t_11x = ~aj1;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
 // open collector 'wire-or's 
 assign n_t_1x = (ak1 & af1)? 1'b0: 1'bz;
 assign n_t_2x = (n_t_1x & af1)? 1'b0: 1'bz;
-assign n_t_3x = ~((bf1 & an2));
+assign n_t_3x = (bf1 & an2)? 1'b0: 1'bz;
 assign n_t_7x = ah1? ~ah1: 1'bz;
 endmodule

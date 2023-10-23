@@ -27,6 +27,7 @@ pin = data_clk_ok;
 pin = data_enable;
 pin = data_state;
 pin = data_state_l;
+pin = db_cont4_l;
 pin = drive_status_bad;
 pin = drv_revo;
 pin = dsk_capacity_ex_l;
@@ -49,9 +50,13 @@ pin = main_l;
 pin = main_pl;
 pin = mak_l;
 pin = n12th_bit_ok;
+pin = n_t_102x;
+pin = n_t_10x;
+pin = n_t_20x;
 pin = n_t_24x;
 pin = n_t_25x;
 pin = n_t_27x;
+pin = n_t_6x;
 pin = n_t_74x;
 pin = n_t_75x;
 pin = n_t_76x;
@@ -78,11 +83,13 @@ pin = btp2;
 pin = btp3;
 pin = btp3_l;
 pin = btp3_ok;
+pin = busy_error;
 pin = c0_l;
 pin = c1_l;
 pin = clr_all;
 pin = clr_all_l;
 pin = clr_drive_cmd_l;
+pin = crc_error;
 pin = data0_l;
 pin = data10_l;
 pin = data11_l;
@@ -97,6 +104,7 @@ pin = data8_l;
 pin = data9_l;
 pin = db_clk;
 pin = db_cont1_l;
+pin = db_cont2;
 pin = db_cont4;
 pin = device_rk;
 pin = error_clr_l;
@@ -116,6 +124,8 @@ pin = md6_l;
 pin = md7_l;
 pin = md8_l;
 pin = md9_l;
+pin = md_rd_buff_l;
+pin = md_rk_l;
 pin = n3v;
 pin = n6rk2_l;
 pin = n6rk3_ok;
@@ -124,8 +134,12 @@ pin = n6rk4_l;
 pin = n6rk6;
 pin = n6rk7;
 pin = n6rk7_ok;
+pin = n_t_101x;
+pin = n_t_1x;
 pin = n_t_22x;
+pin = n_t_5x;
 pin = n_t_82x;
+pin = n_t_93x;
 pin = power_ok;
 pin = rk_data11;
 pin = set_idle_pl_l;
@@ -161,7 +175,6 @@ node n_t_61x;
 node n_t_60x;
 node n_t_40x;
 node db_cont1;
-node db_cont2;
 node db_cont3;
 node rk_data4;
 node rk_data5;
@@ -193,8 +206,6 @@ node gdollar_4;
 node gdollar_5;
 node gdollar_6;
 node set_time_out_er;
-node busy_error;
-node crc_error;
 node time_out_er;
 node drive_status_er;
 node cyl_addrs_er;
@@ -222,7 +233,6 @@ node data_rqst_late_l;
 node db4_ena;
 node db_cont2_l;
 node db_cont3_l;
-node db_cont4_l;
 node device_rk_l;
 node done_flag;
 node enab_rk_data;
@@ -236,8 +246,6 @@ node ld_db_ac;
 node ld_db_ac_l;
 node ld_rd_buffer;
 node md_rd_buff;
-node md_rd_buff_l;
-node md_rk_l;
 node n0_db4;
 node n1_db2;
 node n1_db3;
@@ -250,9 +258,6 @@ node n6rk5_l;
 node n6rk6_l;
 node n6rk7_l;
 node n_t_100x;
-node n_t_101x;
-node n_t_102x;
-node n_t_10x;
 node n_t_12x;
 node n_t_13x;
 node n_t_14x;
@@ -260,17 +265,13 @@ node n_t_15x;
 node n_t_16x;
 node n_t_17x;
 node n_t_19x;
-node n_t_1x;
-node n_t_20x;
 node n_t_34x;
 node n_t_35x;
 node n_t_3x;
 node n_t_41x;
 node n_t_42x;
 node n_t_43x;
-node n_t_5x;
 node n_t_68x;
-node n_t_6x;
 node n_t_70x;
 node n_t_71x;
 node n_t_72x;
@@ -289,7 +290,6 @@ node n_t_87x;
 node n_t_88x;
 node n_t_89x;
 node n_t_90x;
-node n_t_93x;
 node n_t_95x;
 node n_t_97x;
 node n_t_98x;
@@ -1003,40 +1003,6 @@ n_t_41x = !(error_fl_l & done_flag_l);
 enable_status = !(clr_drive_cmd_l & n_t_100x);
 n_t_19x = !(btp2 & wrt_buf_data);
 ld_db_ac_l = !(ac7 & n6rk7);
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= c0_l};

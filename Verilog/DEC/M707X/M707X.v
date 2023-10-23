@@ -28,7 +28,8 @@
 // c21: cpol_use 
 // c23: c_us 
 // e1: sn7430 
-module m707x (ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, bit6, bit9, bn1, bp1, clr_flag1, clr_flag2, echo, enable, enable_ds, ioclr, irq, line, load_buffer, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_17x, n_t_63x, serial_out, size, skip, skp_strobe, stop, wait_l);
+module m707x (n_t_2x, ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, bit6, bit9, bn1, bp1, clr_flag1, clr_flag2, echo, enable, enable_ds, ioclr, irq, line, load_buffer, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_17x, n_t_1x, n_t_63x, serial_out, size, skip, skp_strobe, stop, tx, wait_l);
+input n_t_2x;
 input ac04;
 input ac05;
 input ac06;
@@ -62,12 +63,14 @@ input n_t_12x;
 input n_t_13x;
 input n_t_15x;
 input n_t_17x;
+output n_t_1x;
 output n_t_63x;
 output serial_out;
 input size;
 output skip;
 input skp_strobe;
 input stop;
+output tx;
 input wait_l;
 
 reg active_m;
@@ -118,11 +121,10 @@ wire n_t_62x;
 wire n_t_6x;
 wire n_t_9x;
 wire selected;
-wire tx;
 assign n_t_9x = ~(n_t_17x & ae1 & n_t_15x & af1 & n_t_13x & n_t_12x & n3v & n3v);
 // e2: sn7474 
-always @(n_t_16x, active, bit1)
-  if (1'b1) begin
+always @(n_t_16x, n_t_2x, active, bit1)
+  if (n_t_2x) begin
     line_m <= 1'b0;
   end else
   if (~active) begin
@@ -131,8 +133,8 @@ always @(n_t_16x, active, bit1)
   if (~(n_t_16x)) begin
     line_m <= bit1;
   end
-always @(n_t_16x, active, line_m)
-  if (1'b1) begin
+always @(n_t_16x, n_t_2x, active, line_m)
+  if (n_t_2x) begin
     line <= 1'b0;
   end else
   if (~active) begin
@@ -307,6 +309,7 @@ always @(n_t_16x, ioclr_l, n_t_381x, bit5_m)
     bit5 <= bit5_m;
   end
 // e12: sn7400 
+assign n_t_1x = active;
 assign n_t_28x = ~(n_t_10x & n_t_62x);
 // e13: sn7410 
 assign n_t_132x = ~(clr_flag1 & n3v & selected);
@@ -483,17 +486,5 @@ assign n_t_10x = ~(n_t_39x & active);
 assign n_t_11x = ~(active & n_t_16x);
 assign n_t_161x = ~(wait_l & ~active);
 assign n_t_62x = ~(stop & size);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
 // open collector 'wire-or's 
 endmodule

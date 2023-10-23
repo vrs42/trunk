@@ -16,7 +16,10 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v3;
 pin = n_t_103x;
+pin = n_t_128x;
+pin = n_t_152x;
 pin = n_t_165x;
 pin = n_t_1x;
 pin = n_t_32x;
@@ -49,6 +52,7 @@ pin = data08_l;
 pin = data09_l;
 pin = data10_l;
 pin = data11_l;
+pin = dotpc_l;
 pin = eia_in;
 pin = eia_out;
 pin = initialize;
@@ -57,6 +61,7 @@ pin = int_rqst_l;
 pin = internal_io_l;
 pin = io_pause_l;
 pin = line;
+pin = line_l;
 pin = md03;
 pin = md04;
 pin = md05;
@@ -71,6 +76,8 @@ pin = n_t_119x;
 pin = n_t_146x;
 pin = n_t_161x;
 pin = n_t_162x;
+pin = n_t_27x;
+pin = n_t_30x;
 pin = n_t_45x;
 pin = n_t_59x;
 pin = n_t_83x;
@@ -96,6 +103,7 @@ pin = tx_20ma;
 pin = tx_20ma_or;
 pin = tx_active;
 pin = tx_div_l;
+pin = tx_sel_l;
 node rx_div;
 node ck_pulse;
 node n_t_43x;
@@ -103,7 +111,6 @@ node n_t_75x;
 node n_t_155x;
 node gdollar_0;
 node gdollar_1;
-node n_t_30x;
 node n_t_34x;
 node n_t_36x;
 node n_t_35x;
@@ -153,7 +160,6 @@ node dokcc;
 node dokrs;
 node dotcf;
 node dotpc;
-node dotpc_l;
 node flgs;
 node init_l;
 node kcc_l;
@@ -164,15 +170,11 @@ node krs_l;
 node ksf_l;
 node kskp;
 node last_unit_l;
-node line_l;
-node n3v3;
 node n_t_102x;
 node n_t_108x;
 node n_t_10x;
-node n_t_128x;
 node n_t_145x;
 node n_t_14x;
-node n_t_152x;
 node n_t_16x;
 node n_t_17x;
 node n_t_18x;
@@ -184,7 +186,6 @@ node n_t_23x;
 node n_t_24x;
 node n_t_25x;
 node n_t_26x;
-node n_t_27x;
 node n_t_28x;
 node n_t_29x;
 node n_t_2x;
@@ -232,7 +233,6 @@ node tpc_l;
 node tsf_l;
 node tsk_l;
 node tskp;
-node tx_sel_l;
 $ENDIF
 
 /* Code nodes */
@@ -861,50 +861,6 @@ r_run_l.d = n3v3;
 r_run_l.ck = n_t_26x;
 r_run_l.ap = !init_l;
 
-/* r1: r_us_ */
-n3v3 = 'b'1;
-
-/* r2: r_us_ */
-n3v3 = 'b'1;
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r23: r_us_ */
-
-/* r24: r_us_ */
-
-/* r26: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= c0_l};
 !c0_l = dokcc;
@@ -949,4 +905,6 @@ internal_io_l.oe = (n_t_5x)
 property atmel {open_collector= skip_l};
 !skip_l = n_t_22x;
 skip_l.oe = n_t_22x;
+property atmel {open_collector= tx_sel_l};
 !tx_sel_l = n_t_5x;
+tx_sel_l.oe = n_t_5x;

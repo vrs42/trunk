@@ -17,6 +17,8 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = incr_sc;
+pin = n3v;
+pin = n3v0;
 pin = tp2_d;
 
 /* Output Pins */
@@ -29,6 +31,7 @@ pin = data11;
 pin = data7;
 pin = data8;
 pin = data9;
+pin = data_to_sc;
 pin = defer;
 pin = div_12_l;
 pin = e;
@@ -54,6 +57,8 @@ pin = md7;
 pin = md8;
 pin = md9;
 pin = modeb;
+pin = n0_to_eir;
+pin = n_t_44x;
 pin = next_loc;
 pin = rom_11_l;
 pin = rom_12_l;
@@ -61,8 +66,13 @@ pin = rom_13_l;
 pin = rom_14_l;
 pin = rom_15_l;
 pin = rom_17_l;
+pin = rom_19_l;
+pin = rom_21_l;
 pin = rom_22_l;
+pin = rom_23_l;
 pin = rom_24_l;
+pin = rom_25_l;
+pin = rom_26_l;
 pin = sc_0_l;
 pin = tp1;
 pin = tp2;
@@ -101,7 +111,6 @@ node bmd10;
 node bmd11;
 node bmd8;
 node bmd9;
-node data_to_sc;
 node e_l;
 node eae_inst;
 node ex1_l;
@@ -110,10 +119,7 @@ node exec_multiply;
 node fetch_l;
 node init_l;
 node ld_eir;
-node n0_to_eir;
 node n0_to_sc;
-node n3v;
-node n3v0;
 node n_t_15x;
 node n_t_16x;
 node n_t_20x;
@@ -135,7 +141,6 @@ node n_t_36x;
 node n_t_37x;
 node n_t_41x;
 node n_t_43x;
-node n_t_44x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
@@ -149,11 +154,6 @@ node n_t_54x;
 node n_t_55x;
 node n_t_6x;
 node n_t_9x;
-node rom_19_l;
-node rom_21_l;
-node rom_23_l;
-node rom_25_l;
-node rom_26_l;
 node sc_load_l;
 node sc_to_data;
 node swab;
@@ -656,32 +656,6 @@ n_t_42x.ck = !(!n3v & !n_t_19x & !n_t_39x & !n_t_40x
              # !incr_sc & n_t_19x & n_t_39x & n_t_40x);
 n_t_46x = n_t_39x & n_t_40x & n_t_19x & n_t_42x;
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-n3v = 'b'1;
-
-/* r13: r_us_ */
-n3v0 = 'b'1;
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= adlk_dis_l};
 !adlk_dis_l = (!n_t_25x & (e11_x0010
@@ -759,9 +733,15 @@ property atmel {open_collector= last_step_l};
 last_step_l.oe = (n_t_38x & n_t_19x & n_t_20x)
                # (n_t_19x & exec_divide & n_t_42x)
                # (exec_multiply & n_t_49x & n_t_20x);
+property atmel {open_collector= n0_to_eir};
 !n0_to_eir = (n_t_52x & n_t_29x)
              # (fetch_l & n_t_28x);
+n0_to_eir.oe = (n_t_52x & n_t_29x)
+             # (fetch_l & n_t_28x);
+property atmel {open_collector= n_t_44x};
 !n_t_44x = (data_to_sc & n_t_45x)
+           # (n_t_43x);
+n_t_44x.oe = (data_to_sc & n_t_45x)
            # (n_t_43x);
 property atmel {open_collector= rom_11_l};
 !rom_11_l = (!n_t_25x & (e11_10x01
@@ -815,6 +795,7 @@ property atmel {open_collector= rom_17_l};
                      # e11_100x1));
 rom_17_l.oe = (!n_t_25x & (e11_x0010
                      # e11_100x1));
+property atmel {open_collector= rom_19_l};
 !rom_19_l = (!n_t_25x & (e11_00x10
                      # e11_00100
                      # e11_x0111
@@ -823,7 +804,24 @@ rom_17_l.oe = (!n_t_25x & (e11_x0010
                      # e11_01110
                      # e11_100x1
                      # e11_10101));
+rom_19_l.oe = (!n_t_25x & (e11_00x10
+                     # e11_00100
+                     # e11_x0111
+                     # e11_10x10
+                     # e11_011x1
+                     # e11_01110
+                     # e11_100x1
+                     # e11_10101));
+property atmel {open_collector= rom_21_l};
 !rom_21_l = (!n_t_21x & (e19_001x1
+                     # e19_x0110
+                     # e19_1111x
+                     # e19_100x1
+                     # e19_1x010
+                     # e19_110x1
+                     # e19_1x101
+                     # e19_10111));
+rom_21_l.oe = (!n_t_21x & (e19_001x1
                      # e19_x0110
                      # e19_1111x
                      # e19_100x1
@@ -844,7 +842,14 @@ rom_22_l.oe = (!n_t_21x & (e19_0001x
                      # e19_x1001
                      # e19_01010
                      # e19_10001));
+property atmel {open_collector= rom_23_l};
 !rom_23_l = (!n_t_21x & (e19_0001x
+                     # e19_1x011
+                     # e19_x1001
+                     # e19_x1010
+                     # e19_10001
+                     # e19_10010));
+rom_23_l.oe = (!n_t_21x & (e19_0001x
                      # e19_1x011
                      # e19_x1001
                      # e19_x1010
@@ -863,6 +868,7 @@ rom_24_l.oe = (!n_t_21x & (e19_x0101
                      # e19_10001
                      # e19_11x00
                      # e19_1101x));
+property atmel {open_collector= rom_25_l};
 !rom_25_l = (!n_t_21x & (e19_0001x
                      # e19_11x11
                      # e19_001x1
@@ -870,7 +876,22 @@ rom_24_l.oe = (!n_t_21x & (e19_x0101
                      # e19_11x10
                      # e19_0100x
                      # e19_01100));
+rom_25_l.oe = (!n_t_21x & (e19_0001x
+                     # e19_11x11
+                     # e19_001x1
+                     # e19_00110
+                     # e19_11x10
+                     # e19_0100x
+                     # e19_01100));
+property atmel {open_collector= rom_26_l};
 !rom_26_l = (!n_t_21x & (e19_0001x
+                     # e19_1110x
+                     # e19_0x100
+                     # e19_1x011
+                     # e19_10001
+                     # e19_1x010
+                     # e19_10100));
+rom_26_l.oe = (!n_t_21x & (e19_0001x
                      # e19_1110x
                      # e19_0x100
                      # e19_1x011

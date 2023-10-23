@@ -157,7 +157,5 @@ always @(n_t_28x, n_t_27x, n_t_30x, n_t_12x_m)
     n_t_12x <= n_t_12x_m;
   end
 assign n_t_11x = ~n_t_12x;
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 endmodule

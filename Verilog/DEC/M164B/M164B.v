@@ -20,7 +20,8 @@
 // c13: c_us 
 // c14: c_us 
 // e1: sn7482 
-module m164b (n_t_10x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_1x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_26x, n_t_2x, n_t_33x, n_t_34x, n_t_37x, n_t_39x, n_t_3x, n_t_40x, n_t_49x, n_t_4x, n_t_50x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+module m164b (n_t_25x, n_t_10x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_1x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_26x, n_t_2x, n_t_33x, n_t_34x, n_t_37x, n_t_39x, n_t_3x, n_t_40x, n_t_49x, n_t_4x, n_t_50x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+input n_t_25x;
 input n_t_10x;
 output n_t_15x;
 output n_t_16x;
@@ -130,11 +131,12 @@ assign n_t_33x = ~(n_t_29x & n_t_9x
 assign n_t_34x = ~(n_t_9x & n_t_27x
                     | n_t_28x & n_t_10x);
 // e9: sn7482 
-assign n_t_46x = ~n_t_37x
+assign n_t_46x = n_t_25x
+                  ^ n_t_37x
                   ^ n_t_26x;
-assign gdollar_4 = n_t_37x
+assign gdollar_4 = n_t_25x & n_t_37x
                     | n_t_37x & n_t_26x
-                    | n_t_26x;
+                    | n_t_25x & n_t_26x;
 assign n_t_44x = n_t_39x
                   ^ n_t_40x
                   ^ gdollar_4;
@@ -156,7 +158,5 @@ assign n_t_49x = ~(n_t_45x & n_t_9x
                     | n_t_46x & n_t_10x);
 assign n_t_50x = ~(n_t_9x & n_t_43x
                     | n_t_44x & n_t_10x);
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 endmodule

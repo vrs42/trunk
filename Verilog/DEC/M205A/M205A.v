@@ -156,9 +156,5 @@ always @(n_t_16x, n_t_15x, n_t_20x, n_t_19x_m)
     n_t_19x <= n_t_19x_m;
   end
 assign n_t_18x = ~n_t_19x;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
 // open collector 'wire-or's 
 endmodule

@@ -5,16 +5,6 @@
 // internal nodes 
 // code nodes 
 // equations 
-// bit13_0: r_us_ 
-// bit13_1: r_us_ 
-// bit14_0: r_us_ 
-// bit14_1: r_us_ 
-// bit15_0: r_us_ 
-// bit15_1: r_us_ 
-// bit16_0: r_us_ 
-// bit16_1: r_us_ 
-// bit17_0: r_us_ 
-// bit17_1: r_us_ 
 // c1: c_us 
 // c2: c_us 
 // c3: c_us 
@@ -23,18 +13,25 @@
 // c6: c_us 
 // c7: cpol_use 
 // e1: sp380n 
-module m109x (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_34x, n_t_37x, n_t_38x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x);
+module m109x (bit13, bit14, bit15, bit16, bit17, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_37x, n_t_38x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+input bit13;
+input bit14;
+input bit15;
+input bit16;
+input bit17;
 input n_t_10x;
 input n_t_11x;
 output n_t_12x;
-output n_t_13x;
-output n_t_14x;
-output n_t_15x;
+input n_t_13x;
+input n_t_14x;
+input n_t_15x;
 output n_t_16x;
 input n_t_17x;
 input n_t_18x;
 input n_t_19x;
 input n_t_1x;
+output n_t_20x;
+output n_t_21x;
 output n_t_22x;
 output n_t_23x;
 output n_t_24x;
@@ -45,9 +42,11 @@ output n_t_28x;
 input n_t_29x;
 input n_t_2x;
 input n_t_30x;
-output n_t_31x;
+input n_t_31x;
 output n_t_32x;
-output n_t_34x;
+output n_t_33x;
+input n_t_34x;
+output n_t_35x;
 output n_t_37x;
 input n_t_38x;
 output n_t_3x;
@@ -56,13 +55,9 @@ input n_t_5x;
 output n_t_6x;
 output n_t_7x;
 output n_t_8x;
+output n_t_9x;
 
 
-wire bit13;
-wire bit14;
-wire bit15;
-wire bit16;
-wire bit17;
 assign n_t_3x = ~n_t_1x;
 assign n_t_4x = ~n_t_18x;
 assign n_t_22x = ~n_t_19x;
@@ -78,6 +73,8 @@ assign n_t_12x = ~n_t_10x;
 assign n_t_28x = ~n_t_30x;
 assign n_t_8x = ~n_t_29x;
 // e4: sp380n 
+assign n_t_21x = ~n_t_13x;
+assign n_t_33x = ~n_t_31x;
 // e5: sp314n 
 assign n_t_37x = ~(bit13
                     | bit14
@@ -85,7 +82,9 @@ assign n_t_37x = ~(bit13
                     | bit17
                     | bit16);
 // e6: sp380n 
+assign n_t_35x = ~n_t_34x;
 assign n_t_16x = ~n_t_11x;
-// r1: r_us_ 
+assign n_t_9x = ~n_t_15x;
+assign n_t_20x = ~n_t_14x;
 // open collector 'wire-or's 
 endmodule

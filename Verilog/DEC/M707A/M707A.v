@@ -29,7 +29,8 @@
 // c22: c_us 
 // c23: c_us 
 // e1: sn7430 
-module m707a (ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, bit6, bit9, bn1, bp1, clr_flag1, clr_flag2, enable, enable_ds, ioclr, irq, line, load_buffer, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_17x, n_t_63x, serial_out, size, skip, skp_strobe, stop, wait_l);
+module m707a (n_t_2x, ac04, ac05, ac06, ac07, ac08, ac09, ac10, ac11, active, ae1, af1, ah1, al1, ar1, bit6, bit9, bn1, bp1, clr_flag1, clr_flag2, enable, enable_ds, ioclr, irq, line, load_buffer, n2xclk, n3v, n_t_12x, n_t_13x, n_t_15x, n_t_17x, n_t_1x, n_t_40x, n_t_63x, serial_out, size, skip, skp_strobe, stop, wait_l);
+input n_t_2x;
 input ac04;
 input ac05;
 input ac06;
@@ -54,7 +55,7 @@ input enable;
 input enable_ds;
 input ioclr;
 inout reg irq;
-output reg line;
+inout reg line;
 input load_buffer;
 input n2xclk;
 input n3v;
@@ -62,6 +63,8 @@ input n_t_12x;
 input n_t_13x;
 input n_t_15x;
 input n_t_17x;
+output n_t_1x;
+output n_t_40x;
 output n_t_63x;
 output serial_out;
 input size;
@@ -285,8 +288,8 @@ always @(n_t_362x, ioclr_l, n_t_387x, bit3_m)
     bit3 <= bit3_m;
   end
 // e6: sn7474 
-always @(n_t_362x, active, bit1)
-  if (1'b1) begin
+always @(n_t_362x, n_t_2x, active, bit1)
+  if (n_t_2x) begin
     line_m <= 1'b0;
   end else
   if (~active) begin
@@ -295,8 +298,8 @@ always @(n_t_362x, active, bit1)
   if (~(n_t_362x)) begin
     line_m <= bit1;
   end
-always @(n_t_362x, active, line_m)
-  if (1'b1) begin
+always @(n_t_362x, n_t_2x, active, line_m)
+  if (n_t_2x) begin
     line <= 1'b0;
   end else
   if (~active) begin
@@ -305,6 +308,7 @@ always @(n_t_362x, active, line_m)
   if (n_t_362x) begin
     line <= line_m;
   end
+assign n_t_40x = ~line;
 always @(n_t_362x, ioclr_l, n_t_393x, bit2)
   if (~ioclr_l) begin
     bit1_m <= 1'b0;
@@ -348,6 +352,7 @@ assign skip = ~(skp_strobe & ~irq & selected);
 // e12: sn7440 
 assign ioclr_l = ~(n3v & ioclr);
 // e13: sn7400 
+assign n_t_1x = active;
 assign n_t_178x = ~(n_t_131x & n_t_62x);
 // e14: sn7474 
 always @(n2xclk, ioclr_l, n3v, n_t_178x)
@@ -481,14 +486,5 @@ always @(n2xclk, n3v, ioclr_l, n_t_362x_m)
   end
 // e18: sn7400 
 assign n_t_129x = ~(~n_t_362x & ~n_t_6x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
 // open collector 'wire-or's 
 endmodule

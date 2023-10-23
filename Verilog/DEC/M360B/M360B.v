@@ -10,9 +10,10 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn7440 
-module m360b (n_t_10x, n_t_12x, n_t_13x, n_t_17x, n_t_18x, n_t_21x, n_t_22x, n_t_2x, n_t_5x);
+module m360b (n_t_10x, n_t_12x, n_t_11x, n_t_13x, n_t_17x, n_t_18x, n_t_21x, n_t_22x, n_t_2x, n_t_5x);
 input n_t_10x;
 input n_t_12x;
+output n_t_11x;
 output n_t_13x;
 output n_t_17x;
 output n_t_18x;
@@ -22,22 +23,9 @@ input n_t_2x;
 output n_t_5x;
 
 
-wire n_t_11x;
 assign n_t_13x = n_t_12x;
 assign n_t_5x = ~(n_t_22x & n_t_2x);
 // e2: sn7400 
 assign n_t_11x = ~(n_t_10x & ~n_t_12x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
 // open collector 'wire-or's 
 endmodule

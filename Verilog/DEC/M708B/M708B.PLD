@@ -16,11 +16,13 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v1;
 
 /* Output Pins */
 pin = clock;
 pin = clock_enable;
 pin = clock_iot;
+pin = clr_flag_l;
 pin = flag;
 pin = flag_buffer;
 pin = initialize;
@@ -47,10 +49,8 @@ node n_t_36x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node clr_flag_l;
 node iop1;
 node iop2;
-node n3v1;
 node n_t_14x;
 node n_t_26x;
 node n_t_29x;
@@ -137,22 +137,11 @@ n_t_37x = !(load_counter & mb9);
 n_t_14x = !(n_t_35x & initialize);
 load_counter = !n_t_35x;
 
-/* r1: r_us_ */
-n3v1 = 'b'1;
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-n3v1 = 'b'1;
-
-/* r6: r_us_ */
-
 /* Open collector 'wire-or's */
+property atmel {open_collector= clr_flag_l};
 !clr_flag_l = (n_t_32x & flag_buffer)
+              # (n_t_14x);
+clr_flag_l.oe = (n_t_32x & flag_buffer)
               # (n_t_14x);
 property atmel {open_collector= io_irq_l};
 !io_irq_l = (flag & irq_enb);

@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v;
 pin = tt_shift;
 
 /* Output Pins */
@@ -92,7 +93,6 @@ node mb3_h;
 $IFNDEF OPTIMIZE
 node mb2_l;
 node mb3_l;
-node n3v;
 node n_t_10x;
 node n_t_11x;
 node n_t_12x;
@@ -259,22 +259,6 @@ n_t_12x = gdollar_1;
           # bu1 & da_enabl); */
 /* gdollar_4 = !gdollar_3; */
 n_t_14x = gdollar_3;
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-n3v = 'b'1;
-
-/* r7: r_us_ */
-n3v = 'b'1;
 
 /* Open collector 'wire-or's */
 !gdollar_1 = (ma_enabl & ma2_h

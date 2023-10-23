@@ -57,12 +57,8 @@ warning: making q1/2n3009/ a connector
 info: quad ne edge_con8
 warning: making u$2/quad/ a connector
 warning: non-bypass capacitor deleted: c1
-warning: non-pullup resistor deleted: r35
-warning: non-pullup resistor deleted: r37
-warning: non-pullup resistor deleted: r38
 ~/Verilog/bin/smaller.pl M8310F.PLD >vv || (rm vv; exit 1)
-63 signals were removed:
-  ad_ld_d15_l: 'b'1
+56 signals were removed:
   bd: !d_l
   be: !e_l
   bf: !f_l
@@ -83,14 +79,9 @@ warning: non-pullup resistor deleted: r38
   bus_strobe: !bus_strobe_l
   cpma_load: !cpma_load_l
   eset_l: !eset
-  fe_fd_l: !fe_fd
   fset: !fset_l
   jmp: !jmp_l
-  link_data_l: 'b'1
   ms_dis_l: ms_ir_dis_l
-  n3b: 'b'1
-  n3v: !'b'0
-  n3va: 'b'1
   n_t_10x: !link_load_l
   n_t_11x: !pagez
   n_t_15x: !n_t_23x
@@ -116,7 +107,6 @@ warning: non-pullup resistor deleted: r38
   n_t_65x: !n_t_64x
   n_t_66x: !d!jmp
   n_t_67x: !bts3
-  n_t_6x: !n_t_9x
   n_t_70x: !opets3
   n_t_71x: !op2ts3
   n_t_74x: !dset_l
@@ -126,10 +116,8 @@ warning: non-pullup resistor deleted: r38
   opr_iot_l: !opr_iot
   oprf_l: !oprf
 ~/Verilog/bin/smaller.pl vv >M8310FX.PLD || (rm M8310FX.PLD; exit 1)
-4 signals were removed:
+2 signals were removed:
   btp3: tp3
-  djmp_l: d!jmp
-  n_t_37x: en2
   n_t_46x: !n_t_2x
 ~/Verilog/bin/cupl2v.pl M8310FX.PLD >vv || (rm vv; exit 1)
 mv vv M8310F.v

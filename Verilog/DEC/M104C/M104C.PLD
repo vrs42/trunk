@@ -16,6 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v3;
+pin = n_t_8x;
 
 /* Output Pins */
 pin = clr_flag_l;
@@ -31,20 +33,18 @@ pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_14x;
 pin = n_t_15x;
+pin = n_t_16x;
 pin = n_t_1x;
 pin = n_t_2x;
 pin = n_t_3x;
 pin = n_t_4x;
+pin = n_t_5x;
 pin = pwr_clr;
-node n_t_16x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n3v3;
-node n_t_5x;
 node n_t_6x;
 node n_t_7x;
-node n_t_8x;
 node n_t_9x;
 node pwr_clr_l;
 $ENDIF
@@ -104,31 +104,5 @@ n_t_2x.d = flag;
 n_t_2x.ck = io_sync;
 n_t_2x.ap = !n3v3;
 n_t_3x = !n_t_2x;
-
-/* r1: r_us_ */
-n3v3 = 'b'1;
-
-/* r2: r_us_ */
-n3v3 = 'b'1;
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
 
 /* Open collector 'wire-or's */

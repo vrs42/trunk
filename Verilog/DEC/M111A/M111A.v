@@ -10,7 +10,8 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn7400 
-module m111a (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m111a (n3v3, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n15v, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input n3v3;
 input a1;
 output b1;
 input c1;
@@ -46,28 +47,24 @@ input v1;
 output v2;
 
 
-assign b1 = ~a1;
-assign d2 = ~c1;
-assign f2 = ~e2;
-assign e1 = ~d1;
+assign b1 = ~(n3v3 & a1);
+assign d2 = ~(c1 & n3v3);
+assign f2 = ~(n3v3 & e2);
+assign e1 = ~(n3v3 & d1);
 // e2: sn7400 
-assign h1 = ~f1;
-assign j2 = ~h2;
-assign l2 = ~k2;
-assign k1 = ~j1;
+assign h1 = ~(n3v3 & f1);
+assign j2 = ~(h2 & n3v3);
+assign l2 = ~(n3v3 & k2);
+assign k1 = ~(n3v3 & j1);
 // e3: sn7400 
-assign m1 = ~l1;
-assign n2 = ~m2;
-assign r2 = ~p2;
-assign p1 = ~n1;
+assign m1 = ~(n3v3 & l1);
+assign n2 = ~(m2 & n3v3);
+assign r2 = ~(n3v3 & p2);
+assign p1 = ~(n3v3 & n1);
 // e4: sn7400 
-assign s1 = ~r1;
-assign t2 = ~s2;
-assign u1 = ~v1;
-assign v2 = ~u2;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
+assign s1 = ~(n3v3 & r1);
+assign t2 = ~(s2 & n3v3);
+assign u1 = ~(n3v3 & v1);
+assign v2 = ~(n3v3 & u2);
 // open collector 'wire-or's 
 endmodule

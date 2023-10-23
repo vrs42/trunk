@@ -25,7 +25,7 @@
 // c21: c_us 
 // c22: cpol_use 
 // e1: sn7400 
-module m701d (n_t_14x, n_t_26x, n_t_32x, , clear_x, clear_y, initialize, interrupt_l, iop1, iop2, iop4, light_pen, load_x, load_y, mb10=1, mb11=1, mb3=0, mb4=0, mb5=0, mb6=1, mb7=0, mb7=1, mb8=0, mb8=1, mb9=0, n15v, n_t_19x, n_t_20x, n_t_24x, n_t_48x, n_t_50x, skip_l, z_axis);
+module m701d (n_t_14x, n_t_26x, n_t_32x, , clear_x, clear_y, initialize, interrupt_l, iop1, iop2, iop4, light_pen, load_x, load_y, mb10=1, mb11=1, mb3=0, mb4=0, mb5=0, mb6=1, mb7=0, mb7=1, mb8=0, mb8=1, mb9=0, n15v, n_t_18x, n_t_19x, n_t_20x, n_t_24x, n_t_38x, n_t_39x, n_t_40x, n_t_48x, n_t_50x, n_t_8x, skip_l, z_axis);
 input n_t_14x;
 output n_t_26x;
 input n_t_32x;
@@ -52,11 +52,16 @@ input mb8=0;
 input mb8=1;
 output mb9=0;
 output n15v;
-output n_t_19x;
-output n_t_20x;
+output n_t_18x;
+inout n_t_19x;
+inout n_t_20x;
 input n_t_24x;
+output n_t_38x;
+output n_t_39x;
+output n_t_40x;
 output n_t_48x;
 output n_t_50x;
+output n_t_8x;
 output skip_l;
 output z_axis;
 
@@ -77,10 +82,7 @@ wire n_t_1x;
 wire n_t_27x;
 wire n_t_33x;
 wire n_t_36x;
-wire n_t_38x;
-wire n_t_39x;
 wire n_t_3x;
-wire n_t_40x;
 wire n_t_47x;
 wire n_t_4x;
 wire n_t_5x;
@@ -111,9 +113,9 @@ assign load_y = ~(~(~n_t_4x & iop2));
 assign load_x = ~(~(iop2 & ~n_t_5x));
 // e4: sn7460 
 // n_t_20x = !light_pen_flag; 
-// !n_t_20x = !n_t_20x; 
+// n_t_8x = !n_t_20x; 
 // n_t_19x = !(light_pen_flag & !n_t_3x & mb9= 0 & iop1; 
-// !n_t_19x = !n_t_19x; 
+// n_t_18x = !n_t_19x; 
 // e5: sn7420 
 // e6: sn7410 
 assign n_t_16x = ~mb9=;
@@ -170,29 +172,9 @@ assign n_t_1x = ~(mb4=0 & mb5=0 & mb6=1 & mb3=);
 // e14: sn7400 
 assign n_t_12x = ~(iop4 & ~n_t_3x);
 assign n_t_36x = ~(n_t_11x & iop4);
-// r1: r_us_ 
-// r2: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
 // open collector 'wire-or's 
+assign n_t_18x = n_t_19x? ~n_t_19x: 1'bz;
 assign n_t_19x = (light_pen_flag & ~n_t_3x & mb9=)? 1'b0: 1'bz;
 assign n_t_20x = light_pen_flag? ~light_pen_flag: 1'bz;
+assign n_t_8x = n_t_20x? ~n_t_20x: 1'bz;
 endmodule

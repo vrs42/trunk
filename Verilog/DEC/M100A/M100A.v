@@ -80,40 +80,5 @@ assign n_t_53x = ~(n_t_54x & n_t_4x);
 assign n_t_31x = ~(n_t_4x & n_t_34x);
 assign n_t_61x = ~(n_t_4x & n_t_63x);
 assign n_t_27x = ~(n_t_4x & n_t_30x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
 // open collector 'wire-or's 
 endmodule

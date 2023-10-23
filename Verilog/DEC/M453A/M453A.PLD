@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_18x;
 pin = n_t_7x;
 
 /* Output Pins */
@@ -31,7 +32,9 @@ pin = m2;
 pin = n1;
 pin = n2;
 pin = n3v3;
+pin = n_t_1x;
 pin = n_t_5x;
+pin = n_t_61x;
 pin = n_t_8x;
 pin = p1;
 pin = p2;
@@ -44,10 +47,7 @@ node n_t_24x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n_t_18x;
-node n_t_1x;
 node n_t_2x;
-node n_t_61x;
 $ENDIF
 
 /* Code nodes */
@@ -97,28 +97,5 @@ n_t_2x = !n_t_18x;
 r2 = !n_t_2x;
 n_t_1x = !(p2 & n_t_2x);
 n_t_61x = !h2;
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-n_t_18x = 'b'1;
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r12: r_us_ */
 
 /* Open collector 'wire-or's */

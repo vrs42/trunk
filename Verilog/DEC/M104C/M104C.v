@@ -15,7 +15,9 @@
 // c8: c_us 
 // c9: c_us 
 // e1: sn7474 
-module m104c (clr_flag_l, en_in, en_out, flag, grant, io_sync, k2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, pwr_clr);
+module m104c (n3v3, n_t_8x, clr_flag_l, en_in, en_out, flag, grant, io_sync, k2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, pwr_clr);
+input n3v3;
+input n_t_8x;
 input clr_flag_l;
 input en_in;
 output en_out;
@@ -29,20 +31,20 @@ inout n_t_12x;
 output n_t_13x;
 inout reg n_t_14x;
 inout reg n_t_15x;
+inout reg n_t_16x;
 inout n_t_1x;
 inout reg n_t_2x;
 inout n_t_3x;
 input n_t_4x;
+output n_t_5x;
 input pwr_clr;
 
+reg n_t_14x_m;
 reg n_t_15x_m;
 reg n_t_16x_m;
 reg n_t_2x_m;
 
-reg n_t_16x;
-wire n_t_5x;
 wire n_t_6x;
-wire n_t_8x;
 wire pwr_clr_l;
 always @(io_sync, n_t_1x, pwr_clr_l, n_t_11x)
   if (~n_t_1x) begin
@@ -65,59 +67,75 @@ always @(io_sync, n_t_1x, pwr_clr_l, n_t_15x_m)
     n_t_15x <= n_t_15x_m;
   end
 assign n_t_12x = ~n_t_15x;
-always @(posedge io_sync)
+always @(io_sync, n3v3, n3v3, n_t_12x)
+  if (~n3v3) begin
+    n_t_14x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_14x_m <= 1'b1;
+  end else
+  if (~(io_sync)) begin
+    n_t_14x_m <= n_t_12x;
+  end
+always @(io_sync, n3v3, n3v3, n_t_14x_m)
+  if (~n3v3) begin
+    n_t_14x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_14x <= 1'b1;
+  end else
   if (io_sync) begin
-    n_t_14x <= n_t_12x;
+    n_t_14x <= n_t_14x_m;
   end
 assign n_t_13x = ~n_t_14x;
 // e2: sn7400 
-assign pwr_clr_l = ~pwr_clr;
+assign pwr_clr_l = ~(n3v3 & pwr_clr);
 assign n_t_10x = ~(grant & n_t_12x);
 // e3: sn74h40 
-assign n_t_5x = ~(n_t_3x & en_in);
-assign n_t_6x = ~(en_in & clr_flag_l & pwr_clr_l);
+assign n_t_5x = ~(n3v3 & n_t_3x & en_in);
+assign n_t_6x = ~(en_in & clr_flag_l & pwr_clr_l & n3v3);
 // e4: sn7474 
-always @(grant, n_t_8x, n_t_4x)
+always @(grant, n_t_8x, n3v3, n_t_4x)
   if (n_t_8x) begin
     n_t_16x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_16x_m <= 1'b1;
   end else
   if (~(grant)) begin
     n_t_16x_m <= n_t_4x;
   end
-always @(grant, n_t_8x, n_t_16x_m)
+always @(grant, n_t_8x, n3v3, n_t_16x_m)
   if (n_t_8x) begin
     n_t_16x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_16x <= 1'b1;
   end else
   if (grant) begin
     n_t_16x <= n_t_16x_m;
   end
 assign n_t_1x = ~n_t_16x;
-always @(io_sync, n_t_6x, flag)
+always @(io_sync, n_t_6x, n3v3, flag)
   if (n_t_6x) begin
     n_t_2x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_2x_m <= 1'b1;
   end else
   if (~(io_sync)) begin
     n_t_2x_m <= flag;
   end
-always @(io_sync, n_t_6x, n_t_2x_m)
+always @(io_sync, n_t_6x, n3v3, n_t_2x_m)
   if (n_t_6x) begin
     n_t_2x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_2x <= 1'b1;
   end else
   if (io_sync) begin
     n_t_2x <= n_t_2x_m;
   end
 assign n_t_3x = ~n_t_2x;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
 // open collector 'wire-or's 
 endmodule

@@ -69,12 +69,23 @@
 // c65: cpol_use 
 // c66: cpol_use 
 // e1: sn7410 
-module m840k (multi_out_l, n_t_101x, n_t_22x, n_t_7x, n_t_82x, pun_to_speed, punch_feed_l, r_feed_sw_l, r_offline_l, rd_hole1, rd_hole2, rd_hole3, rd_hole4, rd_hole5, rd_hole6, rd_hole7, rd_hole8, ba, ba_l, bb, bb_l, c1_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, enable, initialize, internal_io_l, interrupt_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, motor_power, motor_stopping_l, n15v, n_t_100x, n_t_106x, n_t_107x, n_t_129x, n_t_131x, n_t_132x, n_t_83x, n_t_84x, n_t_85x, n_t_86x, n_t_87x, n_t_89x, n_t_93x, pause_l, pls, pn_hole1, pn_hole2, pn_hole3, pn_hole4, pn_hole5, pn_hole6, pn_hole7, pn_hole8, punch_done, punch_done_l, rdata_to_bus, skip_l, tp3);
+module m840k (multi_out_l, n3vr40, n_t_101x, n_t_108x, n_t_116x, n_t_22x, n_t_33x, n_t_34x, n_t_70x, n_t_72x, n_t_75x, n_t_76x, n_t_7x, n_t_81x, n_t_82x, n_t_88x, pun_to_speed, punch_feed_l, r_feed_sw_l, r_offline_l, rd_hole1, rd_hole2, rd_hole3, rd_hole4, rd_hole5, rd_hole6, rd_hole7, rd_hole8, ba, ba_l, bb, bb_l, c1_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, enable, enable_l, initialize, internal_io_l, interrupt_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, motor_power, motor_stopping_l, n15v, n_t_100x, n_t_106x, n_t_107x, n_t_112x, n_t_115x, n_t_129x, n_t_131x, n_t_132x, n_t_18x, n_t_73x, n_t_83x, n_t_84x, n_t_85x, n_t_86x, n_t_87x, n_t_89x, n_t_93x, pause_l, pls, pn_hole1, pn_hole2, pn_hole3, pn_hole4, pn_hole5, pn_hole6, pn_hole7, pn_hole8, punch_done, punch_done_l, rdata_to_bus, skip_l, tp3);
 input multi_out_l;
+input n3vr40;
 output n_t_101x;
+input n_t_108x;
+input n_t_116x;
 input n_t_22x;
+input n_t_33x;
+input n_t_34x;
+input n_t_70x;
+input n_t_72x;
+input n_t_75x;
+input n_t_76x;
 input n_t_7x;
+input n_t_81x;
 output n_t_82x;
+input n_t_88x;
 input pun_to_speed;
 input punch_feed_l;
 input r_feed_sw_l;
@@ -101,6 +112,7 @@ inout data09_l;
 inout data10_l;
 inout data11_l;
 inout enable;
+output enable_l;
 input initialize;
 output internal_io_l;
 output interrupt_l;
@@ -119,9 +131,13 @@ output n15v;
 output n_t_100x;
 inout n_t_106x;
 input n_t_107x;
+inout n_t_112x;
+output n_t_115x;
 output reg n_t_129x;
 output n_t_131x;
 output n_t_132x;
+inout n_t_18x;
+output n_t_73x;
 output n_t_83x;
 output n_t_84x;
 output n_t_85x;
@@ -152,6 +168,14 @@ reg motor_power_m;
 reg n_t_126x_m;
 reg n_t_129x_m;
 reg n_t_23x_m;
+reg n_t_24x_m;
+reg n_t_26x_m;
+reg n_t_27x_m;
+reg n_t_28x_m;
+reg n_t_29x_m;
+reg n_t_30x_m;
+reg n_t_31x_m;
+reg n_t_32x_m;
 reg n_t_56x_m;
 reg n_t_57x_m;
 reg n_t_58x_m;
@@ -186,17 +210,15 @@ wire a_or_b;
 wire ab_l;
 wire catch_pulse_l;
 wire clock_pulse_l;
+wire ena_pun_buffr_l;
 wire init_or_eot_l;
 wire iot01;
 wire iot02;
 wire iot_l;
-wire n_t_108x;
 wire n_t_10x;
 wire n_t_110x;
 wire n_t_111x;
-wire n_t_112x;
 wire n_t_114x;
-wire n_t_115x;
 wire n_t_117x;
 wire n_t_118x;
 wire n_t_119x;
@@ -225,13 +247,9 @@ wire n_t_46x;
 wire n_t_4x;
 wire n_t_50x;
 wire n_t_5x;
-wire n_t_72x;
 wire n_t_74x;
-wire n_t_75x;
-wire n_t_76x;
 wire n_t_79x;
 wire n_t_80x;
-wire n_t_88x;
 wire out_of_tape;
 wire pce_l;
 wire pcf_l;
@@ -308,42 +326,43 @@ assign rotate_pulse = ~(catch_pulse_l & shift_pulse_l);
 assign ab_l = ~(~ba_l & ~bb_l);
 assign catch_pulse_l = ~(n_t_88x & n_t_89x);
 // e8: sn7404 
+assign n_t_73x = ~n_t_74x;
 // e9: sn7474 
-always @(rotate_pulse, bb_l)
-  if (1'b1) begin
+always @(rotate_pulse, n_t_70x, n_t_70x, bb_l)
+  if (~(~n_t_70x)) begin
     ba_l_m <= 1'b0;
   end else
-  if (1'b1) begin
+  if (~(~n_t_70x)) begin
     ba_l_m <= 1'b1;
   end else
   if (~(~rotate_pulse)) begin
     ba_l_m <= ~bb_l;
   end
-always @(rotate_pulse, ba_l_m)
-  if (1'b1) begin
+always @(rotate_pulse, n_t_70x, n_t_70x, ba_l_m)
+  if (~(~n_t_70x)) begin
     ba_l <= 1'b0;
   end else
-  if (1'b1) begin
+  if (~(~n_t_70x)) begin
     ba_l <= 1'b1;
   end else
   if (~rotate_pulse) begin
     ba_l <= ba_l_m;
   end
-always @(rotate_pulse, ba_l)
-  if (1'b1) begin
+always @(rotate_pulse, n_t_70x, n_t_70x, ba_l)
+  if (~(~n_t_70x)) begin
     bb_l_m <= 1'b0;
   end else
-  if (1'b1) begin
+  if (~(~n_t_70x)) begin
     bb_l_m <= 1'b1;
   end else
   if (~(~rotate_pulse)) begin
     bb_l_m <= ~(~ba_l);
   end
-always @(rotate_pulse, bb_l_m)
-  if (1'b1) begin
+always @(rotate_pulse, n_t_70x, n_t_70x, bb_l_m)
+  if (~(~n_t_70x)) begin
     bb_l <= 1'b0;
   end else
-  if (1'b1) begin
+  if (~(~n_t_70x)) begin
     bb_l <= 1'b1;
   end else
   if (~rotate_pulse) begin
@@ -370,16 +389,22 @@ always @(punch_done_l, punch_strobe_l, initialize, n_t_126x_m)
   if (punch_done_l) begin
     n_t_126x <= n_t_126x_m;
   end
-always @(n_t_126x, n_t_123x, 1'b1)
+always @(n_t_126x, n_t_123x, n_t_81x, n_t_81x)
   if (n_t_123x) begin
     punch_flag_m <= 1'b0;
   end else
-  if (~(n_t_126x)) begin
+  if (~n_t_81x) begin
     punch_flag_m <= 1'b1;
+  end else
+  if (~(n_t_126x)) begin
+    punch_flag_m <= n_t_81x;
   end
-always @(n_t_126x, n_t_123x, punch_flag_m)
+always @(n_t_126x, n_t_123x, n_t_81x, punch_flag_m)
   if (n_t_123x) begin
     punch_flag <= 1'b0;
+  end else
+  if (~n_t_81x) begin
+    punch_flag <= 1'b1;
   end else
   if (n_t_126x) begin
     punch_flag <= punch_flag_m;
@@ -389,36 +414,42 @@ assign n_t_120x = ~(ab_l & a_or_b & ~rdr_run);
 assign n_t_125x = ~(clock_pulse_l & rdr_run & motor_stopping_l);
 assign riop4_l = ~(tp3 & ~out_of_tape & n_t_25x);
 // e12: sn7474 
-always @(motor_stopping_l, shift_pulse_l, 1'b0)
+always @(motor_stopping_l, shift_pulse_l, n3vr40, 1'b0)
   if (~(~shift_pulse_l)) begin
     motor_power_m <= 1'b0;
   end else
-  if (1'b1) begin
+  if (~(~n3vr40)) begin
     motor_power_m <= 1'b1;
   end else
   if (~(~motor_stopping_l)) begin
     motor_power_m <= 1'b0;
   end
-always @(motor_stopping_l, shift_pulse_l, motor_power_m)
+always @(motor_stopping_l, shift_pulse_l, n3vr40, motor_power_m)
   if (~(~shift_pulse_l)) begin
     motor_power <= 1'b0;
   end else
-  if (1'b1) begin
+  if (~(~n3vr40)) begin
     motor_power <= 1'b1;
   end else
   if (~motor_stopping_l) begin
     motor_power <= motor_power_m;
   end
-always @(rdata_strobe, n_t_121x, rdr_run)
+always @(rdata_strobe, n_t_121x, n_t_33x, rdr_run)
   if (n_t_121x) begin
     n_t_23x_m <= 1'b0;
+  end else
+  if (~n_t_33x) begin
+    n_t_23x_m <= 1'b1;
   end else
   if (~(rdata_strobe)) begin
     n_t_23x_m <= rdr_run;
   end
-always @(rdata_strobe, n_t_121x, n_t_23x_m)
+always @(rdata_strobe, n_t_121x, n_t_33x, n_t_23x_m)
   if (n_t_121x) begin
     n_t_23x <= 1'b0;
+  end else
+  if (~n_t_33x) begin
+    n_t_23x <= 1'b1;
   end else
   if (rdata_strobe) begin
     n_t_23x <= n_t_23x_m;
@@ -429,7 +460,7 @@ assign n_t_122x = ~(tp3 & piop2);
 assign a_or_b = ~(ba_l & bb_l);
 assign n_t_128x = ~(n_t_127x & pun_to_speed);
 // e14: sn7474 
-always @(n_t_79x, n_t_80x, initialize, 1'b1)
+always @(n_t_79x, n_t_80x, initialize, n_t_81x)
   if (~n_t_80x) begin
     int_ena_m <= 1'b0;
   end else
@@ -437,7 +468,7 @@ always @(n_t_79x, n_t_80x, initialize, 1'b1)
     int_ena_m <= 1'b1;
   end else
   if (~(n_t_79x)) begin
-    int_ena_m <= 1'b1;
+    int_ena_m <= n_t_81x;
   end
 always @(n_t_79x, n_t_80x, initialize, int_ena_m)
   if (~n_t_80x) begin
@@ -449,21 +480,28 @@ always @(n_t_79x, n_t_80x, initialize, int_ena_m)
   if (n_t_79x) begin
     int_ena <= int_ena_m;
   end
-always @(n_t_22x, punch_done_l, n_t_128x)
+always @(n_t_22x, punch_done_l, n3vr40, n_t_128x)
   if (~punch_done_l) begin
     n_t_129x_m <= 1'b0;
+  end else
+  if (~n3vr40) begin
+    n_t_129x_m <= 1'b1;
   end else
   if (~(n_t_22x)) begin
     n_t_129x_m <= ~n_t_128x;
   end
-always @(n_t_22x, punch_done_l, n_t_129x_m)
+always @(n_t_22x, punch_done_l, n3vr40, n_t_129x_m)
   if (~punch_done_l) begin
     n_t_129x <= 1'b0;
+  end else
+  if (~n3vr40) begin
+    n_t_129x <= 1'b1;
   end else
   if (n_t_22x) begin
     n_t_129x <= n_t_129x_m;
   end
 // e16: sp384n 
+assign ena_pun_buffr_l = n_t_18x;
 // e17: n8881n 
 // internal_io_l = !iot02; 
 // internal_io_l = !iot01; 
@@ -517,19 +555,21 @@ assign iot02 = ~(n_t_12x
                   | pause_l);
 // e26: sn7404 
 assign n_t_106x = ~n_t_7x;
+assign enable_l = ~enable;
 assign punch_done = ~punch_done_l;
 // e27: dec8251 
-assign pce_l = ~(iot02 & ~n_t_4x & ~n_t_19x & ~n_t_20x);
-assign psf_l = ~(iot02 & ~n_t_4x & ~n_t_19x & n_t_20x);
-assign pcf_l = ~(iot02 & ~n_t_4x & n_t_19x & ~n_t_20x);
-assign ppc_l = ~(iot02 & n_t_4x & ~n_t_19x & ~n_t_20x);
-assign pls = ~(iot02 & n_t_4x & n_t_19x & ~n_t_20x);
+assign pce_l = ~(~n_t_18x & ~n_t_4x & ~n_t_19x & ~n_t_20x);
+assign psf_l = ~(~n_t_18x & ~n_t_4x & ~n_t_19x & n_t_20x);
+assign pcf_l = ~(~n_t_18x & ~n_t_4x & n_t_19x & ~n_t_20x);
+assign ppc_l = ~(~n_t_18x & n_t_4x & ~n_t_19x & ~n_t_20x);
+assign pls = ~(~n_t_18x & n_t_4x & n_t_19x & ~n_t_20x);
 // e28: sn7400 
 assign rdata_to_bus = ~(rbc_l & rrb_l);
 assign n_t_25x = ~(rbc_l & rfc_l);
 assign piop2 = ~(pcf_l & pls);
 assign piop4 = ~(pls & ppc_l);
 // e29: sn7404 
+assign n_t_18x = ~iot02;
 // e30: sp380n 
 assign n_t_20x = ~(md11_l
                     | iot_l);
@@ -544,7 +584,7 @@ assign rrb_l = ~(iot01 & ~n_t_4x & n_t_19x & ~n_t_20x);
 assign rfc_l = ~(iot01 & n_t_4x & ~n_t_19x & ~n_t_20x);
 assign rbc_l = ~(iot01 & n_t_4x & n_t_19x & ~n_t_20x);
 // e32: sn7400 
-assign n_t_114x = ~(n_t_112x & ~rdata_strobe);
+assign n_t_114x = ~(n_t_112x & n_t_116x);
 assign n_t_118x = ~(a_or_b & ab_l);
 assign n_t_117x = ~(~clock_pulse_l & n_t_118x);
 assign n_t_112x = ~(n_t_117x & n_t_114x);
@@ -554,41 +594,86 @@ assign n_t_112x = ~(n_t_117x & n_t_114x);
 // data07_l = !(rdata_to_bus & n_t_28x); 
 // data06_l = !(rdata_to_bus & n_t_27x); 
 // e34: dec8271 
-always @(posedge rdata_strobe)
-  if (rdata_strobe) begin
-    n_t_24x <= rd_hole8;
+always @(rdata_strobe, n_t_34x, rd_hole8, n_t_34x, n_t_24x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_24x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_24x_m <= rd_hole8 & n_t_34x
+                    | n_t_24x & ~n_t_34x;
   end
-always @(posedge rdata_strobe)
+always @(rdata_strobe, n_t_34x, n_t_24x_m)
+  if (~n_t_34x) begin
+    n_t_24x <= 1'b0;
+  end else
   if (rdata_strobe) begin
-    n_t_26x <= rd_hole7;
+    n_t_24x <= n_t_24x_m;
   end
-always @(posedge rdata_strobe)
-  if (rdata_strobe) begin
-    n_t_27x <= rd_hole6;
+always @(rdata_strobe, n_t_34x, rd_hole7, n_t_34x, n_t_26x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_26x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_26x_m <= rd_hole7 & n_t_34x
+                    | n_t_26x & ~n_t_34x;
   end
-always @(posedge rdata_strobe)
+always @(rdata_strobe, n_t_34x, n_t_26x_m)
+  if (~n_t_34x) begin
+    n_t_26x <= 1'b0;
+  end else
   if (rdata_strobe) begin
-    n_t_28x <= rd_hole5;
+    n_t_26x <= n_t_26x_m;
+  end
+always @(rdata_strobe, n_t_34x, rd_hole6, n_t_34x, n_t_27x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_27x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_27x_m <= rd_hole6 & n_t_34x
+                    | n_t_27x & ~n_t_34x;
+  end
+always @(rdata_strobe, n_t_34x, n_t_27x_m)
+  if (~n_t_34x) begin
+    n_t_27x <= 1'b0;
+  end else
+  if (rdata_strobe) begin
+    n_t_27x <= n_t_27x_m;
+  end
+always @(rdata_strobe, n_t_34x, rd_hole5, n_t_34x, n_t_28x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_28x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_28x_m <= rd_hole5 & n_t_34x
+                    | n_t_28x & ~n_t_34x;
+  end
+always @(rdata_strobe, n_t_34x, n_t_28x_m)
+  if (~n_t_34x) begin
+    n_t_28x <= 1'b0;
+  end else
+  if (rdata_strobe) begin
+    n_t_28x <= n_t_28x_m;
   end
 // e35: sn7420 
 assign n_t_110x = ~(n_t_90x & n_t_111x & n_t_111x);
 assign n_t_123x = ~(~initialize & n_t_122x & n_t_122x);
 // e36: sp380n 
 assign n_t_50x = ~(data07_l
-                    | ~iot02);
-assign n_t_46x = ~(~iot02
+                    | ena_pun_buffr_l);
+assign n_t_46x = ~(ena_pun_buffr_l
                     | data06_l);
 assign n_t_43x = ~(data05_l
-                    | ~iot02);
-assign n_t_42x = ~(~iot02
+                    | ena_pun_buffr_l);
+assign n_t_42x = ~(ena_pun_buffr_l
                     | data04_l);
 // e37: dec8271 
-always @(punch_strobe_l, punch_feed_l, n_t_50x)
+always @(punch_strobe_l, punch_feed_l, n_t_50x, n_t_34x, n_t_56x, n_t_34x)
   if (~punch_feed_l) begin
     n_t_56x_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    n_t_56x_m <= n_t_50x;
+    n_t_56x_m <= n_t_50x & n_t_34x
+                    | n_t_56x & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, n_t_56x_m)
   if (~punch_feed_l) begin
@@ -597,12 +682,13 @@ always @(punch_strobe_l, punch_feed_l, n_t_56x_m)
   if (~punch_strobe_l) begin
     n_t_56x <= n_t_56x_m;
   end
-always @(punch_strobe_l, punch_feed_l, n_t_46x)
+always @(punch_strobe_l, punch_feed_l, n_t_46x, n_t_34x, n_t_57x, n_t_34x)
   if (~punch_feed_l) begin
     n_t_57x_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    n_t_57x_m <= n_t_46x;
+    n_t_57x_m <= n_t_46x & n_t_34x
+                    | n_t_57x & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, n_t_57x_m)
   if (~punch_feed_l) begin
@@ -611,12 +697,13 @@ always @(punch_strobe_l, punch_feed_l, n_t_57x_m)
   if (~punch_strobe_l) begin
     n_t_57x <= n_t_57x_m;
   end
-always @(punch_strobe_l, punch_feed_l, n_t_42x)
+always @(punch_strobe_l, punch_feed_l, n_t_42x, n_t_34x, n_t_58x, n_t_34x)
   if (~punch_feed_l) begin
     n_t_58x_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    n_t_58x_m <= n_t_42x;
+    n_t_58x_m <= n_t_42x & n_t_34x
+                    | n_t_58x & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, n_t_58x_m)
   if (~punch_feed_l) begin
@@ -625,12 +712,13 @@ always @(punch_strobe_l, punch_feed_l, n_t_58x_m)
   if (~punch_strobe_l) begin
     n_t_58x <= n_t_58x_m;
   end
-always @(punch_strobe_l, punch_feed_l, n_t_43x)
+always @(punch_strobe_l, punch_feed_l, n_t_43x, n_t_34x, n_t_59x, n_t_34x)
   if (~punch_feed_l) begin
     n_t_59x_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    n_t_59x_m <= n_t_43x;
+    n_t_59x_m <= n_t_43x & n_t_34x
+                    | n_t_59x & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, n_t_59x_m)
   if (~punch_feed_l) begin
@@ -650,39 +738,84 @@ assign pn_hole8 = ~(~n_t_58x);
 // data10_l = !(n_t_31x & rdata_to_bus); 
 // data11_l = !(rdata_to_bus & n_t_32x); 
 // e40: dec8271 
-always @(posedge rdata_strobe)
-  if (rdata_strobe) begin
-    n_t_29x <= rd_hole4;
+always @(rdata_strobe, n_t_34x, rd_hole4, n_t_34x, n_t_29x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_29x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_29x_m <= rd_hole4 & n_t_34x
+                    | n_t_29x & ~n_t_34x;
   end
-always @(posedge rdata_strobe)
+always @(rdata_strobe, n_t_34x, n_t_29x_m)
+  if (~n_t_34x) begin
+    n_t_29x <= 1'b0;
+  end else
   if (rdata_strobe) begin
-    n_t_30x <= rd_hole3;
+    n_t_29x <= n_t_29x_m;
   end
-always @(posedge rdata_strobe)
-  if (rdata_strobe) begin
-    n_t_31x <= rd_hole2;
+always @(rdata_strobe, n_t_34x, rd_hole3, n_t_34x, n_t_30x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_30x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_30x_m <= rd_hole3 & n_t_34x
+                    | n_t_30x & ~n_t_34x;
   end
-always @(posedge rdata_strobe)
+always @(rdata_strobe, n_t_34x, n_t_30x_m)
+  if (~n_t_34x) begin
+    n_t_30x <= 1'b0;
+  end else
   if (rdata_strobe) begin
-    n_t_32x <= rd_hole1;
+    n_t_30x <= n_t_30x_m;
+  end
+always @(rdata_strobe, n_t_34x, rd_hole2, n_t_34x, n_t_31x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_31x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_31x_m <= rd_hole2 & n_t_34x
+                    | n_t_31x & ~n_t_34x;
+  end
+always @(rdata_strobe, n_t_34x, n_t_31x_m)
+  if (~n_t_34x) begin
+    n_t_31x <= 1'b0;
+  end else
+  if (rdata_strobe) begin
+    n_t_31x <= n_t_31x_m;
+  end
+always @(rdata_strobe, n_t_34x, rd_hole1, n_t_34x, n_t_32x, n_t_34x)
+  if (~n_t_34x) begin
+    n_t_32x_m <= 1'b0;
+  end else
+  if (~(rdata_strobe)) begin
+    n_t_32x_m <= rd_hole1 & n_t_34x
+                    | n_t_32x & ~n_t_34x;
+  end
+always @(rdata_strobe, n_t_34x, n_t_32x_m)
+  if (~n_t_34x) begin
+    n_t_32x <= 1'b0;
+  end else
+  if (rdata_strobe) begin
+    n_t_32x <= n_t_32x_m;
   end
 // e41: sn7404 
 // e42: sp380n 
 assign n_t_36x = ~(data11_l
-                    | ~iot02);
-assign n_t_39x = ~(~iot02
+                    | ena_pun_buffr_l);
+assign n_t_39x = ~(ena_pun_buffr_l
                     | data10_l);
 assign n_t_40x = ~(data09_l
-                    | ~iot02);
-assign n_t_41x = ~(~iot02
+                    | ena_pun_buffr_l);
+assign n_t_41x = ~(ena_pun_buffr_l
                     | data08_l);
 // e43: dec8271 
-always @(punch_strobe_l, punch_feed_l, n_t_36x)
+always @(punch_strobe_l, punch_feed_l, n_t_36x, n_t_34x, pn_hole1, n_t_34x)
   if (~punch_feed_l) begin
     pn_hole1_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    pn_hole1_m <= n_t_36x;
+    pn_hole1_m <= n_t_36x & n_t_34x
+                     | pn_hole1 & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, pn_hole1_m)
   if (~punch_feed_l) begin
@@ -691,12 +824,13 @@ always @(punch_strobe_l, punch_feed_l, pn_hole1_m)
   if (~punch_strobe_l) begin
     pn_hole1 <= pn_hole1_m;
   end
-always @(punch_strobe_l, punch_feed_l, n_t_39x)
+always @(punch_strobe_l, punch_feed_l, n_t_39x, n_t_34x, pn_hole2, n_t_34x)
   if (~punch_feed_l) begin
     pn_hole2_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    pn_hole2_m <= n_t_39x;
+    pn_hole2_m <= n_t_39x & n_t_34x
+                     | pn_hole2 & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, pn_hole2_m)
   if (~punch_feed_l) begin
@@ -705,12 +839,13 @@ always @(punch_strobe_l, punch_feed_l, pn_hole2_m)
   if (~punch_strobe_l) begin
     pn_hole2 <= pn_hole2_m;
   end
-always @(punch_strobe_l, punch_feed_l, n_t_41x)
+always @(punch_strobe_l, punch_feed_l, n_t_41x, n_t_34x, pn_hole4, n_t_34x)
   if (~punch_feed_l) begin
     pn_hole4_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    pn_hole4_m <= n_t_41x;
+    pn_hole4_m <= n_t_41x & n_t_34x
+                     | pn_hole4 & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, pn_hole4_m)
   if (~punch_feed_l) begin
@@ -719,12 +854,13 @@ always @(punch_strobe_l, punch_feed_l, pn_hole4_m)
   if (~punch_strobe_l) begin
     pn_hole4 <= pn_hole4_m;
   end
-always @(punch_strobe_l, punch_feed_l, n_t_40x)
+always @(punch_strobe_l, punch_feed_l, n_t_40x, n_t_34x, pn_hole3, n_t_34x)
   if (~punch_feed_l) begin
     pn_hole3_m <= 1'b0;
   end else
   if (~(~punch_strobe_l)) begin
-    pn_hole3_m <= n_t_40x;
+    pn_hole3_m <= n_t_40x & n_t_34x
+                     | pn_hole3 & ~n_t_34x;
   end
 always @(punch_strobe_l, punch_feed_l, pn_hole3_m)
   if (~punch_feed_l) begin
@@ -734,56 +870,7 @@ always @(punch_strobe_l, punch_feed_l, pn_hole3_m)
     pn_hole3 <= pn_hole3_m;
   end
 // e44: sn7404 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r38: r_us_ 
-// r40: r_us_ 
-// r41: r_us_ 
-// r42: r_us_ 
-// r43: r_us_ 
-// r44: r_us_ 
-// r45: r_us_ 
-// r46: r_us_ 
-// r47: r_us_ 
-// r48: r_us_ 
-// r49: r_us_ 
-// r50: r_us_ 
-// r51: r_us_ 
-// r52: r_us_ 
+assign rdata_strobe = ~n_t_116x;
 // open collector 'wire-or's 
 assign c1_l = rdata_to_bus? ~rdata_to_bus: 1'bz;
 assign data04_l = (n_t_24x & rdata_to_bus)? 1'b0: 1'bz;

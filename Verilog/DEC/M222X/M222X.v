@@ -417,7 +417,6 @@ always @(load_tb, n3v3, n3v3, tb3_h_m)
 //        # bn2 & bm2
 //        # bk2 & bl2); 
 // n_t_9x = !bn1; 
-// r1: r_us_ 
 // open collector 'wire-or's 
 assign bn1 = ~((tb2_h & bk1
                  | bf1 & br1

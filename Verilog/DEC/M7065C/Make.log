@@ -16,28 +16,19 @@ warning: making u$2/single/ a connector
 warning: non-bypass capacitor deleted: c17
 warning: non-bypass capacitor deleted: c18
 warning: non-bypass capacitor deleted: c19
-warning: non-pullup resistor deleted: r8
-warning: non-pullup resistor deleted: r9
-warning: non-pullup resistor deleted: r10
 ~/Verilog/bin/smaller.pl M7065C.PLD >vv || (rm vv; exit 1)
-14 signals were removed:
+9 signals were removed:
   n_t_4x: 'b'1
   n_t_52x: !n_t_49x
   n_t_56x: !l2
   n_t_58x: !k2
-  n_t_5x: !n_t_36x
   n_t_60x: !n_t_21x
   n_t_64x: !n_t_51x
   n_t_71x: !r1
   n_t_72x: !n_t_16x
-  n_t_77x: !n_t_72x
-  n_t_78x: !n_t_19x
-  n_t_79x: !n_t_19x
-  n_t_80x: !n_t_76x
   n_t_88x: !n_t_27x
 ~/Verilog/bin/smaller.pl vv >M7065CX.PLD || (rm M7065CX.PLD; exit 1)
-1 signals were removed:
-  n_t_72x: !n_t_16x
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M7065CX.PLD >vv || (rm vv; exit 1)
 mv vv M7065C.v
 rm M7065CX.PLD

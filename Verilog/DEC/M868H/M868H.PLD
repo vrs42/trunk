@@ -22,13 +22,16 @@ pin = df_sel_er_l;
 pin = n_t_108x;
 pin = n_t_110x;
 pin = n_t_17x;
+pin = n_t_1x;
 pin = n_t_53x;
+pin = n_t_5x;
 pin = n_t_61x;
 pin = n_t_62x;
 pin = n_t_78x;
 pin = n_t_79x;
 pin = n_t_81x;
 pin = n_t_82x;
+pin = n_t_84x;
 pin = n_t_92x;
 pin = n_t_94x;
 pin = n_t_95x;
@@ -36,6 +39,7 @@ pin = n_t_95x;
 /* Output Pins */
 pin = c0;
 pin = c1;
+pin = cc_67x_l;
 pin = cc_dtp;
 pin = cc_setdly;
 pin = cc_tpg_clk;
@@ -67,10 +71,20 @@ pin = md09;
 pin = md10;
 pin = md11;
 pin = n15v;
+pin = n_t_112x;
+pin = n_t_20x;
+pin = n_t_33x;
+pin = n_t_38x;
+pin = n_t_39x;
 pin = n_t_65x;
 pin = n_t_67x;
+pin = n_t_6x;
+pin = n_t_72x;
+pin = n_t_73x;
+pin = n_t_74x;
 pin = n_t_77x;
 pin = n_t_80x;
+pin = n_t_90x;
 pin = n_t_96x;
 pin = nd0;
 pin = nd1;
@@ -134,7 +148,6 @@ node n_t_36x;
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node cc_67x;
-node cc_67x_l;
 node cc_btp3;
 node cc_clk_te_l;
 node cc_dtp0;
@@ -179,26 +192,20 @@ node n_t_106x;
 node n_t_107x;
 node n_t_109x;
 node n_t_10x;
-node n_t_112x;
 node n_t_11x;
 node n_t_13x;
 node n_t_14x;
 node n_t_16x;
 node n_t_18x;
-node n_t_1x;
-node n_t_20x;
 node n_t_22x;
 node n_t_29x;
 node n_t_2x;
 node n_t_30x;
 node n_t_31x;
 node n_t_32x;
-node n_t_33x;
 node n_t_34x;
 node n_t_35x;
 node n_t_37x;
-node n_t_38x;
-node n_t_39x;
 node n_t_3x;
 node n_t_41x;
 node n_t_42x;
@@ -211,26 +218,19 @@ node n_t_48x;
 node n_t_49x;
 node n_t_4x;
 node n_t_50x;
-node n_t_5x;
 node n_t_66x;
 node n_t_68x;
 node n_t_69x;
-node n_t_6x;
 node n_t_70x;
 node n_t_71x;
-node n_t_72x;
-node n_t_73x;
-node n_t_74x;
 node n_t_7x;
 node n_t_83x;
-node n_t_84x;
 node n_t_85x;
 node n_t_86x;
 node n_t_87x;
 node n_t_88x;
 node n_t_89x;
 node n_t_8x;
-node n_t_90x;
 node n_t_97x;
 node n_t_98x;
 node n_t_9x;
@@ -773,93 +773,6 @@ n_t_66x = !(df_time_er_l & df_hld_l & cc_run_l &  & df_sel_er_l &  & cc_pwr_ok &
 /* wd_enab = !(n_t_89x & cc_pwr_ok); */
 /* s_not_g = !(n_t_88x & cc_pwr_ok); */
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-n_t_5x = 'b'1;
-
-/* r3: r_us_ */
-n_t_1x = 'b'1;
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-n_t_84x = 'b'1;
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r23: r_us_ */
-
-/* r24: r_us_ */
-
-/* r25: r_us_ */
-
-/* r27: r_us_ */
-
-/* r29: r_us_ */
-
-/* r30: r_us_ */
-
-/* r31: r_us_ */
-
-/* r32: r_us_ */
-
-/* r33: r_us_ */
-
-/* r34: r_us_ */
-
-/* r35: r_us_ */
-
-/* r36: r_us_ */
-
-/* r37: r_us_ */
-
-/* r38: r_us_ */
-
-/* r39: r_us_ */
-
-/* r40: r_us_ */
-
-/* r41: r_us_ */
-
-/* r42: r_us_ */
-
-/* r43: r_us_ */
-
-/* r48: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= c0};
 !c0 = (n_t_69x & cc_sdld_l);
@@ -936,21 +849,50 @@ f_not_r.oe = ;
 property atmel {open_collector= internal_io};
 !internal_io = cc_67x;
 internal_io.oe = cc_67x;
+property atmel {open_collector= n_t_20x};
 !n_t_20x = (cc_s_g & n_t_6x);
+n_t_20x.oe = (cc_s_g & n_t_6x);
+property atmel {open_collector= n_t_33x};
 !n_t_33x = (!df_comp_wd & !n_t_32x
         # df_comp_wd & n_t_32x);
+n_t_33x.oe = (!df_comp_wd & !n_t_32x
+        # df_comp_wd & n_t_32x);
+property atmel {open_collector= n_t_38x};
 !n_t_38x = (!n_t_34x & !df_comp_wd
         # n_t_34x & df_comp_wd);
+n_t_38x.oe = (!n_t_34x & !df_comp_wd
+        # n_t_34x & df_comp_wd);
+property atmel {open_collector= n_t_39x};
 !n_t_39x = (!df_comp_wd & !n_t_10x
         # df_comp_wd & n_t_10x);
+n_t_39x.oe = (!df_comp_wd & !n_t_10x
+        # df_comp_wd & n_t_10x);
+property atmel {open_collector= n_t_6x};
 !n_t_6x = (n_t_20x & n_t_87x);
+n_t_6x.oe = (n_t_20x & n_t_87x);
+property atmel {open_collector= n_t_72x};
 !n_t_72x = (!sync & !rtt_l
         # sync & rtt_l);
+n_t_72x.oe = (!sync & !rtt_l
+        # sync & rtt_l);
+property atmel {open_collector= n_t_73x};
 !n_t_73x = (cc_t_not_m_en & n_t_72x)
            # (n_t_74x & cc_t_m_en);
+n_t_73x.oe = (cc_t_not_m_en & n_t_72x)
+           # (n_t_74x & cc_t_m_en);
+property atmel {open_collector= n_t_74x};
 !n_t_74x = (!cc_tpg1_l & !sync
         # cc_tpg1_l & sync);
+n_t_74x.oe = (!cc_tpg1_l & !sync
+        # cc_tpg1_l & sync);
+property atmel {open_collector= n_t_90x};
 !n_t_90x = (!cc_f_r & !df_db01
+        # cc_f_r & df_db01)
+        # (!cc_unit & !df_db00
+        # cc_unit & df_db00)
+        # (!cc_s_g & !df_db02
+        # cc_s_g & df_db02);
+n_t_90x.oe = (!cc_f_r & !df_db01
         # cc_f_r & df_db01)
         # (!cc_unit & !df_db00
         # cc_unit & df_db00)

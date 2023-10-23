@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_14x;
 pin = x16_rate;
 
 /* Output Pins */
@@ -39,6 +40,7 @@ pin = bd9600;
 pin = div11;
 pin = div3;
 pin = n_t_12x;
+pin = n_t_16x;
 pin = n_t_21x;
 pin = n_t_24x;
 pin = n_t_25x;
@@ -50,8 +52,6 @@ pin = x8_rate_l;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n_t_14x;
-node n_t_16x;
 node n_t_17x;
 $ENDIF
 
@@ -83,10 +83,5 @@ div3 = bd76800 & bd38400;
 n_t_21x = !n_t_17x;
 n_t_17x = !n_t_14x;
 n_t_16x = !(n_t_17x & n_t_12x);
-
-/* r14: r_us_ */
-n_t_14x = 'b'1;
-
-/* r15: r_us_ */
 
 /* Open collector 'wire-or's */

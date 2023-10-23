@@ -48,7 +48,7 @@
 // ema0_l = !(data_enable & ema0); 
 // md_dir_l = !(data_enable & brk_dir_l); 
 // e2: dec8271 
-module m7105b (ac7_l, b_brk_rq, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, btp3_l, btp3_ok, clr_all, clr_all_l, clr_cntrs_l, crc_data, data_in_l, data_state_l, db_cont1_l, db_cont4, device_rk, dsk_rdy_s_r_w_l, dsk_seek_fail_l, file_rdy, idle, idle_l, ld_disk_addrs, n6rk3_ok_l, n6rk4_l, n6rk6, n6rk7, n6rk7_ok, n_t_27x, n_t_31x, rd_clk1, rd_shft_db_l, sector_addrs_1, shift_crc_l, state_enab_b, strobe, wrt_cmd_l, b_data_state, bdata1, bdata10_l, bdata11_l, bdata7, bk_cycle_l, brk_dir_l, brk_in_prog_l, brk_rq, clr_sector_ad_l, cpma_dis_l, crc16, data0_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data_enab_l, data_enable, drive_status_bad, dsk_cyl_ad128_l, dsk_cyl_ad16_l, dsk_cyl_ad1_l, dsk_cyl_ad2_l, dsk_cyl_ad32_l, dsk_cyl_ad4_l, dsk_cyl_ad64_l, dsk_cyl_ad8_l, dsk_drive0_l, dsk_drive1_l, dsk_drive2_l, dsk_drive3_l, ema0_l, ema1_l, ema2_l, enab_int, enab_seek_done, function00, function01, function02, half_block, hi_data_in, hi_main_shft_l, hi_rd_clk, int_strobe, last_brk, ld_cmd_reg, lo_main_data, lo_main_shft_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, main, main_l, main_pl, mak_l, mams_load_cont_l, md_dir_l, msir_dis_l, n_t_30x, not_equal_l, priority, rd_brk_l, rdy_s_r_w, rdy_s_r_w_l, seek_fail, shft_surf, tp1, tp4, ts2, ts4, wrt_brk_l, wt_buff_data_l);
+module m7105b (ac7_l, b_brk_rq, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, btp3_l, btp3_ok, clr_all, clr_all_l, clr_cntrs_l, crc_data, data_in_l, data_state_l, db_cont1_l, db_cont4, device_rk, dsk_rdy_s_r_w_l, dsk_seek_fail_l, file_rdy, idle, idle_l, ld_disk_addrs, n6rk3_ok_l, n6rk4_l, n6rk6, n6rk7, n6rk7_ok, n_t_27x, n_t_31x, n_t_8x, rd_clk1, rd_shft_db_l, sector_addrs_1, shift_crc_l, state_enab_b, strobe, wrt_cmd_l, b_data_state, bdata1, bdata10_l, bdata11_l, bdata7, bk_cycle_l, brk_dir_l, brk_in_prog_l, brk_rq, clr_sector_ad_l, cpma_dis_l, crc16, data0_l, data1_l, data2_l, data3_l, data4_l, data5_l, data6_l, data7_l, data_enab_l, data_enable, drive_status_bad, dsk_cyl_ad128_l, dsk_cyl_ad16_l, dsk_cyl_ad1_l, dsk_cyl_ad2_l, dsk_cyl_ad32_l, dsk_cyl_ad4_l, dsk_cyl_ad64_l, dsk_cyl_ad8_l, dsk_drive0_l, dsk_drive1_l, dsk_drive2_l, dsk_drive3_l, ema0_l, ema1_l, ema2_l, enab_int, enab_seek_done, function00, function01, function02, half_block, hi_data_in, hi_main_shft_l, hi_rd_clk, int_strobe, last_brk, ld_cmd_reg, lo_main_data, lo_main_shft_l, ma0_l, ma10_l, ma11_l, ma1_l, ma2_l, ma3_l, ma4_l, ma5_l, ma6_l, ma7_l, ma8_l, ma9_l, main, main_l, main_pl, mak_l, mams_load_cont_l, md_dir_l, msir_dis_l, n_t_30x, n_t_4x, not_equal_l, priority, rd_brk_l, rdy_s_r_w, rdy_s_r_w_l, seek_fail, shft_surf, tp1, tp4, ts2, ts4, wrt_brk_l, wt_buff_data_l);
 input ac7_l;
 input b_brk_rq;
 input b_last_brk;
@@ -82,6 +82,7 @@ input n6rk7;
 input n6rk7_ok;
 input n_t_27x;
 input n_t_31x;
+input n_t_8x;
 input rd_clk1;
 input rd_shft_db_l;
 input sector_addrs_1;
@@ -161,6 +162,7 @@ output mams_load_cont_l;
 output md_dir_l;
 output msir_dis_l;
 output n_t_30x;
+output n_t_4x;
 inout not_equal_l;
 output priority;
 inout rd_brk_l;
@@ -315,7 +317,6 @@ wire n_t_55x;
 wire n_t_5x;
 wire n_t_6x;
 wire n_t_7x;
-wire n_t_8x;
 wire n_t_9x;
 wire set_main_brk_l;
 wire shft_cmd_reg;
@@ -1232,6 +1233,7 @@ assign seek_fail = ~dsk_seek_fail_l;
 assign disk_priority = ~n_t_27x;
 assign b_data_state = ~data_state_l;
 // e43: sn7404 
+assign n_t_4x = ~n_t_7x;
 assign rdy_s_r_w_l = ~rdy_s_r_w;
 assign bdata11_l = ~bdata11;
 assign bdata10_l = ~bdata10;
@@ -1327,37 +1329,6 @@ assign hi_main_data_l = ~(main_data & bdata5);
 assign n_t_7x = ~(n6rk3_ok_l & data_state_l);
 assign hi_rd_clk = ~(rd_shft_db_l & hi_main_shft_l);
 assign hi_data_in = ~(hi_main_data_l & data_in_l);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
 // open collector 'wire-or's 
 assign bk_cycle_l = data_enable? ~data_enable: 1'bz;
 assign brk_in_prog_l = nbr? ~nbr: 1'bz;

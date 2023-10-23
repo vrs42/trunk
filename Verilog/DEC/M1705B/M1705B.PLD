@@ -17,6 +17,9 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = n3v1;
+pin = n3v2;
+pin = n3v3;
+pin = n3v4;
 pin = n_t_103x;
 pin = n_t_165x;
 pin = n_t_171x;
@@ -123,6 +126,7 @@ pin = data8_l;
 pin = data9;
 pin = data9_l;
 pin = initialize;
+pin = initializeh;
 pin = int_rqst_l;
 pin = internal_io_l;
 pin = io_pause_l;
@@ -223,16 +227,12 @@ node biot6l;
 node biot7l;
 node biotl;
 node bready;
-node initializeh;
 node initializel;
 node initl;
 node io_pauseh;
 node md09h;
 node md10h;
 node md11h;
-node n3v2;
-node n3v3;
-node n3v4;
 node n_t_118x;
 node n_t_119x;
 node n_t_120x;
@@ -655,56 +655,6 @@ bflagh = !n_t_347x;
 /* int_rqst_l = !n_t_350x; */
 /* initializeh = !initializel; */
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-n3v2 = 'b'1;
-
-/* r16: r_us_ */
-n3v2 = 'b'1;
-
-/* r17: r_us_ */
-n3v3 = 'b'1;
-
-/* r18: r_us_ */
-n3v3 = 'b'1;
-
-/* r19: r_us_ */
-n3v4 = 'b'1;
-
-/* r20: r_us_ */
-n3v4 = 'b'1;
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= c0_l};
 !c0_l = n_t_337x;
@@ -748,7 +698,9 @@ data8_l.oe = (ad08 & n_t_1x);
 property atmel {open_collector= data9_l};
 !data9_l = (n_t_1x & ad09);
 data9_l.oe = (n_t_1x & ad09);
+property atmel {open_collector= initializeh};
 !initializeh = initializel;
+initializeh.oe = initializel;
 property atmel {open_collector= int_rqst_l};
 !int_rqst_l = n_t_350x;
 int_rqst_l.oe = n_t_350x;

@@ -30,11 +30,13 @@
 // c23: c_us 
 // c24: c_us 
 // e1: sn7475 
-module m7050e (n3va, n_t_17x, n_t_30x, ac1, at2, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n5v_1, n5v_2, n_t_1x, n_t_21x, n_t_34x, n_t_37x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, shift, shift_l, skip, stop_complete, stop_delay);
+module m7050e (n3va, n3vb, n_t_17x, n_t_30x, n_t_39x, ac1, at2, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n5v_1, n5v_2, n_t_1x, n_t_21x, n_t_26x, n_t_29x, n_t_34x, n_t_37x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, shift, shift_l, skip, stop_complete, stop_delay);
 input n3va;
+input n3vb;
 input n_t_17x;
 input n_t_30x;
-input ac1;
+input n_t_39x;
+inout ac1;
 inout at2;
 inout ba1;
 output ba_lp_0_rp;
@@ -73,6 +75,8 @@ output n5v_1;
 output n5v_2;
 output n_t_1x;
 inout n_t_21x;
+output n_t_26x;
+output n_t_29x;
 input n_t_34x;
 output n_t_37x;
 input offline;
@@ -129,13 +133,10 @@ wire clr_run_l;
 wire iot_011_l;
 wire iot_012_l;
 wire iot_014_l;
-wire n3vb;
 wire n_t_16x;
 wire n_t_24x;
 wire n_t_25x;
-wire n_t_26x;
 wire n_t_28x;
-wire n_t_29x;
 wire n_t_40x;
 wire n_t_41x;
 wire n_t_5x;
@@ -374,6 +375,7 @@ assign clr_flag = ~(~(iot_012_l & rfc_delayed_l & clr_run_l));
 // iob_in_6 = !(n_t_9x & at2); 
 // iob_in_10 = !(at2 & n_t_13x); 
 // e12: sn7440 
+assign ac1 = ~n_t_39x;
 // e13: sn7404 
 assign ba1 = ~bv2;
 assign iot_011 = ~iot_011_l;
@@ -478,23 +480,6 @@ always @(shift, n3vb, n3va, ba_m)
 assign n_t_24x = ~(ba & bb);
 assign n_t_41x = ~(n_t_40x & n_t_21x);
 assign n_t_40x = ~(n_t_41x & enable_l);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
 // open collector 'wire-or's 
 assign int_request = rdr_flag? ~rdr_flag: 1'bz;
 assign iob_in_10 = (at2 & n_t_13x)? 1'b0: 1'bz;

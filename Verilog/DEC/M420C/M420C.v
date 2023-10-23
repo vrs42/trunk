@@ -33,7 +33,7 @@
 // c26: c_us 
 // c27: c_us 
 // e1: sn74h00 
-module m420c (n3v3, n_t_15x, n_t_18x, n_t_24x, n_t_32x, n_t_33x, n_t_6x, n10v, n15v, n21v, n_t_10x, n_t_17x, n_t_20x, n_t_27x, n_t_28x, n_t_29x, n_t_35x, n_t_3x, n_t_4x, n_t_5x);
+module m420c (n3v3, n_t_15x, n_t_18x, n_t_24x, n_t_32x, n_t_33x, n_t_6x, n10v, n15v, n21v, n_t_10x, n_t_17x, n_t_20x, n_t_27x, n_t_28x, n_t_29x, n_t_31x, n_t_35x, n_t_3x, n_t_4x, n_t_5x, n_t_8x, n_t_9x);
 input n3v3;
 output n_t_15x;
 output n_t_18x;
@@ -50,20 +50,20 @@ output n_t_20x;
 output n_t_27x;
 output n_t_28x;
 output n_t_29x;
+inout n_t_31x;
 output n_t_35x;
 inout n_t_3x;
 inout n_t_4x;
 input n_t_5x;
+inout reg n_t_8x;
+inout reg n_t_9x;
 
 reg n_t_8x_m;
 reg n_t_9x_m;
 
-reg n_t_9x;
-reg n_t_8x;
 wire n_t_1x;
 wire n_t_2x;
 wire n_t_30x;
-wire n_t_31x;
 wire n_t_34x;
 assign n_t_34x = ~(n_t_33x & n_t_32x);
 assign n_t_29x = ~n_t_30x;
@@ -117,30 +117,5 @@ assign n_t_1x = ~(n_t_2x & n_t_8x
                    | n_t_9x & n_t_2x);
 assign n_t_2x = ~(n_t_3x & n_t_1x
                    | n_t_1x & n_t_4x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r26: r_us_ 
 // open collector 'wire-or's 
 endmodule

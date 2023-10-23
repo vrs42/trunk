@@ -68,8 +68,5 @@ assign n_t_22x = ~(n_t_21x & n3v3 & n3v3 & n3v3);
 // e7: sn74h40 
 assign n_t_28x = ~(n3v3 & n_t_27x);
 assign n_t_26x = ~(n_t_25x & n3v3 & n3v3 & n3v3);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
 // open collector 'wire-or's 
 endmodule

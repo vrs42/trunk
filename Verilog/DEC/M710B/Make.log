@@ -34,19 +34,12 @@ warning: making u$2/double/ a connector
 warning: non-bypass capacitor deleted: c1
 warning: non-bypass capacitor deleted: c18
 warning: non-bypass capacitor deleted: c19
-warning: non-pullup resistor deleted: r9
-warning: non-pullup resistor deleted: r11
-warning: non-pullup resistor deleted: r14
 ~/Verilog/bin/smaller.pl M710B.PLD >vv || (rm vv; exit 1)
-8 signals were removed:
-  n_t_10x: !n_t_11x
+4 signals were removed:
   n_t_16x: !iop_02
-  n_t_19x: !n_t_6x
-  n_t_21x: 'b'1
   n_t_2x: !clear_l
   n_t_3x: !n_t_6x
   n_t_8x: !n_t_5x
-  n_t_9x: !n_t_12x
 ~/Verilog/bin/smaller.pl vv >M710BX.PLD || (rm M710BX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M710BX.PLD >vv || (rm vv; exit 1)

@@ -64,10 +64,8 @@ warning: non-bypass capacitor deleted: c31
 warning: non-bypass capacitor deleted: c32
 warning: non-bypass capacitor deleted: c33
 warning: non-bypass capacitor deleted: c37
-warning: non-pullup resistor deleted: r30
-warning: non-pullup resistor deleted: r31
 ~/Verilog/bin/smaller.pl M7105B.PLD >vv || (rm vv; exit 1)
-15 signals were removed:
+14 signals were removed:
   bdata2_l: !bdata2
   bint_strobe: int_strobe
   brk_enable: !brk_enable_l
@@ -80,7 +78,6 @@ warning: non-pullup resistor deleted: r31
   malc_l: !malc
   n3v: 'b'1
   n_t_15x: !b_last_brk
-  n_t_4x: !n_t_7x
   nbr_l: !nbr
   set_main_brk: !set_main_brk_l
 ~/Verilog/bin/smaller.pl vv >M7105BX.PLD || (rm M7105BX.PLD; exit 1)

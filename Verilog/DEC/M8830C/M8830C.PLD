@@ -16,11 +16,13 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v3;
 pin = n_t_13x;
 pin = n_t_19x;
 pin = oscin;
 
 /* Output Pins */
+pin = biopause_l;
 pin = hz1;
 pin = hz10m;
 pin = hz5;
@@ -43,6 +45,7 @@ pin = md08_l;
 pin = md09_l;
 pin = md10_l;
 pin = md11_l;
+pin = myiot;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
@@ -61,7 +64,6 @@ node irq_enable;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node biopause_l;
 node btp1;
 node btp3;
 node cldi;
@@ -80,14 +82,12 @@ node iopmd06;
 node maybe_clei_l;
 node maybe_clsk_l;
 node maybecldi_l;
-node myiot;
 node myiot_l;
 node mymd09;
 node mymd10;
 node mymd10_l;
 node mymd11;
 node mymd11_l;
-node n3v3;
 node tp1_l;
 node tp3_l;
 $ENDIF
@@ -242,30 +242,10 @@ irq_enable.ap = !io6131_l;
 /* e14: sn7402 */
 mymd10_l = !mymd10;
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-n3v3 = 'b'1;
-
-/* r4: r_us_ */
-n3v3 = 'b'1;
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
 /* Open collector 'wire-or's */
+property atmel {open_collector= biopause_l};
 !biopause_l = io_pause;
+biopause_l.oe = io_pause;
 property atmel {open_collector= int_rqst_l};
 !int_rqst_l = (ck_flag & irq_enable);
 int_rqst_l.oe = (ck_flag & irq_enable);

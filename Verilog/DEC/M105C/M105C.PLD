@@ -16,6 +16,17 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_21x;
+pin = n_t_31x;
+pin = n_t_32x;
+pin = n_t_33x;
+pin = n_t_34x;
+pin = n_t_35x;
+pin = n_t_36x;
+pin = n_t_37x;
+pin = n_t_39x;
+pin = n_t_40x;
+pin = n_t_48x;
 
 /* Output Pins */
 pin = c1_l;
@@ -31,10 +42,12 @@ pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_1x;
 pin = n_t_20x;
+pin = n_t_22x;
 pin = n_t_23x;
 pin = n_t_24x;
 pin = n_t_2x;
 pin = n_t_3x;
+pin = n_t_43x;
 pin = n_t_44x;
 pin = n_t_4x;
 pin = n_t_5x;
@@ -75,21 +88,8 @@ node a17syn;
 node c0;
 node c0_l;
 node c1;
-node n_t_21x;
-node n_t_22x;
-node n_t_31x;
-node n_t_32x;
-node n_t_33x;
-node n_t_34x;
-node n_t_35x;
-node n_t_36x;
-node n_t_37x;
 node n_t_38x;
-node n_t_39x;
-node n_t_40x;
 node n_t_41x;
-node n_t_43x;
-node n_t_48x;
 $ENDIF
 
 /* Code nodes */
@@ -228,68 +228,36 @@ n_t_38x = !(a00_l
 /* n_t_22x = !testpoint; */
 /* ssyn_l = !n_t_44x; */
 
-/* j3: r_us_ */
-
-/* j4: r_us_ */
-
-/* j5: r_us_ */
-
-/* j6: r_us_ */
-
-/* j7: r_us_ */
-
-/* j8: r_us_ */
-
-/* j9: r_us_ */
-
-/* j10: r_us_ */
-
-/* j11: r_us_ */
-
-/* j12: r_us_ */
-
-/* r1: r_us_ */
-n_t_33x = 'b'1;
-
-/* r2: r_us_ */
-n_t_34x = 'b'1;
-
-/* r3: r_us_ */
-n_t_35x = 'b'1;
-
-/* r4: r_us_ */
-n_t_36x = 'b'1;
-
-/* r5: r_us_ */
-n_t_48x = 'b'1;
-
-/* r6: r_us_ */
-n_t_37x = 'b'1;
-
-/* r7: r_us_ */
-n_t_39x = 'b'1;
-
-/* r8: r_us_ */
-n_t_40x = 'b'1;
-
-/* r9: r_us_ */
-n_t_31x = 'b'1;
-
-/* r10: r_us_ */
-n_t_21x = 'b'1;
-
-/* r11: r_us_ */
-n_t_32x = 'b'1;
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
 /* Open collector 'wire-or's */
+property atmel {open_collector= n_t_22x};
 !n_t_22x = testpoint;
+n_t_22x.oe = testpoint;
+property atmel {open_collector= n_t_43x};
 !n_t_43x = (!n_t_31x & !a11
+        # n_t_31x & a11)
+        # (!n_t_32x & !a1314
+        # n_t_32x & a1314)
+        # (!a1516 & !n_t_32x
+        # a1516 & n_t_32x)
+        # (!a12 & !n_t_21x
+        # a12 & n_t_21x)
+        # (!n_t_48x & !a07
+        # n_t_48x & a07)
+        # (!a08 & !n_t_37x
+        # a08 & n_t_37x)
+        # (!a10 & !n_t_40x
+        # a10 & n_t_40x)
+        # (!a09 & !n_t_39x
+        # a09 & n_t_39x)
+        # (!n_t_33x & !a03
+        # n_t_33x & a03)
+        # (!a04 & !n_t_34x
+        # a04 & n_t_34x)
+        # (!a06 & !n_t_36x
+        # a06 & n_t_36x)
+        # (!a05 & !n_t_35x
+        # a05 & n_t_35x);
+n_t_43x.oe = (!n_t_31x & !a11
         # n_t_31x & a11)
         # (!n_t_32x & !a1314
         # n_t_32x & a1314)

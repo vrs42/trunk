@@ -16,6 +16,12 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_17x;
+pin = n_t_20x;
+pin = n_t_26x;
+pin = n_t_30x;
+pin = n_t_33x;
+pin = n_t_3x;
 
 /* Output Pins */
 pin = filter_input;
@@ -30,36 +36,30 @@ pin = mfts2_h;
 pin = mfts2_l;
 pin = n_t_11x;
 pin = n_t_12x;
+pin = n_t_22x;
+pin = n_t_25x;
+pin = n_t_28x;
+pin = n_t_32x;
+pin = n_t_4x;
 pin = power_clear_l;
 pin = restart;
 pin = run;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n_t_17x;
 node n_t_18x;
 node n_t_19x;
 node n_t_1x;
-node n_t_20x;
 node n_t_21x;
-node n_t_22x;
 node n_t_24x;
-node n_t_25x;
-node n_t_26x;
 node n_t_27x;
-node n_t_28x;
 node n_t_29x;
 node n_t_2x;
-node n_t_30x;
 node n_t_31x;
-node n_t_32x;
-node n_t_33x;
 node n_t_34x;
 node n_t_35x;
 node n_t_36x;
 node n_t_38x;
-node n_t_3x;
-node n_t_4x;
 node n_t_5x;
 node n_t_7x;
 $ENDIF
@@ -138,53 +138,5 @@ n_t_34x = !n_t_33x;
 /* e8: sn7400 */
 mfts0_l = !(n_t_18x & n_t_19x);
 n_t_19x = !(mfts0_l & n_t_21x);
-
-/* r1: r_us_ */
-n_t_20x = 'b'1;
-
-/* r2: r_us_ */
-n_t_26x = 'b'1;
-
-/* r3: r_us_ */
-n_t_30x = 'b'1;
-
-/* r4: r_us_ */
-n_t_33x = 'b'1;
-
-/* r5: r_us_ */
-n_t_3x = 'b'1;
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-n_t_17x = 'b'1;
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
 
 /* Open collector 'wire-or's */

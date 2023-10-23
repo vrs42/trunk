@@ -81,25 +81,11 @@ warning: non-bypass capacitor deleted: c34
 warning: non-bypass capacitor deleted: c35
 warning: non-bypass capacitor deleted: c39
 warning: non-bypass capacitor deleted: c40
-warning: non-pullup resistor deleted: r1
-warning: non-pullup resistor deleted: r3
-warning: non-pullup resistor deleted: r5
-warning: non-pullup resistor deleted: r6
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r13
-warning: non-pullup resistor deleted: r14
-warning: non-pullup resistor deleted: r15
-warning: non-pullup resistor deleted: r17
-warning: non-pullup resistor deleted: r18
-warning: non-pullup resistor deleted: r55
 ~/Verilog/bin/smaller.pl M7106B.PLD >vv || (rm vv; exit 1)
-38 signals were removed:
-  acknowledge: !dsk_acknowledge_l
-  b_idle: !idle_l
+30 signals were removed:
   b_wrt_clk_l: !b_wrt_clk
   clr_drive_cmd: !clr_drive_cmd_l
   crc_state_l: !crc_state
-  dsk_sec2: !dsk_sec2_l
   go_l: !go
   header_c_l: !header_c
   header_d_l: !header_d
@@ -109,19 +95,14 @@ warning: non-pullup resistor deleted: r55
   n12th_carry: !n12th_carry_l
   n16th_bit: !n16th_bit_l
   n6rk3_ok_l: !n6rk3_ok
-  n_t_25x: !n_t_24x
   n_t_26x: !n_t_20x
   n_t_30x: !n_t_29x
   n_t_34x: !n_t_31x
-  n_t_40x: !wrt_clk_l
   n_t_41x: !n_t_44x
   n_t_4x: !brk_in_clk
-  n_t_56x: !read_clk
-  n_t_59x: !rd_clk1_l
   n_t_5x: !n_t_2x
   n_t_64x: !clr_states
   n_t_66x: !n_t_67x
-  n_t_6x: !n_t_5x
   n_t_82x: !dsk_sec8_l
   n_t_83x: !dsk_sec4_l
   n_t_84x: !dsk_sec1_l
@@ -133,8 +114,7 @@ warning: non-pullup resistor deleted: r55
   wrt_lock_out: !wrt_lock_out_l
   wrt_sync_bit_l: !wrt_sync_bit
 ~/Verilog/bin/smaller.pl vv >M7106BX.PLD || (rm M7106BX.PLD; exit 1)
-1 signals were removed:
-  n_t_5x: !n_t_2x
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M7106BX.PLD >vv || (rm vv; exit 1)
 mv vv M7106B.v
 rm M7106BX.PLD

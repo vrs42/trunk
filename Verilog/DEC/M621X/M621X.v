@@ -13,7 +13,7 @@
 // c6: cpol_use 
 // c7: c_us 
 // e1: sn7450 
-module m621x (c1, d1, d2, e1, e2, f1, h1, h2, j1, k1, k2, l1, m1, m2, n1, p1, p2, r1, s1, s2);
+module m621x (c1, d1, d2, e1, e2, f1, h1, h2, j1, k1, k2, l1, m1, m2, n1, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, p1, p2, r1, s1, s2);
 input c1;
 input d1;
 input d2;
@@ -29,6 +29,12 @@ input l1;
 input m1;
 output m2;
 input n1;
+output n_t_1x;
+output n_t_2x;
+output n_t_3x;
+output n_t_4x;
+output n_t_5x;
+output n_t_6x;
 input p1;
 output p2;
 input r1;
@@ -47,28 +53,22 @@ assign n_t_14x = ~(c1 & e1
 assign n_t_13x = ~(d2 & f1
                     | c1 & h1);
 // e2: sn74h00 
+assign n_t_3x = ~n_t_18x;
+assign n_t_1x = ~n_t_14x;
+assign n_t_2x = ~n_t_13x;
 // e3: sn7450 
 assign n_t_18x = ~(c1 & k1
                     | j1 & d2);
 assign n_t_20x = ~(c1 & m1
                     | d2 & l1);
 // e4: sn74h00 
+assign n_t_6x = ~n_t_27x;
+assign n_t_5x = ~n_t_25x;
+assign n_t_4x = ~n_t_20x;
 // e5: sn7450 
 assign n_t_25x = ~(d2 & n1
                     | p1 & c1);
 assign n_t_27x = ~(d2 & r1
                     | c1 & s1);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
 // open collector 'wire-or's 
 endmodule

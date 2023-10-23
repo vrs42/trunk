@@ -24,7 +24,7 @@
 // c17: c_us 
 // c18: c_us 
 // e1: sn7400 
-module m307x (a1, c1, e2, e2q, e2q_l, e4q, e4q_l, f2, gnd1, h2, j2, k1, k2, l1, l2, m1, n1, n15v, n3v3, n5v_1, n5v_2, n_t_1x, n_t_22x, n_t_25x, n_t_5x, p1, s1, u1, v1);
+module m307x (a1, c1, e2, e2q, e2q_l, e4q, e4q_l, f2, gnd1, h2, j2, k1, k2, l1, l2, m1, n1, n15v, n3v3, n5v_1, n5v_2, n_t_1x, n_t_22x, n_t_25x, n_t_2x, n_t_3x, n_t_5x, p1, s1, u1, v1);
 output a1;
 output c1;
 output e2;
@@ -49,6 +49,8 @@ output n5v_2;
 output n_t_1x;
 output n_t_22x;
 output n_t_25x;
+output n_t_2x;
+output n_t_3x;
 output n_t_5x;
 output p1;
 output s1;
@@ -56,8 +58,6 @@ output u1;
 output v1;
 
 
-wire n_t_2x;
-wire n_t_3x;
 assign n_t_2x = ~(n3v3 & l1);
 assign k1 = ~e2q_l;
 assign e2 = ~e2q;
@@ -67,15 +67,5 @@ assign n_t_3x = ~(n3v3 & m1);
 assign n3v3 = ~gnd1;
 assign h2 = ~e4q_l;
 assign f2 = ~e4q;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
 // open collector 'wire-or's 
 endmodule

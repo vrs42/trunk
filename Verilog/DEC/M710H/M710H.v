@@ -32,7 +32,8 @@
 // c25: cpol_use 
 // c26: c_us 
 // e1: sn7474 
-module m710h (ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, clear_l, clocka, clockb, del_pun1, del_pun2, feed_l, feed_sw_l, initialize_l, io_in_int_l, io_in_skip_l, iop1, iop2, iop4, iop_02, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, motor, n4_5ms, n4_sec, n_t_15x, n_t_1x, n_t_40x, n_t_49x, n_t_4x, n_t_56x, n_t_57x, n_t_59x, n_t_61x, n_t_63x, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, scr_active_l, sync_bias, sync_pun, sync_pun0);
+module m710h (n_t_26x, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, clear_l, clocka, clockb, del_pun1, del_pun2, feed_l, feed_sw_l, initialize_l, io_in_int_l, io_in_skip_l, iop1, iop2, iop4, iop_02, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, motor, n4_5ms, n4_sec, n_t_15x, n_t_1x, n_t_40x, n_t_49x, n_t_4x, n_t_56x, n_t_57x, n_t_59x, n_t_61x, n_t_63x, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, scr_active_l, sync_bias, sync_pun, sync_pun0);
+input n_t_26x;
 input ac10;
 input ac11;
 input ac4;
@@ -112,28 +113,40 @@ wire clockb_l;
 wire n_t_54x;
 wire n_t_5x;
 wire n_t_7x;
-always @(clockb, feed_l, ac11)
+always @(clockb, n_t_26x, feed_l, ac11)
+  if (~n_t_26x) begin
+    n_t_12x_m <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_12x_m <= 1'b1;
   end else
   if (~(clockb)) begin
     n_t_12x_m <= ~ac11;
   end
-always @(clockb, feed_l, n_t_12x_m)
+always @(clockb, n_t_26x, feed_l, n_t_12x_m)
+  if (~n_t_26x) begin
+    n_t_12x <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_12x <= 1'b1;
   end else
   if (clockb) begin
     n_t_12x <= n_t_12x_m;
   end
-always @(clockb, feed_l, ac10)
+always @(clockb, n_t_26x, feed_l, ac10)
+  if (~n_t_26x) begin
+    n_t_11x_m <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_11x_m <= 1'b1;
   end else
   if (~(clockb)) begin
     n_t_11x_m <= ~ac10;
   end
-always @(clockb, feed_l, n_t_11x_m)
+always @(clockb, n_t_26x, feed_l, n_t_11x_m)
+  if (~n_t_26x) begin
+    n_t_11x <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_11x <= 1'b1;
   end else
@@ -141,28 +154,40 @@ always @(clockb, feed_l, n_t_11x_m)
     n_t_11x <= n_t_11x_m;
   end
 // e2: sn7474 
-always @(clockb, feed_l, ac8)
+always @(clockb, n_t_26x, feed_l, ac8)
+  if (~n_t_26x) begin
+    n_t_9x_m <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_9x_m <= 1'b1;
   end else
   if (~(clockb)) begin
     n_t_9x_m <= ~ac8;
   end
-always @(clockb, feed_l, n_t_9x_m)
+always @(clockb, n_t_26x, feed_l, n_t_9x_m)
+  if (~n_t_26x) begin
+    n_t_9x <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_9x <= 1'b1;
   end else
   if (clockb) begin
     n_t_9x <= n_t_9x_m;
   end
-always @(clockb, feed_l, ac9)
+always @(clockb, n_t_26x, feed_l, ac9)
+  if (~n_t_26x) begin
+    n_t_10x_m <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_10x_m <= 1'b1;
   end else
   if (~(clockb)) begin
     n_t_10x_m <= ~ac9;
   end
-always @(clockb, feed_l, n_t_10x_m)
+always @(clockb, n_t_26x, feed_l, n_t_10x_m)
+  if (~n_t_26x) begin
+    n_t_10x <= 1'b0;
+  end else
   if (~feed_l) begin
     n_t_10x <= 1'b1;
   end else
@@ -175,8 +200,8 @@ assign pb4 = ~n_t_9x;
 assign pb5 = ~n_t_10x;
 assign pb6 = ~n_t_11x;
 // e4: sn7474 
-always @(clocka, feed_l, ac5)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, ac5)
+  if (~(~n_t_26x)) begin
     pb1_m <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -185,8 +210,8 @@ always @(clocka, feed_l, ac5)
   if (~(~clocka)) begin
     pb1_m <= ~(~ac5);
   end
-always @(clocka, feed_l, pb1_m)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, pb1_m)
+  if (~(~n_t_26x)) begin
     pb1 <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -195,8 +220,8 @@ always @(clocka, feed_l, pb1_m)
   if (~clocka) begin
     pb1 <= pb1_m;
   end
-always @(clocka, feed_l, ac4)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, ac4)
+  if (~(~n_t_26x)) begin
     pb0_m <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -205,8 +230,8 @@ always @(clocka, feed_l, ac4)
   if (~(~clocka)) begin
     pb0_m <= ~(~ac4);
   end
-always @(clocka, feed_l, pb0_m)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, pb0_m)
+  if (~(~n_t_26x)) begin
     pb0 <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -219,8 +244,8 @@ always @(clocka, feed_l, pb0_m)
 assign clocka = ~clockb_l;
 assign clockb = ~clockb_l;
 // e7: sn7474 
-always @(clocka, feed_l, ac7)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, ac7)
+  if (~(~n_t_26x)) begin
     pb3_m <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -229,8 +254,8 @@ always @(clocka, feed_l, ac7)
   if (~(~clocka)) begin
     pb3_m <= ~(~ac7);
   end
-always @(clocka, feed_l, pb3_m)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, pb3_m)
+  if (~(~n_t_26x)) begin
     pb3 <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -239,8 +264,8 @@ always @(clocka, feed_l, pb3_m)
   if (~clocka) begin
     pb3 <= pb3_m;
   end
-always @(clocka, feed_l, ac6)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, ac6)
+  if (~(~n_t_26x)) begin
     pb2_m <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -249,8 +274,8 @@ always @(clocka, feed_l, ac6)
   if (~(~clocka)) begin
     pb2_m <= ~(~ac6);
   end
-always @(clocka, feed_l, pb2_m)
-  if (1'b1) begin
+always @(clocka, n_t_26x, feed_l, pb2_m)
+  if (~(~n_t_26x)) begin
     pb2 <= 1'b0;
   end else
   if (~(~feed_l)) begin
@@ -285,16 +310,22 @@ always @(n_t_15x, clockb_l, clear_l, pun_active_l_m)
   if (n_t_15x) begin
     pun_active_l <= pun_active_l_m;
   end
-always @(pun_active_l, clear_l, 1'b1)
+always @(pun_active_l, clear_l, n_t_26x, n_t_26x)
   if (~clear_l) begin
     pun_flag_m <= 1'b0;
   end else
-  if (~(pun_active_l)) begin
+  if (~n_t_26x) begin
     pun_flag_m <= 1'b1;
+  end else
+  if (~(pun_active_l)) begin
+    pun_flag_m <= n_t_26x;
   end
-always @(pun_active_l, clear_l, pun_flag_m)
+always @(pun_active_l, clear_l, n_t_26x, pun_flag_m)
   if (~clear_l) begin
     pun_flag <= 1'b0;
+  end else
+  if (~n_t_26x) begin
+    pun_flag <= 1'b1;
   end else
   if (pun_active_l) begin
     pun_flag <= pun_flag_m;
@@ -313,28 +344,40 @@ assign scr_active_l = ~motor;
 assign n_t_54x = ~(del_pun1 & n_t_1x);
 assign n_t_1x = ~(feed_l & pun_active_l);
 // e16: sn7474 
-always @(n_t_61x, motor, 1'b1)
+always @(n_t_61x, motor, n_t_26x, n_t_26x)
   if (~motor) begin
     del_pun2_m <= 1'b0;
   end else
-  if (~(n_t_61x)) begin
+  if (~n_t_26x) begin
     del_pun2_m <= 1'b1;
+  end else
+  if (~(n_t_61x)) begin
+    del_pun2_m <= n_t_26x;
   end
-always @(n_t_61x, motor, del_pun2_m)
+always @(n_t_61x, motor, n_t_26x, del_pun2_m)
   if (~motor) begin
     del_pun2 <= 1'b0;
+  end else
+  if (~n_t_26x) begin
+    del_pun2 <= 1'b1;
   end else
   if (n_t_61x) begin
     del_pun2 <= del_pun2_m;
   end
-always @(sync_pun0, n_t_15x, n_t_54x)
+always @(sync_pun0, n_t_26x, n_t_15x, n_t_54x)
+  if (~n_t_26x) begin
+    n_t_53x_m <= 1'b0;
+  end else
   if (~n_t_15x) begin
     n_t_53x_m <= 1'b1;
   end else
   if (~(sync_pun0)) begin
     n_t_53x_m <= n_t_54x;
   end
-always @(sync_pun0, n_t_15x, n_t_53x_m)
+always @(sync_pun0, n_t_26x, n_t_15x, n_t_53x_m)
+  if (~n_t_26x) begin
+    n_t_53x <= 1'b0;
+  end else
   if (~n_t_15x) begin
     n_t_53x <= 1'b1;
   end else
@@ -342,20 +385,6 @@ always @(sync_pun0, n_t_15x, n_t_53x_m)
     n_t_53x <= n_t_53x_m;
   end
 assign n_t_4x = ~n_t_53x;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
 // open collector 'wire-or's 
 assign io_in_int_l = pun_flag? ~pun_flag: 1'bz;
 assign io_in_skip_l = (pun_flag & iop_02)? 1'b0: 1'bz;

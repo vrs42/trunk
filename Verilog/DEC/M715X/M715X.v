@@ -26,8 +26,13 @@
 // c19: c_us 
 // c20: cpol_use 
 // e1: sn7400 
-module m715x (n2_8v, be, bh, catch, clk_l, clock_1, enable_l, feed_sw_l, inh_strobe_l, motor_on_ch, n15v, n_t_35x, n_t_36x, n_t_38x, n_t_39x, n_t_42x, n_t_9x, run_l, shift, shift_l, stop_complete, stop_delay, strobe, tp_av, tp_bm);
+module m715x (n2_8v, n_t_13x, n_t_16x, n_t_18x, n_t_19x, n_t_43x, be, bh, catch, clk_l, clock_1, enable_l, feed_sw_l, inh_strobe_l, motor_on_ch, n15v, n_t_14x, n_t_29x, n_t_35x, n_t_36x, n_t_38x, n_t_39x, n_t_42x, n_t_9x, run_l, shift, shift_l, stop_complete, stop_delay, strobe, tp_av, tp_bm);
 output n2_8v;
+input n_t_13x;
+input n_t_16x;
+input n_t_18x;
+input n_t_19x;
+input n_t_43x;
 output be;
 output bh;
 input catch;
@@ -38,6 +43,8 @@ input feed_sw_l;
 output inh_strobe_l;
 input motor_on_ch;
 output n15v;
+output n_t_14x;
+output n_t_29x;
 output n_t_35x;
 output n_t_36x;
 output n_t_38x;
@@ -56,13 +63,9 @@ inout tp_bm;
 
 wire n_t_11x;
 wire n_t_12x;
-wire n_t_13x;
-wire n_t_18x;
-wire n_t_19x;
 wire n_t_1x;
 wire n_t_2x;
 wire n_t_3x;
-wire n_t_43x;
 wire n_t_5x;
 wire n_t_6x;
 wire n_t_8x;
@@ -74,6 +77,9 @@ assign clk_l = ~(n_t_19x & ~tp_av);
 assign n_t_12x = ~(~tp_av & n_t_18x);
 assign n_t_11x = ~(n_t_12x & n_t_13x);
 // e4: sn7404 
+assign n_t_14x = ~n_t_12x;
+assign clock_1 = ~n_t_16x;
+assign n_t_29x = ~n_t_9x;
 assign n_t_9x = ~enable_l;
 // e6: sn7400 
 assign n_t_1x = ~(n_t_3x & n_t_2x);
@@ -87,24 +93,5 @@ assign n_t_8x = ~(clk_l
                    | motor_on_ch);
 assign n_t_5x = ~(tp_bm
                    | strobe);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r23: r_us_ 
 // open collector 'wire-or's 
 endmodule

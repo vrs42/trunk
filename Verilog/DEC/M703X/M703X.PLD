@@ -17,8 +17,11 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = n_t_10x;
+pin = n_t_30x;
+pin = n_t_4x;
 pin = n_t_6x;
 pin = n_t_7x;
+pin = n_t_9x;
 
 /* Output Pins */
 pin = initialize_l;
@@ -29,8 +32,15 @@ pin = mb5=1;
 pin = mb6=0;
 pin = mb7=0;
 pin = mb8=0;
+pin = n_t_15x;
+pin = n_t_16x;
 pin = n_t_17x;
+pin = n_t_23x;
+pin = n_t_24x;
+pin = n_t_26x;
+pin = n_t_28x;
 pin = n_t_2x;
+pin = n_t_3x;
 pin = pwr_low=0;
 pin = pwr_low=1;
 pin = pwr_skip;
@@ -43,23 +53,13 @@ $IFNDEF OPTIMIZE
 node n_t_11x;
 node n_t_12x;
 node n_t_14x;
-node n_t_15x;
-node n_t_16x;
 node n_t_18x;
 node n_t_19x;
 node n_t_1x;
 node n_t_20x;
-node n_t_23x;
-node n_t_24x;
-node n_t_26x;
-node n_t_28x;
 node n_t_29x;
-node n_t_30x;
-node n_t_3x;
-node n_t_4x;
 node n_t_5x;
 node n_t_8x;
-node n_t_9x;
 $ENDIF
 
 /* Code nodes */
@@ -129,88 +129,22 @@ n_t_2x = !n_t_17x;
 /* n_t_24x = !n_t_8x; */
 /* n_t_23x = !n_t_24x; */
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-n_t_9x = 'b'1;
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-n_t_30x = 'b'1;
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-n_t_4x = 'b'1;
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r23: r_us_ */
-
-/* r24: r_us_ */
-
-/* r25: r_us_ */
-
-/* r26: r_us_ */
-
-/* r27: r_us_ */
-
-/* r28: r_us_ */
-
-/* r29: r_us_ */
-n_t_38x = 'b'1;
-
-/* r30: r_us_ */
-
-/* r31: r_us_ */
-
-/* r32: r_us_ */
-
-/* r33: r_us_ */
-
-/* r34: r_us_ */
-
-/* r35: r_us_ */
-
-/* r36: r_us_ */
-
 /* Open collector 'wire-or's */
+property atmel {open_collector= n_t_23x};
 !n_t_23x = n_t_24x;
+n_t_23x.oe = n_t_24x;
+property atmel {open_collector= n_t_24x};
 !n_t_24x = (n_t_7x)
            # (n_t_8x);
+n_t_24x.oe = (n_t_7x)
+           # (n_t_8x);
+property atmel {open_collector= n_t_26x};
 !n_t_26x = (n_t_6x)
            # (n_t_5x);
+n_t_26x.oe = (n_t_6x)
+           # (n_t_5x);
+property atmel {open_collector= n_t_28x};
 !n_t_28x = n_t_26x;
+n_t_28x.oe = n_t_26x;
 !n_t_5x = n_t_26x;
 !n_t_8x = n_t_24x;

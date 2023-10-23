@@ -153,7 +153,6 @@ assign device_flag = ~(device_flag_l & rd_rqst);
 // data8_l = !(d08 & !iot4l); 
 // e14: ds8640n 
 assign md08h = ~md08_l;
-// r1: r_us_ 
 // open collector 'wire-or's 
 assign c0_l = ~c1_l? 1'b0: 1'bz;
 assign c1_l = ~(~(~iot4l))? ~(~iot4l): 1'bz;

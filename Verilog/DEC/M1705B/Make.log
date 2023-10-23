@@ -128,12 +128,8 @@ info: j7mm ne 07
 warning: making w9/j7mm/ a connector
 warning: non-bypass capacitor deleted: c33
 warning: non-bypass capacitor deleted: c34
-warning: non-pullup resistor deleted: r4
-warning: non-pullup resistor deleted: r6
-warning: non-pullup resistor deleted: r21
-warning: non-pullup resistor deleted: r22
 ~/Verilog/bin/smaller.pl M1705B.PLD >vv || (rm vv; exit 1)
-50 signals were removed:
+46 signals were removed:
   ad00l: !ad00
   ad01l: !ad01
   ad02l: !ad02
@@ -162,16 +158,12 @@ warning: non-pullup resistor deleted: r22
   bd11l: !bd11
   biot2h: !biot2l
   biot3h: !biot3l
-  initializeh: !initializel
   initializel: !initialize
   initl: !initializeh
   io_pauseh: !io_pause_l
   md09h: !md09_l
   md10h: !md10_l
   md11h: !md11_l
-  n3v2: 'b'1
-  n3v3: 'b'1
-  n3v4: 'b'1
   n_t_147x: !adflag
   n_t_151x: !bdflag
   n_t_196x: !internal_io_l
@@ -185,10 +177,9 @@ warning: non-pullup resistor deleted: r22
   n_t_64x: !n_t_60x
   tp3l: !tp3
 ~/Verilog/bin/smaller.pl vv >M1705BX.PLD || (rm M1705BX.PLD; exit 1)
-1 signals were removed:
-  initializel: !initialize
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M1705BX.PLD >vv || (rm vv; exit 1)
-no bintenh.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 1120.
+no bintenh.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 1087.
 ../Makefile:29: recipe for target 'M1705B.v' failed
 make: *** [M1705B.v] Error 1
 rm M1705BX.PLD

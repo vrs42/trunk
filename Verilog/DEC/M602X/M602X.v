@@ -33,19 +33,5 @@ output s;
 
 assign e = ~(h & j & k & f);
 assign r = ~(p & n & m & l);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r16: r_us_ 
 // open collector 'wire-or's 
 endmodule

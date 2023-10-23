@@ -10,7 +10,8 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn7420 
-module m141b (n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+module m141b (n3v, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+input n3v;
 input n_t_10x;
 input n_t_11x;
 input n_t_12x;
@@ -45,8 +46,8 @@ input n_t_8x;
 output n_t_9x;
 
 
-assign n_t_30x = ~n_t_32x;
-assign n_t_29x = ~n_t_31x;
+assign n_t_30x = ~(n_t_32x & n3v & n3v & n3v);
+assign n_t_29x = ~(n3v & n_t_31x);
 // e2: sn7401 
 // n_t_9x = !(n_t_1x & n_t_2x); 
 // n_t_9x = !(n_t_5x & n_t_6x); 
@@ -62,12 +63,6 @@ assign n_t_29x = ~n_t_31x;
 // n_t_25x = !(n_t_23x & n_t_24x); 
 // n_t_28x = !(n_t_27x & n_t_26x); 
 // n_t_25x = !(n_t_20x & n_t_19x); 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
 // open collector 'wire-or's 
 assign n_t_18x = (n_t_11x & n_t_10x)
                   | (n_t_15x & n_t_14x)

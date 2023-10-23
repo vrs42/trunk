@@ -71,13 +71,8 @@ warning: non-bypass capacitor deleted: c50
 warning: non-bypass capacitor deleted: c51
 warning: non-bypass capacitor deleted: c52
 warning: non-bypass capacitor deleted: c56
-warning: non-pullup resistor deleted: r5
-warning: non-pullup resistor deleted: r8
-warning: non-pullup resistor deleted: r10
-warning: non-pullup resistor deleted: r14
-warning: non-pullup resistor deleted: r15
 ~/Verilog/bin/smaller.pl M7104B.PLD >vv || (rm vv; exit 1)
-38 signals were removed:
+35 signals were removed:
   b_io_pause_l: !b_io_pause
   btp1: tp1
   data_rqst_late_l: !data_rqst_late
@@ -95,12 +90,9 @@ warning: non-pullup resistor deleted: r15
   n6rk1: !n6rk1_l
   n6rk2: !n6rk2_l
   n_t_100x: !ld_disk_addrs
-  n_t_101x: !btp3
   n_t_15x: !n_t_14x
-  n_t_1x: !db_cont4
   n_t_71x: !data7_l
   n_t_77x: !power_ok
-  n_t_93x: !idle
   rk_data0_l: !rk_data0
   rk_data10_l: !rk_data10
   rk_data11_l: !rk_data11
@@ -120,7 +112,7 @@ warning: non-pullup resistor deleted: r15
 1 signals were removed:
   gdollar_2: db4_ena
 ~/Verilog/bin/cupl2v.pl M7104BX.PLD >vv || (rm vv; exit 1)
-no busy_error.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 1933.
+no busy_error.j at /home/vrs/Verilog/bin/cupl2v.pl line 283, <INPUT> line 1911.
 ../Makefile:29: recipe for target 'M7104B.v' failed
 make: *** [M7104B.v] Error 1
 rm M7104BX.PLD

@@ -44,7 +44,7 @@
 // c40: cpol_use 
 // c41: c_us 
 // e1: sn74193 
-module m885e (bit10, bit11, load_en_l, load_x, load_y, n_t_103x, n_t_105x, n_t_132x, n_t_156x, n_t_27x, n_t_52x, x_ac_l, x_dec, x_inc, y_ac_l, y_dec, y_inc, chan_l, col_red_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, erase_interval_l, erase_l, n15v, n5v_x, n5v_y, n_t_107x, n_t_121x, n_t_145x, non_store_l, write_thru_l, x_analog, y_analog, z_axis);
+module m885e (bit10, bit11, load_en_l, load_x, load_y, n_t_103x, n_t_105x, n_t_132x, n_t_156x, n_t_27x, n_t_52x, x_ac_l, x_dec, x_inc, y_ac_l, y_dec, y_inc, chan_l, col_red_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, erase_interval_l, erase_l, n15v, n5v_x, n5v_y, n_t_107x, n_t_121x, n_t_145x, n_t_76x, n_t_91x, non_store_l, write_thru_l, x03, x04, x05, x06, x07, x08, x09, x10, x11, x_analog, y03, y04, y05, y06, y07, y08, y09, y10, y11, y_analog, z_axis);
 input bit10;
 input bit11;
 input load_en_l;
@@ -82,9 +82,29 @@ output n5v_y;
 output n_t_107x;
 output n_t_121x;
 output n_t_145x;
+output n_t_76x;
+output n_t_91x;
 output non_store_l;
 output write_thru_l;
+inout reg x03;
+inout reg x04;
+inout reg x05;
+inout reg x06;
+inout reg x07;
+inout reg x08;
+inout reg x09;
+inout reg x10;
+inout reg x11;
 output x_analog;
+inout reg y03;
+inout reg y04;
+inout reg y05;
+inout reg y06;
+inout reg y07;
+inout reg y08;
+inout reg y09;
+inout reg y10;
+inout reg y11;
 output y_analog;
 output z_axis;
 
@@ -113,30 +133,12 @@ reg y09_m;
 reg y10_m;
 reg y11_m;
 
-reg y03;
 reg y02;
 reg gdollar_0;
 reg gdollar_1;
-reg x03;
 reg x02;
 reg gdollar_2;
 reg gdollar_3;
-reg y07;
-reg y06;
-reg y05;
-reg y04;
-reg x07;
-reg x06;
-reg x05;
-reg x04;
-reg y11;
-reg y10;
-reg y09;
-reg y08;
-reg x11;
-reg x10;
-reg x09;
-reg x08;
 wire di02;
 wire di03;
 wire di04;
@@ -708,142 +710,13 @@ assign n_t_23x = ~x11 & ~x10 & ~x09 & ~x08;
 // data04_l = !(y04 & !y_ac_l
 //         # x04 & !x_ac_l); 
 // e12: sn7404 
+assign n_t_76x = ~x02;
+assign n_t_91x = ~y02;
 // e13: dec8235 
 // data03_l = !(y03 & !y_ac_l
 //         # x03 & !x_ac_l); 
 // data02_l = !(y02 & !y_ac_l
 //         # x02 & !x_ac_l); 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r39: r_us_ 
-// r40: r_us_ 
-// r41: r_us_ 
-// r43: r_us_ 
-// r44: r_us_ 
-// r45: r_us_ 
-// r47: r_us_ 
-// r48: r_us_ 
-// r49: r_us_ 
-// r51: r_us_ 
-// r52: r_us_ 
-// r53: r_us_ 
-// r54: r_us_ 
-// r56: r_us_ 
-// r57: r_us_ 
-// r58: r_us_ 
-// r59: r_us_ 
-// r60: r_us_ 
-// r61: r_us_ 
-// r62: r_us_ 
-// r63: r_us_ 
-// r64: r_us_ 
-// r65: r_us_ 
-// r66: r_us_ 
-// r67: r_us_ 
-// r68: r_us_ 
-// r69: r_us_ 
-// r70: r_us_ 
-// r71: r_us_ 
-// r72: r_us_ 
-// r73: r_us_ 
-// r74: r_us_ 
-// r75: r_us_ 
-// r76: r_us_ 
-// r80: r_us_ 
-// r81: r_us_ 
-// r82: r_us_ 
-// r83: r_us_ 
-// r84: r_us_ 
-// r85: r_us_ 
-// r87: r_us_ 
-// r90: r_us_ 
-// r91: r_us_ 
-// r92: r_us_ 
-// r93: r_us_ 
-// r94: r_us_ 
-// r95: r_us_ 
-// r96: r_us_ 
-// r97: r_us_ 
-// r98: r_us_ 
-// r99: r_us_ 
-// r100: r_us_ 
-// r101: r_us_ 
-// r102: r_us_ 
-// r103: r_us_ 
-// r104: r_us_ 
-// r105: r_us_ 
-// r106: r_us_ 
-// r107: r_us_ 
-// r108: r_us_ 
-// r109: r_us_ 
-// r110: r_us_ 
-// r111: r_us_ 
-// r112: r_us_ 
-// r113: r_us_ 
-// r114: r_us_ 
-// r115: r_us_ 
-// r117: r_us_ 
-// r118: r_us_ 
-// r119: r_us_ 
-// r120: r_us_ 
-// r122: r_us_ 
-// r123: r_us_ 
-// r124: r_us_ 
-// r126: r_us_ 
-// r127: r_us_ 
-// r128: r_us_ 
-// r130: r_us_ 
-// r131: r_us_ 
-// r132: r_us_ 
-// r134: r_us_ 
-// r135: r_us_ 
-// r136: r_us_ 
-// r137: r_us_ 
-// r138: r_us_ 
-// r139: r_us_ 
-// r140: r_us_ 
-// r141: r_us_ 
-// r142: r_us_ 
-// r143: r_us_ 
-// r144: r_us_ 
-// r145: r_us_ 
-// r146: r_us_ 
-// r147: r_us_ 
-// r148: r_us_ 
-// r149: r_us_ 
 // open collector 'wire-or's 
 assign data02_l = (y02 & ~y_ac_l
                     | x02 & ~x_ac_l)? 1'b0: 1'bz;

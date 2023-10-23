@@ -160,9 +160,5 @@ assign n_t_31x = ~(n_t_3x & );
 assign n_t_33x = ~(n_t_16x & );
 assign n_t_36x = ~(n_t_18x & );
 assign n_t_34x = ~(n_t_17x & );
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
 // open collector 'wire-or's 
 endmodule

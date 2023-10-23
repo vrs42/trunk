@@ -12,12 +12,14 @@
 // c5: cpol_use 
 // c6: c_us 
 // e1: sn7440 
-module m452a (n220_baud, n3v, n880_baud, n_t_12x, n_t_13x, n_t_21x, n_t_22x, n_t_23x, tp_l, tp_m, tp_n);
+module m452a (n_t_14x, n220_baud, n3v, n880_baud, n_t_12x, n_t_13x, n_t_16x, n_t_21x, n_t_22x, n_t_23x, tp_l, tp_m, tp_n);
+input n_t_14x;
 inout reg n220_baud;
 output n3v;
 output n880_baud;
 input n_t_12x;
 input n_t_13x;
+output n_t_16x;
 output n_t_21x;
 output n_t_22x;
 output n_t_23x;
@@ -27,7 +29,6 @@ inout tp_n;
 
 reg n220_baud_m;
 
-wire n_t_16x;
 assign n880_baud = ~n_t_13x;
 // e2: sn7474 
 always @(posedge n_t_13x)
@@ -57,21 +58,7 @@ always @(tp_m, n220_baud_m)
   end
 assign tp_l = n220_baud;
 // e3: sn7400 
-assign n_t_21x = 1'b1;
-assign n_t_16x = 1'b1;
-// r1: r_us_ 
-// r2: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
+assign n_t_21x = n_t_14x;
+assign n_t_16x = ~(~n_t_14x & n_t_12x);
 // open collector 'wire-or's 
 endmodule

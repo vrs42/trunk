@@ -23,7 +23,7 @@
 // c16: c_us 
 // c17: c_us 
 // e1: sn7400 
-module m307a (a1, c1, e2, e2q, e2q_l, e4q, e4q_l, f2, h2, j2, k1, k2, l1, l2, m1, n1, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_22x, n_t_25x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_9x, p1, s1, u1, v1);
+module m307a (a1, c1, e2, e2q, e2q_l, e4q, e4q_l, f2, h2, j1, j2, k1, k2, l1, l2, m1, n1, n3v3, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_22x, n_t_25x, n_t_2x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_9x, p1, s1, u1, v1);
 output a1;
 output c1;
 output e2;
@@ -33,6 +33,7 @@ input e4q;
 input e4q_l;
 output f2;
 output h2;
+inout j1;
 output j2;
 output k1;
 output k2;
@@ -52,6 +53,7 @@ output n_t_1x;
 output n_t_20x;
 output n_t_22x;
 output n_t_25x;
+inout n_t_2x;
 output n_t_4x;
 output n_t_5x;
 output n_t_6x;
@@ -63,8 +65,6 @@ output u1;
 output v1;
 
 
-wire j1;
-wire n_t_2x;
 assign k1 = ~e2q_l;
 assign h2 = ~e4q_l;
 assign f2 = ~e4q;
@@ -74,19 +74,9 @@ assign e2 = ~e2q;
 // n_t_2x = !(n3v3 & l1); 
 // n_t_6x = !n_t_2x; 
 // n_t_7x = !j1; 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
 // open collector 'wire-or's 
-assign j1 = ~((n3v3 & m1));
-assign n_t_2x = ~((n3v3 & l1));
+assign j1 = (n3v3 & m1)? 1'b0: 1'bz;
+assign n_t_2x = (n3v3 & l1)? 1'b0: 1'bz;
 assign n_t_6x = n_t_2x? ~n_t_2x: 1'bz;
 assign n_t_7x = j1? ~j1: 1'bz;
 endmodule

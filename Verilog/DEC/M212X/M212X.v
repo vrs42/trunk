@@ -28,7 +28,8 @@
 //          # n_t_12x & left_shift); 
 // !gdollar_2 = !gdollar_2; 
 // e3: sn7474 
-module m212x (clear_reg_l, clock, enable_a, enable_b, ina0_l, ina1_l, ina2_l, ina3_l, ina4_l, ina5_l, inb0_l, inb1_l, inb2_l, inb3_l, inb4_l, inb5_l, left_shift, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_7x, n_t_8x, n_t_9x, right_shift, sl_insert, sr_insert);
+module m212x (n3v3, clear_reg_l, clock, enable_a, enable_b, ina0_l, ina1_l, ina2_l, ina3_l, ina4_l, ina5_l, inb0_l, inb1_l, inb2_l, inb3_l, inb4_l, inb5_l, left_shift, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_7x, n_t_8x, n_t_9x, right_shift, sl_insert, sr_insert);
+input n3v3;
 input clear_reg_l;
 input clock;
 input enable_a;
@@ -69,14 +70,20 @@ reg n_t_17x_m;
 reg n_t_7x_m;
 reg n_t_9x_m;
 
-always @(clock, clear_reg_l, gdollar_0)
+always @(clock, n3v3, clear_reg_l, gdollar_0)
+  if (~n3v3) begin
+    n_t_7x_m <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_7x_m <= 1'b1;
   end else
   if (~(clock)) begin
     n_t_7x_m <= gdollar_0;
   end
-always @(clock, clear_reg_l, n_t_7x_m)
+always @(clock, n3v3, clear_reg_l, n_t_7x_m)
+  if (~n3v3) begin
+    n_t_7x <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_7x <= 1'b1;
   end else
@@ -84,14 +91,20 @@ always @(clock, clear_reg_l, n_t_7x_m)
     n_t_7x <= n_t_7x_m;
   end
 assign n_t_8x = ~n_t_7x;
-always @(clock, clear_reg_l, gdollar_2)
+always @(clock, n3v3, clear_reg_l, gdollar_2)
+  if (~n3v3) begin
+    n_t_9x_m <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_9x_m <= 1'b1;
   end else
   if (~(clock)) begin
     n_t_9x_m <= gdollar_2;
   end
-always @(clock, clear_reg_l, n_t_9x_m)
+always @(clock, n3v3, clear_reg_l, n_t_9x_m)
+  if (~n3v3) begin
+    n_t_9x <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_9x <= 1'b1;
   end else
@@ -112,14 +125,20 @@ assign n_t_10x = ~n_t_9x;
 //          # n_t_16x & left_shift); 
 // !gdollar_6 = !gdollar_6; 
 // e6: sn7474 
-always @(clock, clear_reg_l, gdollar_4)
+always @(clock, n3v3, clear_reg_l, gdollar_4)
+  if (~n3v3) begin
+    n_t_11x_m <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_11x_m <= 1'b1;
   end else
   if (~(clock)) begin
     n_t_11x_m <= gdollar_4;
   end
-always @(clock, clear_reg_l, n_t_11x_m)
+always @(clock, n3v3, clear_reg_l, n_t_11x_m)
+  if (~n3v3) begin
+    n_t_11x <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_11x <= 1'b1;
   end else
@@ -127,14 +146,20 @@ always @(clock, clear_reg_l, n_t_11x_m)
     n_t_11x <= n_t_11x_m;
   end
 assign n_t_12x = ~n_t_11x;
-always @(clock, clear_reg_l, gdollar_6)
+always @(clock, n3v3, clear_reg_l, gdollar_6)
+  if (~n3v3) begin
+    n_t_13x_m <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_13x_m <= 1'b1;
   end else
   if (~(clock)) begin
     n_t_13x_m <= gdollar_6;
   end
-always @(clock, clear_reg_l, n_t_13x_m)
+always @(clock, n3v3, clear_reg_l, n_t_13x_m)
+  if (~n3v3) begin
+    n_t_13x <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_13x <= 1'b1;
   end else
@@ -155,14 +180,20 @@ assign n_t_14x = ~n_t_13x;
 //           # sl_insert & left_shift); 
 // !gdollar_10 = !gdollar_10; 
 // e9: sn7474 
-always @(clock, clear_reg_l, gdollar_8)
+always @(clock, n3v3, clear_reg_l, gdollar_8)
+  if (~n3v3) begin
+    n_t_15x_m <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_15x_m <= 1'b1;
   end else
   if (~(clock)) begin
     n_t_15x_m <= gdollar_8;
   end
-always @(clock, clear_reg_l, n_t_15x_m)
+always @(clock, n3v3, clear_reg_l, n_t_15x_m)
+  if (~n3v3) begin
+    n_t_15x <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_15x <= 1'b1;
   end else
@@ -170,14 +201,20 @@ always @(clock, clear_reg_l, n_t_15x_m)
     n_t_15x <= n_t_15x_m;
   end
 assign n_t_16x = ~n_t_15x;
-always @(clock, clear_reg_l, gdollar_10)
+always @(clock, n3v3, clear_reg_l, gdollar_10)
+  if (~n3v3) begin
+    n_t_17x_m <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_17x_m <= 1'b1;
   end else
   if (~(clock)) begin
     n_t_17x_m <= gdollar_10;
   end
-always @(clock, clear_reg_l, n_t_17x_m)
+always @(clock, n3v3, clear_reg_l, n_t_17x_m)
+  if (~n3v3) begin
+    n_t_17x <= 1'b0;
+  end else
   if (~clear_reg_l) begin
     n_t_17x <= 1'b1;
   end else
@@ -185,7 +222,6 @@ always @(clock, clear_reg_l, n_t_17x_m)
     n_t_17x <= n_t_17x_m;
   end
 assign n_t_18x = ~n_t_17x;
-// r1: r_us_ 
 // open collector 'wire-or's 
 assign gdollar_0 = ~((sr_insert & right_shift
                        | ina0_l & enable_a

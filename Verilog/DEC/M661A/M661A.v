@@ -8,14 +8,17 @@
 // c1: c_us 
 // c2: c_us 
 // e1: sn7410 
-module m661a (n_t_11x, n_t_15x, n_t_18x, n_t_1x, n_t_20x, n_t_22x, n_t_2x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+module m661a (n_t_10x, n_t_11x, n_t_15x, n_t_17x, n_t_18x, n_t_1x, n_t_20x, n_t_22x, n_t_2x, n_t_3x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x);
+output n_t_10x;
 output n_t_11x;
 input n_t_15x;
+output n_t_17x;
 output n_t_18x;
 input n_t_1x;
 input n_t_20x;
 input n_t_22x;
 input n_t_2x;
+output n_t_3x;
 input n_t_5x;
 output n_t_6x;
 input n_t_7x;
@@ -23,18 +26,8 @@ input n_t_8x;
 input n_t_9x;
 
 
-wire n_t_10x;
-wire n_t_17x;
-wire n_t_3x;
 assign n_t_17x = ~(n_t_8x & n_t_7x & n_t_22x);
 assign n_t_10x = ~(n_t_9x & n_t_5x & n_t_15x);
 assign n_t_3x = ~(n_t_2x & n_t_1x & n_t_20x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
 // open collector 'wire-or's 
 endmodule

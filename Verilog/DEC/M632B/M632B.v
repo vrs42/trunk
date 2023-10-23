@@ -72,23 +72,5 @@ assign n_t_22x = ~(n_t_5x & n3v3
                     | n_t_6x & n3v3);
 assign n_t_45x = ~(n3v3 & n_t_14x
                     | n3v3 & n_t_15x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
 // open collector 'wire-or's 
 endmodule

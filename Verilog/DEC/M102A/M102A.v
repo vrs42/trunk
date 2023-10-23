@@ -14,7 +14,7 @@
 // c7: c_us 
 // c8: c_us 
 // e1: sn74h40 
-module m102a (n_t_10x, n_t_13x, n_t_15x, n_t_20x, n_t_23x, n_t_8x, a1, b1, c1, d1, e1, f1, h1, j1, k1, l1, m1, m2, n1, n15v, n3v3, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
+module m102a (n_t_10x, n_t_13x, n_t_15x, n_t_20x, n_t_23x, n_t_8x, a1, b1, c1, d1, e1, f1, h1, j1, k1, l1, m1, m2, n1, n15v, n3v3, n_t_2x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
 input n_t_10x;
 input n_t_13x;
 input n_t_15x;
@@ -36,6 +36,7 @@ output m2;
 output n1;
 output n15v;
 input n3v3;
+output n_t_2x;
 output p1;
 output p2;
 output r1;
@@ -61,33 +62,6 @@ assign e1 = ~(f1 & n3v3 & n3v3 & n3v3);
 assign n_t_9x = ~(n_t_8x & u2);
 assign n1 = ~(n_t_15x & m1);
 assign k1 = ~(j1 & n_t_10x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
+assign n_t_2x = ~n_t_9x;
 // open collector 'wire-or's 
 endmodule

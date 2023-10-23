@@ -25,7 +25,8 @@
 // f2 = !(d2 & u2_l); 
 // k2 = !(v2_l & j2); 
 // e3: sn7400 
-module m149x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, u1, u2, v1, v2);
+module m149x (n3v3, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, u1, u2, v1, v2);
+input n3v3;
 input a1;
 input b1;
 output c1;
@@ -61,9 +62,9 @@ input v2;
 
 wire u2_l;
 wire v2_l;
-assign v1 = ~u1;
-assign u2_l = ~u2;
-assign v2_l = ~v2;
+assign v1 = ~(n3v3 & u1);
+assign u2_l = ~(n3v3 & u2);
+assign v2_l = ~(v2 & n3v3);
 // e4: sn7401 
 // n1 = !(l1 & u2_l); 
 // k1 = !(v2_l & j1); 
@@ -77,8 +78,6 @@ assign v2_l = ~v2;
 // e6: sn7401 
 // s2 = !(r2 & v2_l); 
 // s2 = !(u2_l & p2); 
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 assign c1 = (v2_l & b1)
              | (a1 & u2_l)? 1'b0: 1'bz;

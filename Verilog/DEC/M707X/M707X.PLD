@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_2x;
 
 /* Output Pins */
 pin = ac04;
@@ -51,12 +52,14 @@ pin = n_t_12x;
 pin = n_t_13x;
 pin = n_t_15x;
 pin = n_t_17x;
+pin = n_t_1x;
 pin = n_t_63x;
 pin = serial_out;
 pin = size;
 pin = skip;
 pin = skp_strobe;
 pin = stop;
+pin = tx;
 pin = wait_l;
 node bit1;
 node bit8;
@@ -84,10 +87,8 @@ node n_t_161x;
 node n_t_167x;
 node n_t_18x;
 node n_t_19x;
-node n_t_1x;
 node n_t_20x;
 node n_t_28x;
-node n_t_2x;
 node n_t_35x;
 node n_t_36x;
 node n_t_378x;
@@ -109,7 +110,6 @@ node n_t_6x;
 node n_t_7x;
 node n_t_9x;
 node selected;
-node tx;
 $ENDIF
 
 /* Code nodes */
@@ -302,30 +302,5 @@ n_t_10x = !(n_t_39x & active);
 n_t_11x = !(active & n_t_16x);
 n_t_161x = !(wait_l & active_l);
 n_t_62x = !(stop & size);
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-n_t_2x = 'b'1;
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
 
 /* Open collector 'wire-or's */

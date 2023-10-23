@@ -58,56 +58,6 @@
 // crdp_l = !xrdp_l; 
 // e13: ds75451n 
 // cfmk_l = !fmk_l; 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r38: r_us_ 
-// r39: r_us_ 
-// r40: r_us_ 
-// r41: r_us_ 
-// r42: r_us_ 
-// r43: r_us_ 
-// r44: r_us_ 
-// r45: r_us_ 
-// r46: r_us_ 
-// r47: r_us_ 
-// r48: r_us_ 
-// r49: r_us_ 
-// r50: r_us_ 
 // open collector 'wire-or's 
 module m640c (c7ch_l, cbot_l, ccrce_l, ccrcs_l, ceot_l, cfmk_l, clrce_l, clrcs_l, crce_l, crcs_l, crd0_l, crd1_l, crd2_l, crd3_l, crd4_l, crd5_l, crd6_l, crd7_l, crdp_l, crds_l, crws_l, csdwn_l, cselr_l, ctur_l, cvpe_l, cwrl_l, cwrs_l, ebot_l, eeot_l, erws_l, ewrl_l, fmk_l, lrce_l, lrcs_l, n_t_1x, n_t_2x, n_t_3x, r7ch_l, rds_l, rsdwn_l, rtur_l, selr_l, vpe_l, wrs_l, xrd0_l, xrd1_l, xrd2_l, xrd3_l, xrd4_l, xrd5_l, xrd6_l, xrd7_l, xrdp_l);
 output c7ch_l;

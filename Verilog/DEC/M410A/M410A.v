@@ -15,7 +15,8 @@
 // c8: c_us 
 // c9: c_us 
 // e1: sn7440 
-module m410a (n_t_14x, n_t_6x, n_t_10x, n_t_12x, n_t_15x, n_t_16x, n_t_1x, n_t_2x, n_t_3x, n_t_5x, n_t_8x, n_t_9x);
+module m410a (n3v3, n_t_14x, n_t_6x, n_t_10x, n_t_12x, n_t_15x, n_t_16x, n_t_1x, n_t_2x, n_t_3x, n_t_5x, n_t_7x, n_t_8x, n_t_9x);
+input n3v3;
 input n_t_14x;
 input n_t_6x;
 inout n_t_10x;
@@ -26,48 +27,62 @@ output n_t_1x;
 input n_t_2x;
 input n_t_3x;
 output n_t_5x;
+output n_t_7x;
 inout n_t_8x;
 inout reg n_t_9x;
 
+reg n_t_11x_m;
+reg n_t_9x_m;
 
 reg n_t_11x;
-wire n_t_7x;
 assign n_t_12x = ~n_t_11x;
 assign n_t_15x = ~n_t_14x;
 // e2: sn7474 
-always @(posedge n_t_14x)
+always @(n_t_14x, n3v3, n3v3, n_t_8x)
+  if (~n3v3) begin
+    n_t_9x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_9x_m <= 1'b1;
+  end else
+  if (~(n_t_14x)) begin
+    n_t_9x_m <= n_t_8x;
+  end
+always @(n_t_14x, n3v3, n3v3, n_t_9x_m)
+  if (~n3v3) begin
+    n_t_9x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_9x <= 1'b1;
+  end else
   if (n_t_14x) begin
-    n_t_9x <= n_t_8x;
+    n_t_9x <= n_t_9x_m;
   end
 assign n_t_8x = ~n_t_9x;
-always @(posedge n_t_9x)
+always @(n_t_9x, n3v3, n3v3, n_t_10x)
+  if (~n3v3) begin
+    n_t_11x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_11x_m <= 1'b1;
+  end else
+  if (~(n_t_9x)) begin
+    n_t_11x_m <= n_t_10x;
+  end
+always @(n_t_9x, n3v3, n3v3, n_t_11x_m)
+  if (~n3v3) begin
+    n_t_11x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_11x <= 1'b1;
+  end else
   if (n_t_9x) begin
-    n_t_11x <= n_t_10x;
+    n_t_11x <= n_t_11x_m;
   end
 assign n_t_10x = ~n_t_11x;
 // e3: sn7400 
 assign n_t_7x = ~(~n_t_6x & n_t_16x);
 assign n_t_1x = ~(n_t_3x & n_t_2x);
 assign n_t_5x = n_t_6x;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
 // open collector 'wire-or's 
 endmodule

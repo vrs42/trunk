@@ -29,7 +29,12 @@ pin = i08;
 pin = i09;
 pin = i10;
 pin = i11;
+pin = n3v;
+pin = n_t_13x;
+pin = n_t_18x;
 pin = n_t_22x;
+pin = n_t_25x;
+pin = n_t_34x;
 
 /* Output Pins */
 pin = aj2;
@@ -48,6 +53,7 @@ pin = data6_l;
 pin = data7_l;
 pin = data8_l;
 pin = data9_l;
+pin = dclr;
 pin = initialize;
 pin = int_rqst_l;
 pin = internal_io_l;
@@ -74,6 +80,7 @@ pin = rcra;
 pin = rcrb;
 pin = rcrc;
 pin = rcse;
+pin = rdy;
 pin = rdy2_l;
 pin = read;
 pin = skip_l;
@@ -108,7 +115,6 @@ node btp3;
 node btransit;
 node cdone_l;
 node cerr;
-node dclr;
 node drdy_l;
 node initialize_l;
 node iot63;
@@ -120,19 +126,15 @@ node md06p;
 node md09p;
 node md10p;
 node md11p;
-node n3v;
 node n_t_10x;
-node n_t_13x;
 node n_t_15x;
 node n_t_16x;
-node n_t_18x;
 node n_t_19x;
 node n_t_1x;
 node n_t_20x;
 node n_t_21x;
 node n_t_23x;
 node n_t_24x;
-node n_t_25x;
 node n_t_26x;
 node n_t_27x;
 node n_t_29x;
@@ -141,7 +143,6 @@ node n_t_30x;
 node n_t_31x;
 node n_t_32x;
 node n_t_33x;
-node n_t_34x;
 node n_t_35x;
 node n_t_37x;
 node n_t_38x;
@@ -172,7 +173,6 @@ node rcsf_l;
 node rcsi;
 node rcsi_l;
 node rctf_l;
-node rdy;
 node rdy1_l;
 node strobe;
 node tp3_l;
@@ -616,33 +616,6 @@ rcra = !rcra_l;
 n_t_21x = !(bcd1_l & zone9_l);
 n_t_24x = !(zone9_l & zone8_l);
 n_t_40x = !(drdy_l & cdone_l);
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-n_t_34x = 'b'1;
-
-/* r6: r_us_ */
-n3v = 'b'1;
-
-/* r7: r_us_ */
-n3v = 'b'1;
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= c1_l};

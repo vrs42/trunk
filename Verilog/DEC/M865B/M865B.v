@@ -77,11 +77,14 @@
 // c70: c_us 
 // c71: c_us 
 // e1: sn7474 
-module m865b (n_t_119x, n_t_121x, n_t_124x, n_t_76x, c0_l, c1_l, data10_l, data11_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, init, int_ena, int_rqst_l, internal_io_l, io_pause_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, n15v, n_t_107x, n_t_114x, n_t_117x, n_t_31x, n_t_52x, n_t_77x, n_t_82x, power_ok, rx_active, skip_l, stop1_l, stop2_l, sw, tp3, xmit_active);
+module m865b (n3v, n_t_119x, n_t_121x, n_t_124x, n_t_51x, n_t_76x, n_t_78x, c0_l, c1_l, data10_l, data11_l, data4_l, data5_l, data6_l, data7_l, data8_l, data9_l, init, int_ena, int_rqst_l, internal_io_l, io_pause_l, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, n15v, n604_l, n_t_105x, n_t_107x, n_t_111x, n_t_114x, n_t_117x, n_t_123x, n_t_31x, n_t_52x, n_t_77x, n_t_82x, power_ok, rx_active, skip_l, stop1_l, stop2_l, sw, tp3, tpcnow_l, xmit_active);
+input n3v;
 input n_t_119x;
 input n_t_121x;
 input n_t_124x;
+input n_t_51x;
 input n_t_76x;
+input n_t_78x;
 output c0_l;
 output c1_l;
 inout data10_l;
@@ -107,9 +110,13 @@ input md7_l;
 input md8_l;
 input md9_l;
 output n15v;
+inout n604_l;
+inout n_t_105x;
 input n_t_107x;
+inout n_t_111x;
 output n_t_114x;
 inout reg n_t_117x;
+output n_t_123x;
 output reg n_t_31x;
 input n_t_52x;
 output n_t_77x;
@@ -121,6 +128,7 @@ output stop1_l;
 output reg stop2_l;
 input sw;
 input tp3;
+inout tpcnow_l;
 inout reg xmit_active;
 
 reg enable_m;
@@ -158,6 +166,7 @@ reg n_t_80x_m;
 reg n_t_84x_m;
 reg n_t_85x_m;
 reg n_t_86x_m;
+reg n_t_89x_m;
 reg n_t_92x_m;
 reg n_t_93x_m;
 reg n_t_95x_m;
@@ -222,6 +231,7 @@ wire clr_active_l;
 wire dokcc;
 wire dotcf;
 wire dotpc;
+wire dtx_active_l;
 wire freq_div;
 wire io_pause;
 wire kcc_l;
@@ -261,7 +271,6 @@ wire n_t_45x;
 wire n_t_46x;
 wire n_t_47x;
 wire n_t_4x;
-wire n_t_51x;
 wire n_t_58x;
 wire n_t_5x;
 wire n_t_68x;
@@ -287,7 +296,6 @@ wire tfl_l;
 wire tflnow_l;
 wire tls_l;
 wire tpc_l;
-wire tpcnow_l;
 wire tsf_l;
 wire tsk_l;
 wire tx_busy_l;
@@ -332,122 +340,123 @@ always @(rx_clk_l, rx_active, rx_clr_l, n_t_131x_m)
     n_t_131x <= n_t_131x_m;
   end
 // e2: sn7410 
-assign n_t_110x = ~(rcvr_clk & ~preset_l & ~rx_data);
+assign n_t_110x = ~(rcvr_clk & ~preset_l & n_t_111x);
 assign preset_l = ~(~last_unit & ~rx_active & ~rx_active);
 assign n_t_136x = ~(n_t_131x & rx_clk & rx_data);
 // e3: sn7400 
 assign n_t_88x = ~(preset_l & n_t_89x);
 assign rx_clk_l = ~(rx_active & n_t_134x);
+assign rx_data = ~n_t_111x;
 assign n_t_137x = ~(rx_clk_l & last_unit);
 // e4: sn7493 
-always @(n_t_57x, init, n_t_72x)
-  if (init) begin
+always @(n_t_57x, init, n3v, n_t_72x)
+  if (init & n3v) begin
     n_t_72x_m <= 1'b0;
   end else
   if (~(~n_t_57x)) begin
     n_t_72x_m <= ~n_t_72x;
   end
-always @(n_t_57x, init, n_t_72x_m)
-  if (init) begin
+always @(n_t_57x, init, n3v, n_t_72x_m)
+  if (init & n3v) begin
     n_t_72x <= 1'b0;
   end else
   if (~n_t_57x) begin
     n_t_72x <= n_t_72x_m;
   end
-always @(n_t_72x, init, gdollar_0)
-  if (init) begin
+always @(n_t_72x, init, n3v, gdollar_0)
+  if (init & n3v) begin
     gdollar_0_m <= 1'b0;
   end else
   if (~(~n_t_72x)) begin
     gdollar_0_m <= ~gdollar_0;
   end
-always @(n_t_72x, init, gdollar_0_m)
-  if (init) begin
+always @(n_t_72x, init, n3v, gdollar_0_m)
+  if (init & n3v) begin
     gdollar_0 <= 1'b0;
   end else
   if (~n_t_72x) begin
     gdollar_0 <= gdollar_0_m;
   end
-always @(gdollar_0, init, gdollar_1)
-  if (init) begin
+always @(gdollar_0, init, n3v, gdollar_1)
+  if (init & n3v) begin
     gdollar_1_m <= 1'b0;
   end else
   if (~(~gdollar_0)) begin
     gdollar_1_m <= ~gdollar_1;
   end
-always @(gdollar_0, init, gdollar_1_m)
-  if (init) begin
+always @(gdollar_0, init, n3v, gdollar_1_m)
+  if (init & n3v) begin
     gdollar_1 <= 1'b0;
   end else
   if (~gdollar_0) begin
     gdollar_1 <= gdollar_1_m;
   end
-always @(gdollar_1, init, n_t_80x)
-  if (init) begin
+always @(gdollar_1, init, n3v, n_t_80x)
+  if (init & n3v) begin
     n_t_80x_m <= 1'b0;
   end else
   if (~(~gdollar_1)) begin
     n_t_80x_m <= ~n_t_80x;
   end
-always @(gdollar_1, init, n_t_80x_m)
-  if (init) begin
+always @(gdollar_1, init, n3v, n_t_80x_m)
+  if (init & n3v) begin
     n_t_80x <= 1'b0;
   end else
   if (~gdollar_1) begin
     n_t_80x <= n_t_80x_m;
   end
 // e5: sn7493 
-always @(, init, gdollar_2)
-  if (init) begin
+always @(, init, n3v, gdollar_2)
+  if (init & n3v) begin
     gdollar_2_m <= 1'b0;
   end else
   if (~(~)) begin
     gdollar_2_m <= ~gdollar_2;
   end
-always @(, init, gdollar_2_m)
-  if (init) begin
+always @(, init, n3v, gdollar_2_m)
+  if (init & n3v) begin
     gdollar_2 <= 1'b0;
   end else
   if (~) begin
     gdollar_2 <= gdollar_2_m;
   end
-always @(n_t_54x, init, gdollar_3)
-  if (init) begin
+always @(n_t_54x, init, n3v, gdollar_3)
+  if (init & n3v) begin
     gdollar_3_m <= 1'b0;
   end else
   if (~(~n_t_54x)) begin
     gdollar_3_m <= ~gdollar_3;
   end
-always @(n_t_54x, init, gdollar_3_m)
-  if (init) begin
+always @(n_t_54x, init, n3v, gdollar_3_m)
+  if (init & n3v) begin
     gdollar_3 <= 1'b0;
   end else
   if (~n_t_54x) begin
     gdollar_3 <= gdollar_3_m;
   end
-always @(gdollar_3, init, gdollar_4)
-  if (init) begin
+always @(gdollar_3, init, n3v, gdollar_4)
+  if (init & n3v) begin
     gdollar_4_m <= 1'b0;
   end else
   if (~(~gdollar_3)) begin
     gdollar_4_m <= ~gdollar_4;
   end
-always @(gdollar_3, init, gdollar_4_m)
-  if (init) begin
+always @(gdollar_3, init, n3v, gdollar_4_m)
+  if (init & n3v) begin
     gdollar_4 <= 1'b0;
   end else
   if (~gdollar_3) begin
     gdollar_4 <= gdollar_4_m;
   end
-always @(gdollar_4, init, n_t_57x)
-  if (init) begin
+always @(gdollar_4, init, n3v, n_t_57x)
+  if (init & n3v) begin
     n_t_57x_m <= 1'b0;
   end else
   if (~(~gdollar_4)) begin
     n_t_57x_m <= ~n_t_57x;
   end
-always @(gdollar_4, init, n_t_57x_m)
-  if (init) begin
+always @(gdollar_4, init, n3v, n_t_57x_m)
+  if (init & n3v) begin
     n_t_57x <= 1'b0;
   end else
   if (~gdollar_4) begin
@@ -455,30 +464,44 @@ always @(gdollar_4, init, n_t_57x_m)
   end
 // e6: sn7404 
 assign rx_clk = ~(~n_t_124x);
+assign n_t_123x = ~rx_clk_l;
 assign n_t_77x = xmit_active;
+assign dtx_active_l = ~n_t_78x;
 // e7: sn7474 
-always @(n_t_92x, preset_l, n_t_134x)
+always @(n_t_92x, preset_l, n3v, n_t_134x)
   if (~preset_l) begin
     n_t_134x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_134x_m <= 1'b1;
   end else
   if (~(n_t_92x)) begin
     n_t_134x_m <= ~n_t_134x;
   end
-always @(n_t_92x, preset_l, n_t_134x_m)
+always @(n_t_92x, preset_l, n3v, n_t_134x_m)
   if (~preset_l) begin
     n_t_134x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_134x <= 1'b1;
   end else
   if (n_t_92x) begin
     n_t_134x <= n_t_134x_m;
   end
-always @(n_t_89x, preset_l, n_t_92x)
+always @(n_t_89x, n3v, preset_l, n_t_92x)
+  if (~n3v) begin
+    n_t_92x_m <= 1'b0;
+  end else
   if (~preset_l) begin
     n_t_92x_m <= 1'b1;
   end else
   if (~(~n_t_89x)) begin
     n_t_92x_m <= ~n_t_92x;
   end
-always @(n_t_89x, preset_l, n_t_92x_m)
+always @(n_t_89x, n3v, preset_l, n_t_92x_m)
+  if (~n3v) begin
+    n_t_92x <= 1'b0;
+  end else
   if (~preset_l) begin
     n_t_92x <= 1'b1;
   end else
@@ -486,57 +509,57 @@ always @(n_t_89x, preset_l, n_t_92x_m)
     n_t_92x <= n_t_92x_m;
   end
 // e8: sn7493 
-always @(n_t_80x, init, n_t_84x)
-  if (init) begin
+always @(n_t_80x, init, n3v, n_t_84x)
+  if (init & n3v) begin
     n_t_84x_m <= 1'b0;
   end else
   if (~(~n_t_80x)) begin
     n_t_84x_m <= ~n_t_84x;
   end
-always @(n_t_80x, init, n_t_84x_m)
-  if (init) begin
+always @(n_t_80x, init, n3v, n_t_84x_m)
+  if (init & n3v) begin
     n_t_84x <= 1'b0;
   end else
   if (~n_t_80x) begin
     n_t_84x <= n_t_84x_m;
   end
-always @(n_t_84x, init, gdollar_5)
-  if (init) begin
+always @(n_t_84x, init, n3v, gdollar_5)
+  if (init & n3v) begin
     gdollar_5_m <= 1'b0;
   end else
   if (~(~n_t_84x)) begin
     gdollar_5_m <= ~gdollar_5;
   end
-always @(n_t_84x, init, gdollar_5_m)
-  if (init) begin
+always @(n_t_84x, init, n3v, gdollar_5_m)
+  if (init & n3v) begin
     gdollar_5 <= 1'b0;
   end else
   if (~n_t_84x) begin
     gdollar_5 <= gdollar_5_m;
   end
-always @(gdollar_5, init, gdollar_6)
-  if (init) begin
+always @(gdollar_5, init, n3v, gdollar_6)
+  if (init & n3v) begin
     gdollar_6_m <= 1'b0;
   end else
   if (~(~gdollar_5)) begin
     gdollar_6_m <= ~gdollar_6;
   end
-always @(gdollar_5, init, gdollar_6_m)
-  if (init) begin
+always @(gdollar_5, init, n3v, gdollar_6_m)
+  if (init & n3v) begin
     gdollar_6 <= 1'b0;
   end else
   if (~gdollar_5) begin
     gdollar_6 <= gdollar_6_m;
   end
-always @(gdollar_6, init, n_t_85x)
-  if (init) begin
+always @(gdollar_6, init, n3v, n_t_85x)
+  if (init & n3v) begin
     n_t_85x_m <= 1'b0;
   end else
   if (~(~gdollar_6)) begin
     n_t_85x_m <= ~n_t_85x;
   end
-always @(gdollar_6, init, n_t_85x_m)
-  if (init) begin
+always @(gdollar_6, init, n3v, n_t_85x_m)
+  if (init & n3v) begin
     n_t_85x <= 1'b0;
   end else
   if (~gdollar_6) begin
@@ -555,76 +578,98 @@ assign n_t_120x = ~(n_t_119x
                      | ~rx_clr_l);
 // e11: sn7440 
 // e12: sn7474 
-always @(posedge rcvr_clk)
-  if (rcvr_clk) begin
-    n_t_89x <= n_t_88x;
+always @(rcvr_clk, n3v, n3v, n_t_88x)
+  if (~n3v) begin
+    n_t_89x_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_89x_m <= 1'b1;
+  end else
+  if (~(rcvr_clk)) begin
+    n_t_89x_m <= n_t_88x;
   end
-always @(rx_clk, n_t_133x, set_last)
+always @(rcvr_clk, n3v, n3v, n_t_89x_m)
+  if (~n3v) begin
+    n_t_89x <= 1'b0;
+  end else
+  if (~n3v) begin
+    n_t_89x <= 1'b1;
+  end else
+  if (rcvr_clk) begin
+    n_t_89x <= n_t_89x_m;
+  end
+always @(rx_clk, n_t_133x, n3v, set_last)
   if (~n_t_133x) begin
     last_unit_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    last_unit_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     last_unit_m <= set_last;
   end
-always @(rx_clk, n_t_133x, last_unit_m)
+always @(rx_clk, n_t_133x, n3v, last_unit_m)
   if (~n_t_133x) begin
     last_unit <= 1'b0;
+  end else
+  if (~n3v) begin
+    last_unit <= 1'b1;
   end else
   if (rx_clk) begin
     last_unit <= last_unit_m;
   end
 // e13: sn7493 
-always @(n_t_85x, init, n_t_86x)
-  if (init) begin
+always @(n_t_85x, init, n3v, n_t_86x)
+  if (init & n3v) begin
     n_t_86x_m <= 1'b0;
   end else
   if (~(~n_t_85x)) begin
     n_t_86x_m <= ~n_t_86x;
   end
-always @(n_t_85x, init, n_t_86x_m)
-  if (init) begin
+always @(n_t_85x, init, n3v, n_t_86x_m)
+  if (init & n3v) begin
     n_t_86x <= 1'b0;
   end else
   if (~n_t_85x) begin
     n_t_86x <= n_t_86x_m;
   end
-always @(n_t_86x, init, rcvr_clk)
-  if (init) begin
+always @(n_t_86x, init, n3v, rcvr_clk)
+  if (init & n3v) begin
     rcvr_clk_m <= 1'b0;
   end else
   if (~(~n_t_86x)) begin
     rcvr_clk_m <= ~rcvr_clk;
   end
-always @(n_t_86x, init, rcvr_clk_m)
-  if (init) begin
+always @(n_t_86x, init, n3v, rcvr_clk_m)
+  if (init & n3v) begin
     rcvr_clk <= 1'b0;
   end else
   if (~n_t_86x) begin
     rcvr_clk <= rcvr_clk_m;
   end
-always @(rcvr_clk, init, gdollar_7)
-  if (init) begin
+always @(rcvr_clk, init, n3v, gdollar_7)
+  if (init & n3v) begin
     gdollar_7_m <= 1'b0;
   end else
   if (~(~rcvr_clk)) begin
     gdollar_7_m <= ~gdollar_7;
   end
-always @(rcvr_clk, init, gdollar_7_m)
-  if (init) begin
+always @(rcvr_clk, init, n3v, gdollar_7_m)
+  if (init & n3v) begin
     gdollar_7 <= 1'b0;
   end else
   if (~rcvr_clk) begin
     gdollar_7 <= gdollar_7_m;
   end
-always @(gdollar_7, init, xmit_clk)
-  if (init) begin
+always @(gdollar_7, init, n3v, xmit_clk)
+  if (init & n3v) begin
     xmit_clk_m <= 1'b0;
   end else
   if (~(~gdollar_7)) begin
     xmit_clk_m <= ~xmit_clk;
   end
-always @(gdollar_7, init, xmit_clk_m)
-  if (init) begin
+always @(gdollar_7, init, n3v, xmit_clk_m)
+  if (init & n3v) begin
     xmit_clk <= 1'b0;
   end else
   if (~gdollar_7) begin
@@ -634,14 +679,20 @@ always @(gdollar_7, init, xmit_clk_m)
 assign n_t_81x = ~(n_t_51x & n_t_52x);
 assign n_t_83x = ~(n_t_82x & n_t_81x);
 // e15: sn7474 
-always @(xmit_clk, freq_div, xmit_active)
+always @(xmit_clk, n3v, freq_div, xmit_active)
+  if (~n3v) begin
+    n_t_73x_m <= 1'b0;
+  end else
   if (freq_div) begin
     n_t_73x_m <= 1'b1;
   end else
   if (~(xmit_clk)) begin
     n_t_73x_m <= xmit_active;
   end
-always @(xmit_clk, freq_div, n_t_73x_m)
+always @(xmit_clk, n3v, freq_div, n_t_73x_m)
+  if (~n3v) begin
+    n_t_73x <= 1'b0;
+  end else
   if (freq_div) begin
     n_t_73x <= 1'b1;
   end else
@@ -649,16 +700,22 @@ always @(xmit_clk, freq_div, n_t_73x_m)
     n_t_73x <= n_t_73x_m;
   end
 assign stop1_l = ~n_t_73x;
-always @(xmit_clk, init, n_t_71x)
+always @(xmit_clk, init, n3v, n_t_71x)
   if (init) begin
     xmit_active_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    xmit_active_m <= 1'b1;
   end else
   if (~(xmit_clk)) begin
     xmit_active_m <= n_t_71x;
   end
-always @(xmit_clk, init, xmit_active_m)
+always @(xmit_clk, init, n3v, xmit_active_m)
   if (init) begin
     xmit_active <= 1'b0;
+  end else
+  if (~n3v) begin
+    xmit_active <= 1'b1;
   end else
   if (xmit_clk) begin
     xmit_active <= xmit_active_m;
@@ -673,33 +730,45 @@ assign n_t_44x = ~(rx_flag_l & tx_flag_l);
 assign n_t_58x = ~(n_t_64x & xmit_active);
 assign n_t_133x = ~(n_t_134x & ~rx_active);
 // e18: sn7460 
-// rx_data = !n_t_107x; 
-// !rx_data = !rx_data; 
-// rx_data = rx_data; 
-// !rx_data = !rx_data; 
+// n_t_105x = !n_t_107x; 
+// !n_t_105x = !n_t_105x; 
+// n_t_105x = n_t_105x; 
+// n_t_111x = !n_t_105x; 
 // e19: sn7474 
-always @(xmit_clk, freq_div, n_t_74x)
+always @(xmit_clk, freq_div, n3v, n_t_74x)
   if (freq_div) begin
     stop2_l_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    stop2_l_m <= 1'b1;
   end else
   if (~(xmit_clk)) begin
     stop2_l_m <= ~n_t_74x;
   end
-always @(xmit_clk, freq_div, stop2_l_m)
+always @(xmit_clk, freq_div, n3v, stop2_l_m)
   if (freq_div) begin
     stop2_l <= 1'b0;
+  end else
+  if (~n3v) begin
+    stop2_l <= 1'b1;
   end else
   if (xmit_clk) begin
     stop2_l <= stop2_l_m;
   end
-always @(xmit_clk, freq_div, n_t_73x)
+always @(xmit_clk, n3v, freq_div, n_t_73x)
+  if (~n3v) begin
+    n_t_74x_m <= 1'b0;
+  end else
   if (freq_div) begin
     n_t_74x_m <= 1'b1;
   end else
   if (~(xmit_clk)) begin
     n_t_74x_m <= n_t_73x;
   end
-always @(xmit_clk, freq_div, n_t_74x_m)
+always @(xmit_clk, n3v, freq_div, n_t_74x_m)
+  if (~n3v) begin
+    n_t_74x <= 1'b0;
+  end else
   if (freq_div) begin
     n_t_74x <= 1'b1;
   end else
@@ -707,14 +776,20 @@ always @(xmit_clk, freq_div, n_t_74x_m)
     n_t_74x <= n_t_74x_m;
   end
 // e20: sn7474 
-always @(xmit_clk, init, n_t_58x)
+always @(xmit_clk, n3v, init, n_t_58x)
+  if (~n3v) begin
+    n_t_64x_m <= 1'b0;
+  end else
   if (init) begin
     n_t_64x_m <= 1'b1;
   end else
   if (~(xmit_clk)) begin
     n_t_64x_m <= n_t_58x;
   end
-always @(xmit_clk, init, n_t_64x_m)
+always @(xmit_clk, n3v, init, n_t_64x_m)
+  if (~n3v) begin
+    n_t_64x <= 1'b0;
+  end else
   if (init) begin
     n_t_64x <= 1'b1;
   end else
@@ -723,16 +798,22 @@ always @(xmit_clk, init, n_t_64x_m)
   end
 assign freq_div = ~n_t_64x;
 // e21: sn7474 
-always @(n_t_47x, init, n_t_45x)
+always @(n_t_47x, init, n3v, n_t_45x)
   if (init) begin
     int_ena_l_m <= 1'b0;
+  end else
+  if (~n3v) begin
+    int_ena_l_m <= 1'b1;
   end else
   if (~(n_t_47x)) begin
     int_ena_l_m <= n_t_45x;
   end
-always @(n_t_47x, init, int_ena_l_m)
+always @(n_t_47x, init, n3v, int_ena_l_m)
   if (init) begin
     int_ena_l <= 1'b0;
+  end else
+  if (~n3v) begin
+    int_ena_l <= 1'b1;
   end else
   if (n_t_47x) begin
     int_ena_l <= int_ena_l_m;
@@ -824,7 +905,7 @@ assign set_rr_l = ~(tp3 & dokcc);
 // e32: sn7401 
 // internal_io_l = !n603x; 
 // internal_io_l = !n604x; 
-// !n604x = !n604x; 
+// n604_l = !n604x; 
 // tpcnow_l = !(tp3 & dotpc); 
 // e33: sn7401 
 // skip_l = !(n_t_46x & n_t_44x); 
@@ -851,40 +932,52 @@ assign n_t_41x = ~(io_pause
 assign tx_busy_l = ~(~(~n_t_13x & ~n_t_17x & ~n_t_15x & ~n_t_14x & ~n_t_6x & ~n_t_18x & ~enable & ~n_t_16x));
 // e37: sn7440 
 // e38: dec8251 
-assign tfl_l = ~(n604x & ~n_t_42x & ~n_t_41x & ~n_t_40x);
-assign tsf_l = ~(n604x & ~n_t_42x & ~n_t_41x & n_t_40x);
-assign tcf_l = ~(n604x & ~n_t_42x & n_t_41x & ~n_t_40x);
-assign tpc_l = ~(n604x & n_t_42x & ~n_t_41x & ~n_t_40x);
-assign tsk_l = ~(n604x & n_t_42x & ~n_t_41x & n_t_40x);
-assign tls_l = ~(n604x & n_t_42x & n_t_41x & ~n_t_40x);
+assign tfl_l = ~(~n604_l & ~n_t_42x & ~n_t_41x & ~n_t_40x);
+assign tsf_l = ~(~n604_l & ~n_t_42x & ~n_t_41x & n_t_40x);
+assign tcf_l = ~(~n604_l & ~n_t_42x & n_t_41x & ~n_t_40x);
+assign tpc_l = ~(~n604_l & n_t_42x & ~n_t_41x & ~n_t_40x);
+assign tsk_l = ~(~n604_l & n_t_42x & ~n_t_41x & n_t_40x);
+assign tls_l = ~(~n604_l & n_t_42x & n_t_41x & ~n_t_40x);
 // e39: sn7401 
 // data7_l = !(n_t_98x & read_buffer); 
 // data6_l = !(n_t_97x & read_buffer); 
 // data5_l = !(read_buffer & n_t_79x); 
 // data4_l = !(read_buffer & n_t_95x); 
 // e40: sn7474 
-always @(rx_clk, rx_clr_l, n_t_97x)
+always @(rx_clk, n3v, rx_clr_l, n_t_97x)
+  if (~n3v) begin
+    n_t_98x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_98x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_98x_m <= n_t_97x;
   end
-always @(rx_clk, rx_clr_l, n_t_98x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_98x_m)
+  if (~n3v) begin
+    n_t_98x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_98x <= 1'b1;
   end else
   if (rx_clk) begin
     n_t_98x <= n_t_98x_m;
   end
-always @(rx_clk, rx_clr_l, rx_data)
+always @(rx_clk, n3v, rx_clr_l, rx_data)
+  if (~n3v) begin
+    n_t_95x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_95x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_95x_m <= rx_data;
   end
-always @(rx_clk, rx_clr_l, n_t_95x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_95x_m)
+  if (~n3v) begin
+    n_t_95x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_95x <= 1'b1;
   end else
@@ -893,28 +986,40 @@ always @(rx_clk, rx_clr_l, n_t_95x_m)
   end
 assign rr_clk = ~n_t_95x;
 // e41: sn7474 
-always @(rx_clk, rx_clr_l, n_t_79x)
+always @(rx_clk, n3v, rx_clr_l, n_t_79x)
+  if (~n3v) begin
+    n_t_97x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_97x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_97x_m <= n_t_79x;
   end
-always @(rx_clk, rx_clr_l, n_t_97x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_97x_m)
+  if (~n3v) begin
+    n_t_97x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_97x <= 1'b1;
   end else
   if (rx_clk) begin
     n_t_97x <= n_t_97x_m;
   end
-always @(rx_clk, rx_clr_l, n_t_95x)
+always @(rx_clk, n3v, rx_clr_l, n_t_95x)
+  if (~n3v) begin
+    n_t_79x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_79x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_79x_m <= n_t_95x;
   end
-always @(rx_clk, rx_clr_l, n_t_79x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_79x_m)
+  if (~n3v) begin
+    n_t_79x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_79x <= 1'b1;
   end else
@@ -942,14 +1047,20 @@ always @(freq_div, init, tpcnow_l, enable_m)
   if (~freq_div) begin
     enable <= enable_m;
   end
-always @(rx_clk, clear_rx_flag, set_last)
+always @(rx_clk, n3v, clear_rx_flag, set_last)
+  if (~n3v) begin
+    rx_flag_l_m <= 1'b0;
+  end else
   if (~clear_rx_flag) begin
     rx_flag_l_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     rx_flag_l_m <= ~set_last;
   end
-always @(rx_clk, clear_rx_flag, rx_flag_l_m)
+always @(rx_clk, n3v, clear_rx_flag, rx_flag_l_m)
+  if (~n3v) begin
+    rx_flag_l <= 1'b0;
+  end else
   if (~clear_rx_flag) begin
     rx_flag_l <= 1'b1;
   end else
@@ -1048,8 +1159,8 @@ always @(freq_div, init, n_t_9x, n_t_16x_m)
     n_t_16x <= n_t_16x_m;
   end
 // e46: sn7474 
-always @(freq_div, xmit_active, n_t_28x)
-  if (1'b1) begin
+always @(freq_div, dtx_active_l, xmit_active, n_t_28x)
+  if (~dtx_active_l) begin
     n_t_31x_m <= 1'b0;
   end else
   if (~xmit_active) begin
@@ -1058,8 +1169,8 @@ always @(freq_div, xmit_active, n_t_28x)
   if (~(~freq_div)) begin
     n_t_31x_m <= n_t_28x;
   end
-always @(freq_div, xmit_active, n_t_31x_m)
-  if (1'b1) begin
+always @(freq_div, dtx_active_l, xmit_active, n_t_31x_m)
+  if (~dtx_active_l) begin
     n_t_31x <= 1'b0;
   end else
   if (~xmit_active) begin
@@ -1186,14 +1297,20 @@ always @(freq_div, init, n_t_2x, n_t_28x_m)
 // data9_l = !(read_buffer & n_t_100x); 
 // data8_l = !(read_buffer & n_t_99x); 
 // e51: sn7474 
-always @(rx_clk, rx_clr_l, n_t_101x)
+always @(rx_clk, n3v, rx_clr_l, n_t_101x)
+  if (~n3v) begin
+    n_t_93x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_93x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_93x_m <= n_t_101x;
   end
-always @(rx_clk, rx_clr_l, n_t_93x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_93x_m)
+  if (~n3v) begin
+    n_t_93x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_93x <= 1'b1;
   end else
@@ -1201,14 +1318,20 @@ always @(rx_clk, rx_clr_l, n_t_93x_m)
     n_t_93x <= n_t_93x_m;
   end
 assign set_last = ~n_t_93x;
-always @(rx_clk, rx_clr_l, n_t_98x)
+always @(rx_clk, n3v, rx_clr_l, n_t_98x)
+  if (~n3v) begin
+    n_t_99x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_99x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_99x_m <= n_t_98x;
   end
-always @(rx_clk, rx_clr_l, n_t_99x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_99x_m)
+  if (~n3v) begin
+    n_t_99x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_99x <= 1'b1;
   end else
@@ -1216,59 +1339,46 @@ always @(rx_clk, rx_clr_l, n_t_99x_m)
     n_t_99x <= n_t_99x_m;
   end
 // e52: sn7474 
-always @(rx_clk, rx_clr_l, n_t_100x)
+always @(rx_clk, n3v, rx_clr_l, n_t_100x)
+  if (~n3v) begin
+    n_t_101x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_101x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_101x_m <= n_t_100x;
   end
-always @(rx_clk, rx_clr_l, n_t_101x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_101x_m)
+  if (~n3v) begin
+    n_t_101x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_101x <= 1'b1;
   end else
   if (rx_clk) begin
     n_t_101x <= n_t_101x_m;
   end
-always @(rx_clk, rx_clr_l, n_t_99x)
+always @(rx_clk, n3v, rx_clr_l, n_t_99x)
+  if (~n3v) begin
+    n_t_100x_m <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_100x_m <= 1'b1;
   end else
   if (~(rx_clk)) begin
     n_t_100x_m <= n_t_99x;
   end
-always @(rx_clk, rx_clr_l, n_t_100x_m)
+always @(rx_clk, n3v, rx_clr_l, n_t_100x_m)
+  if (~n3v) begin
+    n_t_100x <= 1'b0;
+  end else
   if (~rx_clr_l) begin
     n_t_100x <= 1'b1;
   end else
   if (rx_clk) begin
     n_t_100x <= n_t_100x_m;
   end
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
 // open collector 'wire-or's 
 assign c0_l = dokcc? ~dokcc: 1'bz;
 assign c1_l = dokcc
@@ -1284,10 +1394,12 @@ assign data9_l = (read_buffer & n_t_100x)? 1'b0: 1'bz;
 assign int_rqst_l = (n_t_44x & int_ena)? 1'b0: 1'bz;
 assign internal_io_l = n603x
                         | n604x? 1'b0: 1'bz;
-assign rx_data = ~(n_t_107x
-                    | (~rx_data));
+assign n604_l = n604x? ~n604x: 1'bz;
+assign n_t_105x = n_t_107x
+                   | (~(1'b0))? 1'b0: 1'bz;
+assign n_t_111x = n_t_105x? ~n_t_105x: 1'bz;
 assign skip_l = (n_t_46x & n_t_44x)
                  | n_t_39x
                  | n_t_43x? 1'b0: 1'bz;
-assign tpcnow_l = ~((tp3 & dotpc));
+assign tpcnow_l = (tp3 & dotpc)? 1'b0: 1'bz;
 endmodule

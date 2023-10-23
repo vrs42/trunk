@@ -16,6 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v_r1;
+pin = n3v_r3;
 
 /* Output Pins */
 pin = as2;
@@ -65,8 +67,6 @@ pin = w9;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n3v_r1;
-node n3v_r3;
 node n_t_3x;
 node w1_l;
 node w2_l;
@@ -271,18 +271,6 @@ sync = !sync_l;
 
 /* e21: sn7430 */
 mk_blk_sync_l = !(w1 & w4 & w2 & w5_l & w3 & au1 & w7_l & w6);
-
-/* r1: r_us_ */
-n3v_r1 = 'b'1;
-
-/* r2: r_us_ */
-n3v_r1 = 'b'1;
-
-/* r3: r_us_ */
-n3v_r3 = 'b'1;
-
-/* r4: r_us_ */
-n3v_r3 = 'b'1;
 
 /* Open collector 'wire-or's */
 !n_t_1x = n_t_2x;

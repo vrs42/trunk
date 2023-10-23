@@ -41,7 +41,7 @@
 // c39: c_us 
 // c40: c_us 
 // e1: sn74161 
-module m7106b (bdata7, btp2, btp3, btp3_ok, clr_all_l, clr_drive_cmd_l, clr_sector_ad_l, crc16, data_enab_l, data_enable, dsk_acknowledge_l, dsk_data_in_l, dsk_file_rdy_l, dsk_index_mk_l, dsk_rd_clk_l, dsk_sec1_l, dsk_sec2_l, dsk_sec4_l, dsk_sec8_l, dsk_sector_mk_l, dsk_wrt_status_l, error_clr_l, function00, function01, function02, half_block, hi_main_shft_l, last_brk, lo_main_shft_l, main_l, n3v, n6rk3_ok, n_t_21x, n_t_24x, n_t_48x, n_t_49x, n_t_52x, n_t_53x, n_t_74x, n_t_76x, n_t_8x, n_t_9x, rdy_s_r_w, rk_data11, set_idle_pl_l, shft_surf, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, clr_cntrs_l, crc_data, data10_l, data11_l, data8_l, data9_l, data_clk_ok, data_clr_l, data_in_l, data_state, data_state_l, drv_revo, dsk_head_sel1_l, dsk_read_l, dsk_restore_l, dsk_strobe_l, dsk_wrt_clk_data_l, dsk_wrt_erase_gate_l, dsk_wrt_protect_l, end_state, end_state_l, erase_dly_l, file_rdy, idle, idle_l, inside_in_l, j1tt, last_word_pl, ld_disk_addrs, n12th_bit_ok, n_t_20x, outside_clk_l, rd_clk1, rd_shft_db_l, read_dly_l, sector_addrs1, sector_mk, sector_mk_l, sector_seek_l, shft_wrt_buff_l, shift_crc_l, state_enab_b, strobe, sync_dly_l, write, wrt_cmd, wrt_cmd_l);
+module m7106b (bdata7, btp2, btp3, btp3_ok, clr_all_l, clr_drive_cmd_l, clr_sector_ad_l, crc16, data_enab_l, data_enable, dsk_acknowledge_l, dsk_data_in_l, dsk_file_rdy_l, dsk_index_mk_l, dsk_rd_clk_l, dsk_sec1_l, dsk_sec2_l, dsk_sec4_l, dsk_sec8_l, dsk_sector_mk_l, dsk_wrt_status_l, error_clr_l, function00, function01, function02, half_block, hi_main_shft_l, last_brk, last_word, lo_main_shft_l, main_l, n3v, n6rk3_ok, n_t_18x, n_t_21x, n_t_24x, n_t_36x, n_t_48x, n_t_49x, n_t_52x, n_t_53x, n_t_57x, n_t_60x, n_t_74x, n_t_76x, n_t_7x, n_t_8x, n_t_9x, rdy_s_r_w, rk_data11, set_idle_pl_l, shft_surf, acknowledge, b_idle, b_last_brk, bdata10, bdata11, bdata8, bdata9, brk_enab_clk, brk_in_clk, clr_cntrs_l, crc_data, data10_l, data11_l, data8_l, data9_l, data_clk_ok, data_clr_l, data_in_l, data_state, data_state_l, drv_revo, dsk_head_sel1_l, dsk_read_l, dsk_restore_l, dsk_sec2, dsk_strobe_l, dsk_wrt_clk_data_l, dsk_wrt_erase_gate_l, dsk_wrt_protect_l, end_state, end_state_l, erase_dly_l, file_rdy, idle, idle_l, inside_in_l, j1tt, last_word_pl, ld_disk_addrs, n12th_bit_ok, n12th_carry_l, n_t_16x, n_t_20x, n_t_25x, n_t_40x, n_t_56x, n_t_59x, n_t_6x, outside_clk_l, rd_clk1, rd_shft_db_l, read_dly_l, sector_addrs1, sector_mk, sector_mk_l, sector_seek_l, shft_wrt_buff_l, shift_crc_l, state_enab_b, strobe, sync_dly_l, write, wrt_cmd, wrt_cmd_l);
 input bdata7;
 input btp2;
 input btp3;
@@ -70,24 +70,32 @@ input function02;
 input half_block;
 input hi_main_shft_l;
 input last_brk;
+input last_word;
 input lo_main_shft_l;
 input main_l;
 input n3v;
 input n6rk3_ok;
+input n_t_18x;
 input n_t_21x;
-output n_t_24x;
+input n_t_24x;
+input n_t_36x;
 output n_t_48x;
 output n_t_49x;
 output n_t_52x;
 output n_t_53x;
+input n_t_57x;
+input n_t_60x;
 output n_t_74x;
 output n_t_76x;
+input n_t_7x;
 output n_t_8x;
 output n_t_9x;
 input rdy_s_r_w;
 input rk_data11;
 input set_idle_pl_l;
 input shft_surf;
+inout acknowledge;
+inout b_idle;
 output b_last_brk;
 inout bdata10;
 inout bdata11;
@@ -110,6 +118,7 @@ output drv_revo;
 output dsk_head_sel1_l;
 output dsk_read_l;
 output dsk_restore_l;
+inout dsk_sec2;
 output dsk_strobe_l;
 output dsk_wrt_clk_data_l;
 output dsk_wrt_erase_gate_l;
@@ -125,7 +134,14 @@ output j1tt;
 output last_word_pl;
 inout ld_disk_addrs;
 output n12th_bit_ok;
+inout n12th_carry_l;
+output n_t_16x;
 inout n_t_20x;
+output n_t_25x;
+output n_t_40x;
+output n_t_56x;
+output n_t_59x;
+output n_t_6x;
 input outside_clk_l;
 inout rd_clk1;
 output rd_shft_db_l;
@@ -248,16 +264,12 @@ wire go;
 wire in;
 wire inc_brk_cntr_l;
 wire inc_cntrs;
-wire last_word;
 wire last_word_pl_l;
-wire n12th_carry_l;
 wire n16_carry;
 wire n16th_bit_l;
 wire n_t_10x;
 wire n_t_15x;
-wire n_t_16x;
 wire n_t_17x;
-wire n_t_18x;
 wire n_t_19x;
 wire n_t_1x;
 wire n_t_27x;
@@ -266,7 +278,6 @@ wire n_t_29x;
 wire n_t_2x;
 wire n_t_32x;
 wire n_t_35x;
-wire n_t_36x;
 wire n_t_37x;
 wire n_t_38x;
 wire n_t_39x;
@@ -278,9 +289,7 @@ wire n_t_45x;
 wire n_t_46x;
 wire n_t_51x;
 wire n_t_54x;
-wire n_t_57x;
 wire n_t_58x;
-wire n_t_60x;
 wire n_t_62x;
 wire n_t_63x;
 wire n_t_65x;
@@ -294,7 +303,6 @@ wire n_t_75x;
 wire n_t_77x;
 wire n_t_78x;
 wire n_t_79x;
-wire n_t_7x;
 wire n_t_80x;
 wire n_t_81x;
 wire n_t_85x;
@@ -739,6 +747,8 @@ always @(inc_brk_cntr_l, clr_all_l, gdollar_19_m)
 assign n_t_1x = data_enable & gdollar_19 & gdollar_18 & gdollar_17 & gdollar_16;
 // e7: sn74h04 
 assign rd_clk1 = ~rd_clk1_l;
+assign n_t_59x = ~rd_clk1_l;
+assign n_t_56x = ~read_clk;
 // e8: sn7400 
 assign brk_in_clk = ~(~(~read_l & data_state));
 assign brk_enab_clk = ~(~brk_in_clk & ~write);
@@ -752,6 +762,7 @@ assign n12th_carry_l = ~(n_t_11x & n_t_13x & n_t_14x);
 // e11: sn74h04 
 assign clr_cntrs_l = ~clr_cntrs;
 assign last_word_pl = ~last_word_pl_l;
+assign n_t_6x = n_t_2x;
 // e12: sn7400 
 assign n_t_10x = ~(~n_t_2x & n_t_7x);
 assign n_t_19x = ~(inc_cntrs & ~n12th_carry_l);
@@ -1092,7 +1103,7 @@ assign n_t_75x = ~(idle
 assign n_t_77x = ~(clr_states
                     | header_c);
 assign clr_strobe_l = ~(clr_states
-                         | ~dsk_acknowledge_l);
+                         | acknowledge);
 assign clr_states = ~(~(n_t_62x
                          | n_t_63x));
 // e27: sn7400 
@@ -1146,8 +1157,10 @@ assign data_out_pl_l = ~(n_t_31x & n_t_29x & n_t_39x);
 assign not_chk_header_cmd = ~(sk_rd_l & sk_wrt_l & sk_wrt_l);
 // e35: sn7404 
 assign sector_mk_l = ~sector_mk;
+assign b_idle = ~idle_l;
 // e36: sn7404 
 assign wrt_cmd_l = ~wrt_cmd;
+assign n_t_40x = ~wrt_clk_l;
 // e37: sn7474 
 always @(b_wrt_clk, header_d, n3v, sync_dly_l)
   if (~header_d) begin
@@ -1244,6 +1257,8 @@ always @(header_d, idle_l, n3v, write_m)
     write <= write_m;
   end
 // e42: sp380n 
+assign dsk_sec2 = ~dsk_sec2_l;
+assign acknowledge = ~dsk_acknowledge_l;
 // e44: ds75452n 
 // dsk_wrt_clk_data_l = !(!wrt_clk_data); 
 // e45: sn7400 
@@ -1357,8 +1372,8 @@ assign gdollar_21 = sector_addrs8 & dsk_sec8_l
                      | ~sector_addrs8 & ~dsk_sec8_l;
 assign gdollar_22 = sector_addrs4 & dsk_sec4_l
                      | ~sector_addrs4 & ~dsk_sec4_l;
-assign gdollar_23 = sector_addrs2 & dsk_sec2_l
-                     | ~sector_addrs2 & ~dsk_sec2_l;
+assign gdollar_23 = sector_addrs2 & ~dsk_sec2
+                     | ~sector_addrs2 & dsk_sec2;
 assign gdollar_24 = sector_addrs1 & dsk_sec1_l
                      | ~sector_addrs1 & ~dsk_sec1_l;
 assign sector_eq = sector_seek & ~gdollar_21 & ~gdollar_22 & ~gdollar_23 & ~gdollar_24;
@@ -1372,6 +1387,7 @@ assign sector_eq = sector_seek & ~gdollar_21 & ~gdollar_22 & ~gdollar_23 & ~gdol
 // dsk_wrt_erase_gate_l = !(!write); 
 // dsk_wrt_protect_l = !(!(!wrt_lock_out_l & n6rk3_ok)); 
 // e51: sp380n 
+assign n_t_25x = ~n_t_24x;
 assign n_t_85x = ~(wrt_cmd_l
                     | dsk_wrt_status_l);
 assign n_t_20x = ~n_t_21x;
@@ -1386,7 +1402,7 @@ assign bdata11 = ~(data11_l
                     | data_enab_l);
 // e53: sp380n 
 assign drv_revo = ~(dsk_index_mk_l
-                     | ~idle_l);
+                     | b_idle);
 // e54: sp380n 
 assign read_data_in = ~(read_l
                          | dsk_data_in_l);
@@ -1394,61 +1410,8 @@ assign file_rdy = ~(dsk_file_rdy_l
                      | n_t_85x);
 assign read_clk = ~(dsk_rd_clk_l
                      | read_l);
-assign sector_mk = ~(~idle_l
+assign sector_mk = ~(b_idle
                       | dsk_sector_mk_l);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r38: r_us_ 
-// r39: r_us_ 
-// r40: r_us_ 
-// r41: r_us_ 
-// r42: r_us_ 
-// r43: r_us_ 
-// r44: r_us_ 
-// r45: r_us_ 
-// r46: r_us_ 
-// r47: r_us_ 
-// r48: r_us_ 
-// r49: r_us_ 
-// r50: r_us_ 
-// r51: r_us_ 
-// r52: r_us_ 
-// r53: r_us_ 
-// r54: r_us_ 
-// r55: r_us_ 
 // open collector 'wire-or's 
 assign dsk_head_sel1_l = (~top_surf)? 1'b0: 1'bz;
 assign dsk_read_l = read_l? ~read_l: 1'bz;

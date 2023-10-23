@@ -17,7 +17,8 @@
 // c10: c_us 
 // c11: c_us 
 // e1: sn7474 
-module m208x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m208x (n3v3, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input n3v3;
 input a1;
 input b1;
 inout reg c1;
@@ -145,10 +146,10 @@ assign n_t_6x = ~(n_t_9x & j1
 assign n_t_5x = ~(n_t_9x & l1
                    | p2 & n_t_14x);
 // e5: sn7400 
-assign n_t_31x = ~b1;
-assign n_t_14x = ~k2;
-assign n_t_9x = ~m2;
-assign n_t_32x = ~b1;
+assign n_t_31x = ~(n3v3 & b1);
+assign n_t_14x = ~(k2 & n3v3);
+assign n_t_9x = ~(m2 & n3v3);
+assign n_t_32x = ~(n3v3 & b1);
 // e6: sn74h40 
 assign n_t_27x = ~(a1 & u2);
 // e7: sn7474 
@@ -223,7 +224,5 @@ assign n_t_4x = ~(n_t_9x & n1
                    | r2 & n_t_14x);
 assign n_t_3x = ~(n_t_9x & r1
                    | t2 & n_t_14x);
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 endmodule

@@ -56,9 +56,5 @@ assign s2 = (r2 & p2);
 // e3: sn7408 
 assign k1 = (h1 & j1);
 assign n2 = (m2 & l2);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
 // open collector 'wire-or's 
 endmodule

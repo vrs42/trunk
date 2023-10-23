@@ -13,9 +13,8 @@ info: double ne edge_con4
 warning: making u$2/double/ a connector
 warning: non-bypass capacitor deleted: c26
 warning: non-bypass capacitor deleted: c27
-warning: non-pullup resistor deleted: r3
 ~/Verilog/bin/smaller.pl M709B.PLD >vv || (rm vv; exit 1)
-18 signals were removed:
+16 signals were removed:
   n_t_40x: !n_t_39x
   n_t_41x: !n_t_38x
   n_t_42x: !n_t_37x
@@ -32,8 +31,6 @@ warning: non-pullup resistor deleted: r3
   n_t_57x: !gate
   n_t_58x: !gate
   n_t_83x: !clk_count
-  n_t_86x: !transfer
-  n_t_89x: !n_t_84x
 ~/Verilog/bin/smaller.pl vv >M709BX.PLD || (rm M709BX.PLD; exit 1)
 0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M709BX.PLD >vv || (rm vv; exit 1)

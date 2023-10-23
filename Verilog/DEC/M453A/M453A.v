@@ -17,7 +17,8 @@
 // c12: c_us 
 // c14: c_us 
 // e2: sn7440 
-module m453a (n_t_7x, a1, h2, j1, j2, k2, l1, l2, m1, m2, n1, n2, n3v3, n_t_5x, n_t_8x, p1, p2, r1, r2, s1, u1, v1);
+module m453a (n_t_18x, n_t_7x, a1, h2, j1, j2, k2, l1, l2, m1, m2, n1, n2, n3v3, n_t_1x, n_t_5x, n_t_61x, n_t_8x, p1, p2, r1, r2, s1, u1, v1);
+input n_t_18x;
 output n_t_7x;
 output a1;
 input h2;
@@ -31,7 +32,9 @@ inout reg m2;
 output n1;
 inout n2;
 input n3v3;
+output n_t_1x;
 output n_t_5x;
+output n_t_61x;
 output n_t_8x;
 output p1;
 input p2;
@@ -44,7 +47,6 @@ output v1;
 reg k2_m;
 reg m2_m;
 
-wire n_t_1x;
 assign j2 = ~h2;
 // e3: sn7474 
 always @(h2, n3v3, n3v3, n2)
@@ -90,18 +92,8 @@ always @(m2, n3v3, n3v3, k2_m)
   end
 assign l2 = k2;
 // e4: sn7400 
-assign r2 = 1'b1;
+assign r2 = ~(~n_t_18x);
 assign n_t_1x = ~(p2 & ~r2);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r12: r_us_ 
+assign n_t_61x = ~h2;
 // open collector 'wire-or's 
 endmodule

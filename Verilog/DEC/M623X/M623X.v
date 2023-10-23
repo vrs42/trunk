@@ -10,7 +10,7 @@
 // c3: c_us 
 // c4: cpol_use 
 // e1: sn7402 
-module m623x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u2, v2);
+module m623x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_3x, p1, p2, r1, r2, s1, s2, t2, u2, v2);
 input a1;
 input b1;
 input c1;
@@ -32,6 +32,18 @@ input m1;
 input m2;
 input n1;
 output n2;
+output n_t_12x;
+output n_t_13x;
+output n_t_14x;
+output n_t_15x;
+output n_t_16x;
+output n_t_17x;
+output n_t_18x;
+output n_t_19x;
+output n_t_1x;
+output n_t_20x;
+output n_t_21x;
+output n_t_3x;
 input p1;
 output p2;
 output r1;
@@ -43,18 +55,6 @@ output u2;
 output v2;
 
 
-wire n_t_12x;
-wire n_t_13x;
-wire n_t_14x;
-wire n_t_15x;
-wire n_t_16x;
-wire n_t_17x;
-wire n_t_18x;
-wire n_t_19x;
-wire n_t_1x;
-wire n_t_20x;
-wire n_t_21x;
-wire n_t_3x;
 assign n_t_13x = ~(f2
                     | e2);
 assign n_t_3x = ~(f2
@@ -81,17 +81,5 @@ assign n_t_21x = ~(p1
                     | n1);
 assign n_t_19x = ~(p1
                     | m1);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
 // open collector 'wire-or's 
 endmodule

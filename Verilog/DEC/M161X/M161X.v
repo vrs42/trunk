@@ -18,7 +18,8 @@
 // c11: c_us 
 // c12: c_us 
 // e1: sn7400 
-module m161x (d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m161x (n3v, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input n3v;
 inout d1;
 output d2;
 inout e1;
@@ -60,10 +61,10 @@ wire n_t_6x;
 wire n_t_7x;
 wire n_t_8x;
 wire n_t_9x;
-assign h2 = ~h1;
-assign f2 = ~f1;
-assign e2 = ~e1;
-assign d2 = ~d1;
+assign h2 = ~(n3v & h1);
+assign f2 = ~(n3v & f1);
+assign e2 = ~(e1 & n3v);
+assign d2 = ~(d1 & n3v);
 // e2: sn7420 
 assign e1 = ~(n_t_25x & n_t_8x & n_t_9x & n_t_5x);
 assign d1 = ~(n_t_5x & n_t_9x & n_t_8x & n_t_10x);
@@ -74,35 +75,33 @@ assign f1 = ~(n_t_5x & n_t_9x & n_t_11x & n_t_10x);
 assign l1 = ~(n_t_25x & n_t_11x & n_t_24x & n_t_5x);
 assign h1 = ~(n_t_5x & n_t_24x & n_t_11x & n_t_10x);
 // e5: sn7400 
-assign n2 = ~n1;
-assign m2 = ~m1;
-assign l2 = ~l1;
-assign j2 = ~j1;
+assign n2 = ~(n3v & n1);
+assign m2 = ~(n3v & m1);
+assign l2 = ~(l1 & n3v);
+assign j2 = ~(j1 & n3v);
 // e6: sn7420 
 assign n1 = ~(n_t_25x & n_t_8x & n_t_24x & n_t_5x);
 assign j1 = ~(n_t_5x & n_t_24x & n_t_8x & n_t_10x);
 // e7: sn7420 
-assign p1 = ~(n_t_10x & n_t_4x & n_t_12x);
-assign r1 = ~(n_t_12x & n_t_4x & n_t_25x);
+assign p1 = ~(n_t_10x & n3v & n_t_4x & n_t_12x);
+assign r1 = ~(n_t_12x & n_t_4x & n_t_25x & n3v);
 // e8: sn7420 
 assign n_t_6x = ~(n_t_7x & s2 & s1 & t2);
-assign n_t_2x = ~(t2 & s1 & s2);
+assign n_t_2x = ~(t2 & s1 & s2 & n3v);
 // e9: sn7400 
-assign n_t_7x = ~u1;
-assign n_t_10x = ~v1;
-assign n_t_8x = ~v2;
-assign n_t_9x = ~u2;
+assign n_t_7x = ~(n3v & u1);
+assign n_t_10x = ~(n3v & v1);
+assign n_t_8x = ~(v2 & n3v);
+assign n_t_9x = ~(u2 & n3v);
 // e10: sn7400 
-assign n_t_5x = ~n_t_6x;
-assign n_t_4x = ~n_t_2x;
-assign r2 = ~r1;
-assign p2 = ~p1;
+assign n_t_5x = ~(n3v & n_t_6x);
+assign n_t_4x = ~(n3v & n_t_2x);
+assign r2 = ~(r1 & n3v);
+assign p2 = ~(p1 & n3v);
 // e11: sn7400 
-assign n_t_24x = ~n_t_9x;
-assign n_t_25x = ~n_t_10x;
-assign n_t_11x = ~n_t_8x;
-assign n_t_12x = ~n_t_7x;
-// r1: r_us_ 
-// r2: r_us_ 
+assign n_t_24x = ~(n3v & n_t_9x);
+assign n_t_25x = ~(n3v & n_t_10x);
+assign n_t_11x = ~(n_t_8x & n3v);
+assign n_t_12x = ~(n_t_7x & n3v);
 // open collector 'wire-or's 
 endmodule

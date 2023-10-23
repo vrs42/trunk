@@ -52,12 +52,15 @@ pin = n_t_31x;
 pin = n_t_35x;
 pin = n_t_36x;
 pin = n_t_37x;
+pin = n_t_39x;
 pin = n_t_46x;
 pin = n_t_47x;
+pin = n_t_48x;
 pin = n_t_4x;
 pin = n_t_50x;
 pin = n_t_52x;
 pin = n_t_57x;
+pin = n_t_58x;
 pin = n_t_59x;
 pin = n_t_60x;
 pin = n_t_62x;
@@ -68,6 +71,7 @@ pin = reader_enable;
 pin = reader_run_l;
 pin = serial;
 pin = serial_in;
+pin = serial_l;
 pin = shift;
 pin = skip_strobe;
 node n2^0;
@@ -103,13 +107,9 @@ node n_t_29x;
 node n_t_32x;
 node n_t_33x;
 node n_t_38x;
-node n_t_39x;
 node n_t_42x;
 node n_t_43x;
 node n_t_45x;
-node n_t_48x;
-node n_t_58x;
-node serial_l;
 node set_flag;
 node start;
 $ENDIF
@@ -335,28 +335,13 @@ n_t_46x = !(n_t_47x & buffer_strobe);
 serial = !serial_l;
 n_t_1x = !n_t_45x;
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
 /* Open collector 'wire-or's */
 !n_t_38x = n_t_39x;
+property atmel {open_collector= n_t_39x};
 !n_t_39x = (serial_in)
            # (n_t_38x);
+n_t_39x.oe = (serial_in)
+           # (n_t_38x);
+property atmel {open_collector= serial_l};
 !serial_l = n_t_39x;
+serial_l.oe = n_t_39x;

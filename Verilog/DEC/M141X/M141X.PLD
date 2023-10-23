@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v;
 
 /* Output Pins */
 pin = n_t_10x;
@@ -53,7 +54,6 @@ pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n3v;
 $ENDIF
 
 /* Code nodes */
@@ -89,20 +89,6 @@ n_t_29x = !(n3v & n_t_31x);
 /* n_t_25x = !(n_t_23x & n_t_24x); */
 /* n_t_28x = !(n_t_27x & n_t_26x); */
 /* n_t_25x = !(n_t_20x & n_t_19x); */
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-n3v = 'b'1;
-
-/* r6: r_us_ */
-n3v = 'b'1;
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= n_t_18x};

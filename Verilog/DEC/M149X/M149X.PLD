@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v3;
 
 /* Output Pins */
 pin = a1;
@@ -52,7 +53,6 @@ pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n3v3;
 node u2_l;
 node v2_l;
 $ENDIF
@@ -111,12 +111,6 @@ v2_l = !(v2 & n3v3);
 /* e6: sn7401 */
 /* s2 = !(r2 & v2_l); */
 /* s2 = !(u2_l & p2); */
-
-/* r1: r_us_ */
-n3v3 = 'b'1;
-
-/* r2: r_us_ */
-n3v3 = 'b'1;
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= c1};

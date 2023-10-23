@@ -11,7 +11,7 @@
 // c4: c_us 
 // c5: c_us 
 // e1: sn7400 
-module m310b (n_t_10x, n_t_13x, n_t_18x, n_t_1x, n100ns, n150ns, n200ns, n250ns, n300ns, n350ns, n400ns, n450ns, n500ns, n50ns, n_t_12x, n_t_14x, n_t_21x, n_t_23x, n_t_2x, n_t_6x);
+module m310b (n_t_10x, n_t_13x, n_t_18x, n_t_1x, n100ns, n150ns, n200ns, n250ns, n300ns, n350ns, n400ns, n450ns, n500ns, n50ns, n_t_12x, n_t_14x, n_t_19x, n_t_21x, n_t_23x, n_t_2x, n_t_4x, n_t_6x);
 input n_t_10x;
 input n_t_13x;
 input n_t_18x;
@@ -28,34 +28,18 @@ output n500ns;
 output n50ns;
 output n_t_12x;
 output n_t_14x;
+output n_t_19x;
 output n_t_21x;
 output n_t_23x;
 output n_t_2x;
+output n_t_4x;
 output n_t_6x;
 
 
-wire n_t_19x;
-wire n_t_4x;
 assign n_t_4x = ~(n_t_10x & ~n_t_1x);
 assign n_t_19x = ~(n_t_18x & ~n_t_13x);
 // e2: sn7440 
 assign n_t_21x = n_t_13x;
 assign n_t_12x = n_t_1x;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
 // open collector 'wire-or's 
 endmodule

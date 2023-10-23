@@ -25,10 +25,15 @@ pin = ad00_l;
 pin = ad01_l;
 pin = ad10_l;
 pin = ad11_l;
+pin = ad_ld_d15_l;
 pin = carry_out_l;
 pin = fdset_l;
+pin = link_data_l;
 pin = mq00_03eq0_l;
 pin = mq04_11eq0_l;
+pin = n3b;
+pin = n3va;
+pin = n_t_26x;
 pin = n_t_2x;
 
 /* Output Pins */
@@ -50,6 +55,7 @@ pin = data_t;
 pin = en0;
 pin = en1;
 pin = en2;
+pin = fe_fd_l;
 pin = feset_l;
 pin = fset_l;
 pin = ind1;
@@ -85,6 +91,16 @@ pin = mq_load_l;
 pin = mqeq0;
 pin = ms_ir_dis_l;
 pin = n15v;
+pin = n3v;
+pin = n_t_16x;
+pin = n_t_17x;
+pin = n_t_30x;
+pin = n_t_34x;
+pin = n_t_35x;
+pin = n_t_37x;
+pin = n_t_44x;
+pin = n_t_6x;
+pin = n_t_9x;
 pin = ope;
 pin = overflow_l;
 pin = pagez;
@@ -117,7 +133,6 @@ node n_t_77x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node ad_ld_d15_l;
 node and_l;
 node ande_l;
 node andets3;
@@ -155,7 +170,6 @@ node ets2_l;
 node ets3_l;
 node f_l;
 node fe_fd;
-node fe_fd_l;
 node fset;
 node iot_l;
 node isz_l;
@@ -167,19 +181,13 @@ node jms_l;
 node jmse;
 node jmsets2;
 node jmsets3;
-node link_data_l;
 node ms_dis_l;
-node n3b;
-node n3v;
-node n3va;
 node n_t_10x;
 node n_t_11x;
 node n_t_12x;
 node n_t_13x;
 node n_t_14x;
 node n_t_15x;
-node n_t_16x;
-node n_t_17x;
 node n_t_18x;
 node n_t_19x;
 node n_t_20x;
@@ -188,17 +196,12 @@ node n_t_22x;
 node n_t_23x;
 node n_t_24x;
 node n_t_25x;
-node n_t_26x;
 node n_t_28x;
 node n_t_29x;
-node n_t_30x;
 node n_t_31x;
 node n_t_32x;
 node n_t_33x;
-node n_t_34x;
-node n_t_35x;
 node n_t_36x;
-node n_t_37x;
 node n_t_38x;
 node n_t_39x;
 node n_t_3x;
@@ -206,7 +209,6 @@ node n_t_40x;
 node n_t_41x;
 node n_t_42x;
 node n_t_43x;
-node n_t_44x;
 node n_t_45x;
 node n_t_46x;
 node n_t_47x;
@@ -229,7 +231,6 @@ node n_t_65x;
 node n_t_66x;
 node n_t_67x;
 node n_t_69x;
-node n_t_6x;
 node n_t_70x;
 node n_t_71x;
 node n_t_72x;
@@ -242,7 +243,6 @@ node n_t_80x;
 node n_t_81x;
 node n_t_85x;
 node n_t_8x;
-node n_t_9x;
 node op1_l;
 node op1ts3;
 node op2ts3;
@@ -716,84 +716,6 @@ iszets3 = !(isz_l
 /* pc_load_l = !(jmse & btp3); */
 /* n_t_34x = !(jmse & btp2); */
 
-/* r1: r_us_ */
-link_data_l = 'b'1;
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-ad_ld_d15_l = 'b'1;
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r23: r_us_ */
-
-/* r24: r_us_ */
-
-/* r25: r_us_ */
-
-/* r26: r_us_ */
-
-/* r27: r_us_ */
-
-/* r28: r_us_ */
-
-/* r29: r_us_ */
-
-/* r30: r_us_ */
-
-/* r31: r_us_ */
-n3va = 'b'1;
-
-/* r32: r_us_ */
-n3b = 'b'1;
-
-/* r33: r_us_ */
-
-/* r34: r_us_ */
-
-/* r35: r_us_ */
-
-/* r36: r_us_ */
-
-/* r37: r_us_ */
-
-/* r38: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= ac2bus_l};
 !ac2bus_l = (n_t_56x & c2_l)
@@ -873,7 +795,9 @@ property atmel {open_collector= en2};
 !en2 = n_t_48x;
 en2.oe = n_t_48x;
 !f_l = (n_t_78x & ms_dis_l);
+property atmel {open_collector= fe_fd_l};
 !fe_fd_l = fe_fd;
+fe_fd_l.oe = fe_fd;
 property atmel {open_collector= feset_l};
 !feset_l = intinprog;
 feset_l.oe = intinprog;
@@ -910,25 +834,55 @@ mq2bus_l.oe = (ind1 & bts1 & n_t_47x)
 property atmel {open_collector= mq_load_l};
 !mq_load_l = (ope & bmd07 & btp3);
 mq_load_l.oe = (ope & bmd07 & btp3);
+property atmel {open_collector= n3v};
 !n3v = 'b'0;
+n3v.oe = 'b'0;
+property atmel {open_collector= n_t_16x};
 !n_t_16x = (n_t_15x & n_t_14x);
+n_t_16x.oe = (n_t_15x & n_t_14x);
+property atmel {open_collector= n_t_17x};
 !n_t_17x = (n_t_25x & run);
+n_t_17x.oe = (n_t_25x & run);
+property atmel {open_collector= n_t_30x};
 !n_t_30x = (op2ts3 & n_t_43x)
            # (n_t_29x)
            # (ov & iszets3);
+n_t_30x.oe = (op2ts3 & n_t_43x)
+           # (n_t_29x)
+           # (ov & iszets3);
+property atmel {open_collector= n_t_34x};
 !n_t_34x = (initialize)
            # (bf & tp1)
            # (jmse & btp2);
+n_t_34x.oe = (initialize)
+           # (bf & tp1)
+           # (jmse & btp2);
+property atmel {open_collector= n_t_35x};
 !n_t_35x = (aceq0 & bmd06)
            # (ac00 & bmd05)
            # (bmd07 & link);
+n_t_35x.oe = (aceq0 & bmd06)
+           # (ac00 & bmd05)
+           # (bmd07 & link);
+property atmel {open_collector= n_t_37x};
 !n_t_37x = (bts4 & bkc)
            # (fe_fd_l & ts4fset)
            # (n_t_36x & c1_l)
            # (jmsets2);
+n_t_37x.oe = (bts4 & bkc)
+           # (fe_fd_l & ts4fset)
+           # (n_t_36x & c1_l)
+           # (jmsets2);
+property atmel {open_collector= n_t_44x};
 !n_t_44x = (bts3 & md04_l & oprf);
+n_t_44x.oe = (bts3 & md04_l & oprf);
+property atmel {open_collector= n_t_6x};
 !n_t_6x = n_t_9x;
+n_t_6x.oe = n_t_9x;
+property atmel {open_collector= n_t_9x};
 !n_t_9x = (n_t_81x & btp3)
+          # (n_t_10x);
+n_t_9x.oe = (n_t_81x & btp3)
           # (n_t_10x);
 property atmel {open_collector= overflow_l};
 !overflow_l = (ov & bts3);

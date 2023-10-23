@@ -67,7 +67,7 @@
 // c62: cpol_use 
 // c63: cpol_use 
 // e3: sn7400 
-module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, tsb, btp3_l, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, init_l, initialize, int_rqst_l, internal_io_l, io_kcf_l, io_pause_l, io_rdrrun_l, io_tcf_l, io_tpc_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_24x, n_t_31x, n_t_32x, n_t_33x, n_t_40x, n_t_41x, n_t_50x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_7x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, sync_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
+module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, btp3_l, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, init_l, initialize, int_rqst_l, internal_io_l, io_kcf_l, io_pause_l, io_rdrrun_l, io_tcf_l, io_tpc_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_24x, n_t_31x, n_t_32x, n_t_33x, n_t_40x, n_t_41x, n_t_50x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_7x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, sync_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
 input b1;
 input b2;
 input b3;
@@ -99,6 +99,7 @@ output r=150;
 input swd;
 input tclki;
 input test_sync;
+input trans_246_l;
 output tsb;
 inout btp3_l;
 output c0_l;
@@ -127,6 +128,7 @@ input io_pause_l;
 input io_rdrrun_l;
 input io_tcf_l;
 input io_tpc_l;
+inout lf_decoded_l;
 input md03;
 input md04;
 input md05;
@@ -140,6 +142,7 @@ output n15v;
 inout reg n_t_100x;
 output reg n_t_101x;
 inout reg n_t_102x;
+output n_t_118x;
 output n_t_126x;
 input n_t_133x;
 output n_t_145x;
@@ -289,7 +292,6 @@ reg filch_h;
 wire count_fillchar;
 wire has_error;
 wire io_read_h;
-wire lf_decoded_l;
 wire n_t_110x;
 wire n_t_113x;
 wire n_t_21x;
@@ -722,10 +724,14 @@ assign tx_clk_l = ~tx_clk;
 // data04_l = !(io_read_h & rd7); 
 // data05_l = !(io_read_h & rd6); 
 // e24: sp380n 
-assign n_t_90x = 1'b0;
-assign n_t_91x = 1'b0;
-assign n_t_92x = 1'b0;
-assign n_t_93x = 1'b0;
+assign n_t_90x = ~(data07_l
+                    | trans_246_l);
+assign n_t_91x = ~(trans_246_l
+                    | data06_l);
+assign n_t_92x = ~(data05_l
+                    | trans_246_l);
+assign n_t_93x = ~(trans_246_l
+                    | data04_l);
 // e25: sn74175 
 always @(count_fillchar, io_tpc_l, n_t_90x)
   if (io_tpc_l) begin
@@ -832,10 +838,14 @@ always @(n_t_49x, n3v3, test_sync, sync_l_m)
 // data08_l = !(io_read_h & rd3); 
 // data09_l = !(io_read_h & rd2); 
 // e30: sp380n 
-assign n_t_69x = 1'b0;
-assign n_t_86x = 1'b0;
-assign n_t_87x = 1'b0;
-assign n_t_88x = 1'b0;
+assign n_t_69x = ~(data11_l
+                    | trans_246_l);
+assign n_t_86x = ~(trans_246_l
+                    | data10_l);
+assign n_t_87x = ~(data09_l
+                    | trans_246_l);
+assign n_t_88x = ~(trans_246_l
+                    | data08_l);
 // e31: sn74175 
 always @(count_fillchar, io_tpc_l, n_t_69x)
   if (io_tpc_l) begin
@@ -945,6 +955,7 @@ always @(n_t_116x, init_l, io_rdrrun_l, n_t_117x_m)
   if (n_t_116x) begin
     n_t_117x <= n_t_117x_m;
   end
+assign n_t_118x = ~n_t_117x;
 // e40: sn7400 
 assign n_t_33x = ~(recv_0 & ~n_t_24x);
 assign n_t_26x = ~(n_t_23x & n_t_21x);
@@ -1211,67 +1222,6 @@ always @(n_t_85x, n3v3, init_l, filch_h_m)
   if (n_t_85x) begin
     filch_h <= filch_h_m;
   end
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r38: r_us_ 
-// r39: r_us_ 
-// r40: r_us_ 
-// r41: r_us_ 
-// r42: r_us_ 
-// r43: r_us_ 
-// r44: r_us_ 
-// r45: r_us_ 
-// r46: r_us_ 
-// r47: r_us_ 
-// r48: r_us_ 
-// r49: r_us_ 
-// r50: r_us_ 
-// r51: r_us_ 
-// r52: r_us_ 
-// r53: r_us_ 
-// r54: r_us_ 
-// r55: r_us_ 
-// r56: r_us_ 
-// r57: r_us_ 
-// r58: r_us_ 
-// r59: r_us_ 
-// r60: r_us_ 
-// r61: r_us_ 
-// r62: r_us_ 
 // open collector 'wire-or's 
 assign c0_l = n_t_24x? ~n_t_24x: 1'bz;
 assign c1_l = n_t_24x

@@ -44,7 +44,7 @@
 // c39: c_us 
 // c40: c_us 
 // e3: sn7402 
-module m869d (n_t_15x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_36x, n_t_37x, n_t_39x, n_t_40x, n_t_41x, n_t_42x, z_pulse, b_dixy_l, bit10, bit11, btp3, c0_l, c1_l, chan_l, clear, col_red_l, color, color_l, data00_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, del_1_l, dile_l, dire_l, erase_l, grn_delay, initialize, intens, internal_io_l, interrupt_l, ld_del_l, load_en_l, load_x, load_y, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, n15v, n3v, n_t_14x, n_t_27x, n_t_28x, n_t_29x, n_t_34x, n_t_35x, n_t_43x, n_t_45x, n_t_47x, n_t_48x, n_t_49x, n_t_8x, n_t_9x, non_store_l, pause_l, red_delay, set_done, set_done_l, skip_l, tp3, write_thru_l);
+module m869d (n_t_15x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_36x, n_t_37x, n_t_39x, n_t_40x, n_t_41x, n_t_42x, z_pulse, b_dixy_l, bit10, bit11, btp3, c0_l, c1_l, chan_l, clear, clear_l, col_red_l, color, color_l, data00_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, del_1_l, dile_l, dire_l, erase_l, grn_delay, initialize, intens, internal_io_l, interrupt_l, iot_l, ld_del_l, load_data_l, load_en_l, load_x, load_y, md10_l, md11_l, md3_l, md4_l, md5_l, md6_l, md7_l, md8_l, md9_l, n15v, n3v, n_t_14x, n_t_25x, n_t_27x, n_t_28x, n_t_29x, n_t_34x, n_t_35x, n_t_43x, n_t_45x, n_t_47x, n_t_48x, n_t_49x, n_t_6x, n_t_8x, n_t_9x, non_store_l, pause_l, red_delay, set_done, set_done_l, skip_l, tp3, write_thru_l);
 input n_t_15x;
 output n_t_30x;
 output n_t_31x;
@@ -65,6 +65,7 @@ inout c0_l;
 output c1_l;
 output chan_l;
 inout clear;
+inout clear_l;
 output col_red_l;
 inout reg color;
 inout color_l;
@@ -84,7 +85,9 @@ input initialize;
 output intens;
 output internal_io_l;
 output interrupt_l;
+inout iot_l;
 input ld_del_l;
+inout load_data_l;
 inout load_en_l;
 output load_x;
 output load_y;
@@ -100,6 +103,7 @@ input md9_l;
 output n15v;
 inout n3v;
 output n_t_14x;
+inout n_t_25x;
 output n_t_27x;
 output n_t_28x;
 output n_t_29x;
@@ -110,6 +114,7 @@ output n_t_45x;
 output n_t_47x;
 output n_t_48x;
 output n_t_49x;
+inout n_t_6x;
 inout n_t_8x;
 output n_t_9x;
 output non_store_l;
@@ -148,7 +153,6 @@ wire dixy_l;
 wire dly_done_l;
 wire iot;
 wire ld_en_reg;
-wire load_data_l;
 wire n_t_10x;
 wire n_t_11x;
 wire n_t_12x;
@@ -160,7 +164,6 @@ wire n_t_21x;
 wire n_t_22x;
 wire n_t_23x;
 wire n_t_24x;
-wire n_t_25x;
 wire n_t_26x;
 wire n_t_2x;
 wire n_t_3x;
@@ -173,8 +176,8 @@ assign n_t_34x = ~(grn_delay
 assign clear_done_l = ~(n_t_35x
                          | erase);
 // e5: sn7474 
-always @(ld_en_reg, clear, n3v, n_t_13x)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, n_t_13x)
+  if (~clear_l) begin
     write_thru_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -183,8 +186,8 @@ always @(ld_en_reg, clear, n3v, n_t_13x)
   if (~(ld_en_reg)) begin
     write_thru_m <= n_t_13x;
   end
-always @(ld_en_reg, clear, n3v, write_thru_m)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, write_thru_m)
+  if (~clear_l) begin
     write_thru <= 1'b0;
   end else
   if (~n3v) begin
@@ -193,8 +196,8 @@ always @(ld_en_reg, clear, n3v, write_thru_m)
   if (ld_en_reg) begin
     write_thru <= write_thru_m;
   end
-always @(ld_en_reg, clear, n3v, n_t_22x)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, n_t_22x)
+  if (~clear_l) begin
     store_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -203,8 +206,8 @@ always @(ld_en_reg, clear, n3v, n_t_22x)
   if (~(ld_en_reg)) begin
     store_m <= n_t_22x;
   end
-always @(ld_en_reg, clear, n3v, store_m)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, store_m)
+  if (~clear_l) begin
     store <= 1'b0;
   end else
   if (~n3v) begin
@@ -234,8 +237,8 @@ always @(ld_en_reg, n_t_26x, n3v, erase_m)
   if (ld_en_reg) begin
     erase <= erase_m;
   end
-always @(ld_en_reg, clear, n3v, n_t_11x)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, n_t_11x)
+  if (~clear_l) begin
     color_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -244,8 +247,8 @@ always @(ld_en_reg, clear, n3v, n_t_11x)
   if (~(ld_en_reg)) begin
     color_m <= n_t_11x;
   end
-always @(ld_en_reg, clear, n3v, color_m)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, color_m)
+  if (~clear_l) begin
     color <= 1'b0;
   end else
   if (~n3v) begin
@@ -279,16 +282,16 @@ assign n_t_11x = ~(load_data_l
 // non_store_l = store; 
 // e11: sp380n 
 assign n_t_14x = ~(md5_l
-                    | pause_l);
-assign n_t_17x = ~(pause_l
+                    | n_t_6x);
+assign n_t_17x = ~(n_t_6x
                     | md7_l);
 assign n_t_12x = ~(md4_l
-                    | pause_l);
-assign n_t_10x = ~(pause_l
+                    | n_t_6x);
+assign n_t_10x = ~(n_t_6x
                     | md3_l);
 // e12: sp314n 
 assign iot = ~(n_t_15x
-                | pause_l
+                | n_t_6x
                 | n_t_17x
                 | n_t_12x
                 | n_t_10x
@@ -302,6 +305,7 @@ assign bit11 = ~(data11_l
 // e14: sn7404 
 assign n3v = 1'b1;
 assign btp3 = tp3;
+assign n_t_6x = pause_l;
 assign n3v = 1'b1;
 // e16: n8881n 
 // data10_l = !(chan & !dire_l); 
@@ -314,8 +318,8 @@ assign n3v = 1'b1;
 // internal_io_l = !iot; 
 // data00_l = !(n_t_1x & !dire_l); 
 // e18: sn7474 
-always @(ld_en_reg, clear, n3v, bit10)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, bit10)
+  if (~clear_l) begin
     chan_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -324,8 +328,8 @@ always @(ld_en_reg, clear, n3v, bit10)
   if (~(ld_en_reg)) begin
     chan_m <= bit10;
   end
-always @(ld_en_reg, clear, n3v, chan_m)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, chan_m)
+  if (~clear_l) begin
     chan <= 1'b0;
   end else
   if (~n3v) begin
@@ -334,8 +338,8 @@ always @(ld_en_reg, clear, n3v, chan_m)
   if (ld_en_reg) begin
     chan <= chan_m;
   end
-always @(ld_en_reg, clear, n3v, bit11)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, bit11)
+  if (~clear_l) begin
     int_en_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -344,8 +348,8 @@ always @(ld_en_reg, clear, n3v, bit11)
   if (~(ld_en_reg)) begin
     int_en_m <= bit11;
   end
-always @(ld_en_reg, clear, n3v, int_en_m)
-  if (clear) begin
+always @(ld_en_reg, clear_l, n3v, int_en_m)
+  if (~clear_l) begin
     int_en <= 1'b0;
   end else
   if (~n3v) begin
@@ -389,26 +393,25 @@ assign b_dixy_l = ~(btp3 & ~dixy_l);
 assign load_x = ~(~dilx_l & btp3);
 assign load_y = ~(btp3 & ~dily_l);
 // e23: sn74h21 
-assign cl_done_l = ~clear & b_load_en_l & b_dixy_l & b_dicd_l;
+assign cl_done_l = clear_l & b_load_en_l & b_dixy_l & b_dicd_l;
 assign n_t_3x = del_1_l & set_done_l & dly_done_l & ld_del_l;
 // e24: sp380n 
 assign n_t_19x = ~(md11_l
-                    | ~iot);
-assign n_t_20x = ~(~iot
+                    | iot_l);
+assign n_t_20x = ~(iot_l
                     | md10_l);
 assign n_t_21x = ~(md9_l
-                    | ~iot);
+                    | iot_l);
 // e25: dec8251 
-assign dicl_l = ~(iot & ~n_t_21x & ~n_t_20x & ~n_t_19x);
-assign dicd_l = ~(iot & ~n_t_21x & ~n_t_20x & n_t_19x);
-assign disd_l = ~(iot & ~n_t_21x & n_t_20x & ~n_t_19x);
-assign dilx_l = ~(iot & ~n_t_21x & n_t_20x & n_t_19x);
-assign dily_l = ~(iot & n_t_21x & ~n_t_20x & ~n_t_19x);
-assign dixy_l = ~(iot & n_t_21x & ~n_t_20x & n_t_19x);
-assign dile_l = ~(iot & n_t_21x & n_t_20x & ~n_t_19x);
-assign dire_l = ~(iot & n_t_21x & n_t_20x & n_t_19x);
+assign dicl_l = ~(~iot_l & ~n_t_21x & ~n_t_20x & ~n_t_19x);
+assign dicd_l = ~(~iot_l & ~n_t_21x & ~n_t_20x & n_t_19x);
+assign disd_l = ~(~iot_l & ~n_t_21x & n_t_20x & ~n_t_19x);
+assign dilx_l = ~(~iot_l & ~n_t_21x & n_t_20x & n_t_19x);
+assign dily_l = ~(~iot_l & n_t_21x & ~n_t_20x & ~n_t_19x);
+assign dixy_l = ~(~iot_l & n_t_21x & ~n_t_20x & n_t_19x);
+assign dile_l = ~(~iot_l & n_t_21x & n_t_20x & ~n_t_19x);
+assign dire_l = ~(~iot_l & n_t_21x & n_t_20x & n_t_19x);
 // e26: sn7400 
-assign load_data_l = ~(~(dile_l & load_en_l));
 assign n_t_2x = ~(load_en_l & clear_done_l);
 assign b_load_en_l = ~(n_t_2x & btp3);
 // e27: sn7400 
@@ -416,32 +419,10 @@ assign n_t_8x = ~(z_pulse & del_1_l);
 // e28: sn7416 
 // chan_l = !chan; 
 // n_t_9x = !n_t_8x; 
-// !clear = !clear; 
+// clear_l = !clear; 
 // clear = clear; 
-// !iot = !iot; 
+// iot_l = !iot; 
 // load_data_l = load_data_l; 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
 // open collector 'wire-or's 
 assign c0_l = ~(~(~(dile_l & dire_l)))? ~(~(dile_l & dire_l)): 1'bz;
 assign c1_l = ~dire_l? 1'b0: 1'bz;
@@ -449,6 +430,7 @@ assign chan_l = chan? ~chan: 1'bz;
 assign clear = ~(initialize
                 | n_t_23x)? initialize
                 | n_t_23x: 1'bz;
+assign clear_l = clear? ~clear: 1'bz;
 assign col_red_l = color? ~color: 1'bz;
 assign data00_l = (n_t_1x & ~dire_l)? 1'b0: 1'bz;
 assign data06_l = (~dire_l & write_thru)? 1'b0: 1'bz;
@@ -459,7 +441,9 @@ assign data11_l = (~dire_l & int_en)? 1'b0: 1'bz;
 assign erase_l = erase? ~erase: 1'bz;
 assign internal_io_l = iot? ~iot: 1'bz;
 assign interrupt_l = (n_t_1x & int_en)? 1'b0: 1'bz;
-assign n_t_25x = ~((~store & color_l));
+assign iot_l = iot? ~iot: 1'bz;
+assign load_data_l = ~(~(~(dile_l & load_en_l)))? ~(~(dile_l & load_en_l)): 1'bz;
+assign n_t_25x = (~store & color_l)? 1'b0: 1'bz;
 assign n_t_27x = n_t_25x? ~n_t_25x: 1'bz;
 assign n_t_43x = color_l? ~color_l: 1'bz;
 assign n_t_9x = n_t_8x? ~n_t_8x: 1'bz;

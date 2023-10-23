@@ -17,7 +17,13 @@
 // c12: c_us 
 // c13: c_us 
 // e1: sn7474 
-module m700a (filter_input, mftp0, mftp1, mftp2, mfts0_h, mfts0_l, mfts1_h, mfts1_l, mfts2_h, mfts2_l, n_t_11x, n_t_12x, power_clear_l, restart, run);
+module m700a (n_t_17x, n_t_20x, n_t_26x, n_t_30x, n_t_33x, n_t_3x, filter_input, mftp0, mftp1, mftp2, mfts0_h, mfts0_l, mfts1_h, mfts1_l, mfts2_h, mfts2_l, n_t_11x, n_t_12x, n_t_22x, n_t_25x, n_t_28x, n_t_32x, n_t_4x, power_clear_l, restart, run);
+input n_t_17x;
+input n_t_20x;
+input n_t_26x;
+input n_t_30x;
+input n_t_33x;
+input n_t_3x;
 output filter_input;
 output mftp0;
 inout mftp1;
@@ -30,6 +36,11 @@ inout reg mfts2_h;
 inout mfts2_l;
 output n_t_11x;
 output n_t_12x;
+output n_t_22x;
+output n_t_25x;
+output n_t_28x;
+output n_t_32x;
+output n_t_4x;
 input power_clear_l;
 input restart;
 input run;
@@ -40,12 +51,7 @@ reg mfts2_h_m;
 wire n_t_18x;
 wire n_t_19x;
 wire n_t_21x;
-wire n_t_22x;
-wire n_t_25x;
-wire n_t_28x;
-wire n_t_32x;
 wire n_t_35x;
-wire n_t_4x;
 wire n_t_5x;
 always @(mfts0_h, n_t_35x, 1'b1)
   if (n_t_35x) begin
@@ -78,47 +84,26 @@ always @(mftp1, n_t_5x, mfts2_h_m)
   end
 assign mfts2_l = ~mfts2_h;
 // e2: sn7400 
-assign n_t_5x = 1'b1;
+assign n_t_5x = ~(~n_t_3x & power_clear_l);
 assign n_t_35x = ~(power_clear_l & mfts2_l);
 // e3: sn7400 
-assign n_t_18x = ~restart;
+assign n_t_18x = ~(n_t_17x & restart);
 assign n_t_21x = ~(n_t_18x & run);
 assign mfts0_h = ~mfts0_l;
 // e4: sn7400 
-assign n_t_22x = 1'b1;
-assign n_t_25x = 1'b1;
-assign mftp0 = 1'b1;
+assign n_t_22x = ~(mfts0_l & ~n_t_20x);
+assign n_t_25x = ~(~n_t_20x & ~n_t_26x);
+assign mftp0 = n_t_20x;
 // e5: sn7400 
-assign n_t_28x = ~(~mftp1);
-assign mftp1 = 1'b1;
+assign n_t_28x = ~(n_t_26x & ~mftp1);
+assign mftp1 = ~(~n_t_30x);
 // e6: sn7400 
-assign n_t_32x = 1'b1;
-assign n_t_4x = 1'b1;
+assign n_t_32x = ~(~mftp1 & ~n_t_33x);
+assign n_t_4x = ~(n_t_33x & ~n_t_3x);
 // e7: sn7400 
-assign mftp2 = 1'b1;
+assign mftp2 = n_t_3x;
 // e8: sn7400 
 assign mfts0_l = ~(n_t_18x & n_t_19x);
 assign n_t_19x = ~(mfts0_l & n_t_21x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
 // open collector 'wire-or's 
 endmodule

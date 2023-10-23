@@ -52,24 +52,5 @@ assign p2 = ~(n2 & m2 & l2 & k2);
 // e3: sn7420 
 assign s1 = ~(m1 & n1 & p1 & r1);
 assign v2 = ~(u2 & t2 & s2 & r2);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
 // open collector 'wire-or's 
 endmodule

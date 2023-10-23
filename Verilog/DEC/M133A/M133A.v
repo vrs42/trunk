@@ -55,9 +55,5 @@ assign n1 = ~(l1 & m1);
 assign s1 = ~(p1 & r1);
 assign v2 = ~(u2 & t2);
 assign s2 = ~(r2 & p2);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
 // open collector 'wire-or's 
 endmodule

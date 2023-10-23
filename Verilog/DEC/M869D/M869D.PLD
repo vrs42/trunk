@@ -38,6 +38,7 @@ pin = c0_l;
 pin = c1_l;
 pin = chan_l;
 pin = clear;
+pin = clear_l;
 pin = col_red_l;
 pin = color;
 pin = color_l;
@@ -57,7 +58,9 @@ pin = initialize;
 pin = intens;
 pin = internal_io_l;
 pin = interrupt_l;
+pin = iot_l;
 pin = ld_del_l;
+pin = load_data_l;
 pin = load_en_l;
 pin = load_x;
 pin = load_y;
@@ -73,6 +76,7 @@ pin = md9_l;
 pin = n15v;
 pin = n3v;
 pin = n_t_14x;
+pin = n_t_25x;
 pin = n_t_27x;
 pin = n_t_28x;
 pin = n_t_29x;
@@ -83,6 +87,7 @@ pin = n_t_45x;
 pin = n_t_47x;
 pin = n_t_48x;
 pin = n_t_49x;
+pin = n_t_6x;
 pin = n_t_8x;
 pin = n_t_9x;
 pin = non_store_l;
@@ -107,7 +112,6 @@ node b_load_en_l;
 node btp3_l;
 node cl_done_l;
 node clear_done_l;
-node clear_l;
 node dicd;
 node dicd_l;
 node dicl_l;
@@ -121,9 +125,7 @@ node disd_l;
 node dixy_l;
 node dly_done_l;
 node iot;
-node iot_l;
 node ld_en_reg;
-node load_data_l;
 node n_t_10x;
 node n_t_11x;
 node n_t_12x;
@@ -137,13 +139,11 @@ node n_t_21x;
 node n_t_22x;
 node n_t_23x;
 node n_t_24x;
-node n_t_25x;
 node n_t_26x;
 node n_t_2x;
 node n_t_3x;
 node n_t_4x;
 node n_t_5x;
-node n_t_6x;
 node n_t_7x;
 node store_l;
 $ENDIF
@@ -410,50 +410,6 @@ n_t_8x = !(z_pulse & del_1_l);
 /* iot_l = !iot; */
 /* load_data_l = !n_t_5x; */
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= c0_l};
 !c0_l = n_t_4x;
@@ -467,7 +423,9 @@ chan_l.oe = chan;
 property atmel {open_collector= clear};
 !clear = n_t_18x;
 clear.oe = n_t_18x;
+property atmel {open_collector= clear_l};
 !clear_l = clear;
+clear_l.oe = clear;
 property atmel {open_collector= col_red_l};
 !col_red_l = color;
 col_red_l.oe = color;
@@ -498,9 +456,15 @@ internal_io_l.oe = iot;
 property atmel {open_collector= interrupt_l};
 !interrupt_l = (n_t_1x & int_en);
 interrupt_l.oe = (n_t_1x & int_en);
+property atmel {open_collector= iot_l};
 !iot_l = iot;
+iot_l.oe = iot;
+property atmel {open_collector= load_data_l};
 !load_data_l = n_t_5x;
+load_data_l.oe = n_t_5x;
+property atmel {open_collector= n_t_25x};
 !n_t_25x = (store_l & color_l);
+n_t_25x.oe = (store_l & color_l);
 property atmel {open_collector= n_t_27x};
 !n_t_27x = n_t_25x;
 n_t_27x.oe = n_t_25x;

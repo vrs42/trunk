@@ -9,7 +9,8 @@
 // c2: c_us 
 // c3: c_us 
 // e1: sn7472 
-module m202b (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m202b (n_t_26x, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input n_t_26x;
 inout reg a1;
 input b1;
 input c1;
@@ -91,7 +92,7 @@ always @(m1, k2, n1, h1_m)
   end
 assign p2 = ~h1;
 // e3: sn7472 
-always @(v1, r2, v2, r1, s1, u1, s2, t2, p1)
+always @(v1, r2, v2, r1, s1, u1, s2, t2, n_t_26x, p1)
   if (~r2) begin
     p1_m <= 1'b0;
   end else
@@ -99,7 +100,7 @@ always @(v1, r2, v2, r1, s1, u1, s2, t2, p1)
     p1_m <= 1'b1;
   end else
   if (~(v1)) begin
-    p1_m <= r1 & s1 & u1? (s2 & t2? ~p1: 1'b1) : (s2 & t2? 1'b0: p1);
+    p1_m <= r1 & s1 & u1? (s2 & t2 & n_t_26x? ~p1: 1'b1) : (s2 & t2 & n_t_26x? 1'b0: p1);
   end
 always @(v1, r2, v2, p1_m)
   if (~r2) begin
@@ -112,7 +113,5 @@ always @(v1, r2, v2, p1_m)
     p1 <= p1_m;
   end
 assign u2 = ~p1;
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 endmodule

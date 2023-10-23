@@ -20,10 +20,12 @@
 // clr_flag_l = !(!n_t_31x & flag_buffer); 
 // clr_flag_l = !n_t_14x; 
 // e2: sn7474 
-module m708b (clock, clock_enable, clock_iot, flag, flag_buffer, initialize, io_irq_l, io_skip_l, iop1_l, iop2_l, iop4, iop4_l, irq_enb, load_counter, mb10, mb11, mb3_l, mb4_l, mb5, mb6_l, mb7, mb8, mb9, mb9_l, overflow);
+module m708b (n3v1, clock, clock_enable, clock_iot, clr_flag_l, flag, flag_buffer, initialize, io_irq_l, io_skip_l, iop1_l, iop2_l, iop4, iop4_l, irq_enb, load_counter, mb10, mb11, mb3_l, mb4_l, mb5, mb6_l, mb7, mb8, mb9, mb9_l, overflow);
+input n3v1;
 input clock;
 output clock_enable;
 inout clock_iot;
+inout clr_flag_l;
 inout reg flag;
 inout reg flag_buffer;
 input initialize;
@@ -53,7 +55,6 @@ reg irq_enb_m;
 reg n_t_36x_m;
 
 reg n_t_36x;
-wire clr_flag_l;
 wire iop1;
 wire iop2;
 wire n_t_14x;
@@ -125,13 +126,13 @@ always @(n_t_14x, n_t_38x, irq_enb_m)
 assign n_t_38x = ~(mb11 & load_counter);
 assign n_t_40x = ~(n_t_36x & overflow);
 // e5: sn7400 
-assign iop1 = ~iop1_l;
-assign iop4 = ~iop4_l;
+assign iop1 = ~(iop1_l & n3v1);
+assign iop4 = ~(iop4_l & n3v1);
 // e6: sn7430 
-assign clock_iot = ~(~(mb3_l & mb4_l & mb5 & mb6_l & mb7 & mb8));
+assign clock_iot = ~(~(mb3_l & mb4_l & mb5 & mb6_l & mb7 & mb8 & n3v1 & n3v1));
 // e7: sn7400 
 assign n_t_29x = ~(clock_iot & iop2);
-assign iop2 = ~iop2_l;
+assign iop2 = ~(n3v1 & iop2_l);
 assign n_t_34x = ~(mb9_l & mb11);
 // e8: sn7420 
 assign n_t_31x = ~(clock_iot & iop1 & mb10 & mb9_l);
@@ -139,15 +140,9 @@ assign load_counter = ~(~(n_t_34x & clock_iot & iop2));
 // e9: sn7400 
 assign n_t_37x = ~(load_counter & mb9);
 assign n_t_14x = ~(~load_counter & initialize);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
 // open collector 'wire-or's 
-assign clr_flag_l = ~((~n_t_31x & flag_buffer)
-                       | n_t_14x);
+assign clr_flag_l = (~n_t_31x & flag_buffer)
+                     | n_t_14x? 1'b0: 1'bz;
 assign io_irq_l = (flag & irq_enb)? 1'b0: 1'bz;
 assign io_skip_l = (flag_buffer & ~n_t_31x)? 1'b0: 1'bz;
 endmodule

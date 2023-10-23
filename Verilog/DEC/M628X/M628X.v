@@ -10,7 +10,7 @@
 // c3: c_us 
 // c4: cpol_use 
 // e1: sn74h50 
-module m628x (n3v, n_t_1x, n_t_2x, alt_mdl3_h, alt_mdl3_l, alt_mdl4_h, alt_mdl4_l, data_en, m2, mdl3_h, mdl4_h, n2, n_t_10x, n_t_11x, n_t_4x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
+module m628x (n3v, n_t_1x, n_t_2x, alt_mdl3_h, alt_mdl3_l, alt_mdl4_h, alt_mdl4_l, data_en, m2, mdl3_h, mdl4_h, n2, n_t_10x, n_t_11x, n_t_4x, n_t_6x, n_t_7x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v2);
 input n3v;
 input n_t_1x;
 input n_t_2x;
@@ -26,6 +26,8 @@ output n2;
 output n_t_10x;
 output n_t_11x;
 input n_t_4x;
+output n_t_6x;
+output n_t_7x;
 output p1;
 output p2;
 output r1;
@@ -40,8 +42,6 @@ output v2;
 
 wire n_t_3x;
 wire n_t_5x;
-wire n_t_6x;
-wire n_t_7x;
 assign n_t_3x = ~(n_t_4x & mdl4_h
                    | data_en & alt_mdl4_h);
 assign n_t_5x = ~(data_en & alt_mdl3_h
@@ -58,11 +58,5 @@ assign gdollar_0 = n_t_1x & mdl4_h;
 assign alt_mdl3_h = mdl3_h
                      ^ n_t_2x
                      ^ gdollar_0;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
 // open collector 'wire-or's 
 endmodule

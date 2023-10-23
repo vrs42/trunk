@@ -105,15 +105,5 @@ assign n_t_8x = ~u2;
 assign n_t_10x = ~p2;
 assign n_t_9x = ~s2;
 assign n_t_5x = ~m1;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
 // open collector 'wire-or's 
 endmodule

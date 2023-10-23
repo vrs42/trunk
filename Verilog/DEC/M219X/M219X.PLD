@@ -16,6 +16,7 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v3;
 
 /* Output Pins */
 pin = n_t_10x;
@@ -82,7 +83,6 @@ pin = n_t_97x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n3v3;
 node n_t_11x;
 node n_t_14x;
 node n_t_15x;
@@ -305,12 +305,6 @@ n_t_36x = !n_t_37x;
 n_t_38x = !(n_t_6x & n_t_36x);
 n_t_39x = !n_t_41x;
 n_t_41x = !(n_t_23x & n_t_24x);
-
-/* r1: r_us_ */
-n3v3 = 'b'1;
-
-/* r2: r_us_ */
-n3v3 = 'b'1;
 
 /* Open collector 'wire-or's */
 !gdollar_0 = (n_t_83x & n_t_84x & n_t_85x

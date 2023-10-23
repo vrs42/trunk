@@ -17,6 +17,7 @@ $UNDEF  OPTIMIZE
 
 /* Input Pins */
 pin = n_t_84x;
+pin = n_t_86x;
 
 /* Output Pins */
 pin = clk_cla;
@@ -54,6 +55,8 @@ pin = n_t_76x;
 pin = n_t_77x;
 pin = n_t_78x;
 pin = n_t_79x;
+pin = n_t_87x;
+pin = n_t_89x;
 pin = overflow;
 pin = set_count;
 pin = transfer;
@@ -115,9 +118,6 @@ node n_t_68x;
 node n_t_81x;
 node n_t_83x;
 node n_t_85x;
-node n_t_86x;
-node n_t_87x;
-node n_t_89x;
 $ENDIF
 
 /* Code nodes */
@@ -353,12 +353,6 @@ gate.d = 'b'0;
 gate.ck = 'b'0;
 gate.ap = !n_t_81x;
 n_t_58x = !gate;
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= n_t_14x};

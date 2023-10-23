@@ -1071,7 +1071,6 @@ assign n_t_43x = (~pad{1} & ~en2 & pc11_l
                           | pad{1} & en2 & ma11_l);
 // e63: sn74h04 
 // e64: sn74h04 
-// r1: r_us_ 
 // open collector 'wire-or's 
 assign data00 = (~mq00_l & ~mq2bus_l
                   | ac00 & ~ac2bus_l)? 1'b0: 1'bz;

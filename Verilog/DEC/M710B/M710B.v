@@ -25,7 +25,8 @@
 // c18: c_us 
 // c19: c_us 
 // e1: sn7474 
-module m710b (n_t_4x, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, clear_l, clocka, clockb, del_pun1, feed_sw_l, initialize_l, io_in_int_l, io_in_skip_l, iop1, iop2, iop4, iop_02, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, n4_5usec, n_t_11x, n_t_12x, n_t_1x, n_t_23x, n_t_6x, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, sync_bias, sync_pun);
+module m710b (n_t_21x, n_t_4x, ac10, ac11, ac4, ac5, ac6, ac7, ac8, ac9, clear_l, clocka, clockb, del_pun1, feed_sw_l, initialize_l, io_in_int_l, io_in_skip_l, iop1, iop2, iop4, iop_02, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_1_rp, mb8_lp_0_rp, n4_5usec, n_t_10x, n_t_11x, n_t_12x, n_t_19x, n_t_1x, n_t_23x, n_t_6x, n_t_9x, pb0, pb1, pb2, pb3, pb4, pb5, pb6, pb7, pun_active_l, pun_done, sync_bias, sync_pun);
+input n_t_21x;
 input n_t_4x;
 input ac10;
 input ac11;
@@ -54,11 +55,14 @@ input mb6_lp_0_rp;
 input mb7_lp_1_rp;
 input mb8_lp_0_rp;
 output n4_5usec;
-output n_t_11x;
-output n_t_12x;
+output n_t_10x;
+inout n_t_11x;
+inout n_t_12x;
+output n_t_19x;
 inout n_t_1x;
 output n_t_23x;
 inout n_t_6x;
+output n_t_9x;
 output reg pb0;
 output reg pb1;
 output reg pb2;
@@ -213,7 +217,7 @@ assign clocka = ~clock_l;
 assign clear_l = ~(~(initialize_l & feed_sw_l & n_t_7x));
 assign clockb = ~clock_l;
 // e7: sn7400 
-assign n_t_1x = 1'b0;
+assign n_t_1x = ~n_t_21x;
 assign n_t_23x = ~(del_pun1 & n_t_22x);
 assign n_t_22x = ~(pun_active_l & feed_sw_l);
 // e8: sn7430 
@@ -258,36 +262,20 @@ always @(n_t_1x, clear_l, pun_flag_m)
   end
 // e11: sn7460 
 // n_t_11x = !(pun_flag & iop_02); 
-// !n_t_11x = !n_t_11x; 
+// n_t_10x = !n_t_11x; 
 // n_t_12x = !pun_flag; 
-// !n_t_12x = !n_t_12x; 
+// n_t_9x = !n_t_12x; 
 // e12: sn7460 
 // n_t_6x = !n_t_4x; 
 // !n_t_6x = !n_t_6x; 
 // n_t_6x = n_t_6x; 
-// !n_t_6x = !n_t_6x; 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
+// n_t_19x = !n_t_6x; 
 // open collector 'wire-or's 
+assign n_t_10x = n_t_11x? ~n_t_11x: 1'bz;
 assign n_t_11x = (pun_flag & iop_02)? 1'b0: 1'bz;
 assign n_t_12x = pun_flag? ~pun_flag: 1'bz;
+assign n_t_19x = n_t_6x? ~n_t_6x: 1'bz;
 assign n_t_6x = n_t_4x
                  | (~(1'b0))? 1'b0: 1'bz;
+assign n_t_9x = n_t_12x? ~n_t_12x: 1'bz;
 endmodule

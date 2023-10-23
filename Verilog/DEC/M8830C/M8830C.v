@@ -35,10 +35,12 @@
 // c28: c_us 
 // c29: c_us 
 // e1: sp380n 
-module m8830c (n_t_13x, n_t_19x, oscin, hz1, hz10m, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, n_t_10x, n_t_11x, n_t_12x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp1, tp3);
+module m8830c (n3v3, n_t_13x, n_t_19x, oscin, biopause_l, hz1, hz10m, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, myiot, n_t_10x, n_t_11x, n_t_12x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp1, tp3);
+input n3v3;
 output n_t_13x;
 output n_t_19x;
 input oscin;
+inout biopause_l;
 output hz1;
 output hz10m;
 output hz5;
@@ -61,6 +63,7 @@ input md08_l;
 input md09_l;
 input md10_l;
 input md11_l;
+inout myiot;
 output n_t_10x;
 output n_t_11x;
 output n_t_12x;
@@ -94,16 +97,15 @@ wire iopmd06;
 wire maybe_clei_l;
 wire maybe_clsk_l;
 wire maybecldi_l;
-wire myiot;
 wire mymd09;
 wire mymd10;
 wire mymd11;
-assign iopmd06 = ~(io_pause_l
+assign iopmd06 = ~(biopause_l
                     | md06_l);
 assign iopmd04 = ~(md04_l
-                    | io_pause_l);
+                    | biopause_l);
 assign iopmd03 = ~(md03_l
-                    | io_pause_l);
+                    | biopause_l);
 // e2: sn7402 
 assign cldi = ~(maybecldi_l
                  | mymd09);
@@ -122,7 +124,7 @@ assign myiot = ~(iopmd03
                   | md05_l
                   | md07_l
                   | md08_l
-                  | io_pause_l);
+                  | biopause_l);
 // e6: sn7410 
 assign io6132_l = ~(tp3 & myiot & cldi);
 assign do_clsk_l = ~(ck_flag & tp3 & ~io6133_l);
@@ -161,23 +163,29 @@ always @(posedge 1'b0)
     gdollar_2 <= 1'b0;
   end
 // e8: n8881n 
-// io_pause_l = io_pause_l; 
-// internal_io_l = !(myiot & 'b'1); 
+// biopause_l = io_pause_l; 
+// internal_io_l = !(myiot & n3v3); 
 // int_rqst_l = !(ck_flag & irq_enable); 
 // skip_l = !(!io6133_l & ck_flag); 
 // e9: sn7400 
 assign io6133_l = ~(myiot & clsk);
 // e10: sn7474 
-always @(oscin, do_clsk_l, 1'b1)
+always @(oscin, do_clsk_l, n3v3, n3v3)
   if (~do_clsk_l) begin
     ticked_m <= 1'b0;
   end else
-  if (~(oscin)) begin
+  if (~n3v3) begin
     ticked_m <= 1'b1;
+  end else
+  if (~(oscin)) begin
+    ticked_m <= n3v3;
   end
-always @(oscin, do_clsk_l, ticked_m)
+always @(oscin, do_clsk_l, n3v3, ticked_m)
   if (~do_clsk_l) begin
     ticked <= 1'b0;
+  end else
+  if (~n3v3) begin
+    ticked <= 1'b1;
   end else
   if (oscin) begin
     ticked <= ticked_m;
@@ -211,18 +219,9 @@ assign mymd11 = ~(~myiot
 assign mymd10 = ~(~myiot
                    | md10_l);
 // e14: sn7402 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
 // open collector 'wire-or's 
+assign biopause_l = ~io_pause_l? 1'b0: 1'bz;
 assign int_rqst_l = (ck_flag & irq_enable)? 1'b0: 1'bz;
-assign internal_io_l = myiot? ~myiot: 1'bz;
+assign internal_io_l = (myiot & n3v3)? 1'b0: 1'bz;
 assign skip_l = (~io6133_l & ck_flag)? 1'b0: 1'bz;
 endmodule

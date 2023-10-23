@@ -352,8 +352,6 @@ assign n_t_47x = ~n_t_48x;
 //           # n_t_51x & n_t_16x
 //           # n_t_13x & n_t_47x); 
 // !gdollar_12 = !gdollar_12; 
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 assign gdollar_0 = ~((n_t_21x & n_t_19x
                        | n_t_22x & n_t_15x

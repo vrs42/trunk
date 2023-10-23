@@ -16,10 +16,13 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n3v;
 pin = n_t_119x;
 pin = n_t_121x;
 pin = n_t_124x;
+pin = n_t_51x;
 pin = n_t_76x;
+pin = n_t_78x;
 
 /* Output Pins */
 pin = c0_l;
@@ -47,9 +50,13 @@ pin = md7_l;
 pin = md8_l;
 pin = md9_l;
 pin = n15v;
+pin = n604_l;
+pin = n_t_105x;
 pin = n_t_107x;
+pin = n_t_111x;
 pin = n_t_114x;
 pin = n_t_117x;
+pin = n_t_123x;
 pin = n_t_31x;
 pin = n_t_52x;
 pin = n_t_77x;
@@ -61,6 +68,7 @@ pin = stop1_l;
 pin = stop2_l;
 pin = sw;
 pin = tp3;
+pin = tpcnow_l;
 pin = xmit_active;
 node n_t_131x;
 node n_t_72x;
@@ -130,20 +138,15 @@ node krb_l;
 node krs_l;
 node ksf_l;
 node last_unit_l;
-node n3v;
 node n603_l;
 node n603x;
-node n604_l;
 node n604x;
-node n_t_105x;
 node n_t_109x;
 node n_t_10x;
 node n_t_110x;
-node n_t_111x;
 node n_t_11x;
 node n_t_120x;
 node n_t_122x;
-node n_t_123x;
 node n_t_125x;
 node n_t_126x;
 node n_t_127x;
@@ -182,7 +185,6 @@ node n_t_45x;
 node n_t_46x;
 node n_t_47x;
 node n_t_4x;
-node n_t_51x;
 node n_t_53x;
 node n_t_58x;
 node n_t_5x;
@@ -190,7 +192,6 @@ node n_t_68x;
 node n_t_69x;
 node n_t_70x;
 node n_t_71x;
-node n_t_78x;
 node n_t_7x;
 node n_t_81x;
 node n_t_83x;
@@ -216,7 +217,6 @@ node tflnow_l;
 node tls_l;
 node tp3_l;
 node tpc_l;
-node tpcnow_l;
 node tsf_l;
 node tsk_l;
 node tx_busy_l;
@@ -826,59 +826,6 @@ n_t_100x.d = n_t_99x;
 n_t_100x.ck = rx_clk;
 n_t_100x.ap = !rx_clr_l;
 
-/* r1: r_us_ */
-n3v = 'b'1;
-
-/* r2: r_us_ */
-n3v = 'b'1;
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r26: r_us_ */
-
-/* r27: r_us_ */
-n_t_78x = 'b'1;
-
-/* r28: r_us_ */
-
-/* r29: r_us_ */
-
-/* r30: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= c0_l};
 !c0_l = dokcc;
@@ -920,11 +867,18 @@ property atmel {open_collector= internal_io_l};
                  # (n604x);
 internal_io_l.oe = (n603x)
                  # (n604x);
+property atmel {open_collector= n604_l};
 !n604_l = n604x;
+n604_l.oe = n604x;
+property atmel {open_collector= n_t_105x};
 !n_t_105x = (n_t_107x)
             # (n_t_109x);
+n_t_105x.oe = (n_t_107x)
+            # (n_t_109x);
 !n_t_109x = n_t_105x;
+property atmel {open_collector= n_t_111x};
 !n_t_111x = n_t_105x;
+n_t_111x.oe = n_t_105x;
 property atmel {open_collector= skip_l};
 !skip_l = (n_t_46x & n_t_44x)
           # (n_t_39x)
@@ -932,4 +886,6 @@ property atmel {open_collector= skip_l};
 skip_l.oe = (n_t_46x & n_t_44x)
           # (n_t_39x)
           # (n_t_43x);
+property atmel {open_collector= tpcnow_l};
 !tpcnow_l = (btp3 & dotpc);
+tpcnow_l.oe = (btp3 & dotpc);

@@ -17,12 +17,11 @@ info: double ne edge_con4
 warning: making u$5/double/ a connector
 warning: non-bypass capacitor deleted: c23
 ~/Verilog/bin/smaller.pl M705J.PLD >vv || (rm vv; exit 1)
-12 signals were removed:
+11 signals were removed:
   n_t_15x: !n_t_1x
   n_t_1x: !bb_l
   n_t_23x: !ba_l
   n_t_26x: !aj2
-  n_t_31x: !feed_hole
   n_t_32x: !binit_l
   n_t_33x: !clr_flag
   n_t_34x: !bv2
@@ -31,9 +30,8 @@ warning: non-bypass capacitor deleted: c23
   n_t_7x: !iot_011
   n_t_8x: !n_t_5x
 ~/Verilog/bin/smaller.pl vv >M705JX.PLD || (rm M705JX.PLD; exit 1)
-2 signals were removed:
+1 signals were removed:
   n_t_1x: !bb_l
-  n_t_23x: !ba_l
 ~/Verilog/bin/cupl2v.pl M705JX.PLD >vv || (rm vv; exit 1)
 mv vv M705J.v
 rm M705JX.PLD

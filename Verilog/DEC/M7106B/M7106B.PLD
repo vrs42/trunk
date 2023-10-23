@@ -44,18 +44,24 @@ pin = function02;
 pin = half_block;
 pin = hi_main_shft_l;
 pin = last_brk;
+pin = last_word;
 pin = lo_main_shft_l;
 pin = main_l;
 pin = n3v;
 pin = n6rk3_ok;
+pin = n_t_18x;
 pin = n_t_21x;
 pin = n_t_24x;
+pin = n_t_36x;
 pin = n_t_48x;
 pin = n_t_49x;
 pin = n_t_52x;
 pin = n_t_53x;
+pin = n_t_57x;
+pin = n_t_60x;
 pin = n_t_74x;
 pin = n_t_76x;
+pin = n_t_7x;
 pin = n_t_8x;
 pin = n_t_9x;
 pin = rdy_s_r_w;
@@ -64,6 +70,8 @@ pin = set_idle_pl_l;
 pin = shft_surf;
 
 /* Output Pins */
+pin = acknowledge;
+pin = b_idle;
 pin = b_last_brk;
 pin = bdata10;
 pin = bdata11;
@@ -86,6 +94,7 @@ pin = drv_revo;
 pin = dsk_head_sel1_l;
 pin = dsk_read_l;
 pin = dsk_restore_l;
+pin = dsk_sec2;
 pin = dsk_strobe_l;
 pin = dsk_wrt_clk_data_l;
 pin = dsk_wrt_erase_gate_l;
@@ -101,7 +110,14 @@ pin = j1tt;
 pin = last_word_pl;
 pin = ld_disk_addrs;
 pin = n12th_bit_ok;
+pin = n12th_carry_l;
+pin = n_t_16x;
 pin = n_t_20x;
+pin = n_t_25x;
+pin = n_t_40x;
+pin = n_t_56x;
+pin = n_t_59x;
+pin = n_t_6x;
 pin = outside_clk_l;
 pin = rd_clk1;
 pin = rd_shft_db_l;
@@ -163,8 +179,6 @@ node gdollar_21, gdollar_22, gdollar_23, gdollar_24;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node acknowledge;
-node b_idle;
 node b_wrt_clk;
 node b_wrt_clk_l;
 node check_header_cmd_l;
@@ -176,7 +190,6 @@ node crc_state_l;
 node data_clk;
 node data_out_pl_l;
 node disk_ok;
-node dsk_sec2;
 node go;
 node go_l;
 node header_c_l;
@@ -187,22 +200,17 @@ node inc_brk_cntr_l;
 node inc_cntrs;
 node inc_cntrs_l;
 node inh_12th_bit;
-node last_word;
 node last_word_pl_l;
 node n12th_carry;
-node n12th_carry_l;
 node n16_carry;
 node n16th_bit;
 node n16th_bit_l;
 node n6rk3_ok_l;
 node n_t_10x;
 node n_t_15x;
-node n_t_16x;
 node n_t_17x;
-node n_t_18x;
 node n_t_19x;
 node n_t_1x;
-node n_t_25x;
 node n_t_26x;
 node n_t_27x;
 node n_t_28x;
@@ -212,12 +220,10 @@ node n_t_30x;
 node n_t_32x;
 node n_t_34x;
 node n_t_35x;
-node n_t_36x;
 node n_t_37x;
 node n_t_38x;
 node n_t_39x;
 node n_t_3x;
-node n_t_40x;
 node n_t_41x;
 node n_t_42x;
 node n_t_43x;
@@ -227,12 +233,8 @@ node n_t_46x;
 node n_t_4x;
 node n_t_51x;
 node n_t_54x;
-node n_t_56x;
-node n_t_57x;
 node n_t_58x;
-node n_t_59x;
 node n_t_5x;
-node n_t_60x;
 node n_t_62x;
 node n_t_63x;
 node n_t_64x;
@@ -241,7 +243,6 @@ node n_t_66x;
 node n_t_67x;
 node n_t_68x;
 node n_t_69x;
-node n_t_6x;
 node n_t_70x;
 node n_t_71x;
 node n_t_72x;
@@ -249,7 +250,6 @@ node n_t_75x;
 node n_t_77x;
 node n_t_78x;
 node n_t_79x;
-node n_t_7x;
 node n_t_80x;
 node n_t_81x;
 node n_t_82x;
@@ -895,112 +895,6 @@ sector_eq = sector_seek & !gdollar_21 & !gdollar_22 & !gdollar_23 & !gdollar_24;
           # read_l;
 !sector_mk = b_idle
            # dsk_sector_mk_l;
-
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r23: r_us_ */
-
-/* r24: r_us_ */
-
-/* r25: r_us_ */
-
-/* r26: r_us_ */
-
-/* r27: r_us_ */
-
-/* r28: r_us_ */
-
-/* r29: r_us_ */
-
-/* r30: r_us_ */
-
-/* r31: r_us_ */
-
-/* r32: r_us_ */
-
-/* r33: r_us_ */
-
-/* r34: r_us_ */
-
-/* r35: r_us_ */
-
-/* r36: r_us_ */
-
-/* r37: r_us_ */
-
-/* r38: r_us_ */
-
-/* r39: r_us_ */
-
-/* r40: r_us_ */
-
-/* r41: r_us_ */
-
-/* r42: r_us_ */
-
-/* r43: r_us_ */
-
-/* r44: r_us_ */
-
-/* r45: r_us_ */
-
-/* r46: r_us_ */
-
-/* r47: r_us_ */
-
-/* r48: r_us_ */
-
-/* r49: r_us_ */
-
-/* r50: r_us_ */
-
-/* r51: r_us_ */
-
-/* r52: r_us_ */
-
-/* r53: r_us_ */
-
-/* r54: r_us_ */
-
-/* r55: r_us_ */
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= dsk_head_sel1_l};

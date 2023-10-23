@@ -53,6 +53,8 @@ pin = mb5_lp_0_rp;
 pin = mb6_lp_0_rp;
 pin = mb7_lp_0_rp;
 pin = mb8_lp_1_rp;
+pin = n_t_29x;
+pin = n_t_31x;
 pin = pwr;
 pin = rd_hole_1;
 pin = rd_hole_2;
@@ -89,8 +91,6 @@ node n_t_24x;
 node n_t_25x;
 node n_t_26x;
 node n_t_28x;
-node n_t_29x;
-node n_t_31x;
 node n_t_32x;
 node n_t_33x;
 node n_t_34x;
@@ -271,14 +271,6 @@ n_t_1x.d = n_t_23x;
 n_t_1x.ck = shift;
 n_t_15x = !n_t_1x;
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= int_request};
 !int_request = rdr_flag;
@@ -307,7 +299,9 @@ iob_in_8.oe = (iot_012 & n_t_11x);
 property atmel {open_collector= iob_in_9};
 !iob_in_9 = (iot_012 & n_t_12x);
 iob_in_9.oe = (iot_012 & n_t_12x);
+property atmel {open_collector= n_t_31x};
 !n_t_31x = feed_hole;
+n_t_31x.oe = feed_hole;
 property atmel {open_collector= skip};
 !skip = (rdr_flag & iot_011);
 skip.oe = (rdr_flag & iot_011);

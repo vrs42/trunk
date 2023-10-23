@@ -25,7 +25,7 @@
 // c19: c_us 
 // c20: c_us 
 // e1: sn7440 
-module m514x (n_t_13x, n_t_18x, n_t_22x, n_t_24x, n_t_25x, n_t_27x, n_t_31x, n_t_4x, n_t_5x, b_7ch, b_bot, b_den_5, b_dens, b_eot, b_rws, b_sel0, b_sel1, b_sel2, b_set, b_stop, blr_cc, bot_l, brec, c_strobe, clear_function_h, clear_function_l, den8_l, endpoint_l, local_l, lrcc_strobe_h, match1_h, match2_h, match4_h, mux_out_l, n15v, n2_4v, n3_3v, n7ch_h, n_t_1x, n_t_29x, n_t_6x, r_fwd, r_rew, r_rwe, rewind_status_l, select_remote_h, select_remote_l, set_function_l, set_pulse_h, set_pulse_l, sw1, sw2, sw4, v_clamp, write_strobe_h);
+module m514x (n_t_13x, n_t_18x, n_t_22x, n_t_24x, n_t_25x, n_t_27x, n_t_31x, n_t_41x, n_t_4x, n_t_5x, b_7ch, b_bot, b_den_5, b_dens, b_eot, b_rws, b_sel0, b_sel1, b_sel2, b_set, b_stop, blr_cc, bot_l, brec, c_strobe, clear_function_h, clear_function_l, den8_l, endpoint_l, local_l, lrcc_strobe_h, match1_h, match2_h, match4_h, mux_out_l, n15v, n2_4v, n3_3v, n7ch_h, n_t_1x, n_t_29x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_6x, r_fwd, r_rew, r_rwe, rewind_status_l, select_remote_h, select_remote_l, set_function_l, set_pulse_h, set_pulse_l, sw1, sw2, sw4, v_clamp, write_strobe_h);
 input n_t_13x;
 input n_t_18x;
 input n_t_22x;
@@ -33,6 +33,7 @@ input n_t_24x;
 input n_t_25x;
 input n_t_27x;
 input n_t_31x;
+input n_t_41x;
 input n_t_4x;
 output n_t_5x;
 output b_7ch;
@@ -66,6 +67,10 @@ output n3_3v;
 input n7ch_h;
 output n_t_1x;
 output n_t_29x;
+output n_t_33x;
+output n_t_34x;
+output n_t_35x;
+output n_t_36x;
 output n_t_6x;
 output r_fwd;
 output r_rew;
@@ -83,10 +88,6 @@ output v_clamp;
 output write_strobe_h;
 
 
-wire n_t_33x;
-wire n_t_34x;
-wire n_t_35x;
-wire n_t_36x;
 assign select_remote_l = ~(match4_h & match2_h & match1_h & local_l);
 assign select_remote_h = ~select_remote_l;
 // e2: sn7400 
@@ -100,7 +101,8 @@ assign match1_h = n_t_22x
                    ^ sw1;
 assign match4_h = sw4
                    ^ n_t_13x;
-assign clear_function_h = ~clear_function_l;
+assign clear_function_h = clear_function_l
+                           ^ n_t_41x;
 // e5: sp384n 
 assign n_t_35x = n_t_31x
                   | mux_out_l;
@@ -110,71 +112,5 @@ assign n_t_36x = select_remote_l
                   | ~n7ch_h;
 assign n_t_34x = n_t_27x
                   | mux_out_l;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r8: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
-// r37: r_us_ 
-// r38: r_us_ 
-// r39: r_us_ 
-// r40: r_us_ 
-// r41: r_us_ 
-// r42: r_us_ 
-// r43: r_us_ 
-// r44: r_us_ 
-// r45: r_us_ 
-// r46: r_us_ 
-// r47: r_us_ 
-// r48: r_us_ 
-// r49: r_us_ 
-// r50: r_us_ 
-// r51: r_us_ 
-// r52: r_us_ 
-// r53: r_us_ 
-// r54: r_us_ 
-// r55: r_us_ 
-// r56: r_us_ 
-// r57: r_us_ 
-// r58: r_us_ 
-// r59: r_us_ 
-// r60: r_us_ 
-// r61: r_us_ 
-// r62: r_us_ 
-// r63: r_us_ 
-// r64: r_us_ 
-// r65: r_us_ 
-// r66: r_us_ 
-// r67: r_us_ 
-// r68: r_us_ 
-// r69: r_us_ 
-// r70: r_us_ 
-// r71: r_us_ 
-// r72: r_us_ 
-// r73: r_us_ 
 // open collector 'wire-or's 
 endmodule

@@ -207,8 +207,6 @@ assign ac3_l = ~ac3_h;
 //       # data3 & data_enabl
 //       # io3 & io_enabl); 
 // n_t_2x = !n_t_4x; 
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 assign gdollar_1 = ~((ma_enabl & ma2_h
                        | pc2_h & pc_enabl

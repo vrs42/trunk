@@ -20,7 +20,7 @@
 // c13: c_us 
 // c14: c_us 
 // e1: sn7475 
-module m7075c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, n3v, n_t_115x, n_t_123x, n_t_125x, n_t_152x, n_t_153x, n_t_20x, n_t_21x, n_t_27x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_3x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p2, r1, r2, s1, s2, s_t_1, s_t_4, t2, u1, u2, v1, v2);
+module m7075c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, n3v, n_t_115x, n_t_123x, n_t_125x, n_t_152x, n_t_153x, n_t_20x, n_t_21x, n_t_27x, n_t_29x, n_t_31x, n_t_32x, n_t_34x, n_t_35x, n_t_36x, n_t_3x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p1_l, p2, r1, r2, s1, s2, s_t_1, s_t_4, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 inout reg c1;
@@ -65,6 +65,7 @@ inout n_t_86x;
 output n_t_91x;
 output n_t_92x;
 input p1;
+inout p1_l;
 input p2;
 output r1;
 input r2;
@@ -121,81 +122,81 @@ wire n_t_54x;
 wire n_t_69x;
 wire n_t_74x;
 wire n_t_99x;
-always @(p1, h2, p1, h2, 1'b0)
-  if (~p1 & ~h2) begin
+always @(p1_l, h2, p1_l, h2, 1'b0)
+  if (p1_l & ~h2) begin
     gdollar_0_m <= 1'b0;
   end else
-  if (~p1 & h2) begin
+  if (p1_l & h2) begin
     gdollar_0_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_0_m <= 1'b0;
   end
-always @(p1, h2, p1, h2, gdollar_0_m)
-  if (~p1 & ~h2) begin
+always @(p1_l, h2, p1_l, h2, gdollar_0_m)
+  if (p1_l & ~h2) begin
     gdollar_0 <= 1'b0;
   end else
-  if (~p1 & h2) begin
+  if (p1_l & h2) begin
     gdollar_0 <= 1'b1;
   end else
   if (1'b0) begin
     gdollar_0 <= gdollar_0_m;
   end
-always @(p1, f2, p1, f2, 1'b0)
-  if (~p1 & ~f2) begin
+always @(p1_l, f2, p1_l, f2, 1'b0)
+  if (p1_l & ~f2) begin
     gdollar_1_m <= 1'b0;
   end else
-  if (~p1 & f2) begin
+  if (p1_l & f2) begin
     gdollar_1_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_1_m <= 1'b0;
   end
-always @(p1, f2, p1, f2, gdollar_1_m)
-  if (~p1 & ~f2) begin
+always @(p1_l, f2, p1_l, f2, gdollar_1_m)
+  if (p1_l & ~f2) begin
     gdollar_1 <= 1'b0;
   end else
-  if (~p1 & f2) begin
+  if (p1_l & f2) begin
     gdollar_1 <= 1'b1;
   end else
   if (1'b0) begin
     gdollar_1 <= gdollar_1_m;
   end
-always @(p1, d2, p1, d2, 1'b0)
-  if (~p1 & ~d2) begin
+always @(p1_l, d2, p1_l, d2, 1'b0)
+  if (p1_l & ~d2) begin
     gdollar_2_m <= 1'b0;
   end else
-  if (~p1 & d2) begin
+  if (p1_l & d2) begin
     gdollar_2_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_2_m <= 1'b0;
   end
-always @(p1, d2, p1, d2, gdollar_2_m)
-  if (~p1 & ~d2) begin
+always @(p1_l, d2, p1_l, d2, gdollar_2_m)
+  if (p1_l & ~d2) begin
     gdollar_2 <= 1'b0;
   end else
-  if (~p1 & d2) begin
+  if (p1_l & d2) begin
     gdollar_2 <= 1'b1;
   end else
   if (1'b0) begin
     gdollar_2 <= gdollar_2_m;
   end
-always @(p1, e2, p1, e2, 1'b0)
-  if (~p1 & ~e2) begin
+always @(p1_l, e2, p1_l, e2, 1'b0)
+  if (p1_l & ~e2) begin
     gdollar_3_m <= 1'b0;
   end else
-  if (~p1 & e2) begin
+  if (p1_l & e2) begin
     gdollar_3_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_3_m <= 1'b0;
   end
-always @(p1, e2, p1, e2, gdollar_3_m)
-  if (~p1 & ~e2) begin
+always @(p1_l, e2, p1_l, e2, gdollar_3_m)
+  if (p1_l & ~e2) begin
     gdollar_3 <= 1'b0;
   end else
-  if (~p1 & e2) begin
+  if (p1_l & e2) begin
     gdollar_3 <= 1'b1;
   end else
   if (1'b0) begin
@@ -280,7 +281,7 @@ assign n_t_136x = ~(j2 & n_t_129x);
 assign n_t_129x = ~(j2 & n_t_35x);
 assign n_t_132x = ~(k2 & n_t_20x);
 // e7: sn7416 
-// !p1 = !p1; 
+// p1_l = !p1; 
 // n1 = !n_t_51x; 
 // m1 = !n_t_50x; 
 // m1 = !n_t_52x; 
@@ -338,81 +339,81 @@ always @(v2, m2_l, n3v, e1_m)
     e1 <= e1_m;
   end
 // e11: sn7475 
-always @(p1, s2, p1, s2, 1'b0)
-  if (~p1 & ~s2) begin
+always @(p1_l, s2, p1_l, s2, 1'b0)
+  if (p1_l & ~s2) begin
     gdollar_4_m <= 1'b0;
   end else
-  if (~p1 & s2) begin
+  if (p1_l & s2) begin
     gdollar_4_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_4_m <= 1'b0;
   end
-always @(p1, s2, p1, s2, gdollar_4_m)
-  if (~p1 & ~s2) begin
+always @(p1_l, s2, p1_l, s2, gdollar_4_m)
+  if (p1_l & ~s2) begin
     gdollar_4 <= 1'b0;
   end else
-  if (~p1 & s2) begin
+  if (p1_l & s2) begin
     gdollar_4 <= 1'b1;
   end else
   if (1'b0) begin
     gdollar_4 <= gdollar_4_m;
   end
-always @(p1, r2, p1, r2, 1'b0)
-  if (~p1 & ~r2) begin
+always @(p1_l, r2, p1_l, r2, 1'b0)
+  if (p1_l & ~r2) begin
     gdollar_5_m <= 1'b0;
   end else
-  if (~p1 & r2) begin
+  if (p1_l & r2) begin
     gdollar_5_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_5_m <= 1'b0;
   end
-always @(p1, r2, p1, r2, gdollar_5_m)
-  if (~p1 & ~r2) begin
+always @(p1_l, r2, p1_l, r2, gdollar_5_m)
+  if (p1_l & ~r2) begin
     gdollar_5 <= 1'b0;
   end else
-  if (~p1 & r2) begin
+  if (p1_l & r2) begin
     gdollar_5 <= 1'b1;
   end else
   if (1'b0) begin
     gdollar_5 <= gdollar_5_m;
   end
-always @(p1, n2, p1, n2, 1'b0)
-  if (~p1 & ~n2) begin
+always @(p1_l, n2, p1_l, n2, 1'b0)
+  if (p1_l & ~n2) begin
     gdollar_6_m <= 1'b0;
   end else
-  if (~p1 & n2) begin
+  if (p1_l & n2) begin
     gdollar_6_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_6_m <= 1'b0;
   end
-always @(p1, n2, p1, n2, gdollar_6_m)
-  if (~p1 & ~n2) begin
+always @(p1_l, n2, p1_l, n2, gdollar_6_m)
+  if (p1_l & ~n2) begin
     gdollar_6 <= 1'b0;
   end else
-  if (~p1 & n2) begin
+  if (p1_l & n2) begin
     gdollar_6 <= 1'b1;
   end else
   if (1'b0) begin
     gdollar_6 <= gdollar_6_m;
   end
-always @(p1, p2, p1, p2, 1'b0)
-  if (~p1 & ~p2) begin
+always @(p1_l, p2, p1_l, p2, 1'b0)
+  if (p1_l & ~p2) begin
     gdollar_7_m <= 1'b0;
   end else
-  if (~p1 & p2) begin
+  if (p1_l & p2) begin
     gdollar_7_m <= 1'b1;
   end else
   if (~(1'b0)) begin
     gdollar_7_m <= 1'b0;
   end
-always @(p1, p2, p1, p2, gdollar_7_m)
-  if (~p1 & ~p2) begin
+always @(p1_l, p2, p1_l, p2, gdollar_7_m)
+  if (p1_l & ~p2) begin
     gdollar_7 <= 1'b0;
   end else
-  if (~p1 & p2) begin
+  if (p1_l & p2) begin
     gdollar_7 <= 1'b1;
   end else
   if (1'b0) begin
@@ -491,10 +492,6 @@ always @(v2, m2_l, n_t_101x_m)
 assign n3v = 1'b1;
 assign n_t_91x = ~v2;
 assign l2 = ~n_t_42x;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
 // open collector 'wire-or's 
 assign m1 = n_t_50x
              | n_t_52x
@@ -505,4 +502,5 @@ assign m1 = n_t_50x
              | n_t_38x? 1'b0: 1'bz;
 assign m2_l = m2? ~m2: 1'bz;
 assign n1 = n_t_51x? ~n_t_51x: 1'bz;
+assign p1_l = p1? ~p1: 1'bz;
 endmodule

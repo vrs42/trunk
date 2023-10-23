@@ -41,31 +41,11 @@ warning: non-bypass capacitor deleted: c5
 warning: non-bypass capacitor deleted: c6
 warning: non-bypass capacitor deleted: c10
 warning: non-bypass capacitor deleted: c11
-warning: non-pullup resistor deleted: r3
-warning: non-pullup resistor deleted: r5
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r9
-warning: non-pullup resistor deleted: r10
-warning: non-pullup resistor deleted: r13
-warning: non-pullup resistor deleted: r15
-warning: non-pullup resistor deleted: r16
-warning: non-pullup resistor deleted: r19
-warning: non-pullup resistor deleted: r20
-warning: non-pullup resistor deleted: r24
-warning: non-pullup resistor deleted: r26
 ~/Verilog/bin/smaller.pl M688B.PLD >vv || (rm vv; exit 1)
-8 signals were removed:
-  n_t_11x: !n1
-  n_t_14x: !n_t_12x
-  n_t_20x: !n_t_22x
-  n_t_21x: !n_t_20x
-  n_t_22x: 'b'1
-  n_t_23x: !n_t_21x
-  n_t_2x: !h1
-  n_t_5x: !n_t_3x
-~/Verilog/bin/smaller.pl vv >M688BX.PLD || (rm M688BX.PLD; exit 1)
 1 signals were removed:
-  n_t_21x: 'b'1
+  n_t_21x: !n_t_20x
+~/Verilog/bin/smaller.pl vv >M688BX.PLD || (rm M688BX.PLD; exit 1)
+0 signals were removed:
 ~/Verilog/bin/cupl2v.pl M688BX.PLD >vv || (rm vv; exit 1)
 mv vv M688B.v
 rm M688BX.PLD

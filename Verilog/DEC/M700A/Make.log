@@ -24,32 +24,21 @@ warning: non-bypass capacitor deleted: c10
 warning: non-bypass capacitor deleted: c11
 warning: non-bypass capacitor deleted: c12
 warning: non-bypass capacitor deleted: c13
-warning: non-pullup resistor deleted: r6
-warning: non-pullup resistor deleted: r7
-warning: non-pullup resistor deleted: r16
-warning: non-pullup resistor deleted: r19
 ~/Verilog/bin/smaller.pl M700A.PLD >vv || (rm vv; exit 1)
-16 signals were removed:
-  n_t_17x: 'b'1
+10 signals were removed:
   n_t_1x: !n_t_5x
-  n_t_20x: 'b'1
   n_t_24x: !n_t_20x
-  n_t_26x: 'b'1
   n_t_27x: !n_t_26x
   n_t_29x: !n_t_27x
   n_t_2x: !n_t_3x
-  n_t_30x: 'b'1
   n_t_31x: !mftp1
-  n_t_33x: 'b'1
   n_t_34x: !n_t_33x
   n_t_36x: !n_t_34x
   n_t_38x: !n_t_35x
-  n_t_3x: 'b'1
   n_t_7x: 'b'1
 ~/Verilog/bin/smaller.pl vv >M700AX.PLD || (rm M700AX.PLD; exit 1)
-2 signals were removed:
-  n_t_27x: !'b'1
-  n_t_34x: !'b'1
+1 signals were removed:
+  n_t_27x: !n_t_26x
 ~/Verilog/bin/cupl2v.pl M700AX.PLD >vv || (rm vv; exit 1)
 mv vv M700A.v
 rm M700AX.PLD

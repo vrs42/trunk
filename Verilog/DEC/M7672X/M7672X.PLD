@@ -82,18 +82,18 @@ pin = bu1;
 pin = bu2;
 pin = bv1;
 pin = n15v;
-pin = n_t_11x;
 pin = n_t_12x;
 pin = n_t_16x;
 pin = n_t_1x;
 pin = n_t_2x;
+pin = n_t_3x;
 pin = n_t_7x;
 node gdollar_0;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
 node n_t_10x;
-node n_t_3x;
+node n_t_11x;
 node n_t_4x;
 node n_t_9x;
 $ENDIF
@@ -133,6 +133,28 @@ $ENDIF
 /* c15: cpol_use */
 
 /* c16: cpol_use */
+
+/* e1: sn74821 */
+ap2.d = !n_t_1x;
+ap2.ck = n_t_11x;
+an2.d = !ak1;
+an2.ck = n_t_11x;
+am2.d = !n_t_2x;
+am2.ck = n_t_11x;
+al2.d = !al1;
+al2.ck = n_t_11x;
+ak2.d = !am1;
+ak2.ck = n_t_11x;
+ad2.d = !av2;
+ad2.ck = n_t_11x;
+ae2.d = !au2;
+ae2.ck = n_t_11x;
+af2.d = !at2;
+af2.ck = n_t_11x;
+ah2.d = !as2;
+ah2.ck = n_t_11x;
+aj2.d = !ar2;
+aj2.ck = n_t_11x;
 
 /* e2: sn7401 */
 /* n_t_3x = !(bf1 & an2); */
@@ -200,22 +222,6 @@ br1 = !bp1;
 /* ic1: sn7404 */
 n_t_11x = !aj1;
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= n_t_1x};
 !n_t_1x = (ak1 & af1);
@@ -223,7 +229,9 @@ n_t_1x.oe = (ak1 & af1);
 property atmel {open_collector= n_t_2x};
 !n_t_2x = (n_t_1x & af1);
 n_t_2x.oe = (n_t_1x & af1);
+property atmel {open_collector= n_t_3x};
 !n_t_3x = (bf1 & an2);
+n_t_3x.oe = (bf1 & an2);
 property atmel {open_collector= n_t_7x};
 !n_t_7x = ah1;
 n_t_7x.oe = ah1;

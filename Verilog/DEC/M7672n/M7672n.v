@@ -22,7 +22,7 @@
 // c15: cpol_use 
 // c16: cpol_use 
 // e1: sn74821 
-module m7672n (af1, aj1, ak1, al1, am1, ar2, as2, at2, au2, av2, bd1, be1, bh1, bh2, bj1, bj2, bl1, bm1, br2, bs2, bt2, bv1, n3v, n_t_13x, n_t_14x, n_t_17x, n_t_18x, n_t_5x, n_t_6x, n_t_8x, ad2, ae2, af2, ah1, ah2, aj2, ak2, al2, am2, an1, an2, ap1, ap2, ar1, as1, au1, av1, ba1, bb1, bf1, bf2, bk1, bk2, bl2, bm2, bn1, bn2, bp1, bp2, br1, bs1, bu1, bu2, n_t_12x, n_t_16x, n_t_7x);
+module m7672n (af1, aj1, ak1, al1, am1, ar2, as2, at2, au2, av2, bd1, be1, bh1, bh2, bj1, bj2, bl1, bm1, br2, bs2, bt2, bv1, n3v, n_t_13x, n_t_14x, n_t_17x, n_t_18x, n_t_5x, n_t_6x, n_t_8x, ad2, ae2, af2, ah1, ah2, aj2, ak2, al2, am2, an1, an2, ap1, ap2, ar1, as1, au1, av1, ba1, bb1, bf1, bf2, bk1, bk2, bl2, bm2, bn1, bn2, bp1, bp2, br1, bs1, bu1, bu2, n_t_12x, n_t_16x, n_t_1x, n_t_2x, n_t_3x, n_t_7x);
 input af1;
 input aj1;
 input ak1;
@@ -88,6 +88,9 @@ input bu1;
 inout bu2;
 output n_t_12x;
 output n_t_16x;
+inout n_t_1x;
+inout n_t_2x;
+inout n_t_3x;
 output n_t_7x;
 
 reg ar1_m;
@@ -101,9 +104,6 @@ reg gdollar_0_m;
 
 reg gdollar_0;
 wire n_t_10x;
-wire n_t_1x;
-wire n_t_2x;
-wire n_t_3x;
 wire n_t_4x;
 wire n_t_9x;
 always @(negedge aj1)
@@ -333,17 +333,9 @@ assign bu2 = ~bm2;
 assign bp2 = ~bn2;
 assign br1 = ~bp1;
 // ic1: sn7404 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
 // open collector 'wire-or's 
-assign n_t_1x = ~((ak1 & af1));
-assign n_t_2x = ~((n_t_1x & af1));
-assign n_t_3x = ~((bf1 & an2));
+assign n_t_1x = (ak1 & af1)? 1'b0: 1'bz;
+assign n_t_2x = (n_t_1x & af1)? 1'b0: 1'bz;
+assign n_t_3x = (bf1 & an2)? 1'b0: 1'bz;
 assign n_t_7x = ah1? ~ah1: 1'bz;
 endmodule

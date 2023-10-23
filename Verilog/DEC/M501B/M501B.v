@@ -10,13 +10,14 @@
 // c3: c_us 
 // c4: c_us 
 // e1: sn7400 
-module m501b (e, f, k, l, m, n, n_t_4x, n_t_5x, n_t_6x, p, r);
+module m501b (e, f, k, l, m, n, n_t_2x, n_t_4x, n_t_5x, n_t_6x, p, r);
 output e;
 inout f;
 input k;
 output l;
 output m;
 output n;
+inout n_t_2x;
 output n_t_4x;
 output n_t_5x;
 output n_t_6x;
@@ -25,20 +26,7 @@ output r;
 
 
 assign e = ~f;
-assign f = ~k;
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
+assign f = ~n_t_2x;
+assign n_t_2x = k;
 // open collector 'wire-or's 
 endmodule

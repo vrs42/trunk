@@ -33,8 +33,9 @@
 // c26: c_us 
 // c27: c_us 
 // e1: sn7474 
-module m709b (n_t_84x, clk_cla, clk_count, clock, clock_iop4, clock_iot, gate, load_counter, mb10, mb10_l, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_27x, n_t_60x, n_t_69x, n_t_70x, n_t_71x, n_t_72x, n_t_73x, n_t_74x, n_t_75x, n_t_76x, n_t_77x, n_t_78x, n_t_79x, overflow, set_count, transfer);
+module m709b (n_t_84x, n_t_86x, clk_cla, clk_count, clock, clock_iop4, clock_iot, gate, load_counter, mb10, mb10_l, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_27x, n_t_60x, n_t_69x, n_t_70x, n_t_71x, n_t_72x, n_t_73x, n_t_74x, n_t_75x, n_t_76x, n_t_77x, n_t_78x, n_t_79x, n_t_87x, n_t_89x, overflow, set_count, transfer);
 input n_t_84x;
+input n_t_86x;
 inout clk_cla;
 inout clk_count;
 input clock;
@@ -70,9 +71,11 @@ input n_t_76x;
 input n_t_77x;
 input n_t_78x;
 input n_t_79x;
+output n_t_87x;
+inout n_t_89x;
 inout reg overflow;
 inout set_count;
-input transfer;
+inout transfer;
 
 reg gate_m;
 reg n_t_28x_m;
@@ -128,7 +131,6 @@ wire n_t_67x;
 wire n_t_68x;
 wire n_t_81x;
 wire n_t_85x;
-wire n_t_87x;
 always @(posedge transfer)
   if (transfer) begin
     n_t_2x <= n_t_38x;
@@ -460,10 +462,12 @@ always @(n_t_30x, n_t_67x, set_count, n_t_29x_m)
   end
 // e19: sn7440 
 assign set_count = ~load_counter;
+assign transfer = ~n_t_86x;
 // e20: sn7400 
 assign n_t_27x = ~clk_cla;
 assign n_t_13x = ~clk_cla;
-assign n_t_87x = ~(~n_t_84x & n_t_85x);
+assign n_t_89x = ~n_t_84x;
+assign n_t_87x = ~(n_t_89x & n_t_85x);
 // e21: sn7410 
 assign n_t_81x = ~(mb10 & clock_iop4 & clock_iot);
 assign n_t_85x = ~(~clk_count & clk_cla & clk_cla);
@@ -506,9 +510,6 @@ always @(set_count, n_t_81x, gate_m)
   if (1'b0) begin
     gate <= gate_m;
   end
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
 // open collector 'wire-or's 
 assign n_t_14x = (n_t_4x & n_t_27x)? 1'b0: 1'bz;
 assign n_t_15x = (n_t_27x & n_t_3x)? 1'b0: 1'bz;

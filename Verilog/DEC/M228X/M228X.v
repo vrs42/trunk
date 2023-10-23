@@ -31,7 +31,9 @@
 // c24: c_us 
 // c26: cpol_use 
 // e1: sn7400 
-module m228x (as2, au1, bh1, data, mk_blk_end, mk_blk_end_l, mk_blk_mk, mk_blk_mk_l, mk_blk_start, mk_blk_start_l, mk_blk_sync, mk_blk_sync_l, mk_data, mk_data_l, mk_data_sync, mk_data_sync_l, mk_end, mk_end_l, n0_to_state_l, n0_to_w_l, sh_st, sh_st_out, shift_ck, shift_i, st_blk_mk, st_ck, st_final, st_idle, st_idle_in, st_rev_ck, sync, sync_l, tp0_l, tp1, w1, w1_and_w5, w2, w3, w4, w5, w6, w7, w8, w9);
+module m228x (n3v_r1, n3v_r3, as2, au1, bh1, data, mk_blk_end, mk_blk_end_l, mk_blk_mk, mk_blk_mk_l, mk_blk_start, mk_blk_start_l, mk_blk_sync, mk_blk_sync_l, mk_data, mk_data_l, mk_data_sync, mk_data_sync_l, mk_end, mk_end_l, n0_to_state_l, n0_to_w_l, sh_st, sh_st_out, shift_ck, shift_i, st_blk_mk, st_ck, st_final, st_idle, st_idle_in, st_rev_ck, sync, sync_l, tp0_l, tp1, w1, w1_and_w5, w2, w3, w4, w5, w6, w7, w8, w9);
+input n3v_r1;
+input n3v_r3;
 input as2;
 inout au1;
 input bh1;
@@ -109,30 +111,42 @@ assign sh_st_out = ~(n_t_2x
 assign w1_and_w5 = ~(~w5
                       | ~w1);
 // e5: sn7474 
-always @(tp1, n0_to_state_l, w7)
+always @(tp1, n0_to_state_l, n3v_r1, w7)
   if (~n0_to_state_l) begin
     w6_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w6_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w6_m <= w7;
   end
-always @(tp1, n0_to_state_l, w6_m)
+always @(tp1, n0_to_state_l, n3v_r1, w6_m)
   if (~n0_to_state_l) begin
     w6 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w6 <= 1'b1;
   end else
   if (tp1) begin
     w6 <= w6_m;
   end
-always @(tp1, n0_to_state_l, w8)
+always @(tp1, n0_to_state_l, n3v_r1, w8)
   if (~n0_to_state_l) begin
     w7_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w7_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w7_m <= w8;
   end
-always @(tp1, n0_to_state_l, w7_m)
+always @(tp1, n0_to_state_l, n3v_r1, w7_m)
   if (~n0_to_state_l) begin
     w7 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w7 <= 1'b1;
   end else
   if (tp1) begin
     w7 <= w7_m;
@@ -141,30 +155,42 @@ always @(tp1, n0_to_state_l, w7_m)
 assign mk_data_sync_l = ~(~w3 & ~w4 & w6 & ~w7 & w8 & ~w9 & w1_and_w5 & w2);
 // e7: sn7450 
 // e8: sn7474 
-always @(tp1, n0_to_w_l, as2)
+always @(tp1, n0_to_w_l, n3v_r1, as2)
   if (~n0_to_w_l) begin
     w9_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w9_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w9_m <= as2;
   end
-always @(tp1, n0_to_w_l, w9_m)
+always @(tp1, n0_to_w_l, n3v_r1, w9_m)
   if (~n0_to_w_l) begin
     w9 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w9 <= 1'b1;
   end else
   if (tp1) begin
     w9 <= w9_m;
   end
-always @(tp1, n0_to_state_l, w5)
+always @(tp1, n0_to_state_l, n3v_r1, w5)
   if (~n0_to_state_l) begin
     w4_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w4_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w4_m <= w5;
   end
-always @(tp1, n0_to_state_l, w4_m)
+always @(tp1, n0_to_state_l, n3v_r1, w4_m)
   if (~n0_to_state_l) begin
     w4 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w4 <= 1'b1;
   end else
   if (tp1) begin
     w4 <= w4_m;
@@ -172,28 +198,40 @@ always @(tp1, n0_to_state_l, w4_m)
 // e9: sn7430 
 assign mk_blk_start_l = ~(~w3 & ~w8 & w6 & ~w7 & ~w5 & ~w9 & ~w4 & w1);
 // e10: sn7474 
-always @(sh_st, n0_to_state_l, st_idle_in)
+always @(sh_st, n0_to_state_l, n3v_r3, st_idle_in)
   if (~n0_to_state_l) begin
     st_blk_mk_m <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_blk_mk_m <= 1'b1;
   end else
   if (~(sh_st)) begin
     st_blk_mk_m <= st_idle_in;
   end
-always @(sh_st, n0_to_state_l, st_blk_mk_m)
+always @(sh_st, n0_to_state_l, n3v_r3, st_blk_mk_m)
   if (~n0_to_state_l) begin
     st_blk_mk <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_blk_mk <= 1'b1;
   end else
   if (sh_st) begin
     st_blk_mk <= st_blk_mk_m;
   end
-always @(sh_st, n0_to_state_l, st_ck)
+always @(sh_st, n3v_r3, n0_to_state_l, st_ck)
+  if (~n3v_r3) begin
+    st_idle_m <= 1'b0;
+  end else
   if (~n0_to_state_l) begin
     st_idle_m <= 1'b1;
   end else
   if (~(sh_st)) begin
     st_idle_m <= st_ck;
   end
-always @(sh_st, n0_to_state_l, st_idle_m)
+always @(sh_st, n3v_r3, n0_to_state_l, st_idle_m)
+  if (~n3v_r3) begin
+    st_idle <= 1'b0;
+  end else
   if (~n0_to_state_l) begin
     st_idle <= 1'b1;
   end else
@@ -201,16 +239,22 @@ always @(sh_st, n0_to_state_l, st_idle_m)
     st_idle <= st_idle_m;
   end
 // e11: sn7474 
-always @(tp1, n0_to_w_l, w9)
+always @(tp1, n0_to_w_l, n3v_r1, w9)
   if (~n0_to_w_l) begin
     w8_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w8_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w8_m <= w9;
   end
-always @(tp1, n0_to_w_l, w8_m)
+always @(tp1, n0_to_w_l, n3v_r1, w8_m)
   if (~n0_to_w_l) begin
     w8 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w8 <= 1'b1;
   end else
   if (tp1) begin
     w8 <= w8_m;
@@ -218,59 +262,83 @@ always @(tp1, n0_to_w_l, w8_m)
 // e12: sn7430 
 assign mk_data_l = ~(~w3 & ~w8 & ~w2 & ~w7 & ~w9 & w1_and_w5 & w4 & w6);
 // e13: sn7474 
-always @(sh_st, n0_to_state_l, st_rev_ck)
+always @(sh_st, n0_to_state_l, n3v_r3, st_rev_ck)
   if (~n0_to_state_l) begin
     data_m <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    data_m <= 1'b1;
   end else
   if (~(sh_st)) begin
     data_m <= st_rev_ck;
   end
-always @(sh_st, n0_to_state_l, data_m)
+always @(sh_st, n0_to_state_l, n3v_r3, data_m)
   if (~n0_to_state_l) begin
     data <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    data <= 1'b1;
   end else
   if (sh_st) begin
     data <= data_m;
   end
-always @(sh_st, n0_to_state_l, st_blk_mk)
+always @(sh_st, n0_to_state_l, n3v_r3, st_blk_mk)
   if (~n0_to_state_l) begin
     st_rev_ck_m <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_rev_ck_m <= 1'b1;
   end else
   if (~(sh_st)) begin
     st_rev_ck_m <= st_blk_mk;
   end
-always @(sh_st, n0_to_state_l, st_rev_ck_m)
+always @(sh_st, n0_to_state_l, n3v_r3, st_rev_ck_m)
   if (~n0_to_state_l) begin
     st_rev_ck <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_rev_ck <= 1'b1;
   end else
   if (sh_st) begin
     st_rev_ck <= st_rev_ck_m;
   end
 // e14: sn7474 
-always @(tp1, n0_to_w_l, w3)
+always @(tp1, n0_to_w_l, n3v_r1, w3)
   if (~n0_to_w_l) begin
     w2_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w2_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w2_m <= w3;
   end
-always @(tp1, n0_to_w_l, w2_m)
+always @(tp1, n0_to_w_l, n3v_r1, w2_m)
   if (~n0_to_w_l) begin
     w2 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w2 <= 1'b1;
   end else
   if (tp1) begin
     w2 <= w2_m;
   end
-always @(tp1, n0_to_w_l, w4)
+always @(tp1, n0_to_w_l, n3v_r1, w4)
   if (~n0_to_w_l) begin
     w3_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w3_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w3_m <= w4;
   end
-always @(tp1, n0_to_w_l, w3_m)
+always @(tp1, n0_to_w_l, n3v_r1, w3_m)
   if (~n0_to_w_l) begin
     w3 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w3 <= 1'b1;
   end else
   if (tp1) begin
     w3 <= w3_m;
@@ -278,59 +346,83 @@ always @(tp1, n0_to_w_l, w3_m)
 // e15: sn7430 
 assign sync_l = ~(bh1 & w3 & ~w6 & w9 & w7 & w1_and_w5 & ~w8 & ~w4);
 // e16: sn7474 
-always @(sh_st, n0_to_state_l, st_final)
+always @(sh_st, n0_to_state_l, n3v_r3, st_final)
   if (~n0_to_state_l) begin
     st_ck_m <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_ck_m <= 1'b1;
   end else
   if (~(sh_st)) begin
     st_ck_m <= st_final;
   end
-always @(sh_st, n0_to_state_l, st_ck_m)
+always @(sh_st, n0_to_state_l, n3v_r3, st_ck_m)
   if (~n0_to_state_l) begin
     st_ck <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_ck <= 1'b1;
   end else
   if (sh_st) begin
     st_ck <= st_ck_m;
   end
-always @(sh_st, n0_to_state_l, data)
+always @(sh_st, n0_to_state_l, n3v_r3, data)
   if (~n0_to_state_l) begin
     st_final_m <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_final_m <= 1'b1;
   end else
   if (~(sh_st)) begin
     st_final_m <= data;
   end
-always @(sh_st, n0_to_state_l, st_final_m)
+always @(sh_st, n0_to_state_l, n3v_r3, st_final_m)
   if (~n0_to_state_l) begin
     st_final <= 1'b0;
+  end else
+  if (~n3v_r3) begin
+    st_final <= 1'b1;
   end else
   if (sh_st) begin
     st_final <= st_final_m;
   end
 // e17: sn7474 
-always @(tp1, n0_to_w_l, w6)
+always @(tp1, n0_to_w_l, n3v_r1, w6)
   if (~n0_to_w_l) begin
     w5_m <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w5_m <= 1'b1;
   end else
   if (~(tp1)) begin
     w5_m <= w6;
   end
-always @(tp1, n0_to_w_l, w5_m)
+always @(tp1, n0_to_w_l, n3v_r1, w5_m)
   if (~n0_to_w_l) begin
     w5 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w5 <= 1'b1;
   end else
   if (tp1) begin
     w5 <= w5_m;
   end
-always @(w2, n0_to_w_l, 1'b1)
+always @(w2, n0_to_w_l, n3v_r1, n3v_r1)
   if (~n0_to_w_l) begin
     w1_m <= 1'b0;
   end else
-  if (~(w2)) begin
+  if (~n3v_r1) begin
     w1_m <= 1'b1;
+  end else
+  if (~(w2)) begin
+    w1_m <= n3v_r1;
   end
-always @(w2, n0_to_w_l, w1_m)
+always @(w2, n0_to_w_l, n3v_r1, w1_m)
   if (~n0_to_w_l) begin
     w1 <= 1'b0;
+  end else
+  if (~n3v_r1) begin
+    w1 <= 1'b1;
   end else
   if (w2) begin
     w1 <= w1_m;
@@ -350,10 +442,6 @@ assign mk_data = ~mk_data_l;
 assign sync = ~sync_l;
 // e21: sn7430 
 assign mk_blk_sync_l = ~(w1 & w4 & w2 & ~w5 & w3 & au1 & ~w7 & w6);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
 // open collector 'wire-or's 
 assign n_t_2x = ~((mk_blk_end & data
                     | mk_blk_end & st_final

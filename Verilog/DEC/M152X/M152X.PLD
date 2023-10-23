@@ -16,6 +16,8 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_1x;
+pin = n_t_2x;
 
 /* Output Pins */
 pin = n_t_10x;
@@ -51,10 +53,8 @@ pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n_t_1x;
 node n_t_21x;
 node n_t_28x;
-node n_t_2x;
 $ENDIF
 
 /* Code nodes */
@@ -116,17 +116,5 @@ n_t_14x = n_t_28x & n_t_29x & n_t_35x & n_t_34x;
 /* e9: sn74h20 */
 n_t_28x = !(n_t_2x & n_t_4x);
 n_t_21x = !(n_t_1x & n_t_3x & n_t_1x);
-
-/* r1: r_us_ */
-n_t_1x = 'b'1;
-
-/* r2: r_us_ */
-n_t_1x = 'b'1;
-
-/* r3: r_us_ */
-n_t_2x = 'b'1;
-
-/* r4: r_us_ */
-n_t_2x = 'b'1;
 
 /* Open collector 'wire-or's */

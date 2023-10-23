@@ -16,6 +16,9 @@ $DEFINE OPTIMIZE
 $UNDEF  OPTIMIZE
 
 /* Input Pins */
+pin = n_t_12x;
+pin = n_t_22x;
+pin = n_t_3x;
 
 /* Output Pins */
 pin = b1;
@@ -35,7 +38,13 @@ pin = l2;
 pin = m2;
 pin = n1;
 pin = n2;
+pin = n_t_11x;
+pin = n_t_14x;
 pin = n_t_1x;
+pin = n_t_20x;
+pin = n_t_23x;
+pin = n_t_2x;
+pin = n_t_5x;
 pin = p1;
 pin = p2;
 pin = r1;
@@ -47,16 +56,7 @@ pin = v2;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
-node n_t_11x;
-node n_t_12x;
-node n_t_14x;
-node n_t_20x;
 node n_t_21x;
-node n_t_22x;
-node n_t_23x;
-node n_t_2x;
-node n_t_3x;
-node n_t_5x;
 $ENDIF
 
 /* Code nodes */
@@ -108,61 +108,6 @@ r2 = v2 & u2
    # p2 & n2
    # l2 & m2;
 
-/* r1: r_us_ */
-
-/* r2: r_us_ */
-
-/* r3: r_us_ */
-
-/* r4: r_us_ */
-
-/* r5: r_us_ */
-
-/* r6: r_us_ */
-
-/* r7: r_us_ */
-
-/* r8: r_us_ */
-
-/* r9: r_us_ */
-
-/* r10: r_us_ */
-
-/* r11: r_us_ */
-
-/* r12: r_us_ */
-
-/* r13: r_us_ */
-
-/* r14: r_us_ */
-
-/* r15: r_us_ */
-
-/* r16: r_us_ */
-
-/* r17: r_us_ */
-
-/* r18: r_us_ */
-
-/* r19: r_us_ */
-
-/* r20: r_us_ */
-
-/* r21: r_us_ */
-
-/* r22: r_us_ */
-
-/* r23: r_us_ */
-n_t_22x = 'b'1;
-
-/* r24: r_us_ */
-
-/* r25: r_us_ */
-
-/* r26: r_us_ */
-
-/* r27: r_us_ */
-
 /* Open collector 'wire-or's */
 property atmel {open_collector= k1};
 !k1 = e1;
@@ -170,7 +115,15 @@ k1.oe = e1;
 property atmel {open_collector= l1};
 !l1 = r2;
 l1.oe = r2;
+property atmel {open_collector= n_t_11x};
 !n_t_11x = n1;
+n_t_11x.oe = n1;
+property atmel {open_collector= n_t_14x};
 !n_t_14x = n_t_12x;
+n_t_14x.oe = n_t_12x;
+property atmel {open_collector= n_t_2x};
 !n_t_2x = h1;
+n_t_2x.oe = h1;
+property atmel {open_collector= n_t_5x};
 !n_t_5x = n_t_3x;
+n_t_5x.oe = n_t_3x;

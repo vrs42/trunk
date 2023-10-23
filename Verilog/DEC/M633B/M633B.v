@@ -26,38 +26,50 @@
 // c19: c_us 
 // c20: c_us 
 // e1: sn7402 
-module m633b (n15v, n_t_10x, n_t_11x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_23x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_30x, n_t_33x, n_t_34x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x);
+module m633b (n15v, n_t_10x, n_t_11x, n_t_12x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_20x, n_t_23x, n_t_24x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_32x, n_t_33x, n_t_34x, n_t_38x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_46x, n_t_49x, n_t_51x, n_t_52x, n_t_53x, n_t_54x, n_t_55x, n_t_57x, n_t_60x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_6x, n_t_8x);
 output n15v;
 input n_t_10x;
 input n_t_11x;
+output n_t_12x;
 input n_t_14x;
 input n_t_15x;
 input n_t_16x;
 output n_t_17x;
 output n_t_18x;
+output n_t_20x;
 input n_t_23x;
+output n_t_24x;
 input n_t_26x;
 input n_t_27x;
 input n_t_28x;
 output n_t_29x;
+output n_t_2x;
 output n_t_30x;
+output n_t_32x;
 output n_t_33x;
 output n_t_34x;
+output n_t_38x;
 input n_t_40x;
 input n_t_41x;
 input n_t_42x;
 output n_t_43x;
 output n_t_44x;
+output n_t_46x;
+output n_t_49x;
 input n_t_51x;
 input n_t_52x;
 input n_t_53x;
 output n_t_54x;
 output n_t_55x;
+output n_t_57x;
+output n_t_60x;
 input n_t_62x;
 input n_t_63x;
 input n_t_64x;
 output n_t_65x;
 output n_t_66x;
+output n_t_6x;
+output n_t_8x;
 
 
 wire n_t_19x;
@@ -72,58 +84,46 @@ wire n_t_56x;
 wire n_t_59x;
 wire n_t_5x;
 wire n_t_7x;
+assign n_t_12x = ~n_t_4x;
+assign n_t_2x = ~n_t_1x;
 assign n_t_1x = ~(n_t_14x
                    | n_t_15x);
 assign n_t_4x = ~(n_t_16x
                    | n_t_14x);
 // e2: sn7402 
+assign n_t_24x = ~n_t_22x;
 assign n_t_22x = ~(n_t_26x
                     | n_t_28x);
 assign n_t_19x = ~(n_t_26x
                     | n_t_27x);
+assign n_t_20x = ~n_t_19x;
 // e3: sn7402 
+assign n_t_38x = ~n_t_37x;
+assign n_t_32x = ~n_t_31x;
 assign n_t_31x = ~(n_t_40x
                     | n_t_41x);
 assign n_t_37x = ~(n_t_42x
                     | n_t_40x);
 // e4: sn7402 
+assign n_t_8x = ~n_t_7x;
 assign n_t_7x = ~(n_t_10x
                    | n_t_23x);
 assign n_t_5x = ~(n_t_10x
                    | n_t_11x);
+assign n_t_6x = ~n_t_5x;
 // e5: sn7402 
+assign n_t_49x = ~n_t_48x;
+assign n_t_46x = ~n_t_45x;
 assign n_t_45x = ~(n_t_51x
                     | n_t_52x);
 assign n_t_48x = ~(n_t_53x
                     | n_t_51x);
 // e6: sn7402 
+assign n_t_60x = ~n_t_59x;
 assign n_t_59x = ~(n_t_62x
                     | n_t_64x);
 assign n_t_56x = ~(n_t_62x
                     | n_t_63x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
+assign n_t_57x = ~n_t_56x;
 // open collector 'wire-or's 
 endmodule

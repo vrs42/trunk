@@ -150,8 +150,6 @@ assign n_t_69x = ~(f2 & ~h2);
 // r1 = !(r & !n_t_1x); 
 // t2 = !(!n_t_1x & l); 
 // u2 = !(!n_t_1x & n); 
-// r1: r_us_ 
-// r2: r_us_ 
 // open collector 'wire-or's 
 assign j1 = (jj & ~n_t_1x)? 1'b0: 1'bz;
 assign k1 = (ll & ~n_t_1x)? 1'b0: 1'bz;

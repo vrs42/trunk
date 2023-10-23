@@ -34,7 +34,10 @@
 // j2 = !(!s1 & !c1
 //   # s1 & c1); 
 // e2: sn7475 
-module m7065c (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m7065c (n_t_15x, n_t_18x, n_t_90x, a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, n1, n2, n_t_5x, n_t_77x, n_t_78x, n_t_79x, n_t_80x, p1, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+input n_t_15x;
+input n_t_18x;
+input n_t_90x;
 output reg a1;
 output reg b1;
 input c1;
@@ -56,6 +59,11 @@ output reg m1;
 input m2;
 output reg n1;
 input n2;
+inout n_t_5x;
+output n_t_77x;
+output n_t_78x;
+output n_t_79x;
+inout n_t_80x;
 output reg p1;
 output reg p2;
 inout r1;
@@ -99,8 +107,6 @@ reg n_t_120x;
 reg n_t_37x;
 reg n_t_16x;
 reg n_t_19x;
-wire n_t_15x;
-wire n_t_18x;
 wire n_t_21x;
 wire n_t_22x;
 wire n_t_23x;
@@ -111,7 +117,6 @@ wire n_t_36x;
 wire n_t_49x;
 wire n_t_51x;
 wire n_t_76x;
-wire n_t_90x;
 wire n_t_92x;
 always @(r1, n_t_2x, r1, n_t_2x, 1'b0)
   if (r1 & ~n_t_2x) begin
@@ -261,29 +266,29 @@ assign n_t_49x = ~(n_t_3x & k2
 assign n_t_51x = ~(n_t_2x & l2
                     | n_t_24x & ~l2);
 // e6: sn7474 
-always @(n_t_33x, n_t_36x, j2)
-  if (n_t_36x) begin
+always @(n_t_33x, n_t_5x, j2)
+  if (~n_t_5x) begin
     n_t_27x_m <= 1'b0;
   end else
   if (~(n_t_33x)) begin
     n_t_27x_m <= j2;
   end
-always @(n_t_33x, n_t_36x, n_t_27x_m)
-  if (n_t_36x) begin
+always @(n_t_33x, n_t_5x, n_t_27x_m)
+  if (~n_t_5x) begin
     n_t_27x <= 1'b0;
   end else
   if (n_t_33x) begin
     n_t_27x <= n_t_27x_m;
   end
-always @(n_t_33x, n_t_36x, n_t_34x)
-  if (n_t_36x) begin
+always @(n_t_33x, n_t_5x, n_t_34x)
+  if (~n_t_5x) begin
     n_t_29x_m <= 1'b1;
   end else
   if (~(n_t_33x)) begin
     n_t_29x_m <= n_t_34x;
   end
-always @(n_t_33x, n_t_36x, n_t_29x_m)
-  if (n_t_36x) begin
+always @(n_t_33x, n_t_5x, n_t_29x_m)
+  if (~n_t_5x) begin
     n_t_29x <= 1'b1;
   end else
   if (n_t_33x) begin
@@ -448,61 +453,50 @@ always @(n_t_76x, n_t_23x, v2_m)
     v2 <= v2_m;
   end
 // e12: sn7416 
-// !n_t_76x = !n_t_76x; 
-// n_t_16x = n_t_16x; 
-// !n_t_36x = !n_t_36x; 
-// !n_t_19x = !n_t_19x; 
+// n_t_80x = !n_t_76x; 
+// n_t_77x = n_t_16x; 
+// n_t_5x = !n_t_36x; 
+// n_t_79x = !n_t_19x; 
 // r1 = r1; 
-// !n_t_19x = !n_t_19x; 
+// n_t_78x = !n_t_19x; 
 // e13: sn7400 
 assign n_t_92x = ~(j2 & ~n_t_27x);
 assign n_t_76x = ~(n2 & n_t_22x);
 // e14: sn7474 
-always @(n_t_76x, n_t_92x, u1)
+always @(n_t_80x, n_t_92x, u1)
   if (~n_t_92x) begin
     n_t_16x_m <= 1'b0;
   end else
-  if (~(~n_t_76x)) begin
+  if (~(n_t_80x)) begin
     n_t_16x_m <= u1;
   end
-always @(n_t_76x, n_t_92x, n_t_16x_m)
+always @(n_t_80x, n_t_92x, n_t_16x_m)
   if (~n_t_92x) begin
     n_t_16x <= 1'b0;
   end else
-  if (~n_t_76x) begin
+  if (n_t_80x) begin
     n_t_16x <= n_t_16x_m;
   end
-always @(r1, n2, n_t_36x, 1'b1)
+always @(r1, n2, n_t_5x, 1'b1)
   if (~n2) begin
     n_t_19x_m <= 1'b0;
   end else
-  if (n_t_36x) begin
+  if (~n_t_5x) begin
     n_t_19x_m <= 1'b1;
   end else
   if (~(~r1)) begin
     n_t_19x_m <= 1'b1;
   end
-always @(r1, n2, n_t_36x, n_t_19x_m)
+always @(r1, n2, n_t_5x, n_t_19x_m)
   if (~n2) begin
     n_t_19x <= 1'b0;
   end else
-  if (n_t_36x) begin
+  if (~n_t_5x) begin
     n_t_19x <= 1'b1;
   end else
   if (~r1) begin
     n_t_19x <= n_t_19x_m;
   end
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
 // open collector 'wire-or's 
 assign j2 = (~n_t_2x & ~d1
               | n_t_2x & d1)
@@ -520,5 +514,10 @@ assign j2 = (~n_t_2x & ~d1
                 | n_t_37x & s2)
              | (~v2 & ~r2
                 | v2 & r2)? 1'b0: 1'bz;
+assign n_t_5x = n_t_36x? ~n_t_36x: 1'bz;
+assign n_t_77x = ~n_t_16x? 1'b0: 1'bz;
+assign n_t_78x = n_t_19x? ~n_t_19x: 1'bz;
+assign n_t_79x = n_t_19x? ~n_t_19x: 1'bz;
+assign n_t_80x = n_t_76x? ~n_t_76x: 1'bz;
 assign r1 = ~(~(~(~n_t_16x & n_t_90x)))? ~(~(~n_t_16x & n_t_90x)): 1'bz;
 endmodule

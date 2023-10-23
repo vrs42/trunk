@@ -118,49 +118,22 @@ warning: non-bypass capacitor deleted: c63
 warning: non-bypass capacitor deleted: c64
 warning: non-bypass capacitor deleted: c65
 warning: non-bypass capacitor deleted: c66
-warning: non-pullup resistor deleted: r1
-warning: non-pullup resistor deleted: r2
-warning: non-pullup resistor deleted: r11
-warning: non-pullup resistor deleted: r18
-warning: non-pullup resistor deleted: r20
-warning: non-pullup resistor deleted: r21
-warning: non-pullup resistor deleted: r22
-warning: non-pullup resistor deleted: r23
-warning: non-pullup resistor deleted: r24
-warning: non-pullup resistor deleted: r25
-warning: non-pullup resistor deleted: r26
-warning: non-pullup resistor deleted: r29
-warning: non-pullup resistor deleted: r31
-warning: non-pullup resistor deleted: r32
-warning: non-pullup resistor deleted: r34
-warning: non-pullup resistor deleted: r35
-warning: non-pullup resistor deleted: r38
-warning: non-pullup resistor deleted: r44
-warning: non-pullup resistor deleted: r45
-warning: non-pullup resistor deleted: r50
-warning: non-pullup resistor deleted: r51
 ~/Verilog/bin/smaller.pl M840X.PLD >vv || (rm vv; exit 1)
-45 signals were removed:
+36 signals were removed:
   clock_pulse: !clock_pulse_l
   ena_pun_buffr_l: !iot02
-  enable_l: !enable
   have_tape: !out_of_tape
   initialize_l: !initialize
   md7: !md7_l
   md8: !md8_l
-  n3vr40: 'b'1
   n_t_109x: !n_t_110x
   n_t_113x: !n_t_119x
-  n_t_116x: !rdata_strobe
   n_t_124x: !n_t_123x
   n_t_130x: !init_or_eot_l
   n_t_134x: !iot02
   n_t_135x: !iot01
   n_t_16x: !iot01
-  n_t_18x: !iot02
   n_t_1x: !btp3
-  n_t_33x: 'b'1
-  n_t_34x: 'b'1
   n_t_47x: !n_t_48x
   n_t_48x: !bb_l
   n_t_49x: !ba_l
@@ -174,11 +147,8 @@ warning: non-pullup resistor deleted: r51
   n_t_66x: !n_t_63x
   n_t_67x: !n_t_60x
   n_t_69x: !n_t_49x
-  n_t_70x: 'b'1
   n_t_71x: !multi_out_l
-  n_t_73x: !n_t_74x
   n_t_78x: !motor_power
-  n_t_81x: 'b'1
   pause: !pause_l
   piop0: !pce_l
   piop1: !psf_l
@@ -187,8 +157,9 @@ warning: non-pullup resistor deleted: r51
   riop0: !rpe_l
   riop1: !rsf_l
 ~/Verilog/bin/smaller.pl vv >M840XX.PLD || (rm M840XX.PLD; exit 1)
-10 signals were removed:
+11 signals were removed:
   btp3: tp3
+  n_t_48x: !bb_l
   n_t_49x: !ba_l
   n_t_56x: pn_hole5
   n_t_57x: pn_hole6

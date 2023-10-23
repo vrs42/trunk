@@ -18,10 +18,13 @@
 // c13: cpol_use 
 // c14: cpol_use 
 // e1: sn7430 
-module m703e (n_t_10x, n_t_6x, n_t_7x, initialize_l, iop2, mb3=0, mb4=0, mb5=1, mb6=0, mb7=0, mb8=0, n_t_17x, n_t_2x, pwr_low=0, pwr_low=1, pwr_skip, restart, shutdown_l, stop_ok);
+module m703e (n_t_10x, n_t_30x, n_t_4x, n_t_6x, n_t_7x, n_t_9x, initialize_l, iop2, mb3=0, mb4=0, mb5=1, mb6=0, mb7=0, mb8=0, n_t_15x, n_t_16x, n_t_17x, n_t_23x, n_t_24x, n_t_26x, n_t_28x, n_t_2x, n_t_3x, pwr_low=0, pwr_low=1, pwr_skip, restart, shutdown_l, stop_ok);
 input n_t_10x;
+input n_t_30x;
+input n_t_4x;
 input n_t_6x;
 input n_t_7x;
+input n_t_9x;
 output initialize_l;
 output iop2;
 input mb3=0;
@@ -30,8 +33,15 @@ input mb5=1;
 input mb6=0;
 input mb7=0;
 input mb8=0;
+inout n_t_15x;
+output n_t_16x;
 input n_t_17x;
+output n_t_23x;
+inout n_t_24x;
+inout n_t_26x;
+output n_t_28x;
 inout n_t_2x;
+output n_t_3x;
 output pwr_low=0;
 output pwr_low=1;
 output pwr_skip;
@@ -42,32 +52,29 @@ inout stop_ok;
 
 wire n_t_12x;
 wire n_t_14x;
-wire n_t_15x;
-wire n_t_16x;
 wire n_t_19x;
 wire n_t_1x;
 wire n_t_20x;
-wire n_t_24x;
-wire n_t_26x;
 wire n_t_29x;
 assign pwr_skip = ~(mb8=0 & mb7=0 & mb6=0 & mb5=1 & mb4=0 & mb3=0 & pwr_low=);
 // e2: sn7400 
 assign n_t_16x = ~(shutdown_l & n_t_14x);
 assign n_t_14x = ~(n_t_2x & ~n_t_10x);
-assign n_t_12x = 1'b1;
+assign n_t_12x = ~(~n_t_4x & ~n_t_10x);
 // e3: sn7460 
 // n_t_26x = !n_t_6x; 
 // !n_t_26x = !n_t_26x; 
 // n_t_26x = n_t_26x; 
-// !n_t_26x = !n_t_26x; 
+// n_t_28x = !n_t_26x; 
 // e4: sn7400 
 assign pwr_low=1 = ~(shutdown_l & pwr_low=);
 assign pwr_low=0 = ~pwr_low=;
+assign n_t_3x = ~n_t_1x;
 assign n_t_1x = ~(stop_ok & pwr_low=);
 // e5: sn7400 
-assign stop_ok = 1'b0;
+assign stop_ok = ~n_t_9x;
 assign n_t_20x = ~(stop_ok & shutdown_l);
-assign n_t_15x = ~n_t_29x;
+assign n_t_15x = ~(n_t_30x & n_t_29x);
 assign n_t_29x = ~(n_t_19x & n_t_15x);
 // e6: sn7400 
 assign n_t_19x = ~(n_t_1x & n_t_20x);
@@ -77,46 +84,12 @@ assign n_t_2x = ~n_t_17x;
 // n_t_24x = !n_t_7x; 
 // !n_t_24x = !n_t_24x; 
 // n_t_24x = n_t_24x; 
-// !n_t_24x = !n_t_24x; 
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
-// r22: r_us_ 
-// r23: r_us_ 
-// r24: r_us_ 
-// r25: r_us_ 
-// r26: r_us_ 
-// r27: r_us_ 
-// r28: r_us_ 
-// r29: r_us_ 
-// r30: r_us_ 
-// r31: r_us_ 
-// r32: r_us_ 
-// r33: r_us_ 
-// r34: r_us_ 
-// r35: r_us_ 
-// r36: r_us_ 
+// n_t_23x = !n_t_24x; 
 // open collector 'wire-or's 
-assign n_t_24x = ~(n_t_7x
-                    | (~n_t_24x));
-assign n_t_26x = ~(n_t_6x
-                    | (~n_t_26x));
+assign n_t_23x = n_t_24x? ~n_t_24x: 1'bz;
+assign n_t_24x = n_t_7x
+                  | (~(1'b0))? 1'b0: 1'bz;
+assign n_t_26x = n_t_6x
+                  | (~(1'b0))? 1'b0: 1'bz;
+assign n_t_28x = n_t_26x? ~n_t_26x: 1'bz;
 endmodule

@@ -12,7 +12,8 @@
 // c5: c_us 
 // c6: c_us 
 // e1: sn7440 
-module m452x (x16_rate, bd109, bd115200, bd1200, bd150, bd1745, bd19200, bd218, bd230400, bd2400, bd300, bd38400, bd436, bd4800, bd600, bd76800, bd873, bd9600, div11, div3, n_t_12x, n_t_21x, n_t_24x, n_t_25x, x2_rate, x2_rate_l, x4_rate, x8_rate, x8_rate_l);
+module m452x (n_t_14x, x16_rate, bd109, bd115200, bd1200, bd150, bd1745, bd19200, bd218, bd230400, bd2400, bd300, bd38400, bd436, bd4800, bd600, bd76800, bd873, bd9600, div11, div3, n_t_12x, n_t_16x, n_t_21x, n_t_24x, n_t_25x, x2_rate, x2_rate_l, x4_rate, x8_rate, x8_rate_l);
+input n_t_14x;
 output x16_rate;
 output bd109;
 output bd115200;
@@ -34,6 +35,7 @@ output bd9600;
 output div11;
 output div3;
 input n_t_12x;
+output n_t_16x;
 output n_t_21x;
 input n_t_24x;
 input n_t_25x;
@@ -44,16 +46,13 @@ input x8_rate;
 output x8_rate_l;
 
 
-wire n_t_16x;
 assign x8_rate_l = ~x8_rate;
 assign x2_rate_l = ~x2_rate;
 // e5: sn7411 
 assign div11 = n_t_25x & n_t_24x & bd1745;
 assign div3 = bd76800 & bd38400;
 // e6: sn7400 
-assign n_t_21x = 1'b1;
-assign n_t_16x = 1'b1;
-// r14: r_us_ 
-// r15: r_us_ 
+assign n_t_21x = n_t_14x;
+assign n_t_16x = ~(~n_t_14x & n_t_12x);
 // open collector 'wire-or's 
 endmodule

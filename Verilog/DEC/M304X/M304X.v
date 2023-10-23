@@ -88,26 +88,5 @@ assign n_t_51x = ~(n_t_50x & n_t_41x & n_t_41x);
 // e7: sn7400 
 assign n_t_30x = ~(n_t_31x & n_t_32x);
 assign n_t_42x = ~(n_t_43x & n_t_44x);
-// r1: r_us_ 
-// r2: r_us_ 
-// r3: r_us_ 
-// r4: r_us_ 
-// r5: r_us_ 
-// r6: r_us_ 
-// r7: r_us_ 
-// r8: r_us_ 
-// r9: r_us_ 
-// r10: r_us_ 
-// r11: r_us_ 
-// r12: r_us_ 
-// r13: r_us_ 
-// r14: r_us_ 
-// r15: r_us_ 
-// r16: r_us_ 
-// r17: r_us_ 
-// r18: r_us_ 
-// r19: r_us_ 
-// r20: r_us_ 
-// r21: r_us_ 
 // open collector 'wire-or's 
 endmodule
