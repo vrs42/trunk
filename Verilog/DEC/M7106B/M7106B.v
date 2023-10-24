@@ -248,10 +248,10 @@ reg top_surf;
 reg sector_addrs8;
 reg sector_addrs4;
 reg sector_addrs2;
+wire gdollar_20;
 wire gdollar_21;
 wire gdollar_22;
 wire gdollar_23;
-wire gdollar_24;
 wire b_wrt_clk;
 wire check_header_cmd_l;
 wire clr_cntrs;
@@ -1368,15 +1368,15 @@ always @(shft_surf, ld_disk_addrs, clr_sector_ad_l, ld_disk_addrs, bdata11, sect
     sector_addrs1 <= sector_addrs1_m;
   end
 // e47: sn7485 
-assign gdollar_21 = sector_addrs8 & dsk_sec8_l
+assign gdollar_20 = sector_addrs8 & dsk_sec8_l
                      | ~sector_addrs8 & ~dsk_sec8_l;
-assign gdollar_22 = sector_addrs4 & dsk_sec4_l
+assign gdollar_21 = sector_addrs4 & dsk_sec4_l
                      | ~sector_addrs4 & ~dsk_sec4_l;
-assign gdollar_23 = sector_addrs2 & ~dsk_sec2
+assign gdollar_22 = sector_addrs2 & ~dsk_sec2
                      | ~sector_addrs2 & dsk_sec2;
-assign gdollar_24 = sector_addrs1 & dsk_sec1_l
+assign gdollar_23 = sector_addrs1 & dsk_sec1_l
                      | ~sector_addrs1 & ~dsk_sec1_l;
-assign sector_eq = sector_seek & ~gdollar_21 & ~gdollar_22 & ~gdollar_23 & ~gdollar_24;
+assign sector_eq = sector_seek & ~gdollar_20 & ~gdollar_21 & ~gdollar_22 & ~gdollar_23;
 // e48: ds75452n 
 // dsk_strobe_l = !(!strobe); 
 // dsk_head_sel1_l = !(!top_surf); 

@@ -145,6 +145,13 @@ $ENDIF
 
 /* c27: c_us */
 
+/* e1: sn74h62 */
+/* n_t_5x = !(ae2 & af2
+       # ae1 & n3v3 & ad1
+       # aa1 & ad2 & ad2
+       # af1 & ab1); */
+/* n_t_6x = !n_t_5x; */
+
 /* e2: sn74h53 */
 /* n_t_4x = !(bt2 & ah2
        # af2 & am2
@@ -152,6 +159,13 @@ $ENDIF
        # ad2 & bu2); */
 /* n_t_3x = !n_t_4x; */
 ar2 = n_t_4x;
+
+/* e3: sn74h62 */
+/* n_t_3x = !(af1 & bv1
+       # n3v3 & am1 & as1
+       # ah1 & aa1 & aa1
+       # aj1 & at2); */
+/* n_t_4x = !n_t_3x; */
 
 /* e4: sn74h53 */
 /* n_t_6x = !(an2 & aj1
@@ -168,6 +182,13 @@ aj2 = n_t_6x;
        # ad2 & bh1); */
 /* n_t_1x = !n_t_2x; */
 av1 = n_t_2x;
+
+/* e6: sn74h62 */
+/* n_t_1x = !(ah2 & bv1
+       # n3v3 & am1 & an2
+       # ah1 & bu2 & bu2
+       # aj1 & av2); */
+/* n_t_2x = !n_t_1x; */
 
 /* e7: sn7474 */
 ar1.ar = !n3v3;
@@ -189,6 +210,13 @@ an2 = !ap2;
 /* n_t_20x = !n_t_21x; */
 bd2 = n_t_21x;
 
+/* e9: sn74h62 */
+/* n_t_20x = !(aa1 & bv1
+        # n3v3 & am1 & at2
+        # bh1 & ah1 & ah1
+        # aj1 & bh2); */
+/* n_t_21x = !n_t_20x; */
+
 /* e10: sn74h53 */
 /* n_t_19x = !(bt2 & bh1
         # af2 & aa1
@@ -196,6 +224,13 @@ bd2 = n_t_21x;
         # ad2 & be1); */
 /* n_t_18x = !n_t_19x; */
 bd1 = n_t_19x;
+
+/* e11: sn74h62 */
+/* n_t_18x = !(bu2 & bv1
+        # n3v3 & am1 & av2
+        # ah1 & bb1 & bb1
+        # aj1 & be2); */
+/* n_t_19x = !n_t_18x; */
 
 /* e12: sn7474 */
 au2.ar = !n3v3;
@@ -217,6 +252,13 @@ at2 = !as2;
 /* n_t_16x = !n_t_17x; */
 bc1 = n_t_17x;
 
+/* e14: sn74h62 */
+/* n_t_16x = !(bh1 & bv1
+        # n3v3 & am1 & bh2
+        # ah1 & be1 & be1
+        # aj1 & bk2); */
+/* n_t_17x = !n_t_16x; */
+
 /* e15: sn7474 */
 bj2.ar = !n3v3;
 bj2.d = bd1;
@@ -236,6 +278,13 @@ be2 = !bf2;
         # ad2 & bn1); */
 /* n_t_23x = !n_t_22x; */
 bk1 = n_t_22x;
+
+/* e17: sn74h62 */
+/* n_t_23x = !(bb1 & bv1
+        # n3v3 & am1 & be2
+        # ah1 & bu1 & bu1
+        # aj1 & bn2); */
+/* n_t_22x = !n_t_23x; */
 
 /* e18: sn7474 */
 bm2.ar = !n3v3;
@@ -257,6 +306,13 @@ bk2 = !bl2;
 /* n_t_24x = !n_t_25x; */
 bm1 = n_t_25x;
 
+/* e20: sn74h62 */
+/* n_t_24x = !(be1 & bv1
+        # n3v3 & am1 & bk2
+        # ah1 & bn1 & bn1
+        # aj1 & br2); */
+/* n_t_25x = !n_t_24x; */
+
 /* e21: sn7474 */
 bp2.ar = !n3v3;
 bp2.d = bs2;
@@ -272,112 +328,101 @@ br2 = !bp2;
 /* n_t_14x = !n_t_27x; */
 bs2 = n_t_27x;
 
+/* e23: sn74h62 */
+/* n_t_14x = !(bu1 & bv1
+        # n3v3 & am1 & bn2
+        # ah1 & ap1 & ap1
+        # aj1 & bv2); */
+/* n_t_27x = !n_t_14x; */
+
 /* Open collector 'wire-or's */
-property atmel {open_collector= n_t_14x};
-!n_t_14x = n_t_27x;
-n_t_14x.oe = n_t_27x;
-property atmel {open_collector= n_t_16x};
-!n_t_16x = n_t_17x;
-n_t_16x.oe = n_t_17x;
-property atmel {open_collector= n_t_17x};
+!n_t_14x = (n_t_27x)
+        # (bu1 & bv1
+        # n3v3 & am1 & bn2
+        # ah1 & ap1 & ap1
+        # aj1 & bv2);
+!n_t_16x = (n_t_17x)
+        # (bh1 & bv1
+        # n3v3 & am1 & bh2
+        # ah1 & be1 & be1
+        # aj1 & bk2);
 !n_t_17x = (bt2 & bb1
         # af2 & bu2
         # ad1 & bf1 & n3v3
-        # ad2 & bu1);
-n_t_17x.oe = (bt2 & bb1
-        # af2 & bu2
-        # ad1 & bf1 & n3v3
-        # ad2 & bu1);
-property atmel {open_collector= n_t_18x};
-!n_t_18x = n_t_19x;
-n_t_18x.oe = n_t_19x;
-property atmel {open_collector= n_t_19x};
+        # ad2 & bu1)
+           # (n_t_16x);
+!n_t_18x = (n_t_19x)
+        # (bu2 & bv1
+        # n3v3 & am1 & av2
+        # ah1 & bb1 & bb1
+        # aj1 & be2);
 !n_t_19x = (bt2 & bh1
         # af2 & aa1
         # ad1 & ba1 & n3v3
-        # ad2 & be1);
-n_t_19x.oe = (bt2 & bh1
-        # af2 & aa1
-        # ad1 & ba1 & n3v3
-        # ad2 & be1);
-property atmel {open_collector= n_t_1x};
-!n_t_1x = n_t_2x;
-n_t_1x.oe = n_t_2x;
-property atmel {open_collector= n_t_20x};
-!n_t_20x = n_t_21x;
-n_t_20x.oe = n_t_21x;
-property atmel {open_collector= n_t_21x};
+        # ad2 & be1)
+           # (n_t_18x);
+!n_t_1x = (n_t_2x)
+       # (ah2 & bv1
+       # n3v3 & am1 & an2
+       # ah1 & bu2 & bu2
+       # aj1 & av2);
+!n_t_20x = (n_t_21x)
+        # (aa1 & bv1
+        # n3v3 & am1 & at2
+        # bh1 & ah1 & ah1
+        # aj1 & bh2);
 !n_t_21x = (bt2 & bu2
         # af2 & ah2
         # ad1 & n3v3 & au1
-        # ad2 & bb1);
-n_t_21x.oe = (bt2 & bu2
-        # af2 & ah2
-        # ad1 & n3v3 & au1
-        # ad2 & bb1);
-property atmel {open_collector= n_t_22x};
+        # ad2 & bb1)
+           # (n_t_20x);
 !n_t_22x = (bt2 & be1
         # af2 & bh1
         # ad1 & bj1 & n3v3
-        # ad2 & bn1);
-n_t_22x.oe = (bt2 & be1
-        # af2 & bh1
-        # ad1 & bj1 & n3v3
-        # ad2 & bn1);
-property atmel {open_collector= n_t_23x};
-!n_t_23x = n_t_22x;
-n_t_23x.oe = n_t_22x;
-property atmel {open_collector= n_t_24x};
-!n_t_24x = n_t_25x;
-n_t_24x.oe = n_t_25x;
-property atmel {open_collector= n_t_25x};
+        # ad2 & bn1)
+           # (n_t_23x);
+!n_t_23x = (n_t_22x)
+        # (bb1 & bv1
+        # n3v3 & am1 & be2
+        # ah1 & bu1 & bu1
+        # aj1 & bn2);
+!n_t_24x = (n_t_25x)
+        # (be1 & bv1
+        # n3v3 & am1 & bk2
+        # ah1 & bn1 & bn1
+        # aj1 & br2);
 !n_t_25x = (bt2 & bu1
         # af2 & bb1
         # ad1 & bp1 & n3v3
-        # ad2 & bl1);
-n_t_25x.oe = (bt2 & bu1
-        # af2 & bb1
-        # ad1 & bp1 & n3v3
-        # ad2 & bl1);
-property atmel {open_collector= n_t_27x};
+        # ad2 & bl1)
+           # (n_t_24x);
 !n_t_27x = (bt2 & bn1
         # af2 & be1
         # ad1 & bs1 & n3v3
-        # ad2 & br1);
-n_t_27x.oe = (bt2 & bn1
-        # af2 & be1
-        # ad1 & bs1 & n3v3
-        # ad2 & br1);
-property atmel {open_collector= n_t_2x};
+        # ad2 & br1)
+           # (n_t_14x);
 !n_t_2x = (bt2 & aa1
        # af2 & af1
        # ad1 & ak1 & n3v3
-       # ad2 & bh1);
-n_t_2x.oe = (bt2 & aa1
-       # af2 & af1
-       # ad1 & ak1 & n3v3
-       # ad2 & bh1);
-property atmel {open_collector= n_t_3x};
-!n_t_3x = n_t_4x;
-n_t_3x.oe = n_t_4x;
-property atmel {open_collector= n_t_4x};
+       # ad2 & bh1)
+          # (n_t_1x);
+!n_t_3x = (n_t_4x)
+       # (af1 & bv1
+       # n3v3 & am1 & as1
+       # ah1 & aa1 & aa1
+       # aj1 & at2);
 !n_t_4x = (bt2 & ah2
        # af2 & am2
        # ac1 & ad1 & n3v3
-       # ad2 & bu2);
-n_t_4x.oe = (bt2 & ah2
-       # af2 & am2
-       # ac1 & ad1 & n3v3
-       # ad2 & bu2);
-property atmel {open_collector= n_t_5x};
-!n_t_5x = n_t_6x;
-n_t_5x.oe = n_t_6x;
-property atmel {open_collector= n_t_6x};
-!n_t_6x = (an2 & aj1
-       # al1 & am2
-       # al2 & am1 & n3v3
-       # ah1 & ah2);
-n_t_6x.oe = (an2 & aj1
+       # ad2 & bu2)
+          # (n_t_3x);
+!n_t_5x = (ae2 & af2
+       # ae1 & n3v3 & ad1
+       # aa1 & ad2 & ad2
+       # af1 & ab1)
+          # (n_t_6x);
+!n_t_6x = (n_t_5x)
+       # (an2 & aj1
        # al1 & am2
        # al2 & am1 & n3v3
        # ah1 & ah2);

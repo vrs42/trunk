@@ -188,7 +188,7 @@ node top_surf;
 node sector_addrs8;
 node sector_addrs4;
 node sector_addrs2;
-node gdollar_21, gdollar_22, gdollar_23, gdollar_24;
+node gdollar_20, gdollar_21, gdollar_22, gdollar_23;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
@@ -864,15 +864,15 @@ sector_addrs1.ap = ld_disk_addrs & bdata11;
 sector_addrs1.ar = !ld_disk_addrs & !clr_sector_ad_l;
 
 /* e47: sn7485 */
-gdollar_21 = sector_addrs8 & !n_t_82x
+gdollar_20 = sector_addrs8 & !n_t_82x
            # !sector_addrs8 & n_t_82x;
-gdollar_22 = sector_addrs4 & !n_t_83x
+gdollar_21 = sector_addrs4 & !n_t_83x
            # !sector_addrs4 & n_t_83x;
-gdollar_23 = sector_addrs2 & !dsk_sec2
+gdollar_22 = sector_addrs2 & !dsk_sec2
            # !sector_addrs2 & dsk_sec2;
-gdollar_24 = sector_addrs1 & !n_t_84x
+gdollar_23 = sector_addrs1 & !n_t_84x
            # !sector_addrs1 & n_t_84x;
-sector_eq = sector_seek & !gdollar_21 & !gdollar_22 & !gdollar_23 & !gdollar_24;
+sector_eq = sector_seek & !gdollar_20 & !gdollar_21 & !gdollar_22 & !gdollar_23;
 
 /* e48: ds75452n */
 /* dsk_strobe_l = !(!strobe); */

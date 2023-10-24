@@ -92,7 +92,8 @@ warning: non-bypass capacitor deleted: c15
   right2: !right_l
   twice: !twice_l
 ~/Verilog/bin/smaller.pl vv >M8300BX.PLD || (rm M8300BX.PLD; exit 1)
-0 signals were removed:
+1 signals were removed:
+  n_t_5x: !md_dir_l
 ~/Verilog/bin/cupl2v.pl M8300BX.PLD >vv || (rm vv; exit 1)
 mv vv M8300B.v
 rm M8300BX.PLD

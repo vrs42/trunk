@@ -25,8 +25,7 @@
 # TODO: dec4015 is a quad R/S latch (with common R).
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
-# TODO: sn7462 sn7470 sn7481 sn7489
-# TODO: sn7490 sn7492 sn74h40n sn74h52 sn74h60 sn74h62n
+# TODO: sn7470 sn7481 sn7489 sn7490 sn7492
 # TODO: sn74191 sn74221 sn74266 sn74393
 
 #
@@ -419,8 +418,6 @@ sub sn74h40n {
 }
 $hidden{'sn74h40n'} = 0;
 
-# TODO: sn74h40n
-
 sub sn7442 {
   &qcode("!$pad{1} = !$pad{12} & !$pad{13} & !$pad{14} & !$pad{15};\n") if defined $pad{1};
   &qcode("!$pad{2} = !$pad{12} & !$pad{13} & !$pad{14} & $pad{15};\n") if defined $pad{2};
@@ -450,19 +447,22 @@ sub sn74h50 {
 $hidden{'sn74h50'} = 0;
 
 sub sn7452 {
-  # X and is frequently NC, but we'll need a name.
-  $pad{9} = &gnext unless defined $pad{9};
-  $oc{$pad{9}} = 1;
-  &qcode("$pad{8} = $pad{1}&$pad{2} # $pad{3}&$pad{4}&$pad{5} # $pad{10}&$pad{11} # $pad{12}&$pad{13}");
+  # X is frequently NC.
+  if (defined $pad{9}) {
+    $oc{$pad{9}} = 1;
+    &ocassign($pad{9}, "$pad{1}&$pad{2} # $pad{3}&$pad{4}&$pad{5} # $pad{10}&$pad{11} # $pad{12}&$pad{13}");
+    &qcode("$pad{8} = !$pad{9}");
+  } else {
+    $pad{9} = "'b'1" unless defined $pad{9};
+    &qcode("$pad{8} = $pad{1}&$pad{2} # $pad{3}&$pad{4}&$pad{5} # $pad{10}&$pad{11} # $pad{12}&$pad{13}");
+  }
 }
 $hidden{'sn7452'} = 0;
 
-sub sn74h52n {
-  &sn7452n;
+sub sn74h52 {
+  &sn7452;
 }
-$hidden{'sn74h52n'} = 0;
-
-# TODO: sn74h52
+$hidden{'sn74h52'} = 0;
 
 sub sn7453 {
   # X and X\ are frequently NC, but we'll need a name.
@@ -500,8 +500,9 @@ sub sn74h55 {
 }
 $hidden{'sn74h55'} = 0;
 
+# 4 input AO Expander
 sub sn7460 {
-  # X and X\ are frequently NC, but we'll need a name.
+  # X and X\ will need a name.
   $pad{11} = &gnext unless defined $pad{11};
   $pad{12} = &gnext unless defined $pad{12};
   $oc{$pad{11}} = 1;
@@ -517,9 +518,28 @@ sub sn7460 {
 }
 $hidden{'sn7460'} = 0;
 
-# TODO: sn74h60
-# TODO: sn74h62n
-# TODO: sn7462
+sub sn74h60 {
+  &sn7460;
+}
+$hidden{'sn74h60'} = 0;
+
+# 2-3-3-2 AO Expander
+sub sn7462 {
+  # X and X\ will need a name.
+  $pad{6} = &gnext unless defined $pad{6};
+  $pad{8} = &gnext unless defined $pad{6};
+  $oc{$pad{6}} = 1;
+  $oc{$pad{8}} = 1;
+  &ocassign($pad{6}, "$pad{1}&$pad{2} # $pad{3}&$pad{4}&$pad{5} # $pad{9}&$pad{10}&$pad{10} # $pad{12}&$pad{13}");
+  &ocassign($pad{8}, $pad{6});
+}
+$hidden{'sn7462'} = 0;
+
+sub sn74h62 {
+  &sn7462;
+}
+$hidden{'sn74h62'} = 0;
+
 # TODO: sn7470
 
 sub sn7472 {
@@ -2645,7 +2665,7 @@ while (<INPUT>) {
   $value =~ s/^(\d*74\d*)$/sn\1/;
   $value =~ s/^(\d*88\d*)$/ds\1/;
   $value =~ s/^(\d*82\d*)$/dec\1/;
-  $value =~ s/^74(.*)/sn74\1n/;
+  $value =~ s/^74(.*)/sn74\1/;
   $partlist{$part} = $value;
   #
   # This is probably made redundant by the assumption that, if we

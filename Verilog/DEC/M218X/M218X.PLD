@@ -29,7 +29,6 @@ pin = n_t_16x;
 pin = n_t_17x;
 pin = n_t_18x;
 pin = n_t_19x;
-pin = n_t_1x;
 pin = n_t_20x;
 pin = n_t_21x;
 pin = n_t_22x;
@@ -38,7 +37,6 @@ pin = n_t_24x;
 pin = n_t_26x;
 pin = n_t_27x;
 pin = n_t_29x;
-pin = n_t_2x;
 pin = n_t_30x;
 pin = n_t_31x;
 pin = n_t_32x;
@@ -68,8 +66,6 @@ pin = n_t_58x;
 pin = n_t_59x;
 pin = n_t_5x;
 pin = n_t_60x;
-pin = n_t_61x;
-pin = n_t_62x;
 pin = n_t_65x;
 pin = n_t_66x;
 pin = n_t_67x;
@@ -89,11 +85,15 @@ pin = n_t_9x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node n_t_1x;
 node n_t_25x;
 node n_t_28x;
+node n_t_2x;
 node n_t_37x;
 node n_t_38x;
 node n_t_42x;
+node n_t_61x;
+node n_t_62x;
 node n_t_63x;
 node n_t_64x;
 node n_t_72x;
@@ -142,6 +142,12 @@ $ENDIF
 
 /* c19: c_us */
 
+/* e1: sn74h60 */
+/* n_t_2x = !(n_t_3x & n_t_5x & n_t_4x & n_t_6x); */
+/* n_t_1x = !n_t_2x; */
+/* n_t_2x = !(n_t_7x & n_t_8x & n_t_9x & n_t_10x); */
+/* n_t_1x = !n_t_2x; */
+
 /* e2: sn74h53 */
 /* n_t_2x = !(n_t_15x & n_t_14x
        # n_t_16x & n_t_17x
@@ -169,6 +175,12 @@ n_t_20x = !n_t_30x;
           # n_t_13x & n_t_20x); */
 /* gdollar_1 = !gdollar_0; */
 n_t_25x = gdollar_0;
+
+/* e5: sn74h60 */
+/* n_t_61x = !(n_t_53x & n_t_54x & n_t_55x & n_t_56x); */
+/* n_t_62x = !n_t_61x; */
+/* n_t_61x = !(n_t_57x & n_t_58x & n_t_59x & n_t_60x); */
+/* n_t_62x = !n_t_61x; */
 
 /* e6: sn74h53 */
 /* gdollar_2 = !(n_t_34x & n_t_15x
@@ -305,27 +317,21 @@ n_t_73x = gdollar_12;
           # n_t_47x & n_t_16x
           # n_t_13x & n_t_35x);
 !gdollar_9 = gdollar_8;
-property atmel {open_collector= n_t_1x};
-!n_t_1x = n_t_2x;
-n_t_1x.oe = n_t_2x;
-property atmel {open_collector= n_t_2x};
-!n_t_2x = (n_t_15x & n_t_14x
+!n_t_1x = (n_t_2x)
+          # (n_t_2x)
+          # (n_t_2x);
+!n_t_2x = (n_t_3x & n_t_5x & n_t_4x & n_t_6x)
+          # (n_t_7x & n_t_8x & n_t_9x & n_t_10x)
+       # (n_t_15x & n_t_14x
        # n_t_16x & n_t_17x
        # n_t_11x & n_t_12x & n_t_13x
        # n_t_18x & n_t_19x);
-n_t_2x.oe = (n_t_15x & n_t_14x
-       # n_t_16x & n_t_17x
-       # n_t_11x & n_t_12x & n_t_13x
-       # n_t_18x & n_t_19x);
-property atmel {open_collector= n_t_61x};
-!n_t_61x = (n_t_81x & n_t_19x
+!n_t_61x = (n_t_53x & n_t_54x & n_t_55x & n_t_56x)
+           # (n_t_57x & n_t_58x & n_t_59x & n_t_60x)
+        # (n_t_81x & n_t_19x
         # n_t_15x & n_t_80x
         # n_t_16x & n_t_79x & n_t_70x
         # n_t_43x & n_t_13x);
-n_t_61x.oe = (n_t_81x & n_t_19x
-        # n_t_15x & n_t_80x
-        # n_t_16x & n_t_79x & n_t_70x
-        # n_t_43x & n_t_13x);
-property atmel {open_collector= n_t_62x};
-!n_t_62x = n_t_61x;
-n_t_62x.oe = n_t_61x;
+!n_t_62x = (n_t_61x)
+           # (n_t_61x)
+           # (n_t_61x);
