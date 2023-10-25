@@ -38,17 +38,17 @@
 // c33: c_us 
 // e1: n8881n 
 // n_t_37x = !(!ts4_l & !keycontrol_l); 
-// n_t_37x = !(fe_fd_l & ts4fset); 
+// n_t_37x = !(fe_fd_l & ts4fset_not_ms_dis); 
 // data_f = !(!md06_l & op1ts3); 
 // n_t_37x = !(n_t_36x & c1_l); 
 // e2: n8881n 
-// carry_in_l = !(skip1 & ts4fset); 
+// carry_in_l = !(skip1 & ts4fset_not_ms_dis); 
 // ac2bus_l = !(n_t_56x & c2_l); 
 // ac2bus_l = !(n_t_55x & !ts1_l); 
 // carry_in_l = !(jmsets2 & skip1); 
 // e3: n8881n 
 // n_t_30x = !(op2ts3 & n_t_43x); 
-// en1 = !(!ts4_l & d); 
+// en1 = !(!ts4_l & d_not_jmp); 
 // carry_in_l = !(bf_kc & !ts1_l); 
 // en0 = !(!ts1_l & bf_kc); 
 // e4: n8881n 
@@ -191,8 +191,8 @@ wire and_l;
 wire ande_l;
 wire andets3;
 wire bf_kc;
-wire d!jmp;
 wire d_l;
+wire d_not_jmp;
 wire dca_l;
 wire dcae_l;
 wire dcaets2;
@@ -232,6 +232,7 @@ wire n_t_4x;
 wire n_t_55x;
 wire n_t_56x;
 wire n_t_58x;
+wire n_t_59x;
 wire n_t_5x;
 wire n_t_63x;
 wire n_t_64x;
@@ -252,8 +253,8 @@ wire oprf;
 wire tad_l;
 wire tade_l;
 wire tadets3;
-wire tp4!malc;
-wire ts4fset!ms_dis;
+wire tp4_not_malc;
+wire ts4fset_not_ms_dis;
 // e7: sn7420 
 assign n_t_28x = ~(tade_l & dcae_l & ande_l & ~oprf);
 assign n_t_4x = ~(~ts4_l & fe_fd_l & fset_l & ~f_l);
@@ -350,7 +351,7 @@ assign aceq0 = ~(n_t_80x
                   | ac04_11eq0_l);
 // e20: sn7404 
 // e21: sn74h00 
-assign tp4!malc = ~(~(malc_l & tp4));
+assign tp4_not_malc = ~(~(malc_l & tp4));
 assign n_t_63x = ~(oprf & ~n_t_2x);
 assign op1_l = ~(n_t_2x & oprf);
 assign n_t_45x = ~(opets3 & ~md07_l);
@@ -388,7 +389,7 @@ assign op1ts3 = ~(ts3_l
                    | op1_l);
 // e26: sn7404 
 // e27: sn7405 
-// cpma_load_l = !tp4; 
+// cpma_load_l = !tp4_not_malc; 
 // fe_fd_l = !fe_fd; 
 // en0 = !jmsets3; 
 // feset_l = !intinprog; 
@@ -410,8 +411,8 @@ assign ets3_l = ts3_l
 assign n_t_12x = ~(n_t_13x & ~n_t_23x & ~n_t_23x);
 assign n_t_72x = ~(~opr_iot & ~f_l & n_t_2x & jmp_l);
 // e31: sn7410 
-assign ts4fset!ms_dis = ~(~(~fset_l & ms_ir_dis_l & ~ts4_l));
-assign eset = ~(feset_l & n_t_72x & ~djmp_l);
+assign ts4fset_not_ms_dis = ~(~(~fset_l & ms_ir_dis_l & ~ts4_l));
+assign eset = ~(feset_l & n_t_72x & ~d_not_jmp);
 assign n_t_75x = ~(~f_l & ~opr_iot & ~n_t_2x);
 // e32: sn7400 
 assign n_t_8x = ~(link_data_l & n_t_12x);
@@ -460,9 +461,10 @@ always @(tp2, n3va, n3va, ov_m)
   end
 // e34: sn7404 
 // e35: sn74h00 
+assign n_t_59x = ~(tp4_not_malc & intinprog);
 assign opr_iot = ~(opr_l & iot_l);
 assign n_t_64x = ~(tp2 & ~f_l);
-assign djmp_l = ~(~(jmp_l & ~d_l));
+assign d_not_jmp = ~(~(jmp_l & ~d_l));
 // e36: sn74h04 
 // e37: sn7402 
 assign jmse = ~(e_l
@@ -487,8 +489,8 @@ assign bf_kc = ~(f_l & keycontrol_l);
 assign dset_l = ~(~(n_t_75x & fdset_l));
 assign fe_fd = ~(fdset_l & feset_l);
 // e40: sn74h74 
-always @(n_t_64x, tp4, n3v, md02_l)
-  if (tp4) begin
+always @(n_t_64x, n_t_59x, n3v, md02_l)
+  if (~n_t_59x) begin
     n_t_62x_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -497,8 +499,8 @@ always @(n_t_64x, tp4, n3v, md02_l)
   if (~(~n_t_64x)) begin
     n_t_62x_m <= ~md02_l;
   end
-always @(n_t_64x, tp4, n3v, n_t_62x_m)
-  if (tp4) begin
+always @(n_t_64x, n_t_59x, n3v, n_t_62x_m)
+  if (~n_t_59x) begin
     n_t_62x <= 1'b0;
   end else
   if (~n3v) begin
@@ -507,21 +509,21 @@ always @(n_t_64x, tp4, n3v, n_t_62x_m)
   if (~n_t_64x) begin
     n_t_62x <= n_t_62x_m;
   end
-always @(n_t_64x, n3v, tp4, md00_l)
+always @(n_t_64x, n3v, n_t_59x, md00_l)
   if (~n3v) begin
     n_t_60x_m <= 1'b0;
   end else
-  if (tp4) begin
+  if (~n_t_59x) begin
     n_t_60x_m <= 1'b1;
   end else
   if (~(~n_t_64x)) begin
     n_t_60x_m <= ~md00_l;
   end
-always @(n_t_64x, n3v, tp4, n_t_60x_m)
+always @(n_t_64x, n3v, n_t_59x, n_t_60x_m)
   if (~n3v) begin
     n_t_60x <= 1'b0;
   end else
-  if (tp4) begin
+  if (~n_t_59x) begin
     n_t_60x <= 1'b1;
   end else
   if (~n_t_64x) begin
@@ -572,8 +574,8 @@ always @(cpma_load_l, n3v, n3v, n_t_73x_m)
   if (~cpma_load_l) begin
     n_t_73x <= n_t_73x_m;
   end
-always @(n_t_64x, tp4, n3v, md01_l)
-  if (tp4) begin
+always @(n_t_64x, n_t_59x, n3v, md01_l)
+  if (~n_t_59x) begin
     n_t_61x_m <= 1'b0;
   end else
   if (~n3v) begin
@@ -582,8 +584,8 @@ always @(n_t_64x, tp4, n3v, md01_l)
   if (~(~n_t_64x)) begin
     n_t_61x_m <= ~md01_l;
   end
-always @(n_t_64x, tp4, n3v, n_t_61x_m)
-  if (tp4) begin
+always @(n_t_64x, n_t_59x, n3v, n_t_61x_m)
+  if (~n_t_59x) begin
     n_t_61x <= 1'b0;
   end else
   if (~n3v) begin
@@ -678,14 +680,14 @@ assign ac2bus_l = (n_t_56x & c2_l)
                    | tadets3? 1'b0: 1'bz;
 assign ac_load_l = (tp3 & n_t_28x)
                     | (c2_l & ~bus_strobe_l)? 1'b0: 1'bz;
-assign carry_in_l = (skip1 & ts4fset)
+assign carry_in_l = (skip1 & ts4fset_not_ms_dis)
                      | (jmsets2 & skip1)
                      | (bf_kc & ~ts1_l)
                      | (~md11_l & op1ts3)
                      | (~d_l & ~ts2_l)
                      | iszets2
                      | (rom_l & cpma_dis_l & jmsets3)? 1'b0: 1'bz;
-assign cpma_load_l = tp4
+assign cpma_load_l = tp4_not_malc
                       | (pulse_la & keycontrol_l)? 1'b0: 1'bz;
 assign d_l = ~((n_t_77x & ms_ir_dis_l));
 assign data_f = (~md06_l & op1ts3)
@@ -700,7 +702,7 @@ assign en0 = (~ts1_l & bf_kc)
               | (~en1)
               | (~en2)
               | jmsets3? 1'b0: 1'bz;
-assign en1 = (~ts4_l & d)
+assign en1 = (~ts4_l & d_not_jmp)
               | (~en2)
               | tadets3
               | (~d_l & ~ts3_l & ~jmp_l)? 1'b0: 1'bz;
@@ -733,7 +735,7 @@ assign n_t_35x = (aceq0 & ~md06_l)
                   | (ac00 & ~md05_l)
                   | (~md07_l & link)? 1'b0: 1'bz;
 assign n_t_37x = (~ts4_l & ~keycontrol_l)
-                  | (fe_fd_l & ts4fset)
+                  | (fe_fd_l & ts4fset_not_ms_dis)
                   | (n_t_36x & c1_l)
                   | jmsets2? 1'b0: 1'bz;
 assign n_t_44x = (~ts3_l & md04_l & oprf)? 1'b0: 1'bz;

@@ -10,9 +10,11 @@
 #   The 1808 is a 1013-style UART.
 #   The f3341 FIFO is a memory too large for the CPLD.
 #   The 9601 is a monostable.
-#   The 7413 has hysteresis, which is not a logic function.
-#   The 7412x are monostables.
 #   The dec2501 is a diode clamp array.
+#   The 7413 has hysteresis, which is not a logic function.
+#   The 7481 is a 16 bit RAM.
+#   The 7489 is a 64 bit RAM.
+#   The 7412x are monostables.
 #   The 74287 ROM is a memory too large for the CPLD.
 #   The 74288 ROM is a memory too large for the CPLD.
 #   The mc1439 is an op amp.
@@ -25,7 +27,6 @@
 # TODO: dec4015 is a quad R/S latch (with common R).
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
-# TODO: sn7481 sn7489 sn7490 sn7492
 # TODO: sn74191 sn74221 sn74266 sn74393
 
 #
@@ -725,8 +726,6 @@ sub sn7476 {
 }
 $hidden{'sn7476'} = 0;
 
-# TODO: sn7481
-
 sub sn7482 {
   $temp = &gnext;
   &qcode("$pad{1} = $pad{5} \$ $pad{2} \$ $pad{3};\n");
@@ -799,11 +798,79 @@ sub sn74h87 {
 }
 $hidden{'sn74h87'} = 0;
 
-# TODO: sn7489
-# TODO: sn7490
-# TODO: sn7492
+# Decade Counter
+# BUGBUG: R9A, R9B are unimplemented!!
+# For some reason QB, QC, QD, R0A, R0B are like sn7493, not sn7492.
+# QD is MSB.
+sub sn7490 {
+  # We need Qa..Qd even if their pads are NC.
+# BUGBUG: "die" doesn't work in eval.
+  undef $pad{6} if $pad{6} eq "'b'0";
+  undef $pad{7} if $pad{7} eq "'b'0";
+warn "sn7490: R9/$pad{6} is unimplemented\n" if defined $pad{6};
+warn "sn7490: R9/$pad{7} is unimplemented\n" if defined $pad{7};
+  $pad{12} = &gnext unless defined $pad{12};
+  $pad{9} = &gnext unless defined $pad{9};
+  $pad{8} = &gnext unless defined $pad{8};
+  $pad{11} = &gnext unless defined $pad{11};
+  # These are registers.
+  &pinnode($pad{12});
+  &pinnode($pad{9});
+  &pinnode($pad{8});
+  &pinnode($pad{11});
+  # Now the hair
+  &qcode("$pad{12}.ck = !$pad{14};\n");
+  &qcode("$pad{12}.t = 'b'1;\n");
+  &qcode("$pad{12}.ar = $pad{2} & $pad{3};\n");
+  # These divide by 5
+  &qcode("$pad{9}.ck = !$pad{1};\n");
+  &qcode("$pad{9}.t = 'b'1;\n");
+  &qcode("$pad{9}.ar = $pad{2}&$pad{3} # $pad{9}&$pad{11};\n");
+  &qcode("$pad{8}.ck = !$pad{9};\n");
+  &qcode("$pad{8}.t = 'b'1;\n");
+  &qcode("$pad{8}.ar = $pad{2}&$pad{3} # $pad{9}&$pad{11};\n");
+  &qcode("$pad{11}.ck = !$pad{8};\n");
+  &qcode("$pad{11}.t = 'b'1;\n");
+  &qcode("$pad{11}.ar = $pad{2}&$pad{3} # $pad{9}&$pad{11};\n");
+}
+$hidden{'sn7490'} = 0;
 
+# Divide-by-12 Counter
+# For some reason QB, QC, QD, R0A, R0B are different than sn7493.
 # Note: Negative going clock transition!
+# QD is MSB.
+sub sn7492 {
+  # We need Qa..Qd even if their pads are NC.
+  $pad{12} = &gnext unless defined $pad{12};
+  $pad{11} = &gnext unless defined $pad{11};
+  $pad{9} = &gnext unless defined $pad{9};
+  $pad{8} = &gnext unless defined $pad{8};
+  # These are registers.
+  &pinnode($pad{12});
+  &pinnode($pad{11});
+  &pinnode($pad{9});
+  &pinnode($pad{8});
+  # Now the hair
+  &qcode("$pad{12}.ck = !$pad{14};\n");
+  &qcode("$pad{12}.t = 'b'1;\n");
+  &qcode("$pad{12}.ar = $pad{6}&$pad{7};\n");
+  # These divide by 6
+  &qcode("$pad{11}.ck = !$pad{1};\n");
+  &qcode("$pad{11}.t = 'b'1;\n");
+  &qcode("$pad{11}.ar = $pad{6}&$pad{7} # $pad{8}&$pad{9};\n");
+  &qcode("$pad{9}.ck = !$pad{9};\n");
+  &qcode("$pad{9}.t = 'b'1;\n");
+  &qcode("$pad{9}.ar = $pad{6}&$pad{7} # $pad{8}&$pad{9};\n");
+  &qcode("$pad{8}.ck = !$pad{8};\n");
+  &qcode("$pad{8}.t = 'b'1;\n");
+  &qcode("$pad{8}.ar = $pad{6}&$pad{7} # $pad{8}&$pad{9};\n");
+}
+$hidden{'sn7492'} = 0;
+
+# Binary Counter
+# For some reason QB, QC, QD are different than sn7493.
+# Note: Negative going clock transition!
+# QD is MSB.
 sub sn7493 {
   # We need Qa..Qd even if their pads are NC.
   $pad{12} = &gnext unless defined $pad{12};
@@ -2754,7 +2821,7 @@ sub eagle2pld {
   $signal =~ s/^_//;
   $signal =~ s/_$//;
   $signal =~ s/_[!]/_not_/;
-  $signal =~ s/(w)[!]/\1_not_/;
+  $signal =~ s/(\w)[!]/\1_not_/;
   $signal = 'and_h' if $signal eq 'and';
   $signal = 'end_h' if $signal eq 'end';
   $signal =~ s/^/n/ if $signal =~ /^\d/;

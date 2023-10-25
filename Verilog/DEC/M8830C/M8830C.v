@@ -35,20 +35,16 @@
 // c28: c_us 
 // c29: c_us 
 // e1: sp380n 
-module m8830c (n3v3, n_t_13x, n_t_19x, oscin, biopause_l, hz1, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, myiot, n_t_10x, n_t_11x, n_t_12x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp1, tp3);
+module m8830c (n3v3, n_t_13x, n_t_19x, oscin, biopause_l, hz1, hz50, hz500, hz5k, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, myiot, skip_l, tp1, tp3);
 input n3v3;
 input n_t_13x;
 input n_t_19x;
 input oscin;
 inout biopause_l;
-output hz1;
-output hz5;
-output hz50;
-output hz500;
-output hz500k;
-output hz50k;
-output hz5k;
-output reg hz5m;
+inout reg hz1;
+inout reg hz50;
+inout reg hz500;
+inout reg hz5k;
 input init;
 output int_rqst_l;
 output internal_io_l;
@@ -63,27 +59,67 @@ input md09_l;
 input md10_l;
 input md11_l;
 inout myiot;
-output n_t_10x;
-output n_t_11x;
-output n_t_12x;
-output n_t_7x;
-output n_t_8x;
-output n_t_9x;
 output skip_l;
 input tp1;
 input tp3;
 
 reg ck_flag_m;
+reg gdollar_1_m;
+reg gdollar_10_m;
+reg gdollar_11_m;
+reg gdollar_12_m;
+reg gdollar_13_m;
+reg gdollar_14_m;
+reg gdollar_15_m;
+reg gdollar_16_m;
+reg gdollar_17_m;
+reg gdollar_2_m;
+reg gdollar_6_m;
+reg gdollar_7_m;
+reg gdollar_8_m;
+reg gdollar_9_m;
+reg hz1_m;
 reg irq_enable_m;
+reg n_t_10x_m;
+reg n_t_11x_m;
+reg n_t_12x_m;
+reg n_t_7x_m;
+reg n_t_8x_m;
+reg n_t_9x_m;
 reg ticked_m;
 
 reg gdollar_0;
 reg gdollar_1;
-reg ck_flag;
 reg gdollar_2;
+reg gdollar_3;
+reg gdollar_4;
+reg ck_flag;
+reg gdollar_5;
 reg ticked;
 reg irq_enable;
+reg hz5;
+reg gdollar_6;
+reg gdollar_7;
+reg n_t_7x;
+reg gdollar_8;
+reg gdollar_9;
+reg n_t_8x;
 reg hz10m;
+reg hz5m;
+reg gdollar_10;
+reg gdollar_11;
+reg n_t_9x;
+reg gdollar_12;
+reg gdollar_13;
+reg n_t_10x;
+reg hz50k;
+reg gdollar_14;
+reg gdollar_15;
+reg n_t_11x;
+reg hz500k;
+reg gdollar_16;
+reg gdollar_17;
+reg n_t_12x;
 wire cldi;
 wire clie;
 wire clsk;
@@ -117,6 +153,53 @@ assign clsk = ~(mymd09
 assign maybecldi_l = ~(mymd10 & ~mymd11);
 assign maybe_clei_l = ~(~mymd10 & mymd11);
 assign maybe_clsk_l = ~(mymd10 & mymd11);
+// e4: sn7490 
+always @(negedge )
+  if (~) begin
+    gdollar_0 <= ~gdollar_0;
+  end
+always @(hz5, gdollar_1, hz1, gdollar_1)
+  if (gdollar_1 & hz1) begin
+    gdollar_1_m <= 1'b0;
+  end else
+  if (~(~hz5)) begin
+    gdollar_1_m <= ~gdollar_1;
+  end
+always @(hz5, gdollar_1, hz1, gdollar_1_m)
+  if (gdollar_1 & hz1) begin
+    gdollar_1 <= 1'b0;
+  end else
+  if (~hz5) begin
+    gdollar_1 <= gdollar_1_m;
+  end
+always @(gdollar_1, gdollar_1, hz1, gdollar_2)
+  if (gdollar_1 & hz1) begin
+    gdollar_2_m <= 1'b0;
+  end else
+  if (~(~gdollar_1)) begin
+    gdollar_2_m <= ~gdollar_2;
+  end
+always @(gdollar_1, gdollar_1, hz1, gdollar_2_m)
+  if (gdollar_1 & hz1) begin
+    gdollar_2 <= 1'b0;
+  end else
+  if (~gdollar_1) begin
+    gdollar_2 <= gdollar_2_m;
+  end
+always @(gdollar_2, gdollar_1, hz1, hz1)
+  if (gdollar_1 & hz1) begin
+    hz1_m <= 1'b0;
+  end else
+  if (~(~gdollar_2)) begin
+    hz1_m <= ~hz1;
+  end
+always @(gdollar_2, gdollar_1, hz1, hz1_m)
+  if (gdollar_1 & hz1) begin
+    hz1 <= 1'b0;
+  end else
+  if (~gdollar_2) begin
+    hz1 <= hz1_m;
+  end
 // e5: sp314n 
 assign myiot = ~(iopmd03
                   | iopmd04
@@ -132,11 +215,11 @@ assign io6131_l = ~(myiot & tp3 & clie);
 // e7: sn7475 
 always @(posedge 1'b0)
   if (1'b0) begin
-    gdollar_0 <= 1'b0;
+    gdollar_3 <= 1'b0;
   end
 always @(posedge 1'b0)
   if (1'b0) begin
-    gdollar_1 <= 1'b0;
+    gdollar_4 <= 1'b0;
   end
 always @(tp1, ticked, tp1, ticked, 1'b0)
   if (tp1 & ~ticked) begin
@@ -160,7 +243,7 @@ always @(tp1, ticked, tp1, ticked, ck_flag_m)
   end
 always @(posedge 1'b0)
   if (1'b0) begin
-    gdollar_2 <= 1'b0;
+    gdollar_5 <= 1'b0;
   end
 // e8: n8881n 
 // biopause_l = io_pause_l; 
@@ -210,6 +293,53 @@ always @(init, io6132_l, io6131_l, irq_enable_m)
   if (~init) begin
     irq_enable <= irq_enable_m;
   end
+// e11: sn7490 
+always @(negedge n_t_7x)
+  if (~n_t_7x) begin
+    hz5 <= ~hz5;
+  end
+always @(hz50, gdollar_6, n_t_7x, gdollar_6)
+  if (gdollar_6 & n_t_7x) begin
+    gdollar_6_m <= 1'b0;
+  end else
+  if (~(~hz50)) begin
+    gdollar_6_m <= ~gdollar_6;
+  end
+always @(hz50, gdollar_6, n_t_7x, gdollar_6_m)
+  if (gdollar_6 & n_t_7x) begin
+    gdollar_6 <= 1'b0;
+  end else
+  if (~hz50) begin
+    gdollar_6 <= gdollar_6_m;
+  end
+always @(gdollar_6, gdollar_6, n_t_7x, gdollar_7)
+  if (gdollar_6 & n_t_7x) begin
+    gdollar_7_m <= 1'b0;
+  end else
+  if (~(~gdollar_6)) begin
+    gdollar_7_m <= ~gdollar_7;
+  end
+always @(gdollar_6, gdollar_6, n_t_7x, gdollar_7_m)
+  if (gdollar_6 & n_t_7x) begin
+    gdollar_7 <= 1'b0;
+  end else
+  if (~gdollar_6) begin
+    gdollar_7 <= gdollar_7_m;
+  end
+always @(gdollar_7, gdollar_6, n_t_7x, n_t_7x)
+  if (gdollar_6 & n_t_7x) begin
+    n_t_7x_m <= 1'b0;
+  end else
+  if (~(~gdollar_7)) begin
+    n_t_7x_m <= ~n_t_7x;
+  end
+always @(gdollar_7, gdollar_6, n_t_7x, n_t_7x_m)
+  if (gdollar_6 & n_t_7x) begin
+    n_t_7x <= 1'b0;
+  end else
+  if (~gdollar_7) begin
+    n_t_7x <= n_t_7x_m;
+  end
 // e12: sp380n 
 // e13: sp380n 
 assign mymd09 = ~(md09_l
@@ -219,6 +349,53 @@ assign mymd11 = ~(~myiot
 assign mymd10 = ~(~myiot
                    | md10_l);
 // e14: sn7402 
+// e15: sn7490 
+always @(negedge n_t_8x)
+  if (~n_t_8x) begin
+    hz50 <= ~hz50;
+  end
+always @(hz500, gdollar_8, n_t_8x, gdollar_8)
+  if (gdollar_8 & n_t_8x) begin
+    gdollar_8_m <= 1'b0;
+  end else
+  if (~(~hz500)) begin
+    gdollar_8_m <= ~gdollar_8;
+  end
+always @(hz500, gdollar_8, n_t_8x, gdollar_8_m)
+  if (gdollar_8 & n_t_8x) begin
+    gdollar_8 <= 1'b0;
+  end else
+  if (~hz500) begin
+    gdollar_8 <= gdollar_8_m;
+  end
+always @(gdollar_8, gdollar_8, n_t_8x, gdollar_9)
+  if (gdollar_8 & n_t_8x) begin
+    gdollar_9_m <= 1'b0;
+  end else
+  if (~(~gdollar_8)) begin
+    gdollar_9_m <= ~gdollar_9;
+  end
+always @(gdollar_8, gdollar_8, n_t_8x, gdollar_9_m)
+  if (gdollar_8 & n_t_8x) begin
+    gdollar_9 <= 1'b0;
+  end else
+  if (~gdollar_8) begin
+    gdollar_9 <= gdollar_9_m;
+  end
+always @(gdollar_9, gdollar_8, n_t_8x, n_t_8x)
+  if (gdollar_8 & n_t_8x) begin
+    n_t_8x_m <= 1'b0;
+  end else
+  if (~(~gdollar_9)) begin
+    n_t_8x_m <= ~n_t_8x;
+  end
+always @(gdollar_9, gdollar_8, n_t_8x, n_t_8x_m)
+  if (gdollar_8 & n_t_8x) begin
+    n_t_8x <= 1'b0;
+  end else
+  if (~gdollar_9) begin
+    n_t_8x <= n_t_8x_m;
+  end
 // e16: sn7470 
 always @(posedge n_t_19x)
   if (n_t_19x) begin
@@ -228,6 +405,194 @@ always @(posedge n_t_19x)
 always @(posedge hz10m)
   if (hz10m) begin
     hz5m <= n_t_13x? n_t_13x? ~hz5m: 1'b1: n_t_13x? 1'b0: hz5m;
+  end
+// e18: sn7490 
+always @(negedge n_t_9x)
+  if (~n_t_9x) begin
+    hz500 <= ~hz500;
+  end
+always @(hz5k, gdollar_10, n_t_9x, gdollar_10)
+  if (gdollar_10 & n_t_9x) begin
+    gdollar_10_m <= 1'b0;
+  end else
+  if (~(~hz5k)) begin
+    gdollar_10_m <= ~gdollar_10;
+  end
+always @(hz5k, gdollar_10, n_t_9x, gdollar_10_m)
+  if (gdollar_10 & n_t_9x) begin
+    gdollar_10 <= 1'b0;
+  end else
+  if (~hz5k) begin
+    gdollar_10 <= gdollar_10_m;
+  end
+always @(gdollar_10, gdollar_10, n_t_9x, gdollar_11)
+  if (gdollar_10 & n_t_9x) begin
+    gdollar_11_m <= 1'b0;
+  end else
+  if (~(~gdollar_10)) begin
+    gdollar_11_m <= ~gdollar_11;
+  end
+always @(gdollar_10, gdollar_10, n_t_9x, gdollar_11_m)
+  if (gdollar_10 & n_t_9x) begin
+    gdollar_11 <= 1'b0;
+  end else
+  if (~gdollar_10) begin
+    gdollar_11 <= gdollar_11_m;
+  end
+always @(gdollar_11, gdollar_10, n_t_9x, n_t_9x)
+  if (gdollar_10 & n_t_9x) begin
+    n_t_9x_m <= 1'b0;
+  end else
+  if (~(~gdollar_11)) begin
+    n_t_9x_m <= ~n_t_9x;
+  end
+always @(gdollar_11, gdollar_10, n_t_9x, n_t_9x_m)
+  if (gdollar_10 & n_t_9x) begin
+    n_t_9x <= 1'b0;
+  end else
+  if (~gdollar_11) begin
+    n_t_9x <= n_t_9x_m;
+  end
+// e19: sn7490 
+always @(negedge n_t_10x)
+  if (~n_t_10x) begin
+    hz5k <= ~hz5k;
+  end
+always @(hz50k, gdollar_12, n_t_10x, gdollar_12)
+  if (gdollar_12 & n_t_10x) begin
+    gdollar_12_m <= 1'b0;
+  end else
+  if (~(~hz50k)) begin
+    gdollar_12_m <= ~gdollar_12;
+  end
+always @(hz50k, gdollar_12, n_t_10x, gdollar_12_m)
+  if (gdollar_12 & n_t_10x) begin
+    gdollar_12 <= 1'b0;
+  end else
+  if (~hz50k) begin
+    gdollar_12 <= gdollar_12_m;
+  end
+always @(gdollar_12, gdollar_12, n_t_10x, gdollar_13)
+  if (gdollar_12 & n_t_10x) begin
+    gdollar_13_m <= 1'b0;
+  end else
+  if (~(~gdollar_12)) begin
+    gdollar_13_m <= ~gdollar_13;
+  end
+always @(gdollar_12, gdollar_12, n_t_10x, gdollar_13_m)
+  if (gdollar_12 & n_t_10x) begin
+    gdollar_13 <= 1'b0;
+  end else
+  if (~gdollar_12) begin
+    gdollar_13 <= gdollar_13_m;
+  end
+always @(gdollar_13, gdollar_12, n_t_10x, n_t_10x)
+  if (gdollar_12 & n_t_10x) begin
+    n_t_10x_m <= 1'b0;
+  end else
+  if (~(~gdollar_13)) begin
+    n_t_10x_m <= ~n_t_10x;
+  end
+always @(gdollar_13, gdollar_12, n_t_10x, n_t_10x_m)
+  if (gdollar_12 & n_t_10x) begin
+    n_t_10x <= 1'b0;
+  end else
+  if (~gdollar_13) begin
+    n_t_10x <= n_t_10x_m;
+  end
+// e20: sn7490 
+always @(negedge n_t_11x)
+  if (~n_t_11x) begin
+    hz50k <= ~hz50k;
+  end
+always @(hz500k, gdollar_14, n_t_11x, gdollar_14)
+  if (gdollar_14 & n_t_11x) begin
+    gdollar_14_m <= 1'b0;
+  end else
+  if (~(~hz500k)) begin
+    gdollar_14_m <= ~gdollar_14;
+  end
+always @(hz500k, gdollar_14, n_t_11x, gdollar_14_m)
+  if (gdollar_14 & n_t_11x) begin
+    gdollar_14 <= 1'b0;
+  end else
+  if (~hz500k) begin
+    gdollar_14 <= gdollar_14_m;
+  end
+always @(gdollar_14, gdollar_14, n_t_11x, gdollar_15)
+  if (gdollar_14 & n_t_11x) begin
+    gdollar_15_m <= 1'b0;
+  end else
+  if (~(~gdollar_14)) begin
+    gdollar_15_m <= ~gdollar_15;
+  end
+always @(gdollar_14, gdollar_14, n_t_11x, gdollar_15_m)
+  if (gdollar_14 & n_t_11x) begin
+    gdollar_15 <= 1'b0;
+  end else
+  if (~gdollar_14) begin
+    gdollar_15 <= gdollar_15_m;
+  end
+always @(gdollar_15, gdollar_14, n_t_11x, n_t_11x)
+  if (gdollar_14 & n_t_11x) begin
+    n_t_11x_m <= 1'b0;
+  end else
+  if (~(~gdollar_15)) begin
+    n_t_11x_m <= ~n_t_11x;
+  end
+always @(gdollar_15, gdollar_14, n_t_11x, n_t_11x_m)
+  if (gdollar_14 & n_t_11x) begin
+    n_t_11x <= 1'b0;
+  end else
+  if (~gdollar_15) begin
+    n_t_11x <= n_t_11x_m;
+  end
+// e21: sn7490 
+always @(negedge n_t_12x)
+  if (~n_t_12x) begin
+    hz500k <= ~hz500k;
+  end
+always @(hz5m, gdollar_16, n_t_12x, gdollar_16)
+  if (gdollar_16 & n_t_12x) begin
+    gdollar_16_m <= 1'b0;
+  end else
+  if (~(~hz5m)) begin
+    gdollar_16_m <= ~gdollar_16;
+  end
+always @(hz5m, gdollar_16, n_t_12x, gdollar_16_m)
+  if (gdollar_16 & n_t_12x) begin
+    gdollar_16 <= 1'b0;
+  end else
+  if (~hz5m) begin
+    gdollar_16 <= gdollar_16_m;
+  end
+always @(gdollar_16, gdollar_16, n_t_12x, gdollar_17)
+  if (gdollar_16 & n_t_12x) begin
+    gdollar_17_m <= 1'b0;
+  end else
+  if (~(~gdollar_16)) begin
+    gdollar_17_m <= ~gdollar_17;
+  end
+always @(gdollar_16, gdollar_16, n_t_12x, gdollar_17_m)
+  if (gdollar_16 & n_t_12x) begin
+    gdollar_17 <= 1'b0;
+  end else
+  if (~gdollar_16) begin
+    gdollar_17 <= gdollar_17_m;
+  end
+always @(gdollar_17, gdollar_16, n_t_12x, n_t_12x)
+  if (gdollar_16 & n_t_12x) begin
+    n_t_12x_m <= 1'b0;
+  end else
+  if (~(~gdollar_17)) begin
+    n_t_12x_m <= ~n_t_12x;
+  end
+always @(gdollar_17, gdollar_16, n_t_12x, n_t_12x_m)
+  if (gdollar_16 & n_t_12x) begin
+    n_t_12x <= 1'b0;
+  end else
+  if (~gdollar_17) begin
+    n_t_12x <= n_t_12x_m;
   end
 // open collector 'wire-or's 
 assign biopause_l = ~io_pause_l? 1'b0: 1'bz;

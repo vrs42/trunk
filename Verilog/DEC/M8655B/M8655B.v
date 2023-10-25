@@ -85,7 +85,7 @@
 // n_t_20x = !(!n_t_13x & !n_t_18x
 //        # n_t_13x & n_t_18x); 
 // e3: sn7400 
-module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, initialize, int_rqst_l, internal_io_l, io_pause_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_19x, n_t_20x, n_t_40x, n_t_41x, n_t_50x, n_t_55x, n_t_56x, n_t_57x, n_t_59x, n_t_60x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, sync_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
+module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, initialize, int_rqst_l, internal_io_l, io_pause_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_19x, n_t_20x, n_t_40x, n_t_41x, n_t_50x, n_t_59x, n_t_60x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
 input b1;
 input b2;
 input b3;
@@ -164,9 +164,6 @@ inout n_t_20x;
 input n_t_40x;
 input n_t_41x;
 input n_t_50x;
-output n_t_55x;
-output n_t_56x;
-input n_t_57x;
 inout reg n_t_59x;
 inout reg n_t_60x;
 inout reg n_t_89x;
@@ -200,7 +197,6 @@ input rx_data_av;
 output serial_in;
 output serial_out;
 output skip_l;
-inout reg sync_l;
 inout tclko;
 input tp3;
 output tx_20ma;
@@ -225,6 +221,8 @@ reg gdollar_2_m;
 reg gdollar_3_m;
 reg gdollar_4_m;
 reg gdollar_5_m;
+reg gdollar_6_m;
+reg gdollar_7_m;
 reg int_enab_h_m;
 reg n_t_100x_m;
 reg n_t_101x_m;
@@ -236,6 +234,8 @@ reg n_t_34x_m;
 reg n_t_38x_m;
 reg n_t_52x_m;
 reg n_t_53x_m;
+reg n_t_56x_m;
+reg n_t_57x_m;
 reg n_t_59x_m;
 reg n_t_60x_m;
 reg n_t_66x_m;
@@ -261,15 +261,19 @@ reg n_t_52x;
 reg n_t_53x;
 reg n_t_73x;
 reg p1_18us;
-reg n_t_66x;
+reg n_t_56x;
 reg gdollar_0;
 reg gdollar_1;
+reg n_t_57x;
+reg n_t_66x;
+reg gdollar_2;
+reg gdollar_3;
 reg n_t_67x;
 reg bd4800;
 reg bd2400;
 reg n_t_68x;
-reg gdollar_2;
-reg gdollar_3;
+reg gdollar_4;
+reg gdollar_5;
 reg bd110;
 reg bd1200;
 reg bd600;
@@ -278,14 +282,15 @@ reg bd150;
 reg n_t_34x;
 reg n_t_38x;
 reg rflag_l;
+reg sync_l;
 reg n_t_117x;
 reg n_t_76x;
 reg n_t_78x;
 reg n_t_77x;
 reg n_t_80x;
 reg n_t_114x;
-reg gdollar_4;
-reg gdollar_5;
+reg gdollar_6;
+reg gdollar_7;
 reg n_t_116x;
 reg int_enab_h;
 reg stat_enab_l;
@@ -321,6 +326,7 @@ wire n_t_47x;
 wire n_t_48x;
 wire n_t_49x;
 wire n_t_54x;
+wire n_t_55x;
 wire n_t_58x;
 wire n_t_61x;
 wire n_t_62x;
@@ -427,6 +433,69 @@ always @(n_t_73x, n3v3, sync_l, p1_18us_m)
   if (~n_t_73x) begin
     p1_18us <= p1_18us_m;
   end
+// e9: sn7492 
+always @(n_t_55x, sync_l, n3v3, n_t_56x)
+  if (sync_l & n3v3) begin
+    n_t_56x_m <= 1'b0;
+  end else
+  if (~(~n_t_55x)) begin
+    n_t_56x_m <= ~n_t_56x;
+  end
+always @(n_t_55x, sync_l, n3v3, n_t_56x_m)
+  if (sync_l & n3v3) begin
+    n_t_56x <= 1'b0;
+  end else
+  if (~n_t_55x) begin
+    n_t_56x <= n_t_56x_m;
+  end
+always @(n_t_56x, sync_l, n3v3, n_t_57x, gdollar_1, gdollar_0)
+  if (sync_l & n3v3
+                       | n_t_57x & gdollar_1) begin
+    gdollar_0_m <= 1'b0;
+  end else
+  if (~(~n_t_56x)) begin
+    gdollar_0_m <= ~gdollar_0;
+  end
+always @(n_t_56x, sync_l, n3v3, n_t_57x, gdollar_1, gdollar_0_m)
+  if (sync_l & n3v3
+                       | n_t_57x & gdollar_1) begin
+    gdollar_0 <= 1'b0;
+  end else
+  if (~n_t_56x) begin
+    gdollar_0 <= gdollar_0_m;
+  end
+always @(gdollar_1, sync_l, n3v3, n_t_57x, gdollar_1, gdollar_1)
+  if (sync_l & n3v3
+                       | n_t_57x & gdollar_1) begin
+    gdollar_1_m <= 1'b0;
+  end else
+  if (~(~gdollar_1)) begin
+    gdollar_1_m <= ~gdollar_1;
+  end
+always @(gdollar_1, sync_l, n3v3, n_t_57x, gdollar_1, gdollar_1_m)
+  if (sync_l & n3v3
+                       | n_t_57x & gdollar_1) begin
+    gdollar_1 <= 1'b0;
+  end else
+  if (~gdollar_1) begin
+    gdollar_1 <= gdollar_1_m;
+  end
+always @(n_t_57x, sync_l, n3v3, n_t_57x, gdollar_1, n_t_57x)
+  if (sync_l & n3v3
+                     | n_t_57x & gdollar_1) begin
+    n_t_57x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_57x_m <= ~n_t_57x;
+  end
+always @(n_t_57x, sync_l, n3v3, n_t_57x, gdollar_1, n_t_57x_m)
+  if (sync_l & n3v3
+                     | n_t_57x & gdollar_1) begin
+    n_t_57x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_57x <= n_t_57x_m;
+  end
 // e10: sp384n 
 assign n_t_15x = md05
                   | io_pause_l;
@@ -470,46 +539,46 @@ always @(n_t_65x, n3v3, sync_l, n_t_66x_m)
   if (~n_t_65x) begin
     n_t_66x <= n_t_66x_m;
   end
-always @(n_t_66x, n3v3, sync_l, gdollar_0)
+always @(n_t_66x, n3v3, sync_l, gdollar_2)
   if (n3v3 & sync_l) begin
-    gdollar_0_m <= 1'b0;
+    gdollar_2_m <= 1'b0;
   end else
   if (~(~n_t_66x)) begin
-    gdollar_0_m <= ~gdollar_0;
+    gdollar_2_m <= ~gdollar_2;
   end
-always @(n_t_66x, n3v3, sync_l, gdollar_0_m)
+always @(n_t_66x, n3v3, sync_l, gdollar_2_m)
   if (n3v3 & sync_l) begin
-    gdollar_0 <= 1'b0;
+    gdollar_2 <= 1'b0;
   end else
   if (~n_t_66x) begin
-    gdollar_0 <= gdollar_0_m;
+    gdollar_2 <= gdollar_2_m;
   end
-always @(gdollar_0, n3v3, sync_l, gdollar_1)
+always @(gdollar_2, n3v3, sync_l, gdollar_3)
   if (n3v3 & sync_l) begin
-    gdollar_1_m <= 1'b0;
+    gdollar_3_m <= 1'b0;
   end else
-  if (~(~gdollar_0)) begin
-    gdollar_1_m <= ~gdollar_1;
+  if (~(~gdollar_2)) begin
+    gdollar_3_m <= ~gdollar_3;
   end
-always @(gdollar_0, n3v3, sync_l, gdollar_1_m)
+always @(gdollar_2, n3v3, sync_l, gdollar_3_m)
   if (n3v3 & sync_l) begin
-    gdollar_1 <= 1'b0;
+    gdollar_3 <= 1'b0;
   end else
-  if (~gdollar_0) begin
-    gdollar_1 <= gdollar_1_m;
+  if (~gdollar_2) begin
+    gdollar_3 <= gdollar_3_m;
   end
-always @(gdollar_1, n3v3, sync_l, n_t_67x)
+always @(gdollar_3, n3v3, sync_l, n_t_67x)
   if (n3v3 & sync_l) begin
     n_t_67x_m <= 1'b0;
   end else
-  if (~(~gdollar_1)) begin
+  if (~(~gdollar_3)) begin
     n_t_67x_m <= ~n_t_67x;
   end
-always @(gdollar_1, n3v3, sync_l, n_t_67x_m)
+always @(gdollar_3, n3v3, sync_l, n_t_67x_m)
   if (n3v3 & sync_l) begin
     n_t_67x <= 1'b0;
   end else
-  if (~gdollar_1) begin
+  if (~gdollar_3) begin
     n_t_67x <= n_t_67x_m;
   end
 // e15: sn7493 
@@ -586,46 +655,46 @@ always @(n_t_67x, n3v3, sync_l, n_t_68x_m)
   if (~n_t_67x) begin
     n_t_68x <= n_t_68x_m;
   end
-always @(n_t_68x, n3v3, sync_l, gdollar_2)
+always @(n_t_68x, n3v3, sync_l, gdollar_4)
   if (n3v3 & sync_l) begin
-    gdollar_2_m <= 1'b0;
+    gdollar_4_m <= 1'b0;
   end else
   if (~(~n_t_68x)) begin
-    gdollar_2_m <= ~gdollar_2;
+    gdollar_4_m <= ~gdollar_4;
   end
-always @(n_t_68x, n3v3, sync_l, gdollar_2_m)
+always @(n_t_68x, n3v3, sync_l, gdollar_4_m)
   if (n3v3 & sync_l) begin
-    gdollar_2 <= 1'b0;
+    gdollar_4 <= 1'b0;
   end else
   if (~n_t_68x) begin
-    gdollar_2 <= gdollar_2_m;
+    gdollar_4 <= gdollar_4_m;
   end
-always @(gdollar_2, n3v3, sync_l, gdollar_3)
+always @(gdollar_4, n3v3, sync_l, gdollar_5)
   if (n3v3 & sync_l) begin
-    gdollar_3_m <= 1'b0;
+    gdollar_5_m <= 1'b0;
   end else
-  if (~(~gdollar_2)) begin
-    gdollar_3_m <= ~gdollar_3;
+  if (~(~gdollar_4)) begin
+    gdollar_5_m <= ~gdollar_5;
   end
-always @(gdollar_2, n3v3, sync_l, gdollar_3_m)
+always @(gdollar_4, n3v3, sync_l, gdollar_5_m)
   if (n3v3 & sync_l) begin
-    gdollar_3 <= 1'b0;
+    gdollar_5 <= 1'b0;
   end else
-  if (~gdollar_2) begin
-    gdollar_3 <= gdollar_3_m;
+  if (~gdollar_4) begin
+    gdollar_5 <= gdollar_5_m;
   end
-always @(gdollar_3, n3v3, sync_l, bd110)
+always @(gdollar_5, n3v3, sync_l, bd110)
   if (n3v3 & sync_l) begin
     bd110_m <= 1'b0;
   end else
-  if (~(~gdollar_3)) begin
+  if (~(~gdollar_5)) begin
     bd110_m <= ~bd110;
   end
-always @(gdollar_3, n3v3, sync_l, bd110_m)
+always @(gdollar_5, n3v3, sync_l, bd110_m)
   if (n3v3 & sync_l) begin
     bd110 <= 1'b0;
   end else
-  if (~gdollar_3) begin
+  if (~gdollar_5) begin
     bd110 <= bd110_m;
   end
 // e18: sn7493 
@@ -1098,46 +1167,46 @@ always @(rx_clk, n_t_113x, n_t_114x_m)
   if (~rx_clk) begin
     n_t_114x <= n_t_114x_m;
   end
-always @(n_t_114x, n_t_113x, gdollar_4)
+always @(n_t_114x, n_t_113x, gdollar_6)
   if (n_t_113x) begin
-    gdollar_4_m <= 1'b0;
+    gdollar_6_m <= 1'b0;
   end else
   if (~(~n_t_114x)) begin
-    gdollar_4_m <= ~gdollar_4;
+    gdollar_6_m <= ~gdollar_6;
   end
-always @(n_t_114x, n_t_113x, gdollar_4_m)
+always @(n_t_114x, n_t_113x, gdollar_6_m)
   if (n_t_113x) begin
-    gdollar_4 <= 1'b0;
+    gdollar_6 <= 1'b0;
   end else
   if (~n_t_114x) begin
-    gdollar_4 <= gdollar_4_m;
+    gdollar_6 <= gdollar_6_m;
   end
-always @(gdollar_4, n_t_113x, gdollar_5)
+always @(gdollar_6, n_t_113x, gdollar_7)
   if (n_t_113x) begin
-    gdollar_5_m <= 1'b0;
+    gdollar_7_m <= 1'b0;
   end else
-  if (~(~gdollar_4)) begin
-    gdollar_5_m <= ~gdollar_5;
+  if (~(~gdollar_6)) begin
+    gdollar_7_m <= ~gdollar_7;
   end
-always @(gdollar_4, n_t_113x, gdollar_5_m)
+always @(gdollar_6, n_t_113x, gdollar_7_m)
   if (n_t_113x) begin
-    gdollar_5 <= 1'b0;
+    gdollar_7 <= 1'b0;
   end else
-  if (~gdollar_4) begin
-    gdollar_5 <= gdollar_5_m;
+  if (~gdollar_6) begin
+    gdollar_7 <= gdollar_7_m;
   end
-always @(gdollar_5, n_t_113x, n_t_116x)
+always @(gdollar_7, n_t_113x, n_t_116x)
   if (n_t_113x) begin
     n_t_116x_m <= 1'b0;
   end else
-  if (~(~gdollar_5)) begin
+  if (~(~gdollar_7)) begin
     n_t_116x_m <= ~n_t_116x;
   end
-always @(gdollar_5, n_t_113x, n_t_116x_m)
+always @(gdollar_7, n_t_113x, n_t_116x_m)
   if (n_t_113x) begin
     n_t_116x <= 1'b0;
   end else
-  if (~gdollar_5) begin
+  if (~gdollar_7) begin
     n_t_116x <= n_t_116x_m;
   end
 // e46: sp384n 

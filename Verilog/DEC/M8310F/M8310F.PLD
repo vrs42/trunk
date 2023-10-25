@@ -157,8 +157,8 @@ node bts3;
 node bts4;
 node bus_strobe;
 node cpma_load;
-node d!jmp;
 node d_l;
+node d_not_jmp;
 node dca_l;
 node dcae_l;
 node dcaets2;
@@ -255,8 +255,8 @@ node oprf_l;
 node tad_l;
 node tade_l;
 node tadets3;
-node tp4!malc;
-node ts4fset!ms_dis;
+node tp4_not_malc;
+node ts4fset_not_ms_dis;
 $ENDIF
 
 /* Code nodes */
@@ -327,19 +327,19 @@ $ENDIF
 
 /* e1: n8881n */
 /* n_t_37x = !(bts4 & bkc); */
-/* n_t_37x = !(fe_fd_l & ts4fset); */
+/* n_t_37x = !(fe_fd_l & ts4fset_not_ms_dis); */
 /* data_f = !(bmd06 & op1ts3); */
 /* n_t_37x = !(n_t_36x & c1_l); */
 
 /* e2: n8881n */
-/* carry_in_l = !(skip1 & ts4fset); */
+/* carry_in_l = !(skip1 & ts4fset_not_ms_dis); */
 /* ac2bus_l = !(n_t_56x & c2_l); */
 /* ac2bus_l = !(n_t_55x & bts1); */
 /* carry_in_l = !(jmsets2 & skip1); */
 
 /* e3: n8881n */
 /* n_t_30x = !(op2ts3 & n_t_43x); */
-/* en1 = !(bts4 & d); */
+/* en1 = !(bts4 & d_not_jmp); */
 /* carry_in_l = !(bf_kc & bts1); */
 /* en0 = !(bts1 & bf_kc); */
 
@@ -419,7 +419,7 @@ n_t_40x = !c0_l;
 opr_iot_l = !opr_iot;
 bts1 = !ts1_l;
 n_t_47x = !ind2;
-ts4fset!ms_dis = !n_t_79x;
+ts4fset_not_ms_dis = !n_t_79x;
 
 /* e17: sn7474 */
 mac_l.ap = !n3b;
@@ -499,15 +499,15 @@ op1ts3 = !(n_t_67x
          # op1_l);
 
 /* e26: sn7404 */
-d!jmp = !n_t_66x;
+d_not_jmp = !n_t_66x;
 jmp = !jmp_l;
 n_t_76x = !n_t_46x;
 n_t_46x = !n_t_2x;
 bmd11 = !md11_l;
-tp4!malc = !n_t_54x;
+tp4_not_malc = !n_t_54x;
 
 /* e27: sn7405 */
-/* cpma_load_l = !tp4; */
+/* cpma_load_l = !tp4_not_malc; */
 /* fe_fd_l = !fe_fd; */
 /* en0 = !jmsets3; */
 /* feset_l = !intinprog; */
@@ -565,7 +565,7 @@ bts2 = !ts2_l;
 n_t_7x = !initialize;
 
 /* e35: sn74h00 */
-n_t_59x = !tp4;
+n_t_59x = !(tp4_not_malc & intinprog);
 opr_iot = !(opr_l & iot_l);
 n_t_64x = !(btp2 & bf);
 n_t_66x = !(jmp_l & bd);
@@ -736,14 +736,14 @@ property atmel {open_collector= ac_load_l};
 ac_load_l.oe = (btp3 & n_t_28x)
              # (c2_l & bus_strobe);
 property atmel {open_collector= carry_in_l};
-!carry_in_l = (skip1 & ts4fset)
+!carry_in_l = (skip1 & ts4fset_not_ms_dis)
               # (jmsets2 & skip1)
               # (bf_kc & bts1)
               # (bmd11 & op1ts3)
               # (bd & bts2)
               # (iszets2)
               # (rom_l & cpma_dis_l & jmsets3);
-carry_in_l.oe = (skip1 & ts4fset)
+carry_in_l.oe = (skip1 & ts4fset_not_ms_dis)
               # (jmsets2 & skip1)
               # (bf_kc & bts1)
               # (bmd11 & op1ts3)
@@ -751,9 +751,9 @@ carry_in_l.oe = (skip1 & ts4fset)
               # (iszets2)
               # (rom_l & cpma_dis_l & jmsets3);
 property atmel {open_collector= cpma_load_l};
-!cpma_load_l = (tp4)
+!cpma_load_l = (tp4_not_malc)
                # (pulse_la & keycontrol_l);
-cpma_load_l.oe = (tp4)
+cpma_load_l.oe = (tp4_not_malc)
                # (pulse_la & keycontrol_l);
 !d_l = (n_t_77x & ms_dis_l);
 property atmel {open_collector= data_f};
@@ -783,11 +783,11 @@ en0.oe = (bts1 & bf_kc)
        # (n_t_48x)
        # (jmsets3);
 property atmel {open_collector= en1};
-!en1 = (bts4 & d)
+!en1 = (bts4 & d_not_jmp)
        # (n_t_48x)
        # (tadets3)
        # (bd & bts3 & jmp);
-en1.oe = (bts4 & d)
+en1.oe = (bts4 & d_not_jmp)
        # (n_t_48x)
        # (tadets3)
        # (bd & bts3 & jmp);
@@ -866,11 +866,11 @@ n_t_35x.oe = (aceq0 & bmd06)
            # (bmd07 & link);
 property atmel {open_collector= n_t_37x};
 !n_t_37x = (bts4 & bkc)
-           # (fe_fd_l & ts4fset)
+           # (fe_fd_l & ts4fset_not_ms_dis)
            # (n_t_36x & c1_l)
            # (jmsets2);
 n_t_37x.oe = (bts4 & bkc)
-           # (fe_fd_l & ts4fset)
+           # (fe_fd_l & ts4fset_not_ms_dis)
            # (n_t_36x & c1_l)
            # (jmsets2);
 property atmel {open_collector= n_t_44x};

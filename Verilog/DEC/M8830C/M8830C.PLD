@@ -24,13 +24,9 @@ pin = oscin;
 /* Output Pins */
 pin = biopause_l;
 pin = hz1;
-pin = hz5;
 pin = hz50;
 pin = hz500;
-pin = hz500k;
-pin = hz50k;
 pin = hz5k;
-pin = hz5m;
 pin = init;
 pin = int_rqst_l;
 pin = internal_io_l;
@@ -45,22 +41,41 @@ pin = md09_l;
 pin = md10_l;
 pin = md11_l;
 pin = myiot;
-pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
-pin = n_t_7x;
-pin = n_t_8x;
-pin = n_t_9x;
 pin = skip_l;
 pin = tp1;
 pin = tp3;
 node gdollar_0;
 node gdollar_1;
-node ck_flag;
 node gdollar_2;
+node gdollar_3;
+node gdollar_4;
+node ck_flag;
+node gdollar_5;
 node ticked;
 node irq_enable;
+node hz5;
+node gdollar_6;
+node gdollar_7;
+node n_t_7x;
+node gdollar_8;
+node gdollar_9;
+node n_t_8x;
 node hz10m;
+node hz5m;
+node gdollar_10;
+node gdollar_11;
+node n_t_9x;
+node gdollar_12;
+node gdollar_13;
+node n_t_10x;
+node hz50k;
+node gdollar_14;
+node gdollar_15;
+node n_t_11x;
+node hz500k;
+node gdollar_16;
+node gdollar_17;
+node n_t_12x;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
@@ -178,6 +193,20 @@ maybecldi_l = !(mymd10 & mymd11_l);
 maybe_clei_l = !(mymd10_l & mymd11);
 maybe_clsk_l = !(mymd10 & mymd11);
 
+/* e4: sn7490 */
+gdollar_0.ck = !;
+gdollar_0.t = 'b'1;
+gdollar_0.ar = 'b'0;
+gdollar_1.ck = !hz5;
+gdollar_1.t = 'b'1;
+gdollar_1.ar = gdollar_1 & hz1;
+gdollar_2.ck = !gdollar_1;
+gdollar_2.t = 'b'1;
+gdollar_2.ar = gdollar_1 & hz1;
+hz1.ck = !gdollar_2;
+hz1.t = 'b'1;
+hz1.ar = gdollar_1 & hz1;
+
 /* e5: sp314n */
 !myiot = iopmd03
        # iopmd04
@@ -193,16 +222,16 @@ do_clsk_l = !(ck_flag & btp3 & io6133);
 io6131_l = !(myiot & btp3 & clie);
 
 /* e7: sn7475 */
-gdollar_0.ck = 'b'0;
-gdollar_0.d = 'b'0;
-gdollar_1.ck = 'b'0;
-gdollar_1.d = 'b'0;
+gdollar_3.ck = 'b'0;
+gdollar_3.d = 'b'0;
+gdollar_4.ck = 'b'0;
+gdollar_4.d = 'b'0;
 ck_flag.ap = btp1 & ticked;
 ck_flag.ar = btp1 & !ticked;
 ck_flag.ck = 'b'0;
 ck_flag.d = 'b'0;
-gdollar_2.ck = 'b'0;
-gdollar_2.d = 'b'0;
+gdollar_5.ck = 'b'0;
+gdollar_5.d = 'b'0;
 
 /* e8: n8881n */
 /* biopause_l = !io_pause; */
@@ -224,6 +253,20 @@ irq_enable.d = 'b'0;
 irq_enable.ck = init_l;
 irq_enable.ap = !io6131_l;
 
+/* e11: sn7490 */
+hz5.ck = !n_t_7x;
+hz5.t = 'b'1;
+hz5.ar = 'b'0;
+gdollar_6.ck = !hz50;
+gdollar_6.t = 'b'1;
+gdollar_6.ar = gdollar_6 & n_t_7x;
+gdollar_7.ck = !gdollar_6;
+gdollar_7.t = 'b'1;
+gdollar_7.ar = gdollar_6 & n_t_7x;
+n_t_7x.ck = !gdollar_7;
+n_t_7x.t = 'b'1;
+n_t_7x.ar = gdollar_6 & n_t_7x;
+
 /* e12: sp380n */
 !tp3_l = tp3;
 !tp1_l = tp1;
@@ -242,6 +285,20 @@ irq_enable.ap = !io6131_l;
 /* e14: sn7402 */
 mymd10_l = !mymd10;
 
+/* e15: sn7490 */
+hz50.ck = !n_t_8x;
+hz50.t = 'b'1;
+hz50.ar = 'b'0;
+gdollar_8.ck = !hz500;
+gdollar_8.t = 'b'1;
+gdollar_8.ar = gdollar_8 & n_t_8x;
+gdollar_9.ck = !gdollar_8;
+gdollar_9.t = 'b'1;
+gdollar_9.ar = gdollar_8 & n_t_8x;
+n_t_8x.ck = !gdollar_9;
+n_t_8x.t = 'b'1;
+n_t_8x.ar = gdollar_8 & n_t_8x;
+
 /* e16: sn7470 */
 hz10m.ck = n_t_19x;
 hz10m.j = n_t_13x;
@@ -251,6 +308,62 @@ hz10m.k = n_t_13x;
 hz5m.ck = hz10m;
 hz5m.j = n_t_13x;
 hz5m.k = n_t_13x;
+
+/* e18: sn7490 */
+hz500.ck = !n_t_9x;
+hz500.t = 'b'1;
+hz500.ar = 'b'0;
+gdollar_10.ck = !hz5k;
+gdollar_10.t = 'b'1;
+gdollar_10.ar = gdollar_10 & n_t_9x;
+gdollar_11.ck = !gdollar_10;
+gdollar_11.t = 'b'1;
+gdollar_11.ar = gdollar_10 & n_t_9x;
+n_t_9x.ck = !gdollar_11;
+n_t_9x.t = 'b'1;
+n_t_9x.ar = gdollar_10 & n_t_9x;
+
+/* e19: sn7490 */
+hz5k.ck = !n_t_10x;
+hz5k.t = 'b'1;
+hz5k.ar = 'b'0;
+gdollar_12.ck = !hz50k;
+gdollar_12.t = 'b'1;
+gdollar_12.ar = gdollar_12 & n_t_10x;
+gdollar_13.ck = !gdollar_12;
+gdollar_13.t = 'b'1;
+gdollar_13.ar = gdollar_12 & n_t_10x;
+n_t_10x.ck = !gdollar_13;
+n_t_10x.t = 'b'1;
+n_t_10x.ar = gdollar_12 & n_t_10x;
+
+/* e20: sn7490 */
+hz50k.ck = !n_t_11x;
+hz50k.t = 'b'1;
+hz50k.ar = 'b'0;
+gdollar_14.ck = !hz500k;
+gdollar_14.t = 'b'1;
+gdollar_14.ar = gdollar_14 & n_t_11x;
+gdollar_15.ck = !gdollar_14;
+gdollar_15.t = 'b'1;
+gdollar_15.ar = gdollar_14 & n_t_11x;
+n_t_11x.ck = !gdollar_15;
+n_t_11x.t = 'b'1;
+n_t_11x.ar = gdollar_14 & n_t_11x;
+
+/* e21: sn7490 */
+hz500k.ck = !n_t_12x;
+hz500k.t = 'b'1;
+hz500k.ar = 'b'0;
+gdollar_16.ck = !hz5m;
+gdollar_16.t = 'b'1;
+gdollar_16.ar = gdollar_16 & n_t_12x;
+gdollar_17.ck = !gdollar_16;
+gdollar_17.t = 'b'1;
+gdollar_17.ar = gdollar_16 & n_t_12x;
+n_t_12x.ck = !gdollar_17;
+n_t_12x.t = 'b'1;
+n_t_12x.ar = gdollar_16 & n_t_12x;
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= biopause_l};
