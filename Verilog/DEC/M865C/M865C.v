@@ -566,7 +566,7 @@ always @(gdollar_6, init, n3v, n_t_85x_m)
 // e9: sn74h72 
 always @(posedge n_t_83x)
   if (n_t_83x) begin
-    n_t_54x <= ;
+    n_t_54x <= n3v & ~n_t_54x? n_t_54x & n3v & n3v? ~n_t_54x: 1'b1: n_t_54x & n3v & n3v? 1'b0: n_t_54x;
   end
 // e10: sp380n 
 assign n_t_38x = ~(io_pause_l

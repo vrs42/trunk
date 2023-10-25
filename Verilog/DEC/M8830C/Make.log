@@ -16,9 +16,7 @@ info: 7402n ne dil14
 info: 7490n ne dil14
 warning: making e15/sn7490/ a connector
 info: 7470n ne dil14
-warning: making e16/sn7470/ a connector
 info: 7470n ne dil14
-warning: making e17/sn7470/ a connector
 info: 7490n ne dil14
 warning: making e18/sn7490/ a connector
 info: 7490n ne dil14
@@ -65,7 +63,9 @@ warning: non-bypass capacitor deleted: c29
   tp1_l: !tp1
   tp3_l: !tp3
 ~/Verilog/bin/smaller.pl vv >M8830CX.PLD || (rm M8830CX.PLD; exit 1)
-0 signals were removed:
+2 signals were removed:
+  tp1_l: !tp1
+  tp3_l: !tp3
 ~/Verilog/bin/cupl2v.pl M8830CX.PLD >vv || (rm vv; exit 1)
 mv vv M8830C.v
 rm M8830CX.PLD

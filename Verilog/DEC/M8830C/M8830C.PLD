@@ -3,7 +3,7 @@
 
 Name     M8830C ;
 PartNo   cpld ;
-Date     10/23/2023 ;
+Date     XX/XX/XXXX ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -24,7 +24,6 @@ pin = oscin;
 /* Output Pins */
 pin = biopause_l;
 pin = hz1;
-pin = hz10m;
 pin = hz5;
 pin = hz50;
 pin = hz500;
@@ -61,6 +60,7 @@ node ck_flag;
 node gdollar_2;
 node ticked;
 node irq_enable;
+node hz10m;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
@@ -241,6 +241,16 @@ irq_enable.ap = !io6131_l;
 
 /* e14: sn7402 */
 mymd10_l = !mymd10;
+
+/* e16: sn7470 */
+hz10m.ck = n_t_19x;
+hz10m.j = n_t_13x;
+hz10m.k = n_t_13x;
+
+/* e17: sn7470 */
+hz5m.ck = hz10m;
+hz5m.j = n_t_13x;
+hz5m.k = n_t_13x;
 
 /* Open collector 'wire-or's */
 property atmel {open_collector= biopause_l};

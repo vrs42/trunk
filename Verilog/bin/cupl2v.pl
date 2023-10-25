@@ -320,10 +320,18 @@ while (<INPUT>) {
 #warn "292 $out ($events)\n";
           print "always @($events)\n";
           print "  if (", $assign{"$out.ck"}, ") begin\n";
-          $dexp = $assign{"$out.d"};
-          $dexp = "$assign{\"$out.t\"}? ~$out : $out"
-            if defined $assign{"$out.t"};
-          $dexp = "~$out" if ($assign{"$out.t"} eq "1'b1");
+          if (defined $assign{"$out.d"}) {
+            $dexp = $assign{"$out.d"};
+          } elsif (defined $assign{"$out.t"}) {
+            $t = $assign{"$out.t"};
+            $dexp = "$t? ~$out: $out";
+            $dexp = "~$out" if $t eq "1'b1";
+          } elsif (defined $assign{"$out.j"}) {
+            $j = $assign{"$out.j"};
+            $k = $assign{"$out.k"};
+            # d = j? k? ~q: 1: k? 0: q;
+            $dexp = "$j? $k? ~$out: 1'b1: $k? 1'b0: $out";
+          }
           print "    $out <= ", $dexp, ";\n";
           print "  end\n";
           $ldone{$out} = 1;

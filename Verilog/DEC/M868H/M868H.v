@@ -110,9 +110,9 @@ input md11;
 output n15v;
 output n_t_112x;
 inout n_t_20x;
-output n_t_33x;
-output n_t_38x;
-output n_t_39x;
+inout n_t_33x;
+inout n_t_38x;
+inout n_t_39x;
 output n_t_65x;
 output n_t_67x;
 inout n_t_6x;
@@ -141,7 +141,7 @@ input tp3;
 input tp4;
 output unith;
 output wd_enab;
-output wpt;
+inout wpt;
 output wrt_echo;
 
 reg cc_f_r_m;
@@ -599,7 +599,7 @@ always @(cc_dtp0, sr01, cc_dtp0, sr01, gdollar_3_m)
     gdollar_3 <= gdollar_3_m;
   end
 // e14: sn7474 
-always @(cc_tpg_clk, n_t_17x, n_t_17x, tpg0)
+always @(cc_tpg_clk, n_t_17x, n_t_17x, wpt)
   if (~n_t_17x) begin
     cc_tpg1_m <= 1'b0;
   end else
@@ -607,7 +607,7 @@ always @(cc_tpg_clk, n_t_17x, n_t_17x, tpg0)
     cc_tpg1_m <= 1'b1;
   end else
   if (~(cc_tpg_clk)) begin
-    cc_tpg1_m <= ~tpg0;
+    cc_tpg1_m <= ~wpt;
   end
 always @(cc_tpg_clk, n_t_17x, n_t_17x, cc_tpg1_m)
   if (~n_t_17x) begin
@@ -813,7 +813,7 @@ assign n_t_29x = ~(~cc_dtp1 & ~n_t_2x);
 assign n_t_37x = ~(~cc_dtp1 & df_comp_wd);
 // e23: sn7410 
 assign n_t_104x = ~(cc_dtp & cc_t_m_en & tpg0);
-assign n_t_100x = ~(~tpg0 & cc_t_m_en & cc_dtp);
+assign n_t_100x = ~(~wpt & cc_t_m_en & cc_dtp);
 assign n_t_106x = ~(n_t_101x & cc_dtp & ~sync);
 // e24: sp314n 
 assign cc_67x = ~(md04
@@ -1060,12 +1060,12 @@ assign n_t_42x = ~(n_t_43x & cc_uts);
 assign n_t_86x = ~(cc_r_w & n_t_85x);
 assign n_t_85x = ~(n_t_86x & ~cc_dtp0);
 // e39: sn7417 
-// nd2 = !; 
-// nd1 = !; 
-// wpt = !; 
-// f_not_r = !; 
-// unith = !; 
-// nd0 = !; 
+// nd2 = !n_t_33x; 
+// nd1 = !n_t_38x; 
+// wpt = wpt; 
+// f_not_r = cc_f_r; 
+// unith = !cc_unit; 
+// nd0 = !n_t_39x; 
 // e40: sn7430 
 assign cc_wrt_ok = ~(~(df_time_er_l & df_hld_l & ~run &  & df_sel_er_l &  & power_ok_l & ~initialize));
 // e41: n8881n 
@@ -1136,10 +1136,7 @@ assign data10 = (~mtr4_l & ~cc_sdrc_l
                   | sr10 & ~cc_sdrd_l)? 1'b0: 1'bz;
 assign data11 = (~mtr5_l & ~cc_sdrc_l
                   | sr11 & ~cc_sdrd_l)? 1'b0: 1'bz;
-always @(posedge )
-  if () begin
-    f_not_r <= ;
-  end
+assign f_not_r = ~cc_f_r? 1'b0: 1'bz;
 assign internal_io = cc_67x? ~cc_67x: 1'bz;
 assign n_t_20x = (cc_s_g & n_t_6x)? 1'b0: 1'bz;
 assign n_t_33x = (~df_comp_wd & gdollar_0
@@ -1161,30 +1158,15 @@ assign n_t_90x = (~cc_f_r & ~df_db01
                      | cc_unit & df_db00)
                   | (~cc_s_g & ~df_db02
                      | cc_s_g & df_db02)? 1'b0: 1'bz;
-always @(posedge )
-  if () begin
-    nd0 <= ;
-  end
-always @(posedge )
-  if () begin
-    nd1 <= ;
-  end
-always @(posedge )
-  if () begin
-    nd2 <= ;
-  end
+assign nd0 = n_t_39x? ~n_t_39x: 1'bz;
+assign nd1 = n_t_38x? ~n_t_38x: 1'bz;
+assign nd2 = n_t_33x? ~n_t_33x: 1'bz;
 assign s_not_g = (~n_t_20x & power_ok_l)? 1'b0: 1'bz;
 assign skip_l = (df_time_er & ~cc_sdst_l)
                  | (n_t_25x & ~cc_sdss_l)
                  | (~cc_sdsq_l & n_t_36x)? 1'b0: 1'bz;
 assign t_m_enable = (cc_t_m_en & cc_wrt_ok)? 1'b0: 1'bz;
-always @(posedge )
-  if () begin
-    unith <= ;
-  end
+assign unith = cc_unit? ~cc_unit: 1'bz;
 assign wd_enab = (n_t_89x & power_ok_l)? 1'b0: 1'bz;
-always @(posedge )
-  if () begin
-    wpt <= ;
-  end
+assign wpt = ~(~(~tpg0))? ~(~tpg0): 1'bz;
 endmodule

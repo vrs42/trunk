@@ -35,21 +35,20 @@
 // c28: c_us 
 // c29: c_us 
 // e1: sp380n 
-module m8830c (n3v3, n_t_13x, n_t_19x, oscin, biopause_l, hz1, hz10m, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, myiot, n_t_10x, n_t_11x, n_t_12x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp1, tp3);
+module m8830c (n3v3, n_t_13x, n_t_19x, oscin, biopause_l, hz1, hz5, hz50, hz500, hz500k, hz50k, hz5k, hz5m, init, int_rqst_l, internal_io_l, io_pause_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, myiot, n_t_10x, n_t_11x, n_t_12x, n_t_7x, n_t_8x, n_t_9x, skip_l, tp1, tp3);
 input n3v3;
-output n_t_13x;
-output n_t_19x;
+input n_t_13x;
+input n_t_19x;
 input oscin;
 inout biopause_l;
 output hz1;
-output hz10m;
 output hz5;
 output hz50;
 output hz500;
 output hz500k;
 output hz50k;
 output hz5k;
-output hz5m;
+output reg hz5m;
 input init;
 output int_rqst_l;
 output internal_io_l;
@@ -84,6 +83,7 @@ reg ck_flag;
 reg gdollar_2;
 reg ticked;
 reg irq_enable;
+reg hz10m;
 wire cldi;
 wire clie;
 wire clsk;
@@ -219,6 +219,16 @@ assign mymd11 = ~(~myiot
 assign mymd10 = ~(~myiot
                    | md10_l);
 // e14: sn7402 
+// e16: sn7470 
+always @(posedge n_t_19x)
+  if (n_t_19x) begin
+    hz10m <= n_t_13x? n_t_13x? ~hz10m: 1'b1: n_t_13x? 1'b0: hz10m;
+  end
+// e17: sn7470 
+always @(posedge hz10m)
+  if (hz10m) begin
+    hz5m <= n_t_13x? n_t_13x? ~hz5m: 1'b1: n_t_13x? 1'b0: hz5m;
+  end
 // open collector 'wire-or's 
 assign biopause_l = ~io_pause_l? 1'b0: 1'bz;
 assign int_rqst_l = (ck_flag & irq_enable)? 1'b0: 1'bz;

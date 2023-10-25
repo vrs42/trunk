@@ -3,7 +3,7 @@
 
 Name     M868H ;
 PartNo   cpld ;
-Date     10/23/2023 ;
+Date     XX/XX/XXXX ;
 Revision 01 ;
 Designer  ;
 Company   ;
@@ -717,12 +717,12 @@ n_t_86x = !(cc_r_w & n_t_85x);
 n_t_85x = !(n_t_86x & cc_dtp0_l);
 
 /* e39: sn7417 */
-/* nd2 = !; */
-/* nd1 = !; */
-/* wpt = !; */
-/* f_not_r = !; */
-/* unith = !; */
-/* nd0 = !; */
+/* nd2 = !n_t_33x; */
+/* nd1 = !n_t_38x; */
+/* wpt = !n_t_107x; */
+/* f_not_r = !cc_f_not_r; */
+/* unith = !cc_unit; */
+/* nd0 = !n_t_39x; */
 
 /* e40: sn7430 */
 n_t_66x = !(df_time_er_l & df_hld_l & cc_run_l &  & df_sel_er_l &  & cc_pwr_ok & cc_init_l);
@@ -844,8 +844,8 @@ property atmel {open_collector= data11};
 data11.oe = (!mtr5_l & !cc_sdrc_l
        # sr11 & !cc_sdrd_l);
 property atmel {open_collector= f_not_r};
-!f_not_r = ;
-f_not_r.oe = ;
+!f_not_r = cc_f_not_r;
+f_not_r.oe = cc_f_not_r;
 property atmel {open_collector= internal_io};
 !internal_io = cc_67x;
 internal_io.oe = cc_67x;
@@ -899,14 +899,14 @@ n_t_90x.oe = (!cc_f_r & !df_db01
         # (!cc_s_g & !df_db02
         # cc_s_g & df_db02);
 property atmel {open_collector= nd0};
-!nd0 = ;
-nd0.oe = ;
+!nd0 = n_t_39x;
+nd0.oe = n_t_39x;
 property atmel {open_collector= nd1};
-!nd1 = ;
-nd1.oe = ;
+!nd1 = n_t_38x;
+nd1.oe = n_t_38x;
 property atmel {open_collector= nd2};
-!nd2 = ;
-nd2.oe = ;
+!nd2 = n_t_33x;
+nd2.oe = n_t_33x;
 property atmel {open_collector= s_not_g};
 !s_not_g = (n_t_88x & cc_pwr_ok);
 s_not_g.oe = (n_t_88x & cc_pwr_ok);
@@ -921,11 +921,11 @@ property atmel {open_collector= t_m_enable};
 !t_m_enable = (cc_t_m_en & cc_wrt_ok);
 t_m_enable.oe = (cc_t_m_en & cc_wrt_ok);
 property atmel {open_collector= unith};
-!unith = ;
-unith.oe = ;
+!unith = cc_unit;
+unith.oe = cc_unit;
 property atmel {open_collector= wd_enab};
 !wd_enab = (n_t_89x & cc_pwr_ok);
 wd_enab.oe = (n_t_89x & cc_pwr_ok);
 property atmel {open_collector= wpt};
-!wpt = ;
-wpt.oe = ;
+!wpt = n_t_107x;
+wpt.oe = n_t_107x;
