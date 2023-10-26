@@ -312,6 +312,8 @@ sub sn7412 {
 }
 $hidden{'sn7412'} = 0;
 
+# TODO: sn7414
+
 sub sn7416 {
   &sn7406;
 }
@@ -492,6 +494,8 @@ sub sn74h55 {
   &qcode("$pad{8} = $pad{5};\n");
 }
 $hidden{'sn74h55'} = 0;
+
+# TODO: sn75als057
 
 # 4 input AO Expander
 sub sn7460 {
@@ -1151,6 +1155,8 @@ sub sn74161 {
 }
 $hidden{'sn74161'} = 0;
 
+# TODO: sn74163
+
 # 8 stage shift register.
 sub sn74164 {
   # We'll need Qa..Qh even if their pads are NC.
@@ -1671,6 +1677,8 @@ sub sn74193 {
 }
 $hidden{'sn74193'} = 0;
 
+# TODO: sn74194
+
 sub sn74195 {
   # We need Qa..Qd even if their pads are NC.
   $pad{12} = &gnext unless defined $pad{12};
@@ -1797,6 +1805,8 @@ sub sn74258 {
 }
 $hidden{'sn74258'} = 0;
 
+# TODO: sn74260
+
 # Quad X-NOR with OC Outputs.
 sub sn74266 {
   $oc{$pad{3}}  = 1 if defined $pad{3};
@@ -1810,6 +1820,7 @@ sub sn74266 {
 }
 $hidden{'sn74266'} = 0;
 
+# TODO: sn74280
 # sn74287 is a ROM
 # sn74288 is a ROM
 
@@ -2431,6 +2442,8 @@ sub ds8881 {
 }
 $hidden{'ds8881'} = 0;
 
+# TODO: dec8881
+
 sub ds8881n {
   &ds8881;
 }
@@ -2463,6 +2476,8 @@ sub sp380n {
   &sp380;
 }
 $hidden{'sp380n'} = 0;
+
+# TODO: dec6380n
 
 sub sp384 {
   &qcode("$pad{3} = $pad{4} # $pad{5};\n") if defined $pad{3};
