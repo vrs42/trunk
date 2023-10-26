@@ -24,34 +24,35 @@ pin = bd109;
 pin = bd115200;
 pin = bd1200;
 pin = bd150;
-pin = bd1745;
 pin = bd19200;
-pin = bd218;
 pin = bd230400;
 pin = bd2400;
 pin = bd300;
 pin = bd38400;
-pin = bd436;
 pin = bd4800;
 pin = bd600;
 pin = bd76800;
-pin = bd873;
 pin = bd9600;
-pin = div11;
-pin = div3;
 pin = n_t_12x;
 pin = n_t_16x;
 pin = n_t_21x;
-pin = n_t_24x;
-pin = n_t_25x;
 pin = x2_rate;
 pin = x2_rate_l;
 pin = x4_rate;
-pin = x8_rate;
 pin = x8_rate_l;
+node x8_rate;
+node n_t_24x;
+node gdollar_0;
+node n_t_25x;
+node bd1745;
+node bd873;
+node bd218;
+node bd436;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node div11;
+node div3;
 node n_t_17x;
 $ENDIF
 
@@ -74,6 +75,78 @@ $ENDIF
 /* e1: sn7440 */
 x8_rate_l = !x8_rate;
 x2_rate_l = !x2_rate;
+
+/* e2: sn74393 */
+bd115200.t  = 'b'1;
+bd115200.ck = bd230400;
+bd115200.ar = div3;
+bd76800.t  = 'b'1;
+bd76800.ck = !bd115200;
+bd76800.ar = div3;
+bd38400.t  = 'b'1;
+bd38400.ck = !bd76800;
+bd38400.ar = div3;
+x8_rate.t  = 'b'1;
+x8_rate.ck = x16_rate;
+x8_rate.ar = 'b'0;
+x4_rate.t  = 'b'1;
+x4_rate.ck = !x8_rate;
+x4_rate.ar = 'b'0;
+x2_rate.t  = 'b'1;
+x2_rate.ck = !x4_rate;
+x2_rate.ar = 'b'0;
+
+/* e3: sn74393 */
+bd19200.t  = 'b'1;
+bd19200.ck = bd38400;
+bd19200.ar = 'b'0;
+bd9600.t  = 'b'1;
+bd9600.ck = !bd19200;
+bd9600.ar = 'b'0;
+bd4800.t  = 'b'1;
+bd4800.ck = !bd9600;
+bd4800.ar = 'b'0;
+bd2400.t  = 'b'1;
+bd2400.ck = !bd4800;
+bd2400.ar = 'b'0;
+bd1200.t  = 'b'1;
+bd1200.ck = bd2400;
+bd1200.ar = 'b'0;
+bd600.t  = 'b'1;
+bd600.ck = !bd1200;
+bd600.ar = 'b'0;
+bd300.t  = 'b'1;
+bd300.ck = !bd600;
+bd300.ar = 'b'0;
+bd150.t  = 'b'1;
+bd150.ck = !bd300;
+bd150.ar = 'b'0;
+
+/* e4: sn74393 */
+n_t_24x.t  = 'b'1;
+n_t_24x.ck = bd19200;
+n_t_24x.ar = div11;
+n_t_25x.t  = 'b'1;
+n_t_25x.ck = !n_t_24x;
+n_t_25x.ar = div11;
+gdollar_0.t  = 'b'1;
+gdollar_0.ck = !n_t_25x;
+gdollar_0.ar = div11;
+bd1745.t  = 'b'1;
+bd1745.ck = !gdollar_0;
+bd1745.ar = div11;
+bd873.t  = 'b'1;
+bd873.ck = bd1745;
+bd873.ar = 'b'0;
+bd436.t  = 'b'1;
+bd436.ck = !bd873;
+bd436.ar = 'b'0;
+bd218.t  = 'b'1;
+bd218.ck = !bd436;
+bd218.ar = 'b'0;
+bd109.t  = 'b'1;
+bd109.ck = !bd218;
+bd109.ar = 'b'0;
 
 /* e5: sn7411 */
 div11 = n_t_25x & n_t_24x & bd1745;

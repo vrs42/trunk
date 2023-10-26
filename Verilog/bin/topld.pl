@@ -15,6 +15,7 @@
 #   The 7481 is a 16 bit RAM.
 #   The 7489 is a 64 bit RAM.
 #   The 7412x are monostables.
+#   The 74221 are monostables.
 #   The 74287 ROM is a memory too large for the CPLD.
 #   The 74288 ROM is a memory too large for the CPLD.
 #   The mc1439 is an op amp.
@@ -27,7 +28,6 @@
 # TODO: dec4015 is a quad R/S latch (with common R).
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
-# TODO: sn74191 sn74221 sn74266 sn74393
 
 #
 # Known bugs:
@@ -1606,7 +1606,42 @@ sub sn74189 {
 }
 $hidden{"sn74189"} = 0;
 
-# TODO: sn74191
+
+# Synchronous 4 Bit Counter
+sub sn74191 {
+  # We need Qa..Qd even if their pads are NC.
+  $pad{3} = &gnext unless defined $pad{3};
+  $pad{2} = &gnext unless defined $pad{2};
+  $pad{6} = &gnext unless defined $pad{6};
+  $pad{7} = &gnext unless defined $pad{7};
+  &pinnode($pad{3});
+  &pinnode($pad{2});
+  &pinnode($pad{6});
+  &pinnode($pad{7});
+  local($a,  $b,  $c,  $d)  = ($pad{15}, $pad{1}, $pad{10}, $pad{9});
+  local($qa, $qb, $qc, $qd) = ($pad{3},  $pad{2}, $pad{6},  $pad{7});
+  local($ck, $dn, $e_, $l_) = ($pad{14}, $pad{5}, $pad{4},  $pad{11});
+  local($mx, $c_) = ($pad{12}, $pad{13});
+  &qcode("$qa.ap =  $a&!$l_;\n");
+  &qcode("$qa.ar = !$a&!$l_;\n");
+  &qcode("$qa.t  = !$e_&;\n");
+  &qcode("$qa.ck = $ck;\n");
+  &qcode("$qb.ap =  $b&!$l_;\n");
+  &qcode("$qb.ar = !$b&!$l_;\n");
+  &qcode("$qb.t  = !$e_&!$dn&!$qa # !$e_?&$dn&$qa;\n");
+  &qcode("$qb.ck = $ck;\n");
+  &qcode("$qc.ap =  $c&!$l_;\n");
+  &qcode("$qc.ar = !$c&!$l_;\n");
+  &qcode("$qc.t  = !$e_&!$dn&!$qa&!$qb # !$e_?&$dn&$qa&$qb;\n");
+  &qcode("$qc.ck = $ck;\n");
+  &qcode("$qd.ap =  $d&!$l_;\n");
+  &qcode("$qd.ar = !$d&!$l_;\n");
+  &qcode("$qd.t  = !$e_&!$dn&!$qa&!$qb&!$qc # !$e_?&$dn&$qa&$qb&$qc;\n");
+  &qcode("$qd.ck = $ck;\n");
+  &qcode("$mx = $qa&$qb&$qc&$qd&!$dn # !$qa&!$qb&!$qc&!$qd&$dn;\n");
+  &qcode("$c_ = !($mc & !$e_ & $ck);\n");
+}
+$hidden{"sn74191"} = 0;
 
 sub sn74193 {
   # We need Qa..Qd even if their pads are NC.
@@ -1700,8 +1735,6 @@ sub sn74197 {
 }
 $hidden{'sn74197'} = 0;
 
-# TODO: sn74221
-
 sub sn74240 {
   &qcode("$pad{18} = !$pad{2};\n") if defined $pad{18};
   &qcode("$pad{18}.oe = !$pad{1};\n") if defined $pad{18};
@@ -1768,7 +1801,19 @@ sub sn74258 {
 }
 $hidden{'sn74258'} = 0;
 
-# TODO: sn74266
+# Quad X-NOR with OC Outputs.
+sub sn74266 {
+  $oc{$pad{3}}  = 1 if defined $pad{3};
+  $oc{$pad{4}}  = 1 if defined $pad{4};
+  $oc{$pad{10}} = 1 if defined $pad{10};
+  $oc{$pad{11}} = 1 if defined $pad{11};
+  &ocassign($pad{3},  "$pad{1} \$ $pad{2}") if defined $pad{3};
+  &ocassign($pad{4},  "$pad{5} \$ $pad{6}") if defined $pad{4};
+  &ocassign($pad{10}, "$pad{8} \$ $pad{9}") if defined $pad{10};
+  &ocassign($pad{11}, "$pad{12} \$ $pad{13}") if defined $pad{11};
+}
+$hidden{'sn74266'} = 0;
+
 # sn74287 is a ROM
 # sn74288 is a ROM
 
@@ -1804,7 +1849,57 @@ sub sn74368 {
 }
 $hidden{'sn74368'} = 0;
 
-# TODO: sn74393
+# Dual 4 Bit Counters with Clear
+sub sn74393 {
+  local($qa, $qb, $qc, $qd) = ($pad{3}, $pad{4}, $pad{5}, $pad{6});
+  local($ck, $cl) = ($pad{1}, $pad{2});
+  $qa  = &gnext unless defined $qa;
+  $qb  = &gnext unless defined $qb;
+  $qc  = &gnext unless defined $qc;
+  &pinnode($qa);
+  &pinnode($qc);
+  &pinnode($qb);
+  &pinnode($qd) if defined $qd;
+  qcode("$qa.t  = 'b'1;\n");
+  qcode("$qa.ck = $ck;\n");
+  qcode("$qa.ar = $cl;\n");
+  qcode("$qb.t  = 'b'1;\n");
+  qcode("$qb.ck = !$qa;\n");
+  qcode("$qb.ar = $cl;\n");
+  qcode("$qc.t  = 'b'1;\n");
+  qcode("$qc.ck = !$qb;\n");
+  qcode("$qc.ar = $cl;\n");
+  if (defined $qd) {
+    qcode("$qd.t  = 'b'1;\n");
+    qcode("$qd.ck = !$qc;\n");
+    qcode("$qd.ar = $cl;\n");
+  }
+  ($qa, $qb, $qc, $qd) = ($pad{11}, $pad{10}, $pad{9}, $pad{8});
+  ($ck, $cl) = ($pad{13}, $pad{12});
+  $qa  = &gnext unless defined $qa;
+  $qb  = &gnext unless defined $qb;
+  $qc  = &gnext unless defined $qc;
+  &pinnode($qa);
+  &pinnode($qc);
+  &pinnode($qb);
+  &pinnode($qd) if defined $qd;
+  qcode("$qa.t  = 'b'1;\n");
+  qcode("$qa.ck = $ck;\n");
+  qcode("$qa.ar = $cl;\n");
+  qcode("$qb.t  = 'b'1;\n");
+  qcode("$qb.ck = !$qa;\n");
+  qcode("$qb.ar = $cl;\n");
+  qcode("$qc.t  = 'b'1;\n");
+  qcode("$qc.ck = !$qb;\n");
+  qcode("$qc.ar = $cl;\n");
+  if (defined $qd) {
+    qcode("$qd.t  = 'b'1;\n");
+    qcode("$qd.ck = !$qc;\n");
+    qcode("$qd.ar = $cl;\n");
+  }
+}
+$hidden{'sn74393'} = 0;
+
 
 # 10 bit latch (positive edge)
 # These are actually preposterously rare.  Even more so than

@@ -71,9 +71,7 @@ pin = n_t_25x;
 pin = n_t_26x;
 pin = n_t_27x;
 pin = n_t_28x;
-pin = n_t_29x;
 pin = n_t_2x;
-pin = n_t_30x;
 pin = n_t_3x;
 pin = n_t_43x;
 pin = n_t_44x;
@@ -95,6 +93,8 @@ pin = testpoint;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node n_t_29x;
+node n_t_30x;
 node n_t_31x;
 node n_t_46x;
 $ENDIF
@@ -145,6 +145,14 @@ n_t_46x = !n_t_31x;
 /* syn_l = !n_t_44x; */
 /* c1_l = !c1; */
 
+/* e5: sn74266 */
+/* n_t_43x = !(a4
+        $ n_t_34x); */
+/* n_t_43x = !(a3
+        $ n_t_33x); */
+/* n_t_43x = !n_t_29x; */
+/* n_t_43x = !n_t_30x; */
+
 /* e8: sn74139 */
 !select0 = [a1,a2]:'b'00;
 !select2 = [a1,a2]:'b'01;
@@ -153,6 +161,26 @@ n_t_46x = !n_t_31x;
 !outhigh = !c1_l & [a0,c0]:'b'10;
 !outlow = !c1_l & [a0,c0]:'b'11;
 
+/* e9: sn74266 */
+/* n_t_43x = !(a8
+        $ n_t_38x); */
+/* n_t_43x = !(a7
+        $ n_t_37x); */
+/* n_t_43x = !(a5
+        $ n_t_35x); */
+/* n_t_43x = !(a6
+        $ n_t_36x); */
+
+/* e13: sn74266 */
+/* n_t_43x = !(a12
+        $ n_t_42x); */
+/* n_t_43x = !(a11
+        $ n_t_41x); */
+/* n_t_43x = !(a9
+        $ n_t_39x); */
+/* n_t_43x = !(a10
+        $ n_t_40x); */
+
 /* Open collector 'wire-or's */
 property atmel {open_collector= c1_l};
 !c1_l = c1;
@@ -160,6 +188,51 @@ c1_l.oe = c1;
 property atmel {open_collector= n_t_22x};
 !n_t_22x = testpoint;
 n_t_22x.oe = testpoint;
+property atmel {open_collector= n_t_43x};
+!n_t_43x = (a4
+        $ n_t_34x)
+        # (a3
+        $ n_t_33x)
+           # (n_t_29x)
+           # (n_t_30x)
+        # (a8
+        $ n_t_38x)
+        # (a7
+        $ n_t_37x)
+        # (a5
+        $ n_t_35x)
+        # (a6
+        $ n_t_36x)
+        # (a12
+        $ n_t_42x)
+        # (a11
+        $ n_t_41x)
+        # (a9
+        $ n_t_39x)
+        # (a10
+        $ n_t_40x);
+n_t_43x.oe = (a4
+        $ n_t_34x)
+        # (a3
+        $ n_t_33x)
+           # (n_t_29x)
+           # (n_t_30x)
+        # (a8
+        $ n_t_38x)
+        # (a7
+        $ n_t_37x)
+        # (a5
+        $ n_t_35x)
+        # (a6
+        $ n_t_36x)
+        # (a12
+        $ n_t_42x)
+        # (a11
+        $ n_t_41x)
+        # (a9
+        $ n_t_39x)
+        # (a10
+        $ n_t_40x);
 property atmel {open_collector= syn_l};
 !syn_l = n_t_44x;
 syn_l.oe = n_t_44x;

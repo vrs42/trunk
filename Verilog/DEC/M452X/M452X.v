@@ -12,42 +12,211 @@
 // c5: c_us 
 // c6: c_us 
 // e1: sn7440 
-module m452x (n_t_14x, x16_rate, bd109, bd115200, bd1200, bd150, bd1745, bd19200, bd218, bd230400, bd2400, bd300, bd38400, bd436, bd4800, bd600, bd76800, bd873, bd9600, div11, div3, n_t_12x, n_t_16x, n_t_21x, n_t_24x, n_t_25x, x2_rate, x2_rate_l, x4_rate, x8_rate, x8_rate_l);
+module m452x (n_t_14x, x16_rate, bd109, bd115200, bd1200, bd150, bd19200, bd230400, bd2400, bd300, bd38400, bd4800, bd600, bd76800, bd9600, n_t_12x, n_t_16x, n_t_21x, x2_rate, x2_rate_l, x4_rate, x8_rate_l);
 input n_t_14x;
-output x16_rate;
-output bd109;
-output bd115200;
-output bd1200;
-output bd150;
-input bd1745;
-output bd19200;
-output bd218;
-output bd230400;
-output bd2400;
-output bd300;
-input bd38400;
-output bd436;
-output bd4800;
-output bd600;
-input bd76800;
-output bd873;
-output bd9600;
-output div11;
-output div3;
+input x16_rate;
+output reg bd109;
+inout reg bd115200;
+inout reg bd1200;
+output reg bd150;
+inout reg bd19200;
+input bd230400;
+inout reg bd2400;
+inout reg bd300;
+inout reg bd38400;
+inout reg bd4800;
+inout reg bd600;
+inout reg bd76800;
+inout reg bd9600;
 input n_t_12x;
 output n_t_16x;
 output n_t_21x;
-input n_t_24x;
-input n_t_25x;
-input x2_rate;
+inout reg x2_rate;
 output x2_rate_l;
-output x4_rate;
-input x8_rate;
+inout reg x4_rate;
 output x8_rate_l;
 
+reg bd115200_m;
+reg bd1745_m;
+reg bd38400_m;
+reg bd76800_m;
+reg gdollar_0_m;
+reg n_t_24x_m;
+reg n_t_25x_m;
 
+reg x8_rate;
+reg n_t_24x;
+reg gdollar_0;
+reg n_t_25x;
+reg bd1745;
+reg bd873;
+reg bd218;
+reg bd436;
+wire div11;
+wire div3;
 assign x8_rate_l = ~x8_rate;
 assign x2_rate_l = ~x2_rate;
+// e2: sn74393 
+always @(bd230400, div3, bd115200)
+  if (div3) begin
+    bd115200_m <= 1'b0;
+  end else
+  if (~(bd230400)) begin
+    bd115200_m <= ~bd115200;
+  end
+always @(bd230400, div3, bd115200_m)
+  if (div3) begin
+    bd115200 <= 1'b0;
+  end else
+  if (bd230400) begin
+    bd115200 <= bd115200_m;
+  end
+always @(bd115200, div3, bd76800)
+  if (div3) begin
+    bd76800_m <= 1'b0;
+  end else
+  if (~(~bd115200)) begin
+    bd76800_m <= ~bd76800;
+  end
+always @(bd115200, div3, bd76800_m)
+  if (div3) begin
+    bd76800 <= 1'b0;
+  end else
+  if (~bd115200) begin
+    bd76800 <= bd76800_m;
+  end
+always @(bd76800, div3, bd38400)
+  if (div3) begin
+    bd38400_m <= 1'b0;
+  end else
+  if (~(~bd76800)) begin
+    bd38400_m <= ~bd38400;
+  end
+always @(bd76800, div3, bd38400_m)
+  if (div3) begin
+    bd38400 <= 1'b0;
+  end else
+  if (~bd76800) begin
+    bd38400 <= bd38400_m;
+  end
+always @(posedge x16_rate)
+  if (x16_rate) begin
+    x8_rate <= ~x8_rate;
+  end
+always @(negedge x8_rate)
+  if (~x8_rate) begin
+    x4_rate <= ~x4_rate;
+  end
+always @(negedge x4_rate)
+  if (~x4_rate) begin
+    x2_rate <= ~x2_rate;
+  end
+// e3: sn74393 
+always @(posedge bd38400)
+  if (bd38400) begin
+    bd19200 <= ~bd19200;
+  end
+always @(negedge bd19200)
+  if (~bd19200) begin
+    bd9600 <= ~bd9600;
+  end
+always @(negedge bd9600)
+  if (~bd9600) begin
+    bd4800 <= ~bd4800;
+  end
+always @(negedge bd4800)
+  if (~bd4800) begin
+    bd2400 <= ~bd2400;
+  end
+always @(posedge bd2400)
+  if (bd2400) begin
+    bd1200 <= ~bd1200;
+  end
+always @(negedge bd1200)
+  if (~bd1200) begin
+    bd600 <= ~bd600;
+  end
+always @(negedge bd600)
+  if (~bd600) begin
+    bd300 <= ~bd300;
+  end
+always @(negedge bd300)
+  if (~bd300) begin
+    bd150 <= ~bd150;
+  end
+// e4: sn74393 
+always @(bd19200, div11, n_t_24x)
+  if (div11) begin
+    n_t_24x_m <= 1'b0;
+  end else
+  if (~(bd19200)) begin
+    n_t_24x_m <= ~n_t_24x;
+  end
+always @(bd19200, div11, n_t_24x_m)
+  if (div11) begin
+    n_t_24x <= 1'b0;
+  end else
+  if (bd19200) begin
+    n_t_24x <= n_t_24x_m;
+  end
+always @(n_t_24x, div11, n_t_25x)
+  if (div11) begin
+    n_t_25x_m <= 1'b0;
+  end else
+  if (~(~n_t_24x)) begin
+    n_t_25x_m <= ~n_t_25x;
+  end
+always @(n_t_24x, div11, n_t_25x_m)
+  if (div11) begin
+    n_t_25x <= 1'b0;
+  end else
+  if (~n_t_24x) begin
+    n_t_25x <= n_t_25x_m;
+  end
+always @(n_t_25x, div11, gdollar_0)
+  if (div11) begin
+    gdollar_0_m <= 1'b0;
+  end else
+  if (~(~n_t_25x)) begin
+    gdollar_0_m <= ~gdollar_0;
+  end
+always @(n_t_25x, div11, gdollar_0_m)
+  if (div11) begin
+    gdollar_0 <= 1'b0;
+  end else
+  if (~n_t_25x) begin
+    gdollar_0 <= gdollar_0_m;
+  end
+always @(gdollar_0, div11, bd1745)
+  if (div11) begin
+    bd1745_m <= 1'b0;
+  end else
+  if (~(~gdollar_0)) begin
+    bd1745_m <= ~bd1745;
+  end
+always @(gdollar_0, div11, bd1745_m)
+  if (div11) begin
+    bd1745 <= 1'b0;
+  end else
+  if (~gdollar_0) begin
+    bd1745 <= bd1745_m;
+  end
+always @(posedge bd1745)
+  if (bd1745) begin
+    bd873 <= ~bd873;
+  end
+always @(negedge bd873)
+  if (~bd873) begin
+    bd436 <= ~bd436;
+  end
+always @(negedge bd436)
+  if (~bd436) begin
+    bd218 <= ~bd218;
+  end
+always @(negedge bd218)
+  if (~bd218) begin
+    bd109 <= ~bd109;
+  end
 // e5: sn7411 
 assign div11 = n_t_25x & n_t_24x & bd1745;
 assign div3 = bd76800 & bd38400;
