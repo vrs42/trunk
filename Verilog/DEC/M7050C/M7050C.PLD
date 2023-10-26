@@ -60,20 +60,12 @@ pin = mb8_lp_1_rp;
 pin = n3v3;
 pin = n5v_1;
 pin = n5v_2;
-pin = n_t_10x;
-pin = n_t_11x;
-pin = n_t_12x;
-pin = n_t_13x;
-pin = n_t_14x;
 pin = n_t_1x;
 pin = n_t_21x;
 pin = n_t_26x;
 pin = n_t_29x;
-pin = n_t_2x;
 pin = n_t_34x;
 pin = n_t_37x;
-pin = n_t_3x;
-pin = n_t_9x;
 pin = offline;
 pin = out_of_tape;
 pin = pwr;
@@ -92,6 +84,14 @@ pin = shift_l;
 pin = skip;
 pin = stop_complete;
 pin = stop_delay;
+node n_t_10x;
+node n_t_9x;
+node n_t_3x;
+node n_t_2x;
+node n_t_12x;
+node n_t_11x;
+node n_t_13x;
+node n_t_14x;
 node rdr_run;
 node rdr_flag;
 node n_t_27x;
@@ -179,11 +179,47 @@ $ENDIF
 
 /* c24: c_us */
 
+/* e1: dec4015 */
+n_t_10x.ar = !aj2;
+n_t_10x.ap = !n3v3;
+n_t_10x.ck = ac1;
+n_t_10x.d  = rd_hole_6;
+n_t_9x.ar = !aj2;
+n_t_9x.ap = !aj2;
+n_t_9x.ck = ac1;
+n_t_9x.d  = rd_hole_6;
+n_t_3x.ar = !aj2;
+n_t_3x.ap = !n3v3;
+n_t_3x.ck = ac1;
+n_t_3x.d  = rd_hole_7;
+n_t_2x.ar = !aj2;
+n_t_2x.ap = !n3v3;
+n_t_2x.ck = ac1;
+n_t_2x.d  = rd_hole_8;
+
 /* e2: sn7400 */
 rfc_delayed_l = !(out_of_tape_l & n_t_30x);
 n_t_35x = !(n_t_34x & offline);
 n_t_16x = !(n_t_35x & clock1);
 n_t_6x = !(n_t_16x & binit_l);
+
+/* e4: dec4015 */
+n_t_12x.ar = !aj2;
+n_t_12x.ap = !n3v3;
+n_t_12x.ck = ac1;
+n_t_12x.d  = rd_hole_4;
+n_t_11x.ar = !aj2;
+n_t_11x.ap = !aj2;
+n_t_11x.ck = ac1;
+n_t_11x.d  = rd_hole_4;
+n_t_13x.ar = !aj2;
+n_t_13x.ap = !n3v3;
+n_t_13x.ck = ac1;
+n_t_13x.d  = rd_hole_2;
+n_t_14x.ar = !aj2;
+n_t_14x.ap = !n3v3;
+n_t_14x.ck = ac1;
+n_t_14x.d  = rd_hole_1;
 
 /* e5: sn7474 */
 rdr_run.ar = !clr_run_l;

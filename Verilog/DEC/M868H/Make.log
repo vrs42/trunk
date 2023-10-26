@@ -131,7 +131,9 @@ warning: non-bypass capacitor deleted: c48
   n_t_83x: !cc_clk_te_l
   n_t_88x: !n_t_20x
 ~/Verilog/bin/smaller.pl vv >M868HX.PLD || (rm M868HX.PLD; exit 1)
-0 signals were removed:
+2 signals were removed:
+  cc_init: initialize
+  cc_tp3_l: !tp3
 ~/Verilog/bin/cupl2v.pl M868HX.PLD >vv || (rm vv; exit 1)
 mv vv M868H.v
 rm M868HX.PLD

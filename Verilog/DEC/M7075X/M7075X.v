@@ -20,7 +20,7 @@
 // c13: c_us 
 // c14: c_us 
 // e1: sn7475 
-module m7075x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, n3v, n_t_115x, n_t_82x, n_t_84x, n_t_86x, n_t_91x, n_t_92x, p1, p1_l, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
+module m7075x (a1, b1, c1, d1, d2, e1, e2, f1, f2, h1, h2, j1, j2, k1, k2, l1, l2, m1, m2, m2_l, n1, n2, p1, p1_l, p2, r1, r2, s1, s2, t2, u1, u2, v1, v2);
 input a1;
 input b1;
 inout reg c1;
@@ -34,7 +34,7 @@ input h1;
 input h2;
 input j1;
 input j2;
-output k1;
+output reg k1;
 input k2;
 input l1;
 output l2;
@@ -43,13 +43,6 @@ input m2;
 inout m2_l;
 output n1;
 input n2;
-inout n3v;
-output n_t_115x;
-input n_t_82x;
-input n_t_84x;
-inout n_t_86x;
-output n_t_91x;
-output n_t_92x;
 input p1;
 inout p1_l;
 input p2;
@@ -73,6 +66,7 @@ reg gdollar_4_m;
 reg gdollar_5_m;
 reg gdollar_6_m;
 reg gdollar_7_m;
+reg k1_m;
 reg n_t_101x_m;
 reg n_t_38x_m;
 reg n_t_39x_m;
@@ -81,6 +75,9 @@ reg n_t_42x_m;
 reg n_t_50x_m;
 reg n_t_51x_m;
 reg n_t_52x_m;
+reg n_t_82x_m;
+reg n_t_84x_m;
+reg n_t_92x_m;
 
 reg gdollar_0;
 reg gdollar_1;
@@ -90,6 +87,9 @@ reg n_t_52x;
 reg n_t_50x;
 reg n_t_38x;
 reg n_t_42x;
+reg n_t_84x;
+reg n_t_82x;
+reg n_t_92x;
 reg gdollar_4;
 reg gdollar_5;
 reg gdollar_6;
@@ -98,6 +98,7 @@ reg n_t_39x;
 reg n_t_41x;
 reg n_t_51x;
 reg n_t_101x;
+wire n_t_115x;
 wire n_t_129x;
 wire n_t_132x;
 wire n_t_133x;
@@ -113,6 +114,7 @@ wire n_t_36x;
 wire n_t_54x;
 wire n_t_69x;
 wire n_t_74x;
+wire n_t_86x;
 wire n_t_99x;
 wire s_t_1;
 wire s_t_4;
@@ -207,14 +209,13 @@ assign s_t_4 = ~gdollar_0;
 // n_t_152x = !(!f1 & !e1
 //         # !gdollar_2 & e1); 
 // e3: dec8271 
-always @(v2, m2_l, n_t_54x, n_t_74x, n_t_133x, n3v, n_t_74x, n_t_52x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_54x, n_t_74x, n_t_133x, n_t_74x)
   if (~m2_l) begin
     n_t_52x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_52x_m <= n_t_54x & n_t_74x
-                    | n_t_133x & n3v & ~n_t_74x
-                    | n_t_52x & ~n3v & ~n_t_74x;
+                    | n_t_133x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_52x_m)
   if (~m2_l) begin
@@ -223,14 +224,13 @@ always @(v2, m2_l, n_t_52x_m)
   if (~v2) begin
     n_t_52x <= n_t_52x_m;
   end
-always @(v2, m2_l, n_t_52x, n_t_74x, n_t_136x, n3v, n_t_74x, n_t_50x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_52x, n_t_74x, n_t_136x, n_t_74x)
   if (~m2_l) begin
     n_t_50x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_50x_m <= n_t_52x & n_t_74x
-                    | n_t_136x & n3v & ~n_t_74x
-                    | n_t_50x & ~n3v & ~n_t_74x;
+                    | n_t_136x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_50x_m)
   if (~m2_l) begin
@@ -239,14 +239,13 @@ always @(v2, m2_l, n_t_50x_m)
   if (~v2) begin
     n_t_50x <= n_t_50x_m;
   end
-always @(v2, m2_l, n_t_50x, n_t_74x, n_t_153x, n3v, n_t_74x, n_t_38x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_50x, n_t_74x, n_t_153x, n_t_74x)
   if (~m2_l) begin
     n_t_38x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_38x_m <= n_t_50x & n_t_74x
-                    | n_t_153x & n3v & ~n_t_74x
-                    | n_t_38x & ~n3v & ~n_t_74x;
+                    | n_t_153x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_38x_m)
   if (~m2_l) begin
@@ -255,14 +254,13 @@ always @(v2, m2_l, n_t_38x_m)
   if (~v2) begin
     n_t_38x <= n_t_38x_m;
   end
-always @(v2, m2_l, n_t_38x, n_t_74x, n_t_152x, n3v, n_t_74x, n_t_42x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_38x, n_t_74x, n_t_152x, n_t_74x)
   if (~m2_l) begin
     n_t_42x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_42x_m <= n_t_38x & n_t_74x
-                    | n_t_152x & n3v & ~n_t_74x
-                    | n_t_42x & ~n3v & ~n_t_74x;
+                    | n_t_152x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_42x_m)
   if (~m2_l) begin
@@ -270,6 +268,75 @@ always @(v2, m2_l, n_t_42x_m)
   end else
   if (~v2) begin
     n_t_42x <= n_t_42x_m;
+  end
+// e4: dec4015 
+always @(v2, m2_l, n_t_115x, n_t_92x)
+  if (~m2_l) begin
+    n_t_84x_m <= 1'b0;
+  end else
+  if (~n_t_115x) begin
+    n_t_84x_m <= 1'b1;
+  end else
+  if (~(~v2)) begin
+    n_t_84x_m <= n_t_92x;
+  end
+always @(v2, m2_l, n_t_115x, n_t_84x_m)
+  if (~m2_l) begin
+    n_t_84x <= 1'b0;
+  end else
+  if (~n_t_115x) begin
+    n_t_84x <= 1'b1;
+  end else
+  if (~v2) begin
+    n_t_84x <= n_t_84x_m;
+  end
+always @(v2, m2_l, m2_l, n_t_92x)
+  if (~m2_l) begin
+    k1_m <= 1'b0;
+  end else
+  if (~m2_l) begin
+    k1_m <= 1'b1;
+  end else
+  if (~(~v2)) begin
+    k1_m <= n_t_92x;
+  end
+always @(v2, m2_l, m2_l, k1_m)
+  if (~m2_l) begin
+    k1 <= 1'b0;
+  end else
+  if (~m2_l) begin
+    k1 <= 1'b1;
+  end else
+  if (~v2) begin
+    k1 <= k1_m;
+  end
+always @(v2, m2_l, b1)
+  if (~m2_l) begin
+    n_t_82x_m <= 1'b0;
+  end else
+  if (~(~v2)) begin
+    n_t_82x_m <= b1;
+  end
+always @(v2, m2_l, n_t_82x_m)
+  if (~m2_l) begin
+    n_t_82x <= 1'b0;
+  end else
+  if (~v2) begin
+    n_t_82x <= n_t_82x_m;
+  end
+always @(v2, m2_l, n_t_86x)
+  if (~m2_l) begin
+    n_t_92x_m <= 1'b0;
+  end else
+  if (~(~v2)) begin
+    n_t_92x_m <= n_t_86x;
+  end
+always @(v2, m2_l, n_t_92x_m)
+  if (~m2_l) begin
+    n_t_92x <= 1'b0;
+  end else
+  if (~v2) begin
+    n_t_92x <= n_t_92x_m;
   end
 // e5: sn7410 
 assign n_t_86x = ~(~e1 & m1 & a1);
@@ -318,22 +385,16 @@ always @(n_t_69x, m2_l, p1, c1_m)
   if (n_t_69x) begin
     c1 <= c1_m;
   end
-always @(v2, m2_l, n3v, c1)
+always @(v2, m2_l, c1)
   if (~m2_l) begin
     e1_m <= 1'b0;
-  end else
-  if (~n3v) begin
-    e1_m <= 1'b1;
   end else
   if (~(v2)) begin
     e1_m <= c1;
   end
-always @(v2, m2_l, n3v, e1_m)
+always @(v2, m2_l, e1_m)
   if (~m2_l) begin
     e1 <= 1'b0;
-  end else
-  if (~n3v) begin
-    e1 <= 1'b1;
   end else
   if (v2) begin
     e1 <= e1_m;
@@ -430,14 +491,13 @@ assign s_t_1 = ~gdollar_7;
 // n_t_34x = !(!r1 & !e1
 //        # !gdollar_6 & e1); 
 // e13: dec8271 
-always @(v2, m2_l, n_t_42x, n_t_74x, n_t_21x, n3v, n_t_74x, n_t_39x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_42x, n_t_74x, n_t_21x, n_t_74x)
   if (~m2_l) begin
     n_t_39x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_39x_m <= n_t_42x & n_t_74x
-                    | n_t_21x & n3v & ~n_t_74x
-                    | n_t_39x & ~n3v & ~n_t_74x;
+                    | n_t_21x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_39x_m)
   if (~m2_l) begin
@@ -446,14 +506,13 @@ always @(v2, m2_l, n_t_39x_m)
   if (~v2) begin
     n_t_39x <= n_t_39x_m;
   end
-always @(v2, m2_l, n_t_39x, n_t_74x, n_t_31x, n3v, n_t_74x, n_t_41x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_39x, n_t_74x, n_t_31x, n_t_74x)
   if (~m2_l) begin
     n_t_41x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_41x_m <= n_t_39x & n_t_74x
-                    | n_t_31x & n3v & ~n_t_74x
-                    | n_t_41x & ~n3v & ~n_t_74x;
+                    | n_t_31x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_41x_m)
   if (~m2_l) begin
@@ -462,14 +521,13 @@ always @(v2, m2_l, n_t_41x_m)
   if (~v2) begin
     n_t_41x <= n_t_41x_m;
   end
-always @(v2, m2_l, n_t_41x, n_t_74x, n_t_36x, n3v, n_t_74x, n_t_51x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_41x, n_t_74x, n_t_36x, n_t_74x)
   if (~m2_l) begin
     n_t_51x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_51x_m <= n_t_41x & n_t_74x
-                    | n_t_36x & n3v & ~n_t_74x
-                    | n_t_51x & ~n3v & ~n_t_74x;
+                    | n_t_36x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_51x_m)
   if (~m2_l) begin
@@ -478,14 +536,13 @@ always @(v2, m2_l, n_t_51x_m)
   if (~v2) begin
     n_t_51x <= n_t_51x_m;
   end
-always @(v2, m2_l, n_t_51x, n_t_74x, n_t_34x, n3v, n_t_74x, n_t_101x, n3v, n_t_74x)
+always @(v2, m2_l, n_t_51x, n_t_74x, n_t_34x, n_t_74x)
   if (~m2_l) begin
     n_t_101x_m <= 1'b0;
   end else
   if (~(~v2)) begin
     n_t_101x_m <= n_t_51x & n_t_74x
-                     | n_t_34x & n3v & ~n_t_74x
-                     | n_t_101x & ~n3v & ~n_t_74x;
+                     | n_t_34x & ~n_t_74x;
   end
 always @(v2, m2_l, n_t_101x_m)
   if (~m2_l) begin
@@ -495,8 +552,6 @@ always @(v2, m2_l, n_t_101x_m)
     n_t_101x <= n_t_101x_m;
   end
 // e14: sn7404 
-assign n3v = 1'b1;
-assign n_t_91x = ~v2;
 assign l2 = ~n_t_42x;
 // open collector 'wire-or's 
 assign m1 = n_t_50x

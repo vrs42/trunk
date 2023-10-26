@@ -27,21 +27,16 @@ pin = n_t_105x;
 pin = n_t_106x;
 pin = n_t_108x;
 pin = n_t_109x;
-pin = n_t_10x;
 pin = n_t_112x;
 pin = n_t_113x;
 pin = n_t_115x;
 pin = n_t_118x;
-pin = n_t_11x;
 pin = n_t_122x;
 pin = n_t_129x;
-pin = n_t_12x;
 pin = n_t_131x;
 pin = n_t_132x;
 pin = n_t_133x;
 pin = n_t_13x;
-pin = n_t_143x;
-pin = n_t_144x;
 pin = n_t_148x;
 pin = n_t_149x;
 pin = n_t_14x;
@@ -51,28 +46,8 @@ pin = n_t_18x;
 pin = n_t_19x;
 pin = n_t_1x;
 pin = n_t_20x;
-pin = n_t_21x;
-pin = n_t_22x;
-pin = n_t_23x;
-pin = n_t_24x;
-pin = n_t_25x;
-pin = n_t_26x;
-pin = n_t_27x;
-pin = n_t_28x;
-pin = n_t_29x;
 pin = n_t_2x;
-pin = n_t_30x;
-pin = n_t_31x;
-pin = n_t_32x;
-pin = n_t_33x;
-pin = n_t_34x;
-pin = n_t_35x;
-pin = n_t_36x;
-pin = n_t_37x;
-pin = n_t_38x;
-pin = n_t_39x;
 pin = n_t_3x;
-pin = n_t_40x;
 pin = n_t_41x;
 pin = n_t_42x;
 pin = n_t_43x;
@@ -100,7 +75,6 @@ pin = n_t_68x;
 pin = n_t_6x;
 pin = n_t_70x;
 pin = n_t_72x;
-pin = n_t_73x;
 pin = n_t_74x;
 pin = n_t_76x;
 pin = n_t_77x;
@@ -128,20 +102,46 @@ $IFNDEF OPTIMIZE
 node in;
 node n_t_102x;
 node n_t_107x;
+node n_t_10x;
 node n_t_110x;
 node n_t_114x;
 node n_t_116x;
 node n_t_117x;
+node n_t_11x;
 node n_t_120x;
 node n_t_125x;
+node n_t_12x;
 node n_t_134x;
 node n_t_140x;
 node n_t_141x;
 node n_t_142x;
+node n_t_143x;
+node n_t_144x;
 node n_t_145x;
 node n_t_17x;
+node n_t_21x;
+node n_t_22x;
+node n_t_23x;
+node n_t_24x;
+node n_t_25x;
+node n_t_26x;
+node n_t_27x;
+node n_t_28x;
+node n_t_29x;
+node n_t_30x;
+node n_t_31x;
+node n_t_32x;
+node n_t_33x;
+node n_t_34x;
+node n_t_35x;
+node n_t_36x;
+node n_t_37x;
+node n_t_38x;
+node n_t_39x;
+node n_t_40x;
 node n_t_51x;
 node n_t_53x;
+node n_t_73x;
 node n_t_99x;
 node out;
 node shift_clock;
@@ -220,6 +220,20 @@ n_t_131x = !(n_t_123x
 n_t_110x = !(n_t_53x & n_t_112x & n_t_113x & n_t_113x);
 n_t_53x = !(n_t_108x & n_t_109x & n_t_110x);
 
+/* e3: n8263 */
+n_t_25x = n_t_10x
+        $ (n_t_4x & n_t_11x & n_t_12x
+           # n_t_8x & Inappropriate);
+n_t_26x = n_t_10x
+        $ (n_t_3x & n_t_11x & n_t_12x
+           # n_t_7x & !n_t_11x & n_t_12x);
+n_t_27x = n_t_10x
+        $ (n_t_2x & n_t_11x & n_t_12x
+           # n_t_6x & !n_t_11x & n_t_12x);
+n_t_28x = n_t_10x
+        $ (n_t_1x & n_t_11x & n_t_12x
+           # n_t_5x & !n_t_11x & n_t_12x);
+
 /* e4: sn7400 */
 n_t_143x = !(n_t_116x & shift_clock);
 n_t_144x = !(n_t_117x & shift_clock);
@@ -243,6 +257,54 @@ n_t_73x = n_t_102x & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3;
 out = !n_t_102x & !in & !gdollar_0 & !gdollar_1 & !gdollar_2 & !gdollar_3
     # n_t_1x & !gdollar_0 & !gdollar_1 & !gdollar_2 & gdollar_3
     # n_t_55x & !gdollar_0 & !gdollar_1 & gdollar_2;
+
+/* e7: n8263 */
+n_t_24x = n_t_10x
+        $ (n_t_67x & n_t_11x & n_t_12x
+           # n_t_13x & Inappropriate);
+n_t_23x = n_t_10x
+        $ (n_t_18x & n_t_11x & n_t_12x
+           # n_t_14x & !n_t_11x & n_t_12x
+           # n_t_5x & n_t_11x & !n_t_12x);
+n_t_22x = n_t_10x
+        $ (n_t_19x & n_t_11x & n_t_12x
+           # n_t_15x & !n_t_11x & n_t_12x
+           # n_t_9x & n_t_11x & !n_t_12x);
+n_t_21x = n_t_10x
+        $ (n_t_16x & n_t_11x & n_t_12x
+           # n_t_20x & !n_t_11x & n_t_12x);
+
+/* e8: n8202 */
+n_t_55x.d = !n_t_28x;
+n_t_55x.ck = !n_t_144x;
+n_t_55x.ar = !n3v3;
+n_t_1x.d = !n_t_27x;
+n_t_1x.ck = !n_t_144x;
+n_t_1x.ar = !n3v3;
+n_t_2x.d = !n_t_26x;
+n_t_2x.ck = !n_t_144x;
+n_t_2x.ar = !n3v3;
+n_t_3x.d = !n_t_25x;
+n_t_3x.ck = !n_t_144x;
+n_t_3x.ar = !n3v3;
+n_t_4x.d = !n_t_21x;
+n_t_4x.ck = !n_t_144x;
+n_t_4x.ar = !n3v3;
+n_t_16x.d = !n_t_22x;
+n_t_16x.ck = !n_t_144x;
+n_t_16x.ar = !n3v3;
+n_t_19x.d = !n_t_23x;
+n_t_19x.ck = !n_t_144x;
+n_t_19x.ar = !n3v3;
+n_t_18x.d = !n_t_24x;
+n_t_18x.ck = !n_t_144x;
+n_t_18x.ar = !n3v3;
+n_t_67x.d = !n_t_29x;
+n_t_67x.ck = !n_t_144x;
+n_t_67x.ar = !n3v3;
+n_t_65x.d = !n_t_30x;
+n_t_65x.ck = !n_t_144x;
+n_t_65x.ar = !n3v3;
 
 /* e9: sn7401 */
 /* n_t_48x = !(n_t_58x & y_strobe); */
@@ -276,6 +338,54 @@ out = !n_t_99x & !in & !gdollar_4 & !gdollar_5 & !gdollar_6 & !gdollar_7
 /* n_t_49x = !(n_t_3x & x_strobe); */
 /* n_t_50x = !(n_t_4x & x_strobe); */
 /* n_t_50x = !(n_t_62x & y_strobe); */
+
+/* e12: n8263 */
+n_t_35x = n_t_10x
+        $ (n_t_58x & n_t_11x & n_t_12x
+           # n_t_80x & Inappropriate);
+n_t_36x = n_t_10x
+        $ (n_t_56x & n_t_11x & n_t_12x
+           # n_t_78x & !n_t_11x & n_t_12x);
+n_t_30x = n_t_10x
+        $ (n_t_73x & n_t_11x & n_t_12x
+           # n_t_76x & !n_t_11x & n_t_12x
+           # n_t_8x & n_t_11x & !n_t_12x);
+n_t_29x = n_t_10x
+        $ (n_t_65x & n_t_11x & n_t_12x
+           # n_t_74x & !n_t_11x & n_t_12x
+           # n_t_7x & n_t_11x & !n_t_12x);
+
+/* e13: n8202 */
+n_t_54x.d = !n_t_36x;
+n_t_54x.ck = !n_t_143x;
+n_t_54x.ar = !n3v3;
+n_t_56x.d = !n_t_35x;
+n_t_56x.ck = !n_t_143x;
+n_t_56x.ar = !n3v3;
+n_t_58x.d = !n_t_31x;
+n_t_58x.ck = !n_t_143x;
+n_t_58x.ar = !n3v3;
+n_t_60x.d = !n_t_32x;
+n_t_60x.ck = !n_t_143x;
+n_t_60x.ar = !n3v3;
+n_t_62x.d = !n_t_33x;
+n_t_62x.ck = !n_t_143x;
+n_t_62x.ar = !n3v3;
+n_t_64x.d = !n_t_34x;
+n_t_64x.ck = !n_t_143x;
+n_t_64x.ar = !n3v3;
+n_t_72x.d = !n_t_38x;
+n_t_72x.ck = !n_t_143x;
+n_t_72x.ar = !n3v3;
+n_t_70x.d = !n_t_39x;
+n_t_70x.ck = !n_t_143x;
+n_t_70x.ar = !n3v3;
+n_t_68x.d = !n_t_37x;
+n_t_68x.ck = !n_t_143x;
+n_t_68x.ar = !n3v3;
+n_t_66x.d = !n_t_40x;
+n_t_66x.ck = !n_t_143x;
+n_t_66x.ar = !n3v3;
 
 /* e14: sn7402 */
 n_t_114x = !(n_t_106x
@@ -334,6 +444,37 @@ n_t_120x = !(n_t_53x
            # n_t_63x);
 n_t_122x = !(n_t_120x
            # n_t_132x);
+
+/* e20: n8263 */
+n_t_34x = n_t_10x
+        $ (n_t_72x & n_t_11x & n_t_12x
+           # n_t_88x & Inappropriate);
+n_t_33x = n_t_10x
+        $ (n_t_64x & n_t_11x & n_t_12x
+           # n_t_86x & !n_t_11x & n_t_12x);
+n_t_32x = n_t_10x
+        $ (n_t_62x & n_t_11x & n_t_12x
+           # n_t_84x & !n_t_11x & n_t_12x);
+n_t_31x = n_t_10x
+        $ (n_t_60x & n_t_11x & n_t_12x
+           # n_t_82x & !n_t_11x & n_t_12x);
+
+/* e21: n8263 */
+n_t_40x = n_t_10x
+        $ (n_t_73x & n_t_11x & n_t_12x
+           # n_t_96x & Inappropriate);
+n_t_37x = n_t_10x
+        $ (n_t_66x & n_t_11x & n_t_12x
+           # n_t_95x & !n_t_11x & n_t_12x
+           # n_t_74x & n_t_11x & !n_t_12x);
+n_t_39x = n_t_10x
+        $ (n_t_68x & n_t_11x & n_t_12x
+           # n_t_92x & !n_t_11x & n_t_12x
+           # n_t_13x & n_t_11x & !n_t_12x);
+n_t_38x = n_t_10x
+        $ (n_t_70x & n_t_11x & n_t_12x
+           # n_t_90x & !n_t_11x & n_t_12x
+           # n_t_14x & n_t_11x & !n_t_12x);
 
 /* e22: sn7400 */
 x_strobe = !(n_t_140x & n_t_142x);

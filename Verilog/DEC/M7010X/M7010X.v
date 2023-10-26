@@ -33,7 +33,7 @@
 // c26: c_us 
 // c27: c_us 
 // e1: sn7402 
-module m7010x (n3v3, n_t_121x, n_t_123x, n_t_52x, n_t_104x, n_t_105x, n_t_106x, n_t_108x, n_t_109x, n_t_10x, n_t_112x, n_t_113x, n_t_115x, n_t_118x, n_t_11x, n_t_122x, n_t_129x, n_t_12x, n_t_131x, n_t_132x, n_t_133x, n_t_13x, n_t_143x, n_t_144x, n_t_148x, n_t_149x, n_t_14x, n_t_15x, n_t_16x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_29x, n_t_2x, n_t_30x, n_t_31x, n_t_32x, n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_3x, n_t_40x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_49x, n_t_4x, n_t_50x, n_t_54x, n_t_55x, n_t_56x, n_t_58x, n_t_5x, n_t_60x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_6x, n_t_70x, n_t_72x, n_t_73x, n_t_74x, n_t_76x, n_t_77x, n_t_78x, n_t_7x, n_t_80x, n_t_82x, n_t_84x, n_t_86x, n_t_88x, n_t_8x, n_t_90x, n_t_92x, n_t_95x, n_t_96x, n_t_97x, n_t_9x, start);
+module m7010x (n3v3, n_t_121x, n_t_123x, n_t_52x, n_t_104x, n_t_105x, n_t_106x, n_t_108x, n_t_109x, n_t_112x, n_t_113x, n_t_115x, n_t_118x, n_t_122x, n_t_129x, n_t_131x, n_t_132x, n_t_133x, n_t_13x, n_t_148x, n_t_149x, n_t_14x, n_t_15x, n_t_16x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_2x, n_t_3x, n_t_41x, n_t_42x, n_t_43x, n_t_44x, n_t_45x, n_t_46x, n_t_47x, n_t_48x, n_t_49x, n_t_4x, n_t_50x, n_t_54x, n_t_55x, n_t_56x, n_t_58x, n_t_5x, n_t_60x, n_t_62x, n_t_63x, n_t_64x, n_t_65x, n_t_66x, n_t_67x, n_t_68x, n_t_6x, n_t_70x, n_t_72x, n_t_74x, n_t_76x, n_t_77x, n_t_78x, n_t_7x, n_t_80x, n_t_82x, n_t_84x, n_t_86x, n_t_88x, n_t_8x, n_t_90x, n_t_92x, n_t_95x, n_t_96x, n_t_97x, n_t_9x, start);
 input n3v3;
 input n_t_121x;
 input n_t_123x;
@@ -43,52 +43,27 @@ input n_t_105x;
 input n_t_106x;
 input n_t_108x;
 input n_t_109x;
-output n_t_10x;
 input n_t_112x;
 input n_t_113x;
 input n_t_115x;
 input n_t_118x;
-inout n_t_11x;
 output n_t_122x;
 output n_t_129x;
-inout n_t_12x;
 output n_t_131x;
 input n_t_132x;
 output n_t_133x;
-output n_t_13x;
-output n_t_143x;
-output n_t_144x;
+input n_t_13x;
 input n_t_148x;
 input n_t_149x;
-output n_t_14x;
-output n_t_15x;
-input n_t_16x;
-input n_t_18x;
-input n_t_19x;
-input n_t_1x;
-output n_t_20x;
-output n_t_21x;
-output n_t_22x;
-output n_t_23x;
-output n_t_24x;
-output n_t_25x;
-output n_t_26x;
-output n_t_27x;
-output n_t_28x;
-output n_t_29x;
-input n_t_2x;
-output n_t_30x;
-output n_t_31x;
-output n_t_32x;
-output n_t_33x;
-output n_t_34x;
-output n_t_35x;
-output n_t_36x;
-output n_t_37x;
-output n_t_38x;
-output n_t_39x;
-input n_t_3x;
-output n_t_40x;
+input n_t_14x;
+input n_t_15x;
+inout reg n_t_16x;
+inout reg n_t_18x;
+inout reg n_t_19x;
+inout reg n_t_1x;
+input n_t_20x;
+inout reg n_t_2x;
+inout reg n_t_3x;
 output n_t_41x;
 output n_t_42x;
 output n_t_43x;
@@ -98,44 +73,63 @@ output n_t_46x;
 output n_t_47x;
 output n_t_48x;
 output n_t_49x;
-input n_t_4x;
+inout reg n_t_4x;
 output n_t_50x;
-input n_t_54x;
-input n_t_55x;
-input n_t_56x;
-input n_t_58x;
-output n_t_5x;
-input n_t_60x;
-input n_t_62x;
+inout reg n_t_54x;
+inout reg n_t_55x;
+inout reg n_t_56x;
+inout reg n_t_58x;
+input n_t_5x;
+inout reg n_t_60x;
+inout reg n_t_62x;
 input n_t_63x;
-input n_t_64x;
-input n_t_65x;
-input n_t_66x;
-input n_t_67x;
-input n_t_68x;
-output n_t_6x;
-input n_t_70x;
-input n_t_72x;
-output n_t_73x;
-output n_t_74x;
-output n_t_76x;
+inout reg n_t_64x;
+inout reg n_t_65x;
+inout reg n_t_66x;
+inout reg n_t_67x;
+inout reg n_t_68x;
+input n_t_6x;
+inout reg n_t_70x;
+inout reg n_t_72x;
+input n_t_74x;
+input n_t_76x;
 input n_t_77x;
-output n_t_78x;
-output n_t_7x;
-output n_t_80x;
-output n_t_82x;
-output n_t_84x;
-output n_t_86x;
-output n_t_88x;
-output n_t_8x;
-output n_t_90x;
-output n_t_92x;
-output n_t_95x;
-output n_t_96x;
+input n_t_78x;
+input n_t_7x;
+input n_t_80x;
+input n_t_82x;
+input n_t_84x;
+input n_t_86x;
+input n_t_88x;
+input n_t_8x;
+input n_t_90x;
+input n_t_92x;
+input n_t_95x;
+input n_t_96x;
 input n_t_97x;
-output n_t_9x;
+input n_t_9x;
 output start;
 
+reg n_t_16x_m;
+reg n_t_18x_m;
+reg n_t_19x_m;
+reg n_t_1x_m;
+reg n_t_2x_m;
+reg n_t_3x_m;
+reg n_t_4x_m;
+reg n_t_54x_m;
+reg n_t_55x_m;
+reg n_t_56x_m;
+reg n_t_58x_m;
+reg n_t_60x_m;
+reg n_t_62x_m;
+reg n_t_64x_m;
+reg n_t_65x_m;
+reg n_t_66x_m;
+reg n_t_67x_m;
+reg n_t_68x_m;
+reg n_t_70x_m;
+reg n_t_72x_m;
 
 wire gdollar_2;
 wire gdollar_3;
@@ -150,18 +144,44 @@ wire gdollar_11;
 wire in;
 wire n_t_102x;
 wire n_t_107x;
+wire n_t_10x;
 wire n_t_110x;
 wire n_t_114x;
 wire n_t_116x;
 wire n_t_117x;
+wire n_t_11x;
 wire n_t_120x;
+wire n_t_12x;
 wire n_t_140x;
 wire n_t_141x;
 wire n_t_142x;
+wire n_t_143x;
+wire n_t_144x;
 wire n_t_145x;
 wire n_t_17x;
+wire n_t_21x;
+wire n_t_22x;
+wire n_t_23x;
+wire n_t_24x;
+wire n_t_25x;
+wire n_t_26x;
+wire n_t_27x;
+wire n_t_28x;
+wire n_t_29x;
+wire n_t_30x;
+wire n_t_31x;
+wire n_t_32x;
+wire n_t_33x;
+wire n_t_34x;
+wire n_t_35x;
+wire n_t_36x;
+wire n_t_37x;
+wire n_t_38x;
+wire n_t_39x;
+wire n_t_40x;
 wire n_t_51x;
 wire n_t_53x;
+wire n_t_73x;
 wire n_t_99x;
 wire out;
 wire shift_clock;
@@ -176,6 +196,19 @@ assign n_t_131x = ~(n_t_123x
 // e2: sn7440 
 assign n_t_110x = ~(n_t_53x & n_t_112x & n_t_113x & n_t_113x);
 assign n_t_53x = ~(n_t_108x & n_t_109x & n_t_110x);
+// e3: n8263 
+assign n_t_25x = n_t_10x
+                  ^ (n_t_4x & n_t_11x & n_t_12x
+                     | n_t_8x & inappropriate);
+assign n_t_26x = n_t_10x
+                  ^ (n_t_3x & n_t_11x & n_t_12x
+                     | n_t_7x & ~n_t_11x & n_t_12x);
+assign n_t_27x = n_t_10x
+                  ^ (n_t_2x & n_t_11x & n_t_12x
+                     | n_t_6x & ~n_t_11x & n_t_12x);
+assign n_t_28x = n_t_10x
+                  ^ (n_t_1x & n_t_11x & n_t_12x
+                     | n_t_5x & ~n_t_11x & n_t_12x);
 // e4: sn7400 
 assign n_t_143x = ~(n_t_116x & shift_clock);
 assign n_t_144x = ~(n_t_117x & shift_clock);
@@ -195,6 +228,162 @@ assign n_t_73x = n_t_102x & ~gdollar_2 & ~gdollar_3;
 assign out = ~n_t_102x & ~in & ~gdollar_2 & ~gdollar_3
               | n_t_1x & ~gdollar_2 & gdollar_3
               | n_t_55x & gdollar_2;
+// e7: n8263 
+assign n_t_24x = n_t_10x
+                  ^ (n_t_67x & n_t_11x & n_t_12x
+                     | n_t_13x & inappropriate);
+assign n_t_23x = n_t_10x
+                  ^ (n_t_18x & n_t_11x & n_t_12x
+                     | n_t_14x & ~n_t_11x & n_t_12x
+                     | n_t_5x & n_t_11x & ~n_t_12x);
+assign n_t_22x = n_t_10x
+                  ^ (n_t_19x & n_t_11x & n_t_12x
+                     | n_t_15x & ~n_t_11x & n_t_12x
+                     | n_t_9x & n_t_11x & ~n_t_12x);
+assign n_t_21x = n_t_10x
+                  ^ (n_t_16x & n_t_11x & n_t_12x
+                     | n_t_20x & ~n_t_11x & n_t_12x);
+// e8: n8202 
+always @(n_t_144x, n3v3, n_t_28x)
+  if (~n3v3) begin
+    n_t_55x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_55x_m <= ~n_t_28x;
+  end
+always @(n_t_144x, n3v3, n_t_55x_m)
+  if (~n3v3) begin
+    n_t_55x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_55x <= n_t_55x_m;
+  end
+always @(n_t_144x, n3v3, n_t_27x)
+  if (~n3v3) begin
+    n_t_1x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_1x_m <= ~n_t_27x;
+  end
+always @(n_t_144x, n3v3, n_t_1x_m)
+  if (~n3v3) begin
+    n_t_1x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_1x <= n_t_1x_m;
+  end
+always @(n_t_144x, n3v3, n_t_26x)
+  if (~n3v3) begin
+    n_t_2x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_2x_m <= ~n_t_26x;
+  end
+always @(n_t_144x, n3v3, n_t_2x_m)
+  if (~n3v3) begin
+    n_t_2x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_2x <= n_t_2x_m;
+  end
+always @(n_t_144x, n3v3, n_t_25x)
+  if (~n3v3) begin
+    n_t_3x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_3x_m <= ~n_t_25x;
+  end
+always @(n_t_144x, n3v3, n_t_3x_m)
+  if (~n3v3) begin
+    n_t_3x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_3x <= n_t_3x_m;
+  end
+always @(n_t_144x, n3v3, n_t_21x)
+  if (~n3v3) begin
+    n_t_4x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_4x_m <= ~n_t_21x;
+  end
+always @(n_t_144x, n3v3, n_t_4x_m)
+  if (~n3v3) begin
+    n_t_4x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_4x <= n_t_4x_m;
+  end
+always @(n_t_144x, n3v3, n_t_22x)
+  if (~n3v3) begin
+    n_t_16x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_16x_m <= ~n_t_22x;
+  end
+always @(n_t_144x, n3v3, n_t_16x_m)
+  if (~n3v3) begin
+    n_t_16x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_16x <= n_t_16x_m;
+  end
+always @(n_t_144x, n3v3, n_t_23x)
+  if (~n3v3) begin
+    n_t_19x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_19x_m <= ~n_t_23x;
+  end
+always @(n_t_144x, n3v3, n_t_19x_m)
+  if (~n3v3) begin
+    n_t_19x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_19x <= n_t_19x_m;
+  end
+always @(n_t_144x, n3v3, n_t_24x)
+  if (~n3v3) begin
+    n_t_18x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_18x_m <= ~n_t_24x;
+  end
+always @(n_t_144x, n3v3, n_t_18x_m)
+  if (~n3v3) begin
+    n_t_18x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_18x <= n_t_18x_m;
+  end
+always @(n_t_144x, n3v3, n_t_29x)
+  if (~n3v3) begin
+    n_t_67x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_67x_m <= ~n_t_29x;
+  end
+always @(n_t_144x, n3v3, n_t_67x_m)
+  if (~n3v3) begin
+    n_t_67x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_67x <= n_t_67x_m;
+  end
+always @(n_t_144x, n3v3, n_t_30x)
+  if (~n3v3) begin
+    n_t_65x_m <= 1'b0;
+  end else
+  if (~(~n_t_144x)) begin
+    n_t_65x_m <= ~n_t_30x;
+  end
+always @(n_t_144x, n3v3, n_t_65x_m)
+  if (~n3v3) begin
+    n_t_65x <= 1'b0;
+  end else
+  if (~n_t_144x) begin
+    n_t_65x <= n_t_65x_m;
+  end
 // e9: sn7401 
 // n_t_48x = !(n_t_58x & y_strobe); 
 // n_t_48x = !(x_strobe & n_t_2x); 
@@ -225,6 +414,162 @@ assign out = ~n_t_99x & ~in & ~gdollar_4 & ~gdollar_5 & ~gdollar_6 & ~gdollar_7
 // n_t_49x = !(n_t_3x & x_strobe); 
 // n_t_50x = !(n_t_4x & x_strobe); 
 // n_t_50x = !(n_t_62x & y_strobe); 
+// e12: n8263 
+assign n_t_35x = n_t_10x
+                  ^ (n_t_58x & n_t_11x & n_t_12x
+                     | n_t_80x & inappropriate);
+assign n_t_36x = n_t_10x
+                  ^ (n_t_56x & n_t_11x & n_t_12x
+                     | n_t_78x & ~n_t_11x & n_t_12x);
+assign n_t_30x = n_t_10x
+                  ^ (n_t_73x & n_t_11x & n_t_12x
+                     | n_t_76x & ~n_t_11x & n_t_12x
+                     | n_t_8x & n_t_11x & ~n_t_12x);
+assign n_t_29x = n_t_10x
+                  ^ (n_t_65x & n_t_11x & n_t_12x
+                     | n_t_74x & ~n_t_11x & n_t_12x
+                     | n_t_7x & n_t_11x & ~n_t_12x);
+// e13: n8202 
+always @(n_t_143x, n3v3, n_t_36x)
+  if (~n3v3) begin
+    n_t_54x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_54x_m <= ~n_t_36x;
+  end
+always @(n_t_143x, n3v3, n_t_54x_m)
+  if (~n3v3) begin
+    n_t_54x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_54x <= n_t_54x_m;
+  end
+always @(n_t_143x, n3v3, n_t_35x)
+  if (~n3v3) begin
+    n_t_56x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_56x_m <= ~n_t_35x;
+  end
+always @(n_t_143x, n3v3, n_t_56x_m)
+  if (~n3v3) begin
+    n_t_56x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_56x <= n_t_56x_m;
+  end
+always @(n_t_143x, n3v3, n_t_31x)
+  if (~n3v3) begin
+    n_t_58x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_58x_m <= ~n_t_31x;
+  end
+always @(n_t_143x, n3v3, n_t_58x_m)
+  if (~n3v3) begin
+    n_t_58x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_58x <= n_t_58x_m;
+  end
+always @(n_t_143x, n3v3, n_t_32x)
+  if (~n3v3) begin
+    n_t_60x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_60x_m <= ~n_t_32x;
+  end
+always @(n_t_143x, n3v3, n_t_60x_m)
+  if (~n3v3) begin
+    n_t_60x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_60x <= n_t_60x_m;
+  end
+always @(n_t_143x, n3v3, n_t_33x)
+  if (~n3v3) begin
+    n_t_62x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_62x_m <= ~n_t_33x;
+  end
+always @(n_t_143x, n3v3, n_t_62x_m)
+  if (~n3v3) begin
+    n_t_62x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_62x <= n_t_62x_m;
+  end
+always @(n_t_143x, n3v3, n_t_34x)
+  if (~n3v3) begin
+    n_t_64x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_64x_m <= ~n_t_34x;
+  end
+always @(n_t_143x, n3v3, n_t_64x_m)
+  if (~n3v3) begin
+    n_t_64x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_64x <= n_t_64x_m;
+  end
+always @(n_t_143x, n3v3, n_t_38x)
+  if (~n3v3) begin
+    n_t_72x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_72x_m <= ~n_t_38x;
+  end
+always @(n_t_143x, n3v3, n_t_72x_m)
+  if (~n3v3) begin
+    n_t_72x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_72x <= n_t_72x_m;
+  end
+always @(n_t_143x, n3v3, n_t_39x)
+  if (~n3v3) begin
+    n_t_70x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_70x_m <= ~n_t_39x;
+  end
+always @(n_t_143x, n3v3, n_t_70x_m)
+  if (~n3v3) begin
+    n_t_70x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_70x <= n_t_70x_m;
+  end
+always @(n_t_143x, n3v3, n_t_37x)
+  if (~n3v3) begin
+    n_t_68x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_68x_m <= ~n_t_37x;
+  end
+always @(n_t_143x, n3v3, n_t_68x_m)
+  if (~n3v3) begin
+    n_t_68x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_68x <= n_t_68x_m;
+  end
+always @(n_t_143x, n3v3, n_t_40x)
+  if (~n3v3) begin
+    n_t_66x_m <= 1'b0;
+  end else
+  if (~(~n_t_143x)) begin
+    n_t_66x_m <= ~n_t_40x;
+  end
+always @(n_t_143x, n3v3, n_t_66x_m)
+  if (~n3v3) begin
+    n_t_66x <= 1'b0;
+  end else
+  if (~n_t_143x) begin
+    n_t_66x <= n_t_66x_m;
+  end
 // e14: sn7402 
 assign n_t_114x = ~(n_t_106x
                      | n_t_53x);
@@ -276,6 +621,35 @@ assign n_t_120x = ~(n_t_53x
                      | n_t_63x);
 assign n_t_122x = ~(n_t_120x
                      | n_t_132x);
+// e20: n8263 
+assign n_t_34x = n_t_10x
+                  ^ (n_t_72x & n_t_11x & n_t_12x
+                     | n_t_88x & inappropriate);
+assign n_t_33x = n_t_10x
+                  ^ (n_t_64x & n_t_11x & n_t_12x
+                     | n_t_86x & ~n_t_11x & n_t_12x);
+assign n_t_32x = n_t_10x
+                  ^ (n_t_62x & n_t_11x & n_t_12x
+                     | n_t_84x & ~n_t_11x & n_t_12x);
+assign n_t_31x = n_t_10x
+                  ^ (n_t_60x & n_t_11x & n_t_12x
+                     | n_t_82x & ~n_t_11x & n_t_12x);
+// e21: n8263 
+assign n_t_40x = n_t_10x
+                  ^ (n_t_73x & n_t_11x & n_t_12x
+                     | n_t_96x & inappropriate);
+assign n_t_37x = n_t_10x
+                  ^ (n_t_66x & n_t_11x & n_t_12x
+                     | n_t_95x & ~n_t_11x & n_t_12x
+                     | n_t_74x & n_t_11x & ~n_t_12x);
+assign n_t_39x = n_t_10x
+                  ^ (n_t_68x & n_t_11x & n_t_12x
+                     | n_t_92x & ~n_t_11x & n_t_12x
+                     | n_t_13x & n_t_11x & ~n_t_12x);
+assign n_t_38x = n_t_10x
+                  ^ (n_t_70x & n_t_11x & n_t_12x
+                     | n_t_90x & ~n_t_11x & n_t_12x
+                     | n_t_14x & n_t_11x & ~n_t_12x);
 // e22: sn7400 
 assign x_strobe = ~(n_t_140x & n_t_142x);
 assign y_strobe = ~(n_t_141x & n_t_145x);

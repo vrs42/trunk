@@ -21,10 +21,6 @@
 #   The mc1439 is an op amp.
 #   The mc1709 is an op amp.
 
-# TODO: dec4015 is a quad R/S latch (with common R).
-# TODO: n8242 is essentially a 74266n (aka dec8242!).
-# TODO: n8263 is a quad 3-1 MUX (with common selects).
-
 #
 # Known bugs:
 #  Signal names are sometimes generated to provide access to
@@ -1900,7 +1896,6 @@ sub sn74393 {
 }
 $hidden{'sn74393'} = 0;
 
-
 # 10 bit latch (positive edge)
 # These are actually preposterously rare.  Even more so than
 # the dec8202.
@@ -2002,6 +1997,44 @@ sub dec3001n {
 }
 $hidden{'dec3001n'} = 0;
 
+# Quad D Flop (with common R).
+# AKA mc4015
+sub dec4015 {
+  ($q0, $q1, $q2, $q3) = ($pad{6}, $pad{7}, $pad{9}, $pad{10});
+  ($d0, $d1, $d2, $d3) = ($pad{1}, $pad{1}, $pad{15}, $pad{14});
+  ($s0, $s1, $s2, $s3) = ($pad{4}, $pad{3}, $pad{11}, $pad{12});
+  ($ck, $r_) = ($pad{13}, $pad{3});
+  if (defined $q0) {
+    &pinnode($q0);
+    &qcode("$q0.ar = !$r_;\n") if defined $r_;
+    &qcode("$q0.ap = !$s0;\n") if defined $s0;
+    &qcode("$q0.ck = $ck;\n");
+    &qcode("$q0.d  = $d0;\n");
+  }
+  if (defined $q1) {
+    &pinnode($q1);
+    &qcode("$q1.ar = !$r_;\n") if defined $r_;
+    &qcode("$q1.ap = !$s1;\n") if defined $s1;
+    &qcode("$q1.ck = $ck;\n");
+    &qcode("$q1.d  = $d1;\n");
+  }
+  if (defined $q2) {
+    &pinnode($q2);
+    &qcode("$q2.ar = !$r_;\n") if defined $r_;
+    &qcode("$q2.ap = !$s2;\n") if defined $s2;
+    &qcode("$q2.ck = $ck;\n");
+    &qcode("$q2.d  = $d2;\n");
+  }
+  if (defined $q3) {
+    &pinnode($q3);
+    &qcode("$q3.ar = !$r_;\n") if defined $r_;
+    &qcode("$q3.ap = !$s3;\n") if defined $s3;
+    &qcode("$q3.ck = $ck;\n");
+    &qcode("$q3.d  = $d3;\n");
+  }
+}
+$hidden{'dec4015'} = 0;
+
 # 10 bit latch (negative edge)
 sub dec8202 {
   if (defined $pad{22}) {
@@ -2093,6 +2126,7 @@ sub dec8235 {
 }
 $hidden{'dec8235'} = 0;
 
+# dec8242 is essentially a 74266.
 sub dec8242 {
   $oc{$pad{3}} = 1;
   $oc{$pad{4}} = 1;
@@ -2333,6 +2367,35 @@ sub ds8641n {
   }
 }
 $hidden{'ds8641n'} = 0;
+
+# 10 bit latch (negative edge)
+sub n8202 {
+  &dec8202;
+}
+$hidden{'n8202'} = 0;
+
+# n8263 is a quad 3-1 MUX (with common selects).
+# The data sheet describes e1, e2, and e3 pinout for 8263,
+# but they seem to be an 8264 thing.
+sub n8263 {
+  local($a0, $a1, $a2, $a3) = ($pad{4}, $pad{1}, $pad{23}, $pad{20});
+  local($b0, $b1, $b2, $b3) = ($pad{5}, $pad{2}, $pad{22}, $pad{19});
+  local($c0, $c1, $c2, $c3) = ($pad{6}, $pad{3}, $pad{21}, $pad{18});
+  local($s0, $s1, $dc) = ($pad{17}, $pad{16}, $pad{15});
+  local($f0, $f1, $f2, $f3) = ($pad{10}, $pad{11}, $pad{13}, $pad{14});
+# local($e1, $e2, $e3) = ($pad{7}, $pad{8}, $pad{9});
+  &qcode("$f0 = $dc \$ ($a0&$s0&$s1 # $b0&$!s0&$s1 # $c0&$s0&!$s1);\n")
+    if defined $f0;
+  &qcode("$f1 = $dc \$ ($a1&$s0&$s1 # $b1&!$s0&$s1 # $c1&$s0&!$s1);\n")
+    if defined $f1;
+  &qcode("$f2 = $dc \$ ($a2&$s0&$s1 # $b2&!$s0&$s1 # $c2&$s0&!$s1);\n")
+    if defined $f2;
+  &qcode("$f3 = $dc \$ ($a3&$s0&$s1 # $b3&!$s0&$s1 # $c3&$s0&!$s1);\n")
+    if defined $f3;
+}
+$hidden{'n8263'} = 0;
+
+# TODO: n8264 is an OC version of n8263.
 
 sub n8815 {
   &qcode("!$pad{6} = $pad{1} # $pad{2} # $pad{4} # $pad{5};\n") if defined $pad{6};
@@ -2885,12 +2948,11 @@ while (<INPUT>) {
   $value =~ s/^74hct/74/;
   $value =~ s/^74als/74/;
   $value =~ s/^lm(.*)n/lm\1/;
-  $value =~ s/^74(.*)nt$/sn74\1/;
-  $value =~ s/^74(.*)n/sn74\1/;
-  $value =~ s/^(\d*74\d*)$/sn\1/;
-  $value =~ s/^(\d*88\d*)$/ds\1/;
-  $value =~ s/^(\d*82\d*)$/dec\1/;
-  $value =~ s/^74(.*)/sn74\1/;
+  $value =~ s/^(74.*)$/sn\1/;
+  $value =~ s/^sn74(.*)nt$/sn74\1/;
+  $value =~ s/^sn74(.*)n/sn74\1/;
+  $value =~ s/^(88.*)$/ds\1/;
+  $value =~ s/^(82.*)$/dec\1/;
   $partlist{$part} = $value;
   #
   # This is probably made redundant by the assumption that, if we

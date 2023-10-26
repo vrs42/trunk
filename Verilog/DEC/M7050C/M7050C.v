@@ -29,13 +29,13 @@
 // c22: cpol_use 
 // c23: c_us 
 // c24: c_us 
-// e2: sn7400 
-module m7050c (n_t_17x, n_t_30x, n_t_39x, ac1, aj2, at2, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n3v3, n5v_1, n5v_2, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_1x, n_t_21x, n_t_26x, n_t_29x, n_t_2x, n_t_34x, n_t_37x, n_t_3x, n_t_9x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, shift, shift_l, skip, stop_complete, stop_delay);
+// e1: dec4015 
+module m7050c (n_t_17x, n_t_30x, n_t_39x, ac1, aj2, at2, ba1, ba_lp_0_rp, ba_lp_1_rp, bb_lp_0_rp, bb_lp_1_rp, bc1, bn1, clk_l, clock1, enable_l, feed_hole, feed_switch, inhibit_strobe_l, initialize_l, int_request, iob_in_10, iob_in_11, iob_in_4, iob_in_5, iob_in_6, iob_in_7, iob_in_8, iob_in_9, iop1, iop2, iop4, iot_011, mb3_lp_0_rp, mb4_lp_0_rp, mb5_lp_0_rp, mb6_lp_0_rp, mb7_lp_0_rp, mb8_lp_1_rp, n3v3, n5v_1, n5v_2, n_t_1x, n_t_21x, n_t_26x, n_t_29x, n_t_34x, n_t_37x, offline, out_of_tape, pwr, rd_hole_1, rd_hole_2, rd_hole_3, rd_hole_4, rd_hole_5, rd_hole_6, rd_hole_7, rd_hole_8, rdr_run_l, rfc_delayed_l, shift, shift_l, skip, stop_complete, stop_delay);
 input n_t_17x;
 input n_t_30x;
 input n_t_39x;
 inout ac1;
-output aj2;
+input aj2;
 inout at2;
 inout ba1;
 output ba_lp_0_rp;
@@ -73,31 +73,23 @@ input mb8_lp_1_rp;
 inout n3v3;
 output n5v_1;
 output n5v_2;
-input n_t_10x;
-input n_t_11x;
-input n_t_12x;
-input n_t_13x;
-input n_t_14x;
 output n_t_1x;
 inout n_t_21x;
 output n_t_26x;
 output n_t_29x;
-input n_t_2x;
 input n_t_34x;
 output n_t_37x;
-input n_t_3x;
-input n_t_9x;
 input offline;
 output out_of_tape;
 output pwr;
-output rd_hole_1;
-output rd_hole_2;
+input rd_hole_1;
+input rd_hole_2;
 output rd_hole_3;
-output rd_hole_4;
+input rd_hole_4;
 output rd_hole_5;
-output rd_hole_6;
-output rd_hole_7;
-output rd_hole_8;
+input rd_hole_6;
+input rd_hole_7;
+input rd_hole_8;
 inout rdr_run_l;
 inout rfc_delayed_l;
 input shift;
@@ -109,10 +101,26 @@ input stop_delay;
 reg ba_m;
 reg bb_m;
 reg enable_m;
+reg n_t_10x_m;
+reg n_t_11x_m;
+reg n_t_12x_m;
+reg n_t_13x_m;
+reg n_t_14x_m;
 reg n_t_27x_m;
+reg n_t_2x_m;
+reg n_t_3x_m;
+reg n_t_9x_m;
 reg rdr_flag_m;
 reg rdr_run_m;
 
+reg n_t_10x;
+reg n_t_9x;
+reg n_t_3x;
+reg n_t_2x;
+reg n_t_12x;
+reg n_t_11x;
+reg n_t_13x;
+reg n_t_14x;
 reg rdr_run;
 reg rdr_flag;
 reg n_t_27x;
@@ -133,10 +141,172 @@ wire n_t_40x;
 wire n_t_41x;
 wire n_t_5x;
 wire out_of_tape_l;
+always @(ac1, aj2, n3v3, rd_hole_6)
+  if (~aj2) begin
+    n_t_10x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_10x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_10x_m <= rd_hole_6;
+  end
+always @(ac1, aj2, n3v3, n_t_10x_m)
+  if (~aj2) begin
+    n_t_10x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_10x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_10x <= n_t_10x_m;
+  end
+always @(ac1, aj2, aj2, rd_hole_6)
+  if (~aj2) begin
+    n_t_9x_m <= 1'b0;
+  end else
+  if (~aj2) begin
+    n_t_9x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_9x_m <= rd_hole_6;
+  end
+always @(ac1, aj2, aj2, n_t_9x_m)
+  if (~aj2) begin
+    n_t_9x <= 1'b0;
+  end else
+  if (~aj2) begin
+    n_t_9x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_9x <= n_t_9x_m;
+  end
+always @(ac1, aj2, n3v3, rd_hole_7)
+  if (~aj2) begin
+    n_t_3x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_3x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_3x_m <= rd_hole_7;
+  end
+always @(ac1, aj2, n3v3, n_t_3x_m)
+  if (~aj2) begin
+    n_t_3x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_3x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_3x <= n_t_3x_m;
+  end
+always @(ac1, aj2, n3v3, rd_hole_8)
+  if (~aj2) begin
+    n_t_2x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_2x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_2x_m <= rd_hole_8;
+  end
+always @(ac1, aj2, n3v3, n_t_2x_m)
+  if (~aj2) begin
+    n_t_2x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_2x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_2x <= n_t_2x_m;
+  end
+// e2: sn7400 
 assign rfc_delayed_l = ~(out_of_tape_l & n_t_30x);
 assign out_of_tape_l = ~(~(n_t_34x & offline));
 assign n_t_16x = ~(~out_of_tape_l & clock1);
 assign clr_run_l = ~(~(n_t_16x & initialize_l));
+// e4: dec4015 
+always @(ac1, aj2, n3v3, rd_hole_4)
+  if (~aj2) begin
+    n_t_12x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_12x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_12x_m <= rd_hole_4;
+  end
+always @(ac1, aj2, n3v3, n_t_12x_m)
+  if (~aj2) begin
+    n_t_12x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_12x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_12x <= n_t_12x_m;
+  end
+always @(ac1, aj2, aj2, rd_hole_4)
+  if (~aj2) begin
+    n_t_11x_m <= 1'b0;
+  end else
+  if (~aj2) begin
+    n_t_11x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_11x_m <= rd_hole_4;
+  end
+always @(ac1, aj2, aj2, n_t_11x_m)
+  if (~aj2) begin
+    n_t_11x <= 1'b0;
+  end else
+  if (~aj2) begin
+    n_t_11x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_11x <= n_t_11x_m;
+  end
+always @(ac1, aj2, n3v3, rd_hole_2)
+  if (~aj2) begin
+    n_t_13x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_13x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_13x_m <= rd_hole_2;
+  end
+always @(ac1, aj2, n3v3, n_t_13x_m)
+  if (~aj2) begin
+    n_t_13x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_13x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_13x <= n_t_13x_m;
+  end
+always @(ac1, aj2, n3v3, rd_hole_1)
+  if (~aj2) begin
+    n_t_14x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_14x_m <= 1'b1;
+  end else
+  if (~(ac1)) begin
+    n_t_14x_m <= rd_hole_1;
+  end
+always @(ac1, aj2, n3v3, n_t_14x_m)
+  if (~aj2) begin
+    n_t_14x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_14x <= 1'b1;
+  end else
+  if (ac1) begin
+    n_t_14x <= n_t_14x_m;
+  end
 // e5: sn7474 
 always @(ac1, clr_run_l, rfc_delayed_l, 1'b0)
   if (~clr_run_l) begin
