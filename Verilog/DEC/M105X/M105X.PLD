@@ -28,29 +28,8 @@ pin = n_t_41x;
 pin = n_t_42x;
 
 /* Output Pins */
-pin = a0;
-pin = a1;
-pin = a10;
-pin = a11;
-pin = a12;
-pin = a13;
-pin = a14;
-pin = a15;
-pin = a16;
-pin = a17;
-pin = a2;
-pin = a3;
-pin = a4;
-pin = a5;
-pin = a6;
-pin = a7;
-pin = a8;
-pin = a9;
-pin = c0;
-pin = c1;
 pin = c1_l;
 pin = extgnd;
-pin = msyn;
 pin = n_t_10x;
 pin = n_t_11x;
 pin = n_t_12x;
@@ -82,21 +61,42 @@ pin = n_t_6x;
 pin = n_t_7x;
 pin = n_t_8x;
 pin = n_t_9x;
-pin = outhigh;
-pin = outlow;
-pin = select0;
-pin = select2;
-pin = select4;
-pin = select6;
 pin = syn_l;
 pin = testpoint;
 
 /* Internal nodes */
 $IFNDEF OPTIMIZE
+node a0;
+node a1;
+node a10;
+node a11;
+node a12;
+node a13;
+node a14;
+node a15;
+node a16;
+node a17;
+node a2;
+node a3;
+node a4;
+node a5;
+node a6;
+node a7;
+node a8;
+node a9;
+node c0;
+node c1;
+node msyn;
 node n_t_29x;
 node n_t_30x;
 node n_t_31x;
 node n_t_46x;
+node outhigh;
+node outlow;
+node select0;
+node select2;
+node select4;
+node select6;
 $ENDIF
 
 /* Code nodes */
@@ -139,6 +139,22 @@ n_t_30x = !(a15 & a16);
 n_t_31x = !(msyn & a17);
 n_t_46x = !n_t_31x;
 
+/* e2: am26s10 */
+a1 = !n_t_5x;
+/* n_t_5x = 'b'1; */
+a2 = !n_t_7x;
+/* n_t_7x = 'b'1; */
+a16 = !n_t_8x;
+/* n_t_8x = 'b'1; */
+
+/* e3: am26s10 */
+a15 = !n_t_2x;
+/* n_t_2x = 'b'1; */
+a17 = !n_t_3x;
+/* n_t_3x = 'b'1; */
+a12 = !n_t_4x;
+/* n_t_4x = 'b'1; */
+
 /* e4: sn7438 */
 /* testpoint = !(n_t_46x & n_t_43x); */
 /* n_t_22x = !testpoint; */
@@ -152,6 +168,20 @@ n_t_46x = !n_t_31x;
         $ n_t_33x); */
 /* n_t_43x = !n_t_29x; */
 /* n_t_43x = !n_t_30x; */
+
+/* e6: am26s10 */
+/* n_t_45x = 'b'1; */
+/* n_t_28x = 'b'1; */
+a11 = !n_t_16x;
+/* n_t_16x = 'b'1; */
+
+/* e7: am26s10 */
+a14 = !n_t_10x;
+/* n_t_10x = 'b'1; */
+c0 = !n_t_11x;
+/* n_t_11x = 'b'1; */
+a0 = !n_t_12x;
+/* n_t_12x = 'b'1; */
 
 /* e8: sn74139 */
 !select0 = [a1,a2]:'b'00;
@@ -171,6 +201,28 @@ n_t_46x = !n_t_31x;
 /* n_t_43x = !(a6
         $ n_t_36x); */
 
+/* e10: am26s10 */
+/* n_t_25x = !(select6 & testpoint); */
+/* n_t_26x = !(select0 & testpoint); */
+ = !n_t_23x;
+/* n_t_23x = !(select0 & testpoint); */
+
+/* e11: am26s10 */
+a4 = !n_t_20x;
+/* n_t_20x = 'b'1; */
+a5 = !n_t_21x;
+/* n_t_21x = 'b'1; */
+a7 = !n_t_13x;
+/* n_t_13x = 'b'1; */
+
+/* e12: am26s10 */
+a9 = !n_t_17x;
+/* n_t_17x = 'b'1; */
+a10 = !n_t_14x;
+/* n_t_14x = 'b'1; */
+a8 = !n_t_15x;
+/* n_t_15x = 'b'1; */
+
 /* e13: sn74266 */
 /* n_t_43x = !(a12
         $ n_t_42x); */
@@ -185,9 +237,57 @@ n_t_46x = !n_t_31x;
 property atmel {open_collector= c1_l};
 !c1_l = c1;
 c1_l.oe = c1;
+property atmel {open_collector= n_t_10x};
+!n_t_10x = 'b'0;
+n_t_10x.oe = 'b'0;
+property atmel {open_collector= n_t_11x};
+!n_t_11x = 'b'0;
+n_t_11x.oe = 'b'0;
+property atmel {open_collector= n_t_12x};
+!n_t_12x = 'b'0;
+n_t_12x.oe = 'b'0;
+property atmel {open_collector= n_t_13x};
+!n_t_13x = 'b'0;
+n_t_13x.oe = 'b'0;
+property atmel {open_collector= n_t_14x};
+!n_t_14x = 'b'0;
+n_t_14x.oe = 'b'0;
+property atmel {open_collector= n_t_15x};
+!n_t_15x = 'b'0;
+n_t_15x.oe = 'b'0;
+property atmel {open_collector= n_t_16x};
+!n_t_16x = 'b'0;
+n_t_16x.oe = 'b'0;
+property atmel {open_collector= n_t_17x};
+!n_t_17x = 'b'0;
+n_t_17x.oe = 'b'0;
+property atmel {open_collector= n_t_20x};
+!n_t_20x = 'b'0;
+n_t_20x.oe = 'b'0;
+property atmel {open_collector= n_t_21x};
+!n_t_21x = 'b'0;
+n_t_21x.oe = 'b'0;
 property atmel {open_collector= n_t_22x};
 !n_t_22x = testpoint;
 n_t_22x.oe = testpoint;
+property atmel {open_collector= n_t_23x};
+!n_t_23x = (select0 & testpoint);
+n_t_23x.oe = (select0 & testpoint);
+property atmel {open_collector= n_t_25x};
+!n_t_25x = (select6 & testpoint);
+n_t_25x.oe = (select6 & testpoint);
+property atmel {open_collector= n_t_26x};
+!n_t_26x = (select0 & testpoint);
+n_t_26x.oe = (select0 & testpoint);
+property atmel {open_collector= n_t_28x};
+!n_t_28x = 'b'0;
+n_t_28x.oe = 'b'0;
+property atmel {open_collector= n_t_2x};
+!n_t_2x = 'b'0;
+n_t_2x.oe = 'b'0;
+property atmel {open_collector= n_t_3x};
+!n_t_3x = 'b'0;
+n_t_3x.oe = 'b'0;
 property atmel {open_collector= n_t_43x};
 !n_t_43x = (a4
         $ n_t_34x)
@@ -233,6 +333,21 @@ n_t_43x.oe = (a4
         $ n_t_39x)
         # (a10
         $ n_t_40x);
+property atmel {open_collector= n_t_45x};
+!n_t_45x = 'b'0;
+n_t_45x.oe = 'b'0;
+property atmel {open_collector= n_t_4x};
+!n_t_4x = 'b'0;
+n_t_4x.oe = 'b'0;
+property atmel {open_collector= n_t_5x};
+!n_t_5x = 'b'0;
+n_t_5x.oe = 'b'0;
+property atmel {open_collector= n_t_7x};
+!n_t_7x = 'b'0;
+n_t_7x.oe = 'b'0;
+property atmel {open_collector= n_t_8x};
+!n_t_8x = 'b'0;
+n_t_8x.oe = 'b'0;
 property atmel {open_collector= syn_l};
 !syn_l = n_t_44x;
 syn_l.oe = n_t_44x;

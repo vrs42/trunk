@@ -85,7 +85,7 @@
 // n_t_20x = !(!n_t_13x & !n_t_18x
 //        # n_t_13x & n_t_18x); 
 // e3: sn7400 
-module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, initialize, int_rqst_l, internal_io_l, io_pause_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_145x, n_t_146x, n_t_19x, n_t_20x, n_t_40x, n_t_41x, n_t_50x, n_t_59x, n_t_60x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx20ma_data_l, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
+module m8655b (b1, b2, b3, bd96_192, clko_en, evn, fill, n3v3, n_t_10x, n_t_112x, n_t_11x, n_t_122x, n_t_12x, n_t_139x, n_t_13x, n_t_144x, n_t_1x, n_t_2x, n_t_3x, n_t_4x, n_t_5x, n_t_6x, n_t_8x, n_t_9x, nb1, nb2, np, r=150, swd, tclki, test_sync, trans_246_l, tsb, c0_l, c1_l, data00_l, data01_l, data02_l, data03_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, eia_in, eia_out, framing_err, initialize, int_rqst_l, internal_io_l, io_pause_l, lf_decoded_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_100x, n_t_101x, n_t_102x, n_t_118x, n_t_126x, n_t_133x, n_t_19x, n_t_20x, n_t_50x, n_t_59x, n_t_60x, n_t_89x, n_t_96x, n_t_97x, n_t_98x, n_t_99x, overrun_err, parity_err, power_ok, rd0, rd1, rd2, rd3, rd4, rd5, rd6, rd7, reader_run, reader_run_or, recv_5, reset_dav_l, rtsdtr, rx20ma_data, rx_20ma, rx_20ma_or, rx_clk, rx_data, rx_data_av, serial_in, serial_out, skip_l, tclko, tp3, tx_20ma, tx_20ma_or, tx_buf_empty, tx_clk, tx_clk_l, txd_strobe, xr);
 input b1;
 input b2;
 input b3;
@@ -99,9 +99,9 @@ output n_t_112x;
 input n_t_11x;
 output n_t_122x;
 input n_t_12x;
-output n_t_139x;
+input n_t_139x;
 input n_t_13x;
-output n_t_144x;
+input n_t_144x;
 input n_t_1x;
 input n_t_2x;
 input n_t_3x;
@@ -156,13 +156,9 @@ output reg n_t_101x;
 inout reg n_t_102x;
 output n_t_118x;
 output n_t_126x;
-input n_t_133x;
-output n_t_145x;
-output n_t_146x;
+inout n_t_133x;
 inout n_t_19x;
 inout n_t_20x;
-input n_t_40x;
-input n_t_41x;
 input n_t_50x;
 inout reg n_t_59x;
 inout reg n_t_60x;
@@ -173,7 +169,7 @@ inout reg n_t_98x;
 inout reg n_t_99x;
 input overrun_err;
 input parity_err;
-output power_ok;
+input power_ok;
 input rd0;
 input rd1;
 input rd2;
@@ -187,15 +183,14 @@ output reader_run_or;
 inout recv_5;
 output reset_dav_l;
 output rtsdtr;
-output rx20ma_data;
-input rx20ma_data_l;
+inout rx20ma_data;
 output rx_20ma;
 output rx_20ma_or;
 inout rx_clk;
 output rx_data;
 input rx_data_av;
 output serial_in;
-output serial_out;
+input serial_out;
 output skip_l;
 inout tclko;
 input tp3;
@@ -305,6 +300,8 @@ wire io_tcf_l;
 wire io_tpc_l;
 wire n_t_110x;
 wire n_t_113x;
+wire n_t_145x;
+wire n_t_146x;
 wire n_t_14x;
 wire n_t_15x;
 wire n_t_16x;
@@ -321,6 +318,8 @@ wire n_t_32x;
 wire n_t_33x;
 wire n_t_35x;
 wire n_t_39x;
+wire n_t_40x;
+wire n_t_41x;
 wire n_t_42x;
 wire n_t_47x;
 wire n_t_48x;
@@ -351,6 +350,7 @@ wire n_t_93x;
 wire recv_0;
 wire recv_1;
 wire recv_246;
+wire rx20ma_data_l;
 wire selected_h;
 wire trans_0;
 wire trans_1;
@@ -1219,6 +1219,15 @@ assign n_t_28x = ~(n_t_26x & ~io_pause_l & selected_h);
 assign n_t_84x = ~(n_t_77x & ~txd_strobe & n_t_80x & ~filch_h);
 // e49: sn7404 
 assign n_t_126x = ~n_t_133x;
+// e51: sp380n 
+assign rx20ma_data_l = ~(rx20ma_data
+                          | n_t_146x);
+assign rx20ma_data = ~(rx20ma_data_l
+                        | n_t_145x);
+assign n_t_146x = ~(n_t_145x
+                     | n_t_144x);
+assign n_t_145x = ~(n_t_146x
+                     | n_t_139x);
 // e52: sp380n 
 assign n_t_23x = ~(md11
                     | ~selected_h);
@@ -1238,6 +1247,13 @@ assign n_t_110x = ~(swd
 assign n_t_113x = ~(rx20ma_data_l & n_t_117x);
 assign n_t_85x = ~(n_t_84x & n_t_83x);
 assign txd_strobe = ~(n_t_78x & n_t_53x);
+// e55: sp380n 
+assign n_t_41x = ~(data10_l
+                    | recv_5);
+assign n_t_40x = ~(recv_5
+                    | data11_l);
+assign xr = ~power_ok;
+assign n_t_133x = ~serial_out;
 // e56: sn7474 
 always @(n_t_39x, n3v3, initialize, n_t_40x)
   if (~n3v3) begin

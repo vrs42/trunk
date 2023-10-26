@@ -21,7 +21,7 @@
 // c14: cpol_use 
 // c15: c_us 
 // e1: sn7400 
-module m105x (n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_40x, n_t_41x, n_t_42x, a0, a1, a10, a11, a12, a13, a14, a15, a16, a17, a2, a3, a4, a5, a6, a7, a8, a9, c0, c1, c1_l, extgnd, msyn, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_2x, n_t_3x, n_t_43x, n_t_44x, n_t_45x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, outhigh, outlow, select0, select2, select4, select6, syn_l, testpoint);
+module m105x (n_t_33x, n_t_34x, n_t_35x, n_t_36x, n_t_37x, n_t_38x, n_t_39x, n_t_40x, n_t_41x, n_t_42x, c1_l, extgnd, n_t_10x, n_t_11x, n_t_12x, n_t_13x, n_t_14x, n_t_15x, n_t_16x, n_t_17x, n_t_18x, n_t_19x, n_t_1x, n_t_20x, n_t_21x, n_t_22x, n_t_23x, n_t_24x, n_t_25x, n_t_26x, n_t_27x, n_t_28x, n_t_2x, n_t_3x, n_t_43x, n_t_44x, n_t_45x, n_t_4x, n_t_5x, n_t_6x, n_t_7x, n_t_8x, n_t_9x, syn_l, testpoint);
 input n_t_33x;
 input n_t_34x;
 input n_t_35x;
@@ -32,76 +32,90 @@ input n_t_39x;
 input n_t_40x;
 input n_t_41x;
 input n_t_42x;
-output a0;
-output a1;
-input a10;
-input a11;
-input a12;
-input a13;
-input a14;
-input a15;
-input a16;
-input a17;
-output a2;
-input a3;
-input a4;
-input a5;
-input a6;
-input a7;
-input a8;
-input a9;
-output c0;
-input c1;
 inout c1_l;
 output extgnd;
-input msyn;
-output n_t_10x;
-output n_t_11x;
-output n_t_12x;
-output n_t_13x;
-output n_t_14x;
-output n_t_15x;
-output n_t_16x;
-output n_t_17x;
+inout n_t_10x;
+inout n_t_11x;
+inout n_t_12x;
+inout n_t_13x;
+inout n_t_14x;
+inout n_t_15x;
+inout n_t_16x;
+inout n_t_17x;
 output n_t_18x;
 output n_t_19x;
 output n_t_1x;
-output n_t_20x;
-output n_t_21x;
+inout n_t_20x;
+inout n_t_21x;
 output n_t_22x;
-output n_t_23x;
+inout n_t_23x;
 output n_t_24x;
 output n_t_25x;
 output n_t_26x;
 output n_t_27x;
 output n_t_28x;
-output n_t_2x;
-output n_t_3x;
+inout n_t_2x;
+inout n_t_3x;
 inout n_t_43x;
 input n_t_44x;
 output n_t_45x;
-output n_t_4x;
-output n_t_5x;
+inout n_t_4x;
+inout n_t_5x;
 output n_t_6x;
-output n_t_7x;
-output n_t_8x;
+inout n_t_7x;
+inout n_t_8x;
 output n_t_9x;
-output outhigh;
-output outlow;
-output select0;
-output select2;
-output select4;
-output select6;
 output syn_l;
 inout testpoint;
 
 
+wire a0;
+wire a1;
+wire a10;
+wire a11;
+wire a12;
+wire a13;
+wire a14;
+wire a15;
+wire a16;
+wire a17;
+wire a2;
+wire a3;
+wire a4;
+wire a5;
+wire a6;
+wire a7;
+wire a8;
+wire a9;
+wire c0;
+wire c1;
+wire msyn;
 wire n_t_29x;
 wire n_t_30x;
 wire n_t_31x;
+wire outhigh;
+wire outlow;
+wire select0;
+wire select2;
+wire select4;
+wire select6;
 assign n_t_29x = ~(a13 & a14);
 assign n_t_30x = ~(a15 & a16);
 assign n_t_31x = ~(msyn & a17);
+// e2: am26s10 
+assign a1 = ~n_t_5x;
+// n_t_5x = 'b'1; 
+assign a2 = ~n_t_7x;
+// n_t_7x = 'b'1; 
+assign a16 = ~n_t_8x;
+// n_t_8x = 'b'1; 
+// e3: am26s10 
+assign a15 = ~n_t_2x;
+// n_t_2x = 'b'1; 
+assign a17 = ~n_t_3x;
+// n_t_3x = 'b'1; 
+assign a12 = ~n_t_4x;
+// n_t_4x = 'b'1; 
 // e4: sn7438 
 // testpoint = !(!n_t_31x & n_t_43x); 
 // n_t_22x = !testpoint; 
@@ -114,6 +128,18 @@ assign n_t_31x = ~(msyn & a17);
 //        $ n_t_33x); 
 // n_t_43x = !n_t_29x; 
 // n_t_43x = !n_t_30x; 
+// e6: am26s10 
+// n_t_45x = 'b'1; 
+// n_t_28x = 'b'1; 
+assign a11 = ~n_t_16x;
+// n_t_16x = 'b'1; 
+// e7: am26s10 
+assign a14 = ~n_t_10x;
+// n_t_10x = 'b'1; 
+assign c0 = ~n_t_11x;
+// n_t_11x = 'b'1; 
+assign a0 = ~n_t_12x;
+// n_t_12x = 'b'1; 
 // e8: sn74139 
 assign select0 = ~[a1,a2]:'b'00;
 assign select2 = ~[a1,a2]:'b'01;
@@ -130,6 +156,24 @@ assign outlow = ~(~c1_l & [a0,c0]:'b'11);
 //        $ n_t_35x); 
 // n_t_43x = !(a6
 //        $ n_t_36x); 
+// e10: am26s10 
+// n_t_25x = !(select6 & testpoint); 
+// n_t_26x = !(select0 & testpoint); 
+// n_t_23x = !(select0 & testpoint); 
+// e11: am26s10 
+assign a4 = ~n_t_20x;
+// n_t_20x = 'b'1; 
+assign a5 = ~n_t_21x;
+// n_t_21x = 'b'1; 
+assign a7 = ~n_t_13x;
+// n_t_13x = 'b'1; 
+// e12: am26s10 
+assign a9 = ~n_t_17x;
+// n_t_17x = 'b'1; 
+assign a10 = ~n_t_14x;
+// n_t_14x = 'b'1; 
+assign a8 = ~n_t_15x;
+// n_t_15x = 'b'1; 
 // e13: sn74266 
 // n_t_43x = !(a12
 //        $ n_t_42x); 
@@ -141,7 +185,23 @@ assign outlow = ~(~c1_l & [a0,c0]:'b'11);
 //        $ n_t_40x); 
 // open collector 'wire-or's 
 assign c1_l = c1? ~c1: 1'bz;
+assign n_t_10x = 1'b0? 1'b1: 1'bz;
+assign n_t_11x = 1'b0? 1'b1: 1'bz;
+assign n_t_12x = 1'b0? 1'b1: 1'bz;
+assign n_t_13x = 1'b0? 1'b1: 1'bz;
+assign n_t_14x = 1'b0? 1'b1: 1'bz;
+assign n_t_15x = 1'b0? 1'b1: 1'bz;
+assign n_t_16x = 1'b0? 1'b1: 1'bz;
+assign n_t_17x = 1'b0? 1'b1: 1'bz;
+assign n_t_20x = 1'b0? 1'b1: 1'bz;
+assign n_t_21x = 1'b0? 1'b1: 1'bz;
 assign n_t_22x = testpoint? ~testpoint: 1'bz;
+assign n_t_23x = (select0 & testpoint)? 1'b0: 1'bz;
+assign n_t_25x = (select6 & testpoint)? 1'b0: 1'bz;
+assign n_t_26x = (select0 & testpoint)? 1'b0: 1'bz;
+assign n_t_28x = 1'b0? 1'b1: 1'bz;
+assign n_t_2x = 1'b0? 1'b1: 1'bz;
+assign n_t_3x = 1'b0? 1'b1: 1'bz;
 assign n_t_43x = (a4
                    ^ n_t_34x)
                   | (a3
@@ -164,6 +224,11 @@ assign n_t_43x = (a4
                      ^ n_t_39x)
                   | (a10
                      ^ n_t_40x)? 1'b0: 1'bz;
+assign n_t_45x = 1'b0? 1'b1: 1'bz;
+assign n_t_4x = 1'b0? 1'b1: 1'bz;
+assign n_t_5x = 1'b0? 1'b1: 1'bz;
+assign n_t_7x = 1'b0? 1'b1: 1'bz;
+assign n_t_8x = 1'b0? 1'b1: 1'bz;
 assign syn_l = n_t_44x? ~n_t_44x: 1'bz;
 assign testpoint = (~n_t_31x & n_t_43x)? 1'b0: 1'bz;
 endmodule

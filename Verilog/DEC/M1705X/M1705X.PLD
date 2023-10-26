@@ -65,65 +65,40 @@ pin = areadyh;
 pin = areadyl;
 pin = astrobeh;
 pin = astrobel;
-pin = bd00;
 pin = bd00h;
-pin = bd01;
 pin = bd01h;
-pin = bd02;
 pin = bd02h;
-pin = bd03;
 pin = bd03h;
-pin = bd04;
 pin = bd04h;
-pin = bd05;
 pin = bd05h;
-pin = bd06;
 pin = bd06h;
-pin = bd07;
 pin = bd07h;
-pin = bd08;
 pin = bd08h;
-pin = bd09;
 pin = bd09h;
-pin = bd10;
 pin = bd10h;
-pin = bd11;
 pin = bd11h;
 pin = bdoneh;
 pin = bdonel;
 pin = bflagh;
 pin = binith;
 pin = biot4l;
-pin = biot5l;
 pin = breadyh;
 pin = breadyl;
 pin = bstrobeh;
 pin = bstrobel;
 pin = c0_l;
 pin = c1_l;
-pin = data0;
 pin = data0_l;
-pin = data1;
-pin = data10;
 pin = data10_l;
-pin = data11;
 pin = data11_l;
 pin = data1_l;
-pin = data2;
 pin = data2_l;
-pin = data3;
 pin = data3_l;
-pin = data4;
 pin = data4_l;
-pin = data5;
 pin = data5_l;
-pin = data6;
 pin = data6_l;
-pin = data7;
 pin = data7_l;
-pin = data8;
 pin = data8_l;
-pin = data9;
 pin = data9_l;
 pin = initialize;
 pin = initializeh;
@@ -161,12 +136,20 @@ pin = n_t_60x;
 pin = n_t_76x;
 pin = skip_l;
 pin = tp3;
+node bd02;
+node bd03;
+node bd01;
+node bd00;
 node ad00;
 node ad01;
 node ad03;
 node ad02;
 node bdflag;
 node adflag;
+node bd06;
+node bd07;
+node bd05;
+node bd04;
 node ad04;
 node ad05;
 node ad07;
@@ -175,6 +158,10 @@ node bintenh;
 node aintenh;
 node bctlflgh;
 node actlflgh;
+node bd10;
+node bd11;
+node bd09;
+node bd08;
 node ad08;
 node ad09;
 node ad11;
@@ -223,10 +210,23 @@ node biot2h;
 node biot2l;
 node biot3h;
 node biot3l;
+node biot5l;
 node biot6l;
 node biot7l;
 node biotl;
 node bready;
+node data0;
+node data1;
+node data10;
+node data11;
+node data2;
+node data3;
+node data4;
+node data5;
+node data6;
+node data7;
+node data8;
+node data9;
 node initializel;
 node initl;
 node io_pauseh;
@@ -353,6 +353,16 @@ n_t_64x = !n_t_60x;
 aiot2h = !aiot2l;
 biot2h = !biot2l;
 
+/* e5: ds8838 */
+data3 = !data3_l;
+/* data3_l = !(bd03 & biot5l & biot5l); */
+data2 = !data2_l;
+/* data2_l = !(bd02 & biot5l & biot5l); */
+data0 = !data0_l;
+/* data0_l = !(bd00 & biot5l & biot5l); */
+data1 = !data1_l;
+/* data1_l = !(bd01 & biot5l & biot5l); */
+
 /* e6: sn74175 */
 bd02.d = data2;
 bd02.ck = n_t_79x;
@@ -453,6 +463,16 @@ n_t_199x = !(bdflag & bintenh);
 n_t_20x = !(aiot3h & tp3l);
 n_t_79x = !(tp3l & biot3h);
 
+/* e19: ds8838 */
+data7 = !data7_l;
+/* data7_l = !(bd07 & biot5l & biot5l); */
+data6 = !data6_l;
+/* data6_l = !(bd06 & biot5l & biot5l); */
+data4 = !data4_l;
+/* data4_l = !(bd04 & biot5l & biot5l); */
+data5 = !data5_l;
+/* data5_l = !(bd05 & biot5l & biot5l); */
+
 /* e20: sn74175 */
 bd06.d = data6;
 bd06.ck = n_t_79x;
@@ -537,9 +557,11 @@ ainith = !initl;
 
 /* e30: sn7474 */
 bintenh.ar = !n_t_362x;
+bintenh.d = 'b'1;
 bintenh.ck = n3v2;
 bintenh.ap = !biot1l;
 aintenh.ar = !n_t_332x;
+aintenh.d = 'b'1;
 aintenh.ck = n3v2;
 aintenh.ap = !aiot1l;
 
@@ -579,11 +601,23 @@ n_t_362x = (biot0l & initializel);
 
 /* e35: sn7474 */
 bctlflgh.ar = !n_t_193x;
+bctlflgh.d = 'b'1;
 bctlflgh.ck = n3v2;
 bctlflgh.ap = !biot6l;
 actlflgh.ar = !n_t_194x;
+actlflgh.d = 'b'1;
 actlflgh.ck = n3v2;
 actlflgh.ap = !aiot6l;
+
+/* e36: ds8838 */
+data11 = !data11_l;
+/* data11_l = !(bd11 & biot5l & biot5l); */
+data10 = !data10_l;
+/* data10_l = !(bd10 & biot5l & biot5l); */
+data8 = !data8_l;
+/* data8_l = !(bd08 & biot5l & biot5l); */
+data9 = !data9_l;
+/* data9_l = !(bd09 & biot5l & biot5l); */
 
 /* e37: sn74175 */
 bd10.d = data10;
@@ -663,41 +697,65 @@ property atmel {open_collector= c1_l};
 !c1_l = n_t_337x;
 c1_l.oe = n_t_337x;
 property atmel {open_collector= data0_l};
-!data0_l = (ad00 & n_t_1x);
-data0_l.oe = (ad00 & n_t_1x);
+!data0_l = (bd00 & biot5l & biot5l)
+           # (ad00 & n_t_1x);
+data0_l.oe = (bd00 & biot5l & biot5l)
+           # (ad00 & n_t_1x);
 property atmel {open_collector= data10_l};
-!data10_l = (n_t_1x & ad10);
-data10_l.oe = (n_t_1x & ad10);
+!data10_l = (bd10 & biot5l & biot5l)
+            # (n_t_1x & ad10);
+data10_l.oe = (bd10 & biot5l & biot5l)
+            # (n_t_1x & ad10);
 property atmel {open_collector= data11_l};
-!data11_l = (ad11 & n_t_1x);
-data11_l.oe = (ad11 & n_t_1x);
+!data11_l = (bd11 & biot5l & biot5l)
+            # (ad11 & n_t_1x);
+data11_l.oe = (bd11 & biot5l & biot5l)
+            # (ad11 & n_t_1x);
 property atmel {open_collector= data1_l};
-!data1_l = (n_t_1x & ad01);
-data1_l.oe = (n_t_1x & ad01);
+!data1_l = (bd01 & biot5l & biot5l)
+           # (n_t_1x & ad01);
+data1_l.oe = (bd01 & biot5l & biot5l)
+           # (n_t_1x & ad01);
 property atmel {open_collector= data2_l};
-!data2_l = (n_t_1x & ad02);
-data2_l.oe = (n_t_1x & ad02);
+!data2_l = (bd02 & biot5l & biot5l)
+           # (n_t_1x & ad02);
+data2_l.oe = (bd02 & biot5l & biot5l)
+           # (n_t_1x & ad02);
 property atmel {open_collector= data3_l};
-!data3_l = (ad03 & n_t_1x);
-data3_l.oe = (ad03 & n_t_1x);
+!data3_l = (bd03 & biot5l & biot5l)
+           # (ad03 & n_t_1x);
+data3_l.oe = (bd03 & biot5l & biot5l)
+           # (ad03 & n_t_1x);
 property atmel {open_collector= data4_l};
-!data4_l = (ad04 & n_t_1x);
-data4_l.oe = (ad04 & n_t_1x);
+!data4_l = (bd04 & biot5l & biot5l)
+           # (ad04 & n_t_1x);
+data4_l.oe = (bd04 & biot5l & biot5l)
+           # (ad04 & n_t_1x);
 property atmel {open_collector= data5_l};
-!data5_l = (n_t_1x & ad05);
-data5_l.oe = (n_t_1x & ad05);
+!data5_l = (bd05 & biot5l & biot5l)
+           # (n_t_1x & ad05);
+data5_l.oe = (bd05 & biot5l & biot5l)
+           # (n_t_1x & ad05);
 property atmel {open_collector= data6_l};
-!data6_l = (n_t_1x & ad06);
-data6_l.oe = (n_t_1x & ad06);
+!data6_l = (bd06 & biot5l & biot5l)
+           # (n_t_1x & ad06);
+data6_l.oe = (bd06 & biot5l & biot5l)
+           # (n_t_1x & ad06);
 property atmel {open_collector= data7_l};
-!data7_l = (ad07 & n_t_1x);
-data7_l.oe = (ad07 & n_t_1x);
+!data7_l = (bd07 & biot5l & biot5l)
+           # (ad07 & n_t_1x);
+data7_l.oe = (bd07 & biot5l & biot5l)
+           # (ad07 & n_t_1x);
 property atmel {open_collector= data8_l};
-!data8_l = (ad08 & n_t_1x);
-data8_l.oe = (ad08 & n_t_1x);
+!data8_l = (bd08 & biot5l & biot5l)
+           # (ad08 & n_t_1x);
+data8_l.oe = (bd08 & biot5l & biot5l)
+           # (ad08 & n_t_1x);
 property atmel {open_collector= data9_l};
-!data9_l = (n_t_1x & ad09);
-data9_l.oe = (n_t_1x & ad09);
+!data9_l = (bd09 & biot5l & biot5l)
+           # (n_t_1x & ad09);
+data9_l.oe = (bd09 & biot5l & biot5l)
+           # (n_t_1x & ad09);
 property atmel {open_collector= initializeh};
 !initializeh = initializel;
 initializeh.oe = initializel;

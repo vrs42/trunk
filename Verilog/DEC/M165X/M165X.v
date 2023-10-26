@@ -45,10 +45,20 @@ assign n_t_4x = ~(n_t_1x & n3v3);
 assign n_t_6x = ~(n3v3 & n_t_2x);
 assign n_t_9x = ~(n_t_7x & n3v3);
 assign n_t_12x = ~(n_t_10x & n3v3);
+// e2: dec3001n 
+assign n_t_3x = (n_t_1x & n3v3);
+assign n_t_5x = (n3v3 & n_t_2x);
+assign n_t_8x = (n_t_7x & n3v3);
+assign n_t_11x = (n_t_10x & n3v3);
 // e3: sn7400 
 assign n_t_15x = ~(n_t_13x & n3v3);
 assign n_t_18x = ~(n3v3 & n_t_16x);
 assign n_t_21x = ~(n_t_19x & n3v3);
 assign n_t_24x = ~(n_t_22x & n3v3);
+// e4: dec3001n 
+assign n_t_14x = (n_t_13x & n3v3);
+assign n_t_17x = (n3v3 & n_t_16x);
+assign n_t_20x = (n_t_19x & n3v3);
+assign n_t_23x = (n_t_22x & n3v3);
 // open collector 'wire-or's 
 endmodule

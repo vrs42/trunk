@@ -21,10 +21,6 @@
 #   The mc1439 is an op amp.
 #   The mc1709 is an op amp.
 
-# TODO: 11380n (Fast sp380)
-# TODO: (n)8t38 is a quad bus tranceiver.
-# TODO: am26s10 is a quad bus tranceiver.
-# TODO: dec3001n is a buffer with 7408 pinout.
 # TODO: dec4015 is a quad R/S latch (with common R).
 # TODO: n8242 is essentially a 74266n (aka dec8242!).
 # TODO: n8263 is a quad 3-1 MUX (with common selects).
@@ -622,13 +618,15 @@ sub sn7474 {
   if (defined $pad{6} && !defined $pad{5}) {
     &pinnode($pad{6});
     &qcode("$pad{6}.ap = !$pad{1};\n") if defined $pad{1};
-    &qcode("$pad{6}.d = !$pad{2};\n") if defined $pad{2};
+    $pad{2} = "'b'1" unless defined $pad{2};
+    &qcode("$pad{6}.d = !$pad{2};\n");
     &qcode("$pad{6}.ck = $pad{3};\n");
     &qcode("$pad{6}.ar = !$pad{4};\n") if defined $pad{4};
   } elsif (defined $pad{5}) {
     &pinnode($pad{5});
     &qcode("$pad{5}.ar = !$pad{1};\n") if defined $pad{1};
-    &qcode("$pad{5}.d = $pad{2};\n") if defined $pad{2};
+    $pad{2} = "'b'1" unless defined $pad{2};
+    &qcode("$pad{5}.d = $pad{2};\n");
     &qcode("$pad{5}.ck = $pad{3};\n");
     &qcode("$pad{5}.ap = !$pad{4};\n") if defined $pad{4};
     &qcode("$pad{6} = !$pad{5};\n") if defined $pad{6};
@@ -636,13 +634,15 @@ sub sn7474 {
   if (defined $pad{8} && !defined $pad{9}) {
     &pinnode($pad{8});
     &qcode("$pad{8}.ap = !$pad{13};\n") if defined $pad{13};
-    &qcode("$pad{8}.d = !$pad{12};\n") if defined $pad{12};
+    $pad{12} = "'b'1" unless defined $pad{12};
+    &qcode("$pad{8}.d = !$pad{12};\n");
     &qcode("$pad{8}.ck = $pad{11};\n");
     &qcode("$pad{8}.ar = !$pad{10};\n") if defined $pad{10};
   } elsif (defined $pad{9}) {
     &pinnode($pad{9});
     &qcode("$pad{9}.ar = !$pad{13};\n") if defined $pad{13};
-    &qcode("$pad{9}.d = $pad{12};\n") if defined $pad{12};
+    $pad{12} = "'b'1" unless defined $pad{12};
+    &qcode("$pad{9}.d = $pad{12};\n");
     &qcode("$pad{9}.ck = $pad{11};\n");
     &qcode("$pad{9}.ap = !$pad{10};\n") if defined $pad{10};
     &qcode("$pad{8} = !$pad{9};\n") if defined $pad{8};
@@ -1971,6 +1971,37 @@ warn "!oe is $pad{1}\n";
 }
 $hidden{'sn74821'} = 0;
 
+# Quad Bus Transceiver.
+sub am26s10 {
+  if (defined $pad{1}) {
+    $oc{$pad{2}} = 1;
+    &qcode("$pad{3} = !$pad{2};\n") if defined $pad{3};
+    &ocassign($pad{2}, "$pad{4}&$pad{12}");
+  }
+  if (defined $pad{4}) {
+    $oc{$pad{7}} = 1;
+    &qcode("$pad{6} = !$pad{7};\n") if defined $pad{6};
+    &ocassign($pad{7}, "$pad{11}&$pad{12}");
+  }
+  if (defined $pad{12}) {
+    $oc{$pad{9}} = 1;
+    &qcode("$pad{10} = !$pad{9};\n") if defined $pad{10};
+    &ocassign($pad{9}, "$pad{13}&$pad{12}");
+  }
+  if (defined $pad{15}) {
+    $oc{$pad{15}} = 1;
+    &qcode("$pad{14} = !$pad{15};\n") if defined $pad{13};
+    &ocassign($pad{15}, "$pad{13}&$pad{12}");
+  }
+}
+$hidden{'am26s10'} = 0;
+
+# Quad AND Gate
+sub dec3001n {
+  &sn7408;
+}
+$hidden{'dec3001n'} = 0;
+
 # 10 bit latch (negative edge)
 sub dec8202 {
   if (defined $pad{22}) {
@@ -2318,6 +2349,16 @@ sub ds8837n {
   &qcode("$pad{14} = !$pad{15} & !$pad{9};\n") if defined $pad{14};
 }
 $hidden{'ds8837n'} = 0;
+
+# Looks like the ds8641 to me.
+sub ds8838 {
+  &ds8641n;
+}
+$hidden{'ds8838'} = 0;
+sub ds8838n {
+  &ds8641n;
+}
+$hidden{'ds8838n'} = 0;
 
 sub ds8881 {
   &ocassign($pad{1}, "$pad{2} & $pad{3}") if defined $pad{1};
@@ -2833,6 +2874,10 @@ while (<INPUT>) {
   next if $value eq "spare";
   $value =~ s:/.*::;
   $value =~ s/^3341$/f3341/; # FIFO memory
+  $value =~ s/^1138/sp38/;
+  $value =~ s/^38/sp38/;
+  $value =~ s/^8t/ds88/;
+  $value =~ s/^88/ds88/;
   $value =~ s/^974/74/;
   $value =~ s/^74s/74/;
   $value =~ s/^74ls/74/;

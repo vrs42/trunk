@@ -89,12 +89,8 @@ pin = n_t_102x;
 pin = n_t_118x;
 pin = n_t_126x;
 pin = n_t_133x;
-pin = n_t_145x;
-pin = n_t_146x;
 pin = n_t_19x;
 pin = n_t_20x;
-pin = n_t_40x;
-pin = n_t_41x;
 pin = n_t_50x;
 pin = n_t_59x;
 pin = n_t_60x;
@@ -120,7 +116,6 @@ pin = recv_5;
 pin = reset_dav_l;
 pin = rtsdtr;
 pin = rx20ma_data;
-pin = rx20ma_data_l;
 pin = rx_20ma;
 pin = rx_20ma_or;
 pin = rx_clk;
@@ -205,6 +200,8 @@ node n_t_110x;
 node n_t_111x;
 node n_t_113x;
 node n_t_115x;
+node n_t_145x;
+node n_t_146x;
 node n_t_14x;
 node n_t_15x;
 node n_t_16x;
@@ -227,6 +224,8 @@ node n_t_35x;
 node n_t_36x;
 node n_t_37x;
 node n_t_39x;
+node n_t_40x;
+node n_t_41x;
 node n_t_42x;
 node n_t_43x;
 node n_t_44x;
@@ -268,6 +267,7 @@ node recv_0;
 node recv_1;
 node recv_246;
 node rflag_h;
+node rx20ma_data_l;
 node selected_h;
 node selected_l;
 node tflag_l;
@@ -818,6 +818,16 @@ n_t_30x = !n_t_24x;
 n_t_126x = !n_t_133x;
 filch_l = !filch_h;
 
+/* e51: sp380n */
+!rx20ma_data_l = rx20ma_data
+               # n_t_146x;
+!rx20ma_data = rx20ma_data_l
+             # n_t_145x;
+!n_t_146x = n_t_145x
+          # n_t_144x;
+!n_t_145x = n_t_146x
+          # n_t_139x;
+
 /* e52: sp380n */
 !n_t_23x = md11
          # selected_l;
@@ -841,6 +851,14 @@ n_t_113x = !(rx20ma_data_l & n_t_117x);
 selected_l = !selected_h;
 n_t_85x = !(n_t_84x & n_t_83x);
 txd_strobe = !(n_t_78x & n_t_53x);
+
+/* e55: sp380n */
+!n_t_41x = data10_l
+         # recv_5;
+!n_t_40x = recv_5
+         # data11_l;
+!xr = power_ok;
+!n_t_133x = serial_out;
 
 /* e56: sn7474 */
 int_enab_h.ar = !n3v3;
