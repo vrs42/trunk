@@ -2598,13 +2598,14 @@ do_linc()
                     {   int row, col, scale, x, y;
 // BUGBUG: Should "tmp" here really be MQ?
                         tmp = M[ea];        /* Pattern word */
-                        if (ESF&200)
+                        if (ESF&200) {
                             scale = 4; /* Full size */
-                        else
+                            LAC &= 017740;
+                        } else {
                             scale = 2; /* Half size */
+                            LAC &= 017760;
+                        }
                         x = M[lifbase+1]; /* Includes Channel */
-                        /* Do this as documented for LINC */
-                        LAC &= 017740;
                         for (col=0; col < 2; col++) {
                             x += scale;
                             y = LAC & 07777;
