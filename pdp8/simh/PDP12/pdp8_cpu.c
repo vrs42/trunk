@@ -2615,6 +2615,7 @@ do_linc()
                                 y += scale;
                             }
                         }
+                        LAC += 6 * scale;
                         M[lifbase+1] = x;
                     }
                     break;
