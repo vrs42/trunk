@@ -153,8 +153,8 @@ CA,	.		/ Hardware CA register
 WTXIT,	JMS DTWAIT	/ Wait for the last (link) word
 	SKP 		/ Error, take error return
 	ISZ SYSIO	/ Set up for normal return
-BAIL,	TAD C200	/ Get 0200 (unit 0 move forward)??
-	DTXA		/ Stop the DECtape (How can this work??)
+BAIL,	TAD C200	/ Get 0200 (GO bit)
+	DTXA		/ XOR to stop the DECtape
 	JMP I SYSIO	/ Return
 
 DTWAIT,	7717		/ Subroutine to wait for I/O done
