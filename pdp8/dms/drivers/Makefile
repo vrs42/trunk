@@ -1,4 +1,4 @@
-PAL	= df32.pal rf08.pal
+PAL	= df32.pal rf08.pal tc08.pal
 BIN	= $(PAL:.pal=.bin)
 
 all:	$(BIN)
