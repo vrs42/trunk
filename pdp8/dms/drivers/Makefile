@@ -1,18 +1,18 @@
-ACPAL	= tc08-ac.pal # df32-ac.pal rf08-ac.pal tc08-ac.pal
-ADPAL	= # df32-ad.pal rf08-ad.pal tc08-ad.pal
-AEPAL	= tc08-ae.pal # df32-ae.pal rf08-ae.pal tc08-ae.pal
+ACPAL	= df32-cde.pal tc08-ac.pal # rf08-ac.pal
+ADPAL	= df32-cde.pal # rf08-ad.pal tc08-ad.pal
+AEPAL	= df32-cde.pal tc08-ae.pal # rf08-ae.pal tc08-ae.pal
 AFPAL	= df32-af.pal rf08-af.pal tc08-af.pal
 PAL	= $(ACPAL) $(ADPAL) $(AEPAL) $(AFPAL)
 BIN	= $(PAL:.pal=.bin)
 
 all:	$(BIN)
-#	bincmp 5200.bin df32-ac.bin
+	bincmp 5200.bin df32-cde.bin
 #	bincmp 5600.bin df8s-ac.bin
 	bincmp 6000-ac.bin tc08-ac.bin
-#	bincmp 5200.bin df32-ad.bin
+	bincmp 5200.bin df32-cde.bin
 #	bincmp 5600.bin df8s-ad.bin
 #	bincmp 6000-ad.bin tc08-ad.bin
-#	bincmp 5200.bin df32-ae.bin
+	bincmp 5200.bin df32-cde.bin
 #	bincmp 5600.bin df8s-ae.bin
 	bincmp 6000-ae.bin tc08-ae.bin
 	bincmp 2200.bin df32-af.bin

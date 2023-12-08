@@ -1,0 +1,176 @@
+/ Dec  6 2023 Vincent Slyngstad
+/	Disassembly of the DF32 driver at location 5200 in dec-d8-sbac-pb.
+/	This same driver is also found at location 5200 in dec-d8-sbad-pb.
+/	This same driver is also found at location 5200 in dec-d8-sbae-pb.
+
+DCMA=6601	/ Initialize controller (clear errors)
+DEAL=6615	/ Load extended address registers
+DEAC=6616	/ Clear extended address registers
+DFSC=6622	/ Skip on data transfer complete
+DFSE=6621	/ Skip if no error
+
+*5200
+	RELOC 7600
+C77,	0077	/ MASK CONSTANT
+BUFTBL,	CLA 		/ ALSO POINTER TO 7200
+MONTOR,	7400		/ ALSO POINTER TO 7400/MONITOR
+	CLA 		/ ALSO POINTER TO 7200
+	7400		/ ALSO POINTER TO 7400/MONITOR
+
+	TAD TADBUF	/ Set up buffer pointer TAD
+	DCA BUFTAD
+	TAD C5		/ 5 is field 0 write
+	DCA CSFUN	/ Set up to write from field 0
+	TAD USRBLK	/ Write to block USRBLK
+	JMS CSYSIO
+	TAD USRBLK	/ Write to block 6
+	IAC
+	JMS CSYSIO
+	TAD C3		/ 3 is field 0 read
+	DCA CSFUN	/ Set up to read into field 0
+	IAC		/ Read block 1
+	JMS CSYSIO
+	CLA CLL CML RTL / Set AC == 2
+	JMS CSYSIO	/ Read block 2
+	JMP I MONTOR	/ Launch the monitor
+CSYSIO,	.-.		/ Entry point
+	DCA CSBLK	/ Store AC as block number
+BUFTAD,	TAD I BUFTBL	/ Fetch next buffer address
+	ISZ BUFTAD	/ Bump pointer
+	DCA CSBUF	/ Set up new buffer address
+	JMS SYSIO	/ Call the driver
+CSFUN,	.-.		/ Function requested
+CSBLK,	.-.		/ Block Number
+CSBUF,	.-.		/ Buffer Address
+CSLNK,	.-.		/ Link word (reused later)
+	HLT		/ Error return
+	JMP I CSYSIO	/ Normal return
+USRBLK,	0000		/ First block to save user memory
+			/ BUGBUG: Shouldn't that be block 5 ??
+
+/
+/ JMS I SYSIO
+/ WORD DESIRED FUNCTION
+/ WORD DESIRED BLOCK
+/ WORD DESIRED CORE ADDRESS (low 12 bits).
+/ WORD LINK FIELD (Filled by WRITE, used by READ).
+/ ERROR RETURN HERE
+/ NORMAL RETURN HERE
+/
+/ FUNCTION WORD
+/ =============
+/
+/ 0 1 2 3 4 5 6 7 8 9 10 11
+/ U U                       - Unused bits.
+/     R                     - 0=Normal return. 1=Indirect return. 
+/       U U U               - Unit number 0-7 (if DECtape?).
+/             F F F         - Memory field 0-7.
+/                   F  F  F - Function. READ=3. WRITE=5.
+/
+/ The ERROR RETURN in the indirect case is a pointer to a location in memory
+/ to return to.  It will return to the pointer in the case of an ERROR or to
+/ pointer+1 in the case of NO ERROR.
+/ 
+
+SYSIO,	.-.		/ System Device Driver
+	CLA CMA 	/ Get -1
+	DCA RETROK	/ Set "retry ok"
+	TAD I SYSIO	/ Get function word.
+	ISZ SYSIO	/ Point to block number
+	CLL RTL 	/ Shift indirect return bit to sign
+	SPA 		/ Indirect return desired?
+	TAD C3		/ Yes, add 3 so that LINK will remain set
+	RTR 		/ Restore function word
+C200,	AND C77		/ Mask out indirect and unit number.
+	DCA FUNCWD	/ Save field and function.
+	TAD I SYSIO	/ Get the block number.
+	ISZ SYSIO	/ Point to the buffer address.
+	DCA CSBLK	/ Save the block number.
+	TAD I SYSIO	/ Get the buffer address.
+	DCA BUFPTR	/ Save it.
+	TAD SYSIO	/ Get buffer pointer address
+	SZL 		/ Need indirect return?
+	CLA CMA 	/ Yes, replace with 7777
+	DCA LNKPTR	/ Save where to put link
+	ISZ SYSIO	/ Point to link
+	ISZ SYSIO	/ Point to error return
+	TAD I SYSIO	/ Get error return
+	SZL 		/ Need indirection?
+	DCA SYSIO	/ Yes, do it
+RETRY,			/ Come here to retry I/O.
+C7600,	7600 CLA 	/ Clear cruft
+			/ Also constant 7600 for WC
+	TAD CSBLK	/ Get the block number
+	CLL RAL 	/ Align with unit bits
+	AND C3700	/ Mask for disk unit
+	DCA DADDRH	/ Save it
+	TAD CSBLK	/ Get the block number
+	AND C37		/ Mask for offset on disk unit
+	CLL RTR 	/ Multiply by 0200
+	RTR 
+	RTR 
+	TAD CSBLK	/ Make that 0201
+	IAC		/ Align block end with protection boundary
+	DCA DADDRL	/ Save disk unit offset
+	SZL 		/ Overflow?
+	TAD C100	/ Yes, bump up
+	TAD DADDRH	/ Get shifted disk unit
+	TAD FUNCWD	/ Get field and function
+	DEAL		/ Load field and DADDRH into conrtroller
+			/ DEAL does not clear AC.
+	AND C7		/ Get the function (3=read, 5=write)
+	TAD C6600	/ Form DMAR/DMAW instruction
+	DCA DMARW	/ Set up for later.
+	TAD C7600	/ Get 7600
+	DCA WC		/ Set up WC.
+	CMA 		/ Get -1 to form CA
+	TAD BUFPTR	/ Add buffer address
+	DCA CA		/ Set up CA.
+	JMS DF32IO	/ Do the I/O.
+	CMA 		/ Get -1 (one word)
+	DCA WC		/ Set up one word transfer
+	DEAC		/ Get extended address to AC
+	AND C3700	/ Mask out field info
+	DEAL		/ Set up field 0 transfer
+	CLA CLL 
+	TAD LNKPTR	/ Set to trnsfer link word
+	DCA CA
+	TAD C200	/ Get link word offset within block
+	JMS DF32IO	/ Do the I/O.
+	ISZ SYSIO	/ Set up normal return
+	JMP WRAPUP	/ Go wrap up
+BAIL,	ISZ RETROK	/ Retry OK?
+	SKP 		/ No
+	JMP RETRY	/ Yes, go do it
+WRAPUP,	DCMA		/ Initialize controller (clear errors)
+	CLA CLL 
+	JMP I SYSIO
+WC=7750
+CA=7751
+
+	*7752
+LNKPTR,	.-.		/ Where to put the link word
+C37,	37		/ Mask Constant
+RETROK,	.-.		/ OK to retry the I/O.
+FUNCWD,	.-.		/ Saved field and function bits
+DADDRL,	.-.		/ Disk address (low word)
+DADDRH,	.-.		/ Disk address (high word)
+C3,	3		/ Constant
+C100,	100		/ Constant
+
+DF32IO,	.-.
+	TAD DADDRL	/ Get/Add low disk offset
+DMARW,	.-.		/ Either DMAR or DMAW
+	DFSC		/ Skip on data transfer complete
+	JMP .-1		/ Loop until complete.
+	DFSE		/ Skip if no error
+	JMP BAIL	/ Error, go bail
+	JMP I DF32IO	/ No error, just return
+
+C3700,	3700		/ Mask constant
+C5,	5		/ Mask constant
+C7,	7		/ Mask constant
+C6600,	6600		/ DMAR, DMAW shared bits
+TADBUF,	TAD BUFTBL	/ TAD for first buffer pointer
+BUFPTR,	.-.
+$
