@@ -1,0 +1,184 @@
+/ Dec  6 2023 Vincent Slyngstad
+/	Disassembly of the DECtape driver at location 26000 in dec-d8-sbaf-pb.
+
+/ DECtape IOTs:
+DTRA=6761	/ Read Register A
+DTCA=6762	/ Clear Register A
+DTXA=6764	/ XOR into Register A
+DTSF=6771	/ Skip if done
+DTRB=6772	/ Load Register B
+DTLB=6774	/ Load memory field to controller
+
+/ DECtape Register A:
+/ 0-2	Unit number
+/ 3	Reverse
+/ 4	GO
+/ 5	Continuous mode
+/ 6-8	Command
+/	000 Move
+/	001 Search
+/	010 Read
+/	100 Write
+/ 9	Interrupt enable
+/ 10	Error/Leave error
+/ 11	Flag/Leave flag
+
+/ DECtape Register B:
+/ 0	Any Error
+/ 1	Mark Track Error
+/ 2	EOT Error
+/ 3	Select Error
+/ 4	Parity Error
+/ 5	Error
+/ 6-8	Memory Field
+/ 11	Done
+
+*2600
+	RELOC 7600
+C70,	0070		/ Bootstrap entry point, and harmless constant
+
+	JMS SYSIO	/ Call SYSIO entry point.
+	0005		/ Function code. 5 is WRITE.
+	0005		/ Block = first disk scratch block.
+	7200		/ Buffer address.
+	.-.		/ Link field.
+	HLT		/ Error HALT.
+
+	JMS SYSIO	/ Call SYSIO entry point.
+	0005		/ Function code. 5 is WRITE.
+	0006		/ Block = second disk scratch block.
+	7400		/ Buffer address.
+	.-.		/ Link field.
+	HLT
+
+	JMS SYSIO	/ Call SYSIO entry point.
+	0003		/ Function code. 3 is READ.
+	0001		/ Block = MONITOR (1ST PAGE OF SAVE).
+	7200		/ Buffer address.
+BUFP,	.-.		/ Link field.  Re-used as BUFP below.
+	HLT		/ Error HALT.
+
+	JMS SYSIO	/ Call SYSIO entry point.
+C3,	0003		/ Function code. 3 is READ.
+	0002		/ Block = MONITOR (START).
+MONTOR,	7400		/ Buffer address.  Also Monitor starting address.
+LNKPTR,	.-.		/ Link field. Re-used for indirect returns.
+	HLT		/ Error HALT.
+
+	JMP I MONTOR	/ Jump to MONITOR START.
+
+C400,	0400		/ Constant: reverse search
+C7010,	7010		/ Mask constant
+N201,	-201		/ Block size (negative)
+PCA,	CA-1		/ Pointer to CA
+
+FAIL,	ISZ RETRY	/ Check for first time.
+	JMP BAIL	/ Not first, go bail.
+	JMP SETUP	/ First time, go do retry
+
+/ SYSIO Function Word:
+/ 2	Indirect return
+/ 3-5	Unit number
+/ 6-8	Memory field for buffer
+/ 9-11	3 = read, 5 = write
+*7642
+SYSIO,	.-.		/ System Device Driver
+	CLA CMA 	/ Get -1
+	DCA RETRY	/ Set flag to attempt a retry.
+	TAD I SYSIO	/ Get the function word
+	DCA OFUNC	/ Remember unshifted function word
+	TAD OFUNC	/ Get it again
+	CLL RTL 	/ Shift indirect return to L
+	RAL 		/ AC is now UUUFFFCCC000
+	DCA SFUNC	/ Remember shifted function word
+	ISZ SYSIO	/ Point to the block number
+	TAD I SYSIO	/ Get block number
+	DCA CSLNK	/ Store block number for now
+	ISZ SYSIO	/ Point to buffer address
+	TAD I SYSIO	/ Get buffer address
+	DCA BUFP	/ Save as BUFP
+	TAD SYSIO	/ Get link pointer
+	SZL 		/ Indirect return?
+	CLA CLL CMA RAL / Yes, Get -2, keep L set
+	DCA LNKPTR	/ Save argument pointer or -2
+	ISZ SYSIO	/ Point to link argument
+	ISZ SYSIO	/ Point to error return
+	TAD I SYSIO	/ Get error return?
+	SZL 		/ Was L set by CMA RAL?
+	DCA SYSIO	/ Yes, do return indirection if needed
+SETUP,	CLA 		/ Clear cruft if retry
+	TAD SFUNC	/ Get shifted function word
+	AND C7010	/ Mask for UNIT and command bit
+			/ Also a constant 0200
+	TAD C400	/ Add 600 to form unit, reverse, search
+	DTCA DTXA	/ Send it to controller.
+	DTLB		/ Stop the controller (AC==0).
+	TAD PCA		/ Get a pointer to CA
+	DCA CA		/ Make CA point to itself
+	/ Here the first time with reverse bit clear
+RAGAIN,	RTL 		/ Get reverse bit to LINK
+	RAL
+	CLA CML 	/ Clear cruft, complement link
+	TAD C200	/ Get a go bit
+FAGAIN,	SNL 		/ Need reverse?
+	TAD C400	/ Yes, set reverse bit
+	DTXA		/ Toggle the selected bits.
+	DTRB DTSF	/ Wait for done.
+	JMP .-1
+	SPA		/ Any error?
+	JMP RAGAIN	/ Yes, try again
+	DTRA		/ Read the A register.
+	RTL		/ Shift go bit to LINK
+	RTL
+	SZL CLA		/ Was it set?
+	TAD C3		/ Yes, get a an offset of 3.
+	TAD WC		/ Get or add WC.
+	CMA		/ Subtrace block number from desired.
+	TAD CSLNK
+	CMA		/ Desired block number?
+	SZA CLA 
+	JMP FAGAIN	/ No, go search again
+	SZL		/ Overflow?
+	JMP FAGAIN+1	/ Yes, go search again in reverse
+	TAD N201	/ Get block size in words
+	DCA WC		/ Set up WC for data transfer
+	CMA 		/ Get -1
+	TAD BUFP	/ Set up CA for data transfer
+	DCA CA
+	TAD OFUNC	/ Get original function word
+	DTLB		/ Set field in the controller
+	TAD SFUNC	/ Get UUUFFFCCC000
+C200,	AND C70		/ Get the command bits
+	JMP DMAGO	/ Go start the data transfer
+OKRET,	ISZ SYSIO	/ Set up for normal return
+BAIL,	TAD C200	/ Get 0200 (GO bit)
+	DTXA		/ XOR to stop the DECtape
+	JMP I SYSIO	/ Return
+CSLNK,	.-.		/ ??
+OFUNC,	.-.		/ Pointer to where to write link
+SFUNC,	.-.		/ Saved/shifted function word
+
+*7754
+WC,	.-.		/ Hardware WC register
+CA,	.-.		/ Hardware CA register
+
+*7757
+DMAGO,	DTXA		/ Give command to the controller
+DMAWT,	DTRB		/ Read status register
+	SPA CLA 	/ Any error?
+	JMP FAIL	/ Yes, go check retry
+	TAD WC		/ Are we (almost) done?
+	CLL CMA 
+	SZA CLA 
+	JMP DMAWT	/ No, just keep going
+	DTLB		/ Yes, clear memory field
+	TAD LNKPTR	/ Get saved link pointer
+	DCA CA		/ Fudge CA to link pointer
+	DTRB DTSF	/ Read B, skip if done
+	JMP .-1		/ Wait for done
+	SPA CLA		/ Any error?
+	JMP FAIL	/ Yes, go check retry
+	JMP OKRET	/ No, take the normal return
+
+RETRY,	.-.		/ Flag for first attempt (allow retry).
+$
