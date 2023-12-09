@@ -1,5 +1,5 @@
 First, the original reference material is the code extracted from
-the builder paper tape images, dec-db-sba[cdef]-pb, and the RF08 patch
+the builder paper tape images, dec-db-sba[1cdef]-pb, and the RF08 patch
 to sbae, dec-db-sba1-pb.  These are listed here:
 2200	Code extracted from location 2200 of sbaf.  This is the AF version
 	of the DF32 driver.
@@ -19,6 +19,8 @@ to sbae, dec-db-sba1-pb.  These are listed here:
 	of the TC08 driver.
 6000-ae	Code extracted from location 6000 of sbac.  This is the AE version
 	of the TC08 driver.
+sba1	Code consists of the AE version of the RF08 driver, and a spall
+	patch to change a prompt in the builder.
 Each of these contain 3 files which are the octal dumps converted to syntax
 acceptable to PAL, and the .lst and .bin files created by their assembly.
 
@@ -31,6 +33,7 @@ From these, a set of matching disassemblies have been created:
 6000-ac	tc08-ac
 6000-ad	tc08-ad
 6000-ae	tc08-ae
+sba1	rf08-ae
 
 The Makefile will assemble these as needed, and then compare all the
 generated binaries with the originals.

@@ -1,0 +1,176 @@
+/ Disassembly of the DMS RF08 driver.
+/ This version is in the PIP patch, intended for dec-d8-sbae-pb.
+
+DCMA=6601	/ Reset controller state
+DIML=6615	/ Clear then load Memory Extension Register
+DXAL=6643	/ Clear then Load EMA
+DFSE=6621	/ Skip if error
+DFSC=6622	/ Skip if Data Complete
+
+/ Odd: This replaces the "PDP-8/S?" prompt
+*1314
+	6246		/ SIXBIT "RF"
+	2030		/ SIXBIT "08"
+	3700		/ SIXBIT "? "
+	0000		/ End of string?
+
+/ Here is the "new" RF08 driver.
+*5200
+	RELOC 7600
+C77,	0077		/ MASK CONSTANT
+C7200,	CLA 		/ ALSO POINTER TO 7200
+MONTOR,	7400		/ ALSO POINTER TO 7400/MONITOR
+	CLA 		/ ALSO POINTER TO 7200
+	7400		/ ALSO POINTER TO 7400/MONITOR
+	TAD TADFST	/ Get TAD for first table element
+	DCA BUFPP	/ Initialize buffer pointer TAD
+	TAD C5		/ 5 is field 0 write
+	DCA CSFUN	/ Set up to write from field 0
+	TAD USRBLK	/ Write to block 5
+	JMS CSYSIO
+	TAD USRBLK	/ Write to block 6
+	IAC
+	JMS CSYSIO
+	TAD C3		/ 3 is field 0 read
+	DCA CSFUN	/ Set up to read into field 0
+	IAC		/ Read block 1
+	JMS CSYSIO
+	CLA CLL CML RTL / Set AC == 2
+	JMS CSYSIO	/ Read block 2
+	JMP I MONTOR	/ Launch the monitor
+CSYSIO,	.-.		/ Entry point
+	DCA CSBLK	/ Store AC as block number
+BUFPP,	TAD I C7200	/ Fetch next buffer address
+	ISZ BUFPP	/ Bump pointer
+	DCA CSBUF	/ Set up new buffer address
+	JMS SYSIO	/ Call the driver
+CSFUN,	.-.		/ Function requested
+CSBLK,	.-.		/ Block Number
+CSBUF,	.-.		/ Buffer Address
+CSLNK,	.-.		/ Link word (reused later)
+	HLT		/ Error return
+	JMP I CSYSIO	/ Normal return
+USRBLK,	0000		/ First block to save user memory
+
+/
+/ JMS I SYSIO
+/ WORD DESIRED FUNCTION
+/ WORD DESIRED BLOCK
+/ WORD DESIRED CORE ADDRESS (low 12 bits).
+/ WORD LINK FIELD (Filled by WRITE, used by READ).
+/ ERROR RETURN HERE
+/ NORMAL RETURN HERE
+/
+/ FUNCTION WORD
+/ =============
+/
+/ 0 1 2 3 4 5 6 7 8 9 10 11
+/ U U                       - Unused bits.
+/     R                     - 0=Normal return. 1=Indirect return. 
+/       U U U               - Unit number 0-7 (if DECtape?).
+/             F F F         - Memory field 0-7.
+/                   F  F  F - Function. READ=3. WRITE=5.
+/
+/ The ERROR RETURN in the indirect case is a pointer to a location in memory
+/ to return to.  It will return to the pointer in the case of an ERROR or to
+/ pointer+1 in the case of NO ERROR.
+/ 
+SYSIO,	.-.		/ SYSIO SUBROUTINE. Return address.
+	CLA CMA 	/ Set a flag for first attempt.
+	DCA RETRYS
+	TAD I SYSIO	/ Get function desired.
+	AND C700	/ Mask for unit number.
+	DCA CSLNK	/ Save it for now.
+	TAD I SYSIO	/ Get function desired.
+	AND C7  	/ Mask for read/write.
+	TAD DMAX	/ Add 6600 to form DMAR or DMAW
+	DCA DMARW	/ Store it for later
+	TAD I SYSIO	/ Get function desired.
+	CLL RTL 	/ Shift indirect return to LINK.
+	RAL 
+C7600,	CLA 7600	/ CLA.  Also constant 7600
+	TAD I SYSIO	/ Get function word.
+	ISZ SYSIO	/ Point to the block number
+C200,	AND C77		/ Mask for field and read/write
+			/ Also constant 0200.
+	DCA CSFUN	/ Save it.
+	TAD I SYSIO	/ Get the block number.
+	ISZ SYSIO	/ Point to the buffer address.
+	DCA CSBLK	/ Save the block number.
+	TAD I SYSIO	/ Get the buffer address.
+	DCA CSBUF	/ Save it.
+	TAD SYSIO	/ Get pointer to buffer address
+	SZL 		/ Will we do an indirect return?
+	CLA CMA 	/ Yes, set a flag (link still set)
+	DCA INDPTR
+	ISZ SYSIO	/ Bump to link address
+	ISZ SYSIO	/ Bump to error return
+	TAD I SYSIO	/ Get error return
+	SZL		/ Set up indirection?
+	DCA SYSIO	/ Yes, store new return address.
+RETRY,	CLA CMA 	/ Set CA to (CSBUF)-1
+	TAD CSBUF
+	DCA CA
+	TAD CSFUN	/ Get field and function
+	DIML		/ Send field to the controller
+	TAD N7		/ Get -7.
+	DCA IOWAIT	/ Save as shift count.
+	DCA DMAHGH	/ Zero high word.
+	TAD CSBLK	/ Get the block number
+	DCA DMALOW	/ Store as low word.
+SAGAIN,	TAD DMALOW	/ Get the low word
+	CLL RAL 	/ Double it
+	DCA DMALOW
+	TAD DMAHGH	/ Get the high word
+	RAL 		/ Shift in a bit
+	DCA DMAHGH
+	ISZ IOWAIT	/ Done multiply by 0200?
+	JMP SAGAIN	/ No, shift them again.
+	TAD DMALOW	/ Done, get the shifted block number.
+	TAD CSBLK	/ Add the block number again for blk*129.
+	DCA DMALOW	/ Save it.
+	SZL 		/ Was there a carry-out?
+	ISZ DMAHGH	/ Yes, bump high word. Whatnow??
+	TAD CSLNK	/ Get the unit number, shifted appropriately.
+	TAD DMAHGH	/ Add in the high word.
+	DXAL		/ Send to the controller.
+	TAD C7600	/ Get 7600 (-200).
+	DCA WC		/ Set up counter for first 128 words.
+	JMS IOWAIT	/ Do the transfer.
+	CMA 		/ Set up a one word transfer.
+	DCA WC
+	TAD INDPTR	/ Get indirect return flag/address
+	DCA CA		/ Set to be written.
+	TAD C200	/ Get 0200 for buffer offset.
+	JMS IOWAIT	/ Do another word (field 0).
+	ISZ SYSIO	/ Set to take error return.
+	DCMA		/ Stop the drive.
+	JMP I SYSIO	/ Return to caller.
+WC=7750
+CA=7751
+
+	*7752
+C3,	0003		/ Constant 3: field 0 read
+INDPTR,	0000		/ 7777 or link pointer
+DMALOW,	.-.		/ Disk address, low
+DMAHGH,	.-.		/ Disk address, high
+N7,	-7		/ Shift counter for 0200 multiply.
+C700,	0700		/ Unit number mask.
+IOWAIT,	.-.		/ Entry point.
+			/ Also used to count shifts
+	TAD DMALOW	/ Get low disk address
+DMARW,	.-.		/ Initiate read or write, clear AC.
+	DFSC		/ Finished the read?
+	JMP .-1		/ No, keep waiting.
+	DIML		/ Yes, Reset the field to zero.
+	DFSE		/ Was there an error?
+	JMP I IOWAIT	/ No, return.
+	ISZ RETRYS	/ Yes, first attempt?
+	JMP I SYSIO	/ No, return error
+	JMP RETRY	/ Yes, go do retry
+C5,	0005		/ Constant 5: page 0 write
+C7,	0007		/ Read/write bits of function word.
+DMAX,	DMAR-3		/ Used to build DMAR or DMAW.
+TADFST,	TAD C7200	/ TAD for first address in table
+RETRYS,	.-.		/ Retry counter/flag.
+$
