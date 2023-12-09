@@ -1,0 +1,212 @@
+   1               / DECtape IOTs:
+   2               DTCA=6762       / Clear Register A
+   3               DTXA=6764       / XOR into Register A
+   4               DTSF=6771       / Skip if done
+   5               DTRB=6772       / Load Register B
+   6               DTLB=6774       / Load memory field to controller
+   7               
+   8               / DECtape Register A:
+   9               / 0-2   Unit number
+  10               / 3     Reverse
+  11               / 4     GO
+  12               / 5     Continuous mode
+  13               / 6-8   Command
+  14               /       000 Move
+  15               /       001 Search
+  16               /       010 Read
+  17               /       100 Write
+  18               / 9     Interrupt enable
+  19               / 10    Error/Leave error
+  20               / 11    Flag/Leave flag
+  21               
+  22               / DECtape Register B:
+  23               / 0     Any Error
+  24               / 1     Mark Track Error
+  25               / 2     EOT Error
+  26               / 3     Select Error
+  27               / 4     Parity Error
+  28               / 5     Error
+  29               / 6-8   Memory Field
+  30               / 11    Done
+  31               
+  32                       *7600
+  33 007600  7010  C7010,  7010/RAR        / MASK CONSTANT
+  34 007601  7200          CLA             / ALSO POINTER TO 7200
+  35 007602  7400  MONTOR, 7400            / ALSO POINTER TO 7400/MONITOR
+  36 007603  7200          CLA             / ALSO POINTER TO 7200
+  37 007604  7400          7400            / ALSO POINTER TO 7400/MONITOR
+  38 007605  1243          TAD C7600       / Point to table at 7600
+  39 007606  3374          DCA BUFPP       / Initialize buffer pointer pointer
+  40 007607  1373          TAD C5          / 5 is field 0 write
+  41 007610  3233          DCA CSFUN       / Set up to write from field 0
+  42 007611  1241          TAD USRBLK      / Write to block 5
+  43 007612  4225          JMS CSYSIO
+  44 007613  1241          TAD USRBLK      / Write to block 6
+  45 007614  7001          IAC
+  46 007615  4225          JMS CSYSIO
+  47 007616  1352          TAD C3          / 3 is field 0 read
+  48 007617  3233          DCA CSFUN       / Set up to read into field 0
+  49 007620  7001          IAC             / Read block 1
+  50 007621  4225          JMS CSYSIO
+  51 007622  7326          CLA CLL CML RTL / Set AC == 2
+  52 007623  4225          JMS CSYSIO      / Read block 2
+  53 007624  5602          JMP I MONTOR    / Launch the monitor
+  54 007625  0000  CSYSIO, .-.             / Entry point
+  55 007626  3234          DCA CSBLK       / Store AC as block number
+  56 007627  2374          ISZ BUFPP       / Bump pointer
+  57 007630  1774          TAD I BUFPP     / Fetch next buffer address
+  58 007631  3235          DCA CSBUF       / Set up new buffer address
+  59 007632  4242          JMS SYSIO       / Call the driver
+  60 007633  0000  CSFUN,  .-.             / Function requested
+  61 007634  0000  CSBLK,  .-.             / Block Number
+  62 007635  0000  CSBUF,  .-.             / Buffer Address
+  63 007636  0000  CSLNK,  .-.             / Link word (reused later)
+  64 007637  7402          HLT             / Error return
+  65 007640  5625          JMP I CSYSIO    / Normal return
+  66 007641  0005  USRBLK, 0005            / First block to save user memory
+  67               
+  68               / SYSIO Function Word:
+  69               / 2     Indirect return
+  70               / 3-5   Unit number
+  71               / 6-8   Memory field for buffer
+  72               / 9-11  3 = read, 5 = write
+  73               
+  74 007642  0456  SYSIO,  0456            / System Device Driver
+  75 007643  7600  C7600,  7600 CLA        / Ignore AC (also 7600 constant)
+  76 007644  1642          TAD I SYSIO     / Get the function word
+  77 007645  6774          DTLB            / Send it to the controller
+  78 007646  1642          TAD I SYSIO     / Get it again
+  79 007647  2242          ISZ SYSIO       / Point to the block number
+  80 007650  7106          CLL RTL         / Shift indirect return to L
+  81 007651  7004          RAL             / AC is now UUUFFFCCC000
+  82 007652  3351          DCA SFUNC       / Remember shifted function word
+  83 007653  1642          TAD I SYSIO     / Get block number
+  84 007654  2242          ISZ SYSIO       / Point to buffer address
+  85 007655  3236          DCA CSLNK       / Store block number for now
+  86 007656  1642          TAD I SYSIO     / Get buffer address
+  87 007657  3350          DCA BUFP        / Save as BUFP
+  88 007660  1242          TAD SYSIO       / Get link pointer
+  89 007661  7430          SZL             / Indirect return?
+  90 007662  7344          CLA CLL CMA RAL / Yes, Get -2, keep L set
+  91 007663  3347          DCA LNKPTR      / Save argument pointer or -2
+  92 007664  2242          ISZ SYSIO       / Point to link argument
+  93 007665  2242          ISZ SYSIO       / Point to error return
+  94 007666  1642          TAD I SYSIO     / Get error return?
+  95 007667  7430          SZL             / Was L set by CMA RAL?
+  96 007670  3242          DCA SYSIO       / Yes, do return indirection if needed
+  97 007671  7240          CLA CMA         / Get -1
+  98 007672  3355          DCA CA          / Set retry count?
+  99 007673  1351  RETRY,  TAD SFUNC       / Get shifted function word
+ 100 007674  0200  C200,   AND C7010       / Mask for UNIT and command bit
+ 101                                       / Also a constant 0200
+ 102 007675  1353          TAD C600        / Add 600 to form unit, reverse, go, search
+ 103 007676  6766          DTCA DTXA       / Send it to controller
+ 104 007677  6764  RAGAIN, DTXA            / Start search again
+ 105 007700  4364          JMS DTWAIT      / Wait for command complete
+ 106 007701  5310          JMP RDONE       / Error return, assume BOT
+ 107 007702  1352          TAD C3          / Normal return, Get 3
+ 108 007703  1755          TAD I CA        / Get block number found
+ 109 007704  7040          CMA             / Negate and subract one
+ 110 007705  1236          TAD CSLNK       / There yet?
+ 111 007706  7710          SPA CLA
+ 112 007707  5277          JMP RAGAIN      / No, try again
+ 113 007710  1351  RDONE,  TAD SFUNC       / Get UUUFFFCCC000
+ 114 007711  0200          AND C7010       / Mask for unit and command bit
+ 115 007712  1274          TAD C200        / Add 0200 to form forward search
+ 116 007713  6766          DTCA DTXA       / Send to controller
+ 117 007714  6764  FAGAIN, DTXA            / Start search again
+ 118 007715  4364          JMS DTWAIT      / Wait for done
+ 119 007716  5273          JMP RETRY       / Error, start over
+ 120 007717  1755          TAD I CA        / Normal return, Look at block number
+ 121 007720  7041          CIA             / Found it?
+ 122 007721  1236          TAD CSLNK
+ 123 007722  7640          SZA CLA 
+ 124 007723  5314          JMP FAGAIN      / No, go search again
+ 125 007724  1375          TAD N201        / Get -201 (block size)
+ 126 007725  3354          DCA WC          / Set up WC
+ 127 007726  7040          CMA             / Get -1
+ 128 007727  1350          TAD BUFP        / Set up CA
+ 129 007730  3355          DCA CA
+ 130 007731  1351          TAD SFUNC       / Get UUUFFFCCC000
+ 131 007732  0372          AND C70         / Get the command bits
+ 132 007733  6764          DTXA            / Give them to the controller
+ 133 007734  6772  DMAWT,  DTRB            / Read status register
+ 134 007735  7710          SPA CLA         / Error?
+ 135 007736  5361          JMP BAIL        / Yes, take error return
+ 136 007737  1354          TAD WC          / Are we (almost) done?
+ 137 007740  7140          CLL CMA 
+ 138 007741  7640          SZA CLA 
+ 139 007742  5334          JMP DMAWT       / No, just keep going
+ 140 007743  6774          DTLB            / Yes, clear memory field
+ 141 007744  1347          TAD LNKPTR      / Get saved link pointer
+ 142 007745  3355          DCA CA          / Fudge CA to link pointer
+ 143 007746  5356          JMP WTXIT       / Resume around unmovable WC, CA
+ 144               
+ 145 007747  0454  LNKPTR, 0454            / Pointer to where to write link
+ 146 007750  7600  BUFP,   7600            / Pointer to user's buffer
+ 147 007751  0050  SFUNC,  0050            / Saved/shifted function word
+ 148 007752  0003  C3,     0003            / Constant for field 0 read
+ 149 007753  0600  C600,   0600            / Constant to form reverse search
+ 150 007754  7754  WC,     .               / Hardware WC register
+ 151 007755  7755  CA,     .               / Hardware CA register
+ 152               
+ 153 007756  4364  WTXIT,  JMS DTWAIT      / Wait for the last (link) word
+ 154 007757  7410          SKP             / Error, take error return
+ 155 007760  2242          ISZ SYSIO       / Set up for normal return
+ 156 007761  1274  BAIL,   TAD C200        / Get 0200 (unit 0 move forward)??
+ 157 007762  6764          DTXA            / Stop the DECtape (How can this work??)
+ 158 007763  5642          JMP I SYSIO     / Return
+ 159               
+ 160 007764  7717  DTWAIT, 7717            / Subroutine to wait for I/O done
+ 161 007765  6773          DTRB DTSF       / Read B, skip if done
+ 162 007766  5365          JMP .-1         / Wait for done
+ 163 007767  7700          SMA CLA         / Any error?
+ 164 007770  2364          ISZ DTWAIT      / No, bump for normal return
+ 165 007771  5764          JMP I DTWAIT    / Return
+ 166               
+ 167 007772  0070  C70,    0070            / Mask for shifted command bits
+ 168 007773  0005  C5,     0005            / Constant for field 0 write
+ 169 007774  0000  BUFPP,  0000            / Pointer to buffer pointer
+ 170 007775  7577  N201,   -201            / Block size (negative)
+ 171 007776  0000          0000
+ 172 007777  0000          0000
+ 173               
+ 174                       *0000
+ 175 000000  0001          0001
+ 176               $
+
+BAIL    7761
+BUFP    7750
+BUFPP   7774
+C200    7674
+C3      7752
+C5      7773
+C600    7753
+C70     7772
+C7010   7600
+C7600   7643
+CA      7755
+CSBLK   7634
+CSBUF   7635
+CSFUN   7633
+CSLNK   7636
+CSYSIO  7625
+DMAWT   7734
+DTCA    6762
+DTLB    6774
+DTRB    6772
+DTSF    6771
+DTWAIT  7764
+DTXA    6764
+FAGAIN  7714
+LNKPTR  7747
+MONTOR  7602
+N201    7775
+RAGAIN  7677
+RDONE   7710
+RETRY   7673
+SFUNC   7751
+SYSIO   7642
+USRBLK  7641
+WC      7754
+WTXIT   7756
