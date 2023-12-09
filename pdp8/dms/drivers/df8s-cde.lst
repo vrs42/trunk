@@ -1,0 +1,207 @@
+   1               / Dec  6 2023 Vincent Slyngstad
+   2               /       Disassembly of the PDP-8/S driver at location 5600 in dec-d8-sbac-pb.
+   3               /       This same driver is also found at location 5600 in dec-d8-sbad-pb.
+   4               /       This same driver is also found at location 5600 in dec-d8-sbae-pb.
+   5               
+   6               DCMA=6601       / Initialize controller (clear errors)
+   7               DEAL=6615       / Load extended address registers
+   8               DEAC=6616       / Clear extended address registers
+   9               DFSC=6622       / Skip on data transfer complete
+  10               DFSE=6621       / Skip if no error
+  11               
+  12               *5600
+  13                       RELOC 7600
+  14 007600* 7200  BUFTBL, CLA             / ALSO POINTER TO 7200
+  15 007601* 7400  MONTOR, 7400            / ALSO POINTER TO 7400/MONITOR
+  16 007602* 7200          CLA             / ALSO POINTER TO 7200
+  17 007603* 7400          7400            / ALSO POINTER TO 7400/MONITOR
+  18               
+  19 007604* 1372          TAD N201        / Point to BUFTBL
+  20 007605* 3240          DCA BUFP        / Set up buffer pointer pointer
+  21 007606* 1367          TAD C5          / 5 is field 0 write
+  22 007607* 3232          DCA CSFUN       / Set up to write from field 0
+  23 007610* 1241          TAD USRBLK      / Write to block USRBLK
+  24 007611* 4224          JMS CSYSIO
+  25 007612* 1241          TAD USRBLK      / Write to block 6
+  26 007613* 7001          IAC
+  27 007614* 4224          JMS CSYSIO
+  28 007615* 1374          TAD C3          / 3 is field 0 read
+  29 007616* 3232          DCA CSFUN       / Set up to read into field 0
+  30 007617* 7001          IAC             / Read block 1
+  31 007620* 4224          JMS CSYSIO
+  32 007621* 7326          CLA CLL CML RTL / Set AC == 2
+  33 007622* 4224          JMS CSYSIO      / Read block 2
+  34 007623* 5601          JMP I MONTOR    / Launch the monitor
+  35 007624* 0000  CSYSIO, .-.             / Entry point
+  36 007625* 3233          DCA CSBLK       / Store AC as block number
+  37 007626* 2240          ISZ BUFP        / Bump pointer
+  38 007627* 1640  BUFTAD, TAD I BUFP      / Fetch next buffer address
+  39 007630* 3234          DCA CSBUF       / Set up new buffer address
+  40 007631* 4242          JMS SYSIO       / Call the driver
+  41 007632* 0000  CSFUN,  .-.             / Function requested
+  42 007633* 0000  CSBLK,  .-.             / Block Number
+  43 007634* 0000  CSBUF,  .-.             / Buffer Address
+  44 007635* 0000  CSLNK,  .-.             / Link word (reused later)
+  45 007636* 7402          HLT             / Error return
+  46 007637* 5624          JMP I CSYSIO    / Normal return
+  47 007640* 0000  BUFP,   .-.             / Pointer to next buffer pointer
+  48 007641* 0000  USRBLK, 0000            / First block to save user memory
+  49                                       / BUGBUG: Shouldn't that be block 5 ??
+  50               
+  51               /
+  52               / JMS I SYSIO
+  53               / WORD DESIRED FUNCTION
+  54               / WORD DESIRED BLOCK
+  55               / WORD DESIRED CORE ADDRESS (low 12 bits).
+  56               / WORD LINK FIELD (Filled by WRITE, used by READ).
+  57               / ERROR RETURN HERE
+  58               / NORMAL RETURN HERE
+  59               /
+  60               / FUNCTION WORD
+  61               / =============
+  62               /
+  63               / 0 1 2 3 4 5 6 7 8 9 10 11
+  64               / U U                       - Unused bits.
+  65               /     R                     - 0=Normal return. 1=Indirect return. 
+  66               /       U U U               - Unit number 0-7 (if DECtape?).
+  67               /             F F F         - Memory field 0-7.
+  68               /                   F  F  F - Function. READ=3. WRITE=5.
+  69               /
+  70               / The ERROR RETURN in the indirect case is a pointer to a location in memory
+  71               / to return to.  It will return to the pointer in the case of an ERROR or to
+  72               / pointer+1 in the case of NO ERROR.
+  73               / 
+  74               
+  75 007642* 0000  SYSIO,  .-.             / System Device Driver
+  76 007643* 7346          CLA CLL CMA RTL / Get 7775 (-3)
+  77 007644* 3354          DCA RETROK      / Set "retry ok"
+  78 007645* 1642          TAD I SYSIO     / Get function word.
+  79 007646* 2242          ISZ SYSIO       / Point to block number
+  80 007647* 7106          CLL RTL         / Shift indirect return bit to sign
+  81 007650* 7510          SPA             / Indirect return desired?
+  82 007651* 1374          TAD C3          / Yes, add 3 so that LINK will remain set
+  83 007652* 7012          RTR             / Restore function word
+  84 007653* 0365          AND C77         / Mask out indirect and unit number.
+  85 007654* 3355          DCA FUNCWD      / Save field and function.
+  86 007655* 1642          TAD I SYSIO     / Get the block number.
+  87 007656* 2242          ISZ SYSIO       / Point to the buffer address.
+  88 007657* 3375          DCA BLKNO       / Save the block number.
+  89 007660* 1642          TAD I SYSIO     / Get the buffer address.
+  90 007661* 3343          DCA BUFPTR      / Save it.
+  91 007662* 1242          TAD SYSIO       / Get buffer pointer address
+  92 007663* 7430          SZL             / Need indirect return?
+  93 007664* 7344          CLA CLL CMA RAL / Yes, replace with 7776
+  94 007665* 3352          DCA LNKPTR      / Save where to put link
+  95 007666* 2242          ISZ SYSIO       / Point to link
+  96 007667* 2242          ISZ SYSIO       / Point to error return
+  97 007670* 1642          TAD I SYSIO     / Get error return
+  98 007671* 7430          SZL             / Need indirection?
+  99 007672* 3242          DCA SYSIO       / Yes, do it
+ 100 007673* 7300  RETRY,  CLA CLL         / Come here to retry I/O.
+ 101 007674* 1375          TAD BLKNO       / Get the block number
+ 102 007675* 7004          RAL             / Align with unit bits
+ 103 007676* 0366          AND C3700       / Mask for disk unit
+ 104 007677* 3357          DCA DADDRH      / Save it
+ 105 007700* 1375          TAD BLKNO       / Get the block number
+ 106 007701* 0353          AND C37         / Mask for offset on disk unit
+ 107 007702* 7112          CLL RTR         / Multiply by 0200
+ 108 007703* 7012          RTR 
+ 109 007704* 7012          RTR 
+ 110 007705* 1375          TAD BLKNO       / Make that 0201
+ 111 007706* 7001          IAC             / Align block end with protection boundary
+ 112 007707* 3356          DCA DADDRL      / Save disk unit offset
+ 113 007710* 7430          SZL             / Overflow?
+ 114 007711* 1373          TAD C100        / Yes, bump up
+ 115 007712* 1357          TAD DADDRH      / Get shifted disk unit
+ 116 007713* 1355          TAD FUNCWD      / Get field and function
+ 117 007714* 6615          DEAL            / Load field and DADDRH into conrtroller
+ 118                                       / DEAL does not clear AC.
+ 119 007715* 0370          AND C7          / Get the function (3=read, 5=write)
+ 120 007716* 1371          TAD C6600       / Form DMAR/DMAW instruction
+ 121 007717* 3326          DCA DMARW       / Set up for later.
+ 122 007720* 1372          TAD N201        / Get 7577
+ 123 007721* 3350          DCA WC          / Set up WC.
+ 124 007722* 7040          CMA             / Get -1 to form CA
+ 125 007723* 1343          TAD BUFPTR      / Add buffer address
+ 126 007724* 3351          DCA CA          / Set up CA.
+ 127               
+ 128 007725* 1356          TAD DADDRL      / Get low disk address, etc.
+ 129 007726* 0000  DMARW,  .-.             / Either DMAR or DMAW
+ 130 007727* 1350          TAD WC          / Get WC
+ 131 007730* 7040          CMA             / Almost done?
+ 132 007731* 7640          SZA CLA
+ 133 007732* 5327          JMP DMARW+1     / No, keep checking ??
+ 134 007733* 1352          TAD LNKPTR      / Yes, get desired link address
+ 135 007734* 3351          DCA CA          / Set it as new CA.
+ 136 007735* 6622          DFSC            / Skip on data transfer complete
+ 137 007736* 5335          JMP .-1         / Loop until complete.
+ 138 007737* 6621          DFSE            / Skip if no error
+ 139 007740* 5360          JMP BAIL        / Error, go bail
+ 140 007741* 2242          ISZ SYSIO       / Normal return
+ 141 007742* 5362          JMP WRAPUP      / Go finish up
+ 142 007743* 0000  BUFPTR, .-.             / Pointer to user's buffer
+ 143               WC=7750
+ 144               CA=7751
+ 145               
+ 146                       *7752
+ 147 007752* 0000  LNKPTR, .-.             / Where to put the link word
+ 148 007753* 0037  C37,    37              / Mask Constant
+ 149 007754* 0000  RETROK, .-.             / OK to retry the I/O.
+ 150 007755* 0000  FUNCWD, .-.             / Saved field and function bits
+ 151 007756* 0000  DADDRL, .-.             / Disk address (low word)
+ 152 007757* 0000  DADDRH, .-.             / Disk address (high word)
+ 153 007760* 2354  BAIL,   ISZ RETROK      / Retry OK?
+ 154 007761* 5273          JMP RETRY       / Yes, go do it
+ 155 007762* 6601  WRAPUP, DCMA            / Initialize controller (clear errors)
+ 156 007763* 7300          CLA CLL 
+ 157 007764* 5642          JMP I SYSIO
+ 158               
+ 159 007765* 0077  C77,    0077            / Mask constant
+ 160 007766* 3700  C3700,  3700            / Mask constant
+ 161 007767* 0005  C5,     5               / Mask constant
+ 162 007770* 0007  C7,     7               / Mask constant
+ 163 007771* 6600  C6600,  6600            / DMAR, DMAW shared bits
+ 164 007772* 7577  N201,   -201            / Negative buffer size
+ 165 007773* 0100  C100,   100             / Constant
+ 166 007774* 0003  C3,     3               / Constant
+ 167 007775* 0000  BLKNO,  .-.             / Block number for current transfer
+ 168               $
+
+BAIL    7760
+BLKNO   7775
+BUFP    7640
+BUFPTR  7743
+BUFTAD  7627 unreferenced
+BUFTBL  7600 unreferenced
+C100    7773
+C3      7774
+C37     7753
+C3700   7766
+C5      7767
+C6600   7771
+C7      7770
+C77     7765
+CA      7751
+CSBLK   7633
+CSBUF   7634
+CSFUN   7632
+CSLNK   7635 unreferenced
+CSYSIO  7624
+DADDRH  7757
+DADDRL  7756
+DCMA    6601
+DEAC    6616 unreferenced
+DEAL    6615
+DFSC    6622
+DFSE    6621
+DMARW   7726
+FUNCWD  7755
+LNKPTR  7752
+MONTOR  7601
+N201    7772
+RETROK  7754
+RETRY   7673
+SYSIO   7642
+USRBLK  7641
+WC      7750
+WRAPUP  7762
