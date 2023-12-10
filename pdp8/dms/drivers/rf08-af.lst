@@ -105,16 +105,16 @@
  105               / to form the 18 bit product.  This driver does something different.
  106               /
  107               / One calculation is performed to take the low 6 bits of the block number,
- 108               / Multiply by 0200, add 1, and add te block number, forming the low word
+ 108               / Multiply by 0200, add 1, and add the block number, forming the low word
  109               / of the disk offset.  Note that if the LINK is set after this calculation,
- 110               / then the result has *just* overflowed, and the upper word woult need to be
+ 110               / then the result has *just* overflowed, and the upper word would need to be
  111               / incremented.  This low word is used with the DMAR or DMAW instruction to
  112               / initiate the I/O operation.
  113               /
  114               / A seperate calculation is performed for the upper bits, which will be sent
  115               / to the controller with a DXAL instruction.  In principle, what one would do
  116               / is to carry out a calculation of the upper disk address bits using values
- 117               / scaled right by 12 bits.  Note, however, that only only values of 0-15 can
+ 117               / scaled right by 12 bits.  Note, however, that only values of 0-15 can
  118               / occur in the upper half of the block number.  The calculation starts out
  119               / shifted 6 bits, and is moved right 4 bits so the result will fit, then
  120               / the remaining 2 bits right needed to multiply by 128 are done after the
@@ -195,17 +195,17 @@
  195 007744* 5301          JMP RETRY       / No, go do retry
  196               IOERR=7761
  197 007745* 5361          JMP IOERR       / Yes, go return error
- 198 007746* 7577  N201,   -201            / Constant: negative blocksize
- 199 007747* 0070  C70,    70              / Constant mask
+ 198 007746* 7577  N201,   -201            / Constant (negative blocksize)
+ 199 007747* 0070  C70,    70              / Constant (field mask)
  200               WC=7750                 / Hardware requires this be here
  201 007750* 0000  WC,     .-.             / Word Count
  202               CA=7751                 / Hardware requires this be here
  203 007751* 0000  CA,     .-.             / Current Address
  204 007752* 0000  LNKPTR, .-.             / Used to save a pointer to the link word
  205 007753* 0000  INDPTR, .-.             / 7777 or link pointer
- 206                       *.+1            / Uunused
- 207                       *.+1            / Uunused
- 208                       *.+1            / Uunused
+ 206                       *.+1            / Unused
+ 207                       *.+1            / Unused
+ 208                       *.+1            / Unused
  209 007757* 0000  RETRYS, .-.             / Retry counter/flag.
  210               
  211 007760* 2242  IOOK,   ISZ SYSIO       / Bump the return address to the normal return.

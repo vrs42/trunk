@@ -105,16 +105,16 @@ INDIR,	TAD PLNKP	/ Get a pointer to LNKPTR.
 / to form the 18 bit product.  This driver does something different.
 /
 / One calculation is performed to take the low 6 bits of the block number,
-/ Multiply by 0200, add 1, and add te block number, forming the low word
+/ Multiply by 0200, add 1, and add the block number, forming the low word
 / of the disk offset.  Note that if the LINK is set after this calculation,
-/ then the result has *just* overflowed, and the upper word woult need to be
+/ then the result has *just* overflowed, and the upper word would need to be
 / incremented.  This low word is used with the DMAR or DMAW instruction to
 / initiate the I/O operation.
 /
 / A seperate calculation is performed for the upper bits, which will be sent
 / to the controller with a DXAL instruction.  In principle, what one would do
 / is to carry out a calculation of the upper disk address bits using values
-/ scaled right by 12 bits.  Note, however, that only only values of 0-15 can
+/ scaled right by 12 bits.  Note, however, that only values of 0-15 can
 / occur in the upper half of the block number.  The calculation starts out
 / shifted 6 bits, and is moved right 4 bits so the result will fit, then
 / the remaining 2 bits right needed to multiply by 128 are done after the
@@ -195,17 +195,17 @@ RETRY=7701
 	JMP RETRY	/ No, go do retry
 IOERR=7761
 	JMP IOERR	/ Yes, go return error
-N201,	-201		/ Constant: negative blocksize
-C70,	70		/ Constant mask
+N201,	-201		/ Constant (negative blocksize)
+C70,	70		/ Constant (field mask)
 WC=7750			/ Hardware requires this be here
 WC,	.-.		/ Word Count
 CA=7751			/ Hardware requires this be here
 CA,	.-.		/ Current Address
 LNKPTR,	.-.		/ Used to save a pointer to the link word
 INDPTR,	.-.		/ 7777 or link pointer
-	*.+1		/ Uunused
-	*.+1		/ Uunused
-	*.+1		/ Uunused
+	*.+1		/ Unused
+	*.+1		/ Unused
+	*.+1		/ Unused
 RETRYS,	.-.		/ Retry counter/flag.
 
 IOOK,	ISZ SYSIO	/ Bump the return address to the normal return.
