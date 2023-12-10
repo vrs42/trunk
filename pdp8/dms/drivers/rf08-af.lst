@@ -1,71 +1,71 @@
    1               / Disassembly of the DMS RF08 driver.
-   2               / Nov 20 2023: VRS
-   3               /       Downloaded the excellent start made by Dave R. from
-   4               /       https://forum.vcfed.org/index.php?attachments/dms-stuff-zip.1268325/
-   5               / Nov 21 2023: VRS
-   6               /       Created this document, which hopes to still document things while
-   7               /       actually assembling to re-create the original driver.
-   8               / Dec  6 2023: VRS
-   9               /       Brought into alignment with the RF08 driver at location 2400 of
-  10               /       dec-d8-sbaf-pb.
-  11               /
-  12               / BUGBUG: More work on the disassembly is needed!
-  13               /
-  14               
-  15               DIML=6615
-  16               DXAL=6643
-  17               DISK=6623
-  18               DFSE=6621
-  19               
-  20               *2400
-  21                       RELOC 7600
-  22 007600* 0006  L7600,  0006            / The BOOTSTRAP entry point! A constant?
-  23 007601* 4242          JMS SYSIO       / Call SYSIO entry point.
-  24 007602* 0005          0005            / Function code. 5 = WRITE.
-  25 007603* 0373          0373            / Block = first disk scratch block.
-  26 007604* 7200          7200            / Buffer address.
-  27 007605* 0000  L7605,  .-.             / Link field? Also used as temporary storage by the
-  28                                       / instruction at L7647 as the function code parameter.
-  29 007606* 7402          HLT             / Error HALT.
-  30 007607* 4242          JMS SYSIO       / Call SYSIO entry point.
-  31 007610* 0005          0005            / Function code. 5 = WRITE.
-  32 007611* 0374          0374            / Block = second disk scratch block.
-  33 007612* 7400          7400            / Buffer address.
-  34 007613* 0000  L7613,  .-.             / Link field? Also used as temporary storage by the
-  35                                       / instruction at L7713 as ???.
-  36 007614* 7752  L7614,  7752
-  37 007615* 4242          JMS SYSIO       / Call SYSIO entry point.
-  38 007616* 0003          0003            / Function code. 3 = READ.
-  39 007617* 0001          0001            / Block = MONITOR (1ST PAGE OF SAVE).
-  40 007620* 7200          7200            / Buffer address.
-  41 007621* 0000  L7621,  0000            / Link field? Also used as temporary storage by the
-  42                                       / instruction at L7665 as ???.
-  43 007622* 7402          HLT             / Error HALT.
-  44 007623* 4242          JMS SYSIO       / Call SYSIO entry point.
-  45 007624* 0003          0003            / Function code. 3 = READ.
-  46 007625* 0002          0002            / Block = MONITOR (START).
-  47 007626* 7400  L7626,  7400            / Buffer address.  Also Monitor starting address.
-  48 007627* 0000  L7627,  0000            / Link field? Also used as temporary storage by the
-  49                                       / instruction at L7661 as the disk block parameter.
-  50 007630* 7402          HLT             / Error HALT.
-  51 007631* 5626          JMP I L7626     / Jump to MONITOR START. >>>>>>>>>>>>>>>>>>>>
-  52               
-  53 007632* 0077  C77,    0077            / Constant 0077. Used by the instructions at addresses
-  54                                       / L7705 and L7721.
-  55 007633* 0040  C40,    0040            / Constant 0040. Used by the instruction at address L7715.
-  56 007634* 0700  C700,   0700            / Constant 0700. Used by the instruction at address L7724.
-  57               
-  58               / An indirect error return is desired by the caller.
-  59 007635* 1214  L7635,  TAD L7614       / Load AC from L7614 (the strange constant value of L7752)!!!
-  60 007636* 3352          DCA L7752       / Store AC to memory address L7752. Clear AC.
-  61 007637* 1642          TAD I SYSIO     / Load the value found at the return address pointer
-  62                                       / (which should now be pointing at the caller's
-  63                                       / ERROR address).
-  64 007640* 3242          DCA SYSIO       / Store the result back into L7642 (the return address). Clear AC.
-  65 007641* 5301          JMP L7701       / Jump to L7701 (back into the main pass of the program)
-  66                                       / as though nothing had happened - we have just
-  67                                       / 'bodged' the return address if an error occurs though!
-  68               
+   2               / This version is at offset 2400 in the BUILDER, dec-d8-sbaf-pb.
+   3               / Nov 20 2023: VRS
+   4               /       Downloaded the excellent start made by Dave R. from
+   5               /       https://forum.vcfed.org/index.php?attachments/dms-stuff-zip.1268325/
+   6               / Nov 21 2023: VRS
+   7               /       Created this document, which hopes to still document things while
+   8               /       actually assembling to re-create the original driver.
+   9               / Dec  6 2023: VRS
+  10               /       Brought into alignment with the RF08 driver at location 2400 of
+  11               /       dec-d8-sbaf-pb.
+  12               / Dec  9 2023: VRS
+  13               /       Clarified the comments on the code, and removed disassembly notes.
+  14               /       Added a block comment about the confusing calculations that convert
+  15               /       block number to disk offset.
+  16               /
+  17               
+  18               DCMA=6601       / Reset controller state
+  19               DIML=6615       / Clear then load Memory Extension Register
+  20               DXAL=6643       / Clear then Load EMA
+  21               DFSE=6621       / Skip if Error
+  22               DFSC=6622       / Skip if Data Complete
+  23               DISK=6623       / Skip if Error or Data Complete
+  24               
+  25               *2400
+  26                       RELOC 7600
+  27 007600* 0006  C6,     0006            / The BOOTSTRAP entry point and a constant.
+  28               
+  29 007601* 4242          JMS SYSIO       / Call SYSIO entry point.
+  30 007602* 0005          0005            / Function code. 5 = WRITE.
+  31 007603* 0373          0373            / Block = first disk scratch block.
+  32 007604* 7200          7200            / Buffer address.
+  33 007605* 0000  OFUNC,  .-.             / Link field. Re-used below to store user function.
+  34 007606* 7402          HLT             / Error HALT.
+  35               
+  36 007607* 4242          JMS SYSIO       / Call SYSIO entry point.
+  37 007610* 0005          0005            / Function code. 5 = WRITE.
+  38 007611* 0374          0374            / Block = second disk scratch block.
+  39 007612* 7400          7400            / Buffer address.
+  40 007613* 0000  DADDRL, .-.             / Link field. Re-used as low disk address.
+  41 007614* 7752  PLNKP,  LNKPTR          / 7752, so it doubles as a funky HLT.
+  42               
+  43 007615* 4242          JMS SYSIO       / Call SYSIO entry point.
+  44 007616* 0003          0003            / Function code. 3 = READ.
+  45 007617* 0001          0001            / Block = MONITOR (1ST PAGE OF SAVE).
+  46 007620* 7200          7200            / Buffer address.
+  47 007621* 0000  CSLNK,  .-.             / Link field. Re-used as pointer to link in buffer.
+  48 007622* 7402          HLT             / Error HALT.
+  49               
+  50 007623* 4242          JMS SYSIO       / Call SYSIO entry point.
+  51 007624* 0003          0003            / Function code. 3 = READ.
+  52 007625* 0002          0002            / Block = MONITOR (START).
+  53 007626* 7400  MONTOR, 7400            / Buffer address.  Also Monitor starting address.
+  54 007627* 0000  CSBLK,  .-.             / Link field. Re-used to hold the disk block parameter.
+  55 007630* 7402          HLT             / Error HALT.
+  56               
+  57 007631* 5626          JMP I MONTOR    / Jump to the monitor.
+  58               
+  59 007632* 0077  C77,    0077            / Constant 0077.
+  60 007633* 0040  C40,    0040            / Constant 0040.
+  61 007634* 0700  C700,   0700            / Constant 0700.
+  62               
+  63               / An indirect error return is desired by the caller.
+  64 007635* 1214  INDIR,  TAD PLNKP       / Get a pointer to LNKPTR.
+  65 007636* 3352          DCA LNKPTR      / Make LNKPTR point to itself.
+  66 007637* 1642          TAD I SYSIO     / Load the error address
+  67 007640* 3242          DCA SYSIO       / Do the indirection.
+  68 007641* 5301          JMP NOIND       / Resume as if no indirection.
   69               
   70               /
   71               / JMS I SYSIO
@@ -90,184 +90,178 @@
   90               / to return to.  It will return to the pointer in the case of an ERROR or to
   91               / pointer+1 in the case of NO ERROR.
   92               / 
-  93 007642* 0000  SYSIO,  .-.             / SYSIO SUBROUTINE. Return address.
-  94 007643* 7346          CLA CLL CMA RTL / AC = 7775 (-3). This is the 'retry counter'
-  95                                       / in case of a disk read or write error.
-  96 007644* 3357          DCA L7757       / Save to L7757. Clear AC.
-  97 007645* 1642          TAD I SYSIO     / AC = function code parameter.
-  98 007646* 3205          DCA L7605       / Save to L7605. Clear AC. Store AC to a link field??
-  99 007647* 1205          TAD L7605       / Reload function code parameter again to AC.
- 100 007650* 0200  L7650,  AND L7600       / Only interested in bits 000 000 000 110
- 101                                       / = (3=010=READ; 5=100=WRITE).
- 102                                       / Also constant 0200!
- 103 007651* 1364          TAD L7764       / Add to the value stored at L7764 (= 6601).
- 104                                       / 6603=READ. 6605=WRITE.
- 105 007652* 3336          DCA L7736       / Save to L7736. Clear AC.
- 106 007653* 1205          TAD L7605       / Reload function code parameter again to AC.
- 107 007654* 0347          AND L7747       / Mask with 0070 = 000 000 111 000.
- 108                                       / This isolates the memory field.
- 109 007655* 1375          TAD L7775       / Add in 6201. = 62X1. CDF Change Data Field.
- 110 007656* 3370          DCA L7770       / Store resulting CDF instruction to L7770.
- 111 007657* 2242          ISZ SYSIO       / Move parameter pointer (subroutine return address)
- 112                                       / on to the BLOCK parameter. 
- 113 007660* 1642          TAD I SYSIO     / AC = disk block number to read/write.
- 114 007661* 3227          DCA L7627       / Save to L7627. Clear AC. Store AC to a link field??
- 115 007662* 2242          ISZ SYSIO       / Move parameter pointer (subroutine return address)
- 116                                       / on to the ADDRESS parameter. 
- 117 007663* 1642          TAD I SYSIO     / AC = memory address to start reading from/ writing to.
- 118 007664* 1250          TAD L7650       / AC = memory address + what is at L7650 = 0200. ???
- 119 007665* 3221          DCA L7621       / Save to L7621. Clear AC. Store AC to a link field??
- 120 007666* 2242          ISZ SYSIO       / Move parameter pointer (subroutine return address)
- 121                                       / on to the LINK parameter. 
- 122 007667* 1642          TAD I SYSIO     / AC = link parameter.
- 123 007670* 4366          JMS L7766       / CALL SUBROUTINE at L7766.
- 124 007671* 3353          DCA L7753       / Save to L7753. Clear AC.
- 125 007672* 1242          TAD SYSIO       / AC = the address itself of the LINK field.
- 126 007673* 3352          DCA L7752       / Store the address of the link field to L7752. Clear AC.
- 127 007674* 2242          ISZ SYSIO       / Move parameter pointer (subroutine return address)
- 128                                       / on to the error address of the caller. 
- 129 007675* 1205          TAD L7605       / Pick-up the function code parameter.
- 130 007676* 7006          RTL             / Rotate twice left AC and L.
- 131 007677* 7710          SPA CLA         / Skip if AC sign bit is '0'. Clear AC anyhow.
- 132                                       / This indicates a 'NORMAL RETURN'.
- 133 007700* 5235          JMP L7635       / Jump to L7635 if AC sign bit was '1'.
- 134                                       / This indicates an 'INDIRECT RETURN'.
- 135               
- 136               / A normal return is desired by the caller.
- 137 007701* 1205  L7701,  TAD L7605       / Pick-up the function code parameter.
- 138 007702* 0347          AND L7747       / Logically AND AC with what is at address L7747 = 0070
- 139                                       / to leave us with the desired memory field specified
- 140                                       / by the caller.
- 141 007703* 6615          DIML            / [DISK INSTRUCTION]. Load desired memory field into
- 142                                       / the disk controller from AC. Clear AC. 
- 143 007704* 1227          TAD L7627       / Add into AC what is at address L7627 (the disk block
- 144                                       / number). Presumably AC is 0 at this point?
- 145 007705* 0232          AND C77         / And the block number (in AC) with 0077.
- 146                                       / Lowest 6 bits retained of the block number.
- 147 007706* 7112          CLL RTR         / L=0. Rotate AC twice right via L.
- 148 007707* 7012          RTR             / Rotate AC twice more right.
- 149 007710* 7012          RTR             / Rotate AC twice more right (getting dizzy now)...
- 150                                       / Making 6 right rotates in total.
- 151 007711* 7101          CLL IAC         / L=0. AC=AC+1 (linking any overflow into L).
- 152 007712* 1227          TAD L7627       / Add to AC what is stored at address L7627
- 153                                       / (which is the disk block number again)???
- 154 007713* 3213          DCA L7613       / Store the result to L7613. Another link field??
- 155                                       / Clear AC.
- 156 007714* 7430          SZL             / Skip the next instruction if L=0.
- 157 007715* 1233          TAD C40         / Load into 0040 AC.
- 158 007716* 1227          TAD L7627       / Add into AC what is stored at address L7627
- 159                                       / = the desired disk block.
- 160 007717* 7012          RTR             / Rotate AC right twice via L.
- 161 007720* 7012          RTR             / Rotate AC right twice via L.
- 162                                       / making 4 right rotates in total.
- 163 007721* 0232          AND C77         / Logically AND AC with the constant 0077.
- 164                                       / Lowest 6 bits retained.
- 165 007722* 3350          DCA WC          / Store the result in AC to WC.
- 166                                       / Clear AC.
- 167 007723* 1205          TAD L7605       / Load AC from the value stored at address L7605
- 168                                       / = function code parameter.
- 169 007724* 0234          AND C700        / Logically AND AC with the constant 0700.
- 170                                       / Extract the desired UNIT number.
- 171 007725* 1350          TAD WC          / Add into AC what is stored at WC.
- 172                                       / This is the value calculated from address L7722.
- 173 007726* 7110          CLL RAR         / L=0. Rotate AC right through L.
- 174 007727* 6643          DXAL            / [DISK INSTRUCTION]. Load EMA bits again? Clears AC.
- 175 007730* 1346          TAD L7746       / Load AC with the value at address L7746 = L7577.
- 176                                       / What is this?
- 177 007731* 3350          DCA WC          / Store AC to WC. Clear AC.
- 178 007732* 1346          TAD L7746       / Load AC with the value at address L7746 = L7577.
- 179                                       / What is this?
- 180 007733* 1221          TAD L7621       / Add into AC the value at address L7621 (one of the
- 181                                       / magic link fields used as temporary storage)...
- 182 007734* 3351          DCA CA          / Store the result to CA. Clear AC.
- 183 007735* 1213          TAD L7613       / Load AC with the value at memory address L7613
- 184                                       / (another one of the magic link fields used as
- 185                                       / temporary storage)...
- 186 007736* 0000  L7736,  .-.             / Used for storage from L7652. 6603=READ. 6605=WRITE.
- 187 007737* 6623          DISK            / [DISK INSTRUCTION]. Skip next instruction if either
- 188                                       / the error flag is set or the data completion flag
- 189                                       / is set.
- 190 007740* 5337          JMP .-1         / Loop back to 'DISK' instruction if READ or WRITE
- 191                                       / instruction has not 'finished'...
- 192 007741* 6621          DFSE            / [DISK INSTRUCTION]. Skip the next instruction if an
- 193                                       / error occurred (DRL, PER, WLS or NXD errors).
- 194 007742* 5360          JMP L7760       / An 'OK' read or write occurred.
- 195               
- 196               / An error occurred during the disk read or write.
- 197 007743* 2357          ISZ L7757       / Increment the 'tries' counter.
- 198 007744* 5301          JMP L7701       / Repeat the disk read or write (a retry).
- 199 007745* 5361          JMP L7761       / Exhausted the retry counter - must be an error then!
- 200               
- 201 007746* 7577  L7746,  7577            / Value used at instructions L7730 and L7732.
- 202 007747* 0070  L7747,  0070            / Mask used at instruction L7654.
- 203 007750* 0000  WC,     0000            / WORD COUNT (WC)      !!!!!!!!!!!!!!!!
- 204 007751* 0000  CA,     0000            / CURRENT ADDRESS (CA) !!!!!!!!!!!!!!!!
- 205 007752* 0000  L7752,  .-.             / Used for storage from L7673. The address of the LINK
- 206                                       / field from the caller. Also written to from the
- 207                                       / instruction at address L7636 which would store the
- 208                                       / value L7752???
- 209 007753* 0000  L7753,  0000            / Used for storage from L7671.
- 210                       *.+1            / Unused
- 211                       *.+1            / Unused
- 212                       *.+1            / Unused
- 213 007757* 0000  L7757,  .-.             / Used for storage from L7644. Value set to L7775...
- 214                                       / This is the 'retry counter'.
- 215               
- 216               / Get here from L7742 following an 'OK' disk read or write.
- 217 007760* 2242  L7760,  ISZ SYSIO       / Bump the subroutine return address to the correct
- 218                                       / point (skip the error address).
- 219 007761* 1353  L7761,  TAD L7753       / Load AC from memory address L7753 = result of the
- 220                                       / instruction at L7671.
- 221 007762* 4366          JMS L7766       / Call the subroutine at L7766.
- 222 007763* 3752          DCA I L7752     / Update the LINK field of the caller.
- 223 007764* 6601  L7764,  DCMA            / [DISK INSTRUCTION]. Clears a load of disk state
- 224                                       / registers... Added into AC at instruction L7651. 
- 225 007765* 5642          JMP I SYSIO     / Return from SYSIO subroutine.
- 226               
- 227 007766* 0000  L7766,  .-.             / Start of subroutine. Called from L7670 and L7762.
- 228 007767* 3351          DCA CA          / Store AC to CURRENT ADDRESS and clear AC.
- 229 007770* 0000  L7770,  .-.             / Change Data Field. Used for storage from L7656.
- 230 007771* 1621          TAD I L7621     / The value indirectly accessed by one of the magic
- 231                                       / link fields...
- 232 007772* 3350          DCA WC          / Store to WORD COUNT and clear AC.
- 233 007773* 1351          TAD CA          / Load AC from CURRENT ADDRESS.
- 234 007774* 3621          DCA I L7621     / Store AC indirectly accessed by one of the magic
- 235                                       / link fields...
- 236 007775* 6201  L7775,  CDF 0           / Added into AC at instruction L7655. Return back to
- 237                                       / current field.
- 238 007776* 1350          TAD WC          / Load the WORD COUNT into AC.
- 239 007777* 5766          JMP I L7766     / Return from subroutine back to caller...
- 240               $
+  93               / The computation of disk offset from block number is interesting.
+  94               / Each of the eight units is 128K words long.  This work out to 1016 blocks,
+  95               / 129 word blocks, and an additional 8 words. 
+  96               /
+  97               / Notice also that 16K = 1 + 127*129.  The RF08 disk can protect 16K regions
+  98               / of the media.  For this reason, the blocks are skewed by a word, so that
+  99               / the first 16K boundary will be a protection boundary.  Note that the other
+ 100               / seven overhead words are at the far end, not spread across each 16K segment.
+ 101               /
+ 102               / Now, given a block number between 0 and 1015, one must calculate the word
+ 103               / at which that particular block is found.  Ideally, one would multiply by
+ 104               / 129 (0201) and add one.  Some drivers actually do this, using two words
+ 105               / to form the 18 bit product.  This driver does something different.
+ 106               /
+ 107               / One calculation is performed to take the low 6 bits of the block number,
+ 108               / Multiply by 0200, add 1, and add te block number, forming the low word
+ 109               / of the disk offset.  Note that if the LINK is set after this calculation,
+ 110               / then the result has *just* overflowed, and the upper word woult need to be
+ 111               / incremented.  This low word is used with the DMAR or DMAW instruction to
+ 112               / initiate the I/O operation.
+ 113               /
+ 114               / A seperate calculation is performed for the upper bits, which will be sent
+ 115               / to the controller with a DXAL instruction.  In principle, what one would do
+ 116               / is to carry out a calculation of the upper disk address bits using values
+ 117               / scaled right by 12 bits.  Note, however, that only only values of 0-15 can
+ 118               / occur in the upper half of the block number.  The calculation starts out
+ 119               / shifted 6 bits, and is moved right 4 bits so the result will fit, then
+ 120               / the remaining 2 bits right needed to multiply by 128 are done after the
+ 121               / offset for the unit number are added in.  Note also that since the range
+ 122               / is only 0-15, the 1% error of multiplying by 128 instead of 129 is not
+ 123               / large enough to be a factor.
+ 124               /
+ 125 007642* 0000  SYSIO,  .-.             / SYSIO SUBROUTINE. Return address.
+ 126 007643* 7346          CLA CLL CMA RTL / Get -3 (7775)
+ 127 007644* 3357          DCA RETRYS      / Set up retry count.
+ 128 007645* 1642          TAD I SYSIO     / Get function desired.
+ 129 007646* 3205          DCA OFUNC       / Remember it
+ 130 007647* 1205          TAD OFUNC       / Get function desired.
+ 131 007650* 0200  C200,   AND C6          / Mask for read/write.
+ 132 007651* 1364          TAD DMAX        / Add 6600 to form DMAR or DMAW
+ 133 007652* 3336          DCA DMARW       / Store it for later
+ 134 007653* 1205          TAD OFUNC       / Get function desired.
+ 135 007654* 0347          AND C70         / Mask with 70 to isolate field.
+ 136 007655* 1375          TAD CDF0        / Make a CDF instruction.
+ 137 007656* 3370          DCA USRCDF      / Set up CDF for user field.
+ 138 007657* 2242          ISZ SYSIO       / Point to the block number
+ 139 007660* 1642          TAD I SYSIO     / Get the block number.
+ 140 007661* 3227          DCA CSBLK       / Save the block number.
+ 141 007662* 2242          ISZ SYSIO       / Point to the buffer address.
+ 142 007663* 1642          TAD I SYSIO     / Get the buffer address.
+ 143 007664* 1250          TAD C200        / Point to the buffer's link word.
+ 144 007665* 3221          DCA CSLNK       / Save it.
+ 145 007666* 2242          ISZ SYSIO       / Bump to link parameter.
+ 146 007667* 1642          TAD I SYSIO     / Get link parameter
+ 147 007670* 4366          JMS LNKUP       / Fiddle the links.
+ 148 007671* 3353          DCA INDPTR      / Store the old link value.
+ 149 007672* 1242          TAD SYSIO       / Get address for link value
+ 150 007673* 3352          DCA LNKPTR      / Save it for later
+ 151 007674* 2242          ISZ SYSIO       / Bump to error return
+ 152 007675* 1205          TAD OFUNC       / Get function desired.
+ 153 007676* 7006          RTL             / Shift indirect bit to sign.
+ 154 007677* 7710          SPA CLA         / Indirect return desired?
+ 155 007700* 5235          JMP INDIR       / Yes, go set for indirection.
+ 156 007701* 1205  NOIND,  TAD OFUNC       / Get function desired.
+ 157 007702* 0347          AND C70         / Get field again.
+ 158 007703* 6615          DIML            / Send it to the controller.
+ 159                       / DIML is required to clear AC here.
+ 160 007704* 1227          TAD CSBLK       / Get the block number.
+ 161 007705* 0232          AND C77         / Mask for 6 bits.
+ 162 007706* 7112          CLL RTR         / Multiply by 0200.
+ 163 007707* 7012          RTR
+ 164 007710* 7012          RTR
+ 165 007711* 7101          CLL IAC         / Add one to align block boundary with
+ 166                                       / protection boundary.
+ 167 007712* 1227          TAD CSBLK       / Make 0201*block+1 == disk offset.
+ 168 007713* 3213          DCA DADDRL      / Save the low 12 bits of offset.
+ 169 007714* 7430          SZL             / Overflow?
+ 170 007715* 1233          TAD C40         / Yes, set the relevant bit
+ 171 007716* 1227          TAD CSBLK       / Get the block number.
+ 172 007717* 7012          RTR             / Scale result to align with unit below.
+ 173 007720* 7012          RTR
+ 174 007721* 0232          AND C77         / Form high disk offset
+ 175 007722* 3350          DCA WC          / Save for a moment
+ 176 007723* 1205          TAD OFUNC       / Get function desired.
+ 177 007724* 0234          AND C700        / Get the unit number.
+ 178 007725* 1350          TAD WC          / Add high block offset.
+ 179 007726* 7110          CLL RAR         / Align with controller's needs.
+ 180 007727* 6643          DXAL            / Send high block offset to controller.
+ 181                       / DXAL is expected to clear AC.
+ 182 007730* 1346          TAD N201        / Get -blocksize.
+ 183 007731* 3350          DCA WC          / Set up WC.
+ 184 007732* 1346          TAD N201        / Get -blocksize.
+ 185 007733* 1221          TAD CSLNK       / Back up link pointer to start of buffer.
+ 186 007734* 3351          DCA CA          / Set up CA.
+ 187 007735* 1213          TAD DADDRL      / Get low disk address
+ 188 007736* 0000  DMARW,  .-.             / Initiate read or write, clear AC.
+ 189 007737* 6623          DISK            / Finished the read?
+ 190 007740* 5337          JMP .-1         / No, keep waiting.
+ 191 007741* 6621          DFSE            / Was there an error?
+ 192 007742* 5360          JMP IOOK        / No, return.
+ 193 007743* 2357          ISZ RETRYS      / Yes, last attempt?
+ 194               RETRY=7701
+ 195 007744* 5301          JMP RETRY       / No, go do retry
+ 196               IOERR=7761
+ 197 007745* 5361          JMP IOERR       / Yes, go return error
+ 198 007746* 7577  N201,   -201            / Constant: negative blocksize
+ 199 007747* 0070  C70,    70              / Constant mask
+ 200               WC=7750                 / Hardware requires this be here
+ 201 007750* 0000  WC,     .-.             / Word Count
+ 202               CA=7751                 / Hardware requires this be here
+ 203 007751* 0000  CA,     .-.             / Current Address
+ 204 007752* 0000  LNKPTR, .-.             / Used to save a pointer to the link word
+ 205 007753* 0000  INDPTR, .-.             / 7777 or link pointer
+ 206                       *.+1            / Uunused
+ 207                       *.+1            / Uunused
+ 208                       *.+1            / Uunused
+ 209 007757* 0000  RETRYS, .-.             / Retry counter/flag.
+ 210               
+ 211 007760* 2242  IOOK,   ISZ SYSIO       / Bump the return address to the normal return.
+ 212 007761* 1353  IOERR,  TAD INDPTR      / Load link pointer
+ 213 007762* 4366          JMS LNKUP       / Update the link
+ 214 007763* 3752          DCA I LNKPTR    / Update the link field of the caller.
+ 215 007764* 6601  DMAX,   DCMA            / Re-initialize the controller.
+ 216                                       / Also a convenient constant to construct DMAR/DMAW.
+ 217 007765* 5642          JMP I SYSIO     / Return from SYSIO subroutine.
+ 218               /
+ 219               / This routine is passed a new link value, updates the buffer,
+ 220               / and returns the old link value.
+ 221 007766* 0000  LNKUP,  .-.             / Start of subroutine.
+ 222 007767* 3351          DCA CA          / Save AC for a moment.
+ 223 007770* 0000  USRCDF, .-.             / Change to the DF containing the buffer.
+ 224 007771* 1621          TAD I CSLNK     / Get the link word from the buffer.
+ 225 007772* 3350          DCA WC          / Store for a moment.
+ 226 007773* 1351          TAD CA          / Get the parameter value
+ 227 007774* 3621          DCA I CSLNK     / Store it into the user buffer's link word.
+ 228 007775* 6201  CDF0,   CDF 0           / Return to DF zero (current field).
+ 229 007776* 1350          TAD WC          / Load old link value from the buffer.
+ 230 007777* 5766          JMP I LNKUP     / Return to caller.
+ 231               $
 
+C200    7650
 C40     7633
+C6      7600
+C70     7747
 C700    7634
 C77     7632
 CA      7751
+CDF0    7775
+CSBLK   7627
+CSLNK   7621
+DADDRL  7613
+DCMA    6601
+DFSC    6622 unreferenced
 DFSE    6621
 DIML    6615
 DISK    6623
+DMARW   7736
+DMAX    7764
 DXAL    6643
-L7600   7600
-L7605   7605
-L7613   7613
-L7614   7614
-L7621   7621
-L7626   7626
-L7627   7627
-L7635   7635
-L7650   7650
-L7701   7701
-L7736   7736
-L7746   7746
-L7747   7747
-L7752   7752
-L7753   7753
-L7757   7757
-L7760   7760
-L7761   7761
-L7764   7764
-L7766   7766
-L7770   7770
-L7775   7775
+INDIR   7635
+INDPTR  7753
+IOERR   7761
+IOOK    7760
+LNKPTR  7752
+LNKUP   7766
+MONTOR  7626
+N201    7746
+NOIND   7701
+OFUNC   7605
+PLNKP   7614
+RETRY   7701
+RETRYS  7757
 SYSIO   7642
+USRCDF  7770
 WC      7750
