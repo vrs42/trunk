@@ -39,6 +39,14 @@ send "N"
 #send "Y"
 expect -re {\n\.$}
 
+# Load and run TMOD to set up the OS/8 style bootstrap.
+send "\005"
+expect -re {\nsim> $}
+send "load tmod.bin\r"
+expect -re {\nsim> $}
+send "run 0200\r"
+expect -re {\n\.$}
+
 # Load the specified module and save it.
 proc LoadSave {load save} {
   send "\005"
