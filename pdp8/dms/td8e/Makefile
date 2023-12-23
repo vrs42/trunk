@@ -1,5 +1,5 @@
 PB	= $(GLOB:*-pb)
-BIN	= dta0.bin td8e.bin tmod.bin 8-367b.bin pl8a.bin
+BIN	= dta0.bin td8e.bin tmod.bin 8-376b.bin pl8a.bin
 ALL	= dms.td8e
 
 all:	$(ALL)
