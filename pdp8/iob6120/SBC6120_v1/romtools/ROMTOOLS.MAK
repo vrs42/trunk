@@ -1,0 +1,78 @@
+# Microsoft Visual C++ generated build script - Do not modify
+
+PROJ = ROMTOOLS
+DEBUG = 1
+PROGTYPE = 4
+CALLER = 
+ARGS = 
+DLLS = 
+D_RCDEFINES = -d_DEBUG
+R_RCDEFINES = -dNDEBUG
+ORIGIN = MSVC
+ORIGIN_VER = 1.00
+PROJPATH = D:\PDP8\TOOLS\ROMTOOLS\
+USEMFC = 0
+CC = cl
+CPP = cl
+CXX = cl
+CCREATEPCHFLAG = 
+CPPCREATEPCHFLAG = 
+CUSEPCHFLAG = 
+CPPUSEPCHFLAG = 
+FIRSTC = BINFILE.C   
+FIRSTCPP =             
+RC = rc
+CFLAGS_D_LIB = /nologo /G2 /W3 /Z7 /AH /Od /D "_DEBUG" /FR /GA 
+CFLAGS_R_LIB = /nologo /Gs /G2 /W3 /AM /Ox /D "NDEBUG" /FR /GA 
+RCFLAGS = /nologo
+RESFLAGS = /nologo
+RUNFLAGS = 
+OBJS_EXT = 
+LIBS_EXT = 
+!if "$(DEBUG)" == "1"
+CFLAGS = $(CFLAGS_D_LIB)
+LFLAGS = 
+LIBS = 
+MAPFILE = nul
+RCDEFINES = $(D_RCDEFINES)
+!else
+CFLAGS = $(CFLAGS_R_LIB)
+LFLAGS = 
+LIBS = 
+MAPFILE = nul
+RCDEFINES = $(R_RCDEFINES)
+!endif
+!if [if exist MSVC.BND del MSVC.BND]
+!endif
+SBRS = BINFILE.SBR \
+		HEXFILE.SBR \
+		MISC.SBR
+
+
+all:	$(PROJ).LIB $(PROJ).BSC
+
+BINFILE.OBJ:	BINFILE.C $(BINFILE_DEP)
+	$(CC) $(CFLAGS) $(CCREATEPCHFLAG) /c BINFILE.C
+
+HEXFILE.OBJ:	HEXFILE.C $(HEXFILE_DEP)
+	$(CC) $(CFLAGS) $(CUSEPCHFLAG) /c HEXFILE.C
+
+MISC.OBJ:	MISC.C $(MISC_DEP)
+	$(CC) $(CFLAGS) $(CUSEPCHFLAG) /c MISC.C
+
+$(PROJ).LIB::	BINFILE.OBJ HEXFILE.OBJ MISC.OBJ $(OBJS_EXT)
+	echo >NUL @<<$(PROJ).CRF
+$@ /PAGESIZE:64
+y
++BINFILE.OBJ &
++HEXFILE.OBJ &
++MISC.OBJ &
+;
+<<
+	if exist $@ del $@
+	lib @$(PROJ).CRF
+
+$(PROJ).BSC: $(SBRS)
+	bscmake @<<
+/o$@ $(SBRS)
+<<
