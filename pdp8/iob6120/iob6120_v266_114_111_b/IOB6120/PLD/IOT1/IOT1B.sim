@@ -1,0 +1,172 @@
+%SIGNAL
+PIN  17 =  BYTE_READ 
+PIN  19 =  C0 
+PIN  18 =  C1 
+PIN  15 =  GROUP_1_IOT 
+PIN  14 =  GROUP_2_IOT 
+PIN  16 =  LOAD_MEM_MAP 
+PIN  21 = !LOAD_POST 
+PIN   1 = !LXDAR 
+PIN  13 =  MA3 
+PIN  11 =  MA4 
+PIN  10 =  MA5 
+PIN   9 =  MA6 
+PIN   8 =  MA7 
+PIN   7 =  MA8 
+PIN   6 =  MA9 
+PIN   5 =  MA10 
+PIN   4 =  MA11 
+PIN  22 = !PPI_RD 
+PIN  23 = !PPI_WR 
+PIN   2 = !READ 
+PIN  20 =  SLU_SEC_SEL 
+PIN   3 = !WRITE 
+%END
+
+%FIELD
+%END
+
+%EQUATION
+BYTE_READ =>
+    !LXDAR & MA3 & !MA4 & !MA5 & MA6 & MA7 & MA8 & !MA9 & !READ
+  # !LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & MA9 & !MA11 & !READ & !SLU_SEC_SEL
+  # !LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & MA9 & !MA11 & !READ & SLU_SEC_SEL
+
+C0 =>
+    !LXDAR & MA3 & !MA4 & !MA5 & MA6 & MA7 & MA8 & !WRITE
+  # !LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & !MA11 & !WRITE
+  # !LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & MA10 & !MA11 & !SLU_SEC_SEL & !WRITE
+  # !LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & MA10 & !MA11 & SLU_SEC_SEL & !WRITE
+
+C1 =>
+    !LXDAR & MA3 & !MA4 & !MA5 & MA6 & MA7 & MA8 & !MA9 & !WRITE
+  # !LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & MA9 & !MA11 & !SLU_SEC_SEL & !WRITE
+  # !LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & MA9 & !MA11 & SLU_SEC_SEL & !WRITE
+
+GROUP_1_IOT =>
+    !LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & !SLU_SEC_SEL
+  # !LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & SLU_SEC_SEL
+  # !LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8
+
+GROUP_2_IOT =>
+    !LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & MA8 & !SLU_SEC_SEL
+  # !LXDAR & !MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & SLU_SEC_SEL
+  # !LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8
+
+IOT_640X =>
+    LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & !MA8
+
+IOT_641X =>
+    LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8
+
+IOT_644X =>
+    LXDAR & MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8
+
+IOT_647X =>
+    LXDAR & MA3 & !MA4 & !MA5 & MA6 & MA7 & MA8
+
+IOT_SLU_IN =>
+    LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & SLU_SEC_SEL
+  # LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & !SLU_SEC_SEL
+
+IOT_SLU_OUT =>
+    LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & MA8 & SLU_SEC_SEL
+  # LXDAR & !MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & !SLU_SEC_SEL
+
+KCC =>
+    LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & !MA9 & MA10 & !MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & !MA9 & MA10 & !MA11 & SLU_SEC_SEL
+
+KRB =>
+    LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & MA9 & MA10 & !MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & MA9 & MA10 & !MA11 & SLU_SEC_SEL
+
+KRS =>
+    LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & MA9 & !MA10 & !MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & MA9 & !MA10 & !MA11 & SLU_SEC_SEL
+
+KSF =>
+    LXDAR & !MA3 & !MA4 & !MA5 & !MA6 & MA7 & MA8 & !MA9 & !MA10 & MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & !MA8 & !MA9 & !MA10 & MA11 & SLU_SEC_SEL
+
+LDAR =>
+    LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & !MA10 & !MA11
+
+LOAD_MEM_MAP =>
+    !LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & !MA8 & !MA9 & !WRITE
+
+LOAD_POST =>
+    !LXDAR & MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & !WRITE
+
+PPI_RD =>
+    !LXDAR & MA3 & !MA4 & !MA5 & MA6 & MA7 & MA8 & !MA9 & !READ
+
+PPI_WR =>
+    !LXDAR & MA3 & !MA4 & !MA5 & MA6 & MA7 & MA8 & MA9 & !WRITE
+
+SDRQ =>
+    LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & !MA10 & MA11
+
+SLU_PRI =>
+    MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & MA10 & !MA11
+
+SLU_SEC =>
+    MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & MA10 & MA11
+
+SLU_SEC_SEL.d  =>
+    !SLU_SEC_SEL
+  # MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & MA10 & MA11
+
+SLU_SEC_SEL.ar  =>
+    !LXDAR & MA3 & !MA4 & !MA5 & !MA6 & !MA7 & MA8 & !MA9 & MA10 & !MA11 & !WRITE
+
+SLU_SEC_SEL.sp  =>
+    0 
+
+TCF =>
+    LXDAR & !MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & !MA9 & MA10 & !MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & MA8 & !MA9 & MA10 & !MA11 & SLU_SEC_SEL
+
+TLS =>
+    LXDAR & !MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & MA9 & MA10 & !MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & MA8 & MA9 & MA10 & !MA11 & SLU_SEC_SEL
+
+TPL =>
+    LXDAR & !MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & MA9 & !MA10 & !MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & MA8 & MA9 & !MA10 & !MA11 & SLU_SEC_SEL
+
+TSF =>
+    LXDAR & !MA3 & !MA4 & !MA5 & MA6 & !MA7 & !MA8 & !MA9 & !MA10 & MA11 & !SLU_SEC_SEL
+  # LXDAR & !MA3 & MA4 & MA5 & MA6 & MA7 & MA8 & !MA9 & !MA10 & MA11 & SLU_SEC_SEL
+
+BYTE_READ.oe  =>
+    1 
+
+C0.oe  =>
+    1 
+
+C1.oe  =>
+    1 
+
+GROUP_1_IOT.oe  =>
+    1 
+
+GROUP_2_IOT.oe  =>
+    1 
+
+LOAD_MEM_MAP.oe  =>
+    1 
+
+LOAD_POST.oe  =>
+    1 
+
+PPI_RD.oe  =>
+    1 
+
+PPI_WR.oe  =>
+    1 
+
+SLU_SEC_SEL.oe  =>
+    1 
+
+%END

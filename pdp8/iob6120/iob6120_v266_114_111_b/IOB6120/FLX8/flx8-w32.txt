@@ -1,0 +1,13 @@
+FLX8-W32 is a port of FLX8 that can read and write directly
+to any Win32 block device.  For example a CF card can be put
+in a CF adaptor/reader and mounted:
+
+MOUNT I: /ID01 /PHYS	(assuming that I: is your CF reader)
+PART 1
+ZERO
+WRITE myfile.pa /ASCII
+DISMOUNT
+
+Since the IOB allows hot-insertion of CF cards, this is a very
+quick way to transfer files between the PC and the
+SBC6120/IOB6120.

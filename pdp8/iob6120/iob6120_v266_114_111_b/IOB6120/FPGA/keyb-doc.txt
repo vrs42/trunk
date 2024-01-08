@@ -1,0 +1,10 @@
+
+The keyboard implementation talks to a standard PC PS/2-style keyboard and generates all the characters and escape sequences that a VT52 keyboard does.
+
+The PC keyboard has a lot more keys than the VT52's, so a lot of the keys are not mapped to any ASCII sequence.  In particular, Alt, many cursor movement keys and most of the function keys have no VT52 equivalent.
+
+The keypad is handled a bit differently than the PC's normal usage, too.  The unshifted function is as a numeric keypad, and the shift key activates the arrows and DEL key.  Num Lock has no function, but the Num Lock LED will light when the keypad is set into 'Alternate Keypad Mode' by the host.  The three PF (colored) keys on the VT52 are mapped to F1-F3 on the keyboard.
+
+(this part currently unimplemented)
+When the VT-52 Hold Screen Mode is activated from the host, the Scroll Lock LED will light.  The Scroll Lock key releases the screen for one line, and Shift- Scroll Lock for one screen.
+
