@@ -20,6 +20,16 @@
 #ifndef _PDP2HEX_H_
 #define _PDP2HEX_H_
 
+#ifndef MSDOS
+#define __huge
+#define far
+#define _halloc calloc
+#define _hfree free
+
+#include <limits.h>
+#define _MAX_PATH PATH_MAX
+#endif
+
 // Compilation parameters...
 #define PDP_MEM_SIZE 32768      // maximum size of PDP-8 memory, ever!
 

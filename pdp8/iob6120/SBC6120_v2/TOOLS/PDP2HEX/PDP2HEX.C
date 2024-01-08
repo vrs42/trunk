@@ -242,9 +242,9 @@ int main (int argc, char *argv[])
   ParseCommand(argc, argv);
   
   // Allocate memory for the three buffers used...
-  hpwPDP  = _halloc(PDP_MEM_SIZE, sizeof(WORD));
-  hpbHigh = _halloc(PDP_MEM_SIZE, sizeof(BYTE));
-  hpbLow  = _halloc(PDP_MEM_SIZE, sizeof(BYTE));
+  hpwPDP  = (WORD *)_halloc(PDP_MEM_SIZE, sizeof(WORD));
+  hpbHigh = (BYTE *)_halloc(PDP_MEM_SIZE, sizeof(BYTE));
+  hpbLow  = (BYTE *)_halloc(PDP_MEM_SIZE, sizeof(BYTE));
   if ((hpwPDP == NULL) || (hpbHigh == NULL) || (hpbLow == NULL))
     FAIL("PDP2HEX", "out of memory");
 
