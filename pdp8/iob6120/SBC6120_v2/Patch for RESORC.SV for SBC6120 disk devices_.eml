@@ -1,0 +1,58 @@
+From: "Vincent Slyngstad" <vrs@msn.com>
+To: "Ethan Dicks" <ethan.dicks@gmail.com>
+References: <gdr559+r79a@eGroups.com>
+Subject: offlist Re: [sparetimegizmos] Patch for RESORC.SV for SBC6120 disk devices?
+Date: Thu, 23 Oct 2008 23:15:35 -0700
+MIME-Version: 1.0
+Content-Type: text/plain;
+	format=flowed;
+	charset="iso-8859-1";
+	reply-type=original
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2900.5512
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.5579
+
+> I've tried googling for this, but no luck so far.  Is there a patch
+> out there for OS/8 V3Q RESORC.SV to list the IDE and RAM disk devices
+> by their names rather than the rather odd "(6775), (6776), X, J4", etc?
+> 
+> It was easy to find the patch for PIP.SV to be able to zero these
+> devices, but I can't seem to find a patch for RESORC (and I think
+> I remember finding it, long ago when my SBC6120 was new).
+
+I had no luck with either Google or my own archives, but looking at 
+RESORC.PA, it looks like this would be pretty simple.  There's a table 
+at 02000 that is supposed to describe the devices, and the octal stuff 
+is what you get if the first word of a table entry is zero.  Each table 
+entry is 4 words long, so...
+
+Device 43 goes at location 02214:
+ 2615 / DEVICE VM01
+ 6061
+ 5300 / size (-1344)
+ 0000 / no special routine
+
+Device 44 goes at location 02220:
+ 1104 / DEVICE ID01
+ 6061
+ 0001 / size (-4095)
+ 0000 / no special routine
+
+These locations should be zeroes before the patch is applied.
+
+I'm not really sure what the special routine buys you, but I 
+think it lets you print extra device specific magic like the 
+unit number.
+
+If you want to print just the unit number, QTC08 will do just 
+that.  If you examine location 02073, it will give you the 
+address of QTC08, which you can then use instead of the zeroes 
+above.
+
+I haven't tried it yet, so back up your RESORC first :-).
+
+Hope it helps!
+
+    Vince

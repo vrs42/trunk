@@ -1,0 +1,58 @@
+RESORC needs some fixing before the RESOURCES command will 
+generate good output for the ID01 and VM01 devices.  The 
+first fix is to add ID and VM to the list of devices that 
+use the A0-Bn convention.  This table is located from 
+locations 13126 to 13136 with a terminating zero in 
+location 13137.  Location 13136 is unfortunately the 
+only free entry in the table:
+
+13126/0424 /DT
+13127/1524 /MT
+13130/1424 /LT
+13131/2404 /TD
+13132/0323 /CS
+13133/2213 /RK
+13134/2206 /RF
+13135/2230 /RX
+13136/0000 /patch space
+13137/0000 /list terminator
+
+So, it will be necessary to replace the entry for a 
+device unlikely to ever be attached to the SBC6120
+(say, "CS").
+
+The other fix is to inform RESORC that device types 
+ID01 and VM01 exist, and their sizes:
+
+Device 43 goes at location 02214:
+	2615	/ DEVICE VM01
+	6061
+	5300	/ size (-1344)
+	0000	/ no special routine
+
+Device 44 goes at location 02220:
+	1104	/ DEVICE ID01
+	6061
+	0001	/ size (-4095)
+	0000	/ no special routine
+
+These locations should be zeroes before the patch is applied.
+
+So, here's the patch:
+
+.GET SYS:RESORC
+.ODT
+13132/0323 1104
+13136/0000 2615
+2214/0000 2615
+2215/0000 6061
+2216/0000 5300
+2217/0000 0000
+2220/0000 1104
+2221/0000 6061
+2222/0000 0001
+2223/0000 0000
+^C
+.SAVE SYS:RESORC
+
+VRS

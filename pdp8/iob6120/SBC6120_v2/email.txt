@@ -1,0 +1,141 @@
+----- Original Message ----- 
+
+From: "Paul Schmitt" <Paul.Schmitt@calix.com>
+
+Ethan,
+
+Here are my notes with Jim for the Diode fix. I don't know if Jim wrote up
+anything formal. Also enclosed are pics showing parts placement for each of the
+four select lines (black components are the diodes, blue are the resistors. I
+had access to some very nice lab equipment to work with SMT devices -
+unfortunately I myself am not that experienced in working under a microscope
+(as witness in the pics of the solder damaged stacking connector:-( ). The
+untiled.gif shows the etch you are interested in. I used low reverse current
+diodes available to me in our lab BAV70 70V 0.1A SOT-23 (two diodes with a
+common-cathode- hence the three pin package of which one lead is not used - Jim
+references single diode packaging in the enclosed email). I used 4K7 ohm
+resistors. I believe in most cases I cut a 'gap' in the etch of the select line
+and mounted the Diode across the cut, then found a VCC point somewhere alone
+the select line and removed the solder mask, bridging the resistor from the
+select line to VCC (or via a wire to VCC).
+
+VCC=0, 138 is powered by VCC_NV and non_NVRAM selects should be high.
+
+                    VCC
+                    |
+                    <
+                    > Resistor
+                    <
+    ---+            |    +----
+    138|o----[<|----*----|non_NV device (powered off)
+
+When VCC = 0 and 138 select is high - no current should flow.  When VCC is
+present, the connected device select should be held high, except when pulled
+down by the 138 output.
+
+Or same idea put a Diode (Cathode facing the 138  -|<-) w/a pull up to VCC -
+essentially making the ACT an open drain part on just the non NVRAM selects.
+
+----- Original Message ----- 
+
+From: Jim Kearney <jim@jkearney.com>
+
+Yeah, I saw that they were 0402 or 0603 size.  I ordered some 5K1 in 0805, so
+I drew it with the bigger one.  The 0805 package is just big enough that one
+could get solder to bridge between its end and the cap pad.
+
+All six of the assembled units work - half of them had minor issues, all of
+which were solved by fluxing and reflowing all the fine pins.  As soon as I
+apply the ECO to them, I'll test the serial and parallel ports and send them
+out, and the kits too.  All that's left is to finish the doc about the ECO and
+revise the builder's doc a little.
+
+----- Original Message ----- 
+
+From: "Paul Schmitt" <Paul.Schmitt@calix.com>
+
+Oh BTW - you noticed that the resistors I used was about 1/2 that size. So for
+FLASH_L it perfectly fit between the etch and the convenient thru-hole PAD.
+That was the easiest of the three due to this lucky break. Those resistors
+were so small, they would get lost in a solder blob, or the 30AWG wire would
+rip them loose.
+
+Paul
+
+-----Original Message-----
+
+From: Jim Kearney [mailto:jim@jkearney.com]
+
+The version of IE I'm using scales down large pictures automatically, so I
+forgot about that problem.
+
+Does this work with your web browser?:
+http://www.jkearney.com/SBC6120/ECO-A/
+
+----- Original Message ----- 
+
+From: "Paul Schmitt" <Paul.Schmitt@calix.com>
+
+Hi Jim,
+
+Oh sorry - I now see your graphic on the top layer when I opened with Visio.
+It looks great. When I opened the drawing the first time, it was so large  I
+had not noted the 'blow up' drawing to the right, and didn't understand what
+you meant by 'graphic' other than the board drawing. Visio opened the drawing
+with the correct sizing to one sheet - so I then saw the graphic.  Anyway, I
+was thinking of adding the same annotation, but you've got it so you may as
+well go with it.
+
+Paul
+
+
+-----Original Message-----
+
+From: Jim Kearney [mailto:jim@jkearney.com]
+
+Okay, I saved a bottom image in the same place as 'bot-diode.jpg'.  This time
+I set the colors to look a little more like the actual board.
+
+I should be getting the 2-pin diodes in the mail today.  I plan to apply your
+fix to one of my boards and then I'll be able to compare the draw, effort,
+looks, etc., more directly.  I think what I'll do with the kits is to document
+both, include the parts for the MOSFET fix (because I think it's easier with
+hand tools), and offer to send the diode parts if they want them.
+
+----- Original Message ----- 
+
+From: "Paul Schmitt" <Paul.Schmitt@calix.com>
+
+That looks great for the top side (3 of 4 parts of the fix). Can you provide
+the same of the bottom so I could also annotate FPGA_L.
+
+Thanks,
+Paul
+
+-----Original Message-----
+
+From: Jim Kearney [mailto:jim@jkearney.com]
+
+> Enclosed are pics of the diode ECO. I measured 8.3uA after the fix,11.65ma
+> prior to the fix.  I'm curious as to what measurements you got?  I'm not
+> sure how accurate my meter is, but anyway this fix looks good. Enclosed are
+
+I am measuring 4 uA, but this is using a meter that I don't trust and a
+resistor that I don't know the exact value of ;-)
+
+> some pics - note I'm disappointed that I hit the iron on the stacking
+> connector (one thing you learn with the microscope is that you have very
+> limited peripheral vision, and if the iron is not visible, it's usually
+
+That is easy enough to do even w/o a microscope...
+
+> Also, if you provide me two highlighted pics of: 1) FLASH_L etch by IC1,
+> IC10 and C8 and 2) FPGA_L etch on the back side of the board (between FPGA
+> IC12 and the SBC connector). I already have the pic you provided me with
+> highlighted etch relative to where I placed the diode/resistor of STATUS_L
+> and CF_L. I will be happy to annotate those drawings and write up the ECO
+> for you documentation.
+
+I tried drawing a graphic of your FLASH_L change yesterday - what do you
+think about this format?:
+http://www.jkearney.com/SBC6120/ECO-A/top-diode.jpg

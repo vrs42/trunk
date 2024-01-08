@@ -1,0 +1,324 @@
+From: <Saved by Mozilla 5.0 (Windows; en-US)>
+Subject: 1
+Date: Thu Oct 23 2008 19:05:09 GMT-0700 (Pacific Daylight Time)
+MIME-Version: 1.0
+X-MAF: Produced By MAF MHT Archive Handler V0.4.1
+Content-Type: text/html
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.jkearney.com/sbc6120/building%20IDE%20images.htm
+
+<html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dwindows-12=
+52">
+<meta name=3D"GENERATOR" content=3D"Microsoft FrontPage 4.0">
+<meta name=3D"ProgId" content=3D"FrontPage.Editor.Document"><title>1</title>=
+</head>
+
+<body>
+
+<div>
+  1) Edit your copies of the VM01.PA and ID01.PA files to ensure that the li=
+ne
+  which reads<br>
+  <br>
+  /SYS=3D1<br>
+  <br>
+  is commented out.=A0 The "/" is the comment character in PAL8, so
+  if the line appears as you see it above then it is already commented out.=
+=A0
+  If it appears this way:<br>
+  <br>
+  SYS=3D1<br>
+  <br>
+  then you need to add the slash.<br>
+  <br>
+  2) Create a copy of the OS8V3Q system disk and use FLX8 to copy the ID01.P=
+A
+  and VM01.PA files to it.=A0 Unfortunately there isn't enough room on the
+  original OS8v3Q diskette, so we'll have to delete some files that we won't=
+ be
+  using.=A0 [If you're a brave soul you can actually do this step under OS/8
+  using<br>
+  TECO, but for now there's no need to make our lives more complicated.]<br>
+  <br>
+  C:\&gt;COPY OS8V3Q.RX1 SBC6120.RX1 /B [Be SURE to use /B!!]<br>
+  1 file(s) copied.<br>
+  C:\&gt;FLX8<br>
+  FLX8&gt;mount sbc6120.rx1/virtual/rx01<br>
+  %FLX8-I, mounted virtual diskette on file sbc6120.rx1<br>
+  FLX8&gt;delete basic.*, bload.sv, brts.sv, bcomp.sv, eabrts.bn<br>
+  %FLX8-I, deleted file BASIC.AF<br>
+  %FLX8-I, deleted file BASIC.FF<br>
+  %FLX8-I, deleted file BASIC.SF<br>
+  %FLX8-I, deleted file BASIC.SV<br>
+  %FLX8-I, deleted file BASIC.UF<br>
+  %FLX8-I, deleted file BLOAD.SV<br>
+  %FLX8-I, deleted file BRTS.SV<br>
+  %FLX8-I, deleted file BCOMP.SV<br>
+  %FLX8-I, deleted file EABRTS.BN<br>
+  FLX8&gt;delete pt8e.bn, reseq.ba, rklfmt.sv, ids.sv<br>
+  %FLX8-I, deleted file PT8E.BN<br>
+  %FLX8-I, deleted file RESEQ.BA<br>
+  %FLX8-I, deleted file RKLFMT.SV<br>
+  %FLX8-I, deleted file IDS.SV<br>
+  FLX8&gt;write/ascii id01.pa<br>
+  %FLX8-I, wrote ID01.PA to ID01.PA<br>
+  FLX8&gt;write/ascii vm01.pa<br>
+  %FLX8-I, wrote VM01.PA to VM01.PA<br>
+  FLX8&gt;dir<br>
+  <br>
+  Directory of sbc6120.rx1<br>
+  BUILD.SV=A0=A0=A0 33=A0=A0=A0 (none)=A0=A0=A0
+  (0070)<br>
+  ABSLDR.SV=A0=A0=A0 5=A0=A0=A0 1-JUN-93=A0 (0131)<br>
+  BITMAP.SV=A0=A0=A0 5=A0=A0=A0 (none)=A0=A0=A0
+  (0136)<br>
+  BOOT.SV=A0=A0=A0=A0=A0 5=A0=A0=A0 (none)=A0=A0=A0
+  (0143)<br>
+  CCL.SV=A0=A0=A0=A0=A0 18=A0=A0=A0 (none)=A0=A0=A0
+  (0150)<br>
+  CREF.SV=A0=A0=A0=A0 13=A0=A0=A0 (none)=A0=A0=A0
+  (0172)<br>
+  DIRECT.SV=A0=A0=A0 7=A0=A0=A0 (none)=A0=A0=A0
+  (0207)<br>
+  EDIT.SV=A0=A0=A0=A0 10=A0=A0=A0 9-JUN-89=A0 (0216)<br>
+  EPIC.SV=A0=A0=A0=A0 14=A0=A0=A0 (none)=A0=A0=A0
+  (0230)<br>
+  FBOOT.SV=A0=A0=A0=A0 2=A0=A0 28-MAR-92=A0 (0246)<br>
+  FOTP.SV=A0=A0=A0=A0=A0 8=A0=A0=A0 (none)=A0=A0=A0
+  (0250)<br>
+  HELP.HL=A0=A0=A0=A0 55=A0=A0=A0 (none)=A0=A0=A0
+  (0260)<br>
+  HELP.SV=A0=A0=A0=A0=A0 8=A0=A0=A0 (none)=A0=A0=A0
+  (0347)<br>
+  PAL8.SV=A0=A0=A0=A0 19=A0=A0=A0 (none)=A0=A0=A0
+  (0357)<br>
+  PIP.SV=A0=A0=A0=A0=A0 11=A0=A0=A0 (none)=A0=A0=A0
+  (0402)<br>
+  RESORC.SV=A0=A0 10=A0=A0=A0 (none)=A0=A0=A0 (0416)<br>
+  RXCOPY.SV=A0=A0=A0 6=A0=A0=A0 (none)=A0=A0=A0
+  (0430)<br>
+  SABR.SV=A0=A0=A0=A0 24=A0=A0=A0 (none)=A0=A0=A0
+  (0436)<br>
+  TECO.SV=A0=A0=A0=A0 22=A0=A0=A0 (none)=A0=A0=A0
+  (0466)<br>
+  ID01.PA=A0=A0=A0=A0 33=A0=A0=A0 4-DEC-86=A0 (0514)<br>
+  VM01.PA=A0=A0=A0=A0 35=A0=A0=A0 4-DEC-86=A0 (0555)<br>
+  ECHO.SV=A0=A0=A0=A0=A0 2=A0=A0=A0 (none)=A0=A0=A0
+  (0653)<br>
+  SET.SV=A0=A0=A0=A0=A0 14=A0=A0=A0 (none)=A0=A0=A0
+  (0666)<br>
+  BATCH.SV=A0=A0=A0 10=A0=A0=A0 (none)=A0=A0=A0
+  (0704)<br>
+  FUTIL.SV=A0=A0=A0 26=A0=A0 15-FEB-87=A0 (0716)<br>
+  <br>
+  Total of 395 blocks in 25 files.<br>
+  FLX8&gt;exit<br>
+  %FLX8-I, dismounting diskette sbc6120.rx1<br>
+  <br>
+  3) Now run WinEight, boot the SBC6120 disk, assemble the ID01 and VM01
+  handlers, and install them into OS/8.<br>
+  <br>
+  [Run WinEight]<br>
+  [File &gt;&gt; Boot and select the SBC6120.RX1 file]<br>
+  .PAL ID01<br>
+  ERRORS DETECTED: 0<br>
+  LINKS GENERATED: 0<br>
+  <br>
+  .PAL VM01<br>
+  ERRORS DETECTED: 0<br>
+  LINKS GENERATED: 0<br>
+  <br>
+  .RUN SYS BUILD [NEVER SAY "R BUILD" !!!]<br>
+  <br>
+  $LO VM01<br>
+  $LO ID01<br>
+  $DE PTR<br>
+  $DE RKA0-1<br>
+  $DE RKB0-1<br>
+  $IN VM01:VMA0-3<br>
+  $IN ID01:IDA0-3<br>
+  $PR<br>
+  <br>
+  PT8E:=A0 PTP=A0=A0 PTR=A0<br>
+  RX8E: *SYS=A0<br>
+  RX01: *RXA0 *RXA1<br>
+  RK8E:=A0 SYS=A0=A0 RKA0=A0 RKB0<br>
+  RK05:=A0 RKA0=A0 RKB0=A0 RKA1=A0 RKB1=A0 RKA2=A0 RKB2=A0
+  RKA3=A0 RKB3<br>
+  KL8E: *TTY=A0<br>
+  LS8E: *LPT=A0<br>
+  VM01: *VMA0 *VMA1 *VMA2 *VMA3<br>
+  ID01: *IDA0 *IDA1 *IDA2 *IDA3=A0 IDA4=A0 IDA5=A0 IDA6=A0 IDA7<br>
+  <br>
+  DSK=3DRX8E:SYS<br>
+  $BO<br>
+  SYS BUILT
+</div>
+<div>
+  =A0
+  <p>.SAVE SYS BUILD
+</p></div>
+<div>
+  <br>
+  .RESOURCES/E<br>
+  <br>
+  27 FILES IN 397 BLOCKS<br>
+  41 FREE BLOCKS (4 EMPTIES)<br>
+  <br>
+  #=A0 NAME TYPE MODE SIZ BLK KIND U V ENT USER<br>
+  01 SYS=A0 RX8E RWF=A0 494 SYS=A0=A0=A0=A0=A0 0 E=A0 07<br>
+  02 DSK=A0 RX8E RWF=A0 494 SYS=A0=A0=A0=A0=A0 0 E=A0 07<br>
+  03 RXA0 RX8E RWF=A0 494 16=A0=A0=A0=A0=A0=A0=A0=A0
+  E=A0 30<br>
+  04 RXA1 RX8E RWF=A0 494 16=A0=A0=A0=A0=A0=A0=A0=A0
+  E=A0 34<br>
+  05 TTY=A0 TTY=A0 RW=A0=A0=A0=A0=A0=A0 17+ KL8E=A0=A0
+  E 176<br>
+  06 LPT=A0 LPTR W=A0=A0=A0=A0=A0=A0=A0 20+ LQP=A0=A0=A0
+  D=A0 03<br>
+  07(6775) 43=A0 RWF=A0=A0=A0=A0=A0 21=A0=A0=A0=A0=A0=A0=A0=A0
+  C=A0 10<br>
+  10(6776) 43=A0 RWF=A0=A0=A0=A0=A0 21=A0=A0=A0=A0=A0=A0=A0=A0
+  C=A0 64<br>
+  11(6777) 43=A0 RWF=A0=A0=A0=A0=A0 21=A0=A0=A0=A0=A0=A0=A0=A0
+  C=A0 72<br>
+  12 X=A0=A0=A0=A0 43=A0 RWF=A0=A0=A0=A0=A0 21=A0=A0=A0=A0=A0=A0=A0=A0
+  C=A0 77<br>
+  13 J4=A0=A0=A0 44=A0 RWF=A0=A0=A0=A0=A0 22=A0=A0=A0=A0=A0=A0=A0=A0
+  B 101<br>
+  14 J5=A0=A0=A0 44=A0 RWF=A0=A0=A0=A0=A0 22=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+  112<br>
+  15 J6=A0=A0=A0 44=A0 RWF=A0=A0=A0=A0=A0 22=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+  111<br>
+  16 J7=A0=A0=A0 44=A0 RWF=A0=A0=A0=A0=A0 22=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
+  110<br>
+  <br>
+  FREE DEVICE SLOTS: 01,=A0 FREE BLOCK SLOTS: 03<br>
+  OS/8 V3Q<br>
+  <br>
+  .<br>
+  <br>
+  [The strange looking devices, (6775), (6776), X, J4, etc are really the
+  VMA0..VMA3 and IDA0..IDA3 devices.=A0 The problem is that the standard OS/=
+8
+  V3Q RESORC program doesn't know about these device types and can't print t=
+hem
+  correctly.=A0 Worse (much worse!) OS/8 PIP doesn't recognize the VM01 or
+  ID01 devices either, and so we cannot use the ZERO command to initialize a=
+n
+  empty file system.=A0 Fortunately this is a common problem and it was well
+  documented by DEC how to patch PIP to add additional devices.=A0 That's
+  what we'll do next.]<br>
+  <br>
+  .GET SYS PIP<br>
+  .ODT<br>
+  13643/ 5300<br>
+  13644/ 1<br>
+  13645/ ^C<br>
+  .SAVE SYS PIP<br>
+  <br>
+  [Now we're ready to create an initialize some VM01 and/or ID01 image files=
+.]<br>
+  <br>
+  [From the CPU &gt;&gt; Options dialog, set the CPU TYPE to HD6120, check t=
+he
+  box that says "Enable BTS6120 Emulation", and click OK]<br>
+  [From the View &gt;&gt; Devices dialog, click INSTALL, select "VM01
+  SBC6120 RAM Disk", and click OK. Repeat this procedure to install the
+  ID01 disk.]<br>
+  [Back in the Devices dialog, expand the tree entry for the VM01 device, an=
+d
+  you should see units 0 thru 3.=A0 Click on Unit 0 and then click the Attac=
+h
+  button.=A0 An Attach File dialog appears; type in "SBC6120" (or
+  whatever you like) as the file name and click OK.=A0 A message box appears
+  which reads "VM01 image ...SBC6120.vmd will now be created."=A0
+  Click the OK button.]<br>
+  [Back in the Devices dialog, VM01 unit 0 should now show that it is attach=
+ed
+  to the file SBC6120.VMD.=A0 Repeat this procedure to attach other VM01
+  and/or ID01 units.]<br>
+  [When you're done creating image files, click OK on the devices dialog and
+  then go back to OS/8.]<br>
+  <br>
+  .ZERO VMA0:<br>
+  .DIR VMA0:<br>
+  <br>
+  =A0=A0 0 FILES IN=A0=A0=A0 0 BLOCKS - 1337 FREE BLOCKS<br>
+  <br>
+  .ZERO IDA0:<br>
+  .DIR IDA0:<br>
+  <br>
+  =A0=A0 0 FILES IN=A0=A0=A0 0 BLOCKS - 4088 FREE BLOCKS<br>
+  <br>
+  .<br>
+  <br>
+  [Congratulations - you've now built and installed non-system handlers for =
+the
+  VM01 and ID01 devices!]<br>
+</div>
+<div>
+  <font size=3D"2">-------------------------</font>
+</div>
+<div>
+  <font size=3D"3">Procedure to make a bootable IDE image (making a ramdisk =
+image
+  is parallel):<br>
+  <div>
+    <font size=3D"2">-------------------------</font>
+  </div>
+  <br>
+  [ Edit the ID01.PA file and uncomment the SYS=3D1 line. This might be easi=
+er<br>
+  on the PC side if you're not familar with EDIT or TECO ]<br>
+  <br>
+  [ assemble it ]<br>
+  <br>
+  .PAL ID01<br>
+  <br>
+  [ initialize the IDE disk as a copy of the system disk ]<br>
+  <br>
+  .R PIP<br>
+  *IDA0:&lt;SYS:(YZ)<br>
+  *^C<br>
+  <br>
+  .COPY IDA0:&lt;*.*<br>
+  [note: to get the files that were deleted while making the SBC6120.RX1<br>
+  image, mount the original OS8V3Q.RX1 to RXA1 and use COPY
+  IDA0:&lt;RXA1:BASIC.* etc.=A0to=A0transfer them]<br>
+  <br>
+  [ switch to the new drive and run BUILD ]<br>
+  <br>
+  .AS IDA0: DSK:<br>
+  .RUN DSK BUILD<br>
+  <br>
+  [ remove the drivers we're not using ]<br>
+  <br>
+  $UNL RX8E<br>
+  $UNL RX01<br>
+  $UNL RK8E<br>
+  $UNL RK05<br>
+  <br>
+  [ replace the nonsystem ID01 with the system one ]<br>
+  <br>
+  $UNL ID01<br>
+  $LO ID01<br>
+  $IN ID01,SYS<br>
+  $IN ID01,IDA1-7<br>
+  $DSK=3DID01:SYS<br>
+  $SYS ID01=3D1<br>
+  <br>
+  [ save the system ]<br>
+  <br>
+  $BOOT<br>
+  WRITE ZERO DIRECT?N<br>
+  SYS BUILT<br>
+  <br>
+  [ save the modified BUILD ]<br>
+  <br>
+  .SAVE DSK BUILD<br>
+  </font>
+</div>
+
+</body></html>
