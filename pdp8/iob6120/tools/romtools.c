@@ -63,33 +63,53 @@ PUBLIC void _splitpath
 	 (char *pPath, char *pDrive, char *pDirectory, char *pName, char *pType)
 {
   char *pStart, *p;  UINT nLen;
-  pDrive[0] = pDirectory[0] = pName[0] = pType[0] = EOS;  pStart = pPath;
+  pStart = pPath;
   /* First try to extract a device name... */
   p = strchr(pStart, ':');
-  if (p != NULL) {
-    nLen = p - pStart+1;  strncpy(pDrive, pStart, nLen);
-    pDrive[nLen] = EOS;  pStart = p + 1;
+  if (pDrive) {
+    pDrive[0] = EOS;
+    if (p != NULL) {
+      nLen = p - pStart+1;  strncpy(pDrive, pStart, nLen);
+      pDrive[nLen] = EOS;
+    }
   }
+  if (p != NULL)
+    pStart = p + 1;
   /* Now the directory, if any... */
   p = strchr(pStart, ']');
-  if (p != NULL) {
-    nLen = p - pStart+1;  strncpy(pDirectory, pStart, nLen);
-    pDirectory[nLen] = EOS;  pStart = p + 1;
+  if (pDirectory) {
+    pDirectory[0] = EOS;
+    if (p != NULL) {
+      nLen = p - pStart+1;  strncpy(pDirectory, pStart, nLen);
+      pDirectory[nLen] = EOS;
+    }
   }
+  if (p != NULL)
+    pStart = p + 1;
   /*  Next the file name.  This time, unlike the others, the terminator */
   /* (i.e. ".") is _not_ part of the name.  Also, if no dot is found,   */
   /* then the entire remainder of ths string is the name.               */
   p = strchr(pStart, '.');
-  if (p != NULL) {
-    nLen = p - pStart;  strncpy(pName, pStart, nLen);
-    pName[nLen] = EOS;  pStart = p;
-  } else {
-    strcpy(pName, pStart);  pStart = pStart + strlen(pStart);
+  if (pName) {
+    pName[0] = EOS;
+    if (p != NULL) {
+      nLen = p - pStart;  strncpy(pName, pStart, nLen);
+      pName[nLen] = EOS;
+    } else {
+      strcpy(pName, pStart);
+    }
   }
+  if (p != NULL)
+    pStart = p;
+  else
+    pStart = pStart + strlen(pStart);
   /*   And finally the extension (type).  There may be a VMS version    */
   /* number too, but we strip that off and discard it...                */
-  strcpy(pType, pStart);  p = strchr(pType, ';');
-  if (p != NULL) *p = EOS;
+  if (pType) {
+    pType[0] = EOS;
+    strcpy(pType, pStart);  p = strchr(pType, ';');
+    if (p != NULL) *p = EOS;
+  }
 }
 #endif
 

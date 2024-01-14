@@ -1,0 +1,20 @@
+#!/usr/bin/perl
+
+#
+# Quick hack to turn the output of "binview" into something that will assemble.
+
+open(INPUT, @ARGV[0]) || die "$ARGV[0]: $!";
+$of = $ARGV[0]; $of =~ s/[.]view$//; $of .= ".pa";
+die if $of eq $ARGV[0];
+open(OUTPUT, ">$of") || die "$of: $!";
+
+while (<INPUT>) {
+  unless (/FIELD/) {
+    s/^\d\d\d\d\///;
+    s/(\d\d\d\d)\)/*\1\n/;
+    s/ /;/g;
+    s/;$//;
+  }
+  print OUTPUT $_;
+}
+print OUTPUT "\$\n";

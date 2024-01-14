@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+@rem = '
+@echo off
+c:\perl5\bin\perl %0 %1 %2 %3 %4 %5 %6 %7 %8 %9
+goto endofperl
+@rem ' if @rem;
+
+# Open the input (hex) files.
+($ifile1, $ifile2) = @ARGV;
+open(INPUT1, $ifile1) || die "$ifile1: $!";
+open(INPUT2, $ifile2) || die "$ifile2: $!";
+
+# Open the output file in binary mode.
+$ofile = "foo.bin";
+die "$ofile" if $ifile1 eq $ofile;
+open(OUTPUT, ">$ofile") || die "$ofile: $!";
+binmode(OUTPUT);
+
+# Output leader/trailer.
+sub trailer {
+  for ($i = 0; $i < 128; $i++) {
+    print OUTPUT pack("C", 0200);
+  }
+}
+&trailer;
+
+sub checksum {
+  local($len, $addr, $hex) = @_;
+  local($sum);
+
+  $len = hex($len);
+  $addr = hex($addr);
+  $sum = $len + ($addr>>8) + (0xFF&$addr);
+  while ($hex =~ s/^(..)//) {
+    $sum += hex($1);
+  }
+  return 0xFF & $sum;
+}
+
+# Convert the data.
+$loc = -1; # Location not set yet.
+$fld = 0;
+$csum = 0;
+while (($i1 = <INPUT1>)) {
+  $i1 =~ s/\r//g;
+  # Input files must be valid.
+  die "$i1" unless $i1 =~ /^:(..)(....)0[01](.*)(..)$/;
+  ($l1, $a1, $h1, $c1) = ($1, $2, $3, $4);
+  $i2 = <INPUT2>;
+  $i2 =~ s/\r//g;
+  die "$i2" unless $i2 =~ /^:(..)(....)0[01](.*)(..)$/;
+  ($l2, $a2, $h2, $c2) = ($1, $2, $3, $4);
+  # Input files must remain in sync.
+  die "Length mismatch: $l1 vs $l2" unless $l1 eq $l2;
+  die "Address mismatch: $a1 vs $a2" unless $a1 eq $a2;
+  # Are we done?
+  last if $l1 eq "00";
+  # Verify checksum for $i1.
+  $s = 0xFF & (hex($c1) + &checksum($l1, $a1, $h1));
+  die "Checksum low: $s $i1" if $s;
+  # Verify checksum for $i2.
+  $s = 0xFF & (hex($c2) + &checksum($l2, $a2, $h2));
+  die "Checksum high: $s $i2" if $s;
+  if ($loc != -1) {
+    if ($fld != ($loc >> 12)) {
+      # Output a field setting.
+      $fld = $loc >> 12;
+      print OUTPUT pack("C", 0300 + ($fld<<3));
+    }
+  }
+  # Output location settings as required.
+  if ($loc != hex($a1)) {
+    $loc = hex($a1);
+    print OUTPUT pack("CC", 0100+($loc>>6), 077&$loc);
+    $csum += 0100 + ($loc>>6) + (077&$loc);
+  }
+  # Assemble the words and output them.  Each byte
+  # has six of the 12 bits.
+  $l1 = hex($l1);
+  for ($i = 0; $i < $l1; $i++) {
+    die unless $h1 =~ s/^(..)//;
+    $b1 = hex($1);
+    die unless $h2 =~ s/^(..)//;
+    $b2 = hex($1);
+    print OUTPUT pack("CC", $b2, $b1);
+    $csum += $b1 + $b2;
+    $loc++;
+  }
+}
+# Output the checksum.
+$csum &= 07777;
+print OUTPUT pack("CC", ($csum>>6), (077&$csum));
+&trailer;
+
+__END__
+:endofperl

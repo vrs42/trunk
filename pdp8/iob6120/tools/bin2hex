@@ -1,0 +1,113 @@
+#!/usr/bin/perl
+
+@rem = '
+@echo off
+c:\perl5\bin\perl %0 %1 %2 %3 %4 %5 %6 %7 %8 %9
+goto endofperl
+@rem ' if @rem;
+
+#
+# Read a file in BIN loader format.
+sub readBin {
+  local($file, *core) = @_;
+  #
+  # Open the input file in binary mode and read it in.
+  open(INPUT, $file) || die "$file: $!";
+  binmode(INPUT);
+  @core = ();
+  for (;;) {
+    $field = 0;
+    $loc = $store = undef;
+    $sum = $add = 0;
+    while (read(INPUT, $top, 1)) {
+      $top = unpack("C", $top);
+      last unless $top == 0200;
+    }
+    # EOF leaves $top eq ''
+    last if $top eq '';
+    # At the top of this loop the first character has been read
+    for (;;) {
+      last if $top == 0200;	# Trailer
+      # No trailer, so store data (if any)
+      if (defined($store)) {
+        $core[$field*010000 + $loc] = $store;
+        $store = undef;
+        $loc = ($loc + 1) & 07777;
+        $sum += $add; # Update checksum
+      }
+      if (($top&0300) == 0300) {
+        # Set data field and we're done. 
+        $field = ($top & 070) >> 3;
+      } else {
+        # Assemble a word
+        read(INPUT, $bot, 1) || die "read: $! $top at ", tell(INPUT);
+        $bot = unpack("C", $bot);
+        die "$file: not in bin format at ", tell(INPUT) unless $bot <= 077;
+        $word = ($top << 6) + $bot;
+        $add = $top + $bot; # Calculate Checksum delta
+        if ($word > 07777) {
+          #
+          # Change location counter
+          $loc = $word & 07777;
+          $sum += $add; # Update checksum
+        } else {
+          # Remember store in case this is the checksum, not data.
+          die "$file: no location counter" unless defined($loc);
+          $store = $word;
+        }
+      }
+      last unless read(INPUT, $top, 1);
+      $top = unpack("C", $top);
+    }
+    die "No trailer!" unless $top == 0200;
+    $sum = ($sum - $store) & 07777;
+    printf STDERR "$file: Checksum error -- %04o\n", $sum if $sum;
+  }
+  close(INPUT);
+}
+
+open(LOW,  ">low.hex")  || die "low.hex: $!";
+open(HIGH, ">high.hex") || die "high.hex: $!";
+
+&readBin($ARGV[0], *core);
+
+#
+# Output $len bytes, starting at $org.
+# Reset $org to $loc and $len to 0 when finished.
+sub outrec {
+  if ($len) {
+    printf LOW  ":%02X%04X00", $len, $org;
+    printf HIGH ":%02X%04X00", $len, $org;
+    $lsum = $hsum = $len + ($org >> 8) + ($org & 0xFF);
+    foreach ($l = $org; $len; $org++, $len--) {
+      $low  = $core[$org] & 0x3F; 
+      $high = $core[$org] >> 6;
+      printf LOW  "%02X", $low;
+      printf HIGH "%02X", $high;
+      $lsum += $low;
+      $hsum += $high;
+    }
+    printf LOW  "%02X\n", (-$lsum & 0xFF);
+    printf HIGH "%02X\n", (-$hsum & 0xFF);
+  }
+  $org = $loc;
+  $len = 0;
+}
+
+#
+# Scan the program and output records in Intel Hex format.
+$org = $len = 0; # No data as yet
+foreach ($loc = 0; $loc <= $#core; $loc++) {
+  next unless defined $core[$loc];
+  # This word is defined.  Is it time to output?
+  &outrec if $loc != $org+$len;
+  &outrec unless $loc % 0x10;
+  $len++;
+}
+&outrec;
+printf LOW  ":00000001FF\n";
+printf HIGH ":00000001FF\n";
+
+
+__END__
+:endofperl
