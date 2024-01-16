@@ -648,7 +648,12 @@ void SortSymbols (void)
 /***********           F i l e   O p e r a t i o n s           **********/
 /************************************************************************/
 
-
+#define USE_FTIME	// Use the file mtime instead of the current date.
+#ifdef USE_FTIME
+#include <sys/stat.h>
+#define time(p) (fstat(fileno(pSourceFile), &statbuf), *p = statbuf.st_mtime)
+struct stat statbuf;
+#endif
 /* GetSystemDate - return the system date in the format "dd-mmm-yy" ... */
 void GetSystemDate (char *pText)
 {
