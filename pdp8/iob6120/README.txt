@@ -5,6 +5,7 @@ tools			Tools used to build images and software.
 sw215			Historical v215 BTS6120 firmware.
 sw266			Historical v266 BTS6120 firmware.
 sw271			Historical v271 BTS6120 firmware.
+sw320			Historical v320 BTS6120 firmware.
 sw321			Historical v321 (latest) BTS6120 firmware.
 
 Notes:
