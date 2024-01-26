@@ -471,7 +471,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>Four User Overlay for Focal 1969 (QUAD, PT08)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj7>dec-08-aj7</a></td>
 <td><table>
-<tr><td>dec-08-aj7e-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-aj7/dec-08-aj7e-pb>dec-08-aj7e-pb</td><td></a></td></tr>
 <tr><td>dec-08-aj7e-la</td><td></td></tr>
 </table></td></tr>
 <tr>
@@ -665,7 +665,7 @@ are some navigation shortcuts as well:
 <td>Edusystem 10<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ed10>dec-08-ed10</a></td>
 <td><table>
 <tr><td>dec-08-ed10-a-la</td><td></td></tr>
-<tr><td>dec-08-ed10-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ed10/dec-08-ed10-a-pb>dec-08-ed10-a-pb</td><td></a></td></tr>
 <tr><td>dec-08-ed10-a-uc</td><td></td></tr>
 </table></td></tr>
 <tr>
@@ -2526,7 +2526,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-afa5/dec-d8-afa5-pb>dec-d8-afa5-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
-<td>Fortran D Daignose (DIAG)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-afa6>dec-d8-afa6</a></td>
+<td>Fortran D Diagnose (DIAG)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-afa6>dec-d8-afa6</a></td>
 <td><table>
 <tr><td>dec-d8-afa6-la</td><td></td></tr>
 <tr><td>dec-d8-afa6-pa</td><td></td></tr>
@@ -2566,11 +2566,6 @@ are some navigation shortcuts as well:
 <tr><td>dec-d8-cde2-la</td><td></td></tr>
 <tr><td>dec-d8-cde2-pa</td><td></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-cde2/dec-d8-cde2-pb>dec-d8-cde2-pb</td><td></a></td></tr>
-</table></td></tr>
-<tr>
-<td>ODT-8 Debugger<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-coc>dec-d8-coc</a></td>
-<td><table>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-coc/dec-d8-coco-d.pdf>dec-d8-coco-d</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Disk System Editor (EDIT)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-d8-esa>dec-d8-esa</a></td>
@@ -3104,9 +3099,29 @@ are some navigation shortcuts as well:
 <tr><td>ak-4508a / dec-lb-yi1a-pb</td><td></td></tr>
 </table></td></tr>
 <tr>
-<td>PS/8 DEC Config (DECtape)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-mw0>dec-p8-mw0</a></td>
+<td>PS/8 SABR<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-arx>dec-p8-arx</a></td>
 <td><table>
 <a name='dec-p8'></a>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-arx/dec-p8-arxb-pb>dec-p8-arxb-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PS/8 PAL8<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-asa>dec-p8-asa</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-asa/dec-p8-asab-pb>dec-p8-asab-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PS/8 EDIT<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-esa>dec-p8-esa</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-esa/dec-p8-esab-pb>dec-p8-esab-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PS/8 LOADER<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-llx>dec-p8-llx</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-llx/dec-p8-llxb-pb>dec-p8-llxb-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PS/8 DEC Config (DECtape)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-mw0>dec-p8-mw0</a></td>
+<td><table>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-mw0/dec-p8-mw0a-pb>dec-p8-mw0a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -3130,9 +3145,24 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-mwz/dec-p8-mwza-pb>dec-p8-mwza-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
+<td>PS/8 PIP<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-pwx>dec-p8-pwx</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-pwx/dec-p8-pwxb-pb>dec-p8-pwxb-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PS/8 CONVRT<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-sut>dec-p8-sut</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-sut/dec-p8-sutb-pb>dec-p8-sutb-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
 <td>PS/8 Command Decoder<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-swx>dec-p8-swx</a></td>
 <td><table>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-swx/dec-p8-swxb-pb>dec-p8-swxb-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PS/8 LIBSET<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-syx>dec-p8-syx</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-syx/dec-p8-syxb-pb>dec-p8-syxb-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PS/8 CREF<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-p8-yrx>dec-p8-yrx</a></td>
@@ -4273,14 +4303,14 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-ajrlk/maindec-08-ajrlk-a-pb>ak-f375a / maindec-08-ajrlk-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
-<td>PDP-8 Instruction Test 1 (same as 8I-D01C)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01>maindec-08-d01</a></td>
+<td>PDP-8 Instruction Test 1<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01>maindec-08-d01</a></td>
 <td><table>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01c-d.pdf>maindec-08-d01c-d</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01c-pb>maindec-08-d01c-pb</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01b-d.pdf>maindec-08-d01b-d</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01b-pb>maindec-08-d01b-pb</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01a-d.pdf>maindec-08-d01a-d</td><td>PDP-8 Instruction Test 1 (replaces maindec-801-2a)</a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01a-pb>maindec-08-d01a-pb</td><td>PDP-8 Instruction Test 1 (replaces maindec-801-2a)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01b-d.pdf>maindec-08-d01b-d</td><td> (same as 8I-D01C)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01b-pb>maindec-08-d01b-pb</td><td> (same as 8I-D01C)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01a-d.pdf>maindec-08-d01a-d</td><td> (replaces maindec-801-2a)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d01/maindec-08-d01a-pb>maindec-08-d01a-pb</td><td> (replaces maindec-801-2a)</a></td></tr>
 </table></td></tr>
 <tr>
 <td>INSTRUCTION TEST PART 2B<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-d02>maindec-08-d02</a></td>
@@ -5013,11 +5043,11 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkac/maindec-08-dhkac-a-pb>ak-6251a / maindec-08-dhkac-a-pb</td><td>MM8E Memory Checkerboard</a></td></tr>
 </table></td></tr>
 <tr>
-<td>MEMORY ADDRESS TEST<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkad>maindec-08-dhkad</a></td>
+<td>Memory Address Test<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkad>maindec-08-dhkad</a></td>
 <td><table>
 <tr><td>ac-6253a / maindec-08-dhkad-b-d</td><td></td></tr>
-<tr><td>ak-6255a / maindec-08-dhkad-b-pb</td><td></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkad/maindec-08-dhkad-a-pb>maindec-08-dhkad-a-pb</td><td>Memory Address Test</a></td></tr>
+<tr><td>ak-6255b / maindec-08-dhkad-b-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkad/maindec-08-dhkad-a-pb>ak-6255a / maindec-08-dhkad-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PDP8E Instruction Test Part 1 (replaces 8e-d0ab)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dhkaf>maindec-08-dhkaf</a></td>
@@ -5815,6 +5845,12 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djkta/maindec-08-djkta-b-pb>ak-e506b / maindec-08-djkta-b-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
+<td>4-32K Memory Test<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djmma>maindec-08-djmma</a></td>
+<td><table>
+<tr><td>maindec-08-djmma-a-d</td><td></td></tr>
+<tr><td>maindec-08-djmma-a-pb</td><td></td></tr>
+</table></td></tr>
+<tr>
 <td>MR8-A ROM COMPARE TEST<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djmra>maindec-08-djmra</a></td>
 <td><table>
 <tr><td>ac-6698a / maindec-08-djmra-a-d</td><td></td></tr>
@@ -5871,7 +5907,7 @@ are some navigation shortcuts as well:
 <td>AJRLDA0 RL8-A/RL01 Drive CPT Verifier<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djrld>maindec-08-djrld</a></td>
 <td><table>
 <tr><td>ac-c668a / maindec-08-djrld-a-d</td><td></td></tr>
-<tr><td>ak-c670a / maindec-08-djrld-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djrld/maindec-08-djrld-a-pb>ak-c670a / maindec-08-djrld-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>AJRLEA0 RL8-A/RL01 Performance Exerciser<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djrle>maindec-08-djrle</a></td>
@@ -5994,10 +6030,10 @@ are some navigation shortcuts as well:
 <td>AKVTBB0 VT78 CPU Diagnostic<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dkvtb>maindec-08-dkvtb</a></td>
 <td><table>
 <tr><td>ac-a825b / maindec-08-dkvtb-b-d</td><td></td></tr>
-<tr><td>ak-a826b / maindec-08-dkvtb-b-pb</td><td></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dkvtb/maindec-08-dkvtb-a-d.pdf>ac-a825a / maindec-08-dkvtb-a-d</td><td></a></td></tr>
-<tr><td>ak-a826a / maindec-08-dkvtb-a-pb</td><td></td></tr>
-<tr><td>al-a828a / maindec-08-dkvtb-a-uc</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dkvtb/maindec-08-dkvtb-b-pb>ak-a826b / maindec-08-dkvtb-b-pb</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dkvtb/maindec-08-dkvtb-a-d.pdf>ac-a825a / maindec-08-dkvtb-a-d</td><td>AKVTBA0 VT78 CPU Diagnostic</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-dkvtb/maindec-08-dkvtb-a-pb>ak-a826a / maindec-08-dkvtb-a-pb</td><td>AKVTBA0 VT78 CPU Diagnostic</a></td></tr>
+<tr><td>al-a828a / maindec-08-dkvtb-a-uc</td><td>AKVTBA0 VT78 CPU Diagnostic</td></tr>
 </table></td></tr>
 <tr>
 <td>BINary Loader<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-lba>maindec-08-lba</a></td>
@@ -6690,7 +6726,7 @@ are some navigation shortcuts as well:
 <a name='maindec-8e'></a>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0ab-d.pdf>maindec-8e-d0ab-d</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0ab-pb>maindec-8e-d0ab-pb</td><td></a></td></tr>
-<tr><td>maindec-8e-d0aa-d</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0aa-d.pdf>maindec-8e-d0aa-d</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0aa-pb>maindec-8e-d0aa-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -7072,13 +7108,15 @@ are some navigation shortcuts as well:
 <td>INSTRUCTION TEST 3A<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d0a>maindec-8i-d0a</a></td>
 <td><table>
 <tr><td>ac-b917a / maindec-8i-d0aa-d</td><td></td></tr>
+<tr><td>ac-b917a / maindec-8i-d0aa-vrs</td><td></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d0a/maindec-8i-d0aa-pb>ak-b919a / maindec-8i-d0aa-pb</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d0a/maindec-8i-d0aa-pa>ak-b919a / maindec-8i-d0aa-pa</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PDP-8I EAE TEST<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d0b>maindec-8i-d0b</a></td>
 <td><table>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d0b/maindec-8i-d0ba-d.pdf>ac-b920a / maindec-8i-d0ba-d</td><td></a></td></tr>
+<tr><td>ac-b920a / maindec-8i-d0ba-vrs</td><td></td></tr>
+<tr><td>ac-b920a / maindec-8i-d0ba-d</td><td></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8i-d0b/maindec-8i-d0ba-pb>ak-b922a / maindec-8i-d0ba-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -8088,6 +8126,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1437 of 2891 files linked (49.7%), in 1234 directories
+<P>1448 of 2901 files linked (49.9%), in 1241 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>
