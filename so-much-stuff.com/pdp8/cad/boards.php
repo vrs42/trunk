@@ -2291,6 +2291,18 @@ LM837.
   <DD>is a drawing of a 'modernized' H851.
 </DL>
 </FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx/H901 target=_blank>./DEC/Hxxx/H901</a></b>: Patchcord Mounting Panel
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx/H902 target=_blank>./DEC/Hxxx/H902</a></b>: Indicator Switch Panel
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Hxxx/H903 target=_blank>./DEC/Hxxx/H903</a></b>: Analog-Digital Panel
+
+</LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Kxxx target=_blank>./DEC/Kxxx</a></b>: Kxxx modules
@@ -5211,6 +5223,14 @@ with input flow control implemented.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8830 target=_blank>./DEC/Mxxx/M8830</a></b>: DK8-EC Omnibus Real Time Clock (Crystal)
+
+</LEGEND><DL>
+<DT>M8830</A>
+  <DD>is a drawing of DEC's M8830 (ECO Rev. C) Real time Clock.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M885 target=_blank>./DEC/Mxxx/M885</a></b>: VC8E Point Plot Display D/A
 
 </LEGEND><DL>
@@ -5678,6 +5698,22 @@ subsystem replaced with level converters and a ramboard.
 <DT>Vprobe</A>
   <DD>is a single height board suitable for monitoring voltages and 5V supply ripple.
 </DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerSupplies target=_blank>./DEC/PowerSupplies</a></b>: DEC Power Supplies
+
+</LEGEND><FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerSupplies/4913 target=_blank>./DEC/PowerSupplies/4913</a></b>: Lab Power Supply Mounting Rack
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerSupplies/700 target=_blank>./DEC/PowerSupplies/700</a></b>: Lab Power Supply Panel
+
+</LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PowerSupplies/900 target=_blank>./DEC/PowerSupplies/900</a></b>: Lab Power Supply Panel w/o Supply
+
+</LEGEND></FIELDSET>
 </FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Proto target=_blank>./DEC/Proto</a></b>: DEC Compatible Prototyping boards
