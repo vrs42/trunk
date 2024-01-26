@@ -387,6 +387,14 @@ have taken the time to scan and archive this software and documentation.
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/clear.pal target=_blank>clear.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/decus-5,8-27a.htm target=_blank>decus-5,8-27a.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/decus-5-27a-pb target=_blank>decus-5-27a-pb</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/decus-5-27a-pb.orig target=_blank>decus-5-27a-pb.orig</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/junk.bin target=_blank>junk.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/junk.lst target=_blank>junk.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/junk.pal target=_blank>junk.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/pdp8.ini target=_blank>pdp8.ini</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/willard.bin target=_blank>willard.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/willard.lst target=_blank>willard.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-27a/willard.pal target=_blank>willard.pal</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5,8-28a target=_blank><div>5,8-28a</div>
 </a><td><div>PAL III Modifications - Phoenix Assembler </div>
@@ -2955,6 +2963,9 @@ System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-376b target=_blank><div>8-376b</div>
 </a><td><div>Field l Symbol Table Storage for PALD (DEC-08-ASAC-LA) </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-376b/8-376b.bin target=_blank>8-376b.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-376b/8-376b.lst target=_blank>8-376b.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-376b/8-376b.pal target=_blank>8-376b.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-376b/decus-8-376b.htm target=_blank>decus-8-376b.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-376b/decus-8-376b.pdf target=_blank>decus-8-376b.pdf</a></div>
 <tr>
@@ -3486,6 +3497,8 @@ System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-456a target=_blank><div>8-456a</div>
 </a><td><div>PIP "AH" </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-456a/decus-8-456a-df32-pb target=_blank>decus-8-456a-df32-pb</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-456a/decus-8-456a-rf08-pb target=_blank>decus-8-456a-rf08-pb</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-456a/decus-8-456a.htm target=_blank>decus-8-456a.htm</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-456b target=_blank><div>8-456b</div>
@@ -7193,6 +7206,7 @@ Program, <I>Version</I>: March 1982 </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-41 target=_blank>basic8-41
 </a><td><div>OMSI30 BASIC</div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-41/decus-basic8-41-pb target=_blank>decus-basic8-41-pb</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-41/decus-basic8-41.htm target=_blank>decus-basic8-41.htm</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-42 target=_blank>basic8-42
@@ -8176,9 +8190,11 @@ Version: December 1977</div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-81 target=_blank><div>focal8-81</div>
 </a><td><div>FOCAL Lunar Landing Simulation (APOLLO) </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-81/Notes.txt target=_blank>Notes.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-81/decus-focal8-81.htm target=_blank>decus-focal8-81.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-81/decus-focal8-81.pdf target=_blank>decus-focal8-81.pdf</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-81/f0081.fc target=_blank>f0081.fc</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-81/f0081.fc.orig target=_blank>f0081.fc.orig</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-82 target=_blank><div>focal8-82</div>
 </a><td><div>Physical Sine Curve Programs </div>
@@ -8567,6 +8583,7 @@ Version: December 1977</div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-136/focal8-136-isr-v1-11.20.74-pb target=_blank>focal8-136-isr-v1-11.20.74-pb</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-136/focal8-136-isr-v1-11.20.74-pb.od target=_blank>focal8-136-isr-v1-11.20.74-pb.od</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-136/focal8-136-isr-v1-11.20.74.od target=_blank>focal8-136-isr-v1-11.20.74.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-136/pdp8.ini target=_blank>pdp8.ini</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-137 target=_blank><div>focal8-137</div>
 </a><td><div>General Nth Order Regression </div>
@@ -9629,61 +9646,111 @@ Calculation of Selected Cardiorespiratory Parameters </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301 target=_blank>focal8-301
 </a><td><div>U/W FOCAL FOCAL</div>
 <td>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/CALCMP.FC target=_blank>CALCMP.FC</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/DEMO.FC target=_blank>DEMO.FC</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/DIALOG.BN target=_blank>DIALOG.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/DIALOG.FC target=_blank>DIALOG.FC</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FADC.BN target=_blank>FADC.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FCMOD.BN target=_blank>FCMOD.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FCMOD.CR target=_blank>FCMOD.CR</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FCMOD.ST target=_blank>FCMOD.ST</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FCOM.BN target=_blank>FCOM.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FCX8E.BN target=_blank>FCX8E.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FCXAE.BN target=_blank>FCXAE.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FEXP.BN target=_blank>FEXP.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FITR.BN target=_blank>FITR.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FMQ.BN target=_blank>FMQ.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FOCAL.BN target=_blank>FOCAL.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FSR.BN target=_blank>FSR.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FX.BN target=_blank>FX.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/FXY.BN target=_blank>FXY.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/LF.BN target=_blank>LF.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/LIST.SV target=_blank>LIST.SV</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/PDP12.BN target=_blank>PDP12.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/PDP8E.BN target=_blank>PDP8E.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/PLOT.BN target=_blank>PLOT.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/PLOT.FC target=_blank>PLOT.FC</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/PLOT8K.BN target=_blank>PLOT8K.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/T4002.BN target=_blank>T4002.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/T4010.BN target=_blank>T4010.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/TDUMP.BN target=_blank>TDUMP.BN</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/UFOCAL.SV target=_blank>UFOCAL.SV</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/XYAXIS.FC target=_blank>XYAXIS.FC</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/ZVRFIX.BN target=_blank>ZVRFIX.BN</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/Makefile target=_blank>Makefile</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/calcmp.fc target=_blank>calcmp.fc</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/decus-focal8-301.htm target=_blank>decus-focal8-301.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/decus-focal8-301.pdf target=_blank>decus-focal8-301.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/demo.fc target=_blank>demo.fc</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/dialog.bin target=_blank>dialog.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/dialog.bn target=_blank>dialog.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/dialog.fc target=_blank>dialog.fc</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/dialog.lst target=_blank>dialog.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/dialog.pa target=_blank>dialog.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/dialog.pal target=_blank>dialog.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fadc.bin target=_blank>fadc.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fadc.bn target=_blank>fadc.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fadc.lst target=_blank>fadc.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fadc.pa target=_blank>fadc.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcdef.lst target=_blank>fcdef.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcdef.pa target=_blank>fcdef.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fclib.lst target=_blank>fclib.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fclib.pa target=_blank>fclib.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcmod.bn target=_blank>fcmod.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcmod.cr target=_blank>fcmod.cr</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcmod.st target=_blank>fcmod.st</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcom.bin target=_blank>fcom.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcom.bn target=_blank>fcom.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcom.lst target=_blank>fcom.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcom.pa target=_blank>fcom.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcovr.bn target=_blank>fcovr.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcovr.lst target=_blank>fcovr.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcovr.pa target=_blank>fcovr.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcx8e.bin target=_blank>fcx8e.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcx8e.bn target=_blank>fcx8e.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcx8e.lst target=_blank>fcx8e.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcx8e.pa target=_blank>fcx8e.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcxae.bin target=_blank>fcxae.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcxae.bn target=_blank>fcxae.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcxae.lst target=_blank>fcxae.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fcxae.pa target=_blank>fcxae.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fexp.bin target=_blank>fexp.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fexp.bn target=_blank>fexp.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fexp.lst target=_blank>fexp.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fexp.pa target=_blank>fexp.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fitr.bin target=_blank>fitr.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fitr.bn target=_blank>fitr.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fitr.lst target=_blank>fitr.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fitr.pa target=_blank>fitr.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fmq.bin target=_blank>fmq.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fmq.bn target=_blank>fmq.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fmq.lst target=_blank>fmq.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fmq.pa target=_blank>fmq.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/focl69.bn target=_blank>focl69.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fsr.bin target=_blank>fsr.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fsr.bn target=_blank>fsr.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fsr.lst target=_blank>fsr.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fsr.pa target=_blank>fsr.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fx.bin target=_blank>fx.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fx.bn target=_blank>fx.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fx.lst target=_blank>fx.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fx.pa target=_blank>fx.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fxy.bin target=_blank>fxy.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fxy.bn target=_blank>fxy.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fxy.lst target=_blank>fxy.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/fxy.pa target=_blank>fxy.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/lf.bin target=_blank>lf.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/lf.bn target=_blank>lf.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/lf.bn- target=_blank>lf.bn-</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/lf.lst target=_blank>lf.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/lf.pa target=_blank>lf.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/list.sv target=_blank>list.sv</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp12.bin target=_blank>pdp12.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp12.bn target=_blank>pdp12.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp12.lst target=_blank>pdp12.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp12.pa target=_blank>pdp12.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp8e.bin target=_blank>pdp8e.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp8e.bn target=_blank>pdp8e.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp8e.lst target=_blank>pdp8e.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pdp8e.pa target=_blank>pdp8e.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/pidp target=_blank>pidp</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot.bin target=_blank>plot.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot.bn target=_blank>plot.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot.fc target=_blank>plot.fc</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot.lst target=_blank>plot.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot.pa target=_blank>plot.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot8k.bin target=_blank>plot8k.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot8k.bn target=_blank>plot8k.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot8k.lst target=_blank>plot8k.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/plot8k.pa target=_blank>plot8k.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4002.bin target=_blank>t4002.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4002.bn target=_blank>t4002.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4002.lst target=_blank>t4002.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4002.pa target=_blank>t4002.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4010.bin target=_blank>t4010.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4010.bn target=_blank>t4010.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4010.lst target=_blank>t4010.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/t4010.pa target=_blank>t4010.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/tdump.bin target=_blank>tdump.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/tdump.bn target=_blank>tdump.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/tdump.lst target=_blank>tdump.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/tdump.pa target=_blank>tdump.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/ufocal.sv target=_blank>ufocal.sv</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/uwf16k.bn target=_blank>uwf16k.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/uwfoc.sv target=_blank>uwfoc.sv</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/xyaxis.fc target=_blank>xyaxis.fc</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/zvrfix.bin target=_blank>zvrfix.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/zvrfix.bn target=_blank>zvrfix.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/zvrfix.lst target=_blank>zvrfix.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-301/zvrfix.pa target=_blank>zvrfix.pa</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-302 target=_blank>focal8-302
