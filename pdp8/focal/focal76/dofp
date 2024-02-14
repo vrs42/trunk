@@ -1,0 +1,84 @@
+#!/usr/bin/perl
+
+@rem = '
+@echo off
+c:\perl5\bin\perl %0 %1 %2 %3 %4 %5 %6 %7 %8 %9
+goto endofperl
+@rem ' if @rem;
+
+#
+#open(INPUT, $ARGV[0]) || die "$ARGV[0]: $!";
+
+sub octal {
+  local ($x) = @_;
+  local $digit, $digits;
+  local $exp = 0;
+
+  return if ($x < 0);
+  while ($x < 0.5) {
+    $exp--;
+    $x *= 2.0;
+  }
+  while ($x > 1) {
+    $exp++;
+    $x /= 2.0;
+  }
+  $x *= 4;
+  printf "%04o ", $exp & 07777;
+  $digits = 0;
+  while ($x > 0.0) {
+    $digit = int($x);
+    print $digit;
+    $x -= $digit;
+    $x *= 8.0;
+    last if ++$digits > 11;
+    print " " unless $digits % 4;
+  }
+  print "\n";
+}
+
+#&octal(3.141592653589793);
+#&octal(3.141592653589793 * 2);
+#&octal(3.141592653589793 / 2);
+#&octal(3.141592653589793 / 4);
+#&octal(3.141592653589793 / 8);
+&octal(1/(5*4*3*2*1));
+
+sub float {
+  local ($exp, @mant) = @_;
+  local $x, $sgn = 1;
+
+$mant[2] = 0; # Not currently used
+  if ($mant[0] & 2**11) {
+    $sgn = -1;
+    $mant[0] = ~$mant[0] & 07777;
+    $mant[1] = ~$mant[1] & 07777;
+    $mant[2] = ~$mant[2] & 07777;
+    $mant[2] = ($mant[2]+1) & 07777;
+    if ($mant[2] == 0) {
+      $mant[1] = ($mant[1]+1) & 07777;
+      if ($mant[1] == 0) {
+        $mant[0] = ($mant[0]+1) & 07777;
+      }
+    }
+  }
+  $x = $mant[0]/2**11 + $mant[1]/2**23 + $mant[2]/2**35;
+  $x *= $sgn;
+  $exp = $exp - 4096 if $exp > 2047;
+  return $x * 2**$exp;
+}
+
+print &float(00002, 03110, 03755, 02421), "\n";
+print &float(07764, 02401, 07015, 01042), "\n";
+print &float(07771, 05464, 05514, 06150), "\n";
+print &float(07775, 02431, 05361, 04736), "\n";
+print &float(00000, 05325, 00414, 03167), "\n";
+print &float(07775, 03146, 03147, 03150), "\n";
+print &float(00001, 03015, 00000, 00000), "\n";
+
+#print &float(07764, 02401, 07015, 01042) / &float(07771, 05464, 05514, 06150), "\n";
+#print &float(07771, 05464, 05514, 06150) / &float(07775, 02431, 05361, 04736), "\n";
+#print &float(07775, 02431, 05361, 04736) / &float(00000, 05325, 00414, 03167), "\n";
+
+__END__
+:endofperl
