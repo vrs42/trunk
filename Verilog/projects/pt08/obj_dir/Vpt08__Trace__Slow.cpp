@@ -361,7 +361,6 @@ void Vpt08::traceInitThis__1(Vpt08__Syms* __restrict vlSymsp, VerilatedVcd* vcdp
 	vcdp->declBit  (c+57,"pt08 e11 tx_rateo",-1);
 	vcdp->declBit  (c+57,"pt08 e11 tx_ratei",-1);
 	vcdp->declBit  (c+63,"pt08 e11 stp_mark",-1);
-	vcdp->declBit  (c+37,"pt08 e11 foo",-1);
 	vcdp->declBit  (c+43,"pt08 e11 tx_data_",-1);
 	vcdp->declBit  (c+165,"pt08 e11 skip_",-1);
 	vcdp->declBit  (c+39,"pt08 e11 irq_",-1);
@@ -370,7 +369,6 @@ void Vpt08::traceInitThis__1(Vpt08__Syms* __restrict vlSymsp, VerilatedVcd* vcdp
 	vcdp->declBit  (c+54,"pt08 e11 enable_",-1);
 	vcdp->declBit  (c+159,"pt08 e11 tto_skip_",-1);
 	vcdp->declBit  (c+48,"pt08 e11 tx_ratem",-1);
-	vcdp->declBit  (c+37,"pt08 e11 m707 foo",-1);
 	vcdp->declBus  (c+160,"pt08 e11 m707 ac4_11",-1,4,11);
 	vcdp->declBit  (c+5,"pt08 e11 m707 ae2",-1);
 	vcdp->declBit  (c+5,"pt08 e11 m707 ae1",-1);
@@ -444,7 +442,7 @@ void Vpt08::traceInitThis__1(Vpt08__Syms* __restrict vlSymsp, VerilatedVcd* vcdp
 	vcdp->declBit  (c+162,"pt08 e11 m707 ar1",-1);
 	vcdp->declBit  (c+56,"pt08 e11 m707 aj1",-1);
 	vcdp->declBus  (c+34,"pt08 e11 m707 tto_set",-1,3,11);
-	// Tracing: pt08 e11 m707 cbit // Ignored: Verilator trace_off at m707.v:106
+	// Tracing: pt08 e11 m707 cbit // Ignored: Verilator trace_off at m707.v:104
 	vcdp->declBit  (c+131,"pt08 pup iob0_l",-1);
 	vcdp->declBit  (c+132,"pt08 pup iob1_l",-1);
 	vcdp->declBit  (c+133,"pt08 pup iob2_l",-1);

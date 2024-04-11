@@ -11,9 +11,9 @@
 -- programming logic devices manufactured by Altera and sold by 
 -- Altera or its authorized distributors.  Please refer to the 
 -- applicable agreement for further details.
---A1L19 is initialize~1
-A1L19_or_out = !initialize;
-A1L19 = A1L19_or_out;
+--A1L18 is initialize~1
+A1L18_or_out = !initialize;
+A1L18 = A1L18_or_out;
 
 
 --tx_ratem is tx_ratem
@@ -21,9 +21,9 @@ tx_ratem_reg_input = VCC;
 tx_ratem = TFFE(tx_ratem_reg_input, GLOBAL(rx_rate), , , );
 
 
---A1L30Q is tx_rateo~reg0
-A1L30Q_reg_input = VCC;
-A1L30Q = TFFE(A1L30Q_reg_input, tx_ratem, , , );
+--A1L29Q is tx_rateo~reg0
+A1L29Q_reg_input = VCC;
+A1L29Q = TFFE(A1L29Q_reg_input, tx_ratem, , , );
 
 
 --B1_tto[4] is m707:m707|tto[4]
@@ -116,26 +116,20 @@ B1_out_stop[1]_reg_input = B1_out_stop[1]_or_out;
 B1_out_stop[1] = DFFE(B1_out_stop[1]_reg_input, GLOBAL(tx_ratei), B1_tto_shift, , );
 
 
---B1L1 is m707:m707|Equal0~4
-B1L1_p1_out = !B1_tto[3] & !B1_tto[4] & !B1_tto[5] & !B1_tto[6] & !B1_tto[7] & !B1_tto[8] & !B1_tto[9] & !B1_tto[10];
-B1L1_or_out = B1L1_p1_out;
-B1L1 = !(B1L1_or_out);
-
-
 --B1_teleprinter_flag is m707:m707|teleprinter_flag
 B1_teleprinter_flag_p1_out = !B1_tto[3] & !B1_tto[4] & !B1_tto[5] & !B1_tto[6] & !B1_tto[7] & !B1_tto[8] & !B1_tto[9] & !B1_tto[10];
 B1_teleprinter_flag_or_out = B1_teleprinter_flag_p1_out;
 B1_teleprinter_flag_reg_input = !(B1_teleprinter_flag_or_out);
-B1_teleprinter_flag_p4_out = B1L8 & B1L9;
+B1_teleprinter_flag_p4_out = B1L7 & B1L8;
 B1_teleprinter_flag = DFFE(B1_teleprinter_flag_reg_input, B1_tto_shift, , !B1_teleprinter_flag_p4_out, );
 
 
---B1L8 is m707:m707|tcf~1
-B1L8 = EXP(!initialize & !biop2);
+--B1L7 is m707:m707|tcf~1
+B1L7 = EXP(!initialize & !biop2);
 
 
---B1L9 is m707:m707|tcf~2
-B1L9 = EXP(!initialize & !tx_sel);
+--B1L8 is m707:m707|tcf~2
+B1L8 = EXP(!initialize & !tx_sel);
 
 
 --B1_out_stop[2] is m707:m707|out_stop[2]
@@ -151,16 +145,16 @@ B1_line_p2_out = stp_mark & B1_tto[3];
 B1_line = DFFE(B1_line_reg_input, B1_tto_shift, !B1_line_p2_out, , );
 
 
---B1L23 is m707:m707|tx_data~0
-B1L23_p1_out = B1_out_active & !B1_line;
-B1L23_or_out = B1L23_p1_out;
-B1L23 = !(B1L23_or_out);
-
-
---B1L22 is m707:m707|tto_skip_~2
-B1L22_p1_out = biop1 & tx_sel & !B1_teleprinter_flag;
+--B1L22 is m707:m707|tx_data~0
+B1L22_p1_out = B1_out_active & !B1_line;
 B1L22_or_out = B1L22_p1_out;
 B1L22 = !(B1L22_or_out);
+
+
+--B1L21 is m707:m707|tto_skip_~2
+B1L21_p1_out = biop1 & tx_sel & !B1_teleprinter_flag;
+B1L21_or_out = B1L21_p1_out;
+B1L21 = !(B1L21_or_out);
 
 
 --initialize is initialize
@@ -292,25 +286,19 @@ stp_mark = INPUT();
 --init_l is init_l
 --operation mode is output
 
-init_l = OUTPUT(A1L19);
+init_l = OUTPUT(A1L18);
 
 
 --tx_rateo is tx_rateo
 --operation mode is output
 
-tx_rateo = OUTPUT(A1L30Q);
+tx_rateo = OUTPUT(A1L29Q);
 
 
 --stop1 is stop1
 --operation mode is output
 
 stop1 = OUTPUT(B1_out_stop[0]);
-
-
---foo is foo
---operation mode is output
-
-foo = OUTPUT(B1L1);
 
 
 --stop2 is stop2
@@ -329,13 +317,13 @@ irq_l = OUTPUT(irq_l_open_drain_out);
 --txdttl is txdttl
 --operation mode is output
 
-txdttl = OUTPUT(B1L23);
+txdttl = OUTPUT(B1L22);
 
 
 --skip_l is skip_l
 --operation mode is output
 
-skip_l_open_drain_out = OPNDRN(B1L22);
+skip_l_open_drain_out = OPNDRN(B1L21);
 skip_l = OUTPUT(skip_l_open_drain_out);
 
 

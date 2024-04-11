@@ -1,7 +1,5 @@
 /* verilator lint_off LITENDIAN */
-module m707(foo, ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am2, an1, an2, ap2, ar1, ar2, as1, as2, at2, au1, au2, av2, bd2, be2, bf2, bh2, bj1, bj2, bk2, bn1, bn2, bp1, bp2, br2, bs2);
-output foo;
-assign foo = tto0_;
+module m707(ae1, ae2, af1, af2, ah1, ah2, aj1, aj2, ak1, ak2, al1, al2, am2, an1, an2, ap2, ar1, ar2, as1, as2, at2, au1, au2, av2, bd2, be2, bf2, bh2, bj1, bj2, bk2, bn1, bn2, bp1, bp2, br2, bs2);
 
 wire [4:11] ac4_11;
 

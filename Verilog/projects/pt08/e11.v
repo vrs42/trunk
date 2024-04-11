@@ -30,18 +30,16 @@
 //         43       in       TX_RATEI
 //         44       in       STP_MARK
 
-module e11(foo, initialize, rx_rate, bac8, biop4, bac7, biop2, bac5, bac6, biop1, bac4, bac3, bac11, bac2, bac1, bac10, bac0, bac9, rx_sel, skip_l, irq_l, tx_sel, init_l, txdttl, stop1, stop2, tx_rateo, tx_ratei, stp_mark);
+module e11(initialize, rx_rate, bac8, biop4, bac7, biop2, bac5, bac6, biop1, bac4, bac3, bac11, bac2, bac1, bac10, bac0, bac9, rx_sel, skip_l, irq_l, tx_sel, init_l, txdttl, stop1, stop2, tx_rateo, tx_ratei, stp_mark);
 input initialize, rx_rate, rx_sel, tx_sel;
 input bac0, bac1, bac2, bac3, bac4, bac5, bac6, bac7, bac8, bac9, bac10, bac11;
 input biop1, biop2, biop4;
 output skip_l, irq_l, init_l;
 output txdttl, stop1, stop2, tx_rateo;
 input tx_ratei, stp_mark;
-output foo;
 
 /* M707 Transmitter */
 m707 m707(
-   .foo(foo),
    .ae1(tx_sel),	// in  mb04_
    .ae2(tx_sel),	// in  mb03_
    .af1(tx_sel),	// in  mb06_
