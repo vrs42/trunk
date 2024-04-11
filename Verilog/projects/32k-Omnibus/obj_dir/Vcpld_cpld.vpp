@@ -1,0 +1,574 @@
+`begin_keywords "1800-2012"
+`line 1 "cpld.v" 1
+ 
+ 
+ 
+
+`line 5 "cpld.v" 0
+ 
+ 
+
+
+
+`line 10 "cpld.v" 0
+ 
+ 
+ 
+
+`line 14 "cpld.v" 0
+module cpld (
+  cf0,			 
+  pulse_la,		 
+  data08_l,		 
+  f_set_l,		 
+  md11_l,		 
+  user_mode_l,		 
+  md10_l,		 
+  md09_l,		 
+  d_l,			 
+  md08_l,		 
+  f_l,			 
+  ir01_l,		 
+  ir00_l,		 
+  ind2_l,		 
+  ind1_l,		 
+  cpma_disable_l,	 
+  skip_l,		 
+  initialize,		 
+  int_rqst_l,		 
+  ts3_l,		 
+  internal_io_l,	 
+  ts1_l,		 
+  tp4,			 
+  tp3,			 
+  c1_l,			 
+  tp2,			 
+  c0_l,			 
+  io_pause_l,		 
+  df_enable,		 
+  power_ok,		 
+  data07_l,		 
+  run_l,		 
+  data06_l,		 
+  data05_l,		 
+  data04_l,		 
+  int_in_prog_l,	 
+  md07_l,		 
+  md06_l,		 
+  md05_l,		 
+  md04_l,		 
+  load_cont_l,		 
+  tp_bb1,		 
+  tp_ba1,		 
+  data03_l,		 
+  data02_l,		 
+  data01_l,		 
+  data00_l,		 
+  md03_l,		 
+  md02_l,		 
+  md01_l,		 
+  md00_l,		 
+  ema2_l,		 
+  ema1_l,		 
+  ema0_l,		 
+  tp_ab1,		 
+  tp_aa1,		 
+  rxdttl,		 
+  txdttl,		 
+  data11_l,		 
+  key_ctl_l,		 
+  data10_l,		 
+  data09_l,		 
+  clk,			 
+  cf1			 
+);
+
+`line 81 "cpld.v" 0
+input cf0;
+input pulse_la;
+inout data08_l;
+input f_set_l;
+ 
+input user_mode_l;
+
+`line 88 "cpld.v" 0
+ 
+
+`line 90 "cpld.v" 0
+input md11_l;
+input md10_l;
+input md09_l;
+input d_l;
+input md08_l;
+input f_l;
+input ir01_l;
+input ir00_l;
+input ind2_l;
+input ind1_l;
+input cpma_disable_l;
+output skip_l;
+input initialize;
+output int_rqst_l;
+input ts3_l;
+output internal_io_l;
+input ts1_l;
+input tp4;
+input tp3;
+output c1_l;
+input tp2;
+output c0_l;
+input io_pause_l;
+ 
+input df_enable;
+
+`line 116 "cpld.v" 0
+ 
+
+`line 118 "cpld.v" 0
+input power_ok;
+inout data07_l;
+input run_l;
+inout data06_l;
+inout data05_l;
+inout data04_l;
+ 
+input int_in_prog_l;
+
+`line 127 "cpld.v" 0
+ 
+
+`line 129 "cpld.v" 0
+input md07_l;
+input md06_l;
+input md05_l;
+input md04_l;
+input load_cont_l;
+ 
+input tp_bb1;
+input tp_ba1;
+
+`line 138 "cpld.v" 0
+ 
+ 
+
+`line 141 "cpld.v" 0
+inout data03_l;
+inout data02_l;
+inout data01_l;
+inout data00_l;
+input md03_l;
+input md02_l;
+input md01_l;
+input md00_l;
+ 
+input ema2_l;
+input ema1_l;
+input ema0_l;
+input tp_ab1;
+input tp_aa1;
+
+`line 156 "cpld.v" 0
+ 
+ 
+ 
+ 
+ 
+
+`line 162 "cpld.v" 0
+input rxdttl;
+output txdttl;
+inout data11_l;
+input key_ctl_l;
+inout data10_l;
+inout data09_l;
+input clk;
+input cf1;
+
+`line 171 "cpld.v" 0
+ 
+
+`line 173 "cpld.v" 0
+ 
+
+`line 175 "cpld.v" 0
+int md;
+assign md[11:0] = {~md00_l, ~md01_l, ~md02_l, ~md03_l, ~md04_l, ~md05_l, ~md06_l, ~md07_l, ~md08_l, ~md09_l, ~md10_l, ~md11_l};
+
+
+
+`line 180 "cpld.v" 0
+ 
+
+`line 182 "cpld.v" 0
+ 
+ 
+ 
+
+`line 186 "cpld.v" 0
+ 
+ 
+
+
+
+`line 191 "cpld.v" 0
+ 
+
+`line 193 "cpld.v" 0
+ 
+wire bd230400;
+assign bd230400 = clk;
+
+`line 197 "cpld.v" 0
+reg bd115200;
+reg bd38400;
+reg bd19200;
+reg bd9600;
+reg bd4800;
+reg bd2400;
+reg bd1200;
+reg bd600;
+reg bd300;
+reg bd109;
+wire n_t_3x;
+wire n_t_6x;
+reg n_t_1x;
+reg n_t_2x;
+reg n_t_4x;
+reg n_t_5x;
+wire sw1, sw2, sw3, sw4, sw5, sw6;
+assign sw1 = cf0;
+assign sw2 = cf1;
+assign sw3 = tp_aa1;
+assign sw4 = tp_ab1;
+assign sw5 = tp_ba1;
+assign sw6 = tp_bb1;
+
+`line 221 "cpld.v" 0
+wire md03_set, md04_set, md05_set, md07_set;
+wire md03_ok, md04_ok, md05_ok;
+wire md06_in, md07_in, md08_in;
+wire md06_out, md07_out, md08_out;
+wire rx_sel_l;
+wire tx_sel_l;
+wire j23;
+wire h12;
+wire ratex2;
+
+`line 231 "cpld.v" 0
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/*verilator lint_off PINMISSING*/ 
+m8650d m8650d (
+  .n3v3(1'b1),
+ 
+  .n_t_152x(1'b1),	 
+  .n_t_50x(rx_sel_l),	 
+  .n_t_3x(rx_sel_l),	 
+  .n_t_165x(rx_sel_l),	 
+  .n_t_86x(rx_sel_l),	 
+  .n_t_90x(rx_sel_l),	 
+  .n_t_96x(rx_sel_l),	 
+  .n_t_32x(tx_sel_l),	 
+  .n_t_74x(tx_sel_l),	 
+  .n_t_1x(tx_sel_l),	 
+  .n_t_84x(tx_sel_l),	 
+  .n_t_58x(tx_sel_l),	 
+  .n_t_95x(tx_sel_l),	 
+  .stp_mark(j23),	 
+ 
+  .n_t_146x(j23),	 
+  .tx_rate(h12),	 
+  .rx_rate(h12),	 
+ 
+  .testp4(ratex2),	 
+ 
+ 
+ 
+ 
+ 
+  .c0_l(c0_l),
+  .c1_l(c1_l),
+  .data04_l(data04_l),
+  .data05_l(data05_l),
+  .data06_l(data06_l),
+  .data07_l(data07_l),
+  .data08_l(data08_l),
+  .data09_l(data09_l),
+  .data10_l(data10_l),
+  .data11_l(data11_l),
+  .initialize(initialize),
+ 
+  .int_rqst_l(int_rqst_l),
+  .internal_io_l(internal_io_l),
+  .io_pause_l(io_pause_l),
+  .line(txdttl),	 
+ 
+ 
+ 
+ 
+ 
+  .md08(md08_l),
+  .md09(md09_l),
+  .md10(md10_l),
+  .md11(md11_l),
+ 
+  .power_ok(power_ok),
+ 
+ 
+ 
+ 
+ 
+  .serial_in(rxdttl),	 
+  .skip_l(skip_l),
+  .tp3(tp3),
+ 
+ 
+  .n_t_103x(1'b1),	 
+ 
+);
+
+`line 318 "cpld.v" 0
+ 
+ 
+ 
+always @(bd230400, bd115200)
+  if (~bd230400) begin
+    bd115200 <= ~bd115200;
+  end
+ 
+ 
+ 
+always @(negedge bd115200, negedge n_t_3x)
+  if (~n_t_3x) begin
+    n_t_1x <= 1'b0;
+  end else
+  if (~bd115200) begin
+    n_t_1x <= ~n_t_1x;
+  end
+always @(negedge n_t_1x, negedge n_t_3x)
+  if (~n_t_3x) begin
+    bd38400 <= 1'b0;
+  end else
+  if (~n_t_1x) begin
+    bd38400 <= ~bd38400;
+  end
+assign n_t_3x = ~(n_t_1x & bd38400);
+ 
+ 
+always @(bd38400, bd19200)
+  if (~bd38400) begin
+    bd19200 <= ~bd19200;
+  end
+always @(bd19200, bd9600)
+  if (~bd19200) begin
+    bd9600 <= ~bd9600;
+  end
+always @(bd9600, bd4800)
+  if (~bd9600) begin
+    bd4800 <= ~bd4800;
+  end
+always @(bd4800, bd2400)
+  if (~bd4800) begin
+    bd2400 <= ~bd2400;
+  end
+always @(bd2400, bd1200)
+  if (~bd2400) begin
+    bd1200 <= ~bd1200;
+  end
+always @(bd1200, bd600)
+  if (~bd1200) begin
+    bd600 <= ~bd600;
+  end
+always @(bd600, bd300)
+  if (~bd600) begin
+    bd300 <= ~bd300;
+  end
+ 
+ 
+always @(negedge bd1200, negedge n_t_6x)
+  if (~n_t_6x) begin
+    n_t_2x <= 1'b0;
+  end else
+  if (~bd1200) begin
+    n_t_2x <= ~n_t_2x;
+  end
+always @(negedge n_t_2x, negedge n_t_6x)
+  if (~n_t_6x) begin
+    n_t_4x <= 1'b0;
+  end else
+  if (~n_t_2x) begin
+    n_t_4x <= ~n_t_4x;
+  end
+always @(negedge n_t_4x, negedge n_t_6x)
+  if (~n_t_6x) begin
+    n_t_5x <= 1'b0;
+  end else
+  if (~n_t_4x) begin
+    n_t_5x <= ~n_t_5x;
+  end
+always @(negedge n_t_5x, negedge n_t_6x)
+  if (~n_t_6x) begin
+    bd109 <= 1'b0;
+  end else
+  if (~n_t_5x) begin
+    bd109 <= ~bd109;
+  end
+assign n_t_6x = ~(bd109 & n_t_4x & n_t_2x);
+ 
+assign ratex2 = (~sw1 & ~sw2 & ~sw3) & bd109
+              | (~sw1 & ~sw2 &  sw3) & bd300
+              | (~sw1 &  sw2 & ~sw3) & bd600
+              | (~sw1 &  sw2 &  sw3) & bd1200
+              | ( sw1 & ~sw2 & ~sw3) & bd9600
+              | ( sw1 & ~sw2 &  sw3) & bd38400
+              | ( sw1 &  sw2 & ~sw3) & bd115200
+              | ( sw1 &  sw2 &  sw3) & bd230400;
+
+`line 414 "cpld.v" 0
+ 
+ 
+assign md03_set = (~sw4 &  sw5)
+                | ( sw4 & ~sw5);
+assign md04_set = ( sw4 &  sw5 & ~sw6);
+assign md05_set = ( sw4 &  sw5);
+assign md03_ok  = ( md03_set & ~md03_l)
+                | (~md03_set &  md03_l);
+assign md04_ok  = ( md04_set & ~md04_l)
+                | (~md04_set &  md04_l);
+assign md05_ok  = ( md05_set & ~md05_l)
+                | (~md05_set &  md05_l);
+assign md06_in  = ( sw4 & ~sw5)
+                | ( sw4 &  sw5 & ~sw6);
+assign md06_out = md06_in
+                | ( sw4 &  sw5 &  sw6);
+assign md07_set = (~sw4 &  sw5 &  sw6)
+                | ( sw4 & ~sw5 &  sw6);
+assign md07_in  = md07_set
+                | (~sw4 & ~sw5 & ~sw6);
+assign md07_out = md07_set
+                | ( sw4 &  sw5 &  sw6);
+assign md08_in  = (~sw4 & ~sw5 & ~sw6)
+                | ( sw4 &  sw5 &  sw6);
+assign md08_out = ~md08_in;
+assign rx_sel_l = ~(md03_ok & md04_ok & md05_ok
+                  & ((md06_in & ~md06_l) | (~md06_in & md06_l))
+                  & ((md07_in & ~md07_l) | (~md07_in & md07_l))
+                  & ((md08_in & ~md08_l) | (~md08_in & md08_l)));
+assign tx_sel_l = ~(md03_ok & md04_ok & md05_ok
+                  & ((md06_out & ~md06_l) | (~md06_out & md06_l))
+                  & ((md07_out & ~md07_l) | (~md07_out & md07_l))
+                  & ((md08_out & ~md08_l) | (~md08_out & md08_l)));
+
+
+`line 449 "cpld.v" 0
+ 
+ 
+pup pup(
+   .c0_low(c0_l),
+   .c1_low(c1_l),
+   .data00_low(data00_l),
+   .data01_low(data01_l),
+   .data02_low(data02_l),
+   .data03_low(data03_l),
+   .data04_low(data04_l),
+   .data05_low(data05_l),
+   .data06_low(data06_l),
+   .data07_low(data07_l),
+   .data08_low(data08_l),
+   .data09_low(data09_l),
+   .data10_low(data10_l),
+   .data11_low(data11_l),
+   .internal_io_low(internal_io_l),
+   .interrupt_low(int_rqst_l),
+   .skip_low(skip_l)
+);
+
+
+`line 472 "cpld.v" 0
+ 
+
+`line 474 "cpld.v" 0
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+`line 502 "cpld.v" 0
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+`line 533 "cpld.v" 0
+   
+   
+
+
+`line 537 "cpld.v" 0
+endmodule
+
+`line 539 "cpld.v" 2

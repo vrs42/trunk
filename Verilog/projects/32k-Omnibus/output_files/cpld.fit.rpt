@@ -1,0 +1,722 @@
+Fitter report for cpld
+Sat Nov 18 05:23:56 2023
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Fitter Summary
+  3. Fitter Settings
+  4. Parallel Compilation
+  5. Fitter Equations
+  6. Pin-Out File
+  7. Fitter Resource Usage Summary
+  8. Input Pins
+  9. Output Pins
+ 10. Bidir Pins
+ 11. All Package Pins
+ 12. I/O Standard
+ 13. Dedicated Inputs I/O
+ 14. Output Pin Default Load For Reported TCO
+ 15. Fitter Resource Utilization by Entity
+ 16. Control Signals
+ 17. Global & Other Fast Signals
+ 18. Non-Global High Fan-Out Signals
+ 19. Other Routing Usage Summary
+ 20. LAB External Interconnect
+ 21. LAB Macrocells
+ 22. Parallel Expander
+ 23. Shareable Expander
+ 24. Logic Cell Interconnection
+ 25. Fitter Device Options
+ 26. Fitter Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------+
+; Fitter Summary                                                              ;
++---------------------------+-------------------------------------------------+
+; Fitter Status             ; Successful - Sat Nov 18 05:23:56 2023           ;
+; Quartus II 64-Bit Version ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
+; Revision Name             ; cpld                                            ;
+; Top-level Entity Name     ; cpld                                            ;
+; Family                    ; MAX7000S                                        ;
+; Device                    ; EPM7128SLI84-10                                 ;
+; Timing Models             ; Final                                           ;
+; Total macrocells          ; 86 / 128 ( 67 % )                               ;
+; Total pins                ; 68 / 68 ( 100 % )                               ;
++---------------------------+-------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Fitter Settings                                                                                              ;
++----------------------------------------------------------------------------+-----------------+---------------+
+; Option                                                                     ; Setting         ; Default Value ;
++----------------------------------------------------------------------------+-----------------+---------------+
+; Device                                                                     ; EPM7128SLI84-10 ;               ;
+; Use smart compilation                                                      ; Off             ; Off           ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On              ; On            ;
+; Enable compact report table                                                ; Off             ; Off           ;
+; Optimize Multi-Corner Timing                                               ; Off             ; Off           ;
+; Optimize Timing for ECOs                                                   ; Off             ; Off           ;
+; Regenerate full fit report during ECO compiles                             ; Off             ; Off           ;
+; Optimize IOC Register Placement for Timing                                 ; Normal          ; Normal        ;
+; Fitter Initial Placement Seed                                              ; 1               ; 1             ;
+; Slow Slew Rate                                                             ; Off             ; Off           ;
+; Fitter Effort                                                              ; Auto Fit        ; Auto Fit      ;
+; Force Fitter to Avoid Periphery Placement Warnings                         ; Off             ; Off           ;
++----------------------------------------------------------------------------+-----------------+---------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 8      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------+
+; Fitter Equations ;
++------------------+
+The equations can be found in //wsl.localhost/Debian/home/vrs/Verilog/projects/32k-Omnibus/output_files/cpld.fit.eqn.
+
+
++--------------+
+; Pin-Out File ;
++--------------+
+The pin-out file can be found in //wsl.localhost/Debian/home/vrs/Verilog/projects/32k-Omnibus/output_files/cpld.pin.
+
+
++--------------------------------------------------+
+; Fitter Resource Usage Summary                    ;
++------------------------------+-------------------+
+; Resource                     ; Usage             ;
++------------------------------+-------------------+
+; Logic cells                  ; 86 / 128 ( 67 % ) ;
+; Registers                    ; 18 / 128 ( 14 % ) ;
+; Number of pterms used        ; 216               ;
+; I/O pins                     ; 68 / 68 ( 100 % ) ;
+;     -- Clock pins            ; 2 / 2 ( 100 % )   ;
+;     -- Dedicated input pins  ; 2 / 2 ( 100 % )   ;
+;                              ;                   ;
+; Global signals               ; 1                 ;
+; Shareable expanders          ; 9 / 128 ( 7 % )   ;
+; Parallel expanders           ; 5 / 120 ( 4 % )   ;
+; Cells using turbo bit        ; 86 / 128 ( 67 % ) ;
+; Maximum fan-out              ; 26                ;
+; Highest non-global fan-out   ; 26                ;
+; Total fan-out                ; 438               ;
+; Average fan-out              ; 2.69              ;
++------------------------------+-------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Input Pins                                                                                                                                           ;
++----------------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+; Name           ; Pin # ; I/O Bank ; LAB ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; I/O Standard ; Location assigned by ;
++----------------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+; cf0            ; 1     ; --       ; --  ; 2                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; cf1            ; 84    ; --       ; --  ; 2                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; clk            ; 83    ; --       ; --  ; 2                     ; 0                  ; yes    ; no             ; TTL          ; User                 ;
+; cpma_disable_l ; 21    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; d_l            ; 11    ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; df_enable      ; 37    ; --       ; 4   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ema0_l         ; 70    ; --       ; 7   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ema1_l         ; 69    ; --       ; 7   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ema2_l         ; 68    ; --       ; 7   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; f_l            ; 15    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; f_set_l        ; 5     ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ind1_l         ; 20    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ind2_l         ; 18    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; initialize     ; 24    ; --       ; 3   ; 26                    ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; int_in_prog_l  ; 48    ; --       ; 5   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; io_pause_l     ; 36    ; --       ; 4   ; 9                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ir00_l         ; 17    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ir01_l         ; 16    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; key_ctl_l      ; 79    ; --       ; 8   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; load_cont_l    ; 54    ; --       ; 6   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md00_l         ; 67    ; --       ; 7   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md01_l         ; 65    ; --       ; 7   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md02_l         ; 64    ; --       ; 7   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md03_l         ; 63    ; --       ; 7   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md04_l         ; 52    ; --       ; 5   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md05_l         ; 51    ; --       ; 5   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md06_l         ; 50    ; --       ; 5   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md07_l         ; 49    ; --       ; 5   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md08_l         ; 12    ; --       ; 1   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md09_l         ; 10    ; --       ; 1   ; 21                    ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md10_l         ; 9     ; --       ; 1   ; 9                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; md11_l         ; 6     ; --       ; 1   ; 24                    ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; power_ok       ; 39    ; --       ; 4   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; pulse_la       ; 2     ; --       ; --  ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; run_l          ; 41    ; --       ; 4   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp2            ; 34    ; --       ; 4   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp3            ; 31    ; --       ; 3   ; 7                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp4            ; 30    ; --       ; 3   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp_aa1         ; 74    ; --       ; 8   ; 2                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp_ab1         ; 73    ; --       ; 8   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp_ba1         ; 56    ; --       ; 6   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tp_bb1         ; 55    ; --       ; 6   ; 8                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ts1_l          ; 29    ; --       ; 3   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; ts3_l          ; 27    ; --       ; 3   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; user_mode_l    ; 8     ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
++----------------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                                                                       ;
++---------------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+; Name          ; Pin # ; I/O Bank ; LAB ; Output Register ; Slow Slew Rate ; Open Drain ; TRI Primitive ; I/O Standard ; Location assigned by ; Load  ; Output Enable Source ; Output Enable Group ;
++---------------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+; c0_l          ; 35    ; --       ; 4   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; c1_l          ; 33    ; --       ; 4   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; int_rqst_l    ; 25    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; internal_io_l ; 28    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; rxdttl        ; 75    ; --       ; 8   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; skip_l        ; 22    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; txdttl        ; 76    ; --       ; 8   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
++---------------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Bidir Pins                                                                                                                                                                                                                                                       ;
++----------+-------+----------+-----+-----------------------+--------------------+--------+----------------+-----------------+----------------+------------+--------------+----------------------+-------+-----------------------------------+---------------------+
+; Name     ; Pin # ; I/O Bank ; LAB ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; Output Register ; Slow Slew Rate ; Open Drain ; I/O Standard ; Location assigned by ; Load  ; Output Enable Source              ; Output Enable Group ;
++----------+-------+----------+-----+-----------------------+--------------------+--------+----------------+-----------------+----------------+------------+--------------+----------------------+-------+-----------------------------------+---------------------+
+; data00_l ; 61    ; --       ; 6   ; 0                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~3 (inverted)                 ; -                   ;
+; data01_l ; 60    ; --       ; 6   ; 0                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~2 (inverted)                 ; -                   ;
+; data02_l ; 58    ; --       ; 6   ; 0                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~1 (inverted)                 ; -                   ;
+; data03_l ; 57    ; --       ; 6   ; 0                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~0 (inverted)                 ; -                   ;
+; data04_l ; 46    ; --       ; 5   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; m8650d:m8650d|krs_l~10 (inverted) ; -                   ;
+; data05_l ; 45    ; --       ; 5   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; m8650d:m8650d|krs_l~7 (inverted)  ; -                   ;
+; data06_l ; 44    ; --       ; 5   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~6 (inverted)                 ; -                   ;
+; data07_l ; 40    ; --       ; 4   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~5 (inverted)                 ; -                   ;
+; data08_l ; 4     ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~4 (inverted)                 ; -                   ;
+; data09_l ; 81    ; --       ; 8   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~9 (inverted)                 ; -                   ;
+; data10_l ; 80    ; --       ; 8   ; 1                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~8 (inverted)                 ; -                   ;
+; data11_l ; 77    ; --       ; 8   ; 2                     ; 0                  ; no     ; no             ; no              ; no             ; yes        ; TTL          ; User                 ; 10 pF ; ~VCC~7 (inverted)                 ; -                   ;
++----------+-------+----------+-----+-----------------------+--------------------+--------+----------------+-----------------+----------------+------------+--------------+----------------------+-------+-----------------------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; All Package Pins                                                                                      ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; Location ; Pad Number ; I/O Bank ; Pin Name/Usage ; Dir.   ; I/O Standard ; Voltage ; User Assignment ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; 1        ; 0          ; --       ; cf0            ; input  ; TTL          ;         ; Y               ;
+; 2        ; 1          ; --       ; pulse_la       ; input  ; TTL          ;         ; Y               ;
+; 3        ; 2          ; --       ; VCCINT         ; power  ;              ; 5.0V    ;                 ;
+; 4        ; 3          ; --       ; data08_l       ; bidir  ; TTL          ;         ; Y               ;
+; 5        ; 4          ; --       ; f_set_l        ; input  ; TTL          ;         ; Y               ;
+; 6        ; 5          ; --       ; md11_l         ; input  ; TTL          ;         ; Y               ;
+; 7        ; 6          ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 8        ; 7          ; --       ; user_mode_l    ; input  ; TTL          ;         ; Y               ;
+; 9        ; 8          ; --       ; md10_l         ; input  ; TTL          ;         ; Y               ;
+; 10       ; 9          ; --       ; md09_l         ; input  ; TTL          ;         ; Y               ;
+; 11       ; 10         ; --       ; d_l            ; input  ; TTL          ;         ; Y               ;
+; 12       ; 11         ; --       ; md08_l         ; input  ; TTL          ;         ; Y               ;
+; 13       ; 12         ; --       ; VCCIO          ; power  ;              ; 5.0V    ;                 ;
+; 14       ; 13         ; --       ; TDI            ; input  ; TTL          ;         ; N               ;
+; 15       ; 14         ; --       ; f_l            ; input  ; TTL          ;         ; Y               ;
+; 16       ; 15         ; --       ; ir01_l         ; input  ; TTL          ;         ; Y               ;
+; 17       ; 16         ; --       ; ir00_l         ; input  ; TTL          ;         ; Y               ;
+; 18       ; 17         ; --       ; ind2_l         ; input  ; TTL          ;         ; Y               ;
+; 19       ; 18         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 20       ; 19         ; --       ; ind1_l         ; input  ; TTL          ;         ; Y               ;
+; 21       ; 20         ; --       ; cpma_disable_l ; input  ; TTL          ;         ; Y               ;
+; 22       ; 21         ; --       ; skip_l         ; output ; TTL          ;         ; Y               ;
+; 23       ; 22         ; --       ; TMS            ; input  ; TTL          ;         ; N               ;
+; 24       ; 23         ; --       ; initialize     ; input  ; TTL          ;         ; Y               ;
+; 25       ; 24         ; --       ; int_rqst_l     ; output ; TTL          ;         ; Y               ;
+; 26       ; 25         ; --       ; VCCIO          ; power  ;              ; 5.0V    ;                 ;
+; 27       ; 26         ; --       ; ts3_l          ; input  ; TTL          ;         ; Y               ;
+; 28       ; 27         ; --       ; internal_io_l  ; output ; TTL          ;         ; Y               ;
+; 29       ; 28         ; --       ; ts1_l          ; input  ; TTL          ;         ; Y               ;
+; 30       ; 29         ; --       ; tp4            ; input  ; TTL          ;         ; Y               ;
+; 31       ; 30         ; --       ; tp3            ; input  ; TTL          ;         ; Y               ;
+; 32       ; 31         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 33       ; 32         ; --       ; c1_l           ; output ; TTL          ;         ; Y               ;
+; 34       ; 33         ; --       ; tp2            ; input  ; TTL          ;         ; Y               ;
+; 35       ; 34         ; --       ; c0_l           ; output ; TTL          ;         ; Y               ;
+; 36       ; 35         ; --       ; io_pause_l     ; input  ; TTL          ;         ; Y               ;
+; 37       ; 36         ; --       ; df_enable      ; input  ; TTL          ;         ; Y               ;
+; 38       ; 37         ; --       ; VCCIO          ; power  ;              ; 5.0V    ;                 ;
+; 39       ; 38         ; --       ; power_ok       ; input  ; TTL          ;         ; Y               ;
+; 40       ; 39         ; --       ; data07_l       ; bidir  ; TTL          ;         ; Y               ;
+; 41       ; 40         ; --       ; run_l          ; input  ; TTL          ;         ; Y               ;
+; 42       ; 41         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 43       ; 42         ; --       ; VCCINT         ; power  ;              ; 5.0V    ;                 ;
+; 44       ; 43         ; --       ; data06_l       ; bidir  ; TTL          ;         ; Y               ;
+; 45       ; 44         ; --       ; data05_l       ; bidir  ; TTL          ;         ; Y               ;
+; 46       ; 45         ; --       ; data04_l       ; bidir  ; TTL          ;         ; Y               ;
+; 47       ; 46         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 48       ; 47         ; --       ; int_in_prog_l  ; input  ; TTL          ;         ; Y               ;
+; 49       ; 48         ; --       ; md07_l         ; input  ; TTL          ;         ; Y               ;
+; 50       ; 49         ; --       ; md06_l         ; input  ; TTL          ;         ; Y               ;
+; 51       ; 50         ; --       ; md05_l         ; input  ; TTL          ;         ; Y               ;
+; 52       ; 51         ; --       ; md04_l         ; input  ; TTL          ;         ; Y               ;
+; 53       ; 52         ; --       ; VCCIO          ; power  ;              ; 5.0V    ;                 ;
+; 54       ; 53         ; --       ; load_cont_l    ; input  ; TTL          ;         ; Y               ;
+; 55       ; 54         ; --       ; tp_bb1         ; input  ; TTL          ;         ; Y               ;
+; 56       ; 55         ; --       ; tp_ba1         ; input  ; TTL          ;         ; Y               ;
+; 57       ; 56         ; --       ; data03_l       ; bidir  ; TTL          ;         ; Y               ;
+; 58       ; 57         ; --       ; data02_l       ; bidir  ; TTL          ;         ; Y               ;
+; 59       ; 58         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 60       ; 59         ; --       ; data01_l       ; bidir  ; TTL          ;         ; Y               ;
+; 61       ; 60         ; --       ; data00_l       ; bidir  ; TTL          ;         ; Y               ;
+; 62       ; 61         ; --       ; TCK            ; input  ; TTL          ;         ; N               ;
+; 63       ; 62         ; --       ; md03_l         ; input  ; TTL          ;         ; Y               ;
+; 64       ; 63         ; --       ; md02_l         ; input  ; TTL          ;         ; Y               ;
+; 65       ; 64         ; --       ; md01_l         ; input  ; TTL          ;         ; Y               ;
+; 66       ; 65         ; --       ; VCCIO          ; power  ;              ; 5.0V    ;                 ;
+; 67       ; 66         ; --       ; md00_l         ; input  ; TTL          ;         ; Y               ;
+; 68       ; 67         ; --       ; ema2_l         ; input  ; TTL          ;         ; Y               ;
+; 69       ; 68         ; --       ; ema1_l         ; input  ; TTL          ;         ; Y               ;
+; 70       ; 69         ; --       ; ema0_l         ; input  ; TTL          ;         ; Y               ;
+; 71       ; 70         ; --       ; TDO            ; output ; TTL          ;         ; N               ;
+; 72       ; 71         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 73       ; 72         ; --       ; tp_ab1         ; input  ; TTL          ;         ; Y               ;
+; 74       ; 73         ; --       ; tp_aa1         ; input  ; TTL          ;         ; Y               ;
+; 75       ; 74         ; --       ; rxdttl         ; output ; TTL          ;         ; Y               ;
+; 76       ; 75         ; --       ; txdttl         ; output ; TTL          ;         ; Y               ;
+; 77       ; 76         ; --       ; data11_l       ; bidir  ; TTL          ;         ; Y               ;
+; 78       ; 77         ; --       ; VCCIO          ; power  ;              ; 5.0V    ;                 ;
+; 79       ; 78         ; --       ; key_ctl_l      ; input  ; TTL          ;         ; Y               ;
+; 80       ; 79         ; --       ; data10_l       ; bidir  ; TTL          ;         ; Y               ;
+; 81       ; 80         ; --       ; data09_l       ; bidir  ; TTL          ;         ; Y               ;
+; 82       ; 81         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 83       ; 82         ; --       ; clk            ; input  ; TTL          ;         ; Y               ;
+; 84       ; 83         ; --       ; cf1            ; input  ; TTL          ;         ; Y               ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+Note: Pin directions (input, output or bidir) are based on device operating in user mode.
+
+
++--------------------------------------------------------------------------------------------------+
+; I/O Standard                                                                                     ;
++--------------+------------+----------------------+-------------------+-------------------+-------+
+; I/O Standard ; Input Vref ; Dedicated Input Pins ; Pins in I/O Bank1 ; Pins in I/O Bank2 ; Total ;
++--------------+------------+----------------------+-------------------+-------------------+-------+
+; TTL          ; -          ; 4                    ; 0                 ; 0                 ; 4     ;
++--------------+------------+----------------------+-------------------+-------------------+-------+
+
+
++------------------------------------------------------------------------+
+; Dedicated Inputs I/O                                                   ;
++----------+-------+-------+-------+--------------+------------+---------+
+; Name     ; Pin # ; Type  ; VCCIO ; I/O Standard ; Input Vref ; Current ;
++----------+-------+-------+-------+--------------+------------+---------+
+; cf0      ; 1     ; Input ; --    ; TTL          ; -          ; 0 mA    ;
+; cf1      ; 84    ; Input ; --    ; TTL          ; -          ; 0 mA    ;
+; clk      ; 83    ; Input ; --    ; TTL          ; -          ; 0 mA    ;
+; pulse_la ; 2     ; Input ; --    ; TTL          ; -          ; 0 mA    ;
++----------+-------+-------+-------+--------------+------------+---------+
+
+
++-----------------------------------------------+
+; Output Pin Default Load For Reported TCO      ;
++--------------+-------+------------------------+
+; I/O Standard ; Load  ; Termination Resistance ;
++--------------+-------+------------------------+
+; 3.3-V LVTTL  ; 10 pF ; Not Available          ;
+; 3.3-V LVCMOS ; 10 pF ; Not Available          ;
+; TTL          ; 10 pF ; Not Available          ;
++--------------+-------+------------------------+
+Note: User assignments will override these defaults. The user specified values are listed in the Output Pins and Bidir Pins tables.
+
+
++-------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                               ;
++----------------------------+------------+------+---------------------+--------------+
+; Compilation Hierarchy Node ; Macrocells ; Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+------------+------+---------------------+--------------+
+; |cpld                      ; 86         ; 68   ; |cpld               ; work         ;
+;    |m8650d:m8650d|         ; 59         ; 0    ; |cpld|m8650d:m8650d ; work         ;
++----------------------------+------------+------+---------------------+--------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                       ;
++-------------------------+----------+---------+---------------------+--------+----------------------+------------------+
+; Name                    ; Location ; Fan-Out ; Usage               ; Global ; Global Resource Used ; Global Line Name ;
++-------------------------+----------+---------+---------------------+--------+----------------------+------------------+
+; bd115200                ; LC9      ; 2       ; Clock               ; no     ; --                   ; --               ;
+; bd1200                  ; LC47     ; 6       ; Clock               ; no     ; --                   ; --               ;
+; bd19200                 ; LC5      ; 1       ; Clock               ; no     ; --                   ; --               ;
+; bd2400                  ; LC38     ; 1       ; Clock               ; no     ; --                   ; --               ;
+; bd38400                 ; LC15     ; 4       ; Async. clear, Clock ; no     ; --                   ; --               ;
+; bd4800                  ; LC7      ; 1       ; Clock               ; no     ; --                   ; --               ;
+; bd600                   ; LC11     ; 2       ; Clock               ; no     ; --                   ; --               ;
+; bd9600                  ; LC48     ; 2       ; Clock               ; no     ; --                   ; --               ;
+; clk                     ; PIN_83   ; 2       ; Clock               ; yes    ; On                   ; --               ;
+; m8650d:m8650d|gdollar_2 ; LC43     ; 1       ; Clock               ; no     ; --                   ; --               ;
+; m8650d:m8650d|gdollar_3 ; LC8      ; 1       ; Clock               ; no     ; --                   ; --               ;
+; m8650d:m8650d|rx_rate   ; LC44     ; 1       ; Clock               ; no     ; --                   ; --               ;
+; n_t_1x                  ; LC6      ; 2       ; Async. clear, Clock ; no     ; --                   ; --               ;
+; ratex2~26               ; LC2      ; 1       ; Clock               ; no     ; --                   ; --               ;
++-------------------------+----------+---------+---------------------+--------+----------------------+------------------+
+
+
++---------------------------------------------------------------------+
+; Global & Other Fast Signals                                         ;
++------+----------+---------+----------------------+------------------+
+; Name ; Location ; Fan-Out ; Global Resource Used ; Global Line Name ;
++------+----------+---------+----------------------+------------------+
+; clk  ; PIN_83   ; 2       ; On                   ; --               ;
++------+----------+---------+----------------------+------------------+
+
+
++------------------------------------------+
+; Non-Global High Fan-Out Signals          ;
++--------------------------------+---------+
+; Name                           ; Fan-Out ;
++--------------------------------+---------+
+; initialize                     ; 26      ;
+; md11_l                         ; 24      ;
+; m8650d:m8650d|selected_l~7     ; 24      ;
+; md09_l                         ; 21      ;
+; m8650d:m8650d|n_t_57x~2        ; 18      ;
+; m8650d:m8650d|tx_sel_l~11      ; 17      ;
+; io_pause_l                     ; 9       ;
+; md10_l                         ; 9       ;
+; m8650d:m8650d|tx_div~9         ; 9       ;
+; md05_l                         ; 8       ;
+; md04_l                         ; 8       ;
+; md03_l                         ; 8       ;
+; md08_l                         ; 8       ;
+; md07_l                         ; 8       ;
+; md06_l                         ; 8       ;
+; tp_bb1                         ; 8       ;
+; tp_ab1                         ; 8       ;
+; tp_ba1                         ; 8       ;
+; m8650d:m8650d|tx_active_l~9    ; 8       ;
+; m8650d:m8650d|n_t_162x         ; 8       ;
+; tp3                            ; 7       ;
+; m8650d:m8650d|rx_sel_l~7       ; 7       ;
+; bd1200                         ; 6       ;
+; m8650d:m8650d|tpc_l~5          ; 5       ;
+; div11a                         ; 5       ;
+; m8650d:m8650d|enab~9           ; 4       ;
+; div11d                         ; 4       ;
+; div11c                         ; 4       ;
+; bd38400                        ; 4       ;
+; m8650d:m8650d|n_t_60x~9        ; 3       ;
+; m8650d:m8650d|n_t_62x~9        ; 3       ;
+; m8650d:m8650d|n_t_56x~9        ; 3       ;
+; m8650d:m8650d|n_t_63x~9        ; 3       ;
+; m8650d:m8650d|n_t_65x~9        ; 3       ;
+; m8650d:m8650d|n_t_66x~9        ; 3       ;
+; m8650d:m8650d|n_t_61x~9        ; 3       ;
+; m8650d:m8650d|start_l~9        ; 3       ;
+; m8650d:m8650d|int_enab_l~9     ; 3       ;
+; m8650d:m8650d|tflg_l~10        ; 3       ;
+; m8650d:m8650d|tpc_l~6          ; 2       ;
+; data11_l~0                     ; 2       ;
+; cf1                            ; 2       ;
+; tp_aa1                         ; 2       ;
+; cf0                            ; 2       ;
+; m8650d:m8650d|n_t_94x~1sexp    ; 2       ;
+; m8650d:m8650d|n_t_18x~8sexp    ; 2       ;
+; m8650d:m8650d|ckkie~2sexpand1  ; 2       ;
+; m8650d:m8650d|n_t_146x_m~9     ; 2       ;
+; m8650d:m8650d|n_t_60x_m~9      ; 2       ;
+; m8650d:m8650d|n_t_62x_m~16     ; 2       ;
+; m8650d:m8650d|n_t_56x_m~16     ; 2       ;
+; m8650d:m8650d|enab_m~9         ; 2       ;
+; m8650d:m8650d|n_t_63x_m~16     ; 2       ;
+; m8650d:m8650d|n_t_65x_m~16     ; 2       ;
+; m8650d:m8650d|n_t_66x_m~16     ; 2       ;
+; m8650d:m8650d|n_t_61x_m~16     ; 2       ;
+; m8650d:m8650d|n_t_146x~9       ; 2       ;
+; m8650d:m8650d|tx_data_m~16     ; 2       ;
+; m8650d:m8650d|tx_active_l_m~9  ; 2       ;
+; m8650d:m8650d|start_l_m~8      ; 2       ;
+; m8650d:m8650d|tx_div_m~9       ; 2       ;
+; m8650d:m8650d|tx_data~9        ; 2       ;
+; m8650d:m8650d|int_enab_l_m~9   ; 2       ;
+; m8650d:m8650d|tflg_l_m~10      ; 2       ;
+; m8650d:m8650d|line_m~10        ; 2       ;
+; m8650d:m8650d|cktfl~2          ; 2       ;
+; m8650d:m8650d|line~10          ; 2       ;
+; n_t_1x                         ; 2       ;
+; div11b                         ; 2       ;
+; bd115200                       ; 2       ;
+; bd9600                         ; 2       ;
+; bd600                          ; 2       ;
+; data09_l~0                     ; 1       ;
+; data10_l~0                     ; 1       ;
+; data04_l~0                     ; 1       ;
+; data05_l~0                     ; 1       ;
+; data06_l~0                     ; 1       ;
+; data07_l~0                     ; 1       ;
+; data08_l~0                     ; 1       ;
+; m8650d:m8650d|n_t_108x~3sexp3  ; 1       ;
+; m8650d:m8650d|n_t_108x~3sexp1  ; 1       ;
+; m8650d:m8650d|tpc_l~2sexpand0  ; 1       ;
+; m8650d:m8650d|n_t_8x~0sexpand1 ; 1       ;
+; ~VCC~9                         ; 1       ;
+; ~VCC~8                         ; 1       ;
+; ~VCC~7                         ; 1       ;
+; ~VCC~6                         ; 1       ;
+; ~VCC~5                         ; 1       ;
+; ~VCC~4                         ; 1       ;
+; ~VCC~3                         ; 1       ;
+; ~VCC~2                         ; 1       ;
+; ~VCC~1                         ; 1       ;
+; ~VCC~0                         ; 1       ;
+; ~GND~0                         ; 1       ;
+; ratex2~27                      ; 1       ;
+; m8650d:m8650d|rx_sel_l~8       ; 1       ;
+; m8650d:m8650d|selected_l~21    ; 1       ;
+; m8650d:m8650d|selected_l~15    ; 1       ;
+; m8650d:m8650d|tx_sel_l~12      ; 1       ;
+; m8650d:m8650d|n_t_60x_d~3      ; 1       ;
+; m8650d:m8650d|n_t_62x_m~7      ; 1       ;
+; m8650d:m8650d|n_t_56x_m~7      ; 1       ;
+; m8650d:m8650d|n_t_63x_m~7      ; 1       ;
+; m8650d:m8650d|n_t_65x_m~7      ; 1       ;
+; m8650d:m8650d|n_t_66x_m~7      ; 1       ;
+; m8650d:m8650d|n_t_61x_m~7      ; 1       ;
+; bd4800                         ; 1       ;
+; bd19200                        ; 1       ;
+; bd2400                         ; 1       ;
+; bd300                          ; 1       ;
+; ratex2~26                      ; 1       ;
+; m8650d:m8650d|rx_rate          ; 1       ;
+; m8650d:m8650d|gdollar_2        ; 1       ;
+; m8650d:m8650d|gdollar_3        ; 1       ;
+; m8650d:m8650d|krs_l~10         ; 1       ;
+; m8650d:m8650d|krs_l~7          ; 1       ;
+; m8650d:m8650d|kcc_l~4          ; 1       ;
+; m8650d:m8650d|c1_l~4           ; 1       ;
+; m8650d:m8650d|selected_l~13    ; 1       ;
+; m8650d:m8650d|int_rqst_l~3     ; 1       ;
+; m8650d:m8650d|skip_l~8         ; 1       ;
++--------------------------------+---------+
+
+
++--------------------------------------------------+
+; Other Routing Usage Summary                      ;
++-----------------------------+--------------------+
+; Other Routing Resource Type ; Usage              ;
++-----------------------------+--------------------+
+; Output enables              ; 0 / 6 ( 0 % )      ;
+; PIA buffers                 ; 119 / 288 ( 41 % ) ;
+; PIAs                        ; 129 / 288 ( 45 % ) ;
++-----------------------------+--------------------+
+
+
++-----------------------------------------------------------------------------+
+; LAB External Interconnect                                                   ;
++-----------------------------------------------+-----------------------------+
+; LAB External Interconnects  (Average = 16.13) ; Number of LABs  (Total = 7) ;
++-----------------------------------------------+-----------------------------+
+; 0 - 2                                         ; 1                           ;
+; 3 - 5                                         ; 1                           ;
+; 6 - 8                                         ; 1                           ;
+; 9 - 11                                        ; 0                           ;
+; 12 - 14                                       ; 0                           ;
+; 15 - 17                                       ; 1                           ;
+; 18 - 20                                       ; 0                           ;
+; 21 - 23                                       ; 2                           ;
+; 24 - 26                                       ; 1                           ;
+; 27 - 29                                       ; 0                           ;
+; 30 - 32                                       ; 1                           ;
++-----------------------------------------------+-----------------------------+
+
+
++-----------------------------------------------------------------------+
+; LAB Macrocells                                                        ;
++-----------------------------------------+-----------------------------+
+; Number of Macrocells  (Average = 10.75) ; Number of LABs  (Total = 8) ;
++-----------------------------------------+-----------------------------+
+; 0                                       ; 0                           ;
+; 1                                       ; 0                           ;
+; 2                                       ; 1                           ;
+; 3                                       ; 1                           ;
+; 4                                       ; 1                           ;
+; 5                                       ; 0                           ;
+; 6                                       ; 0                           ;
+; 7                                       ; 0                           ;
+; 8                                       ; 0                           ;
+; 9                                       ; 0                           ;
+; 10                                      ; 0                           ;
+; 11                                      ; 0                           ;
+; 12                                      ; 0                           ;
+; 13                                      ; 0                           ;
+; 14                                      ; 1                           ;
+; 15                                      ; 1                           ;
+; 16                                      ; 3                           ;
++-----------------------------------------+-----------------------------+
+
+
++---------------------------------------------------------+
+; Parallel Expander                                       ;
++--------------------------+------------------------------+
+; Parallel Expander Length ; Number of Parallel Expanders ;
++--------------------------+------------------------------+
+; 0                        ; 0                            ;
+; 1                        ; 5                            ;
++--------------------------+------------------------------+
+
+
++-------------------------------------------------------------------------------+
+; Shareable Expander                                                            ;
++-------------------------------------------------+-----------------------------+
+; Number of shareable expanders  (Average = 1.13) ; Number of LABs  (Total = 3) ;
++-------------------------------------------------+-----------------------------+
+; 0                                               ; 5                           ;
+; 1                                               ; 2                           ;
+; 2                                               ; 0                           ;
+; 3                                               ; 0                           ;
+; 4                                               ; 0                           ;
+; 5                                               ; 0                           ;
+; 6                                               ; 0                           ;
+; 7                                               ; 1                           ;
++-------------------------------------------------+-----------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Logic Cell Interconnection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
++-----+------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; LAB ; Logic Cell ; Input                                                                                                                                                                                                    ; Output                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
++-----+------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+;  A  ; LC3        ; m8650d:m8650d|gdollar_3                                                                                                                                                                                  ; m8650d:m8650d|tx_div~9, m8650d:m8650d|start_l~9, m8650d:m8650d|tx_active_l~9, m8650d:m8650d|tx_div_m~9, m8650d:m8650d|start_l_m~8, m8650d:m8650d|tx_active_l_m~9, m8650d:m8650d|n_t_146x~9, m8650d:m8650d|n_t_146x_m~9                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  A  ; LC5        ; bd38400                                                                                                                                                                                                  ; bd9600                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  A  ; LC12       ; bd600                                                                                                                                                                                                    ; ratex2~27                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+;  A  ; LC6        ; bd115200, n_t_1x, bd38400                                                                                                                                                                                ; bd38400, n_t_1x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  A  ; LC7        ; bd9600                                                                                                                                                                                                   ; bd2400                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  A  ; LC16       ;                                                                                                                                                                                                          ; data08_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  A  ; LC15       ; n_t_1x, bd38400                                                                                                                                                                                          ; ratex2~26, bd38400, bd19200, n_t_1x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  A  ; LC14       ; div11d, div11c, div11a, bd1200                                                                                                                                                                           ; div11a, div11c, div11d, div11b                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+;  A  ; LC11       ; bd1200                                                                                                                                                                                                   ; bd300, ratex2~27                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+;  A  ; LC13       ; div11c, div11a, div11d, bd1200                                                                                                                                                                           ; div11a, div11c, div11d, div11b                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+;  A  ; LC9        ; clk                                                                                                                                                                                                      ; ratex2~26, n_t_1x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
+;  A  ; LC8        ; m8650d:m8650d|gdollar_2                                                                                                                                                                                  ; m8650d:m8650d|n_t_162x                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  A  ; LC4        ; div11a, div11b, div11c, div11d, bd1200                                                                                                                                                                   ; div11a, div11b                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+;  A  ; LC1        ; div11a, cf0, tp_aa1, cf1, bd600, bd300                                                                                                                                                                   ; ratex2~26                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+;  A  ; LC2        ; ratex2~27, bd1200, cf0, tp_aa1, cf1, bd9600, bd115200, bd38400, clk                                                                                                                                      ; m8650d:m8650d|rx_rate                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC10       ; div11c, div11a, div11d, div11b, bd1200                                                                                                                                                                   ; div11a, div11c, div11d, div11b, ratex2~27                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+;  B  ; LC29       ; md11_l, m8650d:m8650d|selected_l~7, md09_l, md10_l, tp3, m8650d:m8650d|tx_sel_l~11                                                                                                                       ; m8650d:m8650d|tflg_l~10, m8650d:m8650d|tflg_l_m~10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  B  ; LC17       ; m8650d:m8650d|tflg_l~10, m8650d:m8650d|tx_sel_l~11, md11_l, m8650d:m8650d|selected_l~7, md10_l, md09_l, m8650d:m8650d|int_enab_l~9                                                                       ; skip_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  B  ; LC27       ; m8650d:m8650d|tflg_l_m~10, m8650d:m8650d|tx_div~9, m8650d:m8650d|cktfl~2, m8650d:m8650d|tflg_l~10, initialize, m8650d:m8650d|tx_sel_l~11, md10_l, md11_l, m8650d:m8650d|selected_l~7, tp3                ; m8650d:m8650d|skip_l~8, m8650d:m8650d|int_rqst_l~3, m8650d:m8650d|tflg_l~10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  B  ; LC26       ; m8650d:m8650d|int_enab_l_m~9, initialize, m8650d:m8650d|int_enab_l~9, md10_l, md11_l, md09_l, m8650d:m8650d|rx_sel_l~7, m8650d:m8650d|selected_l~7, tp3, m8650d:m8650d|ckkie~2sexpand1                   ; m8650d:m8650d|skip_l~8, m8650d:m8650d|int_rqst_l~3, m8650d:m8650d|int_enab_l~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+;  B  ; LC22       ; m8650d:m8650d|n_t_162x, m8650d:m8650d|tx_active_l_m~9, initialize, m8650d:m8650d|n_t_108x~3sexp1, m8650d:m8650d|n_t_94x~1sexp, m8650d:m8650d|n_t_108x~3sexp3                                             ; m8650d:m8650d|tx_active_l~9, m8650d:m8650d|tx_active_l_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  B  ; LC25       ; m8650d:m8650d|tx_div_m~9, m8650d:m8650d|n_t_162x, m8650d:m8650d|tx_div~9, initialize                                                                                                                     ; m8650d:m8650d|line~10, m8650d:m8650d|tflg_l~10, m8650d:m8650d|line_m~10, m8650d:m8650d|tx_div~9, m8650d:m8650d|tflg_l_m~10, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_146x~9, m8650d:m8650d|n_t_146x_m~9, m8650d:m8650d|n_t_94x~1sexp                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  B  ; LC20       ; m8650d:m8650d|enab_m~9, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|enab~9                                                                                                                        ; m8650d:m8650d|enab~9, m8650d:m8650d|n_t_60x_d~3, m8650d:m8650d|n_t_18x~8sexp, m8650d:m8650d|n_t_108x~3sexp1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  B  ; LC19       ; m8650d:m8650d|tx_active_l_m~9, m8650d:m8650d|n_t_162x, m8650d:m8650d|tx_active_l~9, initialize                                                                                                           ; m8650d:m8650d|start_l~9, m8650d:m8650d|tx_active_l~9, m8650d:m8650d|start_l_m~8, m8650d:m8650d|n_t_146x_m~9, m8650d:m8650d|line~10, m8650d:m8650d|line_m~10, m8650d:m8650d|n_t_94x~1sexp, m8650d:m8650d|n_t_108x~3sexp3                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  B  ; LC32       ; m8650d:m8650d|tx_div~9, m8650d:m8650d|cktfl~2, m8650d:m8650d|tflg_l_m~10, initialize, m8650d:m8650d|tx_sel_l~11, md10_l, md11_l, m8650d:m8650d|selected_l~7, tp3, m8650d:m8650d|n_t_18x~8sexp            ; m8650d:m8650d|tflg_l~10, m8650d:m8650d|tflg_l_m~10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  B  ; LC31       ; initialize, m8650d:m8650d|int_enab_l_m~9, m8650d:m8650d|ckkie~2sexpand1, md10_l, md11_l, md09_l, m8650d:m8650d|rx_sel_l~7, m8650d:m8650d|selected_l~7, tp3, m8650d:m8650d|n_t_8x~0sexpand1               ; m8650d:m8650d|int_enab_l~9, m8650d:m8650d|int_enab_l_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  B  ; LC18       ; tp3, m8650d:m8650d|tx_div~9, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                                                       ; m8650d:m8650d|tx_data~9, m8650d:m8650d|n_t_61x~9, m8650d:m8650d|n_t_66x~9, m8650d:m8650d|n_t_65x~9, m8650d:m8650d|n_t_63x~9, m8650d:m8650d|enab~9, m8650d:m8650d|n_t_56x~9, m8650d:m8650d|n_t_62x~9, m8650d:m8650d|n_t_60x~9, m8650d:m8650d|tx_data_m~16, m8650d:m8650d|n_t_61x_m~16, m8650d:m8650d|n_t_66x_m~16, m8650d:m8650d|n_t_65x_m~16, m8650d:m8650d|n_t_63x_m~16, m8650d:m8650d|enab_m~9, m8650d:m8650d|n_t_56x_m~16, m8650d:m8650d|n_t_62x_m~16, m8650d:m8650d|n_t_60x_m~9                                                                                                                                                           ;
+;  B  ; LC23       ; initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|tx_data_m~16, m8650d:m8650d|n_t_66x~9, data11_l, m8650d:m8650d|tpc_l~2sexpand0, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7 ; m8650d:m8650d|tx_data~9, m8650d:m8650d|tx_data_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  B  ; LC28       ; initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|enab_m~9, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                       ; m8650d:m8650d|enab~9, m8650d:m8650d|enab_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
+;  B  ; LC30       ; m8650d:m8650d|n_t_162x, m8650d:m8650d|tx_div_m~9, initialize, m8650d:m8650d|n_t_94x~1sexp                                                                                                                ; m8650d:m8650d|tx_div~9, m8650d:m8650d|tx_div_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+;  C  ; LC34       ; m8650d:m8650d|selected_l~15, io_pause_l, md05_l, tp_ba1, tp_ab1, tp_bb1, md03_l, md04_l, md07_l, md08_l, md06_l                                                                                          ; m8650d:m8650d|skip_l~8, m8650d:m8650d|c1_l~4, m8650d:m8650d|kcc_l~4, m8650d:m8650d|krs_l~7, m8650d:m8650d|krs_l~10, m8650d:m8650d|cktfl~2, m8650d:m8650d|tflg_l~10, m8650d:m8650d|tflg_l_m~10, m8650d:m8650d|ckkie~2sexpand1, m8650d:m8650d|int_enab_l~9, m8650d:m8650d|int_enab_l_m~9, m8650d:m8650d|tpc_l~2sexpand0, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_61x_m~7, m8650d:m8650d|n_t_66x_m~7, m8650d:m8650d|n_t_65x_m~7, m8650d:m8650d|n_t_63x_m~7, m8650d:m8650d|enab_m~9, m8650d:m8650d|n_t_56x_m~7, m8650d:m8650d|n_t_62x_m~7, m8650d:m8650d|n_t_60x_d~3, m8650d:m8650d|tx_data_m~16, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tpc_l~6 ;
+;  C  ; LC45       ; m8650d:m8650d|int_enab_l~9, m8650d:m8650d|tflg_l~10                                                                                                                                                      ; int_rqst_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  C  ; LC40       ; m8650d:m8650d|selected_l~21, io_pause_l, md05_l, tp_ba1, tp_ab1, tp_bb1, md03_l, md04_l, md07_l, md08_l, md06_l                                                                                          ; internal_io_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
+;  C  ; LC42       ; m8650d:m8650d|rx_sel_l~8, tp_ba1, tp_bb1, io_pause_l, md08_l, md04_l, md06_l, md07_l, md05_l, tp_ab1, md03_l                                                                                             ; m8650d:m8650d|c1_l~4, m8650d:m8650d|kcc_l~4, m8650d:m8650d|krs_l~7, m8650d:m8650d|krs_l~10, m8650d:m8650d|ckkie~2sexpand1, m8650d:m8650d|int_enab_l~9, m8650d:m8650d|int_enab_l_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  C  ; LC37       ; m8650d:m8650d|start_l_m~8, m8650d:m8650d|tx_active_l~9, m8650d:m8650d|start_l~9, m8650d:m8650d|n_t_162x                                                                                                  ; m8650d:m8650d|line~10, m8650d:m8650d|line_m~10, m8650d:m8650d|start_l~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  C  ; LC43       ; m8650d:m8650d|rx_rate                                                                                                                                                                                    ; m8650d:m8650d|gdollar_3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  C  ; LC44       ; ratex2~26                                                                                                                                                                                                ; m8650d:m8650d|gdollar_2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  C  ; LC46       ; m8650d:m8650d|tx_active_l~9, m8650d:m8650d|start_l_m~8, m8650d:m8650d|n_t_162x                                                                                                                           ; m8650d:m8650d|start_l~9, m8650d:m8650d|start_l_m~8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  C  ; LC47       ; bd2400                                                                                                                                                                                                   ; ratex2~26, div11a, bd600, div11c, div11d, div11b                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+;  C  ; LC48       ; bd19200                                                                                                                                                                                                  ; ratex2~26, bd4800                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ;
+;  C  ; LC41       ; tp_ba1, tp_bb1, io_pause_l, md08_l, md04_l, md06_l, md07_l, md05_l, tp_ab1, md03_l                                                                                                                       ; m8650d:m8650d|rx_sel_l~7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  C  ; LC35       ; tp_bb1, md04_l, md05_l, io_pause_l, tp_ba1, tp_ab1, md06_l, md03_l, md07_l, md08_l                                                                                                                       ; m8650d:m8650d|tx_sel_l~11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+;  C  ; LC33       ; io_pause_l, md05_l, tp_ba1, tp_ab1, tp_bb1, md03_l, md04_l, md07_l, md08_l, md06_l                                                                                                                       ; m8650d:m8650d|selected_l~7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  C  ; LC39       ; io_pause_l, md05_l, tp_ba1, tp_ab1, tp_bb1, md03_l, md04_l, md07_l, md08_l, md06_l                                                                                                                       ; m8650d:m8650d|selected_l~13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  C  ; LC38       ; bd4800                                                                                                                                                                                                   ; bd1200                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  C  ; LC36       ; m8650d:m8650d|tx_sel_l~12, tp_bb1, md04_l, md05_l, io_pause_l, tp_ba1, tp_ab1, md06_l, md03_l, md07_l, md08_l                                                                                            ; m8650d:m8650d|skip_l~8, m8650d:m8650d|cktfl~2, m8650d:m8650d|tflg_l~10, m8650d:m8650d|tflg_l_m~10, m8650d:m8650d|tpc_l~2sexpand0, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_61x_m~7, m8650d:m8650d|n_t_66x_m~7, m8650d:m8650d|n_t_65x_m~7, m8650d:m8650d|n_t_63x_m~7, m8650d:m8650d|enab_m~9, m8650d:m8650d|n_t_56x_m~7, m8650d:m8650d|n_t_62x_m~7, m8650d:m8650d|n_t_60x_d~3, m8650d:m8650d|tx_data_m~16, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tpc_l~6                                                                                                                                                                                      ;
+;  D  ; LC64       ; md11_l, md09_l, m8650d:m8650d|selected_l~7, m8650d:m8650d|rx_sel_l~7, md10_l                                                                                                                             ; c1_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ;
+;  D  ; LC59       ; md10_l, m8650d:m8650d|selected_l~7, m8650d:m8650d|rx_sel_l~7, md11_l                                                                                                                                     ; c0_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ;
+;  D  ; LC51       ;                                                                                                                                                                                                          ; data07_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  E  ; LC78       ; m8650d:m8650d|n_t_61x_m~7, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_61x_m~16                                                                                                               ; m8650d:m8650d|n_t_61x~9, m8650d:m8650d|n_t_61x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  E  ; LC79       ; m8650d:m8650d|n_t_63x~9, data09_l, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                          ; m8650d:m8650d|n_t_65x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  E  ; LC77       ; m8650d:m8650d|n_t_61x~9, data08_l, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                          ; m8650d:m8650d|n_t_63x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  E  ; LC68       ; m8650d:m8650d|n_t_63x_m~7, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_63x_m~16                                                                                                               ; m8650d:m8650d|n_t_63x~9, m8650d:m8650d|n_t_63x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  E  ; LC73       ; m8650d:m8650d|n_t_61x_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_61x~9                                                                                                                 ; m8650d:m8650d|n_t_61x~9, m8650d:m8650d|n_t_63x_m~7, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  E  ; LC75       ; m8650d:m8650d|n_t_60x~9, data05_l, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                          ; m8650d:m8650d|n_t_62x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  E  ; LC74       ; m8650d:m8650d|n_t_62x_m~7, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_62x_m~16                                                                                                               ; m8650d:m8650d|n_t_62x~9, m8650d:m8650d|n_t_62x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  E  ; LC70       ; m8650d:m8650d|n_t_60x_d~3, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_60x_m~9                                                                                                                ; m8650d:m8650d|n_t_60x~9, m8650d:m8650d|n_t_60x_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
+;  E  ; LC69       ; md09_l, m8650d:m8650d|selected_l~7, m8650d:m8650d|rx_sel_l~7, md11_l                                                                                                                                     ; data04_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  E  ; LC67       ; md09_l, m8650d:m8650d|selected_l~7, m8650d:m8650d|rx_sel_l~7, md11_l                                                                                                                                     ; data05_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  E  ; LC66       ; m8650d:m8650d|n_t_63x_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_63x~9                                                                                                                 ; m8650d:m8650d|n_t_63x~9, m8650d:m8650d|n_t_65x_m~7, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  E  ; LC76       ; m8650d:m8650d|n_t_62x~9, data06_l, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                          ; m8650d:m8650d|n_t_56x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  E  ; LC71       ; m8650d:m8650d|n_t_62x_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_62x~9                                                                                                                 ; m8650d:m8650d|n_t_62x~9, m8650d:m8650d|n_t_56x_m~7, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  E  ; LC72       ; m8650d:m8650d|n_t_60x_m~9, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_60x~9                                                                                                                  ; m8650d:m8650d|n_t_60x~9, m8650d:m8650d|n_t_62x_m~7, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  E  ; LC80       ; m8650d:m8650d|n_t_56x~9, data07_l, m8650d:m8650d|tpc_l~5, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                          ; m8650d:m8650d|n_t_61x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  E  ; LC65       ;                                                                                                                                                                                                          ; data06_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  F  ; LC91       ;                                                                                                                                                                                                          ; data02_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  F  ; LC93       ;                                                                                                                                                                                                          ; data01_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  F  ; LC94       ;                                                                                                                                                                                                          ; data00_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  F  ; LC88       ;                                                                                                                                                                                                          ; data03_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  G  ; LC97       ; m8650d:m8650d|n_t_65x~9, data10_l, m8650d:m8650d|tpc_l~6, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                          ; m8650d:m8650d|n_t_66x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  G  ; LC98       ; m8650d:m8650d|enab~9, data04_l, m8650d:m8650d|tpc_l~6, m8650d:m8650d|tx_sel_l~11, md11_l, md09_l, m8650d:m8650d|selected_l~7                                                                             ; m8650d:m8650d|n_t_60x_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ;
+;  H  ; LC121      ; m8650d:m8650d|n_t_66x_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_66x~9                                                                                                                 ; m8650d:m8650d|n_t_66x~9, m8650d:m8650d|tx_data_m~16, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+;  H  ; LC114      ; m8650d:m8650d|n_t_65x_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_65x~9                                                                                                                 ; m8650d:m8650d|n_t_65x~9, m8650d:m8650d|n_t_66x_m~7, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  H  ; LC115      ; m8650d:m8650d|n_t_146x_m~9, m8650d:m8650d|tx_div~9, m8650d:m8650d|n_t_162x, m8650d:m8650d|n_t_146x~9                                                                                                     ; m8650d:m8650d|n_t_146x~9, m8650d:m8650d|n_t_108x~3sexp1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  H  ; LC116      ; m8650d:m8650d|tx_data_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|tx_data~9                                                                                                                 ; m8650d:m8650d|line_m~10, m8650d:m8650d|tx_data~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
+;  H  ; LC118      ;                                                                                                                                                                                                          ; rxdttl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  H  ; LC117      ; m8650d:m8650d|n_t_56x_m~7, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_56x_m~16                                                                                                               ; m8650d:m8650d|n_t_56x~9, m8650d:m8650d|n_t_56x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  H  ; LC125      ; m8650d:m8650d|tx_data~9, m8650d:m8650d|tx_div~9, m8650d:m8650d|start_l~9, m8650d:m8650d|line_m~10, m8650d:m8650d|tx_active_l~9                                                                           ; m8650d:m8650d|line~10, m8650d:m8650d|line_m~10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
+;  H  ; LC113      ; m8650d:m8650d|n_t_56x_m~16, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_56x~9                                                                                                                 ; m8650d:m8650d|n_t_56x~9, m8650d:m8650d|n_t_61x_m~7, m8650d:m8650d|n_t_18x~8sexp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ;
+;  H  ; LC124      ; m8650d:m8650d|n_t_66x_m~7, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_66x_m~16                                                                                                               ; m8650d:m8650d|n_t_66x~9, m8650d:m8650d|n_t_66x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  H  ; LC120      ; m8650d:m8650d|line_m~10, m8650d:m8650d|tx_div~9, m8650d:m8650d|start_l~9, m8650d:m8650d|line~10, m8650d:m8650d|tx_active_l~9                                                                             ; txdttl, m8650d:m8650d|line~10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 ;
+;  H  ; LC127      ; m8650d:m8650d|tx_active_l~9, m8650d:m8650d|tx_div~9, m8650d:m8650d|n_t_162x, m8650d:m8650d|n_t_146x_m~9                                                                                                  ; m8650d:m8650d|n_t_146x~9, m8650d:m8650d|n_t_146x_m~9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ;
+;  H  ; LC122      ; m8650d:m8650d|n_t_65x_m~7, initialize, m8650d:m8650d|n_t_57x~2, m8650d:m8650d|n_t_65x_m~16                                                                                                               ; m8650d:m8650d|n_t_65x~9, m8650d:m8650d|n_t_65x_m~16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  H  ; LC123      ;                                                                                                                                                                                                          ; data11_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  H  ; LC126      ;                                                                                                                                                                                                          ; data10_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+;  H  ; LC128      ;                                                                                                                                                                                                          ; data09_l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
++-----+------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------+
+; Fitter Device Options                                         ;
++----------------------------------------------+----------------+
+; Option                                       ; Setting        ;
++----------------------------------------------+----------------+
+; Enable user-supplied start-up clock (CLKUSR) ; Off            ;
+; Enable device-wide reset (DEV_CLRn)          ; Off            ;
+; Enable device-wide output enable (DEV_OE)    ; Off            ;
+; Enable INIT_DONE output                      ; Off            ;
+; Configuration scheme                         ; Passive Serial ;
+; Security bit                                 ; Off            ;
+; Base pin-out file on sameframe device        ; Off            ;
++----------------------------------------------+----------------+
+
+
++-----------------+
+; Fitter Messages ;
++-----------------+
+Info (119006): Selected device EPM7128SLI84-10 for design "cpld"
+Info: Quartus II 64-Bit Fitter was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 4690 megabytes
+    Info: Processing ended: Sat Nov 18 05:23:56 2023
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:00
+
+

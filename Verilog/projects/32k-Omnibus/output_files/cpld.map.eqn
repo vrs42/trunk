@@ -1,0 +1,1092 @@
+-- Copyright (C) 1991-2013 Altera Corporation
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, Altera MegaCore Function License 
+-- Agreement, or other applicable license agreement, including, 
+-- without limitation, that your use is for the sole purpose of 
+-- programming logic devices manufactured by Altera and sold by 
+-- Altera or its authorized distributors.  Please refer to the 
+-- applicable agreement for further details.
+--B1L65 is m8650d:m8650d|tx_sel_l~11
+B1L65_p0_out = !tp_bb1 & !md04_l & !md05_l & !io_pause_l & tp_ba1 & tp_ab1 & !md06_l & md03_l & md07_l & !md08_l;
+B1L65_p1_out = !tp_bb1 & md04_l & md05_l & !io_pause_l & tp_ba1 & !tp_ab1 & md06_l & !md03_l & md07_l & !md08_l;
+B1L65_p2_out = tp_bb1 & md04_l & md05_l & !io_pause_l & tp_ba1 & !tp_ab1 & md06_l & !md03_l & !md07_l & !md08_l;
+B1L65_p3_out = !tp_bb1 & md04_l & md05_l & !io_pause_l & !tp_ba1 & !tp_ab1 & md06_l & md03_l & md07_l & !md08_l;
+B1L65_p4_out = tp_bb1 & md04_l & !md05_l & !io_pause_l & tp_ba1 & tp_ab1 & md06_l & md03_l & !md07_l & md08_l;
+B1L65_or_out = B1L66 # B1L65_p0_out # B1L65_p1_out # B1L65_p2_out # B1L65_p3_out # B1L65_p4_out;
+B1L65 = B1L65_or_out;
+
+
+--B1L49 is m8650d:m8650d|selected_l~7
+B1L49_p0_out = !io_pause_l & !md05_l & tp_ba1 & tp_ab1 & !tp_bb1 & md03_l & !md04_l & md07_l & !md06_l;
+B1L49_p1_out = !io_pause_l & md05_l & !tp_ba1 & !tp_ab1 & tp_bb1 & md03_l & md04_l & md07_l & md08_l & !md06_l;
+B1L49_p2_out = !io_pause_l & md05_l & tp_ba1 & !tp_ab1 & !tp_bb1 & !md03_l & md04_l & md07_l & md06_l;
+B1L49_p3_out = !io_pause_l & md05_l & tp_ba1 & !tp_ab1 & tp_bb1 & !md03_l & md04_l & !md07_l & md06_l;
+B1L49_p4_out = !io_pause_l & !md05_l & tp_ba1 & tp_ab1 & tp_bb1 & md03_l & md04_l & !md07_l & md08_l & md06_l;
+B1L49_or_out = B1L51 # B1L49_p0_out # B1L49_p1_out # B1L49_p2_out # B1L49_p3_out # B1L49_p4_out;
+B1L49 = B1L49_or_out;
+
+
+--B1L53 is m8650d:m8650d|skip_l~8
+B1L53_p1_out = !B1L57 & B1L65 & !md11_l & B1L49 & md10_l & md09_l;
+B1L53_p2_out = !B1L57 & B1L65 & !md11_l & B1L49 & md10_l & !B1L9;
+B1L53_or_out = B1L53_p1_out # B1L53_p2_out;
+B1L53 = !(B1L53_or_out);
+
+
+--B1L10 is m8650d:m8650d|int_rqst_l~3
+B1L10_p1_out = !B1L9 & !B1L57;
+B1L10_or_out = B1L10_p1_out;
+B1L10 = !(B1L10_or_out);
+
+
+--B1L50 is m8650d:m8650d|selected_l~13
+B1L50_p0_out = !io_pause_l & !md05_l & tp_ba1 & tp_ab1 & !tp_bb1 & md03_l & !md04_l & md07_l & !md06_l;
+B1L50_p1_out = !io_pause_l & md05_l & !tp_ba1 & !tp_ab1 & tp_bb1 & md03_l & md04_l & md07_l & md08_l & !md06_l;
+B1L50_p2_out = !io_pause_l & md05_l & tp_ba1 & !tp_ab1 & !tp_bb1 & !md03_l & md04_l & md07_l & md06_l;
+B1L50_p3_out = !io_pause_l & md05_l & tp_ba1 & !tp_ab1 & tp_bb1 & !md03_l & md04_l & !md07_l & md06_l;
+B1L50_p4_out = !io_pause_l & !md05_l & tp_ba1 & tp_ab1 & tp_bb1 & md03_l & md04_l & !md07_l & md08_l & md06_l;
+B1L50_or_out = B1L52 # B1L50_p0_out # B1L50_p1_out # B1L50_p2_out # B1L50_p3_out # B1L50_p4_out;
+B1L50 = !(B1L50_or_out);
+
+
+--B1L47 is m8650d:m8650d|rx_sel_l~7
+B1L47_p0_out = !tp_ba1 & !tp_bb1 & !io_pause_l & md08_l & md04_l & md06_l & md07_l & md05_l & !tp_ab1 & md03_l;
+B1L47_p1_out = !tp_ba1 & !tp_bb1 & !io_pause_l & md08_l & md04_l & !md06_l & md07_l & md05_l & tp_ab1 & !md03_l;
+B1L47_p2_out = !tp_ba1 & tp_bb1 & !io_pause_l & md08_l & md04_l & !md06_l & !md07_l & md05_l & tp_ab1 & !md03_l;
+B1L47_p3_out = tp_ba1 & !tp_bb1 & !io_pause_l & md08_l & md04_l & md06_l & md07_l & md05_l & !tp_ab1 & !md03_l;
+B1L47_p4_out = tp_ba1 & tp_bb1 & !io_pause_l & md08_l & md04_l & md06_l & !md07_l & md05_l & !tp_ab1 & !md03_l;
+B1L47_or_out = B1L48 # B1L47_p0_out # B1L47_p1_out # B1L47_p2_out # B1L47_p3_out # B1L47_p4_out;
+B1L47 = B1L47_or_out;
+
+
+--B1L1 is m8650d:m8650d|c1_l~4
+B1L1_p1_out = md11_l & !md09_l & B1L49 & B1L47;
+B1L1_p2_out = md11_l & B1L49 & B1L47 & !md10_l;
+B1L1_or_out = B1L1_p1_out # B1L1_p2_out;
+B1L1 = !(B1L1_or_out);
+
+
+--B1L11 is m8650d:m8650d|kcc_l~4
+B1L11_p1_out = !md10_l & B1L49 & B1L47 & md11_l;
+B1L11_or_out = B1L11_p1_out;
+B1L11 = !(B1L11_or_out);
+
+
+--B1L12 is m8650d:m8650d|krs_l~7
+B1L12_p1_out = !md09_l & B1L49 & B1L47 & md11_l;
+B1L12_or_out = B1L12_p1_out;
+B1L12 = !(B1L12_or_out);
+
+
+--B1L13 is m8650d:m8650d|krs_l~10
+B1L13_p1_out = !md09_l & B1L49 & B1L47 & md11_l;
+B1L13_or_out = B1L13_p1_out;
+B1L13 = !(B1L13_or_out);
+
+
+--B1_n_t_162x is m8650d:m8650d|n_t_162x
+B1_n_t_162x_reg_input = VCC;
+B1_n_t_162x = TFFE(B1_n_t_162x_reg_input, !B1_gdollar_3, , , );
+
+
+--B1_gdollar_3 is m8650d:m8650d|gdollar_3
+B1_gdollar_3_reg_input = VCC;
+B1_gdollar_3 = TFFE(B1_gdollar_3_reg_input, !B1_gdollar_2, , , );
+
+
+--B1_gdollar_2 is m8650d:m8650d|gdollar_2
+B1_gdollar_2_reg_input = VCC;
+B1_gdollar_2 = TFFE(B1_gdollar_2_reg_input, !B1_rx_rate, , , );
+
+
+--B1_rx_rate is m8650d:m8650d|rx_rate
+B1_rx_rate_reg_input = VCC;
+B1_rx_rate = TFFE(B1_rx_rate_reg_input, !A1L73, , , );
+
+
+--A1L73 is ratex2~26
+A1L73_p0_out = cf0 & tp_aa1 & cf1 & GLOBAL(clk);
+A1L73_p1_out = bd1200 & !cf0 & tp_aa1 & cf1;
+A1L73_p2_out = cf0 & !tp_aa1 & !cf1 & bd9600;
+A1L73_p3_out = cf0 & !tp_aa1 & cf1 & bd115200;
+A1L73_p4_out = cf0 & tp_aa1 & !cf1 & bd38400;
+A1L73_or_out = A1L74 # A1L73_p0_out # A1L73_p1_out # A1L73_p2_out # A1L73_p3_out # A1L73_p4_out;
+A1L73 = A1L73_or_out;
+
+
+--div11a is div11a
+div11a_p1_out = div11c & div11a;
+div11a_p2_out = div11c & div11d & div11b;
+div11a_or_out = div11a_p1_out # div11a_p2_out;
+div11a_reg_input = div11a_or_out;
+div11a = TFFE(div11a_reg_input, !bd1200, , , );
+
+
+--bd600 is bd600
+bd600_reg_input = VCC;
+bd600 = TFFE(bd600_reg_input, bd1200, , , );
+
+
+--bd300 is bd300
+bd300_reg_input = VCC;
+bd300 = TFFE(bd300_reg_input, bd600, , , );
+
+
+--bd1200 is bd1200
+bd1200_reg_input = VCC;
+bd1200 = TFFE(bd1200_reg_input, bd2400, , , );
+
+
+--bd9600 is bd9600
+bd9600_reg_input = VCC;
+bd9600 = TFFE(bd9600_reg_input, bd19200, , , );
+
+
+--bd115200 is bd115200
+bd115200_reg_input = VCC;
+bd115200 = TFFE(bd115200_reg_input, GLOBAL(clk), , , );
+
+
+--bd38400 is bd38400
+bd38400_reg_input = VCC;
+bd38400_p2_out = n_t_1x & bd38400;
+bd38400 = TFFE(bd38400_reg_input, !n_t_1x, !bd38400_p2_out, , );
+
+
+--div11c is div11c
+div11c_p1_out = !div11d & !div11c;
+div11c_p2_out = !div11d & !div11a;
+div11c_or_out = div11c_p1_out # div11c_p2_out;
+div11c_reg_input = !div11c_or_out;
+div11c = TFFE(div11c_reg_input, !bd1200, , , );
+
+
+--div11d is div11d
+div11d_p1_out = div11c & div11a & !div11d;
+div11d_or_out = div11d_p1_out;
+div11d_reg_input = !div11d_or_out;
+div11d = TFFE(div11d_reg_input, !bd1200, , , );
+
+
+--div11b is div11b
+div11b_p1_out = div11a & div11b & div11c;
+div11b_p2_out = div11c & div11d;
+div11b_or_out = div11b_p1_out # div11b_p2_out;
+div11b_reg_input = div11b_or_out;
+div11b = TFFE(div11b_reg_input, !bd1200, , , );
+
+
+--bd2400 is bd2400
+bd2400_reg_input = VCC;
+bd2400 = TFFE(bd2400_reg_input, bd4800, , , );
+
+
+--bd19200 is bd19200
+bd19200_reg_input = VCC;
+bd19200 = TFFE(bd19200_reg_input, bd38400, , , );
+
+
+--n_t_1x is n_t_1x
+n_t_1x_reg_input = VCC;
+n_t_1x_p2_out = n_t_1x & bd38400;
+n_t_1x = TFFE(n_t_1x_reg_input, !bd115200, !n_t_1x_p2_out, , );
+
+
+--bd4800 is bd4800
+bd4800_reg_input = VCC;
+bd4800 = TFFE(bd4800_reg_input, bd9600, , , );
+
+
+--B1L15 is m8650d:m8650d|line~10
+B1L15_p1_out = B1L14 & B1L64 & B1L55;
+B1L15_p2_out = !B1L64 & B1L55 & B1L15;
+B1L15_p3_out = B1L14 & B1L55 & B1L15;
+B1L15_p4_out = B1L55 & B1L60;
+B1L15_or_out = B1L15_p1_out # B1L15_p2_out # B1L15_p3_out # B1L15_p4_out;
+B1L15 = B1L15_or_out;
+
+
+--B1L3 is m8650d:m8650d|cktfl~2
+B1L3_p1_out = !md11_l & B1L49;
+B1L3_p2_out = B1L49 & !md09_l;
+B1L3_p3_out = B1L49 & !md10_l;
+B1L3_or_out = !B1L65 # B1L3_p1_out # B1L3_p2_out # B1L3_p3_out # !tp3;
+B1L3 = B1L3_or_out;
+
+
+--B1L57 is m8650d:m8650d|tflg_l~10
+B1L57_p0_out = B1L3 & B1L65 & !md10_l & md11_l & B1L49 & tp3;
+B1L57_p1_out = B1L56 & B1L64 & B1L3;
+B1L57_p2_out = !B1L64 & B1L3 & B1L57;
+B1L57_p3_out = B1L56 & B1L3 & B1L57;
+B1L57_p4_out = B1L3 & initialize;
+B1L57_or_out = B1L57_p0_out # B1L57_p1_out # B1L57_p2_out # B1L57_p3_out # B1L57_p4_out;
+B1L57 = B1L57_or_out;
+
+
+--B1L9 is m8650d:m8650d|int_enab_l~9
+B1L9_p1_out = !initialize & B1L9 & B1L2;
+B1L9_p2_out = B1L8 & !initialize & B1L9;
+B1L9_p3_out = B1L8 & !initialize & md10_l & !md11_l & !md09_l & B1L47 & B1L49 & tp3;
+B1L9_or_out = B1L9_p1_out # B1L9_p2_out # B1L9_p3_out;
+B1L9 = B1L9_or_out;
+
+
+--B1L14 is m8650d:m8650d|line_m~10
+B1L14_p1_out = B1L62 & !B1L64 & B1L55;
+B1L14_p2_out = B1L64 & B1L55 & B1L14;
+B1L14_p3_out = B1L62 & B1L55 & B1L14;
+B1L14_p4_out = B1L55 & B1L60;
+B1L14_or_out = B1L14_p1_out # B1L14_p2_out # B1L14_p3_out # B1L14_p4_out;
+B1L14 = B1L14_or_out;
+
+
+--B1L64 is m8650d:m8650d|tx_div~9
+B1L64_p1_out = B1L63 & B1_n_t_162x;
+B1L64_p2_out = !B1_n_t_162x & B1L64;
+B1L64_p4_out = B1L63 & B1L64;
+B1L64_or_out = B1L64_p1_out # B1L64_p2_out # initialize # B1L64_p4_out;
+B1L64 = B1L64_or_out;
+
+
+--B1L55 is m8650d:m8650d|start_l~9
+B1L55_p1_out = B1L54 & !B1L60;
+B1L55_p2_out = B1L60 & B1L55;
+B1L55_p4_out = B1L54 & B1L55;
+B1L55_or_out = B1L55_p1_out # B1L55_p2_out # !B1_n_t_162x # B1L55_p4_out;
+B1L55 = B1L55_or_out;
+
+
+--B1L60 is m8650d:m8650d|tx_active_l~9
+B1L60_p1_out = B1L59 & B1_n_t_162x;
+B1L60_p2_out = !B1_n_t_162x & B1L60;
+B1L60_p4_out = B1L59 & B1L60;
+B1L60_or_out = B1L60_p1_out # B1L60_p2_out # initialize # B1L60_p4_out;
+B1L60 = B1L60_or_out;
+
+
+--B1L56 is m8650d:m8650d|tflg_l_m~10
+B1L56_p0_out = B1L3 & B1L65 & !md10_l & md11_l & B1L49 & tp3;
+B1L56_p1_out = !B1L64 & B1L3 & B1L17;
+B1L56_p2_out = B1L64 & B1L3 & B1L56;
+B1L56_p3_out = B1L3 & B1L56 & B1L17;
+B1L56_p4_out = B1L3 & initialize;
+B1L56_or_out = B1L56_p0_out # B1L56_p1_out # B1L56_p2_out # B1L56_p3_out # B1L56_p4_out;
+B1L56 = B1L56_or_out;
+
+
+--B1L8 is m8650d:m8650d|int_enab_l_m~9
+B1L8_p1_out = !initialize & B1L2 & B1L16;
+B1L8_p2_out = !initialize & B1L8 & B1L16;
+B1L8_p3_out = !initialize & B1L8 & md10_l & !md11_l & !md09_l & B1L47 & B1L49 & tp3;
+B1L8_or_out = B1L8_p1_out # B1L8_p2_out # B1L8_p3_out;
+B1L8 = B1L8_or_out;
+
+
+--B1L21 is m8650d:m8650d|n_t_57x~2
+B1L21_p2_out = tp3 & B1L65 & md11_l & !md09_l & B1L49;
+B1L21_or_out = B1L64 # B1L21_p2_out;
+B1L21 = B1L21_or_out;
+
+
+--B1L62 is m8650d:m8650d|tx_data~9
+B1L62_p1_out = B1L61 & !initialize & B1L21;
+B1L62_p2_out = !initialize & !B1L21 & B1L62;
+B1L62_p3_out = B1L61 & !initialize & B1L62;
+B1L62_or_out = B1L62_p1_out # B1L62_p2_out # B1L62_p3_out;
+B1L62 = B1L62_or_out;
+
+
+--B1L63 is m8650d:m8650d|tx_div_m~9
+B1L63_p1_out = !B1_n_t_162x & B1L40;
+B1L63_p2_out = B1_n_t_162x & B1L63;
+B1L63_p4_out = B1L63 & B1L40;
+B1L63_or_out = B1L63_p1_out # B1L63_p2_out # initialize # B1L63_p4_out;
+B1L63 = B1L63_or_out;
+
+
+--B1L54 is m8650d:m8650d|start_l_m~8
+B1L54_p1_out = !B1L60 & B1L54;
+B1L54_or_out = B1L54_p1_out # !B1_n_t_162x;
+B1L54 = B1L54_or_out;
+
+
+--B1L59 is m8650d:m8650d|tx_active_l_m~9
+B1L59_p1_out = !B1_n_t_162x & B1L41 & B1L40 & B1L42;
+B1L59_p2_out = B1_n_t_162x & B1L59;
+B1L59_p4_out = B1L59 & B1L41 & B1L40 & B1L42;
+B1L59_or_out = B1L59_p1_out # B1L59_p2_out # initialize # B1L59_p4_out;
+B1L59 = B1L59_or_out;
+
+
+--B1L27 is m8650d:m8650d|n_t_61x~9
+B1L27_p1_out = B1L26 & !initialize & B1L21;
+B1L27_p2_out = !initialize & !B1L21 & B1L27;
+B1L27_p3_out = B1L26 & !initialize & B1L27;
+B1L27_or_out = B1L27_p1_out # B1L27_p2_out # B1L27_p3_out;
+B1L27 = B1L27_or_out;
+
+
+--B1L39 is m8650d:m8650d|n_t_66x~9
+B1L39_p1_out = B1L38 & !initialize & B1L21;
+B1L39_p2_out = !initialize & !B1L21 & B1L39;
+B1L39_p3_out = B1L38 & !initialize & B1L39;
+B1L39_or_out = B1L39_p1_out # B1L39_p2_out # B1L39_p3_out;
+B1L39 = B1L39_or_out;
+
+
+--B1L36 is m8650d:m8650d|n_t_65x~9
+B1L36_p1_out = B1L35 & !initialize & B1L21;
+B1L36_p2_out = !initialize & !B1L21 & B1L36;
+B1L36_p3_out = B1L35 & !initialize & B1L36;
+B1L36_or_out = B1L36_p1_out # B1L36_p2_out # B1L36_p3_out;
+B1L36 = B1L36_or_out;
+
+
+--B1L33 is m8650d:m8650d|n_t_63x~9
+B1L33_p1_out = B1L32 & !initialize & B1L21;
+B1L33_p2_out = !initialize & !B1L21 & B1L33;
+B1L33_p3_out = B1L32 & !initialize & B1L33;
+B1L33_or_out = B1L33_p1_out # B1L33_p2_out # B1L33_p3_out;
+B1L33 = B1L33_or_out;
+
+
+--B1L5 is m8650d:m8650d|enab~9
+B1L5_p1_out = B1L4 & !initialize & B1L21;
+B1L5_p2_out = !initialize & !B1L21 & B1L5;
+B1L5_p3_out = B1L4 & !initialize & B1L5;
+B1L5_or_out = B1L5_p1_out # B1L5_p2_out # B1L5_p3_out;
+B1L5 = B1L5_or_out;
+
+
+--B1L20 is m8650d:m8650d|n_t_56x~9
+B1L20_p1_out = B1L19 & !initialize & B1L21;
+B1L20_p2_out = !initialize & !B1L21 & B1L20;
+B1L20_p3_out = B1L19 & !initialize & B1L20;
+B1L20_or_out = B1L20_p1_out # B1L20_p2_out # B1L20_p3_out;
+B1L20 = B1L20_or_out;
+
+
+--B1L30 is m8650d:m8650d|n_t_62x~9
+B1L30_p1_out = B1L29 & !initialize & B1L21;
+B1L30_p2_out = !initialize & !B1L21 & B1L30;
+B1L30_p3_out = B1L29 & !initialize & B1L30;
+B1L30_or_out = B1L30_p1_out # B1L30_p2_out # B1L30_p3_out;
+B1L30 = B1L30_or_out;
+
+
+--B1L24 is m8650d:m8650d|n_t_60x~9
+B1L24_p1_out = B1L23 & !initialize & B1L21;
+B1L24_p2_out = !initialize & !B1L21 & B1L24;
+B1L24_p3_out = B1L23 & !initialize & B1L24;
+B1L24_or_out = B1L24_p1_out # B1L24_p2_out # B1L24_p3_out;
+B1L24 = B1L24_or_out;
+
+
+--B1L61 is m8650d:m8650d|tx_data_m~16
+B1L61_p0_out = !initialize & B1L61 & !A1L36 & B1L65 & md11_l & !md09_l & B1L49;
+B1L61_p1_out = !initialize & B1L21 & B1L61;
+B1L61_p2_out = !initialize & !B1L21 & B1L39 & B1L58;
+B1L61_p3_out = !initialize & B1L61 & B1L39 & B1L58;
+B1L61_p4_out = !initialize & !B1L21 & !A1L36 & B1L65 & md11_l & !md09_l & B1L49;
+B1L61_or_out = B1L61_p0_out # B1L61_p1_out # B1L61_p2_out # B1L61_p3_out # B1L61_p4_out;
+B1L61 = B1L61_or_out;
+
+
+--B1L44 is m8650d:m8650d|n_t_146x~9
+B1L44_p1_out = B1L43 & B1L64 & B1_n_t_162x;
+B1L44_p2_out = B1L64 & !B1_n_t_162x & B1L44;
+B1L44_p3_out = B1L43 & B1L64 & B1L44;
+B1L44_or_out = B1L44_p1_out # B1L44_p2_out # B1L44_p3_out;
+B1L44 = B1L44_or_out;
+
+
+--B1L25 is m8650d:m8650d|n_t_61x_m~7
+B1L25_p1_out = B1L20 & B1L58;
+B1L25_p2_out = !A1L28 & B1L65 & md11_l & !md09_l & B1L49;
+B1L25_or_out = B1L25_p1_out # B1L25_p2_out;
+B1L25 = B1L25_or_out;
+
+
+--B1L26 is m8650d:m8650d|n_t_61x_m~16
+B1L26_p1_out = B1L25 & !initialize & !B1L21;
+B1L26_p2_out = !initialize & B1L21 & B1L26;
+B1L26_p3_out = B1L25 & !initialize & B1L26;
+B1L26_or_out = B1L26_p1_out # B1L26_p2_out # B1L26_p3_out;
+B1L26 = B1L26_or_out;
+
+
+--B1L37 is m8650d:m8650d|n_t_66x_m~7
+B1L37_p1_out = B1L36 & B1L58;
+B1L37_p2_out = !A1L34 & B1L65 & md11_l & !md09_l & B1L49;
+B1L37_or_out = B1L37_p1_out # B1L37_p2_out;
+B1L37 = B1L37_or_out;
+
+
+--B1L38 is m8650d:m8650d|n_t_66x_m~16
+B1L38_p1_out = B1L37 & !initialize & !B1L21;
+B1L38_p2_out = !initialize & B1L21 & B1L38;
+B1L38_p3_out = B1L37 & !initialize & B1L38;
+B1L38_or_out = B1L38_p1_out # B1L38_p2_out # B1L38_p3_out;
+B1L38 = B1L38_or_out;
+
+
+--B1L34 is m8650d:m8650d|n_t_65x_m~7
+B1L34_p1_out = B1L33 & B1L58;
+B1L34_p2_out = !A1L32 & B1L65 & md11_l & !md09_l & B1L49;
+B1L34_or_out = B1L34_p1_out # B1L34_p2_out;
+B1L34 = B1L34_or_out;
+
+
+--B1L35 is m8650d:m8650d|n_t_65x_m~16
+B1L35_p1_out = B1L34 & !initialize & !B1L21;
+B1L35_p2_out = !initialize & B1L21 & B1L35;
+B1L35_p3_out = B1L34 & !initialize & B1L35;
+B1L35_or_out = B1L35_p1_out # B1L35_p2_out # B1L35_p3_out;
+B1L35 = B1L35_or_out;
+
+
+--B1L31 is m8650d:m8650d|n_t_63x_m~7
+B1L31_p1_out = B1L27 & B1L58;
+B1L31_p2_out = !A1L30 & B1L65 & md11_l & !md09_l & B1L49;
+B1L31_or_out = B1L31_p1_out # B1L31_p2_out;
+B1L31 = B1L31_or_out;
+
+
+--B1L32 is m8650d:m8650d|n_t_63x_m~16
+B1L32_p1_out = B1L31 & !initialize & !B1L21;
+B1L32_p2_out = !initialize & B1L21 & B1L32;
+B1L32_p3_out = B1L31 & !initialize & B1L32;
+B1L32_or_out = B1L32_p1_out # B1L32_p2_out # B1L32_p3_out;
+B1L32 = B1L32_or_out;
+
+
+--B1L4 is m8650d:m8650d|enab_m~9
+B1L4_p1_out = !initialize & B1L21 & B1L4;
+B1L4_p2_out = !initialize & !B1L21 & B1L65 & md11_l & !md09_l & B1L49;
+B1L4_p3_out = !initialize & B1L4 & B1L65 & md11_l & !md09_l & B1L49;
+B1L4_or_out = B1L4_p1_out # B1L4_p2_out # B1L4_p3_out;
+B1L4 = B1L4_or_out;
+
+
+--B1L18 is m8650d:m8650d|n_t_56x_m~7
+B1L18_p1_out = B1L30 & B1L58;
+B1L18_p2_out = !A1L26 & B1L65 & md11_l & !md09_l & B1L49;
+B1L18_or_out = B1L18_p1_out # B1L18_p2_out;
+B1L18 = B1L18_or_out;
+
+
+--B1L19 is m8650d:m8650d|n_t_56x_m~16
+B1L19_p1_out = B1L18 & !initialize & !B1L21;
+B1L19_p2_out = !initialize & B1L21 & B1L19;
+B1L19_p3_out = B1L18 & !initialize & B1L19;
+B1L19_or_out = B1L19_p1_out # B1L19_p2_out # B1L19_p3_out;
+B1L19 = B1L19_or_out;
+
+
+--B1L28 is m8650d:m8650d|n_t_62x_m~7
+B1L28_p1_out = B1L24 & B1L58;
+B1L28_p2_out = !A1L24 & B1L65 & md11_l & !md09_l & B1L49;
+B1L28_or_out = B1L28_p1_out # B1L28_p2_out;
+B1L28 = B1L28_or_out;
+
+
+--B1L29 is m8650d:m8650d|n_t_62x_m~16
+B1L29_p1_out = B1L28 & !initialize & !B1L21;
+B1L29_p2_out = !initialize & B1L21 & B1L29;
+B1L29_p3_out = B1L28 & !initialize & B1L29;
+B1L29_or_out = B1L29_p1_out # B1L29_p2_out # B1L29_p3_out;
+B1L29 = B1L29_or_out;
+
+
+--B1L22 is m8650d:m8650d|n_t_60x_d~3
+B1L22_p1_out = B1L5 & B1L58;
+B1L22_p2_out = !A1L22 & B1L65 & md11_l & !md09_l & B1L49;
+B1L22_or_out = B1L22_p1_out # B1L22_p2_out;
+B1L22 = B1L22_or_out;
+
+
+--B1L23 is m8650d:m8650d|n_t_60x_m~9
+B1L23_p1_out = B1L22 & !initialize & !B1L21;
+B1L23_p2_out = !initialize & B1L21 & B1L23;
+B1L23_p3_out = B1L22 & !initialize & B1L23;
+B1L23_or_out = B1L23_p1_out # B1L23_p2_out # B1L23_p3_out;
+B1L23 = B1L23_or_out;
+
+
+--B1L43 is m8650d:m8650d|n_t_146x_m~9
+B1L43_p1_out = B1L60 & B1L64 & !B1_n_t_162x;
+B1L43_p2_out = B1L64 & B1_n_t_162x & B1L43;
+B1L43_p3_out = B1L60 & B1L64 & B1L43;
+B1L43_or_out = B1L43_p1_out # B1L43_p2_out # B1L43_p3_out;
+B1L43 = B1L43_or_out;
+
+
+--B1L66 is m8650d:m8650d|tx_sel_l~12
+B1L66_p1_out = tp_bb1 & md04_l & md05_l & !io_pause_l & !tp_ba1 & !tp_ab1 & !md06_l & md03_l & md07_l & md08_l;
+B1L66_p2_out = !tp_bb1 & md04_l & md05_l & !io_pause_l & !tp_ba1 & tp_ab1 & !md06_l & !md03_l & md07_l & !md08_l;
+B1L66_p3_out = tp_bb1 & md04_l & md05_l & !io_pause_l & !tp_ba1 & tp_ab1 & !md06_l & !md03_l & !md07_l & !md08_l;
+B1L66 = B1L66_p1_out # B1L66_p2_out # B1L66_p3_out;
+
+
+--B1L51 is m8650d:m8650d|selected_l~15
+B1L51_p0_out = !io_pause_l & md05_l & !tp_ba1 & !tp_ab1 & !tp_bb1 & md03_l & md04_l & md07_l & md06_l;
+B1L51_p1_out = !io_pause_l & md05_l & !tp_ba1 & !tp_ab1 & tp_bb1 & md03_l & md04_l & !md07_l & !md08_l & md06_l;
+B1L51_p2_out = !io_pause_l & !md05_l & tp_ba1 & tp_ab1 & tp_bb1 & md03_l & md04_l & md07_l & !md08_l & md06_l;
+B1L51_p3_out = !io_pause_l & md05_l & !tp_ba1 & tp_ab1 & !tp_bb1 & !md03_l & md04_l & md07_l & !md06_l;
+B1L51_p4_out = !io_pause_l & md05_l & !tp_ba1 & tp_ab1 & tp_bb1 & !md03_l & md04_l & !md07_l & !md06_l;
+B1L51 = B1L51_p0_out # B1L51_p1_out # B1L51_p2_out # B1L51_p3_out # B1L51_p4_out;
+
+
+--B1L52 is m8650d:m8650d|selected_l~21
+B1L52_p0_out = !io_pause_l & md05_l & !tp_ba1 & !tp_ab1 & !tp_bb1 & md03_l & md04_l & md07_l & md06_l;
+B1L52_p1_out = !io_pause_l & md05_l & !tp_ba1 & !tp_ab1 & tp_bb1 & md03_l & md04_l & !md07_l & !md08_l & md06_l;
+B1L52_p2_out = !io_pause_l & !md05_l & tp_ba1 & tp_ab1 & tp_bb1 & md03_l & md04_l & md07_l & !md08_l & md06_l;
+B1L52_p3_out = !io_pause_l & md05_l & !tp_ba1 & tp_ab1 & !tp_bb1 & !md03_l & md04_l & md07_l & !md06_l;
+B1L52_p4_out = !io_pause_l & md05_l & !tp_ba1 & tp_ab1 & tp_bb1 & !md03_l & md04_l & !md07_l & !md06_l;
+B1L52 = B1L52_p0_out # B1L52_p1_out # B1L52_p2_out # B1L52_p3_out # B1L52_p4_out;
+
+
+--B1L48 is m8650d:m8650d|rx_sel_l~8
+B1L48_p1_out = !tp_ba1 & tp_bb1 & !io_pause_l & !md08_l & md04_l & md06_l & !md07_l & md05_l & !tp_ab1 & md03_l;
+B1L48_p2_out = tp_ba1 & tp_bb1 & !io_pause_l & !md08_l & md04_l & md06_l & md07_l & !md05_l & tp_ab1 & md03_l;
+B1L48_p3_out = tp_ba1 & !tp_bb1 & !io_pause_l & md08_l & !md04_l & !md06_l & md07_l & !md05_l & tp_ab1 & md03_l;
+B1L48 = B1L48_p1_out # B1L48_p2_out # B1L48_p3_out;
+
+
+--A1L74 is ratex2~27
+A1L74_p1_out = div11a & !cf0 & !tp_aa1 & !cf1;
+A1L74_p2_out = !cf0 & !tp_aa1 & cf1 & bd600;
+A1L74_p3_out = !cf0 & tp_aa1 & !cf1 & bd300;
+A1L74 = A1L74_p1_out # A1L74_p2_out # A1L74_p3_out;
+
+
+--~GND~0 is ~GND~0
+~GND~0_or_out = GND;
+~GND~0 = ~GND~0_or_out;
+
+
+--~VCC~0 is ~VCC~0
+~VCC~0_or_out = GND;
+~VCC~0 = !(~VCC~0_or_out);
+
+
+--~VCC~1 is ~VCC~1
+~VCC~1_or_out = GND;
+~VCC~1 = !(~VCC~1_or_out);
+
+
+--~VCC~2 is ~VCC~2
+~VCC~2_or_out = GND;
+~VCC~2 = !(~VCC~2_or_out);
+
+
+--~VCC~3 is ~VCC~3
+~VCC~3_or_out = GND;
+~VCC~3 = !(~VCC~3_or_out);
+
+
+--~VCC~4 is ~VCC~4
+~VCC~4_or_out = GND;
+~VCC~4 = !(~VCC~4_or_out);
+
+
+--~VCC~5 is ~VCC~5
+~VCC~5_or_out = GND;
+~VCC~5 = !(~VCC~5_or_out);
+
+
+--~VCC~6 is ~VCC~6
+~VCC~6_or_out = GND;
+~VCC~6 = !(~VCC~6_or_out);
+
+
+--~VCC~7 is ~VCC~7
+~VCC~7_or_out = GND;
+~VCC~7 = !(~VCC~7_or_out);
+
+
+--~VCC~8 is ~VCC~8
+~VCC~8_or_out = GND;
+~VCC~8 = !(~VCC~8_or_out);
+
+
+--~VCC~9 is ~VCC~9
+~VCC~9_or_out = GND;
+~VCC~9 = !(~VCC~9_or_out);
+
+
+--B1L2 is m8650d:m8650d|ckkie~2sexpand1
+B1L2 = EXP(!md09_l & B1L47 & md10_l & tp3 & !md11_l & B1L49);
+
+
+--B1L16 is m8650d:m8650d|n_t_8x~0sexpand1
+B1L16 = EXP(!io_pause_l & !A1L36);
+
+
+--B1L58 is m8650d:m8650d|tpc_l~2sexpand0
+B1L58 = EXP(!md09_l & B1L49 & md11_l & B1L65);
+
+
+--B1L17 is m8650d:m8650d|n_t_18x~8sexp
+B1L17 = EXP(!B1L30 & !B1L36 & !B1L33 & !B1L5 & !B1L27 & !B1L20 & !B1L39 & !B1L24);
+
+
+--B1L40 is m8650d:m8650d|n_t_94x~1sexp
+B1L40 = EXP(B1L64 & !B1L60);
+
+
+--B1L41 is m8650d:m8650d|n_t_108x~3sexp1
+B1L41 = EXP(B1L5 & B1L44);
+
+
+--B1L42 is m8650d:m8650d|n_t_108x~3sexp3
+B1L42 = EXP(!B1L60 & B1L17);
+
+
+--pulse_la is pulse_la
+--operation mode is input
+
+pulse_la = INPUT();
+
+
+--f_set_l is f_set_l
+--operation mode is input
+
+f_set_l = INPUT();
+
+
+--user_mode_l is user_mode_l
+--operation mode is input
+
+user_mode_l = INPUT();
+
+
+--d_l is d_l
+--operation mode is input
+
+d_l = INPUT();
+
+
+--f_l is f_l
+--operation mode is input
+
+f_l = INPUT();
+
+
+--ir01_l is ir01_l
+--operation mode is input
+
+ir01_l = INPUT();
+
+
+--ir00_l is ir00_l
+--operation mode is input
+
+ir00_l = INPUT();
+
+
+--ind2_l is ind2_l
+--operation mode is input
+
+ind2_l = INPUT();
+
+
+--ind1_l is ind1_l
+--operation mode is input
+
+ind1_l = INPUT();
+
+
+--cpma_disable_l is cpma_disable_l
+--operation mode is input
+
+cpma_disable_l = INPUT();
+
+
+--ts3_l is ts3_l
+--operation mode is input
+
+ts3_l = INPUT();
+
+
+--ts1_l is ts1_l
+--operation mode is input
+
+ts1_l = INPUT();
+
+
+--tp4 is tp4
+--operation mode is input
+
+tp4 = INPUT();
+
+
+--tp2 is tp2
+--operation mode is input
+
+tp2 = INPUT();
+
+
+--df_enable is df_enable
+--operation mode is input
+
+df_enable = INPUT();
+
+
+--power_ok is power_ok
+--operation mode is input
+
+power_ok = INPUT();
+
+
+--run_l is run_l
+--operation mode is input
+
+run_l = INPUT();
+
+
+--int_in_prog_l is int_in_prog_l
+--operation mode is input
+
+int_in_prog_l = INPUT();
+
+
+--load_cont_l is load_cont_l
+--operation mode is input
+
+load_cont_l = INPUT();
+
+
+--md02_l is md02_l
+--operation mode is input
+
+md02_l = INPUT();
+
+
+--md01_l is md01_l
+--operation mode is input
+
+md01_l = INPUT();
+
+
+--md00_l is md00_l
+--operation mode is input
+
+md00_l = INPUT();
+
+
+--ema2_l is ema2_l
+--operation mode is input
+
+ema2_l = INPUT();
+
+
+--ema1_l is ema1_l
+--operation mode is input
+
+ema1_l = INPUT();
+
+
+--ema0_l is ema0_l
+--operation mode is input
+
+ema0_l = INPUT();
+
+
+--key_ctl_l is key_ctl_l
+--operation mode is input
+
+key_ctl_l = INPUT();
+
+
+--md10_l is md10_l
+--operation mode is input
+
+md10_l = INPUT();
+
+
+--tp_ba1 is tp_ba1
+--operation mode is input
+
+tp_ba1 = INPUT();
+
+
+--tp_ab1 is tp_ab1
+--operation mode is input
+
+tp_ab1 = INPUT();
+
+
+--tp_bb1 is tp_bb1
+--operation mode is input
+
+tp_bb1 = INPUT();
+
+
+--md06_l is md06_l
+--operation mode is input
+
+md06_l = INPUT();
+
+
+--md07_l is md07_l
+--operation mode is input
+
+md07_l = INPUT();
+
+
+--md08_l is md08_l
+--operation mode is input
+
+md08_l = INPUT();
+
+
+--io_pause_l is io_pause_l
+--operation mode is input
+
+io_pause_l = INPUT();
+
+
+--md03_l is md03_l
+--operation mode is input
+
+md03_l = INPUT();
+
+
+--md04_l is md04_l
+--operation mode is input
+
+md04_l = INPUT();
+
+
+--md05_l is md05_l
+--operation mode is input
+
+md05_l = INPUT();
+
+
+--md11_l is md11_l
+--operation mode is input
+
+md11_l = INPUT();
+
+
+--md09_l is md09_l
+--operation mode is input
+
+md09_l = INPUT();
+
+
+--tp3 is tp3
+--operation mode is input
+
+tp3 = INPUT();
+
+
+--initialize is initialize
+--operation mode is input
+
+initialize = INPUT();
+
+
+--cf0 is cf0
+--operation mode is input
+
+cf0 = INPUT();
+
+
+--tp_aa1 is tp_aa1
+--operation mode is input
+
+tp_aa1 = INPUT();
+
+
+--cf1 is cf1
+--operation mode is input
+
+cf1 = INPUT();
+
+
+--clk is clk
+--operation mode is input
+
+clk = INPUT();
+
+
+--skip_l is skip_l
+--operation mode is output
+
+skip_l_open_drain_out = OPNDRN(B1L53);
+skip_l = OUTPUT(skip_l_open_drain_out);
+
+
+--int_rqst_l is int_rqst_l
+--operation mode is output
+
+int_rqst_l_open_drain_out = OPNDRN(B1L10);
+int_rqst_l = OUTPUT(int_rqst_l_open_drain_out);
+
+
+--internal_io_l is internal_io_l
+--operation mode is output
+
+internal_io_l_open_drain_out = OPNDRN(B1L50);
+internal_io_l = OUTPUT(internal_io_l_open_drain_out);
+
+
+--c1_l is c1_l
+--operation mode is output
+
+c1_l_open_drain_out = OPNDRN(B1L1);
+c1_l = OUTPUT(c1_l_open_drain_out);
+
+
+--c0_l is c0_l
+--operation mode is output
+
+c0_l_open_drain_out = OPNDRN(B1L11);
+c0_l = OUTPUT(c0_l_open_drain_out);
+
+
+--rxdttl is rxdttl
+--operation mode is output
+
+rxdttl = OUTPUT(~GND~0);
+
+
+--txdttl is txdttl
+--operation mode is output
+
+txdttl = OUTPUT(B1L15);
+
+
+--data03_l is data03_l
+--operation mode is bidir
+
+data03_l_open_drain_out = OPNDRN(~VCC~0);
+data03_l = BIDIR(data03_l_open_drain_out);
+
+
+--data02_l is data02_l
+--operation mode is bidir
+
+data02_l_open_drain_out = OPNDRN(~VCC~1);
+data02_l = BIDIR(data02_l_open_drain_out);
+
+
+--data01_l is data01_l
+--operation mode is bidir
+
+data01_l_open_drain_out = OPNDRN(~VCC~2);
+data01_l = BIDIR(data01_l_open_drain_out);
+
+
+--data00_l is data00_l
+--operation mode is bidir
+
+data00_l_open_drain_out = OPNDRN(~VCC~3);
+data00_l = BIDIR(data00_l_open_drain_out);
+
+
+--A1L30 is data08_l~0
+--operation mode is bidir
+
+A1L30 = data08_l;
+
+--data08_l is data08_l
+--operation mode is bidir
+
+data08_l_open_drain_out = OPNDRN(~VCC~4);
+data08_l = BIDIR(data08_l_open_drain_out);
+
+
+--A1L28 is data07_l~0
+--operation mode is bidir
+
+A1L28 = data07_l;
+
+--data07_l is data07_l
+--operation mode is bidir
+
+data07_l_open_drain_out = OPNDRN(~VCC~5);
+data07_l = BIDIR(data07_l_open_drain_out);
+
+
+--A1L26 is data06_l~0
+--operation mode is bidir
+
+A1L26 = data06_l;
+
+--data06_l is data06_l
+--operation mode is bidir
+
+data06_l_open_drain_out = OPNDRN(~VCC~6);
+data06_l = BIDIR(data06_l_open_drain_out);
+
+
+--A1L24 is data05_l~0
+--operation mode is bidir
+
+A1L24 = data05_l;
+
+--data05_l is data05_l
+--operation mode is bidir
+
+data05_l_open_drain_out = OPNDRN(B1L12);
+data05_l = BIDIR(data05_l_open_drain_out);
+
+
+--A1L22 is data04_l~0
+--operation mode is bidir
+
+A1L22 = data04_l;
+
+--data04_l is data04_l
+--operation mode is bidir
+
+data04_l_open_drain_out = OPNDRN(B1L13);
+data04_l = BIDIR(data04_l_open_drain_out);
+
+
+--A1L36 is data11_l~0
+--operation mode is bidir
+
+A1L36 = data11_l;
+
+--data11_l is data11_l
+--operation mode is bidir
+
+data11_l_open_drain_out = OPNDRN(~VCC~7);
+data11_l = BIDIR(data11_l_open_drain_out);
+
+
+--A1L34 is data10_l~0
+--operation mode is bidir
+
+A1L34 = data10_l;
+
+--data10_l is data10_l
+--operation mode is bidir
+
+data10_l_open_drain_out = OPNDRN(~VCC~8);
+data10_l = BIDIR(data10_l_open_drain_out);
+
+
+--A1L32 is data09_l~0
+--operation mode is bidir
+
+A1L32 = data09_l;
+
+--data09_l is data09_l
+--operation mode is bidir
+
+data09_l_open_drain_out = OPNDRN(~VCC~9);
+data09_l = BIDIR(data09_l_open_drain_out);
+
+

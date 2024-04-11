@@ -1,0 +1,458 @@
+Fitter report for m707
+Sun Apr 07 23:14:01 2024
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Fitter Summary
+  3. Fitter Settings
+  4. Parallel Compilation
+  5. Fitter Equations
+  6. Pin-Out File
+  7. Fitter Resource Usage Summary
+  8. Input Pins
+  9. Output Pins
+ 10. All Package Pins
+ 11. I/O Standard
+ 12. Dedicated Inputs I/O
+ 13. Output Pin Default Load For Reported TCO
+ 14. Fitter Resource Utilization by Entity
+ 15. Control Signals
+ 16. Global & Other Fast Signals
+ 17. Non-Global High Fan-Out Signals
+ 18. Other Routing Usage Summary
+ 19. LAB Macrocells
+ 20. Shareable Expander
+ 21. Logic Cell Interconnection
+ 22. Fitter Device Options
+ 23. Fitter Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------+
+; Fitter Summary                                                              ;
++---------------------------+-------------------------------------------------+
+; Fitter Status             ; Successful - Sun Apr 07 23:14:01 2024           ;
+; Quartus II 64-Bit Version ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
+; Revision Name             ; m707                                            ;
+; Top-level Entity Name     ; e11                                             ;
+; Family                    ; MAX7000S                                        ;
+; Device                    ; EPM7032SLC44-10                                 ;
+; Timing Models             ; Final                                           ;
+; Total macrocells          ; 22 / 32 ( 69 % )                                ;
+; Total pins                ; 33 / 36 ( 92 % )                                ;
++---------------------------+-------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------+
+; Fitter Settings                                                                                              ;
++----------------------------------------------------------------------------+-----------------+---------------+
+; Option                                                                     ; Setting         ; Default Value ;
++----------------------------------------------------------------------------+-----------------+---------------+
+; Device                                                                     ; EPM7032SLC44-10 ;               ;
+; Use smart compilation                                                      ; Off             ; Off           ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On              ; On            ;
+; Enable compact report table                                                ; Off             ; Off           ;
+; Optimize Multi-Corner Timing                                               ; Off             ; Off           ;
+; Optimize Timing for ECOs                                                   ; Off             ; Off           ;
+; Regenerate full fit report during ECO compiles                             ; Off             ; Off           ;
+; Optimize IOC Register Placement for Timing                                 ; Normal          ; Normal        ;
+; Fitter Initial Placement Seed                                              ; 1               ; 1             ;
+; Slow Slew Rate                                                             ; Off             ; Off           ;
+; Fitter Effort                                                              ; Auto Fit        ; Auto Fit      ;
+; Force Fitter to Avoid Periphery Placement Warnings                         ; Off             ; Off           ;
++----------------------------------------------------------------------------+-----------------+---------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 8      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------+
+; Fitter Equations ;
++------------------+
+The equations can be found in //wsl.localhost/Debian/home/vrs/Verilog/projects/m706kyle/output_files/m707.fit.eqn.
+
+
++--------------+
+; Pin-Out File ;
++--------------+
+The pin-out file can be found in //wsl.localhost/Debian/home/vrs/Verilog/projects/m706kyle/output_files/m707.pin.
+
+
++-------------------------------------------------+
+; Fitter Resource Usage Summary                   ;
++------------------------------+------------------+
+; Resource                     ; Usage            ;
++------------------------------+------------------+
+; Logic cells                  ; 22 / 32 ( 69 % ) ;
+; Registers                    ; 18 / 32 ( 56 % ) ;
+; Number of pterms used        ; 58               ;
+; I/O pins                     ; 33 / 36 ( 92 % ) ;
+;     -- Clock pins            ; 2 / 2 ( 100 % )  ;
+;     -- Dedicated input pins  ; 2 / 2 ( 100 % )  ;
+;                              ;                  ;
+; Global signals               ; 2                ;
+; Shareable expanders          ; 2 / 32 ( 6 % )   ;
+; Parallel expanders           ; 0 / 30 ( 0 % )   ;
+; Cells using turbo bit        ; 22 / 32 ( 69 % ) ;
+; Maximum fan-out              ; 15               ;
+; Highest non-global fan-out   ; 15               ;
+; Total fan-out                ; 122              ;
+; Average fan-out              ; 2.14             ;
++------------------------------+------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Input Pins                                                                                                                                       ;
++------------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+; Name       ; Pin # ; I/O Bank ; LAB ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; I/O Standard ; Location assigned by ;
++------------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+; bac0       ; 24    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac1       ; 20    ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac10      ; 21    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac11      ; 18    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac2       ; 19    ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac3       ; 17    ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac4       ; 16    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac5       ; 11    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac6       ; 12    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac7       ; 8     ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac8       ; 5     ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; bac9       ; 25    ; --       ; 2   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; biop1      ; 14    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; biop2      ; 9     ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; biop4      ; 6     ; --       ; 1   ; 9                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; initialize ; 1     ; --       ; --  ; 13                    ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; rx_rate    ; 2     ; --       ; --  ; 1                     ; 0                  ; yes    ; no             ; TTL          ; User                 ;
+; rx_sel     ; 26    ; --       ; 2   ; 0                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; stp_mark   ; 44    ; --       ; --  ; 2                     ; 0                  ; no     ; no             ; TTL          ; User                 ;
+; tx_ratei   ; 43    ; --       ; --  ; 5                     ; 0                  ; yes    ; no             ; TTL          ; User                 ;
+; tx_sel     ; 31    ; --       ; 2   ; 11                    ; 0                  ; no     ; no             ; TTL          ; User                 ;
++------------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Output Pins                                                                                                                                                                                  ;
++----------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+; Name     ; Pin # ; I/O Bank ; LAB ; Output Register ; Slow Slew Rate ; Open Drain ; TRI Primitive ; I/O Standard ; Location assigned by ; Load  ; Output Enable Source ; Output Enable Group ;
++----------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+; foo      ; 40    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; init_l   ; 33    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; irq_l    ; 29    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; skip_l   ; 28    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; stop1    ; 37    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; stop2    ; 39    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; tx_rateo ; 41    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
+; txdttl   ; 36    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; User                 ; 10 pF ; -                    ; -                   ;
++----------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------+
+; All Package Pins                                                                                      ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; Location ; Pad Number ; I/O Bank ; Pin Name/Usage ; Dir.   ; I/O Standard ; Voltage ; User Assignment ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+; 1        ; 0          ; --       ; initialize     ; input  ; TTL          ;         ; Y               ;
+; 2        ; 1          ; --       ; rx_rate        ; input  ; TTL          ;         ; Y               ;
+; 3        ; 2          ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 4        ; 3          ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 5        ; 4          ; --       ; bac8           ; input  ; TTL          ;         ; Y               ;
+; 6        ; 5          ; --       ; biop4          ; input  ; TTL          ;         ; Y               ;
+; 7        ; 6          ; --       ; TDI            ; input  ; TTL          ;         ; N               ;
+; 8        ; 7          ; --       ; bac7           ; input  ; TTL          ;         ; Y               ;
+; 9        ; 8          ; --       ; biop2          ; input  ; TTL          ;         ; Y               ;
+; 10       ; 9          ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 11       ; 10         ; --       ; bac5           ; input  ; TTL          ;         ; Y               ;
+; 12       ; 11         ; --       ; bac6           ; input  ; TTL          ;         ; Y               ;
+; 13       ; 12         ; --       ; TMS            ; input  ; TTL          ;         ; N               ;
+; 14       ; 13         ; --       ; biop1          ; input  ; TTL          ;         ; Y               ;
+; 15       ; 14         ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 16       ; 15         ; --       ; bac4           ; input  ; TTL          ;         ; Y               ;
+; 17       ; 16         ; --       ; bac3           ; input  ; TTL          ;         ; Y               ;
+; 18       ; 17         ; --       ; bac11          ; input  ; TTL          ;         ; Y               ;
+; 19       ; 18         ; --       ; bac2           ; input  ; TTL          ;         ; Y               ;
+; 20       ; 19         ; --       ; bac1           ; input  ; TTL          ;         ; Y               ;
+; 21       ; 20         ; --       ; bac10          ; input  ; TTL          ;         ; Y               ;
+; 22       ; 21         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 23       ; 22         ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 24       ; 23         ; --       ; bac0           ; input  ; TTL          ;         ; Y               ;
+; 25       ; 24         ; --       ; bac9           ; input  ; TTL          ;         ; Y               ;
+; 26       ; 25         ; --       ; rx_sel         ; input  ; TTL          ;         ; Y               ;
+; 27       ; 26         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 28       ; 27         ; --       ; skip_l         ; output ; TTL          ;         ; Y               ;
+; 29       ; 28         ; --       ; irq_l          ; output ; TTL          ;         ; Y               ;
+; 30       ; 29         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 31       ; 30         ; --       ; tx_sel         ; input  ; TTL          ;         ; Y               ;
+; 32       ; 31         ; --       ; TCK            ; input  ; TTL          ;         ; N               ;
+; 33       ; 32         ; --       ; init_l         ; output ; TTL          ;         ; Y               ;
+; 34       ; 33         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 35       ; 34         ; --       ; VCC            ; power  ;              ;         ;                 ;
+; 36       ; 35         ; --       ; txdttl         ; output ; TTL          ;         ; Y               ;
+; 37       ; 36         ; --       ; stop1          ; output ; TTL          ;         ; Y               ;
+; 38       ; 37         ; --       ; TDO            ; output ; TTL          ;         ; N               ;
+; 39       ; 38         ; --       ; stop2          ; output ; TTL          ;         ; Y               ;
+; 40       ; 39         ; --       ; foo            ; output ; TTL          ;         ; N               ;
+; 41       ; 40         ; --       ; tx_rateo       ; output ; TTL          ;         ; Y               ;
+; 42       ; 41         ; --       ; GND            ; gnd    ;              ;         ;                 ;
+; 43       ; 42         ; --       ; tx_ratei       ; input  ; TTL          ;         ; Y               ;
+; 44       ; 43         ; --       ; stp_mark       ; input  ; TTL          ;         ; Y               ;
++----------+------------+----------+----------------+--------+--------------+---------+-----------------+
+Note: Pin directions (input, output or bidir) are based on device operating in user mode.
+
+
++--------------------------------------------------------------------------------------------------+
+; I/O Standard                                                                                     ;
++--------------+------------+----------------------+-------------------+-------------------+-------+
+; I/O Standard ; Input Vref ; Dedicated Input Pins ; Pins in I/O Bank1 ; Pins in I/O Bank2 ; Total ;
++--------------+------------+----------------------+-------------------+-------------------+-------+
+; TTL          ; -          ; 4                    ; 0                 ; 0                 ; 4     ;
++--------------+------------+----------------------+-------------------+-------------------+-------+
+
+
++--------------------------------------------------------------------------+
+; Dedicated Inputs I/O                                                     ;
++------------+-------+-------+-------+--------------+------------+---------+
+; Name       ; Pin # ; Type  ; VCCIO ; I/O Standard ; Input Vref ; Current ;
++------------+-------+-------+-------+--------------+------------+---------+
+; initialize ; 1     ; Input ; --    ; TTL          ; -          ; 0 mA    ;
+; rx_rate    ; 2     ; Input ; --    ; TTL          ; -          ; 0 mA    ;
+; stp_mark   ; 44    ; Input ; --    ; TTL          ; -          ; 0 mA    ;
+; tx_ratei   ; 43    ; Input ; --    ; TTL          ; -          ; 0 mA    ;
++------------+-------+-------+-------+--------------+------------+---------+
+
+
++-----------------------------------------------+
+; Output Pin Default Load For Reported TCO      ;
++--------------+-------+------------------------+
+; I/O Standard ; Load  ; Termination Resistance ;
++--------------+-------+------------------------+
+; TTL          ; 10 pF ; Not Available          ;
++--------------+-------+------------------------+
+Note: User assignments will override these defaults. The user specified values are listed in the Output Pins and Bidir Pins tables.
+
+
++-------------------------------------------------------------------------------------+
+; Fitter Resource Utilization by Entity                                               ;
++----------------------------+------------+------+---------------------+--------------+
+; Compilation Hierarchy Node ; Macrocells ; Pins ; Full Hierarchy Name ; Library Name ;
++----------------------------+------------+------+---------------------+--------------+
+; |e11                       ; 22         ; 33   ; |e11                ; work         ;
+;    |m707:m707|             ; 19         ; 0    ; |e11|m707:m707      ; work         ;
++----------------------------+------------+------+---------------------+--------------+
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Control Signals                                                                                                   ;
++---------------------+----------+---------+---------------------+--------+----------------------+------------------+
+; Name                ; Location ; Fan-Out ; Usage               ; Global ; Global Resource Used ; Global Line Name ;
++---------------------+----------+---------+---------------------+--------+----------------------+------------------+
+; bac10               ; PIN_21   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac11               ; PIN_18   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac4                ; PIN_16   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac5                ; PIN_11   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac6                ; PIN_12   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac7                ; PIN_8    ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac8                ; PIN_5    ; 1       ; Preset              ; no     ; --                   ; --               ;
+; bac9                ; PIN_25   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; biop4               ; PIN_6    ; 9       ; Preset              ; no     ; --                   ; --               ;
+; initialize          ; PIN_1    ; 13      ; Async. clear        ; no     ; --                   ; --               ;
+; m707:m707|tcf~1     ; SEXP18   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; m707:m707|tcf~2     ; SEXP17   ; 1       ; Preset              ; no     ; --                   ; --               ;
+; m707:m707|tto[3]    ; LC13     ; 5       ; Async. clear        ; no     ; --                   ; --               ;
+; m707:m707|tto_shift ; LC29     ; 15      ; Async. clear, Clock ; no     ; --                   ; --               ;
+; rx_rate             ; PIN_2    ; 1       ; Clock               ; yes    ; On                   ; --               ;
+; stp_mark            ; PIN_44   ; 2       ; Async. clear        ; no     ; --                   ; --               ;
+; tx_ratei            ; PIN_43   ; 5       ; Clock               ; yes    ; On                   ; --               ;
+; tx_ratem            ; LC14     ; 1       ; Clock               ; no     ; --                   ; --               ;
+; tx_sel              ; PIN_31   ; 11      ; Preset              ; no     ; --                   ; --               ;
++---------------------+----------+---------+---------------------+--------+----------------------+------------------+
+
+
++-------------------------------------------------------------------------+
+; Global & Other Fast Signals                                             ;
++----------+----------+---------+----------------------+------------------+
+; Name     ; Location ; Fan-Out ; Global Resource Used ; Global Line Name ;
++----------+----------+---------+----------------------+------------------+
+; rx_rate  ; PIN_2    ; 1       ; On                   ; --               ;
+; tx_ratei ; PIN_43   ; 5       ; On                   ; --               ;
++----------+----------+---------+----------------------+------------------+
+
+
++--------------------------------------+
+; Non-Global High Fan-Out Signals      ;
++----------------------------+---------+
+; Name                       ; Fan-Out ;
++----------------------------+---------+
+; m707:m707|tto_shift        ; 15      ;
+; initialize                 ; 13      ;
+; tx_sel                     ; 11      ;
+; biop4                      ; 9       ;
+; m707:m707|tto[3]           ; 5       ;
+; m707:m707|out_active       ; 4       ;
+; m707:m707|tto[11]          ; 4       ;
+; m707:m707|tto[10]          ; 4       ;
+; m707:m707|tto[9]           ; 4       ;
+; m707:m707|tto[8]           ; 4       ;
+; m707:m707|tto[7]           ; 4       ;
+; m707:m707|tto[6]           ; 4       ;
+; m707:m707|tto[5]           ; 4       ;
+; m707:m707|tto[4]           ; 4       ;
+; stp_mark                   ; 2       ;
+; m707:m707|teleprinter_flag ; 2       ;
+; m707:m707|out_stop[0]      ; 2       ;
+; bac9                       ; 1       ;
+; bac10                      ; 1       ;
+; bac11                      ; 1       ;
+; bac4                       ; 1       ;
+; biop1                      ; 1       ;
+; bac6                       ; 1       ;
+; bac5                       ; 1       ;
+; biop2                      ; 1       ;
+; bac7                       ; 1       ;
+; bac8                       ; 1       ;
+; m707:m707|tto_skip_~2      ; 1       ;
+; m707:m707|tx_data~0        ; 1       ;
+; m707:m707|line             ; 1       ;
+; m707:m707|out_stop[2]      ; 1       ;
+; m707:m707|tcf~2            ; 1       ;
+; m707:m707|tcf~1            ; 1       ;
+; m707:m707|Equal0~4         ; 1       ;
+; m707:m707|out_stop[1]      ; 1       ;
+; tx_rateo~reg0              ; 1       ;
+; tx_ratem                   ; 1       ;
+; initialize~1               ; 1       ;
++----------------------------+---------+
+
+
++------------------------------------------------+
+; Other Routing Usage Summary                    ;
++-----------------------------+------------------+
+; Other Routing Resource Type ; Usage            ;
++-----------------------------+------------------+
+; Output enables              ; 0 / 6 ( 0 % )    ;
+; PIA buffers                 ; 37 / 72 ( 51 % ) ;
++-----------------------------+------------------+
+
+
++-----------------------------------------------------------------------+
+; LAB Macrocells                                                        ;
++-----------------------------------------+-----------------------------+
+; Number of Macrocells  (Average = 11.00) ; Number of LABs  (Total = 2) ;
++-----------------------------------------+-----------------------------+
+; 0                                       ; 0                           ;
+; 1                                       ; 0                           ;
+; 2                                       ; 0                           ;
+; 3                                       ; 0                           ;
+; 4                                       ; 0                           ;
+; 5                                       ; 0                           ;
+; 6                                       ; 1                           ;
+; 7                                       ; 0                           ;
+; 8                                       ; 0                           ;
+; 9                                       ; 0                           ;
+; 10                                      ; 0                           ;
+; 11                                      ; 0                           ;
+; 12                                      ; 0                           ;
+; 13                                      ; 0                           ;
+; 14                                      ; 0                           ;
+; 15                                      ; 0                           ;
+; 16                                      ; 1                           ;
++-----------------------------------------+-----------------------------+
+
+
++-------------------------------------------------------------------------------+
+; Shareable Expander                                                            ;
++-------------------------------------------------+-----------------------------+
+; Number of shareable expanders  (Average = 1.00) ; Number of LABs  (Total = 1) ;
++-------------------------------------------------+-----------------------------+
+; 0                                               ; 1                           ;
+; 1                                               ; 0                           ;
+; 2                                               ; 1                           ;
++-------------------------------------------------+-----------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Logic Cell Interconnection                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ;
++-----+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; LAB ; Logic Cell ; Input                                                                                                                                                                                                                     ; Output                                                                                                                                                                                                                                                                                                   ;
++-----+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+;  A  ; LC14       ; rx_rate                                                                                                                                                                                                                   ; tx_rateo~reg0                                                                                                                                                                                                                                                                                            ;
+;  A  ; LC2        ; m707:m707|tto[3], m707:m707|tto_shift, initialize, bac4, biop4, tx_sel                                                                                                                                                    ; m707:m707|tto[5], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                   ;
+;  A  ; LC11       ; m707:m707|tto[4], m707:m707|tto_shift, initialize, bac5, biop4, tx_sel                                                                                                                                                    ; m707:m707|tto[6], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                   ;
+;  A  ; LC1        ; m707:m707|tto[5], m707:m707|tto_shift, initialize, bac6, biop4, tx_sel                                                                                                                                                    ; m707:m707|tto[7], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                   ;
+;  A  ; LC13       ; m707:m707|tto_shift, initialize, biop4, tx_sel                                                                                                                                                                            ; m707:m707|tto[4], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag, m707:m707|line                                                                                                                                                                                                   ;
+;  A  ; LC4        ; tx_ratei, m707:m707|out_stop[0], m707:m707|tto_shift                                                                                                                                                                      ; m707:m707|out_stop[2]                                                                                                                                                                                                                                                                                    ;
+;  B  ; LC24       ; initialize                                                                                                                                                                                                                ; init_l                                                                                                                                                                                                                                                                                                   ;
+;  B  ; LC17       ; tx_ratem                                                                                                                                                                                                                  ; tx_rateo                                                                                                                                                                                                                                                                                                 ;
+;  B  ; LC20       ; m707:m707|tto[6], m707:m707|tto_shift, initialize, bac7, biop4, tx_sel                                                                                                                                                    ; m707:m707|tto[8], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                   ;
+;  B  ; LC25       ; m707:m707|tto[7], m707:m707|tto_shift, initialize, bac8, biop4, tx_sel                                                                                                                                                    ; m707:m707|tto[9], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                   ;
+;  B  ; LC32       ; m707:m707|tto[8], m707:m707|tto_shift, initialize, bac9, biop4, tx_sel                                                                                                                                                    ; m707:m707|tto[10], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                  ;
+;  B  ; LC31       ; m707:m707|tto[9], m707:m707|tto_shift, initialize, bac10, biop4, tx_sel                                                                                                                                                   ; m707:m707|tto[11], m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag                                                                                                                                                                                                                  ;
+;  B  ; LC30       ; m707:m707|tto[10], m707:m707|tto_shift, initialize, bac11, biop4, tx_sel                                                                                                                                                  ; m707:m707|out_active, m707:m707|Equal0~4, m707:m707|teleprinter_flag, m707:m707|line                                                                                                                                                                                                                     ;
+;  B  ; LC26       ; tx_ratei, stp_mark, m707:m707|tto[3], m707:m707|out_active, m707:m707|tto[4], m707:m707|tto[5], m707:m707|tto[6], m707:m707|tto[7], m707:m707|tto[8], m707:m707|tto[9], m707:m707|tto[10], m707:m707|tto[11], initialize  ; m707:m707|out_active, m707:m707|tto_shift, m707:m707|out_stop[0], m707:m707|tx_data~0                                                                                                                                                                                                                    ;
+;  B  ; LC29       ; tx_ratei, m707:m707|tto_shift, m707:m707|out_active                                                                                                                                                                       ; m707:m707|tto[4], m707:m707|tto[5], m707:m707|tto[6], m707:m707|tto[7], m707:m707|tto[8], m707:m707|tto[9], m707:m707|tto[10], m707:m707|tto[11], m707:m707|tto_shift, m707:m707|out_stop[0], m707:m707|tto[3], m707:m707|out_stop[1], m707:m707|teleprinter_flag, m707:m707|out_stop[2], m707:m707|line ;
+;  B  ; LC21       ; tx_ratei, m707:m707|out_active, m707:m707|tto_shift                                                                                                                                                                       ; stop1, m707:m707|out_stop[1]                                                                                                                                                                                                                                                                             ;
+;  B  ; LC18       ; m707:m707|tto[3], m707:m707|tto[4], m707:m707|tto[5], m707:m707|tto[6], m707:m707|tto[7], m707:m707|tto[8], m707:m707|tto[9], m707:m707|tto[10], m707:m707|tto[11]                                                        ; foo                                                                                                                                                                                                                                                                                                      ;
+;  B  ; LC27       ; m707:m707|tto[3], m707:m707|tto[4], m707:m707|tto[5], m707:m707|tto[6], m707:m707|tto[7], m707:m707|tto[8], m707:m707|tto[9], m707:m707|tto[10], m707:m707|tto[11], m707:m707|tto_shift, m707:m707|tcf~1, m707:m707|tcf~2 ; m707:m707|tto_skip_~2, irq_l                                                                                                                                                                                                                                                                             ;
+;  B  ; LC19       ; tx_ratei, m707:m707|out_stop[1], m707:m707|tto_shift                                                                                                                                                                      ; stop2                                                                                                                                                                                                                                                                                                    ;
+;  B  ; LC23       ; m707:m707|tto[11], m707:m707|tto_shift, stp_mark, m707:m707|tto[3]                                                                                                                                                        ; m707:m707|tx_data~0                                                                                                                                                                                                                                                                                      ;
+;  B  ; LC22       ; m707:m707|out_active, m707:m707|line                                                                                                                                                                                      ; txdttl                                                                                                                                                                                                                                                                                                   ;
+;  B  ; LC28       ; biop1, tx_sel, m707:m707|teleprinter_flag                                                                                                                                                                                 ; skip_l                                                                                                                                                                                                                                                                                                   ;
++-----+------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------+
+; Fitter Device Options                                         ;
++----------------------------------------------+----------------+
+; Option                                       ; Setting        ;
++----------------------------------------------+----------------+
+; Enable user-supplied start-up clock (CLKUSR) ; Off            ;
+; Enable device-wide reset (DEV_CLRn)          ; Off            ;
+; Enable device-wide output enable (DEV_OE)    ; Off            ;
+; Enable INIT_DONE output                      ; Off            ;
+; Configuration scheme                         ; Passive Serial ;
+; Security bit                                 ; Off            ;
+; Base pin-out file on sameframe device        ; Off            ;
++----------------------------------------------+----------------+
+
+
++-----------------+
+; Fitter Messages ;
++-----------------+
+Info (119006): Selected device EPM7032SLC44-10 for design "m707"
+Info: Quartus II 64-Bit Fitter was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 4691 megabytes
+    Info: Processing ended: Sun Apr 07 23:14:01 2024
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:00
+
+

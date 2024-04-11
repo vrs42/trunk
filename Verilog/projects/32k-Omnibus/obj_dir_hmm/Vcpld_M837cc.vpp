@@ -1,0 +1,879 @@
+`begin_keywords "1800-2012"
+`line 1 "M837cc.v" 1
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+module m837cc (n_t_145x, n_t_42x, ts_disable_l, c1l, cpma_disable_l, d_l, data03_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, df_enable, ema0_l, ema1_l, ema2_l, f_l, f_set_l, ibifdf_clr_l, ind1_l, ind2_l, initialize, int_in_progress_l, int_rqst_l, internal_io_l, io_pause_l, iot010xxx1xx_l, ir00_l, ir01_l, key_ctl_l, load_addr, load_cntl, lp_la_or_tp4_and_ld_ctl_rp_l, md00_l, md01_l, md02_l, md03_l, md04_l, md05_l, md06_l, md07_l, md08_l, md09_l, md10_l, md11_l, power_ok, rtf, run_l, skip_l, tp2, tp3, tp4, tp_aa1, tp_ab1, tp_ba1, tp_bb1, ts1_l, user_mode_l);
+input n_t_145x;
+input n_t_42x;
+input ts_disable_l;
+output c1l;
+input cpma_disable_l;
+input d_l;
+output data03_l;
+inout data05_l;
+inout data06_l;
+inout data07_l;
+inout data08_l;
+inout data09_l;
+inout data10_l;
+inout data11_l;
+ 
+output reg df_enable;  
+output ema0_l;
+output ema1_l;
+output ema2_l;
+input f_l;
+input f_set_l;
+inout ibifdf_clr_l;
+input ind1_l;
+input ind2_l;
+input initialize;
+inout int_in_progress_l;
+output int_rqst_l;
+output internal_io_l;
+input io_pause_l;
+inout iot010xxx1xx_l;
+input ir00_l;
+input ir01_l;
+input key_ctl_l;
+input load_addr;
+input load_cntl;
+inout lp_la_or_tp4_and_ld_ctl_rp_l;
+input md00_l;
+input md01_l;
+input md02_l;
+input md03_l;
+input md04_l;
+input md05_l;
+input md06_l;
+input md07_l;
+input md08_l;
+input md09_l;
+input md10_l;
+input md11_l;
+input power_ok;
+inout rtf;
+input run_l;
+output skip_l;
+input tp2;
+input tp3;
+input tp4;
+inout tp_aa1;
+inout tp_ab1;
+inout tp_ba1;
+inout tp_bb1;
+input ts1_l;
+inout user_mode_l;
+
+`line 139 "M837cc.v" 0
+reg db_m;
+reg df0_m;
+reg df1_m;
+reg df2_m;
+reg df_enable_m;
+reg ema_disable_l_m;
+reg gdollar_0_m;
+reg gdollar_1_m;
+reg gdollar_2_m;
+reg ib0_m;
+reg ib1_m;
+reg ib2_m;
+reg if0_m;
+reg if1_m;
+reg if2_m;
+reg sf3_l_m;
+reg sf4_l_m;
+reg sf5_l_m;
+reg uf_m;
+
+`line 159 "M837cc.v" 0
+reg uf;
+reg if0;
+reg if1;
+reg if2;
+reg suf_l;
+reg sf0_l;
+reg sf1_l;
+reg sf2_l;
+reg gdollar_0;
+reg ib0;
+reg ib1;
+reg ib2;
+reg ema_disable_l;
+reg db;
+reg gdollar_1;
+reg sf3_l;
+reg sf4_l;
+reg sf5_l;
+reg gdollar_2;
+reg df0;
+reg df1;
+reg df2;
+wire cdf_l;
+wire cif_l;
+wire cint_l;
+wire cuf_l;
+wire d;
+wire d_in_l;
+wire db_load;
+wire error;
+wire ext_ld_l;
+wire gtf_l;
+wire ind_l;
+wire initialize_l;
+wire int_in_prog_mams_ld_ctl;
+wire int_inh;
+wire io_pause;
+wire iot000000xxx;
+wire iot010xxx0xx;
+wire iot010xxx1xx;
+wire jmp_or_jms;
+wire lp_d_in_or_cif_or_rmf_rp;
+wire lp_df_enab_and_ema_disab_l_rp_l;
+wire lp_df_enab_l_and_ema_disab_l_rp_l;
+wire lp_gtf_or_rib_rp_l;
+wire lp_ind_or_rif_rp_l;
+wire lp_la_or_tp3_rp_l;
+wire md04;
+wire md05;
+wire md06;
+wire md07;
+wire md08;
+wire md11;
+wire myc1;
+wire n_t_110x;
+wire n_t_11x;
+wire n_t_120x;
+wire n_t_122x;
+wire n_t_124x;
+wire n_t_126x;
+wire n_t_135x;
+wire n_t_13x;
+wire n_t_140x;
+wire n_t_141x;
+wire n_t_142x;
+wire n_t_143x;
+wire n_t_14x;
+wire n_t_19x;
+wire n_t_21x;
+wire n_t_23x;
+wire n_t_24x;
+wire n_t_25x;
+wire n_t_28x;
+wire n_t_29x;
+wire n_t_40x;
+wire n_t_43x;
+wire n_t_44x;
+wire n_t_49x;
+wire n_t_50x;
+wire n_t_53x;
+wire n_t_55x;
+wire n_t_56x;
+wire n_t_62x;
+wire n_t_66x;
+wire n_t_68x;
+wire n_t_69x;
+wire n_t_6x;
+wire n_t_71x;
+wire n_t_72x;
+wire n_t_73x;
+wire n_t_74x;
+wire n_t_75x;
+wire n_t_76x;
+wire n_t_77x;
+wire n_t_78x;
+wire n_t_79x;
+wire n_t_80x;
+wire n_t_81x;
+wire n_t_82x;
+wire n_t_83x;
+wire n_t_84x;
+wire n_t_86x;
+wire n_t_87x;
+wire n_t_8x;
+wire n_t_93x;
+wire n_t_9x;
+wire power_ok_l;
+wire rdf_l;
+wire renamed0;
+wire rib_l;
+wire rif_l;
+wire rmf_l;
+wire rtf_l;
+wire sint_l;
+wire uint;
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, tp_ba1, renamed0, uf, renamed0)
+  if (~ibifdf_clr_l) begin
+    uf_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    uf_m <= tp_ba1 & renamed0
+               | uf & ~renamed0;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, uf_m)
+  if (~ibifdf_clr_l) begin
+    uf <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    uf <= uf_m;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, tp_bb1, renamed0, if0, renamed0)
+  if (~ibifdf_clr_l) begin
+    if0_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    if0_m <= tp_bb1 & renamed0
+                | if0 & ~renamed0;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, if0_m)
+  if (~ibifdf_clr_l) begin
+    if0 <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    if0 <= if0_m;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, tp_aa1, renamed0, if1, renamed0)
+  if (~ibifdf_clr_l) begin
+    if1_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    if1_m <= tp_aa1 & renamed0
+                | if1 & ~renamed0;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, if1_m)
+  if (~ibifdf_clr_l) begin
+    if1 <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    if1 <= if1_m;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, tp_ab1, renamed0, if2, renamed0)
+  if (~ibifdf_clr_l) begin
+    if2_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    if2_m <= tp_ab1 & renamed0
+                | if2 & ~renamed0;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, ibifdf_clr_l, if2_m)
+  if (~ibifdf_clr_l) begin
+    if2 <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    if2 <= if2_m;
+  end
+ 
+always @(negedge lp_la_or_tp4_and_ld_ctl_rp_l)
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    suf_l <= ~tp_ba1 & int_in_prog_mams_ld_ctl
+                  | suf_l & ~int_in_prog_mams_ld_ctl;
+  end
+always @(negedge lp_la_or_tp4_and_ld_ctl_rp_l)
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    sf0_l <= n_t_93x & int_in_prog_mams_ld_ctl
+                  | sf0_l & ~int_in_prog_mams_ld_ctl;
+  end
+always @(negedge lp_la_or_tp4_and_ld_ctl_rp_l)
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    sf1_l <= n_t_87x & int_in_prog_mams_ld_ctl
+                  | sf1_l & ~int_in_prog_mams_ld_ctl;
+  end
+always @(negedge lp_la_or_tp4_and_ld_ctl_rp_l)
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    sf2_l <= n_t_86x & int_in_prog_mams_ld_ctl
+                  | sf2_l & ~int_in_prog_mams_ld_ctl;
+  end
+ 
+assign tp_aa1 = ~(n_t_87x & n_t_80x);
+assign tp_ab1 = ~(n_t_86x & n_t_81x);
+ 
+assign n_t_86x = ~(d_in_l & ib2);
+assign n_t_87x = ~(d_in_l & ib1);
+assign n_t_93x = ~(ib0 & d_in_l);
+assign tp_bb1 = ~(n_t_93x & n_t_79x);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+assign n_t_79x = data06_l
+                  | d_in_l;
+assign n_t_78x = data05_l
+                  | d_in_l;
+assign n_t_81x = data08_l
+                  | d_in_l;
+assign n_t_80x = d_in_l
+                  | data07_l;
+ 
+assign n_t_83x = ~(n_t_75x & n_t_79x);
+assign db_load = ~(n_t_74x & n_t_78x);
+assign n_t_84x = ~(n_t_81x & n_t_77x);
+assign n_t_82x = ~(n_t_80x & n_t_76x);
+ 
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, gdollar_0, lp_d_in_or_cif_or_rmf_rp)
+  if (~ibifdf_clr_l) begin
+    gdollar_0_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    gdollar_0_m <= gdollar_0 & ~lp_d_in_or_cif_or_rmf_rp;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, gdollar_0_m)
+  if (~ibifdf_clr_l) begin
+    gdollar_0 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    gdollar_0 <= gdollar_0_m;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, n_t_83x, lp_d_in_or_cif_or_rmf_rp, ib0, lp_d_in_or_cif_or_rmf_rp)
+  if (~ibifdf_clr_l) begin
+    ib0_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    ib0_m <= n_t_83x & lp_d_in_or_cif_or_rmf_rp
+                | ib0 & ~lp_d_in_or_cif_or_rmf_rp;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, ib0_m)
+  if (~ibifdf_clr_l) begin
+    ib0 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    ib0 <= ib0_m;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, n_t_82x, lp_d_in_or_cif_or_rmf_rp, ib1, lp_d_in_or_cif_or_rmf_rp)
+  if (~ibifdf_clr_l) begin
+    ib1_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    ib1_m <= n_t_82x & lp_d_in_or_cif_or_rmf_rp
+                | ib1 & ~lp_d_in_or_cif_or_rmf_rp;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, ib1_m)
+  if (~ibifdf_clr_l) begin
+    ib1 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    ib1 <= ib1_m;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, n_t_84x, lp_d_in_or_cif_or_rmf_rp, ib2, lp_d_in_or_cif_or_rmf_rp)
+  if (~ibifdf_clr_l) begin
+    ib2_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    ib2_m <= n_t_84x & lp_d_in_or_cif_or_rmf_rp
+                | ib2 & ~lp_d_in_or_cif_or_rmf_rp;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, ib2_m)
+  if (~ibifdf_clr_l) begin
+    ib2 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    ib2 <= ib2_m;
+  end
+ 
+assign power_ok_l = ~(ts1_l
+                       | power_ok);
+ 
+assign renamed0 = ~(n_t_44x & d_in_l & n_t_40x);
+assign tp_ba1 = ~(~(ts_disable_l & d_in_l & db));
+assign n_t_71x = ~(n_t_44x & n_t_40x & n_t_40x);
+ 
+always @(tp4, n_t_42x, ibifdf_clr_l, cpma_disable_l)
+  if (~n_t_42x) begin
+    ema_disable_l_m <= 1'b0;
+  end else
+  if (~ibifdf_clr_l) begin
+    ema_disable_l_m <= 1'b1;
+  end else
+  if (~(tp4)) begin
+    ema_disable_l_m <= cpma_disable_l;
+  end
+always @(tp4, n_t_42x, ibifdf_clr_l, ema_disable_l_m)
+  if (~n_t_42x) begin
+    ema_disable_l <= 1'b0;
+  end else
+  if (~ibifdf_clr_l) begin
+    ema_disable_l <= 1'b1;
+  end else
+  if (tp4) begin
+    ema_disable_l <= ema_disable_l_m;
+  end
+ 
+assign n_t_49x = ~(n_t_28x & n_t_11x);
+assign n_t_11x = ~(n_t_43x & df_enable);
+assign n_t_28x = ~(d & ~jmp_or_jms);
+ 
+assign n_t_74x = ~(~suf_l & ~rmf_l);
+assign n_t_75x = ~(~sf0_l & ~rmf_l
+                    | md06 & rmf_l & ~cif_l);
+assign n_t_76x = ~(~sf1_l & ~rmf_l
+                    | md07 & rmf_l & ~cif_l);
+assign n_t_77x = ~(~sf2_l & ~rmf_l
+                    | md08 & rmf_l & ~cif_l);
+ 
+ 
+ 
+ 
+ 
+ 
+always @(n_t_24x, n_t_66x, n_t_69x, db_load)
+  if (n_t_66x) begin
+    db_m <= 1'b0;
+  end else
+  if (~n_t_69x) begin
+    db_m <= 1'b1;
+  end else
+  if (~(~n_t_24x)) begin
+    db_m <= db_load;
+  end
+always @(n_t_24x, n_t_66x, n_t_69x, db_m)
+  if (n_t_66x) begin
+    db <= 1'b0;
+  end else
+  if (~n_t_69x) begin
+    db <= 1'b1;
+  end else
+  if (~n_t_24x) begin
+    db <= db_m;
+  end
+always @(tp4, initialize_l, n_t_42x, n_t_49x)
+  if (~initialize_l) begin
+    df_enable_m <= 1'b0;
+  end else
+  if (~n_t_42x) begin
+    df_enable_m <= 1'b1;
+  end else
+  if (~(tp4)) begin
+    df_enable_m <= n_t_49x;
+  end
+always @(tp4, initialize_l, n_t_42x, df_enable_m)
+  if (~initialize_l) begin
+    df_enable <= 1'b0;
+  end else
+  if (~n_t_42x) begin
+    df_enable <= 1'b1;
+  end else
+  if (tp4) begin
+    df_enable <= df_enable_m;
+  end
+ 
+assign lp_ind_or_rif_rp_l = ~(~(ind_l & rif_l));
+assign lp_gtf_or_rib_rp_l = ~(~(gtf_l & rib_l));
+assign lp_df_enab_and_ema_disab_l_rp_l = ~(df_enable & ema_disable_l);
+assign lp_df_enab_l_and_ema_disab_l_rp_l = ~(~df_enable & ema_disable_l);
+ 
+assign n_t_53x = ~(~cuf_l & tp3);
+assign n_t_69x = ~(tp3 & ~suf_l);
+ 
+assign md07 = ~(io_pause
+                 | md07_l);
+assign md04 = ~(io_pause
+                 | md04_l);
+assign md06 = ~(md06_l
+                 | io_pause);
+assign md05 = ~(io_pause
+                 | md05_l);
+ 
+assign ind_l = ~(ind1_l & ~ts1_l & ind2_l);
+assign myc1 = ~(rdf_l & rif_l & rib_l);
+ 
+assign cint_l = ~(~iot010xxx1xx_l & ~md06 & ~md07 & ~md08);
+assign rdf_l = ~(~iot010xxx1xx_l & ~md06 & ~md07 & md08);
+assign rif_l = ~(~iot010xxx1xx_l & ~md06 & md07 & ~md08);
+assign rib_l = ~(~iot010xxx1xx_l & ~md06 & md07 & md08);
+assign rmf_l = ~(~iot010xxx1xx_l & md06 & ~md07 & ~md08);
+assign sint_l = ~(~iot010xxx1xx_l & md06 & ~md07 & md08);
+assign cuf_l = ~(~iot010xxx1xx_l & md06 & md07 & ~md08);
+ 
+ 
+assign n_t_62x = ~(rtf_l & rmf_l);
+assign n_t_24x = ~(n_t_62x & tp3);
+ 
+assign io_pause = io_pause_l
+                   | ~load_cntl;
+ 
+ 
+ 
+ 
+ 
+assign n_t_55x = ~(~md11 & n_t_50x);
+assign n_t_56x = ~(n_t_50x & md10_l);
+assign cif_l = ~(n_t_56x & iot010xxx0xx);
+assign cdf_l = ~(n_t_55x & iot010xxx0xx);
+ 
+assign gtf_l = ~(iot000000xxx & ~md11 & ~n_t_19x);
+assign n_t_66x = ~(~load_addr & n_t_53x & ibifdf_clr_l);
+assign rtf_l = ~(md11 & iot000000xxx & ~n_t_19x);
+ 
+assign n_t_43x = ~load_cntl
+                  | f_set_l;
+ 
+ 
+ 
+ 
+ 
+ 
+assign iot010xxx1xx = ~(~md03_l
+                         | md05
+                         | io_pause
+                         | md04_l
+                         | md09_l
+                         | ~md10_l
+                         | md11);
+ 
+assign iot010xxx0xx = ~(io_pause
+                         | md05
+                         | ~md03_l
+                         | ~md09_l
+                         | md04_l
+                         | io_pause
+                         | io_pause);
+ 
+assign iot000000xxx = ~(~md03_l
+                         | md05
+                         | io_pause
+                         | md04
+                         | md08
+                         | md06
+                         | md07);
+ 
+ 
+ 
+ 
+ 
+assign n_t_6x = ~(~md03_l
+                   | md02_l);
+assign n_t_8x = ~(md02_l
+                   | n_t_29x);
+assign n_t_9x = ~(md11_l
+                   | md02_l);
+assign d_in_l = ~(n_t_68x
+                   | rtf);
+ 
+assign error = ~(user_mode_l
+                  | n_t_6x
+                  | n_t_8x
+                  | n_t_9x
+                  | f_l
+                  | md01_l
+                  | md00_l);
+ 
+assign n_t_23x = ~(ts_disable_l & initialize_l & n_t_13x & uint);
+assign uint = ~(n_t_23x & n_t_21x & n_t_21x);
+ 
+assign lp_la_or_tp3_rp_l = ~(tp3
+                              | load_addr);
+assign int_in_prog_mams_ld_ctl = ~(~load_cntl
+                                    | ~int_in_progress_l);
+ 
+assign ext_ld_l = ~(~ts1_l
+                     | n_t_14x);
+assign n_t_14x = ~(ext_ld_l
+                    | tp2);
+assign d = ~(d_l
+              | ~load_cntl);
+assign initialize_l = ~(load_addr
+                         | initialize);
+ 
+assign n_t_29x = ~md09_l
+                  | ~md10_l;
+assign n_t_19x = ~md10_l
+                  | md09_l;
+assign n_t_50x = md11_l
+                  | md10_l;
+ 
+assign n_t_44x = ~(jmp_or_jms & d);
+assign n_t_40x = ~(~f_l & md03_l & jmp_or_jms);
+ 
+assign n_t_25x = ~(n_t_72x & n_t_53x & ibifdf_clr_l & int_inh);
+assign int_inh = ~(n_t_69x & n_t_25x & n_t_73x & n_t_25x);
+ 
+assign n_t_13x = ~(~cint_l & tp3);
+assign n_t_72x = ~(n_t_71x & tp3);
+assign n_t_73x = ~(lp_d_in_or_cif_or_rmf_rp & tp3);
+assign n_t_21x = ~(tp2 & error);
+ 
+assign md11 = ~(io_pause
+                 | md11_l);
+assign md08 = ~(io_pause
+                 | md08_l);
+ 
+assign n_t_68x = ~(key_ctl_l
+                    | ext_ld_l);
+assign jmp_or_jms = ~(ir00_l
+                       | ~ir01_l);
+ 
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, gdollar_1, int_in_prog_mams_ld_ctl)
+  if (~n_t_145x) begin
+    gdollar_1_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    gdollar_1_m <= gdollar_1 & ~int_in_prog_mams_ld_ctl;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, gdollar_1_m)
+  if (~n_t_145x) begin
+    gdollar_1 <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    gdollar_1 <= gdollar_1_m;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, df0, int_in_prog_mams_ld_ctl, sf3_l, int_in_prog_mams_ld_ctl)
+  if (~n_t_145x) begin
+    sf3_l_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    sf3_l_m <= ~df0 & int_in_prog_mams_ld_ctl
+                  | sf3_l & ~int_in_prog_mams_ld_ctl;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, sf3_l_m)
+  if (~n_t_145x) begin
+    sf3_l <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    sf3_l <= sf3_l_m;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, df1, int_in_prog_mams_ld_ctl, sf4_l, int_in_prog_mams_ld_ctl)
+  if (~n_t_145x) begin
+    sf4_l_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    sf4_l_m <= ~df1 & int_in_prog_mams_ld_ctl
+                  | sf4_l & ~int_in_prog_mams_ld_ctl;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, sf4_l_m)
+  if (~n_t_145x) begin
+    sf4_l <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    sf4_l <= sf4_l_m;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, df2, int_in_prog_mams_ld_ctl, sf5_l, int_in_prog_mams_ld_ctl)
+  if (~n_t_145x) begin
+    sf5_l_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp4_and_ld_ctl_rp_l)) begin
+    sf5_l_m <= ~df2 & int_in_prog_mams_ld_ctl
+                  | sf5_l & ~int_in_prog_mams_ld_ctl;
+  end
+always @(lp_la_or_tp4_and_ld_ctl_rp_l, n_t_145x, sf5_l_m)
+  if (~n_t_145x) begin
+    sf5_l <= 1'b0;
+  end else
+  if (~lp_la_or_tp4_and_ld_ctl_rp_l) begin
+    sf5_l <= sf5_l_m;
+  end
+ 
+assign rtf = ~rtf_l;
+ 
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, gdollar_2, n_t_110x)
+  if (~ibifdf_clr_l) begin
+    gdollar_2_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    gdollar_2_m <= gdollar_2 & ~n_t_110x;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, gdollar_2_m)
+  if (~ibifdf_clr_l) begin
+    gdollar_2 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    gdollar_2 <= gdollar_2_m;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, n_t_143x, n_t_110x, df0, n_t_110x)
+  if (~ibifdf_clr_l) begin
+    df0_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    df0_m <= n_t_143x & n_t_110x
+                | df0 & ~n_t_110x;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, df0_m)
+  if (~ibifdf_clr_l) begin
+    df0 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    df0 <= df0_m;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, n_t_142x, n_t_110x, df1, n_t_110x)
+  if (~ibifdf_clr_l) begin
+    df1_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    df1_m <= n_t_142x & n_t_110x
+                | df1 & ~n_t_110x;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, df1_m)
+  if (~ibifdf_clr_l) begin
+    df1 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    df1 <= df1_m;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, n_t_141x, n_t_110x, df2, n_t_110x)
+  if (~ibifdf_clr_l) begin
+    df2_m <= 1'b0;
+  end else
+  if (~(~lp_la_or_tp3_rp_l)) begin
+    df2_m <= n_t_141x & n_t_110x
+                | df2 & ~n_t_110x;
+  end
+always @(lp_la_or_tp3_rp_l, ibifdf_clr_l, df2_m)
+  if (~ibifdf_clr_l) begin
+    df2 <= 1'b0;
+  end else
+  if (~lp_la_or_tp3_rp_l) begin
+    df2 <= df2_m;
+  end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+assign n_t_120x = d_in_l
+                   | data09_l;
+assign n_t_124x = data11_l
+                   | d_in_l;
+assign n_t_122x = d_in_l
+                   | data10_l;
+ 
+assign n_t_142x = ~(n_t_126x & n_t_122x);
+assign n_t_143x = ~(n_t_140x & n_t_120x);
+assign n_t_141x = ~(n_t_124x & n_t_135x);
+ 
+assign n_t_140x = ~(~sf3_l & ~rmf_l
+                     | md06 & rmf_l & ~cdf_l);
+assign n_t_126x = ~(~sf4_l & ~rmf_l
+                     | md07 & rmf_l & ~cdf_l);
+assign n_t_135x = ~(~sf5_l & ~rmf_l
+                     | md08 & rmf_l & ~cdf_l);
+ 
+assign lp_d_in_or_cif_or_rmf_rp = ~(rmf_l & d_in_l & cif_l);
+assign n_t_110x = ~(d_in_l & rmf_l & cdf_l);
+ 
+assign c1l = myc1? ~myc1: 1'bz;
+assign data03_l = (~n_t_145x & ~lp_gtf_or_rib_rp_l
+                    | int_inh & ~ind_l)? 1'b0: 1'bz;
+assign data05_l = (~suf_l & ~lp_gtf_or_rib_rp_l)
+                   | (uf & ~ind_l)? 1'b0: 1'bz;
+assign data06_l = (~sf0_l & ~lp_gtf_or_rib_rp_l
+                    | if0 & ~lp_ind_or_rif_rp_l)
+                   | (~rdf_l & df0)? 1'b0: 1'bz;
+assign data07_l = (~sf1_l & ~lp_gtf_or_rib_rp_l
+                    | if1 & ~lp_ind_or_rif_rp_l)
+                   | (df1 & ~rdf_l)? 1'b0: 1'bz;
+assign data08_l = (~sf2_l & ~lp_gtf_or_rib_rp_l
+                    | if2 & ~lp_ind_or_rif_rp_l)
+                   | (df2 & ~rdf_l)? 1'b0: 1'bz;
+assign data09_l = (~sf3_l & ~lp_gtf_or_rib_rp_l
+                    | df0 & ~ind_l)? 1'b0: 1'bz;
+assign data10_l = (~sf4_l & ~lp_gtf_or_rib_rp_l
+                    | df1 & ~ind_l)? 1'b0: 1'bz;
+assign data11_l = (~sf5_l & ~lp_gtf_or_rib_rp_l
+                    | df2 & ~ind_l)? 1'b0: 1'bz;
+assign ema0_l = (df0 & ~lp_df_enab_l_and_ema_disab_l_rp_l
+                  | if0 & ~lp_df_enab_and_ema_disab_l_rp_l)? 1'b0: 1'bz;
+assign ema1_l = (df1 & ~lp_df_enab_l_and_ema_disab_l_rp_l
+                  | if1 & ~lp_df_enab_and_ema_disab_l_rp_l)? 1'b0: 1'bz;
+assign ema2_l = (df2 & ~lp_df_enab_l_and_ema_disab_l_rp_l
+                  | if2 & ~lp_df_enab_and_ema_disab_l_rp_l)? 1'b0: 1'bz;
+assign ibifdf_clr_l = (run_l & power_ok_l)
+                       | (int_in_prog_mams_ld_ctl & tp4)? 1'b0: 1'bz;
+assign int_in_progress_l = int_inh? ~int_inh: 1'bz;
+assign int_rqst_l = uint? ~uint: 1'bz;
+assign internal_io_l = iot010xxx1xx
+                        | iot000000xxx
+                        | iot010xxx0xx? 1'b0: 1'bz;
+assign iot010xxx1xx_l = iot010xxx1xx? ~iot010xxx1xx: 1'bz;
+assign lp_la_or_tp4_and_ld_ctl_rp_l = load_addr
+                                       | (load_cntl & tp4)? 1'b0: 1'bz;
+assign skip_l = (uint & ~sint_l)? 1'b0: 1'bz;
+assign user_mode_l = uf? ~uf: 1'bz;
+endmodule
+
+`line 875 "M837cc.v" 2

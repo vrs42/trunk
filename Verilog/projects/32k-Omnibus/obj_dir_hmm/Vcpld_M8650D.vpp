@@ -1,0 +1,1315 @@
+`begin_keywords "1800-2012"
+`line 1 "M8650D.v" 1
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+module m8650d (n3v3, n_t_103x, n_t_128x, n_t_152x, n_t_165x, n_t_1x, n_t_32x, n_t_3x, n_t_50x, n_t_58x, n_t_74x, n_t_77x, n_t_84x, n_t_86x, n_t_90x, n_t_95x, n_t_96x, stp_mark, tx_rate, bd1200, bd150, bd2400, bd300, bd600, c0_l, c1_l, data04_l, data05_l, data06_l, data07_l, data08_l, data09_l, data10_l, data11_l, dotpc_l, eia_in, eia_out, initialize, int_enab, int_rqst_l, internal_io_l, io_pause_l, line, line_l, md03, md04, md05, md06, md07, md08, md09, md10, md11, n15v, n_t_119x, n_t_146x, n_t_161x, n_t_162x, n_t_27x, n_t_30x, n_t_45x, n_t_59x, n_t_83x, n_t_89x, n_t_92x, n_t_93x, power_ok, r_run_l, reader_run, reader_run_or, rtsdtr, rx20ma_data, rx_20ma, rx_20ma_or, rx_active, rx_data, rx_rate, serial_in, skip_l, testp4, tp3, tx_20ma, tx_20ma_or, tx_active, tx_div_l, tx_sel_l);
+input n3v3;
+input n_t_103x;
+input n_t_128x;
+input n_t_152x;
+input n_t_165x;
+input n_t_1x;
+input n_t_32x;
+input n_t_3x;
+input n_t_50x;
+input n_t_58x;
+input n_t_74x;
+output n_t_77x;
+input n_t_84x;
+input n_t_86x;
+input n_t_90x;
+input n_t_95x;
+input n_t_96x;
+input stp_mark;
+input tx_rate;
+inout reg bd1200;
+output reg bd150;
+inout reg bd2400;
+inout reg bd300;
+inout reg bd600;
+output c0_l;
+output c1_l;
+inout data04_l;
+inout data05_l;
+inout data06_l;
+inout data07_l;
+inout data08_l;
+inout data09_l;
+inout data10_l;
+inout data11_l;
+inout dotpc_l;
+output eia_in;
+output eia_out;
+input initialize;
+inout int_enab;
+output int_rqst_l;
+output internal_io_l;
+input io_pause_l;
+inout reg line;
+output line_l;
+input md03;
+input md04;
+input md05;
+input md06;
+input md07;
+input md08;
+input md09;
+input md10;
+input md11;
+output n15v;
+inout reg n_t_119x;
+inout reg n_t_146x;
+output n_t_161x;
+output reg n_t_162x;
+inout n_t_27x;
+inout reg n_t_30x;
+output n_t_45x;
+output n_t_59x;
+input n_t_83x;
+output n_t_89x;
+output n_t_92x;
+output n_t_93x;
+input power_ok;
+output reg r_run_l;
+output reader_run;
+output reader_run_or;
+output rtsdtr;
+output rx20ma_data;
+output rx_20ma;
+output rx_20ma_or;
+inout reg rx_active;
+output rx_data;
+inout reg rx_rate;
+input serial_in;
+inout skip_l;
+input testp4;
+input tp3;
+output tx_20ma;
+output tx_20ma_or;
+inout tx_active;
+inout tx_div_l;
+inout tx_sel_l;
+
+`line 164 "M8650D.v" 0
+reg ck_pulse_m;
+reg enab_m;
+reg gdollar_4_m;
+reg gdollar_5_m;
+reg gdollar_6_m;
+reg gdollar_7_m;
+reg gdollar_8_m;
+reg int_enab_l_m;
+reg last_unit_m;
+reg line_m;
+reg n_t_119x_m;
+reg n_t_146x_m;
+reg n_t_154x_m;
+reg n_t_30x_m;
+reg n_t_34x_m;
+reg n_t_35x_m;
+reg n_t_36x_m;
+reg n_t_37x_m;
+reg n_t_38x_m;
+reg n_t_39x_m;
+reg n_t_40x_m;
+reg n_t_43x_m;
+reg n_t_56x_m;
+reg n_t_60x_m;
+reg n_t_61x_m;
+reg n_t_62x_m;
+reg n_t_63x_m;
+reg n_t_65x_m;
+reg n_t_66x_m;
+reg n_t_75x_m;
+reg n_t_88x_m;
+reg p_pulse_l_m;
+reg r_run_l_m;
+reg rflg_l_m;
+reg rx_active_m;
+reg rx_div_m;
+reg spike_det_l_m;
+reg start_l_m;
+reg tflg_l_m;
+reg tx_active_l_m;
+reg tx_data_m;
+reg tx_div_m;
+
+`line 207 "M8650D.v" 0
+reg rx_div;
+reg ck_pulse;
+reg n_t_43x;
+reg n_t_75x;
+reg n_t_155x;
+reg gdollar_0;
+reg gdollar_1;
+reg n_t_34x;
+reg n_t_36x;
+reg n_t_35x;
+reg p_pulse_l;
+reg last_unit;
+reg n_t_88x;
+reg n_t_37x;
+reg n_t_38x;
+reg n_t_39x;
+reg n_t_40x;
+reg tx_div;
+reg spike_det_l;
+reg gdollar_2;
+reg gdollar_3;
+reg tx_active_l;
+reg start_l;
+reg gdollar_4;
+reg gdollar_5;
+reg gdollar_6;
+reg n_t_154x;
+reg gdollar_7;
+reg gdollar_8;
+reg n_t_60x;
+reg n_t_62x;
+reg n_t_56x;
+reg n_t_61x;
+reg enab;
+reg n_t_63x;
+reg n_t_65x;
+reg n_t_66x;
+reg tx_data;
+reg tflg_l;
+reg int_enab_l;
+reg rflg_l;
+wire ckkcc_l;
+wire ckkcf;
+wire ckkie;
+wire cktcf;
+wire cktfl;
+wire dokcc;
+wire dokrs;
+wire dotcf;
+wire dotpc;
+wire flgs;
+wire kcc_l;
+wire kcf_l;
+wire kie_l;
+wire krb_l;
+wire krs_l;
+wire ksf_l;
+wire kskp;
+wire n_t_108x;
+wire n_t_16x;
+wire n_t_18x;
+wire n_t_19x;
+wire n_t_21x;
+wire n_t_23x;
+wire n_t_24x;
+wire n_t_25x;
+wire n_t_28x;
+wire n_t_29x;
+wire n_t_41x;
+wire n_t_42x;
+wire n_t_46x;
+wire n_t_47x;
+wire n_t_48x;
+wire n_t_49x;
+wire n_t_52x;
+wire n_t_53x;
+wire n_t_54x;
+wire n_t_55x;
+wire n_t_57x;
+wire n_t_68x;
+wire n_t_69x;
+wire n_t_70x;
+wire n_t_71x;
+wire n_t_76x;
+wire n_t_80x;
+wire n_t_81x;
+wire n_t_8x;
+wire n_t_91x;
+wire n_t_94x;
+wire rx_bot;
+wire rx_sel_l;
+wire selected_l;
+wire tcf_l;
+wire tfl_l;
+wire tkskp;
+wire tls_l;
+wire tpc_l;
+wire tsf_l;
+wire tsk_l;
+wire tskp;
+assign n_t_93x = ~(md08
+                    | io_pause_l);
+assign n_t_59x = ~(io_pause_l
+                    | md04);
+assign n_t_45x = ~(io_pause_l
+                    | md03);
+ 
+ 
+ 
+ 
+ 
+ 
+always @(rx_rate, n3v3, n3v3, n_t_76x)
+  if (~n3v3) begin
+    rx_div_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    rx_div_m <= 1'b1;
+  end else
+  if (~(rx_rate)) begin
+    rx_div_m <= n_t_76x;
+  end
+always @(rx_rate, n3v3, n3v3, rx_div_m)
+  if (~n3v3) begin
+    rx_div <= 1'b0;
+  end else
+  if (~n3v3) begin
+    rx_div <= 1'b1;
+  end else
+  if (rx_rate) begin
+    rx_div <= rx_div_m;
+  end
+always @(n_t_80x, rx_rate, n3v3, 1'b1)
+  if (~rx_rate) begin
+    ck_pulse_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    ck_pulse_m <= 1'b1;
+  end else
+  if (~(~n_t_80x)) begin
+    ck_pulse_m <= 1'b1;
+  end
+always @(n_t_80x, rx_rate, n3v3, ck_pulse_m)
+  if (~rx_rate) begin
+    ck_pulse <= 1'b0;
+  end else
+  if (~n3v3) begin
+    ck_pulse <= 1'b1;
+  end else
+  if (~n_t_80x) begin
+    ck_pulse <= ck_pulse_m;
+  end
+ 
+always @(rx_div, n3v3, n_t_27x, n_t_43x)
+  if (~n3v3) begin
+    n_t_43x_m <= 1'b0;
+  end else
+  if (~n_t_27x) begin
+    n_t_43x_m <= 1'b1;
+  end else
+  if (~(~rx_div)) begin
+    n_t_43x_m <= ~n_t_43x;
+  end
+always @(rx_div, n3v3, n_t_27x, n_t_43x_m)
+  if (~n3v3) begin
+    n_t_43x <= 1'b0;
+  end else
+  if (~n_t_27x) begin
+    n_t_43x <= 1'b1;
+  end else
+  if (~rx_div) begin
+    n_t_43x <= n_t_43x_m;
+  end
+always @(n_t_43x, n3v3, n_t_27x, n_t_75x)
+  if (~n3v3) begin
+    n_t_75x_m <= 1'b0;
+  end else
+  if (~n_t_27x) begin
+    n_t_75x_m <= 1'b1;
+  end else
+  if (~(n_t_43x)) begin
+    n_t_75x_m <= ~n_t_75x;
+  end
+always @(n_t_43x, n3v3, n_t_27x, n_t_75x_m)
+  if (~n3v3) begin
+    n_t_75x <= 1'b0;
+  end else
+  if (~n_t_27x) begin
+    n_t_75x <= 1'b1;
+  end else
+  if (n_t_43x) begin
+    n_t_75x <= n_t_75x_m;
+  end
+ 
+always @(negedge n_t_154x)
+  if (~n_t_154x) begin
+    n_t_155x <= ~n_t_155x;
+  end
+always @(negedge n_t_155x)
+  if (~n_t_155x) begin
+    gdollar_0 <= ~gdollar_0;
+  end
+always @(negedge gdollar_0)
+  if (~gdollar_0) begin
+    gdollar_1 <= ~gdollar_1;
+  end
+always @(negedge gdollar_1)
+  if (~gdollar_1) begin
+    bd2400 <= ~bd2400;
+  end
+ 
+always @(n_t_41x, n3v3, serial_in, p_pulse_l, n3v3, p_pulse_l, n_t_30x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_30x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_30x_m <= ~serial_in & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_30x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_30x_m)
+  if (~n3v3) begin
+    n_t_30x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_30x <= n_t_30x_m;
+  end
+always @(n_t_41x, n3v3, n_t_30x, p_pulse_l, n3v3, p_pulse_l, n_t_34x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_34x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_34x_m <= n_t_30x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_34x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_34x_m)
+  if (~n3v3) begin
+    n_t_34x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_34x <= n_t_34x_m;
+  end
+always @(n_t_41x, n3v3, n_t_34x, p_pulse_l, n3v3, p_pulse_l, n_t_36x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_36x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_36x_m <= n_t_34x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_36x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_36x_m)
+  if (~n3v3) begin
+    n_t_36x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_36x <= n_t_36x_m;
+  end
+always @(n_t_41x, n3v3, n_t_36x, p_pulse_l, n3v3, p_pulse_l, n_t_35x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_35x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_35x_m <= n_t_36x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_35x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_35x_m)
+  if (~n3v3) begin
+    n_t_35x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_35x <= n_t_35x_m;
+  end
+ 
+always @(n_t_70x, power_ok, n_t_71x, 1'b0)
+  if (~power_ok) begin
+    rx_active_m <= 1'b0;
+  end else
+  if (~n_t_71x) begin
+    rx_active_m <= 1'b1;
+  end else
+  if (~(~n_t_70x)) begin
+    rx_active_m <= 1'b0;
+  end
+always @(n_t_70x, power_ok, n_t_71x, rx_active_m)
+  if (~power_ok) begin
+    rx_active <= 1'b0;
+  end else
+  if (~n_t_71x) begin
+    rx_active <= 1'b1;
+  end else
+  if (~n_t_70x) begin
+    rx_active <= rx_active_m;
+  end
+always @(rx_active, n3v3, n_t_75x, 1'b0)
+  if (~n3v3) begin
+    p_pulse_l_m <= 1'b0;
+  end else
+  if (~n_t_75x) begin
+    p_pulse_l_m <= 1'b1;
+  end else
+  if (~(rx_active)) begin
+    p_pulse_l_m <= 1'b0;
+  end
+always @(rx_active, n3v3, n_t_75x, p_pulse_l_m)
+  if (~n3v3) begin
+    p_pulse_l <= 1'b0;
+  end else
+  if (~n_t_75x) begin
+    p_pulse_l <= 1'b1;
+  end else
+  if (rx_active) begin
+    p_pulse_l <= p_pulse_l_m;
+  end
+ 
+always @(ck_pulse, n_t_91x, n3v3, rx_bot)
+  if (~n_t_91x) begin
+    last_unit_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    last_unit_m <= 1'b1;
+  end else
+  if (~(ck_pulse)) begin
+    last_unit_m <= rx_bot;
+  end
+always @(ck_pulse, n_t_91x, n3v3, last_unit_m)
+  if (~n_t_91x) begin
+    last_unit <= 1'b0;
+  end else
+  if (~n3v3) begin
+    last_unit <= 1'b1;
+  end else
+  if (ck_pulse) begin
+    last_unit <= last_unit_m;
+  end
+always @(n_t_75x, n_t_27x, n3v3, n_t_88x)
+  if (~n_t_27x) begin
+    n_t_88x_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_88x_m <= 1'b1;
+  end else
+  if (~(n_t_75x)) begin
+    n_t_88x_m <= ~n_t_88x;
+  end
+always @(n_t_75x, n_t_27x, n3v3, n_t_88x_m)
+  if (~n_t_27x) begin
+    n_t_88x <= 1'b0;
+  end else
+  if (~n3v3) begin
+    n_t_88x <= 1'b1;
+  end else
+  if (n_t_75x) begin
+    n_t_88x <= n_t_88x_m;
+  end
+ 
+assign rx_sel_l = n_t_165x
+                   | io_pause_l
+                   | n_t_86x
+                   | n_t_3x
+                   | n_t_96x
+                   | n_t_50x
+                   | n_t_90x;
+ 
+always @(n_t_41x, n3v3, n_t_35x, p_pulse_l, n3v3, p_pulse_l, n_t_37x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_37x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_37x_m <= n_t_35x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_37x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_37x_m)
+  if (~n3v3) begin
+    n_t_37x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_37x <= n_t_37x_m;
+  end
+always @(n_t_41x, n3v3, n_t_37x, p_pulse_l, n3v3, p_pulse_l, n_t_38x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_38x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_38x_m <= n_t_37x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_38x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_38x_m)
+  if (~n3v3) begin
+    n_t_38x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_38x <= n_t_38x_m;
+  end
+always @(n_t_41x, n3v3, n_t_38x, p_pulse_l, n3v3, p_pulse_l, n_t_39x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_39x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_39x_m <= n_t_38x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_39x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_39x_m)
+  if (~n3v3) begin
+    n_t_39x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_39x <= n_t_39x_m;
+  end
+always @(n_t_41x, n3v3, n_t_39x, p_pulse_l, n3v3, p_pulse_l, n_t_40x, n3v3, p_pulse_l)
+  if (~n3v3) begin
+    n_t_40x_m <= 1'b0;
+  end else
+  if (~(~n_t_41x)) begin
+    n_t_40x_m <= n_t_39x & p_pulse_l
+                    | n3v3 & ~p_pulse_l
+                    | n_t_40x & ~n3v3 & ~p_pulse_l;
+  end
+always @(n_t_41x, n3v3, n_t_40x_m)
+  if (~n3v3) begin
+    n_t_40x <= 1'b0;
+  end else
+  if (~n_t_41x) begin
+    n_t_40x <= n_t_40x_m;
+  end
+assign rx_bot = ~n_t_40x;
+ 
+assign n_t_81x = ~(spike_det_l
+                    | serial_in);
+assign n_t_41x = ~(ck_pulse
+                    | n_t_42x);
+assign n_t_42x = ~(p_pulse_l
+                    | n_t_43x);
+ 
+assign n_t_80x = ~(rx_active & n_t_88x);
+assign n_t_91x = ~(~rx_active & n_t_88x);
+assign n_t_76x = ~(rx_div & n_t_27x);
+assign n_t_27x = ~(~last_unit & ~rx_active);
+ 
+always @(negedge bd2400)
+  if (~bd2400) begin
+    bd1200 <= ~bd1200;
+  end
+always @(negedge bd1200)
+  if (~bd1200) begin
+    bd600 <= ~bd600;
+  end
+always @(negedge bd600)
+  if (~bd600) begin
+    bd300 <= ~bd300;
+  end
+always @(negedge bd300)
+  if (~bd300) begin
+    bd150 <= ~bd150;
+  end
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+always @(tx_rate, n3v3, initialize, n_t_94x)
+  if (~n3v3) begin
+    tx_div_m <= 1'b0;
+  end else
+  if (initialize) begin
+    tx_div_m <= 1'b1;
+  end else
+  if (~(tx_rate)) begin
+    tx_div_m <= n_t_94x;
+  end
+always @(tx_rate, n3v3, initialize, tx_div_m)
+  if (~n3v3) begin
+    tx_div <= 1'b0;
+  end else
+  if (initialize) begin
+    tx_div <= 1'b1;
+  end else
+  if (tx_rate) begin
+    tx_div <= tx_div_m;
+  end
+assign tx_div_l = ~tx_div;
+always @(n_t_80x, n_t_71x, initialize, 1'b1)
+  if (~n_t_71x) begin
+    spike_det_l_m <= 1'b0;
+  end else
+  if (initialize) begin
+    spike_det_l_m <= 1'b1;
+  end else
+  if (~(n_t_80x)) begin
+    spike_det_l_m <= 1'b1;
+  end
+always @(n_t_80x, n_t_71x, initialize, spike_det_l_m)
+  if (~n_t_71x) begin
+    spike_det_l <= 1'b0;
+  end else
+  if (initialize) begin
+    spike_det_l <= 1'b1;
+  end else
+  if (n_t_80x) begin
+    spike_det_l <= spike_det_l_m;
+  end
+ 
+always @(negedge testp4)
+  if (~testp4) begin
+    rx_rate <= ~rx_rate;
+  end
+always @(negedge rx_rate)
+  if (~rx_rate) begin
+    gdollar_2 <= ~gdollar_2;
+  end
+always @(negedge gdollar_2)
+  if (~gdollar_2) begin
+    gdollar_3 <= ~gdollar_3;
+  end
+always @(negedge gdollar_3)
+  if (~gdollar_3) begin
+    n_t_162x <= ~n_t_162x;
+  end
+ 
+assign n_t_71x = ~(serial_in & ~n_t_27x & rx_rate);
+assign n_t_18x = ~(n_t_68x & tx_div_l & n_t_69x);
+assign n_t_24x = ~(n_t_69x & n_t_68x);
+ 
+always @(tx_rate, n3v3, initialize, n_t_108x)
+  if (~n3v3) begin
+    tx_active_l_m <= 1'b0;
+  end else
+  if (initialize) begin
+    tx_active_l_m <= 1'b1;
+  end else
+  if (~(tx_rate)) begin
+    tx_active_l_m <= n_t_108x;
+  end
+always @(tx_rate, n3v3, initialize, tx_active_l_m)
+  if (~n3v3) begin
+    tx_active_l <= 1'b0;
+  end else
+  if (initialize) begin
+    tx_active_l <= 1'b1;
+  end else
+  if (tx_rate) begin
+    tx_active_l <= tx_active_l_m;
+  end
+assign tx_active = ~tx_active_l;
+always @(tx_active, n3v3, tx_rate, n3v3)
+  if (~n3v3) begin
+    start_l_m <= 1'b0;
+  end else
+  if (~tx_rate) begin
+    start_l_m <= 1'b1;
+  end else
+  if (~(tx_active)) begin
+    start_l_m <= ~n3v3;
+  end
+always @(tx_active, n3v3, tx_rate, start_l_m)
+  if (~n3v3) begin
+    start_l <= 1'b0;
+  end else
+  if (~tx_rate) begin
+    start_l <= 1'b1;
+  end else
+  if (tx_active) begin
+    start_l <= start_l_m;
+  end
+ 
+assign rx_data = ~n_t_83x;
+ 
+always @(n3v3, n_t_152x, n3v3, gdollar_4)
+  if (~n3v3) begin
+    gdollar_4_m <= 1'b0;
+  end else
+  if (~(~(~n3v3
+                         | ~n_t_152x))) begin
+    gdollar_4_m <= ~gdollar_4;
+  end
+always @(n3v3, n_t_152x, n3v3, gdollar_4_m)
+  if (~n3v3) begin
+    gdollar_4 <= 1'b0;
+  end else
+  if (~(~n3v3
+                         | ~n_t_152x)) begin
+    gdollar_4 <= gdollar_4_m;
+  end
+always @(n3v3, gdollar_4, n_t_152x, gdollar_4, n3v3, gdollar_5)
+  if (~n3v3) begin
+    gdollar_5_m <= 1'b0;
+  end else
+  if (~(~(~n3v3 & ~gdollar_4
+                         | ~n_t_152x & gdollar_4))) begin
+    gdollar_5_m <= ~gdollar_5;
+  end
+always @(n3v3, gdollar_4, n_t_152x, gdollar_4, n3v3, gdollar_5_m)
+  if (~n3v3) begin
+    gdollar_5 <= 1'b0;
+  end else
+  if (~(~n3v3 & ~gdollar_4
+                         | ~n_t_152x & gdollar_4)) begin
+    gdollar_5 <= gdollar_5_m;
+  end
+always @(n3v3, gdollar_4, gdollar_5, n_t_152x, gdollar_4, gdollar_5, n3v3, gdollar_6)
+  if (~n3v3) begin
+    gdollar_6_m <= 1'b0;
+  end else
+  if (~(~(~n3v3 & ~gdollar_4 & ~gdollar_5
+                         | ~n_t_152x & gdollar_4 & gdollar_5))) begin
+    gdollar_6_m <= ~gdollar_6;
+  end
+always @(n3v3, gdollar_4, gdollar_5, n_t_152x, gdollar_4, gdollar_5, n3v3, gdollar_6_m)
+  if (~n3v3) begin
+    gdollar_6 <= 1'b0;
+  end else
+  if (~(~n3v3 & ~gdollar_4 & ~gdollar_5
+                         | ~n_t_152x & gdollar_4 & gdollar_5)) begin
+    gdollar_6 <= gdollar_6_m;
+  end
+always @(n3v3, gdollar_6, gdollar_4, gdollar_5, n_t_152x, gdollar_6, gdollar_4, gdollar_5, n3v3, n_t_154x)
+  if (~n3v3) begin
+    n_t_154x_m <= 1'b0;
+  end else
+  if (~(~(~n3v3 & ~gdollar_6 & ~gdollar_4 & ~gdollar_5
+                        | ~n_t_152x & gdollar_6 & gdollar_4 & gdollar_5))) begin
+    n_t_154x_m <= ~n_t_154x;
+  end
+always @(n3v3, gdollar_6, gdollar_4, gdollar_5, n_t_152x, gdollar_6, gdollar_4, gdollar_5, n3v3, n_t_154x_m)
+  if (~n3v3) begin
+    n_t_154x <= 1'b0;
+  end else
+  if (~(~n3v3 & ~gdollar_6 & ~gdollar_4 & ~gdollar_5
+                        | ~n_t_152x & gdollar_6 & gdollar_4 & gdollar_5)) begin
+    n_t_154x <= n_t_154x_m;
+  end
+ 
+assign selected_l = ~(~rx_sel_l
+                       | ~tx_sel_l);
+assign n_t_92x = ~(io_pause_l
+                    | md07);
+assign n_t_161x = ~(md05
+                     | io_pause_l);
+assign n_t_89x = ~(io_pause_l
+                    | md06);
+ 
+assign n_t_69x = ~(n_t_56x
+                    | enab
+                    | n_t_60x
+                    | n_t_62x);
+assign n_t_68x = ~(n_t_63x
+                    | n_t_65x
+                    | n_t_66x
+                    | n_t_61x);
+ 
+assign n_t_108x = ~(stp_mark & enab
+                     | tx_active & n_t_18x);
+assign n_t_57x = ~(tp3 & dotpc
+                    | tx_div & n_t_103x);
+ 
+always @(tx_rate, tx_div, tx_active_l, n3v3, n3v3, n3v3, n_t_146x, n3v3, n3v3)
+  if (~tx_div) begin
+    n_t_146x_m <= 1'b0;
+  end else
+  if (~(tx_rate)) begin
+    n_t_146x_m <= tx_active_l & n3v3
+                     |  & n3v3 & ~n3v3
+                     | n_t_146x & ~n3v3 & ~n3v3;
+  end
+always @(tx_rate, tx_div, n_t_146x_m)
+  if (~tx_div) begin
+    n_t_146x <= 1'b0;
+  end else
+  if (tx_rate) begin
+    n_t_146x <= n_t_146x_m;
+  end
+always @(tx_rate, tx_div, n_t_146x, n3v3, n3v3, n3v3, gdollar_7, n3v3, n3v3)
+  if (~tx_div) begin
+    gdollar_7_m <= 1'b0;
+  end else
+  if (~(tx_rate)) begin
+    gdollar_7_m <= n_t_146x & n3v3
+                      |  & n3v3 & ~n3v3
+                      | gdollar_7 & ~n3v3 & ~n3v3;
+  end
+always @(tx_rate, tx_div, gdollar_7_m)
+  if (~tx_div) begin
+    gdollar_7 <= 1'b0;
+  end else
+  if (tx_rate) begin
+    gdollar_7 <= gdollar_7_m;
+  end
+always @(tx_rate, tx_div, gdollar_7, n3v3, n3v3, n3v3, n_t_119x, n3v3, n3v3)
+  if (~tx_div) begin
+    n_t_119x_m <= 1'b0;
+  end else
+  if (~(tx_rate)) begin
+    n_t_119x_m <= gdollar_7 & n3v3
+                     |  & n3v3 & ~n3v3
+                     | n_t_119x & ~n3v3 & ~n3v3;
+  end
+always @(tx_rate, tx_div, n_t_119x_m)
+  if (~tx_div) begin
+    n_t_119x <= 1'b0;
+  end else
+  if (tx_rate) begin
+    n_t_119x <= n_t_119x_m;
+  end
+always @(tx_rate, tx_div, n_t_119x, n3v3, n3v3, n3v3, gdollar_8, n3v3, n3v3)
+  if (~tx_div) begin
+    gdollar_8_m <= 1'b0;
+  end else
+  if (~(tx_rate)) begin
+    gdollar_8_m <= n_t_119x & n3v3
+                      |  & n3v3 & ~n3v3
+                      | gdollar_8 & ~n3v3 & ~n3v3;
+  end
+always @(tx_rate, tx_div, gdollar_8_m)
+  if (~tx_div) begin
+    gdollar_8 <= 1'b0;
+  end else
+  if (tx_rate) begin
+    gdollar_8 <= gdollar_8_m;
+  end
+ 
+assign n_t_47x = ~(data05_l
+                    | dotpc_l);
+assign n_t_46x = ~(dotpc_l
+                    | data04_l);
+assign n_t_49x = ~(data07_l
+                    | dotpc_l);
+assign n_t_48x = ~(dotpc_l
+                    | data06_l);
+ 
+always @(n_t_57x, initialize, enab, dotpc_l, n_t_46x, n3v3, dotpc_l, n_t_60x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_60x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_60x_m <= enab & dotpc_l
+                    | n_t_46x & n3v3 & ~dotpc_l
+                    | n_t_60x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_60x_m)
+  if (initialize) begin
+    n_t_60x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_60x <= n_t_60x_m;
+  end
+always @(n_t_57x, initialize, n_t_60x, dotpc_l, n_t_47x, n3v3, dotpc_l, n_t_62x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_62x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_62x_m <= n_t_60x & dotpc_l
+                    | n_t_47x & n3v3 & ~dotpc_l
+                    | n_t_62x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_62x_m)
+  if (initialize) begin
+    n_t_62x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_62x <= n_t_62x_m;
+  end
+always @(n_t_57x, initialize, n_t_62x, dotpc_l, n_t_48x, n3v3, dotpc_l, n_t_56x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_56x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_56x_m <= n_t_62x & dotpc_l
+                    | n_t_48x & n3v3 & ~dotpc_l
+                    | n_t_56x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_56x_m)
+  if (initialize) begin
+    n_t_56x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_56x <= n_t_56x_m;
+  end
+always @(n_t_57x, initialize, n_t_56x, dotpc_l, n_t_49x, n3v3, dotpc_l, n_t_61x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_61x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_61x_m <= n_t_56x & dotpc_l
+                    | n_t_49x & n3v3 & ~dotpc_l
+                    | n_t_61x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_61x_m)
+  if (initialize) begin
+    n_t_61x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_61x <= n_t_61x_m;
+  end
+ 
+always @(tx_div, start_l, tx_active, tx_data)
+  if (~start_l) begin
+    line_m <= 1'b0;
+  end else
+  if (~tx_active) begin
+    line_m <= 1'b1;
+  end else
+  if (~(tx_div)) begin
+    line_m <= tx_data;
+  end
+always @(tx_div, start_l, tx_active, line_m)
+  if (~start_l) begin
+    line <= 1'b0;
+  end else
+  if (~tx_active) begin
+    line <= 1'b1;
+  end else
+  if (tx_div) begin
+    line <= line_m;
+  end
+assign line_l = ~line;
+always @(n_t_57x, initialize, n3v3, dotpc)
+  if (initialize) begin
+    enab_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    enab_m <= 1'b1;
+  end else
+  if (~(~n_t_57x)) begin
+    enab_m <= dotpc;
+  end
+always @(n_t_57x, initialize, n3v3, enab_m)
+  if (initialize) begin
+    enab <= 1'b0;
+  end else
+  if (~n3v3) begin
+    enab <= 1'b1;
+  end else
+  if (~n_t_57x) begin
+    enab <= enab_m;
+  end
+ 
+assign n_t_53x = ~(data09_l
+                    | dotpc_l);
+assign n_t_52x = ~(dotpc_l
+                    | data08_l);
+assign n_t_55x = ~(data11_l
+                    | dotpc_l);
+assign n_t_54x = ~(dotpc_l
+                    | data10_l);
+ 
+always @(n_t_57x, initialize, n_t_61x, dotpc_l, n_t_52x, n3v3, dotpc_l, n_t_63x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_63x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_63x_m <= n_t_61x & dotpc_l
+                    | n_t_52x & n3v3 & ~dotpc_l
+                    | n_t_63x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_63x_m)
+  if (initialize) begin
+    n_t_63x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_63x <= n_t_63x_m;
+  end
+always @(n_t_57x, initialize, n_t_63x, dotpc_l, n_t_53x, n3v3, dotpc_l, n_t_65x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_65x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_65x_m <= n_t_63x & dotpc_l
+                    | n_t_53x & n3v3 & ~dotpc_l
+                    | n_t_65x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_65x_m)
+  if (initialize) begin
+    n_t_65x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_65x <= n_t_65x_m;
+  end
+always @(n_t_57x, initialize, n_t_65x, dotpc_l, n_t_54x, n3v3, dotpc_l, n_t_66x, n3v3, dotpc_l)
+  if (initialize) begin
+    n_t_66x_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    n_t_66x_m <= n_t_65x & dotpc_l
+                    | n_t_54x & n3v3 & ~dotpc_l
+                    | n_t_66x & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, n_t_66x_m)
+  if (initialize) begin
+    n_t_66x <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    n_t_66x <= n_t_66x_m;
+  end
+always @(n_t_57x, initialize, n_t_66x, dotpc_l, n_t_55x, n3v3, dotpc_l, tx_data, n3v3, dotpc_l)
+  if (initialize) begin
+    tx_data_m <= 1'b0;
+  end else
+  if (~(~n_t_57x)) begin
+    tx_data_m <= n_t_66x & dotpc_l
+                    | n_t_55x & n3v3 & ~dotpc_l
+                    | tx_data & ~n3v3 & ~dotpc_l;
+  end
+always @(n_t_57x, initialize, tx_data_m)
+  if (initialize) begin
+    tx_data <= 1'b0;
+  end else
+  if (~n_t_57x) begin
+    tx_data <= tx_data_m;
+  end
+ 
+ 
+ 
+ 
+ 
+ 
+assign n_t_8x = io_pause_l
+                 | data11_l;
+ 
+assign dotpc_l = ~dotpc;
+assign n_t_29x = ~(ckkcc_l & ~initialize);
+assign n_t_94x = ~(tx_div & tx_active);
+ 
+assign rx20ma_data = n_t_128x;
+ 
+ 
+ 
+ 
+ 
+ 
+always @(tx_div, cktfl, n_t_16x, n_t_24x)
+  if (cktfl) begin
+    tflg_l_m <= 1'b0;
+  end else
+  if (n_t_16x) begin
+    tflg_l_m <= 1'b1;
+  end else
+  if (~(tx_div)) begin
+    tflg_l_m <= n_t_24x;
+  end
+always @(tx_div, cktfl, n_t_16x, tflg_l_m)
+  if (cktfl) begin
+    tflg_l <= 1'b0;
+  end else
+  if (n_t_16x) begin
+    tflg_l <= 1'b1;
+  end else
+  if (tx_div) begin
+    tflg_l <= tflg_l_m;
+  end
+always @(ckkie, initialize, n3v3, n_t_8x)
+  if (initialize) begin
+    int_enab_l_m <= 1'b0;
+  end else
+  if (~n3v3) begin
+    int_enab_l_m <= 1'b1;
+  end else
+  if (~(ckkie)) begin
+    int_enab_l_m <= n_t_8x;
+  end
+always @(ckkie, initialize, n3v3, int_enab_l_m)
+  if (initialize) begin
+    int_enab_l <= 1'b0;
+  end else
+  if (~n3v3) begin
+    int_enab_l <= 1'b1;
+  end else
+  if (ckkie) begin
+    int_enab_l <= int_enab_l_m;
+  end
+assign int_enab = ~int_enab_l;
+ 
+assign n_t_70x = ~(n_t_80x & last_unit
+                    | n_t_81x & ck_pulse);
+ 
+assign tfl_l = ~(~tx_sel_l & ~n_t_23x & ~n_t_21x & ~n_t_25x);
+assign tsf_l = ~(~tx_sel_l & ~n_t_23x & ~n_t_21x & n_t_25x);
+assign tcf_l = ~(~tx_sel_l & ~n_t_23x & n_t_21x & ~n_t_25x);
+assign tpc_l = ~(~tx_sel_l & n_t_23x & ~n_t_21x & ~n_t_25x);
+assign tsk_l = ~(~tx_sel_l & n_t_23x & ~n_t_21x & n_t_25x);
+assign tls_l = ~(~tx_sel_l & n_t_23x & n_t_21x & ~n_t_25x);
+ 
+assign n_t_16x = ~(~initialize & cktcf);
+assign dotpc = ~(tls_l & tpc_l);
+assign dotcf = ~(tls_l & tcf_l);
+assign cktcf = ~(dotcf & tp3);
+ 
+ 
+assign kcf_l = ~(~rx_sel_l & ~n_t_23x & ~n_t_21x & ~n_t_25x);
+assign ksf_l = ~(~rx_sel_l & ~n_t_23x & ~n_t_21x & n_t_25x);
+assign kcc_l = ~(~rx_sel_l & ~n_t_23x & n_t_21x & ~n_t_25x);
+assign krs_l = ~(~rx_sel_l & n_t_23x & ~n_t_21x & ~n_t_25x);
+assign kie_l = ~(~rx_sel_l & n_t_23x & ~n_t_21x & n_t_25x);
+assign krb_l = ~(~rx_sel_l & n_t_23x & n_t_21x & ~n_t_25x);
+ 
+assign flgs = ~(rflg_l & tflg_l);
+assign dokrs = ~(krb_l & krs_l);
+assign dokcc = ~(krb_l & kcc_l);
+assign ckkcc_l = ~(dokcc & tp3);
+ 
+assign cktfl = ~(tfl_l
+                  | ~tp3);
+assign tkskp = ~(~(kskp
+                    | tskp));
+assign n_t_19x = ~(tsk_l
+                    | int_enab_l);
+assign tskp = ~(tflg_l
+                 | tsf_l);
+ 
+assign n_t_21x = ~(md10
+                    | selected_l);
+assign n_t_23x = ~(selected_l
+                    | md09);
+assign n_t_25x = ~(md11
+                    | selected_l);
+ 
+assign n_t_28x = ~(n_t_29x
+                    | ckkcf);
+assign ckkcf = ~(~tp3
+                  | kcf_l);
+assign ckkie = ~(kie_l
+                  | ~tp3);
+assign kskp = ~(ksf_l
+                 | rflg_l);
+ 
+always @(ck_pulse, n3v3, n_t_28x, rx_bot)
+  if (~n3v3) begin
+    rflg_l_m <= 1'b0;
+  end else
+  if (~n_t_28x) begin
+    rflg_l_m <= 1'b1;
+  end else
+  if (~(ck_pulse)) begin
+    rflg_l_m <= ~rx_bot;
+  end
+always @(ck_pulse, n3v3, n_t_28x, rflg_l_m)
+  if (~n3v3) begin
+    rflg_l <= 1'b0;
+  end else
+  if (~n_t_28x) begin
+    rflg_l <= 1'b1;
+  end else
+  if (ck_pulse) begin
+    rflg_l <= rflg_l_m;
+  end
+always @(n_t_30x, ckkcc_l, initialize, n3v3)
+  if (~ckkcc_l) begin
+    r_run_l_m <= 1'b0;
+  end else
+  if (initialize) begin
+    r_run_l_m <= 1'b1;
+  end else
+  if (~(~n_t_30x)) begin
+    r_run_l_m <= n3v3;
+  end
+always @(n_t_30x, ckkcc_l, initialize, r_run_l_m)
+  if (~ckkcc_l) begin
+    r_run_l <= 1'b0;
+  end else
+  if (initialize) begin
+    r_run_l <= 1'b1;
+  end else
+  if (~n_t_30x) begin
+    r_run_l <= r_run_l_m;
+  end
+ 
+assign c0_l = dokcc? ~dokcc: 1'bz;
+assign c1_l = dokrs
+               | dokcc? 1'b0: 1'bz;
+assign data04_l = (dokrs & n_t_30x)? 1'b0: 1'bz;
+assign data05_l = (n_t_34x & dokrs)? 1'b0: 1'bz;
+assign data06_l = (dokrs & n_t_36x)? 1'b0: 1'bz;
+assign data07_l = (n_t_35x & dokrs)? 1'b0: 1'bz;
+assign data08_l = (dokrs & n_t_37x)? 1'b0: 1'bz;
+assign data09_l = (n_t_38x & dokrs)? 1'b0: 1'bz;
+assign data10_l = (dokrs & n_t_39x)? 1'b0: 1'bz;
+assign data11_l = (n_t_40x & dokrs)? 1'b0: 1'bz;
+assign int_rqst_l = (flgs & int_enab)? 1'b0: 1'bz;
+assign internal_io_l = (~tx_sel_l)
+                        | (~rx_sel_l)? 1'b0: 1'bz;
+assign skip_l = ~(~(n_t_19x & flgs
+                   | tkskp))? ~(n_t_19x & flgs
+                   | tkskp): 1'bz;
+assign tx_sel_l = ~(n_t_84x
+                   | n_t_1x
+                   | n_t_58x
+                   | n_t_32x
+                   | n_t_95x
+                   | io_pause_l
+                   | n_t_74x)? n_t_84x
+                   | n_t_1x
+                   | n_t_58x
+                   | n_t_32x
+                   | n_t_95x
+                   | io_pause_l
+                   | n_t_74x: 1'bz;
+endmodule
+
+`line 1311 "M8650D.v" 2

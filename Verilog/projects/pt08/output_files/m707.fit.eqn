@@ -1,0 +1,345 @@
+-- Copyright (C) 1991-2013 Altera Corporation
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, Altera MegaCore Function License 
+-- Agreement, or other applicable license agreement, including, 
+-- without limitation, that your use is for the sole purpose of 
+-- programming logic devices manufactured by Altera and sold by 
+-- Altera or its authorized distributors.  Please refer to the 
+-- applicable agreement for further details.
+--A1L23 is initialize~1 at LC24
+A1L23_or_out = !initialize;
+A1L23 = A1L23_or_out;
+
+
+--tx_ratem is tx_ratem at LC14
+tx_ratem_reg_input = VCC;
+tx_ratem = TFFE(tx_ratem_reg_input, GLOBAL(rx_rate), , , );
+
+
+--A1L34Q is tx_rateo~reg0 at LC17
+A1L34Q_reg_input = VCC;
+A1L34Q = TFFE(A1L34Q_reg_input, tx_ratem, , , );
+
+
+--B1_tto[4] is m707:m707|tto[4] at LC2
+B1_tto[4]_or_out = B1_tto[3];
+B1_tto[4]_reg_input = B1_tto[4]_or_out;
+B1_tto[4]_p4_out = bac4 & biop4 & tx_sel;
+B1_tto[4] = DFFE(B1_tto[4]_reg_input, B1_tto_shift, !initialize, !B1_tto[4]_p4_out, );
+
+
+--B1_tto[5] is m707:m707|tto[5] at LC11
+B1_tto[5]_or_out = B1_tto[4];
+B1_tto[5]_reg_input = B1_tto[5]_or_out;
+B1_tto[5]_p4_out = bac5 & biop4 & tx_sel;
+B1_tto[5] = DFFE(B1_tto[5]_reg_input, B1_tto_shift, !initialize, !B1_tto[5]_p4_out, );
+
+
+--B1_tto[6] is m707:m707|tto[6] at LC1
+B1_tto[6]_or_out = B1_tto[5];
+B1_tto[6]_reg_input = B1_tto[6]_or_out;
+B1_tto[6]_p4_out = bac6 & biop4 & tx_sel;
+B1_tto[6] = DFFE(B1_tto[6]_reg_input, B1_tto_shift, !initialize, !B1_tto[6]_p4_out, );
+
+
+--B1_tto[7] is m707:m707|tto[7] at LC20
+B1_tto[7]_or_out = B1_tto[6];
+B1_tto[7]_reg_input = B1_tto[7]_or_out;
+B1_tto[7]_p4_out = bac7 & biop4 & tx_sel;
+B1_tto[7] = DFFE(B1_tto[7]_reg_input, B1_tto_shift, !initialize, !B1_tto[7]_p4_out, );
+
+
+--B1_tto[8] is m707:m707|tto[8] at LC25
+B1_tto[8]_or_out = B1_tto[7];
+B1_tto[8]_reg_input = B1_tto[8]_or_out;
+B1_tto[8]_p4_out = bac8 & biop4 & tx_sel;
+B1_tto[8] = DFFE(B1_tto[8]_reg_input, B1_tto_shift, !initialize, !B1_tto[8]_p4_out, );
+
+
+--B1_tto[9] is m707:m707|tto[9] at LC32
+B1_tto[9]_or_out = B1_tto[8];
+B1_tto[9]_reg_input = B1_tto[9]_or_out;
+B1_tto[9]_p4_out = bac9 & biop4 & tx_sel;
+B1_tto[9] = DFFE(B1_tto[9]_reg_input, B1_tto_shift, !initialize, !B1_tto[9]_p4_out, );
+
+
+--B1_tto[10] is m707:m707|tto[10] at LC31
+B1_tto[10]_or_out = B1_tto[9];
+B1_tto[10]_reg_input = B1_tto[10]_or_out;
+B1_tto[10]_p4_out = bac10 & biop4 & tx_sel;
+B1_tto[10] = DFFE(B1_tto[10]_reg_input, B1_tto_shift, !initialize, !B1_tto[10]_p4_out, );
+
+
+--B1_tto[11] is m707:m707|tto[11] at LC30
+B1_tto[11]_or_out = B1_tto[10];
+B1_tto[11]_reg_input = B1_tto[11]_or_out;
+B1_tto[11]_p4_out = bac11 & biop4 & tx_sel;
+B1_tto[11] = DFFE(B1_tto[11]_reg_input, B1_tto_shift, !initialize, !B1_tto[11]_p4_out, );
+
+
+--B1_out_active is m707:m707|out_active at LC26
+B1_out_active_p1_out = stp_mark & B1_tto[3] & !B1_out_active;
+B1_out_active_p3_out = !stp_mark & B1_tto[3] & B1_out_active & B1_tto[4] & B1_tto[5] & B1_tto[6] & B1_tto[7] & B1_tto[8] & B1_tto[9] & B1_tto[10] & B1_tto[11];
+B1_out_active_or_out = B1_out_active_p1_out # B1_out_active_p3_out;
+B1_out_active_reg_input = B1_out_active_or_out;
+B1_out_active = TFFE(B1_out_active_reg_input, GLOBAL(tx_ratei), !initialize, , );
+
+
+--B1_tto_shift is m707:m707|tto_shift at LC29
+B1_tto_shift_p1_out = B1_tto_shift & B1_out_active;
+B1_tto_shift_or_out = B1_tto_shift_p1_out;
+B1_tto_shift_reg_input = !(B1_tto_shift_or_out);
+B1_tto_shift = DFFE(B1_tto_shift_reg_input, GLOBAL(tx_ratei), , , );
+
+
+--B1_out_stop[0] is m707:m707|out_stop[0] at LC21
+B1_out_stop[0]_or_out = !B1_out_active;
+B1_out_stop[0]_reg_input = B1_out_stop[0]_or_out;
+B1_out_stop[0] = DFFE(B1_out_stop[0]_reg_input, GLOBAL(tx_ratei), B1_tto_shift, , );
+
+
+--B1_tto[3] is m707:m707|tto[3] at LC13
+B1_tto[3]_or_out = GND;
+B1_tto[3]_reg_input = B1_tto[3]_or_out;
+B1_tto[3]_p4_out = biop4 & tx_sel;
+B1_tto[3] = DFFE(B1_tto[3]_reg_input, B1_tto_shift, !initialize, !B1_tto[3]_p4_out, );
+
+
+--B1_out_stop[1] is m707:m707|out_stop[1] at LC4
+B1_out_stop[1]_or_out = B1_out_stop[0];
+B1_out_stop[1]_reg_input = B1_out_stop[1]_or_out;
+B1_out_stop[1] = DFFE(B1_out_stop[1]_reg_input, GLOBAL(tx_ratei), B1_tto_shift, , );
+
+
+--B1L1 is m707:m707|Equal0~4 at LC18
+B1L1_p1_out = B1_tto[3] & B1_tto[4] & B1_tto[5] & B1_tto[6] & B1_tto[7] & B1_tto[8] & B1_tto[9] & B1_tto[10] & B1_tto[11];
+B1L1_or_out = B1L1_p1_out;
+B1L1 = !(B1L1_or_out);
+
+
+--B1_teleprinter_flag is m707:m707|teleprinter_flag at LC27
+B1_teleprinter_flag_p1_out = B1_tto[3] & B1_tto[4] & B1_tto[5] & B1_tto[6] & B1_tto[7] & B1_tto[8] & B1_tto[9] & B1_tto[10] & B1_tto[11];
+B1_teleprinter_flag_or_out = B1_teleprinter_flag_p1_out;
+B1_teleprinter_flag_reg_input = !(B1_teleprinter_flag_or_out);
+B1_teleprinter_flag_p4_out = B1L8 & B1L9;
+B1_teleprinter_flag = DFFE(B1_teleprinter_flag_reg_input, B1_tto_shift, , !B1_teleprinter_flag_p4_out, );
+
+
+--B1L8 is m707:m707|tcf~1 at SEXP18
+B1L8 = EXP(!initialize & !biop2);
+
+
+--B1L9 is m707:m707|tcf~2 at SEXP17
+B1L9 = EXP(!initialize & !tx_sel);
+
+
+--B1_out_stop[2] is m707:m707|out_stop[2] at LC19
+B1_out_stop[2]_or_out = B1_out_stop[1];
+B1_out_stop[2]_reg_input = B1_out_stop[2]_or_out;
+B1_out_stop[2] = DFFE(B1_out_stop[2]_reg_input, GLOBAL(tx_ratei), B1_tto_shift, , );
+
+
+--B1_line is m707:m707|line at LC23
+B1_line_or_out = B1_tto[11];
+B1_line_reg_input = B1_line_or_out;
+B1_line_p2_out = stp_mark & B1_tto[3];
+B1_line = DFFE(B1_line_reg_input, B1_tto_shift, !B1_line_p2_out, , );
+
+
+--B1L23 is m707:m707|tx_data~0 at LC22
+B1L23_p1_out = B1_out_active & !B1_line;
+B1L23_or_out = B1L23_p1_out;
+B1L23 = !(B1L23_or_out);
+
+
+--B1L22 is m707:m707|tto_skip_~2 at LC28
+B1L22_p1_out = biop1 & tx_sel & !B1_teleprinter_flag;
+B1L22_or_out = B1L22_p1_out;
+B1L22 = !(B1L22_or_out);
+
+
+--initialize is initialize at PIN_1
+--operation mode is input
+
+initialize = INPUT();
+
+
+--rx_rate is rx_rate at PIN_2
+--operation mode is input
+
+rx_rate = INPUT();
+
+
+--bac8 is bac8 at PIN_5
+--operation mode is input
+
+bac8 = INPUT();
+
+
+--biop4 is biop4 at PIN_6
+--operation mode is input
+
+biop4 = INPUT();
+
+
+--bac7 is bac7 at PIN_8
+--operation mode is input
+
+bac7 = INPUT();
+
+
+--biop2 is biop2 at PIN_9
+--operation mode is input
+
+biop2 = INPUT();
+
+
+--bac5 is bac5 at PIN_11
+--operation mode is input
+
+bac5 = INPUT();
+
+
+--bac6 is bac6 at PIN_12
+--operation mode is input
+
+bac6 = INPUT();
+
+
+--biop1 is biop1 at PIN_14
+--operation mode is input
+
+biop1 = INPUT();
+
+
+--bac4 is bac4 at PIN_16
+--operation mode is input
+
+bac4 = INPUT();
+
+
+--bac3 is bac3 at PIN_17
+--operation mode is input
+
+bac3 = INPUT();
+
+
+--bac11 is bac11 at PIN_18
+--operation mode is input
+
+bac11 = INPUT();
+
+
+--bac2 is bac2 at PIN_19
+--operation mode is input
+
+bac2 = INPUT();
+
+
+--bac1 is bac1 at PIN_20
+--operation mode is input
+
+bac1 = INPUT();
+
+
+--bac10 is bac10 at PIN_21
+--operation mode is input
+
+bac10 = INPUT();
+
+
+--bac0 is bac0 at PIN_24
+--operation mode is input
+
+bac0 = INPUT();
+
+
+--bac9 is bac9 at PIN_25
+--operation mode is input
+
+bac9 = INPUT();
+
+
+--rx_sel is rx_sel at PIN_26
+--operation mode is input
+
+rx_sel = INPUT();
+
+
+--tx_sel is tx_sel at PIN_31
+--operation mode is input
+
+tx_sel = INPUT();
+
+
+--tx_ratei is tx_ratei at PIN_43
+--operation mode is input
+
+tx_ratei = INPUT();
+
+
+--stp_mark is stp_mark at PIN_44
+--operation mode is input
+
+stp_mark = INPUT();
+
+
+--init_l is init_l at PIN_33
+--operation mode is output
+
+init_l = OUTPUT(A1L23);
+
+
+--tx_rateo is tx_rateo at PIN_41
+--operation mode is output
+
+tx_rateo = OUTPUT(A1L34Q);
+
+
+--stop1 is stop1 at PIN_37
+--operation mode is output
+
+stop1 = OUTPUT(B1_out_stop[0]);
+
+
+--foo is foo at PIN_40
+--operation mode is output
+
+foo = OUTPUT(B1L1);
+
+
+--stop2 is stop2 at PIN_39
+--operation mode is output
+
+stop2 = OUTPUT(B1_out_stop[2]);
+
+
+--irq_l is irq_l at PIN_29
+--operation mode is output
+
+irq_l_open_drain_out = OPNDRN(B1_teleprinter_flag);
+irq_l = OUTPUT(irq_l_open_drain_out);
+
+
+--txdttl is txdttl at PIN_36
+--operation mode is output
+
+txdttl = OUTPUT(B1L23);
+
+
+--skip_l is skip_l at PIN_28
+--operation mode is output
+
+skip_l_open_drain_out = OPNDRN(B1L22);
+skip_l = OUTPUT(skip_l_open_drain_out);
+
+
+
+
+
+
