@@ -220,10 +220,6 @@ void Vpt08::traceInitThis__1(Vpt08__Syms* __restrict vlSymsp, VerilatedVcd* vcdp
 	vcdp->declBit  (c+125,"pt08 e2 biop1",-1);
 	vcdp->declBit  (c+126,"pt08 e2 biop2",-1);
 	vcdp->declBit  (c+127,"pt08 e2 biop4",-1);
-	vcdp->declBit  (c+131,"pt08 e2 iob0_l",-1);
-	vcdp->declBit  (c+132,"pt08 e2 iob1_l",-1);
-	vcdp->declBit  (c+133,"pt08 e2 iob2_l",-1);
-	vcdp->declBit  (c+134,"pt08 e2 iob3_l",-1);
 	vcdp->declBit  (c+135,"pt08 e2 iob4_l",-1);
 	vcdp->declBit  (c+136,"pt08 e2 iob5_l",-1);
 	vcdp->declBit  (c+137,"pt08 e2 iob6_l",-1);

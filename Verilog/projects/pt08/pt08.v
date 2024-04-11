@@ -62,10 +62,10 @@ wire init_l;
 /* verilator lint_off PINMISSING */
 e2 e2(
 // BUGBUG: iob_ should use OC drivers!!
-  .iob0_l(iob0_l),
-  .iob1_l(iob1_l),
-  .iob2_l(iob2_l),
-  .iob3_l(iob3_l),
+//.iob0_l(iob0_l),
+//.iob1_l(iob1_l),
+//.iob2_l(iob2_l),
+//.iob3_l(iob3_l),
   .iob4_l(iob4_l),
   .iob5_l(iob5_l),
   .iob6_l(iob6_l),
