@@ -1,5 +1,5 @@
 Fitter report for e2
-Thu Apr 11 14:18:15 2024
+Thu Apr 11 14:35:25 2024
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -54,15 +54,15 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------+
 ; Fitter Summary                                                              ;
 +---------------------------+-------------------------------------------------+
-; Fitter Status             ; Successful - Thu Apr 11 14:18:15 2024           ;
+; Fitter Status             ; Successful - Thu Apr 11 14:35:25 2024           ;
 ; Quartus II 64-Bit Version ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name             ; e2                                              ;
 ; Top-level Entity Name     ; e2                                              ;
 ; Family                    ; MAX7000S                                        ;
-; Device                    ; EPM7064SLC44-10                                 ;
+; Device                    ; EPM7032SLC44-10                                 ;
 ; Timing Models             ; Final                                           ;
-; Total macrocells          ; 33 / 64 ( 52 % )                                ;
-; Total pins                ; 29 / 36 ( 81 % )                                ;
+; Total macrocells          ; 29 / 32 ( 91 % )                                ;
+; Total pins                ; 25 / 36 ( 69 % )                                ;
 +---------------------------+-------------------------------------------------+
 
 
@@ -71,7 +71,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------+-----------------+---------------+
 ; Option                                                                     ; Setting         ; Default Value ;
 +----------------------------------------------------------------------------+-----------------+---------------+
-; Device                                                                     ; EPM7064SLC44-10 ;               ;
+; Device                                                                     ; EPM7032SLC44-10 ;               ;
 ; Use smart compilation                                                      ; Off             ; Off           ;
 ; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On              ; On            ;
 ; Enable compact report table                                                ; Off             ; Off           ;
@@ -114,21 +114,21 @@ The pin-out file can be found in //wsl.localhost/Debian/home/vrs/Verilog/project
 +------------------------------+------------------+
 ; Resource                     ; Usage            ;
 +------------------------------+------------------+
-; Logic cells                  ; 33 / 64 ( 52 % ) ;
-; Registers                    ; 18 / 64 ( 28 % ) ;
+; Logic cells                  ; 29 / 32 ( 91 % ) ;
+; Registers                    ; 18 / 32 ( 56 % ) ;
 ; Number of pterms used        ; 62               ;
-; I/O pins                     ; 29 / 36 ( 81 % ) ;
-;     -- Clock pins            ; 2 / 2 ( 100 % )  ;
+; I/O pins                     ; 25 / 36 ( 69 % ) ;
+;     -- Clock pins            ; 1 / 2 ( 50 % )   ;
 ;     -- Dedicated input pins  ; 1 / 2 ( 50 % )   ;
 ;                              ;                  ;
 ; Global signals               ; 2                ;
-; Shareable expanders          ; 3 / 64 ( 5 % )   ;
-; Parallel expanders           ; 0 / 60 ( 0 % )   ;
-; Cells using turbo bit        ; 33 / 64 ( 52 % ) ;
+; Shareable expanders          ; 3 / 32 ( 9 % )   ;
+; Parallel expanders           ; 0 / 30 ( 0 % )   ;
+; Cells using turbo bit        ; 29 / 32 ( 91 % ) ;
 ; Maximum fan-out              ; 20               ;
 ; Highest non-global fan-out   ; 20               ;
-; Total fan-out                ; 152              ;
-; Average fan-out              ; 2.34             ;
+; Total fan-out                ; 148              ;
+; Average fan-out              ; 2.60             ;
 +------------------------------+------------------+
 
 
@@ -137,14 +137,14 @@ The pin-out file can be found in //wsl.localhost/Debian/home/vrs/Verilog/project
 +---------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
 ; Name    ; Pin # ; I/O Bank ; LAB ; Combinational Fan-Out ; Registered Fan-Out ; Global ; Input Register ; I/O Standard ; Location assigned by ;
 +---------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
-; biop1   ; 2     ; --       ; --  ; 1                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
-; biop2   ; 31    ; --       ; 3   ; 1                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
-; biop4   ; 40    ; --       ; 4   ; 8                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; biop1   ; 16    ; --       ; 1   ; 1                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; biop2   ; 25    ; --       ; 2   ; 1                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; biop4   ; 24    ; --       ; 2   ; 8                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
 ; init_l  ; 1     ; --       ; --  ; 2                     ; 0                  ; yes    ; no             ; TTL          ; Fitter               ;
-; rx_data ; 37    ; --       ; 4   ; 15                    ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; rx_data ; 20    ; --       ; 1   ; 15                    ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
 ; rx_rate ; 43    ; --       ; --  ; 17                    ; 0                  ; yes    ; no             ; TTL          ; Fitter               ;
-; rx_sel  ; 41    ; --       ; 4   ; 10                    ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
-; tx_sel  ; 4     ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; rx_sel  ; 21    ; --       ; 1   ; 10                    ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
+; tx_sel  ; 19    ; --       ; 1   ; 0                     ; 0                  ; no     ; no             ; TTL          ; Fitter               ;
 +---------+-------+----------+-----+-----------------------+--------------------+--------+----------------+--------------+----------------------+
 
 
@@ -153,23 +153,19 @@ The pin-out file can be found in //wsl.localhost/Debian/home/vrs/Verilog/project
 +---------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
 ; Name    ; Pin # ; I/O Bank ; LAB ; Output Register ; Slow Slew Rate ; Open Drain ; TRI Primitive ; I/O Standard ; Location assigned by ; Load  ; Output Enable Source ; Output Enable Group ;
 +---------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
-; acclr_l ; 24    ; --       ; 3   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; dsrttl  ; 8     ; --       ; 1   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob0_l  ; 20    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob10_l ; 18    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob11_l ; 17    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob1_l  ; 19    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob2_l  ; 26    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob3_l  ; 27    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob4_l  ; 11    ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob5_l  ; 21    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob6_l  ; 28    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob7_l  ; 29    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob8_l  ; 6     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; iob9_l  ; 5     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; irq_l   ; 12    ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; skip_l  ; 9     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
-; txdttl  ; 25    ; --       ; 3   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; acclr_l ; 41    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; dsrttl  ; 36    ; --       ; 2   ; no              ; no             ; no         ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob10_l ; 9     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob11_l ; 31    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob4_l  ; 33    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob5_l  ; 4     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob6_l  ; 5     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob7_l  ; 6     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob8_l  ; 8     ; --       ; 1   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; iob9_l  ; 39    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; irq_l   ; 34    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; skip_l  ; 40    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
+; txdttl  ; 37    ; --       ; 2   ; no              ; no             ; yes        ; no            ; TTL          ; Fitter               ; 10 pF ; -                    ; -                   ;
 +---------+-------+----------+-----+-----------------+----------------+------------+---------------+--------------+----------------------+-------+----------------------+---------------------+
 
 
@@ -179,46 +175,46 @@ The pin-out file can be found in //wsl.localhost/Debian/home/vrs/Verilog/project
 ; Location ; Pad Number ; I/O Bank ; Pin Name/Usage ; Dir.   ; I/O Standard ; Voltage ; User Assignment ;
 +----------+------------+----------+----------------+--------+--------------+---------+-----------------+
 ; 1        ; 0          ; --       ; init_l         ; input  ; TTL          ;         ; N               ;
-; 2        ; 1          ; --       ; biop1          ; input  ; TTL          ;         ; N               ;
+; 2        ; 1          ; --       ; GND+           ;        ;              ;         ;                 ;
 ; 3        ; 2          ; --       ; VCC            ; power  ;              ;         ;                 ;
-; 4        ; 3          ; --       ; tx_sel         ; input  ; TTL          ;         ; N               ;
-; 5        ; 4          ; --       ; iob9_l         ; output ; TTL          ;         ; N               ;
-; 6        ; 5          ; --       ; iob8_l         ; output ; TTL          ;         ; N               ;
+; 4        ; 3          ; --       ; iob5_l         ; output ; TTL          ;         ; N               ;
+; 5        ; 4          ; --       ; iob6_l         ; output ; TTL          ;         ; N               ;
+; 6        ; 5          ; --       ; iob7_l         ; output ; TTL          ;         ; N               ;
 ; 7        ; 6          ; --       ; TDI            ; input  ; TTL          ;         ; N               ;
-; 8        ; 7          ; --       ; dsrttl         ; output ; TTL          ;         ; N               ;
-; 9        ; 8          ; --       ; skip_l         ; output ; TTL          ;         ; N               ;
+; 8        ; 7          ; --       ; iob8_l         ; output ; TTL          ;         ; N               ;
+; 9        ; 8          ; --       ; iob10_l        ; output ; TTL          ;         ; N               ;
 ; 10       ; 9          ; --       ; GND            ; gnd    ;              ;         ;                 ;
-; 11       ; 10         ; --       ; iob4_l         ; output ; TTL          ;         ; N               ;
-; 12       ; 11         ; --       ; irq_l          ; output ; TTL          ;         ; N               ;
+; 11       ; 10         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 12       ; 11         ; --       ; RESERVED       ;        ;              ;         ;                 ;
 ; 13       ; 12         ; --       ; TMS            ; input  ; TTL          ;         ; N               ;
 ; 14       ; 13         ; --       ; RESERVED       ;        ;              ;         ;                 ;
 ; 15       ; 14         ; --       ; VCC            ; power  ;              ;         ;                 ;
-; 16       ; 15         ; --       ; RESERVED       ;        ;              ;         ;                 ;
-; 17       ; 16         ; --       ; iob11_l        ; output ; TTL          ;         ; N               ;
-; 18       ; 17         ; --       ; iob10_l        ; output ; TTL          ;         ; N               ;
-; 19       ; 18         ; --       ; iob1_l         ; output ; TTL          ;         ; N               ;
-; 20       ; 19         ; --       ; iob0_l         ; output ; TTL          ;         ; N               ;
-; 21       ; 20         ; --       ; iob5_l         ; output ; TTL          ;         ; N               ;
+; 16       ; 15         ; --       ; biop1          ; input  ; TTL          ;         ; N               ;
+; 17       ; 16         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 18       ; 17         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 19       ; 18         ; --       ; tx_sel         ; input  ; TTL          ;         ; N               ;
+; 20       ; 19         ; --       ; rx_data        ; input  ; TTL          ;         ; N               ;
+; 21       ; 20         ; --       ; rx_sel         ; input  ; TTL          ;         ; N               ;
 ; 22       ; 21         ; --       ; GND            ; gnd    ;              ;         ;                 ;
 ; 23       ; 22         ; --       ; VCC            ; power  ;              ;         ;                 ;
-; 24       ; 23         ; --       ; acclr_l        ; output ; TTL          ;         ; N               ;
-; 25       ; 24         ; --       ; txdttl         ; output ; TTL          ;         ; N               ;
-; 26       ; 25         ; --       ; iob2_l         ; output ; TTL          ;         ; N               ;
-; 27       ; 26         ; --       ; iob3_l         ; output ; TTL          ;         ; N               ;
-; 28       ; 27         ; --       ; iob6_l         ; output ; TTL          ;         ; N               ;
-; 29       ; 28         ; --       ; iob7_l         ; output ; TTL          ;         ; N               ;
+; 24       ; 23         ; --       ; biop4          ; input  ; TTL          ;         ; N               ;
+; 25       ; 24         ; --       ; biop2          ; input  ; TTL          ;         ; N               ;
+; 26       ; 25         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 27       ; 26         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 28       ; 27         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 29       ; 28         ; --       ; RESERVED       ;        ;              ;         ;                 ;
 ; 30       ; 29         ; --       ; GND            ; gnd    ;              ;         ;                 ;
-; 31       ; 30         ; --       ; biop2          ; input  ; TTL          ;         ; N               ;
+; 31       ; 30         ; --       ; iob11_l        ; output ; TTL          ;         ; N               ;
 ; 32       ; 31         ; --       ; TCK            ; input  ; TTL          ;         ; N               ;
-; 33       ; 32         ; --       ; RESERVED       ;        ;              ;         ;                 ;
-; 34       ; 33         ; --       ; RESERVED       ;        ;              ;         ;                 ;
+; 33       ; 32         ; --       ; iob4_l         ; output ; TTL          ;         ; N               ;
+; 34       ; 33         ; --       ; irq_l          ; output ; TTL          ;         ; N               ;
 ; 35       ; 34         ; --       ; VCC            ; power  ;              ;         ;                 ;
-; 36       ; 35         ; --       ; RESERVED       ;        ;              ;         ;                 ;
-; 37       ; 36         ; --       ; rx_data        ; input  ; TTL          ;         ; N               ;
+; 36       ; 35         ; --       ; dsrttl         ; output ; TTL          ;         ; N               ;
+; 37       ; 36         ; --       ; txdttl         ; output ; TTL          ;         ; N               ;
 ; 38       ; 37         ; --       ; TDO            ; output ; TTL          ;         ; N               ;
-; 39       ; 38         ; --       ; RESERVED       ;        ;              ;         ;                 ;
-; 40       ; 39         ; --       ; biop4          ; input  ; TTL          ;         ; N               ;
-; 41       ; 40         ; --       ; rx_sel         ; input  ; TTL          ;         ; N               ;
+; 39       ; 38         ; --       ; iob9_l         ; output ; TTL          ;         ; N               ;
+; 40       ; 39         ; --       ; skip_l         ; output ; TTL          ;         ; N               ;
+; 41       ; 40         ; --       ; acclr_l        ; output ; TTL          ;         ; N               ;
 ; 42       ; 41         ; --       ; GND            ; gnd    ;              ;         ;                 ;
 ; 43       ; 42         ; --       ; rx_rate        ; input  ; TTL          ;         ; N               ;
 ; 44       ; 43         ; --       ; GND+           ;        ;              ;         ;                 ;
@@ -231,7 +227,7 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +--------------+------------+----------------------+-------------------+-------------------+-------+
 ; I/O Standard ; Input Vref ; Dedicated Input Pins ; Pins in I/O Bank1 ; Pins in I/O Bank2 ; Total ;
 +--------------+------------+----------------------+-------------------+-------------------+-------+
-; TTL          ; -          ; 3                    ; 0                 ; 0                 ; 3     ;
+; TTL          ; -          ; 2                    ; 0                 ; 0                 ; 2     ;
 +--------------+------------+----------------------+-------------------+-------------------+-------+
 
 
@@ -240,7 +236,6 @@ Note: Pin directions (input, output or bidir) are based on device operating in u
 +---------+-------+-------+-------+--------------+------------+---------+
 ; Name    ; Pin # ; Type  ; VCCIO ; I/O Standard ; Input Vref ; Current ;
 +---------+-------+-------+-------+--------------+------------+---------+
-; biop1   ; 2     ; Input ; --    ; TTL          ; -          ; 0 mA    ;
 ; init_l  ; 1     ; Input ; --    ; TTL          ; -          ; 0 mA    ;
 ; rx_rate ; 43    ; Input ; --    ; TTL          ; -          ; 0 mA    ;
 +---------+-------+-------+-------+--------------+------------+---------+
@@ -261,7 +256,7 @@ Note: User assignments will override these defaults. The user specified values a
 +----------------------------+------------+------+---------------------+--------------+
 ; Compilation Hierarchy Node ; Macrocells ; Pins ; Full Hierarchy Name ; Library Name ;
 +----------------------------+------------+------+---------------------+--------------+
-; |e2                        ; 33         ; 29   ; |e2                 ; work         ;
+; |e2                        ; 29         ; 25   ; |e2                 ; work         ;
 ;    |m706:m706|             ; 20         ; 0    ; |e2|m706:m706       ; work         ;
 +----------------------------+------------+------+---------------------+--------------+
 
@@ -272,14 +267,14 @@ Note: User assignments will override these defaults. The user specified values a
 ; Name                      ; Location ; Fan-Out ; Usage                       ; Global ; Global Resource Used ; Global Line Name ;
 +---------------------------+----------+---------+-----------------------------+--------+----------------------+------------------+
 ; init_l                    ; PIN_1    ; 2       ; Async. clear                ; yes    ; On                   ; --               ;
-; m706:m706|active_clear_~0 ; SEXP2    ; 1       ; Async. clear                ; no     ; --                   ; --               ;
-; m706:m706|clock_scale[2]  ; LC22     ; 14      ; Clock                       ; no     ; --                   ; --               ;
-; m706:m706|in_active       ; LC7      ; 20      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
-; m706:m706|in_last_unit    ; LC30     ; 17      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
-; m706:m706|in_stop[2]      ; LC12     ; 1       ; Async. clear                ; no     ; --                   ; --               ;
-; m706:m706|keyboard_flag   ; LC1      ; 4       ; Preset                      ; no     ; --                   ; --               ;
+; m706:m706|active_clear_~0 ; SEXP3    ; 1       ; Async. clear                ; no     ; --                   ; --               ;
+; m706:m706|clock_scale[2]  ; LC20     ; 14      ; Clock                       ; no     ; --                   ; --               ;
+; m706:m706|in_active       ; LC4      ; 20      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
+; m706:m706|in_last_unit    ; LC25     ; 17      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
+; m706:m706|in_stop[2]      ; LC14     ; 1       ; Async. clear                ; no     ; --                   ; --               ;
+; m706:m706|keyboard_flag   ; LC23     ; 4       ; Preset                      ; no     ; --                   ; --               ;
 ; m706:m706|tti_shift~11    ; SEXP1    ; 2       ; Clock                       ; no     ; --                   ; --               ;
-; rx_data                   ; PIN_37   ; 15      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
+; rx_data                   ; PIN_20   ; 15      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
 ; rx_rate                   ; PIN_43   ; 17      ; Clock                       ; yes    ; On                   ; --               ;
 ; rx_rate                   ; PIN_43   ; 17      ; Async. clear, Clock, Preset ; no     ; --                   ; --               ;
 +---------------------------+----------+---------+-----------------------------+--------+----------------------+------------------+
@@ -320,10 +315,6 @@ Note: User assignments will override these defaults. The user specified values a
 ; biop2                     ; 1       ;
 ; biop1                     ; 1       ;
 ; m706:m706|spike_~2sexp    ; 1       ;
-; ~VCC~4                    ; 1       ;
-; ~VCC~3                    ; 1       ;
-; ~VCC~2                    ; 1       ;
-; ~VCC~1                    ; 1       ;
 ; ~VCC~0                    ; 1       ;
 ; m706:m706|reader_run      ; 1       ;
 ; m706:m706|tti_skip_~2     ; 1       ;
@@ -344,47 +335,46 @@ Note: User assignments will override these defaults. The user specified values a
 +---------------------------+---------+
 
 
-+-------------------------------------------------+
-; Other Routing Usage Summary                     ;
-+-----------------------------+-------------------+
-; Other Routing Resource Type ; Usage             ;
-+-----------------------------+-------------------+
-; Output enables              ; 0 / 6 ( 0 % )     ;
-; PIA buffers                 ; 36 / 144 ( 25 % ) ;
-+-----------------------------+-------------------+
++------------------------------------------------+
+; Other Routing Usage Summary                    ;
++-----------------------------+------------------+
+; Other Routing Resource Type ; Usage            ;
++-----------------------------+------------------+
+; Output enables              ; 0 / 6 ( 0 % )    ;
+; PIA buffers                 ; 31 / 72 ( 43 % ) ;
++-----------------------------+------------------+
 
 
-+----------------------------------------------------------------------+
-; LAB Macrocells                                                       ;
-+----------------------------------------+-----------------------------+
-; Number of Macrocells  (Average = 8.25) ; Number of LABs  (Total = 3) ;
-+----------------------------------------+-----------------------------+
-; 0                                      ; 1                           ;
-; 1                                      ; 0                           ;
-; 2                                      ; 0                           ;
-; 3                                      ; 0                           ;
-; 4                                      ; 0                           ;
-; 5                                      ; 0                           ;
-; 6                                      ; 1                           ;
-; 7                                      ; 0                           ;
-; 8                                      ; 0                           ;
-; 9                                      ; 0                           ;
-; 10                                     ; 0                           ;
-; 11                                     ; 1                           ;
-; 12                                     ; 0                           ;
-; 13                                     ; 0                           ;
-; 14                                     ; 0                           ;
-; 15                                     ; 0                           ;
-; 16                                     ; 1                           ;
-+----------------------------------------+-----------------------------+
++-----------------------------------------------------------------------+
+; LAB Macrocells                                                        ;
++-----------------------------------------+-----------------------------+
+; Number of Macrocells  (Average = 14.50) ; Number of LABs  (Total = 2) ;
++-----------------------------------------+-----------------------------+
+; 0                                       ; 0                           ;
+; 1                                       ; 0                           ;
+; 2                                       ; 0                           ;
+; 3                                       ; 0                           ;
+; 4                                       ; 0                           ;
+; 5                                       ; 0                           ;
+; 6                                       ; 0                           ;
+; 7                                       ; 0                           ;
+; 8                                       ; 0                           ;
+; 9                                       ; 0                           ;
+; 10                                      ; 0                           ;
+; 11                                      ; 0                           ;
+; 12                                      ; 0                           ;
+; 13                                      ; 0                           ;
+; 14                                      ; 1                           ;
+; 15                                      ; 1                           ;
++-----------------------------------------+-----------------------------+
 
 
 +-------------------------------------------------------------------------------+
 ; Shareable Expander                                                            ;
 +-------------------------------------------------+-----------------------------+
-; Number of shareable expanders  (Average = 0.75) ; Number of LABs  (Total = 1) ;
+; Number of shareable expanders  (Average = 1.50) ; Number of LABs  (Total = 1) ;
 +-------------------------------------------------+-----------------------------+
-; 0                                               ; 3                           ;
+; 0                                               ; 1                           ;
 ; 1                                               ; 0                           ;
 ; 2                                               ; 0                           ;
 ; 3                                               ; 1                           ;
@@ -396,39 +386,35 @@ Note: User assignments will override these defaults. The user specified values a
 +-----+------------+--------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; LAB ; Logic Cell ; Input                                                                                                                                ; Output                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
 +-----+------------+--------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-;  A  ; LC8        ; m706:m706|in_active, m706:m706|clock_scale[2], rx_rate, rx_data, m706:m706|in_last_unit                                              ; m706:m706|in_stop[2]                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
-;  A  ; LC9        ; init_l, m706:m706|tti_shift~11, rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit                                        ; m706:m706|spike_~2sexp                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  A  ; LC10       ; m706:m706|tti02[0], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob5_l~2, m706:m706|tti02[2]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-;  A  ; LC12       ; m706:m706|in_stop[1], m706:m706|clock_scale[2], rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit                        ; m706:m706|in_last_unit                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  A  ; LC6        ; m706:m706|tti37[5], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob10_l~2, m706:m706|tti37[7]                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
-;  A  ; LC2        ; m706:m706|tti02[2], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob7_l~2, m706:m706|tti37[4]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-;  A  ; LC13       ; m706:m706|tti37[3], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob8_l~2, m706:m706|tti37[5]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-;  A  ; LC11       ; biop4, rx_sel, m706:m706|tti37[4]                                                                                                    ; iob8_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  A  ; LC15       ; m706:m706|tti37[4], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob9_l~2, m706:m706|tti37[6]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-;  A  ; LC14       ; biop4, rx_sel, m706:m706|tti37[5]                                                                                                    ; iob9_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  A  ; LC7        ; m706:m706|tti_shift~11, m706:m706|in_last_unit, m706:m706|active_clear_~0, rx_rate, rx_data, m706:m706|in_active                     ; m706:m706|in_stop[1], m706:m706|tti_shift~11, m706:m706|tti02[1], m706:m706|tti02[2], m706:m706|tti37[3], m706:m706|tti37[4], m706:m706|tti37[5], m706:m706|tti37[6], m706:m706|tti37[7], m706:m706|in_last_unit, m706:m706|clock_scale[0], m706:m706|clock_scale[1], m706:m706|clock_scale[2], m706:m706|tti02[0], m706:m706|keyboard_flag, m706:m706|reader_run, m706:m706|spike_detector, m706:m706|in_stop[2], m706:m706|in_active, m706:m706|spike_~2sexp ;
+;  A  ; LC9        ; m706:m706|in_active, m706:m706|clock_scale[2], rx_rate, rx_data, m706:m706|in_last_unit                                              ; m706:m706|in_stop[2]                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+;  A  ; LC13       ; init_l, m706:m706|tti_shift~11, rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit                                        ; m706:m706|spike_~2sexp                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC1        ; biop4, rx_sel, m706:m706|tti02[1]                                                                                                    ; iob5_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC14       ; m706:m706|in_stop[1], m706:m706|clock_scale[2], rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit                        ; m706:m706|in_last_unit                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC10       ; m706:m706|tti02[1], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob6_l~2, m706:m706|tti37[3]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  A  ; LC2        ; biop4, rx_sel, m706:m706|tti02[2]                                                                                                    ; iob6_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC15       ; m706:m706|tti02[2], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob7_l~2, m706:m706|tti37[4]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  A  ; LC3        ; biop4, rx_sel, m706:m706|tti37[3]                                                                                                    ; iob7_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC7        ; m706:m706|tti37[3], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob8_l~2, m706:m706|tti37[5]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  A  ; LC5        ; biop4, rx_sel, m706:m706|tti37[4]                                                                                                    ; iob8_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  A  ; LC8        ; m706:m706|tti37[4], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob9_l~2, m706:m706|tti37[6]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  A  ; LC6        ; biop4, rx_sel, m706:m706|tti37[6]                                                                                                    ; iob10_l                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  A  ; LC12       ; m706:m706|tti37[6], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob11_l~2, m706:m706|in_last_unit, m706:m706|keyboard_flag                                                                                                                                                                                                                                                                                                                                                                                                     ;
+;  A  ; LC4        ; m706:m706|tti_shift~11, m706:m706|in_last_unit, m706:m706|active_clear_~0, rx_rate, rx_data, m706:m706|in_active                     ; m706:m706|in_stop[1], m706:m706|tti_shift~11, m706:m706|tti02[1], m706:m706|tti02[2], m706:m706|tti37[3], m706:m706|tti37[4], m706:m706|tti37[5], m706:m706|tti37[6], m706:m706|tti37[7], m706:m706|in_last_unit, m706:m706|clock_scale[0], m706:m706|clock_scale[1], m706:m706|clock_scale[2], m706:m706|tti02[0], m706:m706|keyboard_flag, m706:m706|reader_run, m706:m706|spike_detector, m706:m706|in_stop[2], m706:m706|in_active, m706:m706|spike_~2sexp ;
 ;  A  ; LC16       ; rx_data, m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, m706:m706|in_last_unit                                              ; m706:m706|tti02[1], iob4_l~2                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-;  A  ; LC1        ; m706:m706|keyboard_flag, rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit, m706:m706|tti37[7], m706:m706|clock_scale[2] ; m706:m706|keyboard_flag, m706:m706|tti_skip_~2, m706:m706|reader_run, irq_l                                                                                                                                                                                                                                                                                                                                                                                    ;
-;  A  ; LC3        ; biop4, rx_sel, m706:m706|tti02[0]                                                                                                    ; iob4_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  A  ; LC4        ; biop1, rx_sel, m706:m706|keyboard_flag                                                                                               ; skip_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  A  ; LC5        ; rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit, m706:m706|keyboard_flag                                               ; dsrttl                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  B  ; LC32       ; m706:m706|tti37[6], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob11_l~2, m706:m706|in_last_unit, m706:m706|keyboard_flag                                                                                                                                                                                                                                                                                                                                                                                                     ;
-;  B  ; LC17       ; biop4, rx_sel, m706:m706|tti02[1]                                                                                                    ; iob5_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  B  ; LC18       ; m706:m706|tti02[1], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob6_l~2, m706:m706|tti37[3]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
-;  B  ; LC21       ; biop4, rx_sel, m706:m706|tti37[6]                                                                                                    ; iob10_l                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
-;  B  ; LC24       ; biop4, rx_sel, m706:m706|tti37[7]                                                                                                    ; iob11_l                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
-;  B  ; LC30       ; m706:m706|tti37[7], m706:m706|clock_scale[2], m706:m706|in_active, m706:m706|in_stop[2]                                              ; m706:m706|in_active, m706:m706|clock_scale[0], m706:m706|clock_scale[1], m706:m706|clock_scale[2], m706:m706|keyboard_flag, m706:m706|reader_run, m706:m706|in_stop[1], m706:m706|spike_detector, m706:m706|tti02[1], m706:m706|in_stop[2], m706:m706|tti02[2], m706:m706|tti37[3], m706:m706|tti37[4], m706:m706|tti37[5], m706:m706|tti37[6], m706:m706|tti37[7], m706:m706|tti02[0]                                                                         ;
-;  B  ; LC28       ; rx_rate, m706:m706|in_active, m706:m706|in_last_unit                                                                                 ; m706:m706|clock_scale[1], m706:m706|clock_scale[2]                                                                                                                                                                                                                                                                                                                                                                                                             ;
-;  B  ; LC26       ; rx_rate, m706:m706|clock_scale[0], m706:m706|in_active, m706:m706|in_last_unit                                                       ; m706:m706|clock_scale[2]                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
-;  B  ; LC22       ; rx_rate, m706:m706|clock_scale[1], m706:m706|clock_scale[0], m706:m706|in_active, m706:m706|in_last_unit                             ; m706:m706|in_stop[1], m706:m706|tti_shift~11, m706:m706|tti02[1], m706:m706|in_stop[2], m706:m706|tti02[2], m706:m706|tti37[3], m706:m706|tti37[4], m706:m706|tti37[5], m706:m706|tti37[6], m706:m706|tti37[7], m706:m706|in_last_unit, m706:m706|tti02[0], m706:m706|keyboard_flag, m706:m706|spike_~2sexp                                                                                                                                                    ;
-;  B  ; LC19       ;                                                                                                                                      ; iob0_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  B  ; LC20       ;                                                                                                                                      ; iob1_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  C  ; LC41       ; biop4, rx_sel, m706:m706|tti37[3]                                                                                                    ; iob7_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  C  ; LC33       ; biop2, rx_sel                                                                                                                        ; acclr_l                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
-;  C  ; LC40       ; biop4, rx_sel, m706:m706|tti02[2]                                                                                                    ; iob6_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  C  ; LC36       ;                                                                                                                                      ; iob2_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  C  ; LC37       ;                                                                                                                                      ; iob3_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
-;  C  ; LC35       ;                                                                                                                                      ; txdttl                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  B  ; LC17       ; biop2, rx_sel                                                                                                                        ; acclr_l                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  B  ; LC30       ; m706:m706|tti02[0], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob5_l~2, m706:m706|tti02[2]                                                                                                                                                                                                                                                                                                                                                                                                                                   ;
+;  B  ; LC19       ; biop4, rx_sel, m706:m706|tti37[5]                                                                                                    ; iob9_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  B  ; LC31       ; m706:m706|tti37[5], m706:m706|clock_scale[2], m706:m706|in_active, rx_rate, rx_data, m706:m706|in_last_unit                          ; iob10_l~2, m706:m706|tti37[7]                                                                                                                                                                                                                                                                                                                                                                                                                                  ;
+;  B  ; LC26       ; biop4, rx_sel, m706:m706|tti37[7]                                                                                                    ; iob11_l                                                                                                                                                                                                                                                                                                                                                                                                                                                        ;
+;  B  ; LC25       ; m706:m706|tti37[7], m706:m706|clock_scale[2], m706:m706|in_active, m706:m706|in_stop[2]                                              ; m706:m706|in_active, m706:m706|clock_scale[0], m706:m706|clock_scale[1], m706:m706|clock_scale[2], m706:m706|keyboard_flag, m706:m706|reader_run, m706:m706|in_stop[1], m706:m706|spike_detector, m706:m706|tti02[1], m706:m706|in_stop[2], m706:m706|tti02[2], m706:m706|tti37[3], m706:m706|tti37[4], m706:m706|tti37[5], m706:m706|tti37[6], m706:m706|tti37[7], m706:m706|tti02[0]                                                                         ;
+;  B  ; LC29       ; rx_rate, m706:m706|in_active, m706:m706|in_last_unit                                                                                 ; m706:m706|clock_scale[1], m706:m706|clock_scale[2]                                                                                                                                                                                                                                                                                                                                                                                                             ;
+;  B  ; LC27       ; rx_rate, m706:m706|clock_scale[0], m706:m706|in_active, m706:m706|in_last_unit                                                       ; m706:m706|clock_scale[2]                                                                                                                                                                                                                                                                                                                                                                                                                                       ;
+;  B  ; LC20       ; rx_rate, m706:m706|clock_scale[1], m706:m706|clock_scale[0], m706:m706|in_active, m706:m706|in_last_unit                             ; m706:m706|in_stop[1], m706:m706|tti_shift~11, m706:m706|tti02[1], m706:m706|in_stop[2], m706:m706|tti02[2], m706:m706|tti37[3], m706:m706|tti37[4], m706:m706|tti37[5], m706:m706|tti37[6], m706:m706|tti37[7], m706:m706|in_last_unit, m706:m706|tti02[0], m706:m706|keyboard_flag, m706:m706|spike_~2sexp                                                                                                                                                    ;
+;  B  ; LC23       ; m706:m706|keyboard_flag, rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit, m706:m706|tti37[7], m706:m706|clock_scale[2] ; m706:m706|keyboard_flag, m706:m706|tti_skip_~2, m706:m706|reader_run, irq_l                                                                                                                                                                                                                                                                                                                                                                                    ;
+;  B  ; LC24       ; biop4, rx_sel, m706:m706|tti02[0]                                                                                                    ; iob4_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  B  ; LC18       ; biop1, rx_sel, m706:m706|keyboard_flag                                                                                               ; skip_l                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  B  ; LC22       ; rx_rate, rx_data, m706:m706|in_active, m706:m706|in_last_unit, m706:m706|keyboard_flag                                               ; dsrttl                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
+;  B  ; LC21       ;                                                                                                                                      ; txdttl                                                                                                                                                                                                                                                                                                                                                                                                                                                         ;
 +-----+------------+--------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -450,10 +436,10 @@ Note: User assignments will override these defaults. The user specified values a
 +-----------------+
 ; Fitter Messages ;
 +-----------------+
-Info (119006): Selected device EPM7064SLC44-10 for design "e2"
+Info (119006): Selected device EPM7032SLC44-10 for design "e2"
 Info: Quartus II 64-Bit Fitter was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 4691 megabytes
-    Info: Processing ended: Thu Apr 11 14:18:15 2024
+    Info: Processing ended: Thu Apr 11 14:35:25 2024
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:00
 

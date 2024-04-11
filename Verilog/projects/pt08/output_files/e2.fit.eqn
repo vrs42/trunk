@@ -11,20 +11,20 @@
 -- programming logic devices manufactured by Altera and sold by 
 -- Altera or its authorized distributors.  Please refer to the 
 -- applicable agreement for further details.
---B1L2 is m706:m706|be2~1 at LC33
+--B1L2 is m706:m706|be2~1 at LC17
 B1L2_p1_out = biop2 & rx_sel;
 B1L2_or_out = B1L2_p1_out;
 B1L2 = B1L2_or_out;
 
 
---B1_in_stop[1] is m706:m706|in_stop[1] at LC8
+--B1_in_stop[1] is m706:m706|in_stop[1] at LC9
 B1_in_stop[1]_or_out = B1_in_active;
 B1_in_stop[1]_reg_input = B1_in_stop[1]_or_out;
 B1_in_stop[1]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_in_stop[1] = DFFE(B1_in_stop[1]_reg_input, B1_clock_scale[2], !B1_in_stop[1]_p2_out, , );
 
 
---B1_spike_detector is m706:m706|spike_detector at LC9
+--B1_spike_detector is m706:m706|spike_detector at LC13
 B1_spike_detector_or_out = GND;
 B1_spike_detector_reg_input = B1_spike_detector_or_out;
 B1_spike_detector_p4_out = rx_rate & rx_data & !B1_in_active & !B1_in_last_unit;
@@ -35,7 +35,7 @@ B1_spike_detector = DFFE(B1_spike_detector_reg_input, B1L26, GLOBAL(init_l), !B1
 B1L26 = EXP(B1_clock_scale[2] & B1_in_active);
 
 
---B1_tti02[1] is m706:m706|tti02[1] at LC10
+--B1_tti02[1] is m706:m706|tti02[1] at LC30
 B1_tti02[1]_or_out = B1_tti02[0];
 B1_tti02[1]_reg_input = B1_tti02[1]_or_out;
 B1_tti02[1]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -43,20 +43,20 @@ B1_tti02[1]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti02[1] = DFFE(B1_tti02[1]_reg_input, B1_tti02[1]_p3_out, !B1_tti02[1]_p2_out, , );
 
 
---A1L18 is iob5_l~2 at LC17
-A1L18_p1_out = biop4 & rx_sel & B1_tti02[1];
-A1L18_or_out = A1L18_p1_out;
-A1L18 = !(A1L18_or_out);
+--A1L14 is iob5_l~2 at LC1
+A1L14_p1_out = biop4 & rx_sel & B1_tti02[1];
+A1L14_or_out = A1L14_p1_out;
+A1L14 = !(A1L14_or_out);
 
 
---B1_in_stop[2] is m706:m706|in_stop[2] at LC12
+--B1_in_stop[2] is m706:m706|in_stop[2] at LC14
 B1_in_stop[2]_or_out = B1_in_stop[1];
 B1_in_stop[2]_reg_input = B1_in_stop[2]_or_out;
 B1_in_stop[2]_p2_out = rx_rate & rx_data & !B1_in_active & !B1_in_last_unit;
 B1_in_stop[2] = DFFE(B1_in_stop[2]_reg_input, B1_clock_scale[2], !B1_in_stop[2]_p2_out, , );
 
 
---B1_tti02[2] is m706:m706|tti02[2] at LC18
+--B1_tti02[2] is m706:m706|tti02[2] at LC10
 B1_tti02[2]_or_out = B1_tti02[1];
 B1_tti02[2]_reg_input = B1_tti02[2]_or_out;
 B1_tti02[2]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -64,13 +64,13 @@ B1_tti02[2]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti02[2] = DFFE(B1_tti02[2]_reg_input, B1_tti02[2]_p3_out, !B1_tti02[2]_p2_out, , );
 
 
---A1L20 is iob6_l~2 at LC40
-A1L20_p1_out = biop4 & rx_sel & B1_tti02[2];
-A1L20_or_out = A1L20_p1_out;
-A1L20 = !(A1L20_or_out);
+--A1L16 is iob6_l~2 at LC2
+A1L16_p1_out = biop4 & rx_sel & B1_tti02[2];
+A1L16_or_out = A1L16_p1_out;
+A1L16 = !(A1L16_or_out);
 
 
---B1_tti37[3] is m706:m706|tti37[3] at LC2
+--B1_tti37[3] is m706:m706|tti37[3] at LC15
 B1_tti37[3]_or_out = B1_tti02[2];
 B1_tti37[3]_reg_input = B1_tti37[3]_or_out;
 B1_tti37[3]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -78,13 +78,13 @@ B1_tti37[3]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti37[3] = DFFE(B1_tti37[3]_reg_input, B1_tti37[3]_p3_out, !B1_tti37[3]_p2_out, , );
 
 
---A1L22 is iob7_l~2 at LC41
-A1L22_p1_out = biop4 & rx_sel & B1_tti37[3];
-A1L22_or_out = A1L22_p1_out;
-A1L22 = !(A1L22_or_out);
+--A1L18 is iob7_l~2 at LC3
+A1L18_p1_out = biop4 & rx_sel & B1_tti37[3];
+A1L18_or_out = A1L18_p1_out;
+A1L18 = !(A1L18_or_out);
 
 
---B1_tti37[4] is m706:m706|tti37[4] at LC13
+--B1_tti37[4] is m706:m706|tti37[4] at LC7
 B1_tti37[4]_or_out = B1_tti37[3];
 B1_tti37[4]_reg_input = B1_tti37[4]_or_out;
 B1_tti37[4]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -92,13 +92,13 @@ B1_tti37[4]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti37[4] = DFFE(B1_tti37[4]_reg_input, B1_tti37[4]_p3_out, !B1_tti37[4]_p2_out, , );
 
 
---A1L24 is iob8_l~2 at LC11
-A1L24_p1_out = biop4 & rx_sel & B1_tti37[4];
-A1L24_or_out = A1L24_p1_out;
-A1L24 = !(A1L24_or_out);
+--A1L20 is iob8_l~2 at LC5
+A1L20_p1_out = biop4 & rx_sel & B1_tti37[4];
+A1L20_or_out = A1L20_p1_out;
+A1L20 = !(A1L20_or_out);
 
 
---B1_tti37[5] is m706:m706|tti37[5] at LC15
+--B1_tti37[5] is m706:m706|tti37[5] at LC8
 B1_tti37[5]_or_out = B1_tti37[4];
 B1_tti37[5]_reg_input = B1_tti37[5]_or_out;
 B1_tti37[5]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -106,13 +106,13 @@ B1_tti37[5]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti37[5] = DFFE(B1_tti37[5]_reg_input, B1_tti37[5]_p3_out, !B1_tti37[5]_p2_out, , );
 
 
---A1L26 is iob9_l~2 at LC14
-A1L26_p1_out = biop4 & rx_sel & B1_tti37[5];
-A1L26_or_out = A1L26_p1_out;
-A1L26 = !(A1L26_or_out);
+--A1L22 is iob9_l~2 at LC19
+A1L22_p1_out = biop4 & rx_sel & B1_tti37[5];
+A1L22_or_out = A1L22_p1_out;
+A1L22 = !(A1L22_or_out);
 
 
---B1_tti37[6] is m706:m706|tti37[6] at LC6
+--B1_tti37[6] is m706:m706|tti37[6] at LC31
 B1_tti37[6]_or_out = B1_tti37[5];
 B1_tti37[6]_reg_input = B1_tti37[6]_or_out;
 B1_tti37[6]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -120,13 +120,13 @@ B1_tti37[6]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti37[6] = DFFE(B1_tti37[6]_reg_input, B1_tti37[6]_p3_out, !B1_tti37[6]_p2_out, , );
 
 
---A1L28 is iob10_l~2 at LC21
-A1L28_p1_out = biop4 & rx_sel & B1_tti37[6];
-A1L28_or_out = A1L28_p1_out;
-A1L28 = !(A1L28_or_out);
+--A1L24 is iob10_l~2 at LC6
+A1L24_p1_out = biop4 & rx_sel & B1_tti37[6];
+A1L24_or_out = A1L24_p1_out;
+A1L24 = !(A1L24_or_out);
 
 
---B1_tti37[7] is m706:m706|tti37[7] at LC32
+--B1_tti37[7] is m706:m706|tti37[7] at LC12
 B1_tti37[7]_or_out = B1_tti37[6];
 B1_tti37[7]_reg_input = B1_tti37[7]_or_out;
 B1_tti37[7]_p3_out = B1_clock_scale[2] & B1_in_active;
@@ -134,20 +134,20 @@ B1_tti37[7]_p2_out = !B1_in_active & rx_rate & rx_data & !B1_in_last_unit;
 B1_tti37[7] = DFFE(B1_tti37[7]_reg_input, B1_tti37[7]_p3_out, !B1_tti37[7]_p2_out, , );
 
 
---A1L30 is iob11_l~2 at LC24
-A1L30_p1_out = biop4 & rx_sel & B1_tti37[7];
-A1L30_or_out = A1L30_p1_out;
-A1L30 = !(A1L30_or_out);
+--A1L26 is iob11_l~2 at LC26
+A1L26_p1_out = biop4 & rx_sel & B1_tti37[7];
+A1L26_or_out = A1L26_p1_out;
+A1L26 = !(A1L26_or_out);
 
 
---B1_in_last_unit is m706:m706|in_last_unit at LC30
+--B1_in_last_unit is m706:m706|in_last_unit at LC25
 B1_in_last_unit_or_out = B1_tti37[7];
 B1_in_last_unit_reg_input = B1_in_last_unit_or_out;
 B1_in_last_unit_p3_out = B1_clock_scale[2] & B1_in_active;
 B1_in_last_unit = DFFE(B1_in_last_unit_reg_input, B1_in_last_unit_p3_out, !B1_in_stop[2], , );
 
 
---B1_in_active is m706:m706|in_active at LC7
+--B1_in_active is m706:m706|in_active at LC4
 B1_in_active_or_out = GND;
 B1_in_active_reg_input = B1_in_active_or_out;
 B1_in_active_p3_out = B1L26 & B1_in_last_unit;
@@ -155,24 +155,24 @@ B1_in_active_p4_out = !B1_in_last_unit & rx_rate & rx_data & !B1_in_active;
 B1_in_active = DFFE(B1_in_active_reg_input, B1_in_active_p3_out, !B1L1, !B1_in_active_p4_out, );
 
 
---B1L1 is m706:m706|active_clear_~0 at SEXP2
+--B1L1 is m706:m706|active_clear_~0 at SEXP3
 B1L1 = EXP(init_l & B1L15);
 
 
---B1_clock_scale[0] is m706:m706|clock_scale[0] at LC28
+--B1_clock_scale[0] is m706:m706|clock_scale[0] at LC29
 B1_clock_scale[0]_reg_input = VCC;
 B1_clock_scale[0]_p2_out = !B1_in_active & !B1_in_last_unit;
 B1_clock_scale[0] = TFFE(B1_clock_scale[0]_reg_input, GLOBAL(rx_rate), !B1_clock_scale[0]_p2_out, , );
 
 
---B1_clock_scale[1] is m706:m706|clock_scale[1] at LC26
+--B1_clock_scale[1] is m706:m706|clock_scale[1] at LC27
 B1_clock_scale[1]_or_out = B1_clock_scale[0];
 B1_clock_scale[1]_reg_input = B1_clock_scale[1]_or_out;
 B1_clock_scale[1]_p2_out = !B1_in_active & !B1_in_last_unit;
 B1_clock_scale[1] = TFFE(B1_clock_scale[1]_reg_input, GLOBAL(rx_rate), !B1_clock_scale[1]_p2_out, , );
 
 
---B1_clock_scale[2] is m706:m706|clock_scale[2] at LC22
+--B1_clock_scale[2] is m706:m706|clock_scale[2] at LC20
 B1_clock_scale[2]_p1_out = B1_clock_scale[1] & B1_clock_scale[0];
 B1_clock_scale[2]_or_out = B1_clock_scale[2]_p1_out;
 B1_clock_scale[2]_reg_input = B1_clock_scale[2]_or_out;
@@ -188,7 +188,7 @@ B1_tti02[0]_p2_out = rx_data & !B1_in_active & rx_rate & !B1_in_last_unit;
 B1_tti02[0] = DFFE(B1_tti02[0]_reg_input, B1_tti02[0]_p3_out, !B1_tti02[0]_p2_out, , );
 
 
---B1_keyboard_flag is m706:m706|keyboard_flag at LC1
+--B1_keyboard_flag is m706:m706|keyboard_flag at LC23
 B1_keyboard_flag_p2_out = B1_keyboard_flag & rx_rate & rx_data & !B1_in_active & !B1_in_last_unit & B1_tti37[7];
 B1_keyboard_flag_p4_out = !B1_keyboard_flag & rx_rate & rx_data & !B1_in_active & !B1_in_last_unit & !B1_tti37[7];
 B1_keyboard_flag_or_out = B1_keyboard_flag_p2_out # B1_keyboard_flag_p4_out;
@@ -197,51 +197,31 @@ B1_keyboard_flag_p3_out = B1_in_active & B1_clock_scale[2];
 B1_keyboard_flag = DFFE(B1_keyboard_flag_reg_input, B1_keyboard_flag_p3_out, , , );
 
 
---A1L16 is iob4_l~2 at LC3
-A1L16_p1_out = biop4 & rx_sel & B1_tti02[0];
-A1L16_or_out = A1L16_p1_out;
-A1L16 = !(A1L16_or_out);
+--A1L12 is iob4_l~2 at LC24
+A1L12_p1_out = biop4 & rx_sel & B1_tti02[0];
+A1L12_or_out = A1L12_p1_out;
+A1L12 = !(A1L12_or_out);
 
 
---B1L27 is m706:m706|tti_skip_~2 at LC4
+--B1L27 is m706:m706|tti_skip_~2 at LC18
 B1L27_p1_out = biop1 & rx_sel & B1_keyboard_flag;
 B1L27_or_out = B1L27_p1_out;
 B1L27 = !(B1L27_or_out);
 
 
---B1_reader_run is m706:m706|reader_run at LC5
+--B1_reader_run is m706:m706|reader_run at LC22
 B1_reader_run_or_out = GND;
 B1_reader_run_reg_input = B1_reader_run_or_out;
 B1_reader_run_p3_out = rx_rate & rx_data & !B1_in_active & !B1_in_last_unit;
 B1_reader_run = DFFE(B1_reader_run_reg_input, B1_reader_run_p3_out, , B1_keyboard_flag, );
 
 
---~VCC~0 is ~VCC~0 at LC19
+--~VCC~0 is ~VCC~0 at LC21
 ~VCC~0_or_out = GND;
 ~VCC~0 = !(~VCC~0_or_out);
 
 
---~VCC~1 is ~VCC~1 at LC20
-~VCC~1_or_out = GND;
-~VCC~1 = !(~VCC~1_or_out);
-
-
---~VCC~2 is ~VCC~2 at LC36
-~VCC~2_or_out = GND;
-~VCC~2 = !(~VCC~2_or_out);
-
-
---~VCC~3 is ~VCC~3 at LC37
-~VCC~3_or_out = GND;
-~VCC~3 = !(~VCC~3_or_out);
-
-
---~VCC~4 is ~VCC~4 at LC35
-~VCC~4_or_out = GND;
-~VCC~4 = !(~VCC~4_or_out);
-
-
---B1L15 is m706:m706|spike_~2sexp at SEXP3
+--B1L15 is m706:m706|spike_~2sexp at SEXP2
 B1L15 = EXP(!rx_data & B1_clock_scale[2] & B1_in_active & B1_spike_detector);
 
 
@@ -257,153 +237,125 @@ init_l = INPUT();
 rx_rate = INPUT();
 
 
---biop1 is biop1 at PIN_2
+--biop1 is biop1 at PIN_16
 --operation mode is input
 
 biop1 = INPUT();
 
 
---biop2 is biop2 at PIN_31
+--biop2 is biop2 at PIN_25
 --operation mode is input
 
 biop2 = INPUT();
 
 
---biop4 is biop4 at PIN_40
+--biop4 is biop4 at PIN_24
 --operation mode is input
 
 biop4 = INPUT();
 
 
---rx_sel is rx_sel at PIN_41
+--rx_sel is rx_sel at PIN_21
 --operation mode is input
 
 rx_sel = INPUT();
 
 
---rx_data is rx_data at PIN_37
+--rx_data is rx_data at PIN_20
 --operation mode is input
 
 rx_data = INPUT();
 
 
---tx_sel is tx_sel at PIN_4
+--tx_sel is tx_sel at PIN_19
 --operation mode is input
 
 tx_sel = INPUT();
 
 
---iob0_l is iob0_l at PIN_20
+--txdttl is txdttl at PIN_37
 --operation mode is output
 
-iob0_l_open_drain_out = OPNDRN(~VCC~0);
-iob0_l = OUTPUT(iob0_l_open_drain_out);
-
-
---iob1_l is iob1_l at PIN_19
---operation mode is output
-
-iob1_l_open_drain_out = OPNDRN(~VCC~1);
-iob1_l = OUTPUT(iob1_l_open_drain_out);
-
-
---iob2_l is iob2_l at PIN_26
---operation mode is output
-
-iob2_l_open_drain_out = OPNDRN(~VCC~2);
-iob2_l = OUTPUT(iob2_l_open_drain_out);
-
-
---iob3_l is iob3_l at PIN_27
---operation mode is output
-
-iob3_l_open_drain_out = OPNDRN(~VCC~3);
-iob3_l = OUTPUT(iob3_l_open_drain_out);
-
-
---txdttl is txdttl at PIN_25
---operation mode is output
-
-txdttl_open_drain_out = OPNDRN(~VCC~4);
+txdttl_open_drain_out = OPNDRN(~VCC~0);
 txdttl = OUTPUT(txdttl_open_drain_out);
 
 
---acclr_l is acclr_l at PIN_24
+--acclr_l is acclr_l at PIN_41
 --operation mode is output
 
 acclr_l = OUTPUT(B1L2);
 
 
---iob5_l is iob5_l at PIN_21
+--iob5_l is iob5_l at PIN_4
 --operation mode is output
 
-iob5_l_open_drain_out = OPNDRN(A1L18);
+iob5_l_open_drain_out = OPNDRN(A1L14);
 iob5_l = OUTPUT(iob5_l_open_drain_out);
 
 
---iob6_l is iob6_l at PIN_28
+--iob6_l is iob6_l at PIN_5
 --operation mode is output
 
-iob6_l_open_drain_out = OPNDRN(A1L20);
+iob6_l_open_drain_out = OPNDRN(A1L16);
 iob6_l = OUTPUT(iob6_l_open_drain_out);
 
 
---iob7_l is iob7_l at PIN_29
+--iob7_l is iob7_l at PIN_6
 --operation mode is output
 
-iob7_l_open_drain_out = OPNDRN(A1L22);
+iob7_l_open_drain_out = OPNDRN(A1L18);
 iob7_l = OUTPUT(iob7_l_open_drain_out);
 
 
---iob8_l is iob8_l at PIN_6
+--iob8_l is iob8_l at PIN_8
 --operation mode is output
 
-iob8_l_open_drain_out = OPNDRN(A1L24);
+iob8_l_open_drain_out = OPNDRN(A1L20);
 iob8_l = OUTPUT(iob8_l_open_drain_out);
 
 
---iob9_l is iob9_l at PIN_5
+--iob9_l is iob9_l at PIN_39
 --operation mode is output
 
-iob9_l_open_drain_out = OPNDRN(A1L26);
+iob9_l_open_drain_out = OPNDRN(A1L22);
 iob9_l = OUTPUT(iob9_l_open_drain_out);
 
 
---iob10_l is iob10_l at PIN_18
+--iob10_l is iob10_l at PIN_9
 --operation mode is output
 
-iob10_l_open_drain_out = OPNDRN(A1L28);
+iob10_l_open_drain_out = OPNDRN(A1L24);
 iob10_l = OUTPUT(iob10_l_open_drain_out);
 
 
---iob11_l is iob11_l at PIN_17
+--iob11_l is iob11_l at PIN_31
 --operation mode is output
 
-iob11_l_open_drain_out = OPNDRN(A1L30);
+iob11_l_open_drain_out = OPNDRN(A1L26);
 iob11_l = OUTPUT(iob11_l_open_drain_out);
 
 
---irq_l is irq_l at PIN_12
+--irq_l is irq_l at PIN_34
 --operation mode is output
 
 irq_l_open_drain_out = OPNDRN(B1_keyboard_flag);
 irq_l = OUTPUT(irq_l_open_drain_out);
 
 
---dsrttl is dsrttl at PIN_8
+--dsrttl is dsrttl at PIN_36
 --operation mode is output
 
 dsrttl = OUTPUT(B1_reader_run);
 
 
---iob4_l is iob4_l at PIN_11
+--iob4_l is iob4_l at PIN_33
 --operation mode is output
 
-iob4_l_open_drain_out = OPNDRN(A1L16);
+iob4_l_open_drain_out = OPNDRN(A1L12);
 iob4_l = OUTPUT(iob4_l_open_drain_out);
 
 
---skip_l is skip_l at PIN_9
+--skip_l is skip_l at PIN_40
 --operation mode is output
 
 skip_l_open_drain_out = OPNDRN(B1L27);

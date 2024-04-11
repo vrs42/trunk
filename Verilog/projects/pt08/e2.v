@@ -33,9 +33,9 @@
 //         43       in       RX_RATE
 
 /* M706 Receiver */
-module e2(init_l, rx_rate, biop1, biop2, biop4, iob0_l, iob1_l, iob2_l, iob3_l, iob4_l, iob5_l, iob6_l, iob7_l, iob8_l, iob9_l, iob10_l, iob11_l, rx_sel, rx_data, skip_l, irq_l, tx_sel, acclr_l, txdttl, dsrttl);
+module e2(init_l, rx_rate, biop1, biop2, biop4, /*iob0_l, iob1_l, iob2_l, iob3_l,*/ iob4_l, iob5_l, iob6_l, iob7_l, iob8_l, iob9_l, iob10_l, iob11_l, rx_sel, rx_data, skip_l, irq_l, tx_sel, acclr_l, txdttl, dsrttl);
 input init_l, rx_rate, biop1, biop2, biop4;
-output iob0_l, iob1_l, iob2_l, iob3_l, iob4_l, iob5_l;
+output /*iob0_l, iob1_l, iob2_l, iob3_l,*/ iob4_l, iob5_l;
 output iob6_l, iob7_l, iob8_l, iob9_l, iob10_l, iob11_l;
 input rx_sel, rx_data, tx_sel;
 output skip_l, irq_l, acclr_l;
@@ -92,10 +92,10 @@ m706 m706(
 );
 
 assign irq_l = irql? 1'bz : 1'b0;
-assign iob0_l = 1'bz;
-assign iob1_l = 1'bz;
-assign iob2_l = 1'bz;
-assign iob3_l = 1'bz;
+//assign iob0_l = 1'bz;
+//assign iob1_l = 1'bz;
+//assign iob2_l = 1'bz;
+//assign iob3_l = 1'bz;
 assign iob4_l = (~tt_[0]|~buffer_strobe)? 1'bz : 1'b0;
 assign iob5_l = (~tt_[1]|~buffer_strobe)? 1'bz : 1'b0;
 assign iob6_l = (~tt_[2]|~buffer_strobe)? 1'bz : 1'b0;

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for e2
-Thu Apr 11 14:18:13 2024
+Thu Apr 11 14:35:23 2024
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -41,13 +41,13 @@ applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +-----------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status ; Successful - Thu Apr 11 14:18:13 2024           ;
+; Analysis & Synthesis Status ; Successful - Thu Apr 11 14:35:23 2024           ;
 ; Quartus II 64-Bit Version   ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name               ; e2                                              ;
 ; Top-level Entity Name       ; e2                                              ;
 ; Family                      ; MAX7000S                                        ;
-; Total macrocells            ; 33                                              ;
-; Total pins                  ; 25                                              ;
+; Total macrocells            ; 29                                              ;
+; Total pins                  ; 21                                              ;
 +-----------------------------+-------------------------------------------------+
 
 
@@ -56,7 +56,7 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------+-----------------+---------------+
 ; Option                                                                     ; Setting         ; Default Value ;
 +----------------------------------------------------------------------------+-----------------+---------------+
-; Device                                                                     ; EPM7064SLC44-10 ;               ;
+; Device                                                                     ; EPM7032SLC44-10 ;               ;
 ; Top-level entity name                                                      ; e2              ; e2            ;
 ; Family name                                                                ; MAX7000S        ; Cyclone IV GX ;
 ; Use smart compilation                                                      ; Off             ; Off           ;
@@ -126,14 +126,14 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                               ;
-+------------------------------------------------------------+-----------------+------------------------------+--------------------------------------------------------------+---------+
-; File Name with User-Entered Path                           ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                 ; Library ;
-+------------------------------------------------------------+-----------------+------------------------------+--------------------------------------------------------------+---------+
-; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/e2.v ; yes             ; User Verilog HDL File        ; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/e2.v   ;         ;
-; m706.v                                                     ; yes             ; Auto-Found Verilog HDL File  ; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/m706.v ;         ;
-+------------------------------------------------------------+-----------------+------------------------------+--------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                           ;
++--------------------------------------------------------------+-----------------+------------------------+--------------------------------------------------------------+---------+
+; File Name with User-Entered Path                             ; Used in Netlist ; File Type              ; File Name with Absolute Path                                 ; Library ;
++--------------------------------------------------------------+-----------------+------------------------+--------------------------------------------------------------+---------+
+; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/e2.v   ; yes             ; User Verilog HDL File  ; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/e2.v   ;         ;
+; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/m706.v ; yes             ; User Verilog HDL File  ; //wsl.localhost/Debian/home/vrs/Verilog/projects/pt08/m706.v ;         ;
++--------------------------------------------------------------+-----------------+------------------------+--------------------------------------------------------------+---------+
 
 
 +---------------------------------------------+
@@ -141,14 +141,14 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------+----------------------+
 ; Resource             ; Usage                ;
 +----------------------+----------------------+
-; Logic cells          ; 33                   ;
+; Logic cells          ; 29                   ;
 ; Total registers      ; 18                   ;
-; I/O pins             ; 25                   ;
+; I/O pins             ; 21                   ;
 ; Shareable expanders  ; 3                    ;
 ; Maximum fan-out node ; m706:m706|in_active  ;
 ; Maximum fan-out      ; 20                   ;
-; Total fan-out        ; 152                  ;
-; Average fan-out      ; 2.49                 ;
+; Total fan-out        ; 148                  ;
+; Average fan-out      ; 2.79                 ;
 +----------------------+----------------------+
 
 
@@ -157,7 +157,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+------------+------+---------------------+--------------+
 ; Compilation Hierarchy Node ; Macrocells ; Pins ; Full Hierarchy Name ; Library Name ;
 +----------------------------+------------+------+---------------------+--------------+
-; |e2                        ; 33         ; 25   ; |e2                 ; work         ;
+; |e2                        ; 29         ; 21   ; |e2                 ; work         ;
 ;    |m706:m706|             ; 20         ; 0    ; |e2|m706:m706       ; work         ;
 +----------------------------+------------+------+---------------------+--------------+
 
@@ -188,13 +188,13 @@ The equations can be found in //wsl.localhost/Debian/home/vrs/Verilog/projects/p
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Thu Apr 11 14:18:12 2024
+    Info: Processing started: Thu Apr 11 14:35:22 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off e2 -c e2
 Info (12021): Found 1 design units, including 1 entities, in source file e2.v
     Info (12023): Found entity 1: e2
-Info (12127): Elaborating entity "e2" for the top level hierarchy
-Warning (12125): Using design file m706.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+Info (12021): Found 1 design units, including 1 entities, in source file m706.v
     Info (12023): Found entity 1: m706
+Info (12127): Elaborating entity "e2" for the top level hierarchy
 Info (12128): Elaborating entity "m706" for hierarchy "m706:m706"
 Warning (10230): Verilog HDL assignment warning at m706.v(136): truncated value with size 32 to match size of target (3)
 Warning (10230): Verilog HDL assignment warning at m706.v(178): truncated value with size 32 to match size of target (8)
@@ -205,15 +205,15 @@ Info (280013): Promoted pin-driven signal(s) to global signal
     Info (280015): Promoted clear signal driven by pin "init_l" to global clear signal
 Warning (21074): Design contains 1 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "tx_sel"
-Info (21057): Implemented 61 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 53 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 8 input pins
-    Info (21059): Implemented 17 output pins
-    Info (21063): Implemented 33 macrocells
+    Info (21059): Implemented 13 output pins
+    Info (21063): Implemented 29 macrocells
     Info (21073): Implemented 3 shareable expanders
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 6 warnings
-    Info: Peak virtual memory: 4569 megabytes
-    Info: Processing ended: Thu Apr 11 14:18:13 2024
-    Info: Elapsed time: 00:00:01
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 4570 megabytes
+    Info: Processing ended: Thu Apr 11 14:35:24 2024
+    Info: Elapsed time: 00:00:02
     Info: Total CPU time (on all processors): 00:00:00
 
 
