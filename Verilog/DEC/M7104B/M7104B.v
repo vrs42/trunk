@@ -1324,7 +1324,7 @@ assign set_busy_er = (n_t_80x & n_t_83x);
 // data11_l = !(rk_data11 & enab_rk_data
 //         # cyl_addrs_er & !n6rk5_l); 
 // e50: sn7496 
-always @(n3v, n3v, clr_status_l, n3v, set_busy_er, n3v)
+always @(n3v, n3v, clr_status_l, n3v, set_busy_er, 1'b1)
   if (~n3v & ~clr_status_l) begin
     busy_error_m <= 1'b0;
   end else
@@ -1332,7 +1332,7 @@ always @(n3v, n3v, clr_status_l, n3v, set_busy_er, n3v)
     busy_error_m <= 1'b1;
   end else
   if (~(n3v)) begin
-    busy_error_m <= n3v;
+    busy_error_m <= 1'b1;
   end
 always @(n3v, n3v, clr_status_l, n3v, set_busy_er, busy_error_m)
   if (~n3v & ~clr_status_l) begin

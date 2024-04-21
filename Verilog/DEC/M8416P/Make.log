@@ -230,8 +230,11 @@ warning: non-bypass capacitor deleted: c12
   p6_prup: !p6_prup_l
   p6_rvfen_l: !p6_rvfen
 ~/Verilog/bin/smaller.pl vv >M8416PX.PLD || (rm M8416PX.PLD; exit 1)
-1 signals were removed:
+4 signals were removed:
   n_t_165x: ind1_l
+  p3_binit: initialize
+  p3_btp2: tp2
+  p3_bts3: !ts3_l
 ~/Verilog/bin/cupl2v.pl M8416PX.PLD >vv || (rm vv; exit 1)
 OE qualifier on FF output gdollar_0 at /home/vrs/Verilog/bin/cupl2v.pl line 224, <INPUT> line 2649.
 ../Makefile:29: recipe for target 'M8416P.v' failed

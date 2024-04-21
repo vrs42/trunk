@@ -936,7 +936,8 @@ sub sn7496 {
   &pinnode($pad{10});
   # Now the hair
   &qcode("$pad{15}.ck = $pad{1};\n");
-  &qcode("$pad{15}.d  = $pad{9};\n");
+  &qcode("$pad{15}.d  = 'b'1;\n") unless defined $pad{9};
+  &qcode("$pad{15}.d  = $pad{9};\n") if defined $pad{9};
   &qcode("$pad{15}.ap = $pad{8}&$pad{2};\n");
   &qcode("$pad{15}.ar = !$pad{8}&!$pad{16};\n");
   &qcode("$pad{14}.ck = $pad{1};\n");

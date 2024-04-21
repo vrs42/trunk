@@ -1,10 +1,10 @@
 BIN	= ~/Verilog/bin
 EAGLE	= ~/Eagle
-DIRS	= M1703C M216X M220C M221D M706O M707X M8340E M8341D M837cc \
-	M8650D+cpld+ M869D M8830Cpld M885E VC8E WAR war-in # M216C
+DIRS	= $(wildcard */.)
+ALL	= $(DIRS:/.=)
 FAILS	= lbrtst M8416C M8416P M8416V1
 
-all:	$(DIRS)
+all:	$(ALL)
 	for i in $?; do (cd $$i; make -f ../Makefile $$i.v); done
 
 # These two rules are failing because only one % is expanded per dependency.
