@@ -2504,6 +2504,60 @@ $hidden{'g792'} = 0;
 sub g826 {
 }
 
+sub m101 {
+  &qcode("$pad{'b1'} = (!$pad{'a1'} & $pad{'c1'});\n") if defined $pad{'b1'};
+  &qcode("$pad{'e1'} = (!$pad{'d1'} & $pad{'c1'});\n") if defined $pad{'e1'};
+  &qcode("$pad{'h1'} = (!$pad{'f1'} & $pad{'c1'});\n") if defined $pad{'h1'};
+  &qcode("$pad{'k1'} = (!$pad{'j1'} & $pad{'c1'});\n") if defined $pad{'k1'};
+  &qcode("$pad{'m1'} = (!$pad{'l1'} & $pad{'c1'});\n") if defined $pad{'m1'};
+  &qcode("$pad{'p1'} = (!$pad{'n1'} & $pad{'c1'});\n") if defined $pad{'p1'};
+  &qcode("$pad{'s1'} = (!$pad{'r1'} & $pad{'c1'});\n") if defined $pad{'s1'};
+  &qcode("$pad{'u1'} = (!$pad{'v1'} & $pad{'c1'});\n") if defined $pad{'u1'};
+  &qcode("$pad{'f2'} = (!$pad{'e2'} & $pad{'c1'});\n") if defined $pad{'f2'};
+  &qcode("$pad{'j2'} = (!$pad{'h2'} & $pad{'c1'});\n") if defined $pad{'j2'};
+  &qcode("$pad{'l2'} = (!$pad{'k2'} & $pad{'c1'});\n") if defined $pad{'l2'};
+  &qcode("$pad{'n2'} = (!$pad{'m2'} & $pad{'c1'});\n") if defined $pad{'n2'};
+  &qcode("$pad{'r2'} = (!$pad{'p2'} & $pad{'c1'});\n") if defined $pad{'r2'};
+  &qcode("$pad{'t2'} = (!$pad{'s2'} & $pad{'c1'});\n") if defined $pad{'t2'};
+  &qcode("$pad{'v2'} = (!$pad{'u2'} & $pad{'c1'});\n") if defined $pad{'v2'};
+}
+$hidden{'m101'} = 0;
+
+sub m103 {
+  $pad{'v2'} = &gnext unless defined $pad{'v2'};
+  &qcode("$pad{'v2'} = ($pad{'d2'} & $pad{'e2'} & $pad{'f2'} & $pad{'h2'} & $pad{'j2'} & $pad{'k2'} & $pad{'l2'} & $pad{'n2'}) # !$pad{'u2'};\n");
+  &qcode("$pad{'a1'} =  ($pad{'v2'} & $pad{'p2'});\n") if defined $pad{'a1'};
+  &qcode("$pad{'b1'} = !($pad{'v2'} & $pad{'p2'});\n") if defined $pad{'b1'};
+  &qcode("$pad{'c1'} =  ($pad{'v2'} & $pad{'r2'});\n") if defined $pad{'c1'};
+  &qcode("$pad{'d1'} = !($pad{'v2'} & $pad{'r2'});\n") if defined $pad{'d1'};
+  &qcode("$pad{'e1'} =  ($pad{'v2'} & $pad{'s2'});\n") if defined $pad{'e1'};
+  &qcode("$pad{'f1'} = !($pad{'v2'} & $pad{'s2'});\n") if defined $pad{'f1'};
+  &qcode("$pad{'k1'} = !($pad{'h1'} & $pad{'j1'});\n") if defined $pad{'k1'};
+  &qcode("$pad{'n1'} = !($pad{'l1'} & $pad{'m1'});\n") if defined $pad{'n1'};
+  &qcode("$pad{'v1'} = 'b'1;\n") if defined $pad{'v1'};
+}
+$hidden{'m103'} = 0;
+
+sub m111 {
+  &qcode("$pad{'b1'} = !$pad{'a1'};\n") if defined $pad{'b1'};
+  &qcode("$pad{'e1'} = !$pad{'d1'};\n") if defined $pad{'21'};
+  &qcode("$pad{'h1'} = !$pad{'f1'};\n") if defined $pad{'h1'};
+  &qcode("$pad{'k1'} = !$pad{'j1'};\n") if defined $pad{'k1'};
+  &qcode("$pad{'m1'} = !$pad{'l1'};\n") if defined $pad{'m1'};
+  &qcode("$pad{'p1'} = !$pad{'n1'};\n") if defined $pad{'p1'};
+  &qcode("$pad{'s1'} = !$pad{'r1'};\n") if defined $pad{'s1'};
+  &qcode("$pad{'u1'} = !$pad{'v1'};\n") if defined $pad{'u1'};
+  &qcode("$pad{'d2'} = !$pad{'c1'};\n") if defined $pad{'d2'};
+  &qcode("$pad{'f2'} = !$pad{'e2'};\n") if defined $pad{'f2'};
+  &qcode("$pad{'j2'} = !$pad{'h2'};\n") if defined $pad{'j2'};
+  &qcode("$pad{'l2'} = !$pad{'k2'};\n") if defined $pad{'l2'};
+  &qcode("$pad{'n2'} = !$pad{'m2'};\n") if defined $pad{'n2'};
+  &qcode("$pad{'r2'} = !$pad{'p2'};\n") if defined $pad{'r2'};
+  &qcode("$pad{'t2'} = !$pad{'s2'};\n") if defined $pad{'t2'};
+  &qcode("$pad{'v2'} = !$pad{'u2'};\n") if defined $pad{'v2'};
+}
+$hidden{'m111'} = 0;
+
 sub m113 {
   &qcode("$pad{'c1'} = !($pad{'a1'} & $pad{'b1'});\n") if defined $pad{'c1'};
   &qcode("$pad{'f1'} = !($pad{'d1'} & $pad{'e1'});\n") if defined $pad{'f1'};
@@ -2561,6 +2615,24 @@ sub m119 {
 }
 $hidden{'m119'} = 0;
 
+sub m121 {
+  &qcode("$pad{'e1'} = !($pad{'a1'}&$pad{'b1'} # $pad{'c1'}&$pad{'d1'});\n")
+    if defined $pad{'e1'};
+  &qcode("$pad{'l1'} = !($pad{'f1'}&$pad{'h1'} # $pad{'j1'}&$pad{'k1'});\n")
+    if defined $pad{'l1'};
+  &qcode("$pad{'s1'} = !($pad{'m1'}&$pad{'n1'} # $pad{'p1'}&$pad{'r1'});\n")
+    if defined $pad{'s1'};
+  &qcode("$pad{'j2'} = !($pad{'d2'}&$pad{'e2'} # $pad{'f2'}&$pad{'h2'});\n")
+    if defined $pad{'j2'};
+  &qcode("$pad{'p2'} = !($pad{'k2'}&$pad{'l2'} # $pad{'m2'}&$pad{'n2'});\n")
+    if defined $pad{'p2'};
+  &qcode("$pad{'v2'} = !($pad{'r2'}&$pad{'s2'} # $pad{'t2'}&$pad{'u2'});\n")
+    if defined $pad{'v2'};
+  &qcode("$pad{'u1'} = 'b'1;\n") if defined $pad{'u1'};
+  &qcode("$pad{'v1'} = 'b'1;\n") if defined $pad{'v1'};
+}
+$hidden{'m121'} = 0;
+
 sub m160 {
   # And-or-invert gates
   if (defined $pad{'r1'}) {
@@ -2583,8 +2655,109 @@ sub m160 {
 }
 $hidden{'m160'} = 0;
 
-sub m162 {
+sub m161 {
+  $pad{'d2'} = &gnext unless defined $pad{'d2'};
+  $pad{'e2'} = &gnext unless defined $pad{'e2'};
+  $pad{'j2'} = &gnext unless defined $pad{'j2'};
+  $pad{'n2'} = &gnext unless defined $pad{'n2'};
+  $pad{'f2'} = &gnext unless defined $pad{'f2'};
+  $pad{'m2'} = &gnext unless defined $pad{'m2'};
+  $pad{'h2'} = &gnext unless defined $pad{'h2'};
+  $pad{'l2'} = &gnext unless defined $pad{'l2'};
+  $pad{'p2'} = &gnext unless defined $pad{'p2'};
+  $pad{'r2'} = &gnext unless defined $pad{'r2'};
+  &qcode("$pad{'d2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}&!$pad{'v2'}&!$pad{'u2'}&!$pad{'v1'};\n");
+  &qcode("$pad{'e2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}&!$pad{'v2'}&!$pad{'u2'}& $pad{'v1'};\n");
+  &qcode("$pad{'j2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}&!$pad{'v2'}& $pad{'u2'}&!$pad{'v1'};\n");
+  &qcode("$pad{'n2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}&!$pad{'v2'}& $pad{'u2'}& $pad{'v1'};\n");
+  &qcode("$pad{'f2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}& $pad{'v2'}&!$pad{'u2'}&!$pad{'v1'};\n");
+  &qcode("$pad{'m2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}& $pad{'v2'}&!$pad{'u2'}& $pad{'v1'};\n");
+  &qcode("$pad{'h2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}& $pad{'v2'}& $pad{'u2'}&!$pad{'v1'};\n");
+  &qcode("$pad{'l2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}&!$pad{'u1'}& $pad{'v2'}& $pad{'u2'}& $pad{'v1'};\n");
+  &qcode("$pad{'p2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}& $pad{'u1'}&!$pad{'v2'}&!$pad{'u2'}&!$pad{'v1'};\n");
+  &qcode("$pad{'r2'} = $pad{'s1'}&$pad{'s2'}&$pad{'t2'}& $pad{'u1'}&!$pad{'v2'}&!$pad{'u2'}& $pad{'v1'};\n");
+  &code("$pad{'d1'} = !$pad{'d2'};\n") if defined $pad{'d1'};
+  &code("$pad{'e1'} = !$pad{'e2'};\n") if defined $pad{'e1'};
+  &code("$pad{'j1'} = !$pad{'j2'};\n") if defined $pad{'j1'};
+  &code("$pad{'n1'} = !$pad{'n2'};\n") if defined $pad{'n1'};
+  &code("$pad{'f1'} = !$pad{'f2'};\n") if defined $pad{'f1'};
+  &code("$pad{'m1'} = !$pad{'m2'};\n") if defined $pad{'m1'};
+  &code("$pad{'h1'} = !$pad{'h2'};\n") if defined $pad{'h1'};
+  &code("$pad{'l1'} = !$pad{'l2'};\n") if defined $pad{'l1'};
+  &code("$pad{'p1'} = !$pad{'p2'};\n") if defined $pad{'p1'};
+  &code("$pad{'r1'} = !$pad{'r2'};\n") if defined $pad{'r1'};
 }
+$hidden{'m161'} = 0;
+
+# The M162 parity circuit is deferred for now.
+sub m162 {}
+
+# BUGBUG: The m206 can be jumpered to be different from the m216.
+# Unfortunately, it isn't detectable at the user interface whether
+# the H2 and L1 flops are using A1 or K2 for clear.
+sub m206 {
+  &m216;
+}
+$hidden{'m206'} = 0;
+
+# Six J-K Flip-Flops.
+sub m207 {
+  $pad{'e1'} = &gnext if defined $pad{'f1'} && !defined $pad{'e1'};
+  $pad{'h2'} = &gnext if defined $pad{'j2'} && !defined $pad{'h2'};
+  $pad{'l1'} = &gnext if defined $pad{'m1'} && !defined $pad{'l1'};
+  $pad{'s1'} = &gnext if defined $pad{'u1'} && !defined $pad{'s1'};
+  $pad{'v2'} = &gnext if defined $pad{'v1'} && !defined $pad{'v2'};
+  $pad{'p2'} = &gnext if defined $pad{'r2'} && !defined $pad{'p2'};
+  if (defined $pad{'e1'}) {
+    &pinnode($pad{'e1'});
+    &qcode("$pad{'e1'}.j = !$pad{'d1'};\n") if defined $pad{'d1'};
+    &qcode("$pad{'e1'}.ck = $pad{'b1'};\n");
+    &qcode("$pad{'e1'}.k = !$pad{'c1'};\n") if defined $pad{'c1'};
+    &qcode("$pad{'e1'}.ar = !$pad{'a1'};\n") if defined $pad{'a1'};
+    &qcode("$pad{'f1'} = !$pad{'e1'};\n") if defined $pad{'f1'};
+  }
+  if (defined $pad{'h2'}) {
+    &pinnode($pad{'h2'});
+    &qcode("$pad{'h2'}.j = !$pad{'f2'};\n") if defined $pad{'f2'};
+    &qcode("$pad{'h2'}.ck = $pad{'d2'};\n");
+    &qcode("$pad{'h2'}.k = !$pad{'e2'};\n") if defined $pad{'e2'};
+    &qcode("$pad{'h2'}.ar = !$pad{'a1'};\n") if defined $pad{'a1'};
+    &qcode("$pad{'j2'} = !$pad{'h2'};\n") if defined $pad{'j2'};
+  }
+  if (defined $pad{'l1'}) {
+    &pinnode($pad{'l1'});
+    &qcode("$pad{'l1'}.j = !$pad{'k1'};\n") if defined $pad{'k1'};
+    &qcode("$pad{'l1'}.ck = $pad{'h1'};\n");
+    &qcode("$pad{'l1'}.k = !$pad{'j1'};\n") if defined $pad{'j1'};
+    &qcode("$pad{'l1'}.ar = !$pad{'a1'};\n") if defined $pad{'a1'};
+    &qcode("$pad{'m1'} = !$pad{'l1'};\n") if defined $pad{'f1'};
+  }
+  if (defined $pad{'s1'}) {
+    &pinnode($pad{'s1'});
+    &qcode("$pad{'s1'}.j = !$pad{'r1'};\n") if defined $pad{'r1'};
+    &qcode("$pad{'s1'}.ck = $pad{'n1'};\n");
+    &qcode("$pad{'s1'}.k = !$pad{'p1'};\n") if defined $pad{'p1'};
+    &qcode("$pad{'s1'}.ar = !$pad{'k2'};\n") if defined $pad{'k2'};
+    &qcode("$pad{'u1'} = !$pad{'s1'};\n") if defined $pad{'u1'};
+  }
+  if (defined $pad{'v2'}) {
+    &pinnode($pad{'v2'});
+    &qcode("$pad{'v2'}.j = !$pad{'u2'};\n") if defined $pad{'u2'};
+    &qcode("$pad{'v2'}.ck = $pad{'s2'};\n");
+    &qcode("$pad{'v2'}.k = !$pad{'t2'};\n") if defined $pad{'t2'};
+    &qcode("$pad{'v2'}.ar = !$pad{'k2'};\n") if defined $pad{'k2'};
+    &qcode("$pad{'v1'} = !$pad{'v2'};\n") if defined $pad{'v1'};
+  }
+  if (defined $pad{'p2'}) {
+    &pinnode($pad{'p2'});
+    &qcode("$pad{'p2'}.j = !$pad{'n2'};\n") if defined $pad{'n2'};
+    &qcode("$pad{'p2'}.ck = $pad{'l2'};\n");
+    &qcode("$pad{'p2'}.k = !$pad{'m2'};\n") if defined $pad{'m2'};
+    &qcode("$pad{'p2'}.ar = !$pad{'k2'};\n") if defined $pad{'k2'};
+    &qcode("$pad{'r2'} = !$pad{'p2'};\n") if defined $pad{'r2'};
+  }
+}
+$hidden{'m207'} = 0;
 
 sub m216 {
   if (defined $pad{'f1'} && !defined $pad{'e1'}) {
@@ -2744,8 +2917,131 @@ sub m220 {
 }
 $hidden{'m220'} = 0;
 
-sub m310 {
+# The Mark Track Decoder generates a pile of logic.
+# {} WIP Probably fills most of a CPLD.
+sub m228 {
+  #
+  # The W shift register.
+  local($zero_w_l) = $pad{'bh2'};
+  local($zero_state_l) = $pad{'av2'};
+  local($w9) = $pad{'bf2'};
+  local($w8) = $pad{'al1'};
+  local($w7) = $pad{'ak2'};
+  local($w6) = $pad{'am2'};
+  local($w5) = $pad{'bu2'};
+  local($w4) = $pad{'at2'};
+  local($w3) = $pad{'be2'};
+  local($w2) = $pad{'bv2'};
+  local($w1) = $pad{'bj2'};
+  local($w1_and_w5) = $pad{'ak1'};
+  &pinnode($w9); # W9
+  &qcode("$w9.d = $pad{'as2'};\n");
+  &qcode("$w9.ck = $pad{'bf1'};\n");
+  &qcode("$w9.ar = !$zero_w_l;\n");
+  &pinnode($w8); # W8
+  &qcode("$w8.d = $w9;\n");
+  &qcode("$w8.ck = $pad{'bf1'};\n");
+  &qcode("$w8.ar = !$zero_w_l;\n");
+  &pinnode($w7); # W7
+  &qcode("$w7.d = $w8;\n");
+  &qcode("$w7.ck = $pad{'bf1'};\n");
+  &qcode("$w7.ar = !$zero_state_l;\n");
+  &pinnode($w6); # W6
+  &qcode("$w6.d = $w7;\n");
+  &qcode("$w6.ck = $pad{'bf1'};\n");
+  &qcode("$w6.ar = !$zero_state_l;\n");
+  &pinnode($w5); # W5
+  &qcode("w5.d = $w6;\n");
+  &qcode("w5.ck = $pad{'bf1'};\n");
+  &qcode("w5.ar = !$zero_w_l;\n");
+  &pinnode($w4); # W4
+  &qcode("$w4.d = $w5;\n");
+  &qcode("$w4.ck = $pad{'bf1'};\n");
+  &qcode("$w4.ar = !$zero_state_l;\n");
+  &pinnode($w3); # W3
+  &qcode("$w3.d = $w4;\n");
+  &qcode("$w3.ck = $pad{'bf1'};\n");
+  &qcode("$w3.ar = !$zero_w_l;\n");
+  &pinnode($w2); # W2
+  &qcode("$w2.d = $w3;\n");
+  &qcode("$w2.ck = $pad{'bf1'};\n");
+  &qcode("$w2.ar = !$zero_w_l;\n");
+  &pinnode($w1); # W1
+  &qcode("$w1.d = $w2;\n");
+  &qcode("$w1.ck = $pad{'bf1'};\n");
+  &qcode("$w1.ar = !$zero_w_l;\n");
+  &qcode("$w1_and_w5 = $w1 & $w5;\n");
+  #
+  # W State Decoders are each 8-input AND/NAND pairs.
+  local($mk_blk_mk) = $pad{'ae2'};
+  local($mk_end) = $pad{'af2'};
+  local($mk_data_sync) = $pad{'ah1'};
+  local($mk_blk_start) = $pad{'aj2'};
+  local($mk_data) = $pad{'bp2'};
+  local($sync) = $pad{'bn2'};
+  local($mk_blk_end) = $pad{'bu1'};
+  local($mk_blk_sync) = $pad{'bs2'};
+  &qcode("mk_blk_mk =     $w1_and_w5& $w3& $w7&!$w2&!$w9& $w8&!$w6&!$w4;\n");
+  &qcode("mk_end =       !$w3&!$w6&!$w4&!$w7& $w8&!$w9& $w1_and_w5& $w2;\n");
+  &qcode("mk_data_sync = !$w3&!$w4& $w6&!$w7& $w8&!$w9& $w1_and_w5& $w2;\n");
+  &qcode("mk_blk_start = !$w3&!$w8& $w6&!$w7&!$w5&!$w9&!$w4& $w1;\n");
+  &qcode("mk_data =      !$w2&!$w3& $w4& $w6&!$w7&!$w8&!$w9& $w1_and_w5;\n");
+  &qcode("sync =     $w3&!$w4&!$w6& $w7&$$w8& $w9& $w1_and_w5& $pad{'bh1'};\n");
+  &qcode("mk_blk_end  =   $w1& $w4& $w6&!$w7& $w8& $w5& $w9& $w9;\n");
+  &qcode("mk_blk_sync =   $w1& $w2& $w3& $w4&!$w5& $w6&!$w7&!$w8& $w9;\n");
+  &qcode("$pad{'af1'} = !$mk_blk_start;\n");
+  &qcode("$pad{'ah2'} = !$mk_end;\n");
+  &qcode("$pad{'bm2'} = !$sync;\n");
+  &qcode("$pad{'aj1'} = !$mk_data_synch;\n");
+  &qcode("$pad{'au2'} = !$mk_data;\n");
+  &qcode("$pad{'bv1'} = !$mk_blk_end;\n");
+  &qcode("$pad{'ad2'} = !$mk_blk_mk;\n");
+  &qcode("$pad{'bt2'} = !$mk_blk_sync;\n");
+  &qcode("$pad{'au1'} = !$w8 & $w9;\n") if defined $pad{'au1'};
+  #
+  # The state shift register.
+  local($st_idle_in) = $pad{'bd2'};
+  local($sh_st) = $pad{'bc1'};
+  local($st_blk_mk) = $pad{'ar2'};
+  local($st_rev_ck) = $pad{'bs1'};
+  local($data) = $pad{'bk2'};
+  local($st_final) = $pad{'bl2'};
+  local($st_ck) = $pad{'br1'};
+  local($st_idle) = $pad{'an2'};
+  &pinnode($st_blk_mk);
+  &qcode("$st_blk_mk.d  = $st_idle_in;\n");
+  &qcode("$st_blk_mk.ck = $sh_st;\n");
+  &qcode("$st_blk_mk.ar = !$zero_state_l;\n");
+  &pinnode($st_rev_ck);
+  &qcode("$st_rev_ck.d  = $st_blk_mk;\n");
+  &qcode("$st_rev_ck.ck = $sh_st;\n");
+  &qcode("$st_rev_ck.ar = !$zero_state_l;\n");
+  &pinnode($data);
+  &qcode("$data.d  = $st_rev_ck;\n");
+  &qcode("$data.ck = $sh_st;\n");
+  &qcode("$data.ar = !$zero_state_l;\n");
+  &pinnode($st_final);
+  &qcode("$st_final.d  = $data;\n");
+  &qcode("$st_final.ck = $sh_st;\n");
+  &qcode("$st_final.ar = !$zero_state_l;\n");
+  &pinnode($st_ck);
+  &qcode("$st_ck.d  = $st_final;\n");
+  &qcode("$st_ck.ck = $sh_st;\n");
+  &qcode("$st_ck.ar = !$zero_state_l;\n");
+  &pinnode($st_idle);
+  &qcode("$st_idle.d  = $st_ck;\n");
+  &qcode("$st_idle.ck = $sh_st;\n");
+  &qcode("$st_idle.ap = !$zero_state_l;\n"); # reset sets idle state
+  #
+  # Finally, the and-or gate to compute sh_st_out.
+  local($sh_st_out) = $pad{'am1'};
+  local($shift_i) = $pad{'ap2'};
+  local($shift_ck) = $pad{'br2'};
+  &qcode("$sh_st_out = !$pad{'an1'} & ($st_idle&$shift_i # $st_blk_mk&$mk_blk_start # $st_rev_ck&$mk_blk_start # $data&$mk_blk_end # $st_final&$mk_blk_end # $st_ck&$shift_ck);\n");
 }
+$hidden{'m228'} = 0;
+
+sub m310 {}
 
 sub m516 {
   &qcode("$pad{'e1'} = !(!$pad{'a1'} & $pad{'b1'} & $pad{'c1'} & $pad{'d1'});\n")
