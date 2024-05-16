@@ -3109,6 +3109,42 @@ sub m617 {
 }
 $hidden{'m617'} = 0;
 
+# Six Pair of Open Collector Bus Drivers
+sub m623 {
+  &ocassign($pad{'d1'}, "!$pad{'a1'}&!$pad{'c1'}") if defined $pad{'d1'};
+  &ocassign($pad{'e1'}, "!$pad{'b1'}&!$pad{'c1'}") if defined $pad{'e1'};
+  &ocassign($pad{'k1'}, "!$pad{'f1'}&!$pad{'j1'}") if defined $pad{'d1'};
+  &ocassign($pad{'l1'}, "!$pad{'h1'}&!$pad{'j1'}") if defined $pad{'e1'};
+  &ocassign($pad{'r1'}, "!$pad{'m1'}&!$pad{'p1'}") if defined $pad{'d1'};
+  &ocassign($pad{'s1'}, "!$pad{'n1'}&!$pad{'p1'}") if defined $pad{'e1'};
+  &ocassign($pad{'h2'}, "!$pad{'d2'}&!$pad{'f2'}") if defined $pad{'h2'};
+  &ocassign($pad{'j2'}, "!$pad{'e2'}&!$pad{'f2'}") if defined $pad{'j2'};
+  &ocassign($pad{'n2'}, "!$pad{'k2'}&!$pad{'m2'}") if defined $pad{'n2'};
+  &ocassign($pad{'p2'}, "!$pad{'l2'}&!$pad{'m2'}") if defined $pad{'p2'};
+  &ocassign($pad{'u2'}, "!$pad{'r2'}&!$pad{'t2'}") if defined $pad{'u2'};
+  &ocassign($pad{'v2'}, "!$pad{'s2'}&!$pad{'t2'}") if defined $pad{'v2'};
+}
+$hidden{'m623'} = 0;
+
+# Six Power 4-input NAND drivers
+sub m627 {
+  &qcode("$pad{'e1'} = !($pad{'a1'} & $pad{'b1'} & $pad{'c1'} & $pad{'d1'};\n")
+    if defined $pad{'e1'};
+  &qcode("$pad{'l1'} = !($pad{'f1'} & $pad{'h1'} & $pad{'j1'} & $pad{'k1'};\n")
+    if defined $pad{'l1'};
+  &qcode("$pad{'s1'} = !($pad{'m1'} & $pad{'n1'} & $pad{'p1'} & $pad{'r1'};\n")
+    if defined $pad{'s1'};
+  &qcode("$pad{'j2'} = !($pad{'d2'} & $pad{'e2'} & $pad{'f2'} & $pad{'h2'};\n")
+    if defined $pad{'j2'};
+  &qcode("$pad{'p2'} = !($pad{'k2'} & $pad{'l2'} & $pad{'m2'} & $pad{'n2'};\n")
+    if defined $pad{'p2'};
+  &qcode("$pad{'v2'} = !($pad{'r2'} & $pad{'s2'} & $pad{'t2'} & $pad{'u2'};\n")
+    if defined $pad{'v2'};
+  &qcode("$pad{'u1'} = 'b'1;\n") if defined $pad{'u1'};
+  &qcode("$pad{'v1'} = 'b'1;\n") if defined $pad{'v1'};
+}
+$hidden{'m627'} = 0;
+
 sub m660 {
   &qcode("$pad{'d2'} = !($pad{'h2'} & $pad{'j2'});\n") if defined $pad{'d2'};
   &qcode("$pad{'k2'} = !($pad{'n2'} & $pad{'p2'});\n") if defined $pad{'k2'};
