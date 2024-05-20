@@ -1,16 +1,28 @@
 name: Build
 
-on: [pull_request, push]
+on:
+  pull_request:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '!v*'
 
 defaults:
   run:
     shell: bash
 
 jobs:
-  build:
+  cmake-builds:
+    uses: ./.github/workflows/cmake-builds.yml
+
+  makefile:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        ## macos-10.15: Runner seems to be officially disabled, results in canceled
+        ## builds. Leaving this "as-is".
+        ##
         os: [macos-12, ubuntu-20.04]
         simulators:
           # These are supposed to match ALL in makefile.
@@ -22,14 +34,30 @@ jobs:
           - besm6 imlac tt2500 microvax3900 microvax1 rtvax1000 vaxstation3100m76 vaxstation4000m60
           - scelbi 3b2 i701 i704 i7010 i7070 i7080 i7090 sigma uc15 i650 sel32 intel-mds ibm1130
     steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
+      - uses: actions/checkout@v3
+      ## Workaround for remnant symlinks in /usr/local pointing back to
+      ## macOS frameworks.
+      ##
+      ## Future: Will have to keep an eye on SDL_ttf's Python dependency
+      ## so that the correct/appropriate Python version is removed.
+      - name: Remnant symlink cleanup (macOS)
+        if: ${{runner.os == 'macOS'}}
+        run: |
+          brew unlink python@3 || true
+          brew uninstall --ignore-dependencies python@3 || true
+          brew unlink python@3.12 || true
+          brew uninstall --ignore-dependencies python@3.12 || true
+          for f in $(find /usr/local/bin -type l -print); do \
+            (readlink $f | grep -q -s "/Library") && echo Removing "$f" && rm -f "$f"; \
+          done || exit 0
+      ## Install our regular dependencies.
+      - name: Install dependencies (macOS)
         if: ${{runner.os == 'macOS'}}
         run: sh -ex .travis/deps.sh osx
-      - name: Install dependencies
+      - name: Install dependencies (Linux)
         if: ${{runner.os == 'Linux'}}
         run: sh -ex .travis/deps.sh linux
-      - name: Build
+      - name: makefile build
         env:
           SIM: ${{matrix.simulators}}
         run: make LTO=1 OPTIMIZE=-O3 $SIM

@@ -721,7 +721,7 @@ if (c != NULL) {
     if ((c - validate_addr) > sizeof (v_cpy) - 1)
         return status;
     memcpy (v_cpy, validate_addr, c - validate_addr);   /* Copy everything before the / */
-    v_cpy[1 + c - validate_addr] = '\0';                /* NUL terminate the result */
+    v_cpy[c - validate_addr] = '\0';                    /* NUL terminate the result */
     validate_addr = v_cpy;                              /* Use the original string minus the prefix specifier */
     }
 if (p_getaddrinfo(validate_addr, NULL, NULL, &ai_validate))
@@ -1088,7 +1088,7 @@ if (!(opt_flags & SIM_SOCK_OPT_BLOCKING)) {
     if (sta == SOCKET_ERROR)                            /* fcntl error? */
         return sim_err_sock (newsock, "setnonblock");
     }
-sta = listen (newsock, 1);                              /* listen on socket */
+sta = listen (newsock, 64);                             /* listen on socket */
 if (sta == SOCKET_ERROR)                                /* listen error? */
     return sim_err_sock (newsock, "listen");
 return newsock;                                         /* got it! */

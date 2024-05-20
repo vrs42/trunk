@@ -1,6 +1,6 @@
 /*  altairz80_sys.c: MITS Altair system interface
 
-    Copyright (c) 2002-2014, Peter Schorn
+    Copyright (c) 2002-2023, Peter Schorn
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -30,7 +30,6 @@
 */
 
 #include "m68k/m68k.h"
-#include <ctype.h>
 
 #define SIM_EMAX 6
 
@@ -80,6 +79,10 @@ extern DEVICE m2sio0_dev;
 extern DEVICE m2sio1_dev;
 extern DEVICE pmmi_dev;
 extern DEVICE hayes_dev;
+extern DEVICE jair_dev;
+extern DEVICE jairs0_dev;
+extern DEVICE jairs1_dev;
+extern DEVICE jairp_dev;
 extern DEVICE mmd_dev;
 extern DEVICE mmdm_dev;
 extern DEVICE sol20_dev;
@@ -172,6 +175,11 @@ DEVICE      *sim_devices[]  = {
     &pmmi_dev,
     /* HAYES MODEM */
     &hayes_dev,
+    /* JAIR SBC */
+    &jair_dev,
+    &jairs0_dev,
+    &jairs1_dev,
+    &jairp_dev,
     /* Vector Graphic Devices */
     &fw2_dev, &vfdhd_dev,
     /* Single-Board Computers */
@@ -574,7 +582,7 @@ t_stat fprint_sym(FILE *of, t_addr addr, t_value *val, UNIT *uptr, int32 sw) {
 
         default:
             return SCPE_IERR;
-            
+
     }
     fprintf(of, "%s", disasm_result);
     return 1 - r;

@@ -1,6 +1,6 @@
 /* sigma_io.c: XDS Sigma IO simulator
 
-   Copyright (c) 2007-2022, Robert M Supnik
+   Copyright (c) 2007-2024, Robert M Supnik
 
    Permission is hereby granted, free of charge, to any person obtaining a
    copy of this software and associated documentation files (the "Software"),
@@ -23,6 +23,9 @@
    used in advertising or otherwise to promote the sale, use or other dealings
    in this Software without prior written authorization from Robert M Supnik.
 
+   11-Feb-2024  RMS     Fixed false dispatch bug (Ken Rector)
+   04-May-2023  RMS     Fixed location 21 usage in even register case (Ken Rector)
+   15-Dec-2022  RMS     Moved SIO interrupt test to devices
    23-Jul-2022  RMS     Made chan_ctl_time accessible as a register
    21-Jul-2022  RMS     Added numeric channel numbers to SET/SHOW
    07-Jul-2022  RMS     Fixed dangling else in read/write direct (Ken Rector)
@@ -473,14 +476,27 @@ CC |= CC1|CC2;                                          /* no recognition */
 return 0;
 }
 
-/* Initiate I/O instruction */
+/* Initiate I/O instruction
+
+   False dispatch problem. Although device numbers are not permitted to overlap,
+   there is nothing to stop programs from issuing IO instructions to a multi-
+   unit device address using its single-unit counterpart, or vice-versa.
+   For example, an IO address of 0x00 will map to the dispatch used for
+   0x80, and vice versa. This routine must detect that the device
+   address actually agrees with the type of device in that dispatch slot.
+*/
 
 t_bool io_init_inst (uint32 rn, uint32 ad, uint32 ch, uint32 dev, uint32 r0)
 {
 uint32 loc20;
+t_bool ch_mu, dva_mu;
 
-if (ch >= chan_num)                                     /* bad chan? */
+if ((dev >= CHAN_N_DEV) || (ch >= chan_num))            /* bad dev or chan? */
     return FALSE;
+ch_mu = (chan[ch].chsf[dev] & CHSF_MU) != 0;            /* does chan think MU? */
+dva_mu = (ad & DVA_MU) != 0;                            /* is dva MU? */
+if (ch_mu != dva_mu)                                    /* not the same? */
+    return FALSE;                                       /* dev not there */
 loc20 = ((ad & 0xFF) << 24) |                           /* <0:7> = dev ad */
     ((rn & 1) | (rn? 3: 0) << 22) |                     /* <8:9> = reg ind */
     (r0 & (cpu_tab[cpu_model].pamask >> 1));            /* <14/16:31> = r0 */
@@ -493,17 +509,17 @@ return (chan[ch].disp[dev] != NULL)? TRUE: FALSE;
 uint32 io_set_status (uint32 rn, uint32 ch, uint32 dev, uint32 dvst, t_bool tdv)
 {
 uint32 mrgst;
-uint32 odd = rn & 1;
 
 if ((rn != 0) && !(dvst & DVT_NOST)) {                  /* return status? */
     if (tdv)
         mrgst = (DVT_GETDVS (dvst) << 8) | (chan[ch].chf[dev] & 0xFF);
     else mrgst = ((DVT_GETDVS(dvst) << 8) & ~CHF_ALL) | (chan[ch].chf[dev] & CHF_ALL);
-    R[rn] = chan[ch].clc[dev];                          /* even reg */
-    if (!odd)                                           /* even pair? */
-        WritePW (0x20, R[rn]);                          /* write to 20 */
+    if ((rn & 1) == 0) {                                /* even reg? */
+        R[rn] = chan[ch].clc[dev];                      /* current addr to R */
+        WritePW (0x20, R[rn]);                          /* and loc 20 */
+        }
     R[rn|1] = (mrgst << 16) | chan[ch].bc[dev];         /* odd reg */
-    WritePW (0x20 + odd, R[rn|1]);                      /* write to 20/21 */
+    WritePW (0x21, R[rn|1]);                            /* write loc 21 */
     }
 return DVT_GETCC (dvst);
 }

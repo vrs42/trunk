@@ -718,7 +718,9 @@ t_stat load_exe (FILE *fileref, int ftype)
                 }
                 fpage++;
             }
-            ma = mpage << PAG_V_PN;                     /* mem addr */
+            if ((sim_switches & SWMASK ('M')) == 0) {   /* -m? */
+                ma = mpage << PAG_V_PN;                 /* mem addr */
+            }
             for (k = 0; k < PAG_SIZE; k++, ma++) {      /* copy buf to mem */
                 if (ma > MEMSIZE)
                     return SCPE_NXM;
@@ -1349,7 +1351,7 @@ t_stat parse_sym (CONST char *cptr, t_addr addr, UNIT *uptr, t_value *val, int32
             if (strchr (cptr, ',')) {                   /* AC specified? */
                 cptr = get_glyph (cptr, gbuf, ',');     /* get glyph */
                 if (gbuf[0]) {                          /* can be omitted */
-                    ac = get_uint (gbuf, 8, 017 - 1, &r);
+                    ac = get_uint (gbuf, 8, 017, &r);
                     if (r != SCPE_OK)
                         return SCPE_ARG;
                     val[0] = val[0] | (ac << INST_V_AC);

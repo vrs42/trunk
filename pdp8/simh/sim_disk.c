@@ -2439,6 +2439,8 @@ time_t now = time (NULL);
 t_offset total_sectors;
 t_offset highwater;
 
+return SCPE_OK;
+
 if ((dptr = find_dev_from_unit (uptr)) == NULL)
     return SCPE_NOATT;
 if (uptr->flags & UNIT_RO)
@@ -2501,6 +2503,8 @@ struct simh_disk_footer *f;
 t_offset total_sectors;
 t_offset highwater;
 t_offset footer_highwater;
+
+return SCPE_OK;
 
 if ((dptr = find_dev_from_unit (uptr)) == NULL)
     return SCPE_NOATT;
@@ -3380,12 +3384,14 @@ if ((uptr->flags & UNIT_BUF) && (uptr->filebuf)) {
         sim_messagef (SCPE_OK, "%s: writing buffer to file: %s\n", sim_uname (uptr), uptr->filename);
         sim_disk_wrsect (uptr, 0, (uint8 *)uptr->filebuf, NULL, (cap + ctx->sector_size - 1) / ctx->sector_size);
         }
+    if (uptr->flags & UNIT_MUSTBUF) {                   /* dyn alloc? */
+        free (uptr->filebuf);                           /* free buffers */
+        uptr->filebuf = NULL;
+        free (uptr->filebuf2);
+        uptr->filebuf2 = NULL;
+        }
     uptr->flags = uptr->flags & ~UNIT_BUF;
     }
-free (uptr->filebuf);                                   /* free buffers */
-uptr->filebuf = NULL;
-free (uptr->filebuf2);
-uptr->filebuf2 = NULL;
 
 update_disk_footer (uptr);                              /* Update meta data if highwater has changed */
 
@@ -5756,7 +5762,7 @@ if (1) { /* CHS Calculation */
             cylinderTimesHeads = totalSectors / sectorsPerTrack;
             }
         }
-    cylinders = cylinderTimesHeads / heads;
+    cylinders = (totalSectors + sectorsPerTrack * heads - 1) / (sectorsPerTrack * heads);
     Footer.DiskGeometry = NtoHl ((cylinders<<16)|(heads<<8)|sectorsPerTrack);
     }
 Footer.Checksum = NtoHl (CalculateVhdFooterChecksum(&Footer, sizeof(Footer)));

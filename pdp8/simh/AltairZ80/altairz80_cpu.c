@@ -1,6 +1,6 @@
 /*  altairz80_cpu.c: MITS Altair CPU (8080 and Z80)
 
-    Copyright (c) 2002-2014, Peter Schorn
+    Copyright (c) 2002-2023, Peter Schorn
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -28,7 +28,6 @@
 */
 
 #include "m68k/m68k.h"
-#include <ctype.h>
 
 #define SWITCHCPU_DEFAULT 0xfd
 
@@ -165,12 +164,14 @@ static t_stat cpu_set_nonbanked     (UNIT *uptr, int32 value, CONST char *cptr, 
 static t_stat cpu_set_ramtype       (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_set_chiptype      (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_set_size          (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
+static t_stat set_size              (uint32 size, t_bool unmap);
 static t_stat m68k_set_chiptype     (UNIT * uptr, int32 value, CONST char* cptr, void* desc);
 static t_stat cpu_set_memory        (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
+static t_stat cpu_resize_memory     (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
 static t_stat cpu_set_hist          (UNIT *uptr, int32 val, CONST char *cptr, void *desc);
 static t_stat cpu_show_hist         (FILE *st, UNIT *uptr, int32 val, CONST void *desc);
 static t_stat cpu_clear_command     (UNIT *uptr, int32 value, CONST char *cptr, void *desc);
-static void cpu_clear(void);
+static void cpu_clear(t_bool unmap);
 static t_stat cpu_show              (FILE *st, UNIT *uptr, int32 val, CONST void *desc);
 static t_stat chip_show             (FILE *st, UNIT *uptr, int32 val, CONST void *desc);
 static t_stat cpu_ex(t_value *vptr, t_addr addr, UNIT *uptr, int32 sw);
@@ -452,7 +453,7 @@ REG cpu_reg[] = {
     }, /* 65 M68K, PREF_ADDR            */
     { HRDATAD (M68K_PREF_DATA,  m68k_registers[M68K_REG_PREF_DATA], 32, "M68K Last Prefetch Data register"),
     }, /* 66 M68K, PREF_DATA            */
-    { HRDATAD (M68K_PPC,         m68k_registers[M68K_REG_PPC],      32, "M68K Previous Proram Counter register"),
+    { HRDATAD (M68K_PPC,         m68k_registers[M68K_REG_PPC],      32, "M68K Previous Program Counter register"),
     }, /* 67 M68K, PPC                  */
     { HRDATAD (M68K_IR,          m68k_registers[M68K_REG_IR],       32, "M68K Instruction Register"),
     }, /* 68 M68K, IR                   */
@@ -537,17 +538,23 @@ static MTAB cpu_mod[] = {
     { UNIT_CPU_VERBOSE,     0,                  "QUIET",        "QUIET",        NULL, NULL,
         NULL, "Disable verbose messages"                },
     { MTAB_VDV,             0,                  NULL,           "CLEARMEMORY",  &cpu_clear_command,
-        NULL, NULL, "Clears the RAM"  },
+        NULL, NULL, "Clears the RAM and removes mapped memory handlers"  },
     { UNIT_CPU_MMU,         UNIT_CPU_MMU,       "MMU",          "MMU",          NULL, NULL,
         NULL, "Enable the Memory Management Unit for 8080 / Z80"            },
     { UNIT_CPU_MMU,         0,                  "NOMMU",        "NOMMU",        &cpu_set_nommu,
         NULL, NULL, "Disable the Memory Management Unit for 8080 / Z80"     },
-    { MTAB_XTD | MTAB_VDV,  0,                  NULL,           "MEMORY",       &cpu_set_memory,
-        NULL, NULL, "Sets the RAM size for 8080 / Z80 / 8086"               },
+    { MTAB_XTD | MTAB_VDV | MTAB_VALR,  0,      NULL,           "MEMORY",       &cpu_set_memory,
+        NULL, NULL, "Sets the RAM size and removes mapped memory handlers for 8080 / Z80 / 8086" },
+    { MTAB_XTD | MTAB_VDV | MTAB_VALR,  0,      NULL,           "RESIZEMEMORY", &cpu_resize_memory,
+        NULL, NULL, "Sets the RAM size without removing mapped memory handlers for 8080 / Z80 / 8086"  },
     { UNIT_CPU_SWITCHER,    UNIT_CPU_SWITCHER,  "SWITCHER",     "SWITCHER",     &cpu_set_switcher, &cpu_show_switcher,
         NULL, "Sets CPU switcher port for 8080 / Z80 / 8086"   },
     { UNIT_CPU_SWITCHER,    0,                  "NOSWITCHER",   "NOSWITCHER",   &cpu_reset_switcher, &cpu_show_switcher,
         NULL, "Resets CPU switcher port for 8080 / Z80 / 8086" },
+    { UNIT_CPU_PO,     UNIT_CPU_PO,              "PO",          "PO",           NULL, NULL,
+        NULL, "Enable programmed output messages"     },
+    { UNIT_CPU_PO,          0,                   "NOPO",        "NOPO",         NULL, NULL,
+        NULL, "Disable programmed output messages"             },
     { MTAB_XTD | MTAB_VDV,  0,                  NULL,           "AZ80",         &cpu_set_ramtype,
         NULL, NULL, "Sets the RAM type to AltairZ80 RAM for 8080 / Z80 / 8086"  },
     { MTAB_XTD | MTAB_VDV,  1,                  NULL,           "HRAM",         &cpu_set_ramtype,
@@ -2110,7 +2117,7 @@ void PutByteDMA(const uint32 Addr, const uint32 Value) {
 #define INOUTFLAGS_NONZERO(x)                                           \
     INOUTFLAGS((HIGH_REGISTER(BC) & 0xa8) | ((HIGH_REGISTER(BC) == 0) << 6), x)
 
-int32 switch_cpu_now = TRUE; /* hharte */
+int32 switch_cpu_now = TRUE;
 
 t_stat sim_instr (void) {
     t_stat result;
@@ -2353,9 +2360,6 @@ static t_stat sim_instr_mmu (void) {
         }
 
         PCX = PC;
-        INCR(1);
-
-        op = RAM_PP(PC);
 
         /* 8080 INT/Z80 Interrupt Mode 0
            Instruction to execute (ex. RST0-7) is on the data bus
@@ -2378,6 +2382,9 @@ static t_stat sim_instr_mmu (void) {
 
             sim_debug(INT_MSG, &cpu_dev, ADDRESS_FORMAT
                 " INT(mode=0 vectorInterrupt=%X intVector=%d op=%02X)\n", PCX, vectorInterrupt, intVector, op);
+        } else {
+            INCR(1);
+            op = RAM_PP(PC);
         }
 
         switch(op) {
@@ -3747,7 +3754,7 @@ static t_stat sim_instr_mmu (void) {
                         break;
                     }
                 }
-                
+
                 INCR(1);
                 adr = HL;
                 switch ((op = GetBYTE(PC)) & 7) {
@@ -4878,7 +4885,7 @@ static t_stat sim_instr_mmu (void) {
                         break;
                     }
                 }
-                
+
                 INCR(1);
                 switch (RAM_PP(PC)) {
 
@@ -5593,7 +5600,7 @@ static t_stat sim_instr_mmu (void) {
                         break;
                     }
                 }
-                
+
                 INCR(1);
                 switch (RAM_PP(PC)) {
 
@@ -6385,7 +6392,7 @@ static t_stat sim_instr_mmu (void) {
 
 /*
  * This sequence of instructions is a mix that mimics
- * a resonable instruction set that is a close estimate
+ * a reasonable instruction set that is a close estimate
  * to the calibrated result.
  */
 
@@ -6520,6 +6527,7 @@ static t_stat cpu_ex(t_value *vptr, t_addr addr, UNIT *uptr, int32 sw) {
             break;
 
         default:
+            *vptr = 0; // make clear to static checking that a value is assigned in all cases
             return SCPE_AFAIL;
             break;
     }
@@ -6696,14 +6704,19 @@ static t_stat cpu_show(FILE *st, UNIT *uptr, int32 val, CONST void *desc) {
     return SCPE_OK;
 }
 
-static void cpu_clear(void) {
+static void cpu_clear(t_bool unmap) {
     uint32 i;
     for (i = 0; i < MAXMEMORY; i++)
         M[i] = 0;
     for (i = 0; i < (MAXMEMORY >> LOG2PAGESIZE); i++)
-        mmu_table[i] = RAM_PAGE;
+        if (!mmu_table[i].routine || unmap) {
+            if (mmu_table[i].routine && (cpu_unit.flags & UNIT_CPU_VERBOSE))
+                sim_printf("Unmapping memory 0x%05x, handler=%s\n", i << LOG2PAGESIZE, mmu_table[i].name);
+            mmu_table[i] = RAM_PAGE;
+        }
     for (i = (MEMORYSIZE >> LOG2PAGESIZE); i < (MAXMEMORY >> LOG2PAGESIZE); i++)
-        mmu_table[i] = EMPTY_PAGE;
+        if (!mmu_table[i].routine || unmap)
+            mmu_table[i] = EMPTY_PAGE;
     if (cpu_unit.flags & UNIT_CPU_ALTAIRROM)
         install_ALTAIRbootROM();
     m68k_clear_memory();
@@ -6711,7 +6724,7 @@ static void cpu_clear(void) {
 }
 
 static t_stat cpu_clear_command(UNIT *uptr, int32 value, CONST char *cptr, void *desc) {
-    cpu_clear();
+    cpu_clear(TRUE);
     return SCPE_OK;
 }
 
@@ -6750,7 +6763,7 @@ static t_stat cpu_set_banked(UNIT *uptr, int32 value, CONST char *cptr, void *de
             previousCapacity = MEMORYSIZE;
         MEMORYSIZE = MAXMEMORY;
         cpu_dev.awidth = MAXBANKSIZELOG2 + MAXBANKSLOG2;
-        cpu_clear();
+        cpu_clear(TRUE);
     } else if (chiptype == CHIP_TYPE_8086) {
         sim_printf("Cannot use banked memory for 8086 CPU.\n");
         return SCPE_ARG;
@@ -6762,7 +6775,7 @@ static t_stat cpu_set_nonbanked(UNIT *uptr, int32 value, CONST char *cptr, void 
     if ((chiptype == CHIP_TYPE_8080) || (chiptype == CHIP_TYPE_Z80)) {
         MEMORYSIZE = previousCapacity;
         cpu_dev.awidth = MAXBANKSIZELOG2;
-        cpu_clear();
+        cpu_clear(TRUE);
     }
     return SCPE_OK;
 }
@@ -6900,7 +6913,7 @@ static void cpu_set_chiptype_short(const int32 value) {
 
 static t_stat cpu_set_chiptype(UNIT *uptr, int32 value, CONST char *cptr, void *desc) {
     cpu_set_chiptype_short(value);
-    cpu_clear();
+    cpu_clear(TRUE);
     return SCPE_OK;
 }
 
@@ -6914,14 +6927,14 @@ static int32 switchcpu_io(const int32 port, const int32 io, CONST int32 data) {
                     sim_printf("CPU: " ADDRESS_FORMAT " SWITCH(port=%02x) to 8086\n", PCX, port);
                 }
                 new_chiptype = CHIP_TYPE_8086;
-                switch_cpu_now = FALSE; /* hharte */
+                switch_cpu_now = FALSE;
                 break;
             case CHIP_TYPE_8086:
                 if (cpu_unit.flags & UNIT_CPU_VERBOSE) {
                     sim_printf("CPU: " ADDRESS_FORMAT " SWITCH(port=%02x) to 8085/Z80\n", PCX, port);
                 }
                 new_chiptype = CHIP_TYPE_Z80;
-                switch_cpu_now = FALSE; /* hharte */
+                switch_cpu_now = FALSE;
                 break;
             default:
                 sim_printf("%s: invalid chiptype: %d\n", __FUNCTION__, chiptype);
@@ -7033,7 +7046,7 @@ static t_stat cpu_set_ramtype(UNIT *uptr, int32 value, CONST char *cptr, void *d
 }
 
 /* set memory to 'size' kilo byte */
-static t_stat set_size(uint32 size) {
+static t_stat set_size(uint32 size, t_bool unmap) {
     uint32 maxsize;
     if (chiptype == CHIP_TYPE_M68K) {   // ignore for M68K
         if (cpu_unit.flags & UNIT_CPU_VERBOSE)
@@ -7055,23 +7068,40 @@ static t_stat set_size(uint32 size) {
     cpu_dev.awidth = MAXBANKSIZELOG2;
     if  (size > MAXBANKSIZE)
         cpu_dev.awidth += MAXBANKSLOG2;
-    cpu_clear();
+    cpu_clear(unmap);
     return SCPE_OK;
 }
 
 static t_stat cpu_set_size(UNIT *uptr, int32 value, CONST char *cptr, void *desc) {
-    return set_size(value);
+    return set_size(value, TRUE);
 }
 
 static t_stat cpu_set_memory(UNIT *uptr, int32 value, CONST char *cptr, void *desc) {
     uint32 size, result, i;
-    if (cptr == NULL)
-        return SCPE_ARG;
+    if (cptr == NULL) {
+        sim_printf("Memory size must be provided as SET CPU MEMORY=xK\n");
+        return SCPE_ARG | SCPE_NOMESSAGE;
+    }
     result = sscanf(cptr, "%i%n", &size, &i);
     if ((result == 1) && (cptr[i] == 'K') && ((cptr[i + 1] == 0) ||
             ((cptr[i + 1] == 'B') && (cptr[i + 2] == 0))))
-        return set_size(size);
-    return SCPE_ARG;
+        return set_size(size, TRUE);
+    sim_printf("Memory size must be specified as xK\n");
+    return SCPE_ARG | SCPE_NOMESSAGE;
+}
+
+static t_stat cpu_resize_memory(UNIT *uptr, int32 value, CONST char *cptr, void *desc) {
+    uint32 size, result, i;
+    if (cptr == NULL) {
+        sim_printf("Memory size must be provided as SET CPU RESIZEMEMORY=xK\n");
+        return SCPE_ARG | SCPE_NOMESSAGE;
+    }
+    result = sscanf(cptr, "%i%n", &size, &i);
+    if ((result == 1) && (cptr[i] == 'K') && ((cptr[i + 1] == 0) ||
+            ((cptr[i + 1] == 'B') && (cptr[i + 2] == 0))))
+        return set_size(size, FALSE);
+    sim_printf("Memory size must be specified as xK\n");
+    return SCPE_ARG | SCPE_NOMESSAGE;
 }
 
 static t_stat m68k_set_chiptype(UNIT* uptr, int32 value, CONST char* cptr, void* desc) {
@@ -7087,8 +7117,8 @@ static t_stat m68k_set_chiptype(UNIT* uptr, int32 value, CONST char* cptr, void*
 }
 
 static t_stat cpu_set_hist(UNIT *uptr, int32 val, CONST char *cptr, void *desc) {
-   uint32 i, lnt;
-   t_stat r;
+    uint32 i, lnt;
+    t_stat r;
 
     if ((chiptype >= 0) && (chiptype != CHIP_TYPE_8080) && (chiptype != CHIP_TYPE_Z80)) {
         sim_printf("History not supported for chiptype: %s\n",
@@ -7229,7 +7259,7 @@ t_value altairz80_pc_value (void) {
 
 /* AltairZ80 Simulator initialization */
 void altairz80_init(void) {
-    cpu_clear();
+    cpu_clear(TRUE);
     sim_vm_pc_value = &altairz80_pc_value;
 /* altairz80_print_tables(); */
 }
@@ -7425,12 +7455,14 @@ void cpu_raise_interrupt(uint32 irq) {
 static t_addr disp_addr = 0;
 
 static t_stat cpu_cmd_memory(int32 flag, const char *cptr) {
-    const char *result;
     char abuf[16];
-    t_addr lo, hi, last;
+    t_addr lo, hi, max, last;
     t_value byte;
 
-    if ((result = get_range(NULL, cptr, &lo, &hi, 16, MEMORYMASK, 0)) == NULL) {
+    /* 64K minimum */
+    max = (MEMORYMASK < 0xffff) ? 0xffff : MEMORYMASK;
+
+    if (get_range(NULL, cptr, &lo, &hi, 16, max, 0) == NULL) {
         lo = hi = disp_addr;
     }
     else {
@@ -7443,7 +7475,7 @@ static t_stat cpu_cmd_memory(int32 flag, const char *cptr) {
 
     last = hi | 0x00000f;
 
-    while (disp_addr <= last && disp_addr <= MEMORYMASK) {
+    while (disp_addr <= last && disp_addr <= max) {
 
         if (!(disp_addr & 0x0f)) {
             if (MEMORYSIZE <= 0x10000) {
@@ -7471,7 +7503,7 @@ static t_stat cpu_cmd_memory(int32 flag, const char *cptr) {
         disp_addr++;
     }
 
-    if (disp_addr > MEMORYMASK) {
+    if (disp_addr > max) {
         disp_addr = 0;
     }
 

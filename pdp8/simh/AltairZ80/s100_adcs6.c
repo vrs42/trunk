@@ -40,7 +40,6 @@
  *************************************************************************/
 
 #include "altairz80_defs.h"
-#include "sim_defs.h"   /* simulator definitions */
 #include "wd179x.h"
 
 #define DEV_NAME    "ADCS6"
@@ -314,7 +313,7 @@ static uint8 adcs6_rom[2][ADCS6_ROM_SIZE] = {
  *
  * MONITOR COMMANDS :
      *  B               = Load disk boot loader
-     *  C               = Load disk boot loader from cartriage
+     *  C               = Load disk boot loader from cartridge
      *  DSSSS,QQQQ      = Dump memory in hex from S to Q
      *  FSSSS,QQQQ,BB   = Fill memory from S to Q with B
      *  GAAAA           = Go to address A

@@ -49,7 +49,8 @@
 #define IBC_HDC_MAX_DRIVES          4       /* Maximum number of drives supported */
 #define IBC_HDC_MAX_SECLEN          256     /* Maximum of 256 bytes per sector */
 #define IBC_HDC_FORMAT_FILL_BYTE    0xe5    /* Real controller uses 0, but we
-                                               choose 0xe5 so the disk shows                                               up as blank under CP/M. */
+                                               choose 0xe5 so the disk shows
+                                               up as blank under CP/M. */
 #define IBC_HDC_MAX_CYLS            1024
 #define IBC_HDC_MAX_HEADS           16
 #define IBC_HDC_MAX_SPT             256
@@ -67,10 +68,12 @@
 #define TF_TRKH     7
 #define TF_FIFO     8
 
+#define IBC_HDC_STATUS_BUSY         (1 << 4)
 #define IBC_HDC_STATUS_ERROR        (1 << 0)
 
 #define IBC_HDC_ERROR_ID_NOT_FOUND  (1 << 4)
 
+#define IBC_HDC_CMD_MASK            0x7f
 #define IBC_HDC_CMD_RESET           0x00
 #define IBC_HDC_CMD_READ_SECT       0x01
 #define IBC_HDC_CMD_WRITE_SECT      0x02
@@ -237,7 +240,7 @@ static t_stat ibc_hdc_attach(UNIT *uptr, CONST char *cptr)
     /* Defaults for the Quantum 2020 Drive */
     pDrive->ready = 0;
     if (pDrive->ncyls == 0) {
-        /* If geometry was not specified, default to Quantun 2020 */
+        /* If geometry was not specified, default to Quantum 2020 */
         pDrive->ncyls = 512;
         pDrive->nheads = 4;
         pDrive->nsectors = 32;
@@ -403,7 +406,7 @@ static uint8 IBC_HDC_Write(const uint32 Addr, uint8 cData)
             ibc_hdc_info->taskfile[TF_DRIVE] = ibc_hdc_info->reg_temp_holding[1];
             ibc_hdc_info->taskfile[TF_TRKL] = ibc_hdc_info->reg_temp_holding[2];
             ibc_hdc_info->taskfile[TF_TRKH] = ibc_hdc_info->reg_temp_holding[3];
-            if ((ibc_hdc_info->taskfile[TF_CMD] & 0x80) != IBC_HDC_CMD_READ_PARAMETERS) {
+            if ((ibc_hdc_info->taskfile[TF_CMD] & IBC_HDC_CMD_MASK) != IBC_HDC_CMD_READ_PARAMETERS) {
                 ibc_hdc_info->sel_drive = ibc_hdc_info->taskfile[TF_DRIVE] & 0x03;
             }
             ibc_hdc_info->status_reg = 0x30;
@@ -533,9 +536,9 @@ static t_stat IBC_HDC_doCommand(void)
 {
     t_stat r = SCPE_OK;
     IBC_HDC_DRIVE_INFO* pDrive = &ibc_hdc_info->drive[ibc_hdc_info->sel_drive];
-    uint8 cmd = ibc_hdc_info->taskfile[TF_CMD] & 0x7F;
+    uint8 cmd = ibc_hdc_info->taskfile[TF_CMD] & IBC_HDC_CMD_MASK;
 
-    pDrive->cur_cyl    = ibc_hdc_info->taskfile[TF_TRKH] << 8;
+    pDrive->cur_cyl    = (uint16)ibc_hdc_info->taskfile[TF_TRKH] << 8;
     pDrive->cur_cyl   |= ibc_hdc_info->taskfile[TF_TRKL];
     pDrive->xfr_nsects = ibc_hdc_info->taskfile[TF_NSEC];
     pDrive->cur_head   = ibc_hdc_info->taskfile[TF_HEAD];
@@ -568,7 +571,7 @@ static t_stat IBC_HDC_doCommand(void)
         if (IBC_HDC_Validate_CHSN(pDrive) != SCPE_OK) break;
 
         /* Calculate file offset */
-        file_offset = (pDrive->cur_cyl * pDrive->nheads * pDrive->nsectors);   /* Full cylinders */
+        file_offset  = (pDrive->cur_cyl * pDrive->nheads * pDrive->nsectors);   /* Full cylinders */
         file_offset += (pDrive->cur_head * pDrive->nsectors);   /* Add full heads */
         file_offset += (pDrive->cur_sect);  /* Add sectors for current request */
         file_offset *= pDrive->sectsize;    /* Convert #sectors to byte offset */

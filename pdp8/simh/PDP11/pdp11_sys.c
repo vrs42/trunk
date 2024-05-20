@@ -101,6 +101,7 @@ extern DEVICE rx_dev;
 extern DEVICE ry_dev;
 extern DEVICE mba_dev[];
 extern DEVICE rp_dev;
+extern DEVICE rr_dev;
 extern DEVICE rs_dev;
 extern DEVICE rq_dev, rqb_dev, rqc_dev, rqd_dev;
 extern DEVICE tm_dev;
@@ -182,6 +183,7 @@ DEVICE *sim_devices[] = {
     &rx_dev,
     &ry_dev,
     &rp_dev,
+    &rr_dev,
     &rs_dev,
     &rq_dev,
     &rqb_dev,
@@ -374,7 +376,7 @@ static const int32 masks[] = {
 0177700+I_D, 0177400+I_D, 0177700, 0177400,
 0177400, 0177000, 0177000, 0177400,
 0177400+I_D+I_L, 0170000, 0177777, 0177777,
-0177700+I_D, 0177400+I_D, 0177700, 0177400,
+0177000+I_D, 0177400+I_D, 0177700, 0177400,
 0177000, 0177700+I_D, 0177400, 0177400+I_D+I_L
 };
 

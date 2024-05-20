@@ -65,7 +65,7 @@
    We get many calls on how to interface terminals to the 2SIO. The
    problem is that the Asynchronous Communications Interface Adapter's
    (ACIA) handshaking signals make interfacing with the 2SIO a
-   somewhat complicated matter. An explaination of the signals and
+   somewhat complicated matter. An explanation of the signals and
    their function should make the job easier. The three handshaking
    signals--Data Carrier Detect (DCD), Request to Send (RTS) and
    Clear to Send (CTS)--permit limited control of a modem or
@@ -79,15 +79,13 @@
    section is inhibited and no data can be received by the ACIA.
 
    Information from the two input signals, CTS and DCD, is present in
-   the ACIA status register. Bit 2 represents *DCD, and bit 3 repre-
-   sents *CTS. When bit 2 is high, DCD is inactive. When bit 3 is high,
+   the ACIA status register. Bit 2 represents *DCD, and bit 3
+   represents *CTS. When bit 2 is high, DCD is inactive. When bit 3 is high,
    CTS is inactive. When bit 2 goes low, valid data is sent to the ACIA.
    When bit 3 goes low, data can be transmitted.
 
    * = Active Low
 */
-
-#include <stdio.h>
 
 #include "altairz80_defs.h"
 #include "sim_tmxr.h"
@@ -135,8 +133,9 @@
 
 /* Debug flags */
 #define STATUS_MSG        (1 << 0)
-#define ERROR_MSG         (1 << 1)
-#define VERBOSE_MSG       (1 << 2)
+#define IRQ_MSG           (1 << 1)
+#define ERROR_MSG         (1 << 2)
+#define VERBOSE_MSG       (1 << 3)
 
 /* IO Read/Write */
 #define IO_RD            0x00            /* IO Read  */
@@ -145,18 +144,19 @@
 typedef struct {
     PNP_INFO pnp;        /* Must be first    */
     int32 port;          /* Port 0 or 1      */
-    int32 conn;          /* Connected Status */
+    t_bool conn;         /* Connected Status */
     TMLN *tmln;          /* TMLN pointer     */
     TMXR *tmxr;          /* TMXR pointer     */
     int32 baud;          /* Baud rate        */
     int32 rts;           /* RTS Status       */
     int32 rxb;           /* Receive Buffer   */
     int32 txb;           /* Transmit Buffer  */
-    int32 txp;           /* Transmit Pending */
+    t_bool txp;          /* Transmit Pending */
     int32 stb;           /* Status Buffer    */
     int32 ctb;           /* Control Buffer   */
-    int32 rie;           /* Rx Int Enable    */
-    int32 tie;           /* Tx Int Enable    */
+    t_bool rie;          /* Rx Int Enable    */
+    t_bool tie;          /* Tx Int Enable    */
+    t_bool dcdl;         /* DCD latch        */
     uint8 intenable;     /* Interrupt Enable */
     uint8 intvector;     /* Interrupt Vector */
     uint8 databus;       /* Data Bus Value   */
@@ -185,6 +185,7 @@ static int32 m2sio1_io(int32 addr, int32 io, int32 data);
 static int32 m2sio_io(DEVICE *dptr, int32 addr, int32 io, int32 data);
 static int32 m2sio_stat(DEVICE *dptr, int32 io, int32 data);
 static int32 m2sio_data(DEVICE *dptr, int32 io, int32 data);
+static void m2sio_int(UNIT *uptr);
 
 extern uint32 vectorInterrupt;          /* Vector Interrupt bits */
 extern uint8 dataBus[MAX_INT_VECTORS];  /* Data bus value        */
@@ -192,6 +193,7 @@ extern uint8 dataBus[MAX_INT_VECTORS];  /* Data bus value        */
 /* Debug Flags */
 static DEBTAB m2sio_dt[] = {
     { "STATUS",         STATUS_MSG,         "Status messages"  },
+    { "IRQ",            IRQ_MSG,            "Interrupt messages"  },
     { "ERROR",          ERROR_MSG,          "Error messages"  },
     { "VERBOSE",        VERBOSE_MSG,        "Verbose messages"  },
     { NULL,             0                   }
@@ -232,6 +234,8 @@ static TMXR m2sio1_tmxr = {                     /* multiplexer descriptor */
 #define UNIT_M2SIO_DTR        (1 << UNIT_V_M2SIO_DTR)
 #define UNIT_V_M2SIO_DCD      (UNIT_V_UF + 2)     /* Force DCD active low          */
 #define UNIT_M2SIO_DCD        (1 << UNIT_V_M2SIO_DCD)
+#define UNIT_V_M2SIO_CTS      (UNIT_V_UF + 3)     /* Force CTS active low          */
+#define UNIT_M2SIO_CTS        (1 << UNIT_V_M2SIO_CTS)
 
 static MTAB m2sio_mod[] = {
     { MTAB_XTD|MTAB_VDV,    0,                      "IOBASE",  "IOBASE",
@@ -248,6 +252,10 @@ static MTAB m2sio_mod[] = {
         "Force DCD active low" },
     { UNIT_M2SIO_DCD,       0,                  "NODCD",     "NODCD",     NULL, NULL, NULL,
         "DCD follows status line (default)" },
+    { UNIT_M2SIO_CTS,       UNIT_M2SIO_CTS,     "CTS",       "CTS",       NULL, NULL, NULL,
+        "Force CTS active low" },
+    { UNIT_M2SIO_CTS,       0,                  "NOCTS",     "NOCTS",     NULL, NULL, NULL,
+        "CTS follows status line (default)" },
     { MTAB_XTD|MTAB_VDV|MTAB_VALR,  0,   "BAUD",  "BAUD",  &m2sio_set_baud, &m2sio_show_baud,
         NULL, "Set baud rate (default=9600)" },
     { 0 }
@@ -268,7 +276,7 @@ static REG m2sio0_reg[] = {
     { HRDATAD (M2CTL0, m2sio0_ctx.ctb, 8, "2SIO port 0 control register"), },
     { HRDATAD (M2RXD0, m2sio0_ctx.rxb, 8, "2SIO port 0 rx data buffer"), },
     { HRDATAD (M2TXD0, m2sio0_ctx.txb, 8, "2SIO port 0 tx data buffer"), },
-    { HRDATAD (M2TXP0, m2sio0_ctx.txp, 8, "2SIO port 0 tx data pending"), },
+    { FLDATAD (M2TXP0, m2sio0_ctx.txp, 0, "2SIO port 0 tx data pending"), },
     { FLDATAD (M2CON0, m2sio0_ctx.conn, 0, "2SIO port 0 connection status"), },
     { FLDATAD (M2RIE0, m2sio0_ctx.rie, 0, "2SIO port 0 receive interrupt enable"), },
     { FLDATAD (M2TIE0, m2sio0_ctx.tie, 0, "2SIO port 0 transmit interrupt enable"), },
@@ -278,6 +286,7 @@ static REG m2sio0_reg[] = {
     { FLDATAD (M2DCD0, m2sio0_ctx.stb, 2, "2SIO port 0 DCD status (active low)"), },
     { FLDATAD (M2CTS0, m2sio0_ctx.stb, 3, "2SIO port 0 CTS status (active low)"), },
     { FLDATAD (M2OVRN0, m2sio0_ctx.stb, 4, "2SIO port 0 OVRN status"), },
+    { FLDATAD (DCDL0, m2sio0_ctx.dcdl, 0, "2SIO port 0 DCD latch"), },
     { DRDATAD (M2WAIT0, m2sio0_unit[0].wait, 32, "2SIO port 0 wait cycles"), },
     { FLDATAD (M2INTEN0, m2sio0_ctx.intenable, 1, "2SIO port 0 Global vectored interrupt enable"), },
     { DRDATAD (M2VEC0, m2sio0_ctx.intvector, 8, "2SIO port 0 interrupt vector"), },
@@ -289,7 +298,7 @@ static REG m2sio1_reg[] = {
     { HRDATAD (M2CTL1, m2sio1_ctx.ctb, 8, "2SIO port 1 control register"), },
     { HRDATAD (M2RXD1, m2sio1_ctx.rxb, 8, "2SIO port 1 rx data buffer"), },
     { HRDATAD (M2TXD1, m2sio1_ctx.txb, 8, "2SIO port 1 tx data buffer"), },
-    { HRDATAD (M2TXP1, m2sio1_ctx.txp, 8, "2SIO port 1 tx data pending"), },
+    { FLDATAD (M2TXP1, m2sio1_ctx.txp, 0, "2SIO port 1 tx data pending"), },
     { FLDATAD (M2CON1, m2sio1_ctx.conn, 0, "2SIO port 1 connection status"), },
     { FLDATAD (M2RIE1, m2sio1_ctx.rie, 0, "2SIO port 1 receive interrupt enable"), },
     { FLDATAD (M2TIE1, m2sio1_ctx.tie, 0, "2SIO port 1 transmit interrupt enable"), },
@@ -299,6 +308,7 @@ static REG m2sio1_reg[] = {
     { FLDATAD (M2DCD1, m2sio1_ctx.stb, 2, "2SIO port 1 DCD status (active low)"), },
     { FLDATAD (M2CTS1, m2sio1_ctx.stb, 3, "2SIO port 1 CTS status (active low)"), },
     { FLDATAD (M2OVRN1, m2sio1_ctx.stb, 4, "2SIO port 1 OVRN status"), },
+    { FLDATAD (DCDL1, m2sio1_ctx.dcdl, 0, "2SIO port 1 DCD latch"), },
     { DRDATAD (M2WAIT1, m2sio1_unit[0].wait, 32, "2SIO port 1 wait cycles"), },
     { FLDATAD (M2INTEN1, m2sio1_ctx.intenable, 1, "2SIO port 1 Global vectored interrupt enable"), },
     { DRDATAD (M2VEC1, m2sio1_ctx.intvector, 8, "2SIO port 1 interrupt vector"), },
@@ -397,12 +407,13 @@ static t_stat m2sio_reset(DEVICE *dptr, int32 (*routine)(const int32, const int3
     c = getClockFrequency() / 5;
     dptr->units[0].wait = (c && c < 1000) ? c : 1000;
 
-    /* Enable TMXR modem control passthru */
+    /* Enable TMXR modem control passthrough */
     tmxr_set_modem_control_passthru(xptr->tmxr);
 
     /* Reset status registers */
-    xptr->stb = 0;
-    xptr->txp = 0;
+    xptr->stb = M2SIO_CTS | M2SIO_DCD;
+    xptr->txp = FALSE;
+    xptr->dcdl = FALSE;
     if (dptr->units[0].flags & UNIT_ATT) {
         m2sio_config_rts(dptr, 1);    /* disable RTS */
     }
@@ -431,7 +442,7 @@ static t_stat m2sio_svc(UNIT *uptr)
     if (uptr->flags & UNIT_ATT) {
         if (tmxr_poll_conn(xptr->tmxr) >= 0) {      /* poll connection */
 
-            xptr->conn = 1;          /* set connected   */
+            xptr->conn = TRUE;          /* set connected   */
 
             sim_debug(STATUS_MSG, uptr->dptr, "new connection.\n");
         }
@@ -442,14 +453,23 @@ static t_stat m2sio_svc(UNIT *uptr)
         tmxr_set_get_modem_bits(xptr->tmln, 0, 0, &s);
         stb = xptr->stb;
         xptr->stb &= ~M2SIO_CTS;
-        xptr->stb |= (s & TMXR_MDM_CTS) ? 0 : M2SIO_CTS;     /* Active Low */
+        xptr->stb |= ((s & TMXR_MDM_CTS) || (uptr->flags & UNIT_M2SIO_CTS)) ? 0 : M2SIO_CTS;     /* Active Low */
         if ((stb ^ xptr->stb) & M2SIO_CTS) {
             sim_debug(STATUS_MSG, uptr->dptr, "CTS state changed to %s.\n", (xptr->stb & M2SIO_CTS) ? "LOW" : "HIGH");
         }
-        xptr->stb &= ~M2SIO_DCD;
-        xptr->stb |= ((s & TMXR_MDM_DCD) || (uptr->flags & UNIT_M2SIO_DCD)) ? 0 : M2SIO_DCD;     /* Active Low */
-        if ((stb ^ xptr->stb) & M2SIO_DCD) {
-            sim_debug(STATUS_MSG, uptr->dptr, "DCD state changed to %s.\n", (xptr->stb & M2SIO_DCD) ? "LOW" : "HIGH");
+
+        if (!xptr->dcdl) {
+            xptr->stb &= ~M2SIO_DCD;
+            xptr->stb |= ((s & TMXR_MDM_DCD) || (uptr->flags & UNIT_M2SIO_DCD)) ? 0 : M2SIO_DCD;     /* Active Low */
+            if ((stb ^ xptr->stb) & M2SIO_DCD) {
+                if ((xptr->stb & M2SIO_DCD) == M2SIO_DCD) {
+                    xptr->dcdl = TRUE;
+                    if (xptr->rie) {
+                        m2sio_int(uptr);
+                    }
+                }
+                sim_debug(STATUS_MSG, uptr->dptr, "DCD state changed to %s.\n", (xptr->stb & M2SIO_DCD) ? "LOW" : "HIGH");
+            }
         }
 
         /* Enable receiver if DCD is active low */
@@ -461,19 +481,25 @@ static t_stat m2sio_svc(UNIT *uptr)
         if (uptr->flags & UNIT_ATT) {
             if (!(xptr->stb & M2SIO_CTS)) {    /* Active low */
                 r = tmxr_putc_ln(xptr->tmln, xptr->txb);
-                xptr->txp = 0;               /* Reset TX Pending */
+                xptr->txp = FALSE;             /* Reset TX Pending */
             } else {
                 r = SCPE_STALL;
             }
         } else {
             r = sim_putchar(xptr->txb);
-            xptr->txp = 0;               /* Reset TX Pending */
+            xptr->txp = FALSE;                 /* Reset TX Pending */
         }
 
         if (r == SCPE_LOST) {
-            xptr->conn = 0;          /* Connection was lost */
+            xptr->conn = FALSE;          /* Connection was lost */
             sim_debug(STATUS_MSG, uptr->dptr, "lost connection.\n");
         }
+
+        /* If TX buffer now empty, send interrupt */
+        if ((!xptr->txp) && (xptr->tie)) {
+            m2sio_int(uptr);
+        }
+
     }
 
     /* Update TDRE if not set and no character pending */
@@ -502,9 +528,8 @@ static t_stat m2sio_svc(UNIT *uptr)
             xptr->rxb = c & 0xff;
             xptr->stb |= M2SIO_RDRF;
             xptr->stb &= ~(M2SIO_FE | M2SIO_OVRN | M2SIO_PE);
-            if ((xptr->rie) && (xptr->intenable)) {
-                vectorInterrupt |= (1 << xptr->intvector);
-                dataBus[xptr->intvector] = xptr->databus;
+            if (xptr->rie) {
+                m2sio_int(uptr);
             }
         }
     }
@@ -667,7 +692,7 @@ static t_stat m2sio_config_line(UNIT *uptr)
         ** to run irrelevant, old software, that use TMXR and
         ** rely on some semblance of timing (Remote CP/M, BYE,
         ** RBBS, PCGET/PUT, Xmodem, MEX, Modem7, or most
-        ** other communications software), on contemprary
+        ** other communications software), on contemporary
         ** hardware.
         **
         ** Serial ports are self-limiting and sockets will run
@@ -765,15 +790,16 @@ static int32 m2sio_stat(DEVICE *dptr, int32 io, int32 data)
         if ((data & M2SIO_RESET) == M2SIO_RESET) {
             sim_debug(STATUS_MSG, dptr, "MC6850 master reset.\n");
             xptr->stb &= (M2SIO_CTS | M2SIO_DCD);           /* Reset status register */
-            xptr->rxb = 0;
-            xptr->txp = 0;
-            xptr->tie = 1;
-            xptr->rie = 1;
+            xptr->rxb = 0x00;
+            xptr->txp = FALSE;
+            xptr->tie = FALSE;
+            xptr->rie = FALSE;
+            xptr->dcdl = FALSE;
             m2sio_config_rts(dptr, 1);    /* disable RTS */
         } else {
             /* Interrupt Enable */
-            xptr->rie = (data & M2SIO_RIE) == M2SIO_RIE;           /* Receive enable  */
-            xptr->tie = (data & M2SIO_RTSMSK) == M2SIO_RTSLTIE;    /* Transmit enable */
+            xptr->rie = (data & M2SIO_RIE) == M2SIO_RIE;           /* Receive interrupt enable  */
+            xptr->tie = (data & M2SIO_RTSMSK) == M2SIO_RTSLTIE;    /* Transmit interrupt enable */
             switch (data & M2SIO_RTSMSK) {
                 case M2SIO_RTSLTIE:
                 case M2SIO_RTSLTID:
@@ -808,15 +834,30 @@ static int32 m2sio_data(DEVICE *dptr, int32 io, int32 data)
 
     if (io == IO_RD) {
         r = xptr->rxb;
-        xptr->stb &= ~(M2SIO_RDRF | M2SIO_FE | M2SIO_OVRN | M2SIO_PE);
+        xptr->stb &= ~(M2SIO_RDRF | M2SIO_FE | M2SIO_OVRN | M2SIO_PE | M2SIO_IRQ);
+        xptr->dcdl = FALSE;
     } else {
         xptr->txb = data;
-        xptr->stb &= ~M2SIO_TDRE;
-        xptr->txp = 1;
+        xptr->stb &= ~(M2SIO_TDRE | M2SIO_IRQ);
+        xptr->txp = TRUE;
         r = 0x00;
     }
 
     return r;
 }
 
+static void m2sio_int(UNIT *uptr)
+{
+    M2SIO_CTX *xptr;
+
+    xptr = (M2SIO_CTX *) uptr->dptr->ctxt;
+
+    if (xptr->intenable) {
+        vectorInterrupt |= (1 << xptr->intvector);
+        dataBus[xptr->intvector] = xptr->databus;
+        xptr->stb |= M2SIO_IRQ;
+
+        sim_debug(IRQ_MSG, uptr->dptr, "%s: IRQ Vector=%d Status=%02X\n", sim_uname(uptr), xptr->intvector, xptr->stb);
+    }
+}
 

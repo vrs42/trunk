@@ -104,7 +104,6 @@ from "A Functional Description of the TX-0 Computer" Oct, 1958
    5. Bugs, limitations, and known issues:
         o There is a bug in the 1961 instruction set simulation, which causes the
           mouse maze program's searching algorithm to fail.
-        o The CRY micro-order is not implemented.
         o The instruction timing (ie, sim_interval) is not accurate, so implementing a
           timing-critical I/O device like the Magtape would require this to be added first.
         o PCQ and History do not work.
@@ -150,6 +149,8 @@ In addtion, many of the operate-class micro-orders changed.
   orb  --- --- --- --- --- 101  1.3 Or LR into MBR
   lmb  --- --- --- --- --- 01x  1.4 Tranfer LR contents to MBR
   mbx  --- --- --- --- --- 0x1  1.8 Transfer MBR contents to XR
+
+See TX-0 memo M-5001-19 for a simple formula for cry, used in the code below.
 */
 #include "tx0_defs.h"
 
@@ -303,6 +304,8 @@ extern int32 drm (int32 inst, int32 dev, int32 dat);
 #ifdef USE_DISPLAY
 extern int32 dpy (int32 ac);
 #endif
+
+extern UNIT petr_unit;
 
 /* CPU data structures
 
@@ -470,14 +473,20 @@ t_stat sim_instr (void)
             break;
         }
 
+        sim_interval = sim_interval - 1;
+
         if (ios) {
             TRACE_PRINT(ERROR_MSG, ("I/O Stop - Waiting...\n"));
-            continue;
+            continue; /* Don't execute test/readin/normal mode */
         }
 
         /* Handle Instruction Execution in TEST and READIN modes */
         if (mode_tst) { /* Test Mode / Readin mode */
             if (mode_rdin) { /* Readin Mode */
+
+                if ((petr_unit.flags & UNIT_ATT) == 0)
+                    return SCPE_UNATT;
+
                 reason = SCPE_OK;   /* Default is to continue reading, and transfer control when done. */
                 AC = petr(3,0,0);   /* Read three chars from tape into AC */
                 MAR = AC & AMASK;   /* Set memory address */
@@ -486,6 +495,7 @@ t_stat sim_instr (void)
                 if (!MEM_ADDR_OK(MAR)) {
                     TRACE_PRINT(ERROR_MSG, ("READIN: Tape address out of range.\n"));
                     reason = SCPE_FMT;
+                    break;
                 }
 
                 switch (IR) {
@@ -497,29 +507,29 @@ t_stat sim_instr (void)
                         break;
                     case 02:    /* Transfer Control (trn x) Start Execution */
                         PC = MAR;
-                        reason = SCPE_OK;   /* let SIMH start execution. */
                         TRACE_PRINT(READIN_MSG, ("READIN: trn %06o (Start Execution)\n", PC));
                         reason = cpu_set_mode(&cpu_unit, 0, NULL, NULL);
                         break;
                     case 01:    /* Transfer (add x) - Halt */
                         PC = MAR;
-                        reason = SCPE_STOP; /* let SIMH halt. */
                         TRACE_PRINT(READIN_MSG, ("READIN: add %06o (Halt)\n", PC));
                         reason = cpu_set_mode(&cpu_unit, 0, NULL, NULL);
+                        if (reason == SCPE_OK) reason = SCPE_STOP; /* let SIMH halt. */
                         break;
                     default:
                         reason = SCPE_IERR;
                         break;
                 }
-            } else if (mode_tst) {  /* Test mode not implemented yet. */
+                continue;  /* Don't fall into normal-mode processing. */
+            } else {  /* Test mode not implemented yet. */
                 TRACE_PRINT(ERROR_MSG, ("TEST Mode not implemented.\n"));
                 reason = SCPE_STOP;
-
-            } else {
-                TRACE_PRINT(ERROR_MSG, ("Invalid CPU mode.\n"));
-                reason = SCPE_IERR;
+                break;
             }
-            continue;   /* Proceed with next instruction */
+        } else if (mode_rdin) {
+            TRACE_PRINT(ERROR_MSG, ("Invalid CPU mode.\n"));
+            reason = SCPE_IERR;
+            break;
         }
 
         /* Fetch, decode instruction in NORMAL mode */
@@ -530,7 +540,6 @@ t_stat sim_instr (void)
         inst_class = IR >> 3;
         op = MBR & AMASK;
         y = MBR & YMASK;
-        sim_interval = sim_interval - 1;
 
         if ((cpu_unit.flags & UNIT_EXT_INST) == 0) {  /* Original instruction set */
             IR &= 030;
@@ -932,20 +941,10 @@ t_stat sim_instr (void)
             }
 
             if (op & OPR_PAD) { /* 1.5 Partial Add (XOR): AC = MBR ^ AC */
-                if (op & OPR_CRY) { /* 1.7 */
-                    TRACE_PRINT(ORD_MSG, ("[%06o] PAD+CRY: AC=%06o, MBR=%06o = ", PC-1, AC, MBR));
-                    AC = AC + MBR;
-                    if (AC > DMASK) {
-                        AC += 1;
-                    }
-                    AC &= DMASK;
-                    TRACE_PRINT(ORD_MSG, ("%06o\n", AC));
-                } else {
-                    TRACE_PRINT(ORD_MSG, ("[%06o] PAD: AC=%06o, MBR=%06o\n", PC-1, AC, MBR)); 
-                    AC = AC ^ MBR;
-                    AC &= DMASK;
-                    TRACE_PRINT(ORD_MSG, ("[%06o] PAD: Check: AC=%06o\n", PC-1, AC)); 
-                }
+                TRACE_PRINT(ORD_MSG, ("[%06o] PAD: AC=%06o, MBR=%06o = ", PC-1, AC, MBR));
+                AC = AC ^ MBR;
+                AC &= DMASK;
+                TRACE_PRINT(ORD_MSG, ("%06o\n", AC));
                 inst_ctr.pad++;
             }
 
@@ -968,11 +967,16 @@ t_stat sim_instr (void)
             }
 
             if (op & OPR_CRY) { /* 1.7 */
-                if (op & OPR_PAD) {
-                } else {
-                    TRACE_PRINT(ERROR_MSG, ("[%06o] CRY: TODO: AC=%06o\n", PC-1, AC)); 
-                    inst_ctr.cry++;
+                TRACE_PRINT(ORD_MSG, ("[%06o] CRY: AC=%06o, MBR=%06o = ", PC-1, AC, MBR));
+                AC = AC ^ MBR;
+                AC &= DMASK;
+                AC = AC + MBR;
+                if (AC > DMASK) {
+                    AC += 1;
                 }
+                AC &= DMASK;
+                TRACE_PRINT(ORD_MSG, ("%06o\n", AC));
+                inst_ctr.cry++;
             }
 
             if ((op & OPR_MBX_MASK) == OPR_MBX) { /* 1.8    MBR[5:17] -> XR[5:17], MBR[0] -> XR[4] */
@@ -1444,30 +1448,24 @@ t_stat sim_opr_orig(int32 op)
     }
 
     if (op & OOPR_PAD) {    /* 1.5 Partial Add (XOR): AC = MBR ^ AC */
-        if (op & OOPR_CRY) {    /* 1.7 */
-            TRACE_PRINT(ORD_MSG, ("[%06o] PAD+CRY: AC=%06o, MBR=%06o = ", PC-1, AC, MBR));
-            AC = AC + MBR;
-            if (AC & 01000000) {
-                AC += 1;
-            }
-            AC &= DMASK;
-            TRACE_PRINT(ORD_MSG, ("%06o\n", AC));
-            inst_ctr.cry++;
-        } else {
-            TRACE_PRINT(ORD_MSG, ("[%06o] PAD: AC=%06o, MBR=%06o\n", PC-1, AC, MBR)); 
-            AC = AC ^ MBR;
-            AC &= DMASK;
-            TRACE_PRINT(ORD_MSG, ("[%06o] PAD: Check: AC=%06o\n", PC-1, AC)); 
-        }
+        TRACE_PRINT(ORD_MSG, ("[%06o] PAD: AC=%06o, MBR=%06o = ", PC-1, AC, MBR));
+        AC = AC ^ MBR;
+        AC &= DMASK;
+        TRACE_PRINT(ORD_MSG, ("%06o\n", AC));
         inst_ctr.pad++;
     }
 
     if (op & OOPR_CRY) {    /* 1.7 */
-        if (op & OOPR_PAD) {
-        } else {
-            TRACE_PRINT(ERROR_MSG, ("[%06o] CRY: TODO: AC=%06o\n", PC-1, AC)); 
-            inst_ctr.cry++;
+        TRACE_PRINT(ORD_MSG, ("[%06o] CRY: AC=%06o, MBR=%06o = ", PC-1, AC, MBR));
+        AC = AC ^ MBR;
+        AC &= DMASK;
+        AC = AC + MBR;
+        if (AC > DMASK) {
+            AC += 1;
         }
+        AC &= DMASK;
+        TRACE_PRINT(ORD_MSG, ("%06o\n", AC));
+        inst_ctr.cry++;
     }
 
     if ((op & OOPR_HLT) == OOPR_HLT) {   /* hlt  1.8 Halt the computer */

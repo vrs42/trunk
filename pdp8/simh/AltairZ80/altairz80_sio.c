@@ -1,6 +1,6 @@
 /*  altairz80_sio.c: MITS Altair serial I/O card
 
-    Copyright (c) 2002-2014, Peter Schorn
+    Copyright (c) 2002-2023, Peter Schorn
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -49,10 +49,7 @@
     to the data port writes the character to the device.
 */
 
-#include <ctype.h>
-
 #include "altairz80_defs.h"
-#include "sim_sock.h"
 #include "sim_tmxr.h"
 
 uint8 *URLContents(const char *URL, uint32 *length);
@@ -584,6 +581,8 @@ static t_stat sio_reset(DEVICE *dptr) {
             if (TerminalLines[i].conn)
                 tmxr_reset_ln(&TerminalLines[i]);
     mapAltairPorts();
+    if (sio_unit.flags & UNIT_SIO_INTERRUPT)
+        sim_activate(&sio_unit, sio_unit.wait);             /* activate unit    */
     return SCPE_OK;
 }
 
@@ -770,11 +769,6 @@ static int32 sio0sCore(const int32 port, const int32 io, const int32 data) {
     pollConnection();
     if (io == 0) { /* IN */
         if (sio_unit.u4) {                                  /* attached to a file?                      */
-            ch = sim_poll_kbd();                            /* yes, check for stop condition first      */
-            if ((ch == SCPE_OK) && stop_cpu) {
-                sim_interval = 0;                           /* detect stop condition as soon as possible*/
-                return spi.sio_cannot_read | spi.sio_can_write; /* do not consume stop character        */
-            }
             if (sio_unit.u3)                                /* character available?                     */
                 return spi.sio_can_read | spi.sio_can_write;
             ch = getc(sio_unit.fileref);
@@ -788,15 +782,12 @@ static int32 sio0sCore(const int32 port, const int32 io, const int32 data) {
             }
         }
         if (sio_unit.flags & UNIT_ATT) {                    /* attached to a port?                      */
-            ch = sim_poll_kbd();                            /* yes, check for stop condition first      */
-            if ((ch == SCPE_OK) && stop_cpu) {
-                sim_interval = 0;                           /* detect stop condition as soon as possible*/
-                return spi.sio_cannot_read | spi.sio_can_write; /* do not consume stop character        */
-            }
             if (tmxr_rqln(&TerminalLines[spi.terminalLine]))
                 result = spi.sio_can_read;
             else {
                 result = spi.sio_cannot_read;
+                if (!sim_signaled_int_char)
+                    sim_poll_kbd();                         /* check for WRU when signaling is not available */
                 checkSleep();
             }
             return result |                                 /* read possible if character available     */
@@ -1142,17 +1133,11 @@ static t_stat sio_dev_set_interruptoff(UNIT *uptr, int32 value, CONST char *cptr
 }
 
 static t_stat sio_svc(UNIT *uptr) {
-    int32 sio_status;
     int32 ch;
     const SIO_PORT_INFO spi = lookupPortInfo(kbdIrqPort, &ch);
     ASSURE(spi.port == kbdIrqPort);
-
-    sio_status = sio0s(kbdIrqPort, 0, 0);
-
-    if (sio_status & spi.sio_can_read) {
+    if (sio0s(kbdIrqPort, 0, 0) & spi.sio_can_read)
         keyboardInterrupt = TRUE;
-    }
-
     if (sio_unit.flags & UNIT_SIO_INTERRUPT)
         sim_activate(&sio_unit, sio_unit.wait);             /* activate unit    */
     return SCPE_OK;
@@ -1185,7 +1170,17 @@ int32 nulldev(const int32 port, const int32 io, const int32 data) {
 }
 
 int32 sr_dev(const int32 port, const int32 io, const int32 data) {
-    return io == 0 ? SR : 0;
+    if (io == 0) {
+        return SR;
+    }
+
+    /* Simulate IMSAI functionality of displaying the A */
+    /* register on the Programmed Output front panel LEDs */
+    if (cpu_unit.flags & UNIT_CPU_PO) {
+        sim_printf("PO: %02X\n", data & 0xff);
+    }
+
+    return 0;
 }
 
 static int32 toBCD(const int32 x) {
@@ -1483,18 +1478,18 @@ static int32 simh_in(const int32 port) {
     switch(lastCommand) {
         case readURLCmd:
             if (isInReadPhase) {
-            if (showAvailability) {
-                if (resultPointer < resultLength)
-                    result = 1;
-                else {
-                    if (urlResult != NULL)
-                        free(urlResult);
-                    urlResult = NULL;
-                    lastCommand = 0;
-                }
-            } else if (resultPointer < resultLength)
-                result = urlResult[resultPointer++];
-            showAvailability = 1 - showAvailability;
+                if (showAvailability) {
+                    if (resultPointer < resultLength)
+                        result = 1;
+                    else {
+                        if (urlResult != NULL)
+                            free(urlResult);
+                        urlResult = NULL;
+                        lastCommand = 0;
+                    }
+                } else if (resultPointer < resultLength)
+                    result = urlResult[resultPointer++];
+                showAvailability = 1 - showAvailability;
             } else
                 lastCommand = 0;
             break;

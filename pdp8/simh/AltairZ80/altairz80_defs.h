@@ -1,6 +1,6 @@
 /*  altairz80_defs.h: MITS Altair simulator definitions
 
-    Copyright (c) 2002-2014, Peter Schorn
+    Copyright (c) 2002-2023, Peter Schorn
 
     Permission is hereby granted, free of charge, to any person obtaining a
     copy of this software and associated documentation files (the "Software"),
@@ -84,6 +84,8 @@ typedef enum {
 #define UNIT_CPU_STOPONHALT     (1 << UNIT_CPU_V_STOPONHALT)
 #define UNIT_CPU_V_SWITCHER     (UNIT_V_UF+6)               /* switcher 8086 <--> 8080/Z80 enabled          */
 #define UNIT_CPU_SWITCHER       (1 << UNIT_CPU_V_SWITCHER)
+#define UNIT_CPU_V_PO           (UNIT_V_UF+7)               /* enable programmed output messages            */
+#define UNIT_CPU_PO             (1 << UNIT_CPU_V_PO)
 
 #define ADDRESS_FORMAT          "[0x%08x]"
 

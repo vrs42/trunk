@@ -414,6 +414,9 @@ t_stat petr_boot (int32 unitno, DEVICE *dptr)
     int32 addr, tdata;
 #endif /* SANITY_CHECK_TAPE */
 
+    if ((petr_unit.flags & UNIT_ATT) == 0)
+        return SCPE_UNATT;
+
     /* Switch to READIN mode. */
     cpu_set_mode(&cpu_unit, UNIT_MODE_READIN, NULL, NULL);
 #ifdef SANITY_CHECK_TAPE
@@ -524,7 +527,6 @@ int32 ptp (int32 inst, int32 dev, int32 dat)
 
 t_stat ptp_svc (UNIT *uptr)
 {
-    ios = 1;                                            /* restart */
     iosta = iosta | IOS_PTP;                                /* set flag */
     if ((uptr->flags & UNIT_ATT) == 0)                      /* not attached? */
         return SCPE_UNATT;

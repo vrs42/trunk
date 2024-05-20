@@ -446,28 +446,28 @@ UNIT cpu_unit[] = { { UDATA (&rtc_srv,
 REG cpu_reg[] = {
     { ORDATAD (PC, PC, 18, "Program Counter") },
     { ORDATAD (FLAGS, FLAGS, 18, "Flags") },
-    { ORDATAD (FM0, FM[00], 36, "Fast Memory") },       /* addr in memory */
-    { ORDATA (FM1, FM[01], 36) },                       /* modified at exit */
-    { ORDATA (FM2, FM[02], 36) },                       /* to SCP */
-    { ORDATA (FM3, FM[03], 36) },
-    { ORDATA (FM4, FM[04], 36) },
-    { ORDATA (FM5, FM[05], 36) },
-    { ORDATA (FM6, FM[06], 36) },
-    { ORDATA (FM7, FM[07], 36) },
-    { ORDATA (FM10, FM[010], 36) },
-    { ORDATA (FM11, FM[011], 36) },
-    { ORDATA (FM12, FM[012], 36) },
-    { ORDATA (FM13, FM[013], 36) },
-    { ORDATA (FM14, FM[014], 36) },
-    { ORDATA (FM15, FM[015], 36) },
-    { ORDATA (FM16, FM[016], 36) },
-    { ORDATA (FM17, FM[017], 36) },
+    { ORDATAD (FM0, FM[00], 36, "Fast Memory"), REG_VMIO },       /* addr in memory */
+    { ORDATA (FM1, FM[01], 36), REG_VMIO },                       /* modified at exit */
+    { ORDATA (FM2, FM[02], 36), REG_VMIO },                       /* to SCP */
+    { ORDATA (FM3, FM[03], 36), REG_VMIO },
+    { ORDATA (FM4, FM[04], 36), REG_VMIO },
+    { ORDATA (FM5, FM[05], 36), REG_VMIO },
+    { ORDATA (FM6, FM[06], 36), REG_VMIO },
+    { ORDATA (FM7, FM[07], 36), REG_VMIO },
+    { ORDATA (FM10, FM[010], 36), REG_VMIO },
+    { ORDATA (FM11, FM[011], 36), REG_VMIO },
+    { ORDATA (FM12, FM[012], 36), REG_VMIO },
+    { ORDATA (FM13, FM[013], 36), REG_VMIO },
+    { ORDATA (FM14, FM[014], 36), REG_VMIO },
+    { ORDATA (FM15, FM[015], 36), REG_VMIO },
+    { ORDATA (FM16, FM[016], 36), REG_VMIO },
+    { ORDATA (FM17, FM[017], 36), REG_VMIO },
 #if KL | KS
-    { BRDATA (FM, FM, 8, 36, 128)},
+    { BRDATA (FM, FM, 8, 36, 128), REG_VMIO},
 #elif KI
-    { BRDATA (FM, FM, 8, 36, 64)},
+    { BRDATA (FM, FM, 8, 36, 64), REG_VMIO},
 #else
-    { BRDATA (FM, FM, 8, 36, 16)},
+    { BRDATA (FM, FM, 8, 36, 16), REG_VMIO},
 #endif
     { ORDATAD (PIR, PIR, 8, "Priority Interrupt Request") },
     { ORDATAD (PIH, PIH, 8, "Priority Interrupt Hold") },
@@ -4313,21 +4313,17 @@ int Mem_read_nopage() {
     if (adr_cond && AB == AS)
         address_conditions (0, 0);
 #endif
-    if (AB < 020) {
-        MB =  get_reg(AB);
-    } else {
-        if (AB >= MEMSIZE) {
+    if (AB >= MEMSIZE) {
 #if KL | KS
-            irq_flags |= NXM_MEM;
+        irq_flags |= NXM_MEM;
 #else
-            nxm_flag = 1;
+        nxm_flag = 1;
 #endif
-            check_apr_irq();
-            return 1;
-        }
-        sim_interval--;
-        MB = M[AB];
+        check_apr_irq();
+        return 1;
     }
+    sim_interval--;
+    MB = M[AB];
     return 0;
 }
 
@@ -4341,21 +4337,17 @@ int Mem_write_nopage() {
     if (adr_cond && AB == AS)
         address_conditions (0, 1);
 #endif
-    if (AB < 020) {
-        set_reg(AB, MB);
-    } else {
-        if (AB >= MEMSIZE) {
+    if (AB >= MEMSIZE) {
 #if KL | KS
-            irq_flags |= NXM_MEM;
+        irq_flags |= NXM_MEM;
 #else
-            nxm_flag = 1;
+        nxm_flag = 1;
 #endif
-            check_apr_irq();
-            return 1;
-        }
-        sim_interval--;
-        M[AB] = MB;
+        check_apr_irq();
+        return 1;
     }
+    sim_interval--;
+    M[AB] = MB;
     return 0;
 }
 
@@ -6426,13 +6418,17 @@ unasign:
                       goto last;
                   AR = MB;
                   SC = (AR >> 24) & 077;   /* S */
+                  FE = (AR >> 30) & 077;   /* P */
+#if KL
+                  if (SC || (QKLB && t20_page && FE > 36)) {
+#else
                   if (SC) {
+#endif
                       int  bpw, left, newb, adjw, adjb;
 
-                      FE = (AR >> 30) & 077;  /* P */
                       f = 0;
 #if KL
-                      if (QKLB && t20_page && pc_sect != 0 && FE > 36) {
+                      if (QKLB && t20_page && FE > 36) {
                           if (FE == 077)
                               goto muuo;
                           f = 1;
@@ -6521,7 +6517,7 @@ unasign:
                   AR = MB;
                   SCAD = (AR >> 30) & 077;
 #if KL
-                  if (QKLB && t20_page && pc_sect != 0 && SCAD > 36) {  /* Extended pointer */
+                  if (QKLB && t20_page && SCAD > 36) {  /* Extended pointer */
                       f = SCAD - 37;
                       if (SCAD == 077)
                           goto muuo;
@@ -6616,7 +6612,7 @@ unasign:
                   SC = (AR >> 24) & 077;
                   SCAD = (AR >> 30) & 077;
 #if KL
-                  if (QKLB && t20_page && pc_sect != 0 && SCAD > 36) {   /* Extended pointer */
+                  if (QKLB && t20_page && SCAD > 36) {   /* Extended pointer */
                       f = SCAD - 37;
                       if (SCAD == 077)
                           goto muuo;
@@ -8834,19 +8830,6 @@ jrstf:
                   break;
               }
 
-              /* Check if access to register */
-#if KL
-              if (AB < 020 && ((QKLB &&
-                      (glb_sect == 0 || sect == 0 || (glb_sect && sect == 1))) || !QKLB)) {
-                  AR = AB; /* direct map */
-                  if (flag1)                 /* U */
-                     AR |= SMASK;            /* BIT0 */
-                  AR |= BIT2|BIT3|BIT4|BIT8;
-                  set_reg(AC, AR);
-                  break;
-              }
-#endif
-
               /* Handle KI paging odditiy */
               if (!flag1 && !t20_page && (f & 0740) == 0340) {
                   /* Pages 340-377 via UBT */
@@ -9022,6 +9005,7 @@ jrstf:
               if (QKLB && t20_page &&pc_sect != 0 && (BR & SMASK) == 0 && (BR & SECTM) != 0) {
                   BR = (BR + 1) & FMASK;
                   sect = (BR >> 18) & 07777;
+                  glb_sect = 1;
               } else {
                   sect = pc_sect;
 #endif
@@ -10904,7 +10888,7 @@ skip_op:
     case 0774: case 0775: case 0776: case 0777:
 #if KI | KL
               if (!pi_cycle && ((((FLAGS & (USER|USERIO)) == USER) && (IR & 040) == 0)
-                    || ((FLAGS & (USER|PUBLIC)) == PUBLIC))) {
+                    || (((FLAGS & (USER|PUBLIC)) == PUBLIC) && (IR & 076) != 0))) {
 
 #elif PDP6
               if ((FLAGS & USER) != 0 && user_io == 0 && !pi_cycle) {
@@ -12235,7 +12219,7 @@ last:
             /* Check if I/O, then check if IRQ was raised */
             if ((IR & 0700) == 0700) {
                 if (check_irq_level()) {
-                   pi_vect = 040 | (pi_enc << 1) | maoff;
+                    pi_vect = 040 | (pi_enc << 1) | maoff;
                 }
             }
 #endif
@@ -12274,7 +12258,7 @@ last:
         pi_restore = 0;
     }
     sim_interval--;
-    if (!pi_cycle && instr_count != 0 && --instr_count == 0) {
+    if (f_load_pc && !pi_cycle && instr_count != 0 && --instr_count == 0) {
 #if ITS
         if (QITS)
             load_quantum();
@@ -12316,7 +12300,7 @@ do_byte_setup(int n, int wr, int *pos, int *sz)
     np = (p + (0777 ^ s) + 1) & 0777;
     /* Advance pointer */
 #if KL
-    if (QKLB && t20_page && pc_sect != 0) {
+    if (QKLB && t20_page) {
         if (p > 36) {  /* Extended pointer */
             int i = p - 37;
             *sz = s = _byte_adj[i].s;
@@ -12607,7 +12591,7 @@ adj_byte(int n)
     /* Advance pointer */
     np = (p + (0777 ^ s) + 1) & 0777;
 #if KL
-    if (QKLB && t20_page && pc_sect != 0) {
+    if (QKLB && t20_page) {
         if (p > 36) {  /* Extended pointer */
             int i = p - 37;
             s = _byte_adj[i].s;
@@ -12668,7 +12652,7 @@ adv_byte(int n)
     /* Advance pointer */
     np = (p + (0777 ^ s) + 1) & 0777;
 #if KL
-    if (QKLB && t20_page && pc_sect != 0) {
+    if (QKLB && t20_page) {
         if (p > 36) {  /* Extended pointer */
             int i = p - 37;
             s = _byte_adj[i].s;
