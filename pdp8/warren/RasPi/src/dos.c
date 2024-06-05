@@ -50,7 +50,7 @@ do_inp(unsigned short port)
     register int val;
     val = *PortLev;		// Get the value
     val >>= 8*(i+1);		// Shift the value
-// Tricky inverted inversion here comensates for removed LS06 inverter chip.
+// Tricky inverted inversion here compensates for removed LS06 inverter chip.
     val ^= ~lp_invert[i];	// Perform inversion as needed.
     return val & 0xFF;
 }

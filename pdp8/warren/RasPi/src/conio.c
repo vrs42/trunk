@@ -7,7 +7,7 @@
 #include <sys/ioctl.h>
 #include <sys/select.h>
 #include <termios.h>
-#include <stropts.h>
+//#include <stropts.h>
 
 struct termios term;
 static const int STDIN = 0;
@@ -57,4 +57,20 @@ _getch()
     term.c_lflag |= ECHO;
     tcsetattr(STDIN, TCSANOW, &term);
     return ch;
+}
+
+char *
+_fgets(char *s, int length, FILE *fp)
+{
+    if (fp != stdin)
+      return fgets(s, length, fp);
+    (void) _kbhit(); /* Force initialization */
+    tcgetattr(STDIN, &term);
+    term.c_lflag |= ICANON;
+    tcsetattr(STDIN, TCSANOW, &term);
+    s = fgets(s, length, stdin);
+    tcgetattr(STDIN, &term);
+    term.c_lflag &= ~ICANON;
+    tcsetattr(STDIN, TCSANOW, &term);
+    return s;
 }

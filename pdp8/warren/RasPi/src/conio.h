@@ -8,3 +8,5 @@
 //
 extern int _kbhit();
 extern int _getch();
+#define fgets _fgets
+extern char *_fgets(char *s, int size, FILE *restrict stream);
