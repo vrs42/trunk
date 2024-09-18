@@ -36,20 +36,38 @@ hook into a PDP-8/i or PDP-12.
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./32k-Omnibus target=_blank>./32k-Omnibus</a></b>: Omnibus 32K SRAM board
 
 </LEGEND><DL>
+<DT>28wide</A>
+  <DD>is an adapter to use wide or narrow SRAM chips.
+<DT>legenda</A>
+  <DD>is a board which brings every Omnibus signal to labelled pad.
 <DT>Lafferty1</A>
   <DD>is a drawing based on Steve Lafferty's prototype.
 <DT>Lafferty1ab</A>
   <DD>is an "as built" version of Lafferty1, with the changes incorporated in the group buy.
 <DT>Lafferty2</A>
   <DD>is a drawing with ideas about a follow-on to Lafferty1.
+<DT>legenda.brd</A>
+  <DD>is a board that brings each Omnibus signal to a pad.
+<DT>msc3102</A>
+  <DD>is a drawing of the MSC3102 design.
+<DT>OmnibusB</A>
+  <DD>is a thought experiment about a larger SRAM.
+<DT>Omnimem</A>
+  <DD>is a simplified version using 74244 instead of 74125.
+<DT>Roland</A>
+  <DD>is a drawing of Roland's boot loader card.
 <DT>Roland+mem1</A>
   <DD>is a combination of the Lafferty memory design and Roland's bootloader.
 <DT>Roland+mem2</A>
   <DD>is a minor revision of Roland+mem1.
-<DT>msc3102</A>
-  <DD>is a drawing of the MSC3102 design.
-<DT>Omnimem</A>
-  <DD>is a simplified version using 74244 instead of 74125.
+<DT>Roland+mem3</A>
+  <DD>is a revision to fix noise problems.
+<DT>Roland+memfram</A>
+  <DD>is a revision to fix noise problems, and also to supports FRAM.
+<DT>Roland+memser</A>
+  <DD>adds a CPLD, which can be a serial or a memory controller..
+<DT>Roland+memser2308</A>
+  <DD>fixes the orientation of switch S1.
 <DT>rtc</A>
   <DD>is a version of Lafferty1 with some thoughts about adding a clock circuit.
 </DL>
@@ -80,6 +98,8 @@ hook into a PDP-8/i or PDP-12.
   <DD>is essentially a BC08J paddle with a cheaper ribbon connector.
 <DT>merge4</A>
   <DD>is four 8j-merge paddles on a single board.
+<DT>Doug</A>
+  <DD>is a Posibus/Negibus paddle using parts from Warren by way of Doug.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
@@ -1358,6 +1378,14 @@ LM837.
 
 </LEGEND><DL>
 <DT>G103A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G203 target=_blank>./DEC/Gxxx/G203</a></b>: Memory Selector (obsolete)
+
+</LEGEND><DL>
+<DT>G203B</A>
   <DD>needs a drawing.
 </DL>
 </FIELDSET>
@@ -7597,6 +7625,44 @@ not finished.</DL>
 <DT>M452r</A>
   <DD>is a replacement for DEC's M452 Baud Rate Generator, based on the 
 MC14411 baud rate generator chip.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./MM8I32K target=_blank>./MM8I32K</a></b>: Core replacement
+
+</LEGEND><DL>
+<DT>H01</A>
+  <DD>is a drawing of the board for slot H01.
+<DT>32KRAM</A>
+  <DD>is the whole design on snap-apart paddle cards.
+<DT>20230322</A>
+  <DD>is a snapshot as of March 22, 2023.
+<DT>20230822</A>
+  <DD>is a snapshot as of August 22, 2023.
+<DT>20230827</A>
+  <DD>is a snapshot as of August 27, 2023.
+<DT>202405272</A>
+  <DD>is a snapshot as of May 27, 2024.
+<DT>20240610</A>
+  <DD>is a snapshot as of June 10, 2024.
+<DT>20240717-7439</A>
+  <DD>is a snapshot as of July 17, 2024, using the 7439.
+<DT>20240717</A>
+  <DD>is a snapshot as of July 17, 2024, using the 7438.
+<DT>H01</A>
+  <DD>is a drawing of the board for slot H01.
+<DT>H02</A>
+  <DD>is a drawing of the board for slot H02.
+<DT>H03</A>
+  <DD>is a drawing of the board for slot H02.
+<DT>H04</A>
+  <DD>is a drawing of the board for slot H04.
+<DT>H05</A>
+  <DD>is a drawing of the board for slot H05.
+<DT>H05-dl</A>
+  <DD>is a drawing of the board for slot H05 using delay lines.
+<DT>H05X1</A>
+  <DD>is a drawing of the board for slot H05 using monostables.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>

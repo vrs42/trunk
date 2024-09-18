@@ -2281,8 +2281,20 @@ Console Utility Package for PDP-8/S and PDP-8 Computers </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269 target=_blank>8-269</div>
 </a><td><div>Morse Code Trainer </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/Makefile target=_blank>Makefile</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/Restoration.txt target=_blank>Restoration.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/decus-8-269.htm target=_blank>decus-8-269.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/decus-8-269.pdf target=_blank>decus-8-269.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/morse.bin target=_blank>morse.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/morse.bin.od target=_blank>morse.bin.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/morse.lst target=_blank>morse.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/morse.ok target=_blank>morse.ok</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/morse.ok.od target=_blank>morse.ok.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/morse.pal target=_blank>morse.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/u8-269.bin target=_blank>u8-269.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/u8-269.bin.od target=_blank>u8-269.bin.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/u8-269.bin.orig target=_blank>u8-269.bin.orig</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-269/u8-269.bin.orig.od target=_blank>u8-269.bin.orig.od</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-270a target=_blank>8-270a</div>
 </a><td><div>Disk-DECtape Utility Program </div>
@@ -7326,6 +7338,7 @@ Program, <I>Version</I>: March 1982 </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/1check.ba target=_blank>1check.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/23mtch.ba target=_blank>23mtch.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/3dplot.ba target=_blank>3dplot.ba</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/Makefile target=_blank>Makefile</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/aceydu.ba target=_blank>aceydu.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/amazin.ba target=_blank>amazin.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/animal.ba target=_blank>animal.ba</a></div>
@@ -7334,6 +7347,12 @@ Program, <I>Version</I>: March 1982 </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/bagles.ba target=_blank>bagles.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/banner.ba target=_blank>banner.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basbal.ba target=_blank>basbal.ba</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basic8-55.0 target=_blank>basic8-55.0</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basic8-55.1 target=_blank>basic8-55.1</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basic8-55.dsk target=_blank>basic8-55.dsk</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basic8-55.new target=_blank>basic8-55.new</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basic8-55.xml target=_blank>basic8-55.xml</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basic8-55.xml+ target=_blank>basic8-55.xml+</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/basket.ba target=_blank>basket.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/batnum.ba target=_blank>batnum.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/battle.ba target=_blank>battle.ba</a></div>
@@ -7402,6 +7421,7 @@ Program, <I>Version</I>: March 1982 </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/nim.ba target=_blank>nim.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/number.ba target=_blank>number.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/orbit.ba target=_blank>orbit.ba</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/pdp8.ini target=_blank>pdp8.ini</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/pizza.ba target=_blank>pizza.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/poet.ba target=_blank>poet.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/poetry.ba target=_blank>poetry.ba</a></div>
@@ -7431,6 +7451,7 @@ Program, <I>Version</I>: March 1982 </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/train.ba target=_blank>train.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/trap.ba target=_blank>trap.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/ugly.ba target=_blank>ugly.ba</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/v3d-dist.dsk target=_blank>v3d-dist.dsk</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/war.ba target=_blank>war.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/war2.ba target=_blank>war2.ba</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/basic8-55/wekday.ba target=_blank>wekday.ba</a></div>
@@ -9602,6 +9623,7 @@ C = A(l - e<SUdiv>-Kt</SUdiv>) </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-284 target=_blank>focal8-284
 </a><td><div>8/E EAE Routine for FOCAL FOCAL</div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-284/decus-focal8-284-d.pdf target=_blank>decus-focal8-284-d.pdf</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-284/decus-focal8-284.htm target=_blank>decus-focal8-284.htm</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/focal8-285 target=_blank>focal8-285
