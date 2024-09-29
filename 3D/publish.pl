@@ -24,7 +24,11 @@ print "<P>In no particular order:<P>\n";
 print "<TABLE>\n";
 $thisrow = 0;
 foreach $stl (sort <*/*.stl>) {
+ next if $stl =~ /^mangled\//;
+ next if $stl =~ /-mm[.]stl$/;
   $jpg = $stl; $jpg =~ s/.stl$/.jpg/;
+  $jpg =~ s/.jpg$/.png/ unless -f $jpg;
+  warn "$stl: no image .jpg\n" unless -f $jpg;
   next unless -f $jpg;
   $txt = $stl; $txt =~ s/.stl$/.txt/;
   warn "$stl: no descriptive .txt\n" unless -f $txt;
@@ -51,6 +55,10 @@ foreach $stl (sort <*/*.stl>) {
   $skp = $stl; $skp =~ s/.stl$/.skp/;
   if (-f $skp) {
     print "<A href=$url/$skp>Sketchup file</A><BR>\n";
+  }
+  $mf = $stl; $skp =~ s/.stl$/.3mf/;
+  if (-f $mf) {
+    print "<A href=$url/$mf>Print profile</A><BR>\n";
   }
   print $dsc;
   print "</TD>\n";
