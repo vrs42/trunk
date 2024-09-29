@@ -56,7 +56,7 @@ foreach $stl (sort <*/*.stl>) {
   if (-f $skp) {
     print "<A href=$url/$skp>Sketchup file</A><BR>\n";
   }
-  $mf = $stl; $skp =~ s/.stl$/.3mf/;
+  $mf = $stl; $mf =~ s/.stl$/.3mf/;
   if (-f $mf) {
     print "<A href=$url/$mf>Print profile</A><BR>\n";
   }
