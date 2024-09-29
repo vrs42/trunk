@@ -3614,8 +3614,12 @@ by Dave Brockman.
 </LEGEND><DL>
 <DT>M401B</A>
   <DD>is a drawing of DEC's M401B.
-<DT>M401M</A>
-  <DD>is a drawing of DEC's M401M.
+<DT>M401C</A>
+  <DD>needs a drawing.
+M401H is a drawing of DEC's M401H.
+<DT>M401L</A>
+  <DD>needs a drawing.
+M401M is a drawing of DEC's M401M.
 <DT>M401X</A>
   <DD>is a 'modernized' M401.
 </DL>
