@@ -1,0 +1,1019 @@
+/WPBLTB V1.0
+/
+/
+/	WPBLTB V1.0 CREATED 13TH MARCH 1985
+/
+/	WPBLTB is a file containing all the the blaster table entries
+/
+/	Edit history:-
+/
+
+/	033	KMD	15-Sep-85	Add TEC8VAL routine as No. 43
+/	032	KMD	09 Sep 85	Add PELINE routine moved from LEXASC
+/	031	KMD	06 AUG 85	Move mfnrtn to a new position
+/	030	KMD	31 jul 85	alter taab ents 16 & 20 to make
+/					this table as Richard left it	
+/	029	mart	31 jul 85 	SQUHOL sqish dead key to 8 bit
+/	028	Mart	10 jul 85	change field and address of startup
+/					and add entrys for GRAPHICS restart
+/					and CX blasts
+/	027	Mart	4  jul 85	move sove printer holes to make space
+/	026	EMcD	27-Jun-85	Blast for CXKBIN , user option input
+/					in CX
+/	025	RCME	25-Jun-85	Add MCS sort tables
+/	024	rcme	07-Jun-85	Blast for PGSWAP routine in 2CMF
+/	023	RCME	04-Jun-85	Blast for HCVDBN 2CMF hole
+/	022	RCME	30-May-85	Blast for PSCRST print screen status
+/	021	EMcD	22-May-85	Blast for PGECHO in Edit
+/	020	Mart	22-May-85	Make P8ENT2 ONE word longer
+/ 	019	EMcD	21-May-85	Yet another block of Edit Blasts
+/	018	RCME	21-May-85	Extend spelling hole to incorporate
+/					XPU code
+/	017	Mart	20-may-85	add Entries for extra code in 8bit fallbk
+/	016	EMcD	16-May-85	Add Hole for MCS attributes in VIEW
+/					Mode
+/	015	EMcD	14-May-85	Add Upper/Lower casing hole to WPEDOV
+/					hole , Move Edit holes to 5000 in 
+/					Panel to allow table to increase
+/					to 2 blocks.
+/					Blaster table now resides just before 
+/					allocation block .
+/	014	EMcD	06-May-85	Add WPEDOV hole.
+/	013	rcme	01-May-85	Add spelling hole
+/	012	Mart	24-apr-85	Overlay for 8 bit fallback
+/	011	EMcD/Mart30-apr-85	Allow 8 bit in doc for WPEDOV entry	
+/	010	Mart	24-apr-85	Overlay for 8 bit fallback
+/	009	rcme	22-Apr-85	Blast in Merge Field name search
+/					routine for merge editor overlay
+/					Blast Print Screen as table to fix
+/					002/007 interaction
+/	008	Mart	18-Apr-85	New holes for printer (proportional)
+/	007	EmcD	10-Apr-85	Holes for Wp2cmf for 8 bit support
+/	006	Mart	07-apr-85	Holes to create space in printer overlays
+/	005	EMcD	02-Apr-85	Hole for Cx test Job
+/	004	Mart	27-mar-1985	Allow 8bit printers
+/	003	Mart	19-mar-85	CMPRUL and CLRRUL table entries
+/	002	RCME	19-MAR-1985	Insertion of PSSTRT table entry
+/	001	MDH	13-mar-1985	Creation of editor hole blaster and
+/					insertion of ESACHR table entry
+/
+/
+/	************************************************************************
+/	*									*
+/	*	Any entries in this table should have a corresponding		*
+/	*	routine in one of the hole modules				*
+/	*									***
+/	************************************************************************
+/
+
+/ Module load instructions for RXHAN
+
+	FIELD	0		/ field where RXHAN is located
+	*200			/ start address used by OS8 GO command
+	JMP I	.+3		/ location used to startup RXHAN
+	JMP I	.+1		/ location used to return to OS8 from RXHAN
+	7605			/ address of OS8 monitor
+	RXLOAD			/ address of start location for RXHAN
+	
+	*RXLDLS			/ address within RXHAN to overlay
+	RXEWT			/ write function code
+	0			/ ?????? me neither
+	RXQBLK			/ address of queue block to use
+	.			/ address of table of disk commands
+
+	DLBLTB	; 1000; CDF 60; -DSBLTB	/table area
+
+	0			/ list terminator
+
+
+	*400
+
+	FIELD 6
+
+	*1000			/ put the table at any loc
+				/ it doesn't matter as it will be moved to panel
+
+BLTBL,				/ Here is an example table layout used here for 
+				/ the routine BLRULR in WPHOLE
+
+/ Table entry no. 0 BLRUL0
+
+	5400			/ resides in panel memory address 1000	/m022
+	HOLEPG			/ runs at this address defined in WPF1
+	4			/ stored in panel field 4
+	3			/ runs in the editor field
+	100			/ maximum length of the routine
+	0			/ this is a code block (1=table) and executes
+	0			/ Reserved for panel swap address	/a002
+	EDTFLD			/ Called from the EDIT field (ie BHOOK)		
+
+/ Table entry no. 1 CMPRLE
+
+	5500			/ resides in panel memory address 1100	/M022
+	HOLEPG+100		/ runs at this address defined in WPF1
+	4			/ stored in panel field 4
+	3			/ runs in the editor field
+	40			/ maximum length of the routine
+	0			/ this is a code block (1=table) and executes
+	0			/ panel swap address
+	EDTFLD			/ Called from the EDIT field (ie BHOOK)		
+
+/ Table entry no. 2 Print screen
+
+	3000			/ Routine PSSTRT resides in panel here	/m022
+	7400			/ and in user memory here		/a002
+	4			/ panel field four			/a002
+	1			/ user memory field 1 (the printer field)/a002
+	400			/ maximum length of routine		/a002
+	1			/ this is a table block, not executable	/m009
+	400			/ use swap area 400 for the printer	/a002
+	MNUFLD			/ Called from the MENU field (ie BHOOK)		
+
+/ Table entry no. 3 CLRLRE clear ruler
+
+	5540			/ resides in panel memory address 1140	/M022
+	HOLEPG+140		/ runs at this address defined in WPF1
+	4			/ stored in panel field 4
+	3			/ runs in the editor field
+	40			/ maximum length of the routine
+	0			/ this is a code block (1=table) and executes
+	0			/ panel swap area starts at 0
+	EDTFLD			/ Called from the EDIT field (ie BHOOK)		
+
+/ Table entry no. 4 PSSTRT Get fallback chars
+
+	2000			/ Routine PSSTRT resides in panel here	/a002
+	1200			/ runs in the C overlay area		/a002
+	4			/ panel field four			/a002
+	1			/ user memory field 1 (the printer field)/a002
+	140 			/ maximum length of routine		/a002
+	0			/ this is a code block, i.e. executable	/a002
+	400			/ use swap area 400 for the printer	/a002
+	PRFLD			/ Called from the Printer field (ie BHOOK)		
+
+/ Table entry no. 5 Cx Hole
+
+	3400			/ Routine CXTST , Cx test job		/m022
+	0400			/ Runs at VT125 print reload		/A005
+	4			/ Panel field 4				/A005
+	4			/ User field 4 (WPCOM)			/A005
+	100			/ Max length is #100			/A005
+	0			/ Executable code block			/A005
+	0000			/ Ordinary user swap area		/A005
+	BUFFLD			/ Called from Buffer field (ie BHOOK in WPCOM)/A005
+
+/ Table entry no. 6 MCLQPS Get required space or eight bit char
+
+	2140			/ Routine MCLQPS resides in panel here	/a006
+	1340			/ runs in the C overlay area		/a006
+	4			/ panel field four			/a006
+	1			/ user memory field 1 (the printer field)/a06
+	40 			/ maximum length of routine		/a006
+	0			/ this is a code block, i.e. executable	/a006
+	400			/ use swap area 400 for the printer	/a006
+	PRFLD			/ Called from the Printer field (ie BHOOK)/a06	/a0		
+
+/ Table entry no. 7 PLPRMN Get required space or eight bit char
+
+	2200			/ Routine PLPRMN resides in panel here	/a006
+	1200			/ runs in the C overlay area		/a006
+	4			/ panel field four			/a006
+	1			/ user memory field 1 (the printer field)/a06
+	40 			/ maximum length of routine		/a006
+	0			/ this is a code block, i.e. executable	/a006
+	400			/ use swap area 400 for the printer	/a006
+	PRFLD			/ Called from the Printer field (ie BHOOK)/a06	/a0		
+
+
+/ Table entry no. 10		Table entry for INSCHK routine		/A007
+
+	4000			/ Routine INCHKR resides here in Panel	/m022
+	5400			/ Let it run in the menu buffer area	/A007
+	4			/ Panel field 4				/A007
+	2			/ User Memory field 2 (Menu field )	/A007
+	140			/ Maximum length of routine		/A007
+				/ This allows for both the INSCHK and	/A007
+				/ INCHWD routines to be called in 	/A007
+				/ when calling this routine		/A007
+				/ INCHWD may also be called seperately	/A007
+				/ by the next table entry		/A007
+	0			/ Code block (executable)		/A007
+	0			/ Swap into User swap area 0		/A007
+	MNUFLD			/ Called from Menu field		/A007
+
+
+/Table entry 11			Table entry for INSCHK routine		/A007
+
+	4100			/ INCHWD resides at this address	/m022
+	5500			/ Allow room for INSCHK at MUXBUF 	/A007
+	4			/ Panel Field 4				/A007	
+	2			/ User field 2				/A007
+	40			/ Maximum length of routine		/A007
+	0			/ Code block				/A007
+	0			/ Swap into User swap area 0		/A007
+	MNUFLD			/ Called from Menu Field		/A007
+				
+/Table entry 12		NXTDED	Allow NXTARG to pass start/end Deads	/A007
+
+	4140			/ NXTDED lives here			/m022
+	5540			/ and runs here				/A007
+	4			/ Panel field 4				/A007
+	2			/ User field 2				/A007
+	40			/ maximum length of routine 		/A007
+	0			/ Code block				/A007
+	0			/ Swap into User swap area 0		/A007
+	MNUFLD			/ Called from Menu field		/A007
+
+/Table entry 13	LQPTBE LQPSE proportional width table			/a008
+
+	2000			/ Table LQPTBE resides in panel here	/a008
+	1400			/ loads in the C overlay area		/a008
+	5			/ panel field five			/a008
+	1			/ user field 1 (printer field)		/a008
+	77			/ max length of table			/a008
+	1			/ this is a table block, not executable	/a008
+	400			/ use swap area 400 for the printer	/a008
+	PRFLD			/ Called from the Printer field (BHOOK)	/a008
+
+/ Table entry no. 14 LQPTBF LQPS02 proportional width table		/a008
+
+	2100			/ Table LQPTBF resides in panel here	/a008
+	1400			/ loads in the C overlay area		/a008
+	5			/ panel field five			/a008
+	1			/ user field 1 (printer field)		/a008
+	77			/ max length of the table		/a008
+	1			/ this is a table block, not executable	/a008
+	400			/ use swap area 400 for the printer	/a008
+	PRFLD			/ Called from the Printer field( BHOOK)	/a008
+
+/ Table entry no. 15 LQPTBG LQPS03 proportional width table		/a008
+
+	2200			/ Table LQPTBG resides in panel here	/a008
+	1400			/ loads in the C overlay area		/a008
+	5			/ panel field 5				/a008
+	1			/ user field 1 (printer field)		/a008
+	77			/ max length of table			/a008
+	1			/ this is a table block, not executable	/a008
+	400			/ use swap area 400 for the printer	/a008
+	PRFLD			/ Called from the Printer field (BHOOK)	/a008
+
+/Table entry 16		MFNRTN	Deal with deads in LP field names	/a009
+
+	5600			/ MFNRTN address in panel memory /M015	/m022
+	5600			/ Run address in user memory	/m031	/a009
+/	was 2400							/a031
+	4			/ Panel field 4				/a009
+	3			/ User field 3 (Editor)			/a009
+	140			/ max length of routine			/m030
+	0			/ Code block (executes on load)		/a009
+	0			/ Swap into panel buffer area at 0	/a009
+	EDTFLD			/ Called from editor field		/a009
+
+/Table entry 17		FALBKE	Deal with 8 bit fallback overlay	/a010
+
+	2600			/ FALBKO address in panel memory	/a010
+	7600			/ Load address in user memory		/a010
+	5			/ Panel field 5				/a010
+	0			/ User field 0 (DSKHND)			/a010
+	200			/ max length of routine			/a010
+	1			/ table block (doesn't executes on load)/a010
+	7600			/ Swap into panel buffer area at 7600	/a010
+	PRFLD			/ Called from printer field		/a010
+
+/Table entry 20		AB8INS Allow 8 bit in Abbrev doc fro WPEDOV	/a011
+	5740			/  address in panel memory/m030	/M015	/m022
+	HOLEPG+340		/ Load address in user memory		/m030
+	4			/ Panel field 4				/a011
+	3			/ User field 3 (editor)			/a011
+	40			/ max length of routine			/a011
+	0			/ table block (doesn't executes on load)/a011
+	0			/ Swap into panel buffer area at 000	/a011
+	EDTFLD			/ Called from EDitor field		/a011
+
+/Table entry 21		FALBKE	Deal with 8 bit fallback overlay	/a012
+
+	2600			/ FALBKO address in panel memory	/a012
+	7600			/ Load address in user memory		/a012
+	5			/ Panel field 5				/a012
+	0			/ User field 0 (DSKHND)			/a012
+	200			/ max length of routine			/a012
+	1			/ table block (doesn't executes on load)/a012
+	7600			/ Swap into panel buffer area at 7600	/a012
+	FIOFLD			/ Called from printer field		/a012
+
+/Table entry 22		BLODAP	Load APU init routine for spell check	/a013
+
+	4400			/ BLODAP address in panel memory	/m022
+	4600			/ Load address in user memory		/a013
+	4			/ Panel field 4				/a013
+	6			/ User field 6 (SPELL)			/a013
+	300			/ Length of routine		/m018	/a013
+	0			/ Executable code			/a013
+	0			/ Swap into panel buffer at 0		/a013
+	MTHFLD			/ Called from spell field (6)		/a013
+
+/Table entry 23		SWPDED  Gold Swap for 8 bit			/A014
+
+	1400			/ SWPDAD address in Panel Memory	/A014
+	HOLEOV			/ Load address in User Memory		/A014
+				/ ** N.B. **				/A014
+				/ THIS ROUTINE DOES NOT RUN AT THE 	/A014
+				/ SAME ADDRESS IN USER MEMORY AS THE	/A014
+				/ PREVIOUS EDIT HOLES BECUASE IT MOVES 	/A014
+				/ THE CURSOR WHICH CALLS A ROUTINE 	/A014
+				/ RESIDING IN THE HOLE BLAST		/A014
+				/ SWAP AREA , SO ITS HERE INSTEAD !!	/A014
+	4			/ Panel Field 4				/A014
+	3			/ User field 3 (EDITOR)			/A014
+	200			/ Length of routine			/A014
+	0			/ Executable code			/A014
+	0			/ swap into Panel Buffer at 0		/A014
+	EDTFLD			/ Called from Editor field		/A014
+
+/Table entry 24		CASMCS  Upper/Lower case chars			/A015
+
+	1600			/ CASMCS address in Panel Memory	/A015
+	HOLEOV+200		/ Load address in User Memory		/A015
+				/ ** N.B. **				/A015
+				/ THIS ROUTINE DOES NOT RUN AT THE 	/A015
+				/ SAME ADDRESS IN USER MEMORY AS THE	/A015
+				/ WPEDIT HOLES BECUASE IT MOVES 	/A015
+				/ THE CURSOR WHICH CALLS A ROUTINE 	/A015
+				/ RESIDING IN THE HOLE BLAST		/A015
+				/ SWAP AREA , SO ITS HERE INSTEAD !!	/A015
+	4			/ Panel Field 4				/A015
+	3			/ User field 3 (EDITOR)			/A015
+	140			/ Length of routine			/A015
+	0			/ Executable code			/A015
+	0			/ swap into Panel Buffer at 0		/A015
+	EDTFLD			/ Called from Editor field		/A015
+
+/Table entry 25			VWMCHY View hyphenated MCS chars	/A016
+	
+	1740			/ Address in Panel			/A016
+	HOLEOV+340		/ Load address in User memory		/A016
+	4			/ Panel Field 4				/A016
+	3			/ user field 3 (editor)			/A016
+	40			/ Length of routine			/A016
+	0			/ Executable code			/A016
+	0			/ Swap into panel Buffer at 0		/A016
+	EDTFLD			/ Called from Editor field		/A016
+
+/Table entry 26		P8ENT1	Deal with 8 bit fallback chars		/a017
+
+	2400			/ FALBKO address in panel memory	/a017
+	7600			/ Load address in user memory		/a017
+	5			/ Panel field 5				/a017
+	0			/ User field 0 (DSKHND)			/a017
+	110			/ max length of routine		/m027	/a017
+	0			/ table block (doesn't executes on load)/a017
+	400			/ Swap into panel buffer area at 400	/a017
+	SYSFLD			/ Called from system field		/a017
+
+/Table entry 27		P8ENT2	Deal with 8 bit fallback chars	II	/a017
+
+	2510			/ FALBKO address in panel memory	/a017
+	7710			/ Load address in user memory	/m027	/a017
+	5			/ Panel field 5				/a017
+	0			/ User field 0 (DSKHND)			/a017
+	41			/ max length of routine		/M020	/a017
+	0			/ table block (doesn't executes on load)/a017
+	400			/ Swap into panel buffer area at 400	/a017
+	SYSFLD			/ Called from system field		/a017
+
+/Table entry 30		MCSHYP	Allow Hyphen Push-Pull on 8 bit		/A019
+	
+	5000			/ MCSHYP address in panel memory	/m022
+	HOLEOV			/ Load address in User memory		/A019
+	4			/ Panel field 4				/A019
+	3			/ User field 3 (EDITOR)			/A019
+	40			/ max length of routine			/A019
+	0			/ Executable code			/A019	
+	0			/ Swap into Panel 0			/A019
+	EDTFLD			/ Called from EDIT field		/A019
+
+
+/Table entry 31		BPGECO	PGECHO routine from EDIT resident	/A021
+	
+	5040			/ PGECHO address in panel 		/m022
+	HOLEOV+40		/ Load address in User			/A021
+	4			/ Panel field 4				/A021
+	3			/ User field 3 (EDITOR)			/A021
+	40			/ Max length of routine			/A021
+	0			/ Executable code			/A021
+	0			/ Swap into Panel 0			/A021
+	EDTFLD			/ Called from EDIT field		/A021
+
+
+/Table entry 32		PSCRST	Print Screen status routine		/a022
+
+	2400			/ PSCRST address in panel		/a022
+	PRTHOL			/ Load address in user			/a022
+	4			/ Panel field 4				/a022
+	1			/ User field 1 (PRINTER)		/a022
+	240			/ Max length of routine			/a022
+	0			/ Executable code			/a022
+	400			/ Swap into panel 400			/a022
+	MNUFLD			/ Called from the MENU field		/a022
+
+/Table entry 33		HCVDBN	Convert ASCIZ string to binary number	/a023
+
+	4200			/ HCVDBN address in panel		/a023
+	CVDHOL			/ Load address in user			/a023
+	4			/ Panel field 4				/a023
+	2			/ User field 2 (2CMF)			/a023
+	50			/ Max length of routine			/a023
+	0			/ Executable code			/a023
+	0			/ Swap into panel 0			/a023
+	MNUFLD			/ Called from the menu field		/a023
+
+/Table entry 34		PGSWPH	Swap in page to 2CMF swap area		/a024
+
+	4300			/ PGSWPH address in panel		/a024
+	CVDHOL			/ Load address in user			/a024
+	4			/ Panel field 4				/a024
+	2			/ User field 2 (2CMF)			/a024
+	100			/ Max length of routine			/a024
+	0			/ Executable code			/a024
+	0			/ Swap into panel 0			/a024
+	MNUFLD			/ Called from the menu field		/a024
+
+
+/Table entry 35	 	GETFLH	Get List/Math Field name 		/A025
+
+	6000			/ Address in Panel			/A025
+	MATHOL			/ address in User			/A025
+	4			/ Panel field				/A025
+	6			/ User field 				/A025
+	100			/ Max length of routine			/A025
+	0			/ Executable				/A025
+	0			/ swap into Panel slot 0		/A025
+	MTHFLD			/ Called from Math field		/A025
+
+/Table entry 36		CXKBIN	Get user option input in CX		/A026
+
+	3600			/ Address in Panel			/A026
+	0400			/ Address in User			/A026
+	4			/ Panel field				/A026
+	4			/ User field				/A026
+	140			/ Max length of routine			/A026
+	0			/ Executable				/A026
+	0			/ Swap into Slot 0			/A026
+	BUFFLD			/ Called from CX field			/A026
+
+/Table entry 37		GRESEN	Reload startup page after cx graphics	/a028
+
+	2600			/ FALBKO address in panel memory	/a028
+	7600			/ Load address in user memory		/a028
+	5			/ Panel field 5				/a028
+	0			/ User field 0 (DSKHND)			/a028
+	200			/ max length of routine			/a028
+	1			/ table block (doesn't executes on load)/a028
+	7600			/ Swap into panel buffer area at 7600	/a028
+	40			/ Called from cx field			/a028
+
+/Table entry 40		MVSWEN move swap areas befor blasts in cx graphics/a028
+
+	2000			/ dummy address in panel		/a028
+	0000			/ Load address in user memory		/a028
+	4			/ Panel field 5				/a028
+	5			/ User field 5				/a028
+	400			/ max length of routine			/a028
+	1			/ table block (doesn't executes on load)/a028
+	0000			/ Swap into panel buffer area at 0000	/a028
+	40			/ Called from cx field			/a028
+
+/Table entry 41		squish dead key sequences to 8 bit chars SQUHOL	/a029
+
+	6200			/ dummy address in panel		/a029
+	1000			/ Load address in user memory		/a029
+	4			/ Panel field 4				/a029
+	5			/ User field 5				/a029
+	100			/ max length of routine			/a029
+	0			/ Executable				/a029
+	0000			/ Swap into panel buffer area at 0000	/a029
+	60			/ Called from MATH field		/a029
+
+/Table entry 42		Print Error Line routine moved from LEXASC	/a032
+
+	6240			/ address in panel			/a032
+	MATHOL			/ Load address in user memory		/a032
+	4			/ Panel field 4				/a032
+	6			/ User field 6 (MATH)			/a032
+	140			/ max length of routine			/a032
+	0			/ Executable				/a032
+	0000			/ Swap into panel buffer area at 0000	/a032
+	60			/ Called from MATH field		/a032
+
+/Table entry 43		Check for 8 bit after ALT key routine		/a033
+
+	5100			/ address in panel			/a033
+	HOLEOV+100		/ Load address in user memory		/a033
+	4			/ Panel field 4				/a033
+	3			/ User field 3				/a033
+	100			/ max length of routine			/a033
+	0			/ Executable				/a033
+	0000			/ Swap into panel buffer area at 0000	/a033
+	EDTFLD			/ Called from EDITOR field		/a033
+
+
+	PGFREE=	BLTBL+600-.	/ define spare in this block		/M015
+
+	ZBLOCK PGFREE
+
+
+
+
+
+
+
+
+/****************************************************************************
+/***		W	A	R	N	I	N	G	  ***
+/***		This address is defined in WPF1, and should be		  ***
+/***				moved with caution			  ***
+/****************************************************************************
+
+*1600
+
+/****************************************************************************
+/*									    *
+/*	The following table is the SORT sequence for multinational	    *
+/*	characters.  The equivalence of cirtain characters changes	    *
+/*	with different language versions.				    *
+/*									    *
+/****************************************************************************
+
+/SORTBL=7600
+	IFDEF ENGLSH <
+
+	0			/ 200 =
+	0			/ 201 =
+	0			/ 202 =
+	0			/ 203 =
+	0			/ 204 =
+	0			/ 205 =
+	0			/ 206 =
+	0			/ 207 =
+	0			/ 210 =
+	0			/ 211 =
+	0			/ 212 =
+	0			/ 213 =
+	0			/ 214 =
+	0			/ 215 =
+	0			/ 216 =
+	0			/ 217 =
+	0			/ 220 =
+	0			/ 221 =
+	0			/ 222 =
+	0			/ 223 =
+	0			/ 224 =
+	0			/ 225 =
+	0			/ 226 =
+	0			/ 227 =
+	0			/ 230 =
+	0			/ 231 =
+	0			/ 232 =
+	0			/ 233 =
+	0			/ 234 =
+	0			/ 235 =
+	0			/ 236 =
+	0			/ 237 =
+	0			/ 240 =
+
+	IFNDEF V30FAO <
+	"!-200			/ 241 = !	(Inverted exclamation mark)
+	"$-200			/ 242 = $	(Cent sign)
+	"$-200			/ 243 = $	(Pound Sterling)
+	0			/ 244 =
+	"$-200			/ 245 = $	(Yen sign)
+	0			/ 246 =
+	" -200			/ 247 = space	(Section symbol)
+	"$-200			/ 250 = $	(General currency sign)
+	"@-200			/ 251 = @	(Copyright sign)
+	"a-200			/ 252 = a	(Female ordinal indicator)
+	""-200			/ 253 = "	(Angle quotation mark left)
+	0			/ 254 =
+	0			/ 255 =
+	0			/ 256 =
+	0			/ 257 =
+	"'-200			/ 260 = '	(Degree sign)
+	"+-200			/ 261 = +	(Plus/minus sign)
+	"2-200			/ 262 = 2	(Superscript 2)
+	"3-200			/ 263 = 3	(Superscript 3)
+	0			/ 264 =
+	"u-200			/ 265 = u	(Micro sign)
+	" -200			/ 266 = space	(Paragraph sign, pilcrow)
+	".-200			/ 267 = .	(Middle dot)
+	0			/ 270 =
+	"1-200			/ 271 = 1	(Superscript 1)
+	"o-200			/ 272 = o	(Masculine ordinal indicator)
+	""-200			/ 273 = "	(Angle quotation mark right)
+	"4-200			/ 274 = 4	(Fraction one quarter)
+	"2-200			/ 275 = 2	(Fraction one half)
+	0			/ 276 =
+	"?-200			/ 277 = ?	(Inverted question mark)
+
+	>			/ EndIFNDEF V30FAO 
+
+	IFDEF V30FAO <
+
+/
+/									/a029
+/		All MCS unaccented chars to be sorted after underscore	/a029
+/		for FAO							/a029
+/
+
+	"{-200			/ 241 = 	(Inverted exclamation mark)
+	"{-200			/ 242 = 	(Cent sign)
+	"{-200			/ 243 = 	(Pound Sterling)
+	0			/ 244 =
+	"{-200			/ 245 = 	(Yen sign)
+	0			/ 246 =
+	"{-200			/ 247 = 	(Section symbol)
+	"{-200			/ 250 = 	(General currency sign)
+	"{-200			/ 251 = 	(Copyright sign)
+	"{-200			/ 252 = 	(Female ordinal indicator)
+	"{-200			/ 253 = 	(Angle quotation mark left)
+	0			/ 254 =
+	0			/ 255 =
+	0			/ 256 =
+	0			/ 257 =
+	"{-200			/ 260 = 	(Degree sign)
+	"{-200			/ 261 = 	(Plus/minus sign)
+	"{-200			/ 262 = 	(Superscript 2)
+	"{-200			/ 263 = 	(Superscript 3)
+	0			/ 264 =
+	"{-200			/ 265 = 	(Micro sign)
+	"{-200			/ 266 = 	(Paragraph sign, pilcrow)
+	"{-200			/ 267 = 	(Middle dot)
+	0			/ 270 =
+	"{-200			/ 271 = 	(Superscript 1)
+	"{-200			/ 272 = 	(Masculine ordinal indicator)
+	"{-200			/ 273 = 	(Angle quotation mark right)
+	"{-200			/ 274 = 	(Fraction one quarter)
+	"{-200			/ 275 = 	(Fraction one half)
+	0			/ 276 =
+	"{-200			/ 277 = 	(Inverted question mark)
+	>			/ EndIfdef V30FAO
+
+	IFNDEF V30FAO <
+	"A-200			/ 300 = A	(Capital A with grave accent)
+	"A-200			/ 301 = A	(Capital A with acute accent)
+	"A-200			/ 302 = A	(Capital A with circumflex)
+	"A-200			/ 303 = A	(Capital A with tilde)
+	"A-200			/ 304 = A	(Capital A with umlaut mark)
+	"A-200			/ 305 = A	(Capital A with ring)
+	"A-200			/ 306 = A	(Capital AE ligature)
+	>			/ End Ifndef V30FAO
+
+	IFDEF V30FAO <
+	"{-200			/ 300 = after _	(Capital A with grave accent)
+	"{-200			/ 301 = after _	(Capital A with acute accent)
+	"{-200			/ 302 = after _	(Capital A with circumflex)
+	"{-200			/ 303 = after _	(Capital A with tilde)
+	"{-200			/ 304 = after _	(Capital A with umlaut mark)
+	"{-200			/ 305 = after _	(Capital A with ring)
+	"{-200			/ 306 = after _	(Capital AE ligature)
+	>			/ End Ifdef V30FAO
+
+
+	"C-200			/ 307 = C	(Capital C with cedilla)
+
+	IFNDEF V30FAO <
+	"E-200			/ 310 = E	(Capital E with grave accent)
+	"E-200			/ 311 = E	(Capital E with acute accent)
+	"E-200			/ 312 = E	(Capital E with circumflex)
+	"E-200			/ 313 = E	(Capital E with umlaut mark)
+	>
+
+	IFDEF V30FAO <
+	"{-200			/ 310 = after _	(Capital E with grave accent)
+	"{-200			/ 311 = after _	(Capital E with acute accent)
+	"{-200			/ 312 = after _	(Capital E with circumflex)
+	"{-200			/ 313 = after _	(Capital E with umlaut mark)
+	>
+
+	IFNDEF V30FAO <
+	"I-200			/ 314 = I	(Capital I with grave accent)
+	"I-200			/ 315 = I	(Capital I with acute accent)
+	"I-200			/ 316 = I	(Capital I with circumflex)
+	"I-200			/ 317 = I	(Capital I with umlaut mark)
+	>
+
+	IFDEF V30FAO <
+	"{-200			/ 314 = after _	(Capital I with grave accent)
+	"{-200			/ 315 = after _	(Capital I with acute accent)
+	"{-200			/ 316 = after _	(Capital I with circumflex)
+	"{-200			/ 317 = after _	(Capital I with umlaut mark)
+	>
+
+
+	0			/ 320 =
+
+	"N-200			/ 321 = N	(Capital N with tilde)
+
+	IFNDEF V30FAO <
+	"O-200			/ 322 = O	(Capital O with grave accent)
+	"O-200			/ 323 = O	(Capital O with acute accent)
+	"O-200			/ 324 = O	(Capital O with circumflex)
+	"O-200			/ 325 = O	(Capital O with tilde)
+	"O-200			/ 326 = O	(Capital O with umlaut mark)
+	"O-200			/ 327 = O	(Capital OE ligature)
+	"O-200			/ 330 = O	(Capital O with slash)
+	>
+
+	IFDEF V30FAO <
+	"{-200			/ 322 = after _	(Capital O with grave accent)
+	"{-200			/ 323 = after _	(Capital O with acute accent)
+	"{-200			/ 324 = after _	(Capital O with circumflex)
+	"{-200			/ 325 = after _	(Capital O with tilde)
+	"{-200			/ 326 = after _	(Capital O with umlaut mark)
+	"{-200			/ 327 = after _	(Capital OE ligature)
+	"{-200			/ 330 = after _	(Capital O with slash)
+	>
+
+
+	IFNDEF V30FA0 <
+	"U-200			/ 331 = U	(Capital U with grave accent)
+	"U-200			/ 332 = U	(Capital U with acute accent)
+	"U-200			/ 333 = U	(Capital U with circumflex)
+	"U-200			/ 334 = U	(Capital U with umlaut mark)
+	>
+
+	IFDEF V30FA0 <
+	"{-200			/ 331 = after _	(Capital U with grave accent)
+	"{-200			/ 332 = after _	(Capital U with acute accent)
+	"{-200			/ 333 = after _	(Capital U with circumflex)
+	"{-200			/ 334 = after _	(Capital U with umlaut mark)
+	>
+
+
+	IFNDEF V30FAO <
+	
+	"Y-200			/ 335 = Y	(Capital Y with umlaut mark)
+	0			/ 336 =
+	"s-200			/ 337 = s	(German small sharp s)
+	>
+
+	IFDEF V30FAO <
+	
+	"{-200			/ 335 = after _	(Capital Y with umlaut mark)
+	0			/ 336 =
+	"{-200			/ 337 = after _	(German small sharp s)
+	>
+
+	IFNDEF V30FAO <
+
+	"a-200			/ 340 = a	(Small a with grave accent)
+	"a-200			/ 341 = a	(Small a with acute accent)
+	"a-200			/ 342 = a	(Small a with circumflex)
+	"a-200			/ 343 = a	(Small a with tilde)
+	"a-200			/ 344 = a	(Small a with umlaut mark)
+	"a-200			/ 345 = a	(Small a with ring)
+	"a-200			/ 346 = a	(Small ae ligature)
+
+	"c-200			/ 347 = c	(Small c with cedilla)
+
+	"e-200			/ 350 = e	(Small e with grave accent)
+	"e-200			/ 351 = e	(Small e with acute accent)
+	"e-200			/ 352 = e	(Small e with circumflex)
+	"e-200			/ 353 = e	(Small e with umlaut mark)
+
+	"i-200			/ 354 = i	(Small i with grave accent)
+	"i-200			/ 355 = i	(Small i with acute accent)
+	"i-200			/ 356 = i	(Small i with circumflex)
+	"i-200			/ 357 = i	(Small i with umlaut mark)
+
+	0			/ 360 =
+
+	"n-200			/ 361 = n	(Small n with tilde)
+
+	"o-200			/ 362 = o	(Small o with grave accent)
+	"o-200			/ 363 = o	(Small o with acute accent)
+	"o-200			/ 364 = o	(Small o with circumflex)
+	"o-200			/ 365 = o	(Small o with tilde)
+	"o-200			/ 366 = o	(Small o with umlaut mark)
+	"o-200			/ 367 = o	(Small oe ligature)
+	"o-200			/ 370 = o	(Small o with slash)
+
+	"u-200			/ 371 = u	(Small u with grave accent)
+	"u-200			/ 372 = u	(Small u with acute accent)
+	"u-200			/ 373 = u	(Small u with circumflex)
+	"u-200			/ 374 = u	(Small u with umlaut mark)
+
+	"y-200			/ 375 = y	(Small y with umlaut mark)
+
+	0			/ 376 =
+	0			/ 377 =
+
+	>
+
+
+	IFDEF V30FAO <
+
+	"a-200			/ 340 = a	(Small a with grave accent)
+	"a-200			/ 341 = a	(Small a with acute accent)
+	"a-200			/ 342 = a	(Small a with circumflex)
+	"{-200			/ 343 = after _	(Small a with tilde)
+	"a-200			/ 344 = a	(Small a with umlaut mark)
+	"{-200			/ 345 = after _	(Small a with ring)
+	"{-200			/ 346 = after _	(Small ae ligature)
+
+	"c-200			/ 347 = c	(Small c with cedilla)
+
+	"e-200			/ 350 = e	(Small e with grave accent)
+	"e-200			/ 351 = e	(Small e with acute accent)
+	"e-200			/ 352 = e	(Small e with circumflex)
+	"e-200			/ 353 = e	(Small e with umlaut mark)
+
+	"i-200			/ 354 = i	(Small i with grave accent)
+	"i-200			/ 355 = i	(Small i with acute accent)
+	"i-200			/ 356 = i	(Small i with circumflex)
+	"i-200			/ 357 = i	(Small i with umlaut mark)
+
+	0			/ 360 =
+
+	"n-200			/ 361 = n	(Small n with tilde)
+
+	"o-200			/ 362 = o	(Small o with grave accent)
+	"o-200			/ 363 = o	(Small o with acute accent)
+	"o-200			/ 364 = o	(Small o with circumflex)
+	"{-200			/ 365 = after _	(Small o with tilde)
+	"o-200			/ 366 = o	(Small o with umlaut mark)
+	"{-200			/ 367 = after _	(Small oe ligature)
+	"{-200			/ 370 = after _	(Small o with slash)
+
+	"u-200			/ 371 = u	(Small u with grave accent)
+	"u-200			/ 372 = u	(Small u with acute accent)
+	"u-200			/ 373 = u	(Small u with circumflex)
+	"u-200			/ 374 = u	(Small u with umlaut mark)
+
+	"{-200			/ 375 = after _	(Small y with umlaut mark)
+
+	0			/ 376 =
+	0			/ 377 =
+	>
+
+		>
+	IFDEF ITALIAN <
+
+	0			/ 200 =
+	0			/ 201 =
+	0			/ 202 =
+	0			/ 203 =
+	0			/ 204 =
+	0			/ 205 =
+	0			/ 206 =
+	0			/ 207 =
+	0			/ 210 =
+	0			/ 211 =
+	0			/ 212 =
+	0			/ 213 =
+	0			/ 214 =
+	0			/ 215 =
+	0			/ 216 =
+	0			/ 217 =
+	0			/ 220 =
+	0			/ 221 =
+	0			/ 222 =
+	0			/ 223 =
+	0			/ 224 =
+	0			/ 225 =
+	0			/ 226 =
+	0			/ 227 =
+	0			/ 230 =
+	0			/ 231 =
+	0			/ 232 =
+	0			/ 233 =
+	0			/ 234 =
+	0			/ 235 =
+	0			/ 236 =
+	0			/ 237 =
+	0			/ 240 =
+	"!-200			/ 241 = !	(Inverted exclamation mark)
+	"$-200			/ 242 = $	(Cent sign)
+	"#-200			/ 243 = #	(Pound sign)
+	0			/ 244 =
+	"$-200			/ 245 = $	(Yen sign)
+	0			/ 246 =
+	"@-200			/ 247 = @	(Section symbol)
+	"$-200			/ 250 = $	(General currency sign)
+	"@-200			/ 251 = @	(Copyright sign)
+	"a-200			/ 252 = a	(Female ordinal indicator)
+	""-200			/ 253 = "	(Angle quotation mark left)
+	0			/ 254 =
+	0			/ 255 =
+	0			/ 256 =
+	0			/ 257 =
+	"[-200			/ 260 = [	(Degree sign)
+	"+-200			/ 261 = +	(Plus/minus sign)
+	"2-200			/ 262 = 2	(Superscript 2)
+	"3-200			/ 263 = 3	(Superscript 3)
+	0			/ 264 =
+	"u-200			/ 265 = u	(Micro sign)
+	" -200			/ 266 = space	(Paragraph sign, pilcrow)
+	".-200			/ 267 = .	(Middle dot)
+	0			/ 270 =
+	"1-200			/ 271 = 1	(Superscript 1)
+	"o-200			/ 272 = o	(Masculine ordinal indicator)
+	""-200			/ 273 = "	(Angle quotation mark right)
+	"4-200			/ 274 = 4	(Fraction one quarter)
+	"2-200			/ 275 = 2	(Fraction one half)
+	0			/ 276 =
+	"?-200			/ 277 = ?	(Inverted question mark)
+
+	"A-200			/ 300 = A	(Capital A with grave accent)
+	"A-200			/ 301 = A	(Capital A with acute accent)
+	"A-200			/ 302 = A	(Capital A with circumflex)
+	"A-200			/ 303 = A	(Capital A with tilde)
+	"A-200			/ 304 = A	(Capital A with umlaut mark)
+	"A-200			/ 305 = A	(Capital A with ring)
+	"A-200			/ 306 = A	(Capital AE ligature)
+
+	"C-200			/ 307 = C	(Capital C with cedilla)
+
+	"E-200			/ 310 = E	(Capital E with grave accent)
+	"E-200			/ 311 = E	(Capital E with acute accent)
+	"E-200			/ 312 = E	(Capital E with circumflex)
+	"E-200			/ 313 = E	(Capital E with umlaut mark)
+
+	"I-200			/ 314 = I	(Capital I with grave accent)
+	"I-200			/ 315 = I	(Capital I with acute accent)
+	"I-200			/ 316 = I	(Capital I with circumflex)
+	"I-200			/ 317 = I	(Capital I with umlaut mark)
+
+	0			/ 320 =
+
+	"N-200			/ 321 = N	(Capital N with tilde)
+
+	"O-200			/ 322 = O	(Capital O with grave accent)
+	"O-200			/ 323 = O	(Capital O with acute accent)
+	"O-200			/ 324 = O	(Capital O with circumflex)
+	"O-200			/ 325 = O	(Capital O with tilde)
+	"O-200			/ 326 = O	(Capital O with umlaut mark)
+	"O-200			/ 327 = O	(Capital OE ligature)
+	"O-200			/ 330 = O	(Capital O with slash)
+
+	"U-200			/ 331 = U	(Capital U with grave accent)
+	"U-200			/ 332 = U	(Capital U with acute accent)
+	"U-200			/ 333 = U	(Capital U with circumflex)
+	"U-200			/ 334 = U	(Capital U with umlaut mark)
+
+	"Y-200			/ 335 = Y	(Capital Y with umlaut mark)
+
+	0			/ 336 =
+
+	"s-200			/ 337 = s	(German small sharp s)
+
+	"a-200			/ 340 = a	(Small a with grave accent)
+	"a-200			/ 341 = a	(Small a with acute accent)
+	"a-200			/ 342 = a	(Small a with circumflex)
+	"a-200			/ 343 = a	(Small a with tilde)
+	"a-200			/ 344 = a	(Small a with umlaut mark)
+	"a-200			/ 345 = a	(Small a with ring)
+	"a-200			/ 346 = a	(Small ae ligature)
+
+	"c-200			/ 347 = c	(Small c with cedilla)
+
+	"e-200			/ 350 = e	(Small e with grave accent)
+	"e-200			/ 351 = e	(Small e with acute accent)
+	"e-200			/ 352 = e	(Small e with circumflex)
+	"e-200			/ 353 = e	(Small e with umlaut mark)
+
+	"i-200			/ 354 = i	(Small i with grave accent)
+	"i-200			/ 355 = i	(Small i with acute accent)
+	"i-200			/ 356 = i	(Small i with circumflex)
+	"i-200			/ 357 = i	(Small i with umlaut mark)
+
+	0			/ 360 =
+
+	"n-200			/ 361 = n	(Small n with tilde)
+
+	"o-200			/ 362 = o	(Small o with grave accent)
+	"o-200			/ 363 = o	(Small o with acute accent)
+	"o-200			/ 364 = o	(Small o with circumflex)
+	"o-200			/ 365 = o	(Small o with tilde)
+	"o-200			/ 366 = o	(Small o with umlaut mark)
+	"o-200			/ 367 = o	(Small oe ligature)
+	"o-200			/ 370 = o	(Small o with slash)
+
+	"u-200			/ 371 = u	(Small u with grave accent)
+	"u-200			/ 372 = u	(Small u with acute accent)
+	"u-200			/ 373 = u	(Small u with circumflex)
+	"u-200			/ 374 = u	(Small u with umlaut mark)
+
+	"y-200			/ 375 = y	(Small y with umlaut mark)
+
+	0			/ 376 =
+	0			/ 377 =
+
+		>
+
+/*************************************************************************
+
+	RELOC
+
+	NOPUNCH
+
+

@@ -1,0 +1,1394 @@
+/ DECmate II - SETUP mode
+
+/ -------------------------------------------------------------------------
+/ E_D_I_T  H_I_S_T_O_R_Y
+/
+/019	EMcD	25-Sep-85	Add Dutch and Spanish Xlations (conditional)
+/018	EMcD	12-Sep-85	Allow DO key (its now the UDK key and causes
+/				problems as entry of a discrete char !)
+/017	EMcD	12-Sep-85	Add Nordic translations (conditionalised)
+/016	Mart	01-aug-85	Fix ITALIAN assembly bugs
+/				change ITALIAN boud to baud
+/				change NERO BIANCO to NORMALE INVERSO
+/015	EMcD	26-Mar-85	Two new terminal types & fix VT125 message
+/014	EMcD	12-Mar-85	Set term to Lvl2 8 bit 
+/013	TCW	16-JUL-84	Expand # of terminal modes
+/012	JFS	19-JUN-84	DM-III changes
+/011	FJL	19-JAN-84	Deleted "cursor (in)visibilty" feature
+/				Removed old edit histories
+/ -------------------------------------------------------------------------
+
+/ *****ORDER*****     ***** IMP ***** ORT ***** ANT   *****
+
+	FIELD 0
+	*200
+	JMP I	.+3
+	JMP I	.+1
+	7600
+	RXLOAD
+	*RXLDLS
+RXEWT=4
+	RXEWT
+	0
+RXQBLK=11
+	RXQBLK
+	.
+	DLOSET; 100; CDF 30; -DSOSET
+	0
+
+	FIELD	3
+	*100
+
+CDFMYF=	CDF	30		/ THIS field
+
+K0006,	6			/
+K0007,	7			/
+K0017,	17			/
+T4,	ZBLOCK	1		/
+CURSOR,	0			/ increments (always positive)
+SETUVL,	0			/ THE "NON-REAL" SET-UP-VALUE
+
+/ ----------------------------------------------------------------------------
+/ NOTE: that return from a PR3 request is with the ac=???? (unknown)
+/	--yes it's sloppy so we must "CLA" after each PR3 sequence
+/
+PR3=	6236			/ firmware "PANEL REQUEST" #3
+/ ----------------------------------------------------------------------------
+/ NOTE: "MNSECN" is not applicable for DECmate II
+/ (because only one communications port on DECmate II)
+/
+/		---------------------------------
+/ SET-UP-VALUE,	|   |H05| 6 | 7 | 8 | 9 | 10|H11|
+/		---------------------------------
+/		      |   |   |   |   |   |   |
+/		      |   |   |   |   |   |   SCREEN WIDTH (0=80, 1=132)
+/		      |   |   |   |   |   |
+/		      |   |   |   |   |   Cursor style (0=block, 1=underline)
+/		      |   |   |   |   Cursor Visibility (0=visible, 1=invis.)
+/		      |   |   |   Scrolling (0=fast, 1=slow)
+/		      |   |   Screen Mode (0=Normal, 1=reverse)
+/		      |   keyboard keyclick (0=ON, 1=OFF)
+/		      |
+/		      TERMINAL MODE (0=ANSI, 1=VT52)
+/
+/ NOTE: that bit positions H05 and H11 are not modified within "SETUP"
+/ because 132 column mode is a function of the EDITOR wide ruler
+/ and terminal mode is set in the Systems Options Menu
+/ they are only defined here to correspond to the hardware bit positions
+/ within program location 24 of field 0 of panel memory,
+/
+/ program location 25 is the printer baud rate (bits 8-11),
+/ program location 26 is the comm baud rate (bits 8-11).
+
+
+SETUPV=MNSECN-MNABRV+CU4BF1	/ DEFINE LOCATION FOR SET-UP-VALUES
+
+
+	X=.			/ INDICATE FIRST FREE LOCATION ON PAGE
+/-----------
+	PAGE
+
+/ "SETUP" screen display
+
+/line1	TERMINAL CHARACTERISTIC SETUP MENU (single height/double width)
+/line2
+/line3
+/line4		Cursor Style		Block		Underline
+/line5		Cursor Visibility	Visible		Invisible
+/line6		Scrolling		Jump		Smooth
+/line7		Screen Mode		Normal		Reverse
+/line8		Keyclick		ON		OFF
+/line9
+/line10
+/line11 Press ADVANCE or BACKUP to step thru the selections,
+/line12 SEL to select a terminal characteristic,
+/line13
+/line15 RETURN to leave this menu, using characteristice until next SETUP,
+/line16 ENTER to leave this menu, fixing characteristice until next ENTER,
+/line17 DO to use a new system diskette.
+/line18
+/line19	Terminal Mode is set to a ?????? and may be changed in the
+/line20 SO (System Options) menu.
+/line22 The Printer is set to ???? baud.
+/line23 Communications is set to ???? baud.
+/line24 Baud rates may be changed in the SO CC (Communication Settings) menu,
+/line24
+
+/ ENTER here from "MAIN MENU"
+
+SETUP,	XX			/
+
+	AC0001			/ Set flag active 			/A018
+	CDFSYS			/ Point to System field			/A018
+	DCA I	(STUACF)	/ And say SETUP is active		/A018
+	CDFMYF			/ now back to here			/A018
+
+
+/ READ the "systems options" disk block (DLSVAL)
+				/
+	TAD	(RXERD)		/ "READ" the systems option block (DLSVAL)
+	JMS	CU4ST		/ (into "CU4BF1")
+				/
+/ setup lines 19, 22, and 23	/
+				/
+/D013	AC6000			/
+/D013	AND I	(MNPRTB-MNABRV+CU4BF1)
+/D013	CLL RTL			/
+/D013	RAL			/
+	TAD I	(MNPRTB-MNABRV+CU4BF1)	/ FETCH PACKED WORD		/A013
+	RTL				/ TM IS NOW 3 BITS		/A013
+	RTL				/				/A013
+	AND	(7)			/				/A013	
+	TAD	(TMTABL)	/ TERMINAL MODE TABLE
+	DCA	LIN19B		/
+	TAD I	(MNPRTB-MNABRV+CU4BF1)
+	AND	K0017		/
+	TAD	(BAUDTB)	/ BAUD RATE TABLE
+	DCA	LIN22B		/ PRINTER BAUD RATE FROM USER "SO CC" SELECTION
+	TAD I	(MNPRIM-MNABRV+CU4BF1)
+	AND	K0017		/
+	TAD	(BAUDTB)	/ BAUD RATE TABLE
+	DCA	LIN23B		/ COMM BAUD RATE FROM USER "SO CC" SELECTION
+	JMS	INVISI		/ (make the cursor "INVISIBLE" for SETUP menu)
+
+	CIFMNU			/ CHANGE TO MENU FIELD
+	JMS I	IOACAL		/ CALL SYSTEM ROUTINE TO DISPLAY MESSAGE
+	  0			/ USE DEFAULT OUTPUT ROUTINE
+	  SETUPC		/ IOA "control" string
+IFDEF ENGLSH <
+	  ERASE		/ ^A
+	  0101		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0410; LIN4A	/ ^P ^S	/ Cursor Style
+	  0510; LIN6A	/ ^P ^S	/ Scrolling
+	  0610; LIN7A	/ ^P ^S	/ Screen Mode
+	  0710; LIN8A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1202; LIN11	/ ^P ^S	/ 'PRESS ADVANCE...ETC.'
+	  1302; LIN12	/ ^P ^S	/ 'SEL TO SELECT...ETC.'
+	  1502; LIN14	/ ^P ^S / 'PRESS:'
+	  1610; LIN15	/ ^P ^S	/ 'RETURN TO LEAVE...ETC.'
+	  1710; LIN16	/ ^P ^S	/ 'ENTER TO LEAVE...ETC.'
+	  2010; LIN17	/ ^P ^S	/ 'DO TO USE...ETC.'
+/ ---------------------------------------------------------------------------
+	  2202; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from "SO"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+	  2302; LIN20	/ ^P^S	/
+/ ---------------------------------------------------------------------------
+	  2502; LIN22L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN22R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2602; LIN23L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN23R	/ ^S	/
+	  2702; LIN24	/ ^P ^S	/
+ >
+
+IFDEF ITALIAN <
+	  ERASE		/ ^A
+	  0105		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0310; LIN3A	/ ^P ^S	/ Cursor Style
+	  0410; LIN4A	/ ^P ^S	/ Scrolling
+	  0510; LIN5A	/ ^P ^S	/ Screen Mode
+	  0610; LIN6A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1001; LIN8	/ ^P ^S	/ 'PREMERE:'
+	  1110; LIN9	/ ^P ^S	/ 'AVANTI O INDIETRO...ETC.'
+	  1210; LIN10	/ ^P ^S / 'DESIDERATA.'
+	  1310; LIN11	/ ^P NS)MENU
+	  0310; LIN3A	/ ^P ^S	/ Cursor Style
+	  0410; LIN4A	/ ^P ^S	/ Scrolling
+	  0510; LIN5A	/ ^P ^S	/ Screen Mode
+	  0610; LIN6A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1001; LIN8	/ ^P ^S	/ 'PREMERE:'
+	  1110; LIN9	/ ^P ^S	/ 'AVANTI O INDIETRO...E----------
+	  2101; LIN17L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from "SO"
+	CLRRVS		/ ^A	/
+	  LIN17R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2201; LIN18L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN18R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2301; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2401;	LIN20	/ ^P ^S	/ IL TIPO TERMINALE...ETC.
+	  2501;	LIN21	/ ^P ^S	/ IS (IMPOSTAZIONE SISTEMA)...ETC.
+	  2601;	LIN22	/ ^P ^S	/ LE AELOCITA'...ETC.
+	  2701;	LIN23	/ ^P ^S	/ IS CS (PARAMETRI...ETC.
+>
+/ -- end --order -- important --/
+
+IFDEF V30NOR <
+	  ERASE		/ ^A
+	  0101		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0410; LIN4A	/ ^P ^S	/ Cursor Style
+	  0510; LIN6A	/ ^P ^S	/ Scrolling
+	  0610; LIN7A	/ ^P ^S	/ Screen Mode
+	  0710; LIN8A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1202; LIN11	/ ^P ^S	/ 'PRESS ADVANCE...ETC.'
+	  1302; LIN12	/ ^P ^S	/ 'SEL TO SELECT...ETC.'
+	  1502; LIN14	/ ^P ^S / 'PRESS:'
+	  1610; LIN15	/ ^P ^S	/ 'RETURN TO LEAVE...ETC.'
+	  1710; LIN16	/ ^P ^S	/ 'ENTER TO LEAVE...ETC.'
+	  2010; LIN17	/ ^P ^S	/ 'DO TO USE...ETC.'
+/ ---------------------------------------------------------------------------
+	  2202; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from "SO"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+	  2302; LIN20	/ ^P^S	/
+/ ---------------------------------------------------------------------------
+	  2502; LIN22L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN22R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2602; LIN23L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN23R	/ ^S	/
+	  2702; LIN24	/ ^P ^S	/
+>
+
+IFDEF V30SWE <
+	  ERASE		/ ^A
+	  0101		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0410; LIN4A	/ ^P ^S	/ Cursor Style
+	  0510; LIN6A	/ ^P ^S	/ Scrolling
+	  0610; LIN7A	/ ^P ^S	/ Screen Mode
+	  0710; LIN8A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1202; LIN11	/ ^P ^S	/ 'PRESS ADVANCE...ETC.'
+	  1302; LIN12	/ ^P ^S	/ 'SEL TO SELECT...ETC.'
+	  1502; LIN14	/ ^P ^S / 'PRESS:'
+	  1610; LIN15	/ ^P ^S	/ 'RETURN TO LEAVE...ETC.'
+	  1710; LIN16	/ ^P ^S	/ 'ENTER TO LEAVE...ETC.'
+	  2010; LIN17	/ ^P ^S	/ 'DO TO USE...ETC.'
+/ ---------------------------------------------------------------------------
+	  2202; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from "SO"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+	  2302; LIN20	/ ^P^S	/
+/ ---------------------------------------------------------------------------
+	  2502; LIN22L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN22R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2602; LIN23L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN23R	/ ^S	/
+	  2702; LIN24	/ ^P ^S	/
+>       / END IFDEF V30SWE
+
+IFDEF SPANISH <
+	  ERASE		/ ^A
+	  0101		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0410; LIN4A	/ ^P ^S	/ Cursor Style
+	  0510; LIN6A	/ ^P ^S	/ Scrolling
+	  0610; LIN7A	/ ^P ^S	/ Screen Mode
+	  0710; LIN8A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1202; LIN11	/ ^P ^S	/ 'PRESS ADVANCE...ETC.'
+	  1302; LIN12	/ ^P ^S	/ 'SEL TO SELECT...ETC.'
+	  1502; LIN14	/ ^P ^S / 'PRESS:'
+	  1610; LIN15	/ ^P ^S	/ 'RETURN TO LEAVE...ETC.'
+	  1710; LIN16	/ ^P ^S	/ 'ENTER TO LEAVE...ETC.'
+	  2010; LIN17	/ ^P ^S	/ 'DO TO USE...ETC.'
+/ ---------------------------------------------------------------------------
+	  2202; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from  "SO"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+	  2302; LIN20	/ ^P^S	/
+/ ---------------------------------------------------------------------------
+	  2502; LIN22L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN22R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2602; LIN23L/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN23R	/ ^S	/
+	  2702; LIN24	/ ^P ^S	/
+ >
+
+IFDEF FRENCH <
+	  ERASE		/ ^A
+	  0101		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0410; LIN4A	/ ^P ^S	/ Cursor Style
+	  0510; LIN6A	/ ^P ^S	/ Scrolling
+	  0610; LIN7A	/ ^P ^S	/ Screen Mode
+	  0710; LIN8A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1202; LIN11	/ ^P ^S	/ 'PRESS ADVANCE...ETC.'
+	  1302; LIN12	/ ^P ^S	/ 'SEL TO SELECT...ETC.'
+	  1502; LIN14	/ ^P ^S / 'PRESS:'
+	  1610; LIN15	/ ^P ^S	/ 'RETURN TO LEAVE...ETC.'
+	  1710; LIN16	/ ^P ^S	/ 'ENTER TO LEAVE...ETC.'
+	  2010; LIN17	/ ^P ^S	/ 'DO TO USE...ETC.'
+/ ---------------------------------------------------------------------------
+	  2202; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from "SO"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+	  2302; LIN20	/ ^P^S	/
+/ ---------------------------------------------------------------------------
+	  2502; LIN22L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN22R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2602; LIN23L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN23R	/ ^S	/
+	  2702; LIN24	/ ^P ^S	/
+ >
+
+IFDEF DUTCH <
+	  ERASE		/ ^A
+	  0101		/ ^P	/ (really 0102 because of "double width" text)
+	  LIN1X		/ ^A	/ (ESC seq makes single height/double width)
+	  LIN1		/ ^S	/ USER SELECTIONS MENU
+	  0410; LIN4A	/ ^P ^S	/ Cursor Style
+	  0510; LIN6A	/ ^P ^S	/ Scrolling
+	  0610; LIN7A	/ ^P ^S	/ Screen Mode
+	  0710; LIN8A	/ ^P ^S	/ keyclick
+/ ---------------------------------------------------------------------------
+	  1202; LIN11	/ ^P ^S	/ 'PRESS ADVANCE...ETC.'
+	  1302; LIN12	/ ^P ^S	/ 'SEL TO SELECT...ETC.'
+	  1502; LIN14	/ ^P ^S / 'PRESS:'
+	  1610; LIN15	/ ^P ^S	/ 'RETURN TO LEAVE...ETC.'
+	  1710; LIN16	/ ^P ^S	/ 'ENTER TO LEAVE...ETC.'
+	  2010; LIN17	/ ^P ^S	/ 'DO TO USE...ETC.'
+/ ---------------------------------------------------------------------------
+	  2202; LIN19L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN19B, 0		/ !S	/ TERMINAL MODE user selection from "SO"
+	CLRRVS		/ ^A	/
+	  LIN19R	/ ^S	/
+	  2302; LIN20	/ ^P^S	/
+/ ---------------------------------------------------------------------------
+	  2502; LIN22L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN22B, 0		/ !S	/ PRINTER BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN22R	/ ^S	/
+/ ---------------------------------------------------------------------------
+	  2602; LIN23L	/ ^P ^S	/
+	SETRVS		/ ^A	/
+LIN23B, 0		/ !S	/ COMM BAUD RATE user selection from "SO CC"
+	CLRRVS		/ ^A	/
+	  LIN23R	/ ^S	/
+	  2702; LIN24	/ ^P ^S	/
+ >
+
+	TAD	SETUPV		/ GET "GLOBAL" VALUE
+	AND	(7703)		/ SAVE BITS
+	DCA	T4		/
+	TAD	SETUPV		/
+	AND	(0070)		/ GET "SETUP" BITS
+	RAR			/ MOVE TO ALIGN WITH DISPLAY
+	TAD	T4		/ RESTORE OTHER BITS
+	DCA	SETUVL		/ STORE FOR THIS ROUTINE "LOCAL"
+	JMP	LOOP		/
+
+/  E  X  I  T  terminal characteristics "SETUP" mode
+
+EXIT,	CLA			/ Get rid of the crap			/A018
+	CDFSYS			/ Point to system field			/A018
+	DCA I 	(STUACF)	/ Clear SETUP busy flag			/A018
+
+	CDIMNU			/ CHANGE DATA AND INSTRUCTION FIELD
+	JMP I	SETUP		/ BACK TO MAIN MENU
+
+	X=.			/ INDICATE FIRST FREE LOCATION ON PAGE
+/-----------
+	PAGE
+
+/ Fill in the "BLANKS" of the screen display
+LOOP,	TAD	CURSOR		/
+	CMA			/
+	DCA	T4		/
+	TAD	(BLANKT)	/ BLANK TABLE
+	DCA	BLANKP		/ BLANK POSSITION
+	TAD	BLANKP		/
+	IAC			/
+	DCA	BLANKL		/ BLANK LINE NUMBER
+	TAD	SETUVL		/ LOCAL SET-UP-VALUES WORD
+	DCA	T1		/
+	TAD  (ENDBLA-BLANKT%4)	/
+	CIA			/
+	DCA	T2		/ -6 /-4
+LOOPA,	TAD	(-2)		/
+	DCA	T3		/
+	AC0002			/
+	AND	T1		/
+	SNA CLA			/
+	JMS	SETRV		/ Force only "REVERSE VIDEO" attribute
+ 	JMP	.+5		/
+
+LOOPB,	AC0002			/
+	AND	T1		/
+	SZA CLA			/
+	JMS	SETRV		/ Force only "REVERSE VIDEO" attribute
+	ISZ	T4		/
+	SKP CLA			/
+	JMS	SETBLI		/ Append "BLINK" to active cursor position
+
+	CIFMNU			/ CHANGE TO MENU FIELD
+	  JMS I	IOACAL		/ CALL SYSTEM DISPLAY ROUTINE
+	  0			/ USE DEFAULT OUTPUT ROUTINE
+	  BLANKC		/ (Control string for blank lines)
+BLANKP,	ZBLOCK 1	/ !P	/ ADDRESS OF "^P" POSITION
+BLANKL,	ZBLOCK 1	/ !S	/ "ADDRESS OF ADDRESS" OF STRING
+	JMS	CLRRV		/ Set video to NORMAL
+	AC0002			/
+	TAD	BLANKP		/
+	DCA	BLANKP		/
+	AC0002			/
+	TAD	BLANKL		/
+	DCA	BLANKL		/
+	ISZ	T3		/
+	JMP	LOOPB		/
+	JMS	T1DIV2		/
+	ISZ	T2		/
+	JMP	LOOPA		/
+	JMP	LOOPC		/
+
+	CIFSYS
+	JWAIT			/
+LOOPC,	CIFSYS
+	XLTIN			/
+	JMP	.-4		/
+
+	TAD	(-EDNWLN)	/
+	SNA			/
+	JMP	KEYRET		/ User pressed "RETURN"
+	TAD	(EDNWLN-EDUDKY)	/ Fixed DO key to be USK key while I was
+				/ here					/M017
+	SNA			/
+	JMP	KEYDO		/ User pressed "DO"
+	TAD	(EDUDKY-EDSLCT)	/
+	SNA			/
+	JMP	KEYSEL		/ User pressed "SELECT"
+	TAD	(EDSLCT-EDENTR)	/
+	SNA			/
+	JMP	KEYENT		/ User pressed "ENTER"
+	TAD	(EDENTR-EDADVN)	/
+	SNA			/
+	JMP	.+5		/ User pressed "ADVANCE" (or "right arrow")
+	TAD	(EDADVN-EDBKUP)	/
+	SZA CLA			/
+	JMP	LOOPC		/ User pressed an unknown key
+	AC7776		/ -2	/ User pressed "BACKUP"
+	IAC		/ +1	/ AC =  +1 OR -1 now
+	TAD	CURSOR		/
+	SPA			/
+	TAD  (ENDBLA-BLANKT%2)	/
+	DCA	CURSOR		/
+	TAD  (ENDBLA-BLANKT%2-1)/
+	CIA			/
+	TAD	CURSOR		/
+	SMA SZA CLA		/
+	DCA	CURSOR		/ "Cursor position" = 0 now
+	JMP	LOOP		/
+
+/ The user pressed key "ENTER"
+
+KEYENT,	TAD	(RXEWT)		/ "WRITE" SYSTEM OPTION BLOCK (DLSVAL)
+	JMS	CU4ST		/
+
+/ Put the "setupvalues" into program location "mubuf+mnsecn"
+/ (else when the user goes into the "SO" menu it will be clobbered)
+
+/ The user pressed key "RETURN"
+
+KEYRET,	JMP	SETTC		/ Set the terminal characteristics
+
+/ The user typed "SELECT"
+
+/	IF the cursorposition is ODD then clear left column
+/	ELSE the cursor position is EVEN to clear right column
+
+KEYSEL,	TAD	CURSOR		/
+	CLL RAR			/ (Divide by 2 gets "line #")
+	CMA			/
+	DCA	T4		/
+	STL			/
+	RAL			/
+	RAL			/
+	ISZ	T4		/
+	JMP	.-2		/
+	DCA	T4		/
+	TAD	CURSOR		/
+	CLL RAR			/ (Link is used)
+	CLA			/
+	TAD	T4		/
+	CMA			/
+	AND	SETUVL		/ LOCAL SET-UP-VALUES
+	SZL			/
+	TAD	T4		/
+	DCA	SETUVL		/
+	JMP	REMAP		/
+
+
+/ ROTATE THE CONTENTS OF PROGRAM LOCATION "T1" ONCE TO THE RIGHT
+
+T1DIV2,	XX			/
+	TAD	T1		/
+	CLL RAR			/
+	DCA	T1		/
+	JMP I	T1DIV2		/
+
+
+	X=.			/ INDICATE FIRST FREE LOCATION ON PAGE
+/-----------
+	PAGE
+
+				/ REMAP BITS FROM SETUPV,TO CONFORM WITH
+				/ NEW DISPLAY (NO 'CURSOR VISIBILITY')
+REMAP,	CLL CLA			/ BE SURE
+	TAD	SETUVL		/
+	AND (7703)		/ M7703 SAVE ALL BITS BUT B7-B9
+	DCA	T4		/ STORE
+	TAD	SETUVL		/
+	AND (0034)		/ M0034, CAPTURE B7-B9
+	RAL			/ REPOSITION TO MATCH NEW DISPLAY
+	TAD	T4		/ ADD IN UNCHANGED BITS
+	DCA	SETUPV		/ SAVE REMAPPED BITS IN THE "REAL" SETUPVALUE
+	JMP	LOOP		/ RETURN FROM 'SELECT' ROUTINE
+
+
+BLANKC,	TEXT	\!P!S\		/ CONTROL STRING TO BLANK LINES
+
+BLANKT,
+IFDEF ITALIAN <							/a016
+
+	  0340; LIN3B		/ Block
+	  0360; LIN3C		/ Underline
+	  0440; LIN4B		/ Jump
+	  0460; LIN4C		/ Smooth
+	  0540; LIN5B		/ Normal
+	  0560; LIN5C		/ Reverse
+	  0640; LIN6B		/ ON
+	  0660; LIN6C		/ OFF
+	>							/a016
+
+IFDEF ENGLSH <							/a016
+	  0440; LIN4B		/ Block				/a016
+	  0460; LIN4C		/ Underline			/a016
+	  0540; LIN6B		/ Jump				/a016
+	  0560; LIN6C		/ Smooth			/a016
+	  0640; LIN7B		/ Normal			/a016
+	  0660; LIN7C		/ Reverse			/a016
+	  0740; LIN8B		/ ON				/a016
+	  0760; LIN8C		/ OFF				/a016
+
+>
+IFDEF V30NOR <
+	  0440; LIN4B		/ Block				/a016
+	  0460; LIN4C		/ Underline			/a016
+	  0540; LIN6B		/ Jump				/a016
+	  0560; LIN6C		/ Smooth			/a016
+	  0640; LIN7B		/ Normal			/a016
+	  0660; LIN7C		/ Reverse			/a016
+	  0740; LIN8B		/ ON				/a016
+	  0760; LIN8C		/ OFF				/a016
+>
+
+IFDEF V30SWE <
+	  0440; LIN4B		/ Block				/a016
+	  0460; LIN4C		/ Underline			/a016
+	  0540; LIN6B		/ Jump				/a016
+	  0560; LIN6C		/ Smooth			/a016
+	  0640; LIN7B		/ Normal			/a016
+	  0660; LIN7C		/ Reverse			/a016
+	  0740; LIN8B		/ ON				/a016
+	  0760; LIN8C		/ OFF				/a016
+>   /  END IFDEF V30SWE
+
+IFDEF DUTCH <
+	  0440; LIN4B		/ Block				/a016
+	  0460; LIN4C		/ Underline			/a016
+	  0540; LIN6B		/ Jump				/a016
+	  0560; LIN6C		/ Smooth			/a016
+	  0640; LIN7B		/ Normal			/a016
+	  0660; LIN7C		/ Reverse			/a016
+	  0740; LIN8B		/ ON				/a016
+	  0760; LIN8C		/ OFF				/a016
+>   /  END IFDEF V30SWE
+
+IFDEF SPANISH <
+	  0440; LIN4B		/ Block				/a016
+	  0460; LIN4C		/ Underline			/a016
+	  0540; LIN6B		/ Jump				/a016
+	  0560; LIN6C		/ Smooth			/a016
+	  0640; LIN7B		/ Normal			/a016
+	  0660; LIN7C		/ Reverse			/a016
+	  0740; LIN8B		/ ON				/a016
+	  0760; LIN8C		/ OFF				/a016
+>   /  END IFDEF V30SWE
+
+ENDBLA=.			/ END OF BLANK TABLE
+
+BAUDTB,	B50;	B75;	B110;	B134;	B150;	B300;	B600;	B1200
+	B1800;	B2000;	B2400;	B3600;	B4800;	B7200;	B9600;	B19200
+
+B50,	TEXT	\50\
+B75,	TEXT	\75\
+B110,	TEXT	\110\
+B134,	TEXT	\134.5\
+B150,	TEXT	\150\
+B300,	TEXT	\300\
+B600,	TEXT	\600\
+B1200,	TEXT	\1200\
+B1800,	TEXT	\1800\
+B2000,	TEXT	\2000\
+B2400,	TEXT	\2400\
+B3600,	TEXT	\3600\
+B4800,	TEXT	\4800\
+B7200,	TEXT	\7200\
+B9600,	TEXT	\9600\
+B19200,	TEXT	\19200\
+
+
+	PAGE
+
+CU4ST,	XX
+	DCA	QUQBLK+RXQFNC 	/ SET THE FUNCTION
+
+	CDFMYF
+	TAD	.-1 		/ SET THE DATA FIELD TO THIS FIELD
+	DCA	QUQBLK+RXQBFD
+	DCA	QUQBLK+RXQDRV 	/ SET THE DRIVE TO ZERO
+
+	TAD	(DLSVAL) 	/ SET THE BLOCK TO READ
+	DCA	QUQBLK+RXQBLK
+
+	TAD	(CU4BF1) 	/ SET THE BUFFER TO READ INTO
+	DCA	QUQBLK+RXQBAD
+
+	JMS	QURX 		/ GET THE BLOCK
+	CLA
+	JMP I	CU4ST
+
+/	THIS IS THE QUEUE ROUTINE TO RXHAN.  THE REQUEST IS IN QUQBLK
+/	USED BY DELETE AND SYSTEM OPTIONS
+
+QURX,	XX
+	CIFSYS 			/ ++++
+	ENQUE 			/ ++++
+	QUBLK
+	CIFSYS 			/ ++++
+	JWAIT
+	TAD	QUQBLK+RXQCOD
+	SNA 			/ ++++
+	JMP	.-4
+	JMP I	QURX
+
+QUBLK,	DSKQUE 			/ ++++
+	0 			/ ++++
+	0
+QUQBLK,	ZBLOCK 17
+
+/ This code issues a PR3 request to panel memory to set the WPS user
+/ defined terminal characteristics into panel memory program locations
+/ 24, 25, and 26 thereby powering up to the WPS characteristics
+
+/d016PR3=	6236			/ PANEL MEMORY REQUEST SEQUENCE #3
+
+/ set the wps defined terminal characteristice into the terminal
+
+/ REMEMBERING THAT SCREEN WIDTH IS FORCED TO 80 COLUMNS
+/ AND TERMINAL MODE IS FORCED TO ANSI
+
+
+SETTC,	TAD	SETUPV		/ GET THE REMAPPED BITS
+	CDFMNU
+	DCA I	(MUBUF+MNSECN)	/
+	TAD I	(MUBUF+MNSECN)	/ Terminal characterics from "SETUP"
+	TAD	(1200)		/ Set to Lvl 2 , 8 bit			/A014
+	DCA	PRQBLK		/ TERMINAL CHARACTERISTICS
+	TAD I	(MUBUF+MNPRTB)	/ Printer baud rate
+	AND	K0017		/
+	DCA	PRQBLK+1	/ PRINTER BAUD RATE
+	TAD I	(MUBUF+MNPRIM)	/ Communications baud rate
+	AND	K0017		/
+	DCA	PRQBLK+2	/ COMMUNICATIONS BAUD RATE
+	CDFMYF
+	PRQ3			/ EXECUTE PANEL REQUEST			/a016
+	  4003			/ 40 (dest field 0) (src field 3)
+	  PRQBLK		/ Source starting address
+	  24			/ Destination starting address
+	  -3			/ Three words to move
+	  7777			/ PR3 terminator
+	CLA			/ (Just in case ac dirty after prq)
+
+/ issue the escape sequence "ESC c" to the terminal
+/ which will 'reset the terminal characteristics'
+
+	CIFMNU			/ CHANGE TO MENU FIELD
+	JMS I	IOACAL		/ CALL SYSTEM OUTPUT ROUTINE
+	  0			/ USE DEFAULT OUTPUT ROUTINE
+	  CONTRL		/
+	  RESTOR		/
+	JMP	EXIT		/ EXIT setup mode
+
+RESTOR,	ESC; "c&177; 0		/ RESTORE TERMINAL CHARACTERISTIC SEQ
+
+PRQBLK,	ZBLOCK	3
+
+/ The user pressed key "DO"
+
+/ (Issue a PRQ3 request to the firmware to reboot the system		/m016
+
+KEYDO,	AC0000; 6750		/ Select diskette drive pair 0
+	AC0000			/
+	  PRQ3			/					/m016
+	  5			/
+	  7777			/ Terminator
+	HLT			/ SHOULD NEVER HALT HERE
+
+
+	X=.			/ INDICATE FIRST FREE LOCATION ON PAGE
+/-----------
+	PAGE
+
+/ SET REVERSE VIDEO for active cursor position
+
+SETRV,	XX			/
+	CIFMNU			/
+	  JMS I	IOACAL		/
+	  0			/
+	  CONTRL		/
+	  SETRVS		/
+	JMP I	SETRV		/
+				/
+CONTRL,	TEXT	\^A\		/
+SETRVS,	ESC; "[&177; "0&177; ";&177; "7&177; "m&177; 0
+
+/ CLEAR ALL ATTRIBUTES for active cursor position
+
+CLRRV,	XX			/
+	CIFMNU			/
+	  JMS I	IOACAL		/
+	  0			/
+	  CONTRL		/
+	  CLRRVS		/
+	JMP I	CLRRV		/
+				/
+CLRRVS,	ESC; "[&177; "0&177; "m&177; 0
+
+/ SET CURSOR INVISIBLE
+
+INVISI,	XX			
+	CIFMNU			
+	  JMS I	IOACAL		
+	  0			
+	  CONTRL		
+	  CURS0R	
+	JMP I	INVISIBLE	
+				/
+CURS0R,	ESC; "[&177; "?&177; "2&177; "5&177; "l&177; 0
+
+/ SET CURSOR VISIBLE
+
+VISIBL,	XX			/
+	CIFMNU			/
+	  JMS I	IOACAL		/
+	  0			/
+	  CONTRL		/
+	  CURS1R		/
+	JMP I	VISIBLE		/
+				/
+CURS1R,	ESC; "[&177; "?&177; "2&177; "5&177; "h&177; 0
+
+/ APPEND "BLINK" and "BOLD" attributes for the active cursor position
+
+SETBLI,	XX			/
+	CIFMNU			/
+	  JMS I	IOACAL		/
+	  0			/
+	  CONTRL		/
+	  SETSEQ		/
+	JMP I	SETBLINK	/
+				/
+SETSEQ,	/		(bold)		(blink)
+	ESC;	"[&177;	"1&177;	";&177;	"5&177;	"m&177;	0
+
+SETCHA,	XX			/
+	DCA	.+5		/
+	CIFMNU			/
+	  JMS I	IOACAL		/
+	  0			/
+	  CONTRL	/ ^A	/
+	  ZBLOCK 1		/
+	JMP I	SETCHA
+
+/ ------
+/ |NOTE| - 80 COLUMN is forced cause 132 column is a function of "wide ruler"
+/ ------
+COL80S,				/ Screen width
+				/ 80
+	ESC; "[&177; "?&177; "3&177; "l&177; 0
+
+/ -------- ORDER IMPORTANT --------
+/
+VSEQUE,				/ Cursor visibility
+				/ Visible
+	ESC; "[&177; "?&177; "2&177; "5&177; "h&177; 0
+				/ Invisible
+	ESC; "[&177; "?&177; "2&177; "5&177; "l&177; 0
+
+SCRLSE,				/ Scroll mode
+				/ Fast
+	ESC; "[&177; "?&177; "4&177; "l&177; 0
+				/ Slow
+	ESC; "[&177; "?&177; "4&177; "h&177; 0
+
+MODESE,				/ Video
+				/ Normal
+	ESC; "[&177; "?&177; "5&177; "l&177; 0
+				/ Reverse
+	ESC; "[&177; "?&177; "5&177; "h&177; 0
+
+/ ---- END ORDER IMPORTANT ----
+
+IFDEF ENGLSH <
+
+SETUPC,				/
+	TEXT	\^A\		/ CONTROL for erase screen
+    *.-1
+	TEXT	\^P^A^S\	/ CONTROL for single H/double W
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 4
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for lines 5 and 6 /D011
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 7 and 8
+    *.-1
+	TEXT	\^P^S^P^S^P^S^P^S^P^S^P^S\	/ CONTROL for 11,12,14,15,16,17
+    *.-1
+	TEXT	\^P^S^A!S^A^S^P^S\/ CONTROL for line 19 (L and R) and 20
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 22 (L AND R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 23 (L AND R)
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 24
+ERASE,	ESC; 74		/ Set VT100 (ANSI) mode
+	ESC; "[&177; "2&177; "J&177; 0		/ ERASE entire screen
+LIN1X,	ESC; "#&177; "6&177; 0	/ (Text is single H/double W)
+LIN1,
+TEXT \&T&E&R&M&I&N&A&L &C&H&A&R&A&C&T&E&R&I&S&T&I&C&S &S&E&T&U&P &M&E&N&U\
+LIN4A,	TEXT	\&CURSOR &STYLE\
+LIN4B,	TEXT	\&BLOCK\
+LIN4C,	TEXT	\&UNDERLINE\
+LIN6A,	TEXT	\&SCROLLING\
+LIN6B,	TEXT	\&JUMP\
+LIN6C,	TEXT	\&SMOOTH\
+LIN7A,	TEXT	\&SCREEN &BACKGROUND\
+LIN7B,	TEXT	\&BLACK\
+LIN7C,	TEXT	\&WHITE\
+LIN8A,	TEXT	\&KEYCLICK\
+LIN8B,	TEXT	\&ON\
+LIN8C,	TEXT	\&OFF\
+
+LIN11,	TEXT \&PRESS &A&D&V&A&N&C&E OR &B&A&C&K&U&P TO\
+	*.-1
+	TEXT \ STEP THRU THE SELECTIONS, AND PRESS\
+
+LIN12,	TEXT \&S&E&L TO SELECT A TERMINAL CHARACTERISTIC.\
+
+LIN14,	TEXT \&PRESS:\
+
+LIN15,	TEXT \&R&E&T&U&R&N TO LEAVE THIS MENU \
+	*.-1
+	TEXT \(USING CHARACTERISTICS FOR THIS SESSION).\
+
+LIN16,	TEXT \&E&N&T&E&R TO LEAVE THIS MENU \
+	*.-1
+	TEXT \(STORING CHARACTERISTICS). \
+
+LIN17,	TEXT \&D&O TO USE A NEW SYSTEM DISKETTE.\
+
+LIN19L,	TEXT \&TERMINAL &MODE IS SET TO TYPE \		/M015
+
+LIN19R,	TEXT \ AND MAY BE CHANGED IN THE\
+
+LIN20,	TEXT \&S&O (&SYSTEM &OPTIONS) MENU.\
+
+LIN22L,	TEXT \&THE PRINTER IS SET TO \
+
+LIN23R,		/
+LIN22R,	TEXT \ BAUD.\
+
+LIN23L,	TEXT \&COMMUNICATION IS SET TO \
+
+LIN24,	TEXT \&BAUD RATES MAY BE CHANGED IN THE &S&O &C&C \
+	*.-1
+ 	TEXT \(&COMMUNICATION &SETTINGS) &SUBMENU.\
+LIN23,					/ replaced 		edit	/a016
+	>
+
+IFDEF ITALIAN <
+
+SETUPC,				/
+	TEXT	\^A\		/ CONTROL for erase screen
+    *.-1
+	TEXT	\^P^A^S\	/ CONTROL for single H/double W
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 1
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for lines 3 and 4 /D011
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 5 and 6
+    *.-1
+	TEXT	\^P^S^P^S^P^S^P^S^P^S^P^S\	/ CONTROL for 8,9,10,11,12,13
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 14 and 15
+    *.-1
+	TEXT	\^P^S^A!S^A^S\/ CONTROL for line 17 (L and R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 18 (L AND R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 19 (L AND R)
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 21
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 22
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for line 23,24
+
+ERASE,	ESC; 74		/ Set VT100 (ANSI) mode
+	ESC; "[&177; "2&177; "J&177; 0		/ ERASE entire screen
+LIN1X,	0	/ (Text is single H/double W)
+LIN1,
+TEXT \-- !&MENU !&DI !&IMPOSTAZIONE !&CARATTERISTICHE !&TERMINALE --\
+LIN3A,	TEXT	\&TIPO CURSORE\		/ cursor style			/a016
+LIN3B,	TEXT	\&BLOCCO\               / block				/a016
+LIN3C,	TEXT	\&TRATTINO\		/ Underline			/a016
+LIN4A,	TEXT	\&SCORRIMENTO IMMAGINE\	/ Scroll			/a016
+LIN4B,	TEXT	\&VELOCE\		/ jump				/a016
+LIN4C,	TEXT	\&LENTO\		/ smooth			/a016
+LIN5A,	TEXT	\&SFONDO VIDEO\		/ screen background		/a016
+LIN5B,	TEXT	\&NORMALE\		/ black/normal			/a016
+LIN5C,	TEXT	\&INVERSO\		/ white/inverse			/a016
+LIN6A,	TEXT	\&RUMORE DEI TASTI\	/ keyclick			/a016	
+LIN6B,	TEXT	\&ABILITATO\		/ on				/a016
+LIN6C,	TEXT	\&DISABILITATO\		/ off				/a016
+
+LIN8,	TEXT \&PREMERE:\
+
+LIN9,	
+TEXT /!&AVANTI O !&INDIETRO PER POSIZIONARE IL CURSORE SULLA CARATTERISTICA/
+
+LIN10,	TEXT /DESIDERATA./
+
+LIN11,	TEXT \!&SELEZ PER RENDERE EFFETTIVA LA SCELTA FATTA.\
+
+LIN12,	
+TEXT \!&RITORNO PER USCIRE DAL MENU, UTILIZZANDO LE CARATTERISTICHE SCELTE\
+
+LIN13,	TEXT \PER LA SESSIONE DI LAVORO CORRENTE.\
+
+LIN14,	
+TEXT \!&INVIO PER USCIRE DAL MENU MEMORIZZANDO LE CARATTERISTICHE SELEZIONATE.\
+
+LIN15,	TEXT \!&ESECUZIONE PER UTILIZZARE UN NUOVO DISCHETTO SISTEMA.\
+
+LIN17L,	TEXT \&TIPO &TERMINALE : \		/M015
+
+LIN17R,	TEXT \.\
+
+LIN18L,	TEXT /&VELOCIT\@ DELLA STAMPANTE: /
+
+LIN19R,		/
+LIN18R,	TEXT \ BAUD.\						/m016
+
+LIN19L,	TEXT /&VELOCIT\@ DI TRASMISSIONE: /
+
+LIN20,	
+TEXT /&IL &TIPO &TERMINALE PU\R ESSERE MODIFICATO UTILIZZANDO L'OPZIONE /
+
+LIN21,	TEXT \!&IS (&IMPOSTAZIONE &SISTEMA) DEL &MENU &PRINCIPALE.\
+
+LIN22,	TEXT /&LE VELOCIT\@ POSSONO ESSERE MODIFICATE UTILIZZANDO L'OPZIONE/
+
+LIN23,	TEXT /!&IS !&CS (&PARAMETRI DI &COMUNICAZIONE E &STAMPA)./
+	>
+
+	IFDEF V30NOR <
+SETUPC,				/
+	TEXT	\^A\		/ CONTROL for erase screen
+    *.-1
+	TEXT	\^P^A^S\	/ CONTROL for single H/double W
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 4
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for lines 5 and 6 /D011
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 7 and 8
+    *.-1
+	TEXT	\^P^S^P^S^P^S^P^S^P^S^P^S\	/ CONTROL for 11,12,14,15,16,17
+    *.-1
+	TEXT	\^P^S^A!S^A^S^P^S\/ CONTROL for line 19 (L and R) and 20
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 22 (L AND R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 23 (L AND R)
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 24
+ERASE,	ESC; 74		/ Set VT100 (ANSI) mode
+	ESC; "[&177; "2&177; "J&177; 0		/ ERASE entire screen
+LIN1X,	ESC; "#&177; "6&177; 0	/ (Text is single H/double W)
+LIN1,	TEXT '!&TERMINAL-!&OPPSETT'
+LIN4A,	TEXT	'&MARK\XTYPE'
+LIN4B,	TEXT	'&BLOKK'
+LIN4C,	TEXT	'&UNDERSTREK'
+LIN6A,	TEXT	'&RULLING'
+LIN6B,	TEXT	'&RYKK'
+LIN6C,	TEXT	'&JEVN'
+LIN7A,	TEXT	'&BAKGRUNN'
+LIN7B,	TEXT	'&M\XRK'
+LIN7C,	TEXT	'&LYS'
+LIN8A,	TEXT	'&TASTEKLIKK'
+LIN8B,	TEXT	'&P\E'
+LIN8C,	TEXT	'&AV'
+
+LIN11,	TEXT '&TRYKK P\E !&FREM EL. !&TILBAKE FOR \E'
+	*.-1
+	TEXT ' FLYTTE DEG MELLOM ALTERNATIVENE. &TRYKK P\E'
+
+LIN12,	TEXT '!&VELG FOR \E VELGE ET ALTERNATIV.'
+
+LIN14,	TEXT '&TRYKK P\E:'
+
+LIN15,	TEXT '!&RETUR FOR \E G\E UT AV MENYEN '
+	*.-1
+	TEXT '(OG BRUKE OPPSETTET MIDLERTIDIG).'
+
+LIN16,	TEXT '!&LEGG !&INN FOR \E G\E UT AV MENYEN '
+	*.-1
+	TEXT '(OG LAGRE OPPSETTET). '
+
+LIN17,	TEXT '!&UTF\XR HVIS DU HARR SATT INN EN NY SYSTEMDISKETT.'
+
+LIN19L,	TEXT '&TERMINALMODUS ER SATT TIL'		/M015
+
+LIN19R,	TEXT ' OG  KAN ENDRES I MENYN '
+
+LIN20,	TEXT '&&ENDRE SYSTEMVERDIER (!&ES).'
+
+LIN22L,	TEXT '&SKRIVER: '
+
+LIN23R,		/
+LIN22R,	TEXT ' BAUD.'
+
+LIN23L,	TEXT '&KOMMUNIKASJON: ' 
+
+LIN24,	TEXT '&OVERF\XRINGSHASTIGHETENE KAN ENDRES MED !&ES/!&EK I'
+	*.-1
+ 	TEXT ' MENYEN &ENDRE KOMMUNIKASJONSVERDIER.'
+LIN23,					/ replaced 		edit	/a016
+	>
+
+IFDEF V30SWE <
+SETUPC,				/
+	TEXT	\^A\		/ CONTROL for erase screen
+    *.-1
+	TEXT	\^P^A^S\	/ CONTROL for single H/double W
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 4
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for lines 5 and 6 /D011
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 7 and 8
+    *.-1
+	TEXT	\^P^S^P^S^P^S^P^S^P^S^P^S\	/ CONTROL for 11,12,14,15,16,17
+    *.-1
+	TEXT	\^P^S^A!S^A^S^P^S\/ CONTROL for line 19 (L and R) and 20
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 22 (L AND R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 23 (L AND R)
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 24
+ERASE,	ESC; 74		/ Set VT100 (ANSI) mode
+	ESC; "[&177; "2&177; "J&177; 0		/ ERASE entire screen
+LIN1X,	ESC; "#&177; "6&177; 0	/ (Text is single H/double W)
+LIN1,   TEXT	'- !&VAL !&AV !&TERMINALINST\DLLNING -'
+LIN4A,	TEXT	'&MARK\VRENS UTSEENDE'
+LIN4B,	TEXT	'&BLOCK'
+LIN4C,	TEXT	'&UNDERSTRYKNING'
+LIN6A,	TEXT	'&BILDRULLNING'
+LIN6B,	TEXT	'&HOPPA'
+LIN6C,	TEXT	'&J\EMN'
+LIN7A,	TEXT	'&SK\DRMBILDENS BAKGRUNDSF\DRG'
+LIN7B,	TEXT	'&SVART'
+LIN7C,	TEXT	'&VIT'
+LIN8A,	TEXT	'TANGENTBORDSSIGNAL'
+LIN8B,	TEXT	'&P\E'
+LIN8C,	TEXT	'&AV'
+
+LIN11,	TEXT 	'&TRYCK P\E FRAM\ET ELLER BAK\ET F\VR ATT'
+	*.-1
+	TEXT	'PLACERA MARK\VREN VID VALET, TRCK SEDAN P\E'
+
+LIN12,	TEXT 	'MARK F\VR ATT V\DLJA INST\DLLNING'
+
+LIN14,	TEXT 	'&TRYCK P\E'
+
+LIN15,	TEXT 	'RETUR F\VR ATT \ETERGE TILL MENYN '
+	*.-1
+	TEXT	'ANV\DND G\DLLANDE INST\DLLNINGAR' 
+
+LIN16,	TEXT 	'ENTER F\VR ATT KOMMA TILLBAKA TILL F\VRRA MENYN '
+	*.-1
+	TEXT 	'(LAGRA INST\DLLNINGAR)'
+
+LIN17,	TEXT 	'UTF\VR OM DU VILL ANV\DNDA EN NY SYSTEMDISKETT'
+
+LIN19L,	TEXT 	'&TERMINALL\DGETS INST\DLLNING \DR'		/M015
+
+LIN19R,	TEXT 	'OCH KAN \DNDRAS'
+
+LIN20,	TEXT 	'I HUVUDMENYN UNDER !&SV (SYSTEMVAL)'
+
+LIN22L,	TEXT 	'&SKRIVARENS INST\DLLNING \DR'
+
+LIN23R,		/
+LIN22R,	TEXT 	' BAUD.'
+
+LIN23L,	TEXT 	'&KOMMUNIKTIONSINST\DLLNINGEN \DR'
+
+LIN24,	TEXT 	'&BAUDV\DRDET KAN \DNDRAS I HUVUDMENYN UNDER !&SV - !&IK '
+	*.-1
+ 	TEXT 	'(!&SYSTEMVAL -!&KOMMUNIKATIONS/ OCH SKRIVARUTG\ENGAR)'
+LIN23,					/ replaced 		edit	/a016
+
+>
+
+IFDEF DUTCH <
+
+SETUPC,				/
+	TEXT	\^A\		/ CONTROL for erase screen
+    *.-1
+	TEXT	\^P^A^S\	/ CONTROL for single H/double W
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 4
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for lines 5 and 6 /D011
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 7 and 8
+    *.-1
+	TEXT	\^P^S^P^S^P^S^P^S^P^S^P^S\	/ CONTROL for 11,12,14,15,16,17
+    *.-1
+	TEXT	\^P^S^A!S^A^S^P^S\/ CONTROL for line 19 (L and R) and 20
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 22 (L AND R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 23 (L AND R)
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 24
+ERASE,	ESC; 74		/ Set VT100 (ANSI) mode
+	ESC; "[&177; "2&177; "J&177; 0		/ ERASE entire screen
+LIN1X,	ESC; "#&177; "6&177; 0	/ (Text is single H/double W)
+LIN1,
+TEXT \!&INSTELLINGEN !&VOOR &D&E !&TERMINAL\
+LIN4A,	TEXT	\&CURSOR\
+LIN4B,	TEXT	\&BLOKJE\
+LIN4C,	TEXT	\&STREEPJE\
+LIN6A,	TEXT	\&SCROLLEN\
+LIN6B,	TEXT	\&SPRONGSGEWIJS\
+LIN6C,	TEXT	\&GELIJKMATIG\
+LIN7A,	TEXT	\&SCHERM \
+LIN7B,	TEXT	\&ZWART\
+LIN7C,	TEXT	\&WIT\
+LIN8A,	TEXT	\&TOETSKLIK\
+LIN8B,	TEXT	\&AAN\
+LIN8C,	TEXT	\&UIT\
+
+LIN11,	TEXT \&DRUK OP !&VOORUIT OF !&TERUG OM LANGS DE OPTIES TE GAAN. \
+
+
+LIN12,	TEXT \&DRUK OP !&SELECT OM TE SELECTEREN.\
+
+LIN14,	TEXT \&DRUK OP:\
+
+LIN15,	TEXT \!&RETURN OM DE AFGEBEELD INSTELLINGEN TE GEBRUIKEN \
+
+LIN16,	TEXT \!&VOER !&IN OM DE AFGEBEELDE INSTELLINGEN TE GEBRUIKEN.\
+
+LIN17,	TEXT \!&VOER !&OPDR !&UIT OM &D&E&CMATE OPNIEUW TE STARTEN.\
+
+LIN19L,	TEXT \&TERMINAL-INSTELLING IS \		/M015
+
+LIN19R,	TEXT \ ,DEZE KAN WORDEN GEWIJZIGD MET\
+
+LIN20,	TEXT \&T&I IN HET &OPTIE-MENU (&B&S).\
+
+LIN22L,	TEXT \&DE PRINTERSNELHEID IS \
+
+LIN23R,		/
+LIN22R,	TEXT \.\
+
+LIN23L,	TEXT \&COMMUNICATIESNELHEID IS \
+
+LIN24,	TEXT \&SNELHEDEN KUNNEN WORDEN GEWIJZIGD MET\
+	*.-1
+ 	TEXT \ &B&S &W&I (&COMMUNICATIE-INSTELLINGEN).\	
+
+LIN23,
+	>
+
+	IFDEF SPANISH <
+
+
+SETUPC,				/
+	TEXT	\^A\		/ CONTROL for erase screen
+    *.-1
+	TEXT	\^P^A^S\	/ CONTROL for single H/double W
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 4
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for lines 5 and 6 /D011
+    *.-1
+	TEXT	\^P^S^P^S\	/ CONTROL for lines 7 and 8
+    *.-1
+	TEXT	\^P^S^P^S^P^S^P^S^P^S^P^S\	/ CONTROL for 11,12,14,15,16,17
+    *.-1
+	TEXT	\^P^S^A!S^A^S^P^S\/ CONTROL for line 19 (L and R) and 20
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 22 (L AND R)
+    *.-1
+	TEXT	\^P^S^A!S^A^S\	/ CONTROL for line 23 (L AND R)
+    *.-1
+	TEXT	\^P^S\		/ CONTROL for line 24
+ERASE,	ESC; 74		/ Set VT100 (ANSI) mode
+	ESC; "[&177; "2&177; "J&177; 0		/ ERASE entire screen
+LIN1X,	ESC; "#&177; "6&177; 0	/ (Text is single H/double W)
+LIN1, TEXT \!&MENU !&DE !&CARACTERISTICAS !&DE !&TERMINAL\
+LIN4A,	TEXT	\&TIPO &CURSOR \
+LIN4B,	TEXT	\&BLOQUE\
+LIN4C,	TEXT	\&RAYA\
+LIN6A,	TEXT	\&DESPLAZAMIENTO\
+LIN6B,	TEXT	\&INCREMEN.\
+LIN6C,	TEXT	\&CONTINUO\
+LIN7A,	TEXT	\&FONDO &PANTALLA\
+LIN7B,	TEXT	\&NEGRO\
+LIN7C,	TEXT	\&BLANCO\
+LIN8A,	TEXT	\&CLIC DE TECLAS\
+LIN8B,	TEXT	'&S\M'
+LIN8C,	TEXT	\&NO\
+
+LIN11,	TEXT \&PULSE !&ADELANTE O !&ATRAS PARA\
+	*.-1
+	TEXT \ MOVERSE ENTRE LAS OPCIONES, Y PULSE\
+
+LIN12,	TEXT '!&SEL PARA SELECCIONAR LAS CARACTER\MSTICAS DE TERMINAL.\'
+
+LIN14,	TEXT \&PULSE:\
+
+LIN15,	TEXT '!&RETORNO PARA ABANDONAR ESTE MEN\Z '
+	*.-1
+	TEXT '(USANDO CARACTER\MSTICAS PARA ESTA SESI\SN).'
+
+LIN16,	TEXT '!&VALIDAR PARA ABANDONAR ESTE MEN\ZMENU '
+	*.-1
+	TEXT '(ALMACENANDO LAS CARACTER\MSTICAS).'
+
+LIN17,	TEXT \!&EJECUTAR PARA USAR UN DISKETTE SISTEMA NUEVO.\
+
+LIN19L,	TEXT '&EL &MODO DEL &TERMINAL EST\A ESTABLECIDO PARA UN '	/M015
+
+LIN19R,	TEXT ' Y SE PUEDE CAMBIAR EN EL MEN\Z'
+
+LIN20,	TEXT \&O&S (&OPCIONES DEL SISTEMA) MENU.\
+
+LIN22L,	TEXT '&LA IMPRESORA EST\A AJUSTADA EN '
+
+LIN23R,		/
+LIN22R,	TEXT \ BAUDIOS.\
+
+LIN23L,	TEXT '&COMUNICACIONES EST\A AJUSTADA EN \
+
+LIN24,	TEXT \&LA VELOCIDAD EN BAUDIOS SE PUEDE CAMBIAR EN &S&O &C&C\
+	*.-1
+ 	TEXT ' &SUBMEN\ZU (&VALORES DE &COMUNICACI\SN).'
+LIN23,					/ replaced 		edit	/a016
+	>
+
+/
+/	Moved here on edit 015 for space reasons			/A015
+/
+/ TERMINAL MODE TABLE
+/
+TMTABL,	VT52;	VT100;	DMII;	VT125;	VT227	;VT228 ;VT22F	/A015	/M013
+
+VT52,	TEXT	\&V&T52\
+VT100,	TEXT	\&V&T100\
+DMII,	TEXT	\&D&E&CMATE\
+VT125,	TEXT	\&GRAPHICS\						/M015
+VT227,	TEXT	\&V&T227\						/A013
+VT228,	TEXT	\&V&T228\						/A015
+VT22F,	TEXT	\&V&T22&F\						/A015
+
+
+	X=.			/ INDICATE FIRST FREE LOCATION ON PAGE
+/-----------
+	PAGE
+
+CU4BF1=.			/\zblock 400
+
+
+
+
+

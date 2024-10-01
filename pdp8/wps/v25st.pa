@@ -1,0 +1,1602 @@
+	/++
+	/	V 2 5 S T
+	/
+	/	This module starts up V2.5 , loads compse etc
+	/	
+	/
+	/	The compose job is a machine copy of the program indicated 
+	/	in the Slushware Implementation notes .
+	/
+	/	All thanks to Kenny A. House 
+	/
+	/++
+
+
+	
+/  Modifications
+/
+/ 021	EMcD	23-Sep-85	Add Dutch and Spanish keyboard Mapping
+/ 020	EMcD	19-Aug-85	Conditionalise Keyboard for Sweden/Norway
+/
+/ 019	EMcD	13-Jul-85	Conditionalise Keyboard for FAO
+/				(Spanish Keyboard)
+/ 018	RCME	12-Jul-85	Italian conditionals for 
+/					Keyboard Layout.
+/					Shift Lock PRQ
+/ 017	Mart	12-jul-85	Move the blaster table in PANEL
+/ 016	Mart	12-jun-85	Copy out field 7 code for LQP02 fallback
+/ 015	RCME	11-Jun-85	Add MATH hole block load
+/ 014	EMcD	06-Jun-85	Fix 2 bugs , Clear screen esc seq wrong
+/				and set Keypad to application mode.
+/ 013	RCME	03-Jun-85	Shuffle panel memory to fit annother printer
+/				hole in
+/ 012	EMcD	21-May-85	Add Another WPEDOV hole
+/ 011	EMcD	17-May-85	Move Edit holes in Panel to allow Blaster
+/				table to expand to 2 blocks
+/ 010	Mart	08-may-85	add loadup for fallback table and routine
+/ 009	EMcD	06-May-85	Add WPEDOV hole
+/ 008	rcme	02-May-85	Add spelling checker hole
+/ 007	EMCD	22-APR-85	Add Keyboard Map Load 
+/ 006	Mart	18-Apr-85	Add print proportional table hole loads
+/ 005	EMcD	10-Apr-85	WP2CMF hole load up
+/ 004	EMcD	02-Apr-85	WPCX hole load up	
+/ 003	RCME	19-MAR-85	Added fall back character table entry
+/ 002	RCME	19-MAR-85	Added printer holes table entry
+/ 001	mdh	13-mar-85	Added Blaster table entry
+/
+/
+
+
+
+	FIELD 0
+	*200
+	JMP I	.+3			/ Go call RXHAN
+	JMP I	.+1			/ Finished so exit out
+	7600				/ back to OS278
+	RXLOAD
+
+	*RXLDLS
+					/ Load parameters
+	RXEWT				/ Write
+	0				/ to unit 0
+	RXQBLK
+	.
+	DLCMPS				/ at this block
+	V25ST				/ from this address
+	CDF 50				/ everything from this field
+	-DSCMPS				/ for this many blocks
+	0
+
+
+
+/
+/
+	FIELD 5
+	*V25ST
+/
+V25ST,	XX
+	TLS
+	CLA CLL
+	TAD	(MSG)
+	DCA	MSGPTR		/ Set up pointer for Lvl2 declaration etc.
+	
+STNXT,		
+	CLA
+	TAD I	MSGPTR
+	SNA
+	JMP	LBL0
+
+	TSF
+	JMP	.-1
+	TLS			/ Print it
+	ISZ	MSGPTR
+	JMP	STNXT
+/
+LBL0,	PRQ3
+LBL1,	5000			/ Read ODT Table from Panel RAM
+	0004			/ From Panel (0)0004 and (0)0005
+	ODTPTR			/ Into Local Storage
+	-2
+	7777
+/
+	CLA CLL			/ Build Prq to read ODT Table
+	TAD	ODTPTR
+	DCA	LBL3
+	TAD	ODTPTR+1
+	CLL RTR
+	CLL RAR
+	TAD	LBL1
+	DCA	LBL2
+/
+	PRQ3			/ Read ODT Table
+LBL2,	0			/ (Modified in code)
+LBL3,	0			/ (Modified in code)
+	ODTTAB
+	-70
+	7777
+/
+	TAD I 	XODT64		/ Build PRq to read compose table location
+	SNA
+	JMP	LBL8		/ No room in panel RAM, Skip cross load
+	DCA	LBL7
+	AC4000
+	TAD I	XODT65
+	DCA	LBL6
+/
+	PRQ3			/ Panel request to Crossload Compose Tables
+LBL6,	0			/ (Modified in code)
+	CMPTAB			/ From User address 'CMPTAB'
+LBL7,	0			/ (Modified in code)
+	CMPTAB-CMPTEN		/ Move entire table
+	7777			/ Terminator
+/
+LBL8,	AC0001			/ Select Compose Mode on
+	PRQ3			/ with PR3
+	0016
+	7777
+/
+	CLA CLL
+
+	
+	TAD	(7777)		/ Set Host port to 8 bit with 7
+	PRQ3			/ bit CSI 
+	0014
+	7777
+
+	JMS	LDKBD		/ Go Load Keyboard Map
+
+	CLA CLL
+	JMS	LDFILS
+
+	JMP I	V25ST
+	
+/
+/
+/
+ODTPTR,	ZBLOCK 2		/ Pointer to ODT TABLE in Panel RAM
+/
+ODTTAB,	ZBLOCK 70
+
+
+XODT56,	ODTTAB+56
+XODT57,	ODTTAB+57
+XODT64,	ODTTAB+64
+XODT65,	ODTTAB+65
+
+
+MSGPTR,	0
+	PAGE
+MSG,	033;"[&177;62;"J&177					/Clear Screen
+	033;"[&177;"1&177;";&177;"1&177;"m&177			/Blink on
+	IFDEF ENGLSH <
+	033;"[&177;"1&177;"1&177;";&177;"2&177;"8&177;"H&177
+	"L&177;"o&177;"a&177;"d&177;"i&177;"n&177;"g&177;40;40
+	"V&177;"e&177;"r&177;"s&177;"i&177;"o&177;"n&177;40;40
+	>
+	IFDEF SPANISH <
+	033;"[&177;"1&177;"1&177;";&177;"2&177;"8&177;"H&177
+	"L&177;"o&177;"a&177;"d&177;"i&177;"n&177;"g&177;40;40
+	"V&177;"e&177;"r&177;"s&177;"i&177;"o&177;"n&177;40;40
+	>
+	IFDEF DUTCH <
+	033;"[&177;"1&177;"1&177;";&177;"2&177;"8&177;"H&177
+	"L&177;"o&177;"a&177;"d&177;"i&177;"n&177;"g&177;40;40
+	"V&177;"e&177;"r&177;"s&177;"i&177;"o&177;"n&177;40;40
+	>
+	IFDEF V30NOR <
+	033;"[&177;"1&177;"1&177;";&177;"2&177;"8&177;"H&177
+	"L&177;"o&177;"a&177;"d&177;"i&177;"n&177;"g&177;40;40
+	"V&177;"e&177;"r&177;"s&177;"i&177;"o&177;"n&177;40;40
+	>
+	IFDEF V30SWE <
+	033;"[&177;"1&177;"1&177;";&177;"2&177;"8&177;"H&177
+	"L&177;"o&177;"a&177;"d&177;"i&177;"n&177;"g&177;40;40
+	"V&177;"e&177;"r&177;"s&177;"i&177;"o&177;"n&177;40;40
+	>
+	IFDEF ITALIAN <							/A018
+	033;"[&177;"1&177;"1&177;";&177;"3&177;"2&177;"H&177
+	"V&177;"e&177;"r&177;"s&177;"i&177;"o&177;"n&177;"e&177;40;40	/A018
+	>
+	"3&177;".&177;"0&177
+	033;"[&177;"0&177;"m&177				/Blink off
+	033;"(&177;"0&177					/Line Set in G0
+	033;"[&177;"9&177;";&177;"2&177;"4&177;"H&177;"l&177;	/T.l.h. Corner
+	033;"[&177;"1&177;"3&177;";&177;"2&177;"4&177;"H&177;"m&177; /B.l.h. Corner
+	033;"[&177;"9&177;";&177;"5&177;"3&177;"H&177;"k&177;		/T.r.h. Corner
+	033;"[&177;"1&177;"3&177;";&177;"5&177;"3&177;"H&177;"j&177;	/B.r.h. Corner
+	033;"[&177;"1&177;"0&177;";&177;"2&177;"4&177;"H&177;"x&177
+	033;"[&177;"1&177;"1&177;";&177;"2&177;"4&177;"H&177;"x&177
+	033;"[&177;"1&177;"2&177;";&177;"2&177;"4&177;"H&177;"x&177
+	033;"[&177;"1&177;"0&177;";&177;"5&177;"3&177;"H&177;"x&177
+	033;"[&177;"1&177;"1&177;";&177;"5&177;"3&177;"H&177;"x&177
+	033;"[&177;"1&177;"2&177;";&177;"5&177;"3&177;"H&177;"x&177
+	033;"[&177;"9&177;";&177;"2&177;"5&177;"H&177
+	
+	0
+
+DRWBOX,
+	XX
+	AC0001
+	PRQ3
+	0025
+	7777
+	JMS	LINE
+	CLA
+	TAD	(BROW)
+	DCA	CHRCNT
+BOTNXT,	TAD I	CHRCNT
+	SNA
+	JMP 	BOTLIN
+	TSF
+	JMP	.-1
+	TLS
+	CLA
+	ISZ	CHRCNT
+	JMP	BOTNXT
+BOTLIN,
+	JMS	LINE
+	JMP I	DRWBOX
+
+
+LINE,
+	XX
+	CLA
+	TAD	(-34)
+	DCA	CHRCNT
+	TAD	("q&177
+LNNXT,	TSF
+	JMP	.-1
+	TLS
+	ISZ	CHRCNT
+	JMP	LNNXT
+	JMP I	LINE
+
+BROW,	ESC;"[&177;"1&177;"3&177;";&177;"2&177;"5&177;"H&177;0
+
+
+
+
+LDKBD,	XX			/ Load Up Keyboard Map		
+	CLA CLL
+	TAD I	XXDT56		/
+	DCA	LBL5		/
+	CLA CLL CML RAR		/
+	TAD I	XXDT57		/
+	DCA	LBL4		/
+
+	CLA CLL
+
+	PRQ3			/ Panel Request to Crossload Keyboard Map
+LBL4,	0			/ (Modified in Code)
+	KBDMAP			/ From User Address 'KBDMAP'
+LBL5,	0			/ (Modified in Code)
+	7360			/ Move 420 (octal) words
+	7777			/ Terminator
+	
+	CLA CLL
+	JMP I	LDKBD
+
+XXDT56,ODTTAB+56
+XXDT57,ODTTAB+57
+	
+
+
+	PAGE
+	/++
+	/	LDFILS is used to load out extra blocks required for
+	/	V2.5 and also FILS (fugitive from the code inserted in DSKHND
+	/	to allow V25ST to run
+	/
+	/++
+
+
+
+LDFILS,
+	XX
+	JMS I	XDRWBOX
+	CLA
+	TAD	X1
+	DCA	X1SAV
+	TAD	XLDLIST
+	DCA	X1
+LDNXT,
+	TAD I	X1		/ Get Start block
+	SNA			/ 0 , last entry in list
+	JMP 	LDEXIT		/ so exit out.
+	DCA I	XSTBLK		/ Set up RXQUE block
+	TAD I	X1		/
+	DCA I	XSTFLD		/ Store main memory field.
+	TAD I	X1		/
+	DCA I	XSTLOC		/ Start address
+	TAD I	X1		/	
+	DCA I	XSTCNT		/ -Ve block count
+	JMS I	XRDWTIO
+	CLA CLL
+	TAD I	X1		/ Panel field ?
+	SNA			/
+	JMP	LDNXT		/ No panel move required
+	RAL ; RTL		/ Move to required posn for PRQ arg
+	DCA	PNLFLD		/ and save
+	TAD I	XSTFLD		/ Get user field back
+	AND	X0070		/ Filter out rest of CDF
+	RAR ; RTR		/ Move it right
+	TAD	PNLFLD		/ get Panel field back
+	TAD	X4000		/ Make into arg for PR3
+	DCA	PNLMV		/ Put in line 
+	TAD I	XSTLOC		/ Get user start address back
+	DCA	USRST		/ and put in line
+	TAD I	X1		/ get Panel start address
+	DCA	PNLST		/ and put in line
+	TAD I	XSTCNT		/ Get block count
+	CIA
+	BSW			/
+	CLL RAL			/
+	CLL RAL			/ Multiply by 400 to convert to words
+	CIA
+	DCA	PNWRD		/ Save in line 
+/	
+/	Now do PRQ
+/
+
+	PRQ3
+PNLMV,	00			/ Becomes 40XY move in code
+USRST,	00			/ User start address
+PNLST,	00			/ Panel start address
+PNWRD,	00			/ Words to move (calculated in code)
+	7777			/ Terminator
+
+	JMP	LDNXT
+LDEXIT,
+	TAD	X1SAV		/ Get back saved X1
+	DCA	X1		/ and restore it
+
+	PRQ3								/a016
+	5074			/ Read ODT Table from Panel RAM		/a016
+	2610			/ From Panel 				/a016
+	7600			/ Into Local Storage			/a016
+	-170			/ all the page -10			/a016
+	7777			/ terminator				/a016
+
+	IFDEF ITALIAN <							/A018
+	AC0001								/A018
+	PRQ3								/A018
+	0015			/ Select shift lock over caps lock	/A018
+	7777								/A018
+	CLA CLL								/A018
+	>
+	JMP I	LDFILS		/ Bye Bye
+
+PNLFLD,	0			/ temp for Panel field number reqd.
+XSTBLK,	STBLK			/ Pointer to STBLK in DSKHND
+XSTFLD,	STFLD			/    As above
+XSTLOC,	STLOC			/    As above
+XSTCNT,	STCNT			/    As above
+XRDWTIO,RDWTIO			/ Pointer to RDWrite rountine in DSKHND
+X1SAV,	0
+XLDLIST,LDLIST-1		/ constants
+X0070,	0070			/
+X4000,	4000			/
+XDRWBOX,DRWBOX		/ link to drwbox
+/
+/	The Loadlist table is in the format
+/		Start Disk Block
+/		CDF to field to load into
+/		Start address to load into
+/		-ve block count of blocks to move
+/		Panel Field n -- Load out to Panel Field n , 0 if not reqd.
+/		{ Panel start xxxx } --        load out to address xxxx 
+/
+/
+LDLIST,	
+		DLFD7			/ FILS Block
+		CDFFIO			/ CDF to Field 7
+		0			/ Start at 0
+		-DSFD7			/ No of blocks
+		0			/ No panel memory load
+
+		DLBLED			/ Editor "holes"
+		CDFPRT			/ Use field 1 as a temp
+		1000			/ Any address
+		-DSBLED			/ No of Editor hole blocks
+		4			/ Put into Panel field 4
+		5400			/ To address in Panel Mem	/M010
+
+		DLBLTB			/ Blaster tables block		/a001	
+		CDFPRT			/ use field 0 as temp		/a001	
+		1000			/ any address			/a001
+		-DSBLTB			/ No of blocks			/a001
+		4			/ put into panel field 4	/a001
+		BLSTBL			/ to address 7000 and hope /m017/a001 
+
+
+		DLBLPR			/ Printer holes block		/a002
+		CDFPRT			/ Use field 1 as temp		/a002
+		1000			/ any address			/a002
+		-DSBLPR			/ No. of blocks			/a002
+		4			/ put into panel field 4	/a002
+		2000			/ To address in panel memory	/a002
+
+		DLFBTB			/ Fall back character table block/a003
+		CDFPRT			/ Use field 1 as temp		/a003
+		1000			/ any address			/a003
+		-DSFBTB			/ No. of blocks			/a003
+		5			/ put into panel field 5	/a003
+		1000			/ to address in panel memory	/a003
+
+		DLCXHL			/ WPCX hole			/A004
+		CDFPRT			/ Use field 1 as temp		/A004
+		1000			/ Any address			/A004
+		-DSCXHL			/ No. of blocks to load		/A004
+		4			/ Put into panel field 4	/A004
+		3400			/ At address 3400		/m013
+
+		DL2CHL			/ 2CMF hole			/A005
+		CDFPRT			/ Use printer field		/A005
+		1000			/ Any address			/A005
+		-DS2CHL			/ No of blocks to load		/A005
+		4			/ Put into Panel Field 4	/A005
+		4000			/ At Address 4000		/A005
+
+		DLWDTB			/ Proportional width tables	/a006
+		CDFPRT			/ Use any field (eg printer)	/a006
+		1000			/ Any address			/a006
+		-DSWDTB			/ No of blocks to load		/a006
+		5			/ Put in panel field 		/a006
+		2000			/ At address 2000		/a006
+
+		DLSPHL			/ Spelling hole			/a008
+		CDFPRT			/ Use any field (eg printer)	/a008
+		1000			/ Any address			/a008
+		-DSSPHL			/ No of blocks			/a008
+		4			/ Put in panel field 4		/a008
+		4400			/ At address 4400		/a008
+
+		DLBEOV			/ WPEDOV holes			/A009
+		CDFPRT			/ Use any field			/A009
+		1000			/ Use any address		/A009
+		-DSBEOV			/ No of blocks			/A009
+		4			/ Put in Panel field 4		/A009
+		1400			/ At Panel address 1400		/A009	
+
+		DLFRHL			/ LQP02 fallback routine	/A010
+		CDFPRT			/ Use any field			/A010
+		1000			/ Use any address		/A010
+		-DSFRHL			/ No of blocks			/A010
+		5			/ Put in Panel field 5		/A010
+		2400			/ At Panel address 		/A010	
+
+		DLFTHL			/ LQP02 fallback table		/A010
+		CDFPRT			/ Use any field			/A010
+		1000			/ Use any address		/A010
+		-DSFTHL			/ No of blocks			/A010
+		5			/ Put in Panel field 5		/A010
+		3000			/ At Panel address 		/A010	
+
+		DLEHL2			/ More edit blasts		/A012
+		CDFPRT			/ Use any field			/A012
+		1000			/ Use any address		/A012
+		-DSEHL2			/ No of blocks			/A012
+		4			/ Put in Panel field 4		/A012
+		5000			/ At Panel Address		/A012
+
+		DLMTHL			/ Math blasts			/a015
+		CDFPRT			/ Use any field			/a015
+		1000			/ Use any address		/a015
+		-DSMTHL			/ No. of blocks			/a015
+		4			/ Put in panel field 4		/a015
+		6000			/ At panel address 6000		/a015
+
+	0				/ Terminator	
+
+/
+/
+/	Compose tables
+/
+/	The first table lists possible Dead diacriticals (from NAPLPS
+/	non-spacing diacritical column) and their correspoding imaging 
+/	characters. This allows for smaller secondary tables (since , for
+/	example, a single entry suffices for acute and apostrophe).This
+/	table is always 0020 Octal words long.
+/
+/	Image		Dead		Name
+/	Code		Code	
+/
+CMPTAB,	200		/200		Vector
+	140		/201
+	047		/202	
+	136		/203
+	176		/204
+	205		/205
+	206		/206
+	207		/207
+	042		/210
+	057		/211
+	212		/212
+	054		/213
+	137		/214
+	215		/215
+	216		/216
+	217		/217
+/
+/	The next table lists each imaging character (040 - 176) and each 
+/	dead Diacritical (200-217),
+/	Pointing each 'first key' to a table of possible 'Second keys'.
+/	Table addresses are relative to the start of compose table area 'CMPTAB'
+/	Invalid 'First Keys' point to a dummy secondary table. Delete is 
+/	included for ease of programming , but must point to DUMMY.
+/
+/	Routine		 	Char		Char 
+/	Address			Code		Image
+/
+
+	SPACE-CMPTAB		/040		' '
+	BANG-CMPTAB		/041		'!'
+	DBLQT-CMPTAB		/042		'"'
+	DUMMY-CMPTAB		/043		'#'
+	DUMMY-CMPTAB		/044		'$'
+	DUMMY-CMPTAB		/045
+	DUMMY-CMPTAB		/046
+	ACUTE-CMPTAB		/047
+	LPAREN-CMPTAB		/050
+	RPAREN-CMPTAB		/051
+	STAR-CMPTAB		/052
+	PLUS-CMPTAB		/053
+	COMMA-CMPTAB		/054
+	MINUS-CMPTAB		/055
+	PERIOD-CMPTAB		/056
+	SLASH-CMPTAB		/057
+	ZERO-CMPTAB		/060
+	ONE-CMPTAB		/061
+	TWO-CMPTAB		/062
+	THREE-CMPTAB		/063
+	DUMMY-CMPTAB		/064
+	DUMMY-CMPTAB		/065
+	DUMMY-CMPTAB		/066
+	DUMMY-CMPTAB		/067
+	DUMMY-CMPTAB		/070
+	DUMMY-CMPTAB		/071
+	DUMMY-CMPTAB		/072
+	DUMMY-CMPTAB		/073
+	LANGLE-CMPTAB		/074
+	EQUAL-CMPTAB		/075
+	RANGLE-CMPTAB		/076
+	QUERY-CMPTAB		/077
+	DUMMY-CMPTAB		/100
+	UPPERA-CMPTAB		/101
+	DUMMY-CMPTAB		/102
+	UPPERC-CMPTAB		/103
+	DUMMY-CMPTAB		/104
+	UPPERE-CMPTAB		/105
+	DUMMY-CMPTAB		/106
+	DUMMY-CMPTAB		/107
+	DUMMY-CMPTAB		/110
+	UPPERI-CMPTAB		/111
+	DUMMY-CMPTAB		/112
+	DUMMY-CMPTAB		/113
+	UPPERL-CMPTAB		/114
+	DUMMY-CMPTAB		/115
+	UPPERN-CMPTAB		/116
+	UPPERO-CMPTAB		/117
+	UPPERP-CMPTAB		/120
+	DUMMY-CMPTAB		/121
+	DUMMY-CMPTAB		/122
+	UPPERS-CMPTAB		/123
+	DUMMY-CMPTAB		/124
+	UPPERU-CMPTAB		/125
+	DUMMY-CMPTAB		/126
+	DUMMY-CMPTAB		/127
+	UPPERX-CMPTAB		/130
+	UPPERY-CMPTAB		/131
+	DUMMY-CMPTAB		/132
+	DUMMY-CMPTAB		/133
+	DUMMY-CMPTAB		/134
+	DUMMY-CMPTAB		/135
+	CIRCUM-CMPTAB		/136
+	ULINE-CMPTAB		/137
+	GRAVE-CMPTAB		/140
+	LOWERA-CMPTAB		/141
+	DUMMY-CMPTAB		/142
+	LOWERC-CMPTAB		/143
+	DUMMY-CMPTAB		/144
+	LOWERE-CMPTAB		/145
+	DUMMY-CMPTAB		/146
+	DUMMY-CMPTAB		/147
+	DUMMY-CMPTAB		/150
+	LOWERI-CMPTAB		/151
+	DUMMY-CMPTAB		/152
+	DUMMY-CMPTAB		/153
+	LOWERL-CMPTAB		/154
+	DUMMY-CMPTAB		/155
+	LOWERN-CMPTAB		/156
+	LOWERO-CMPTAB		/157
+	LOWERP-CMPTAB		/160
+	DUMMY-CMPTAB		/161
+	DUMMY-CMPTAB		/162
+	LOWERS-CMPTAB		/163
+	DUMMY-CMPTAB		/164
+	LOWERU-CMPTAB		/165
+	DUMMY-CMPTAB		/166
+	DUMMY-CMPTAB		/167
+	LOWERX-CMPTAB		/170
+	LOWERY-CMPTAB		/171
+	DUMMY-CMPTAB		/172
+	DUMMY-CMPTAB		/173
+	VRTBAR-CMPTAB		/174
+	DUMMY-CMPTAB		/175
+	TILDE-CMPTAB		/176
+	DUMMY-CMPTAB		/177
+
+/
+	DUMMY-CMPTAB		/200
+	GRAVE-CMPTAB		/201
+	ACUTE-CMPTAB		/202
+	CIRCUM-CMPTAB		/203
+	TILDE-CMPTAB		/204
+	DUMMY-CMPTAB		/205
+	DUMMY-CMPTAB		/206
+	DUMMY-CMPTAB		/207
+	DBLQT-CMPTAB		/210
+	DUMMY-CMPTAB		/211
+	STAR-CMPTAB		/212
+	COMMA-CMPTAB		/213
+	DUMMY-CMPTAB		/214
+	DUMMY-CMPTAB		/215
+	DUMMY-CMPTAB		/216
+	DUMMY-CMPTAB		/217
+
+/
+/	The secondary tables are each terminated with a 0000. Each entry is
+/	two words: The first is the 2's complement of a character that forms
+/	a valid compose sequence with the first character (that pointed to
+/	this table), the second word is the resulting composed character
+/
+
+DUMMY,	0000			/ Dummy table , just a terminator
+/
+SPACE,	-042;	042
+	-047;	047
+	-136;	136
+	-140;	140
+	-176;	176
+	-052;	260
+	0000
+
+/
+/
+DBLQT,	-040;	042
+	-141;	344
+	-145;	353
+	-151;	357
+	-157;	366
+	-165;	374
+	-171;	375
+	-101;	304
+	-105;	313
+	-111;	317
+	-117;	326
+	-125;	334
+	-131;	335
+	0000
+
+/
+ACUTE,	-040;	047
+	-101;	301
+	-105;	311
+	-111;	315
+	-117;	323
+	-125;	332
+	-141;	341
+	-145;	351
+	-151;	355
+	-157;	363
+	-165;	372
+	0000
+
+/
+CIRCUM,	-040;	136
+	-101;	302
+	-105;	312
+	-111;	316
+	-117;	324
+	-125;	333
+	-141;	342
+	-145;	352
+	-151;	356
+	-157;	364
+	-165;	373
+	-060;	260
+	-062;	262
+	-063;	263
+	-056;	267
+	-061;	271
+	-057;	174
+	0000
+
+/
+GRAVE,	-040;	140
+	-101;	300
+	-105;	310
+	-111;	314
+	-117;	322
+	-125;	331
+	-141;	340
+	-145;	350
+	-151;	354
+	-157;	362
+	-165;	371
+	0000
+
+/
+TILDE,	-040;	176
+	-101;	303
+	-116;	321
+	-117;	325
+	-141;	343
+	-156;	361
+	-157;	365
+	0000
+
+/
+BANG,	-041;	241
+	-120;	266
+	-160;	266
+	-123;	247
+	-163;	247
+	0000
+
+/
+LPAREN,	-055;	173
+	-050;	133
+	0000
+
+/
+RPAREN,	-055;	175
+	-051;	135
+	0000
+
+/
+STAR,	-040;	260
+	-101;	305
+	-141;	345
+	0000
+
+/
+PLUS,	-053;	043
+	-055;	261
+	0000
+
+/
+COMMA,	-040;	054
+	-103;	307
+	-143;	347
+	0000
+
+/
+MINUS,	-050;	173
+	-051;	175
+	-114;	243
+	-154;	243
+	-131;	245
+	-171;	245
+	-053;	261
+	0000
+
+/
+PERIOD,	-136;	267
+	0000
+
+/
+SLASH,	-057;	134
+	-074;	134
+	-136;	174
+	-103;	242
+	-143;	242
+	-125;	265
+	-165;	265
+	-117;	330
+	-157;	370
+	0000
+
+/
+ZERO,	-123;	247
+	-163;	247
+	-130;	250
+	-170;	250
+	-103;	251
+	-143;	251
+	-136;	260
+	0000
+
+/
+ONE,	-136;	271
+	-062;	275
+	-064;	274
+	0000
+
+/
+TWO,	-136;	262
+	0000
+
+/
+THREE,	-136;	263
+	0000
+
+/
+LANGLE,	-074;	253
+	-057;	134
+	0000
+
+/
+EQUAL,	-114;	243
+	-154;	243
+	-131;	245
+	-171;	245
+	0000
+
+/
+RANGLE,	-076;	273
+	0000
+
+/
+QUERY,	-077;	277
+	0000
+
+/
+UPPERA,	-101;	100
+	-141;	100
+	-137;	252
+	-140;	300
+	-047;	301
+	-136;	302
+	-176;	303
+	-042;	304
+	-052;	305
+	-105;	306
+	0000
+
+/
+LOWERA,	-141;	100
+	-101;	100
+	-137;	252
+	-140;	340
+	-047;	341
+	-136;	342
+	-176;	343
+	-042;	344
+	-052;	345
+	-145;	346
+	0000
+
+/
+UPPERE,	-140;	310
+	-047;	311
+	-136;	312
+	-042;	313
+	0000
+
+/
+LOWERE,	-140;	350
+	-047;	351
+	-136;	352
+	-042;	353
+	0000
+
+/
+UPPERI,	-140;	314
+	-047;	315
+	-136;	316
+	-042;	317
+	0000
+
+/
+LOWERI,	-140;	354
+	-047;	355
+	-136;	356
+	-042;	357
+	0000
+
+/
+UPPERC,	-054;	307
+	-057;	242
+	-174;	242
+	-060;	251
+	-117;	251
+	-157;	251
+	0000
+
+/
+LOWERC,	-054;	347
+	-057;	242
+	-174;	242
+	-060;	251
+	-157;	251
+	-117;	251
+	0000
+
+/
+UPPERO,	-140;	322
+	-047;	323
+	-136;	324
+	-176;	325
+	-042;	326
+	-105;	327
+	-057;	330
+	-123;	247
+	-163;	247
+	-130;	250
+	-170;	250
+	-103;	251
+	-143;	251
+	-137;	272
+	0000
+
+/
+LOWERO,	-140;	362
+	-047;	363
+	-136;	364
+	-176;	365
+	-042;	366
+	-145;	367
+	-057;	370
+	-163;	247
+	-123;	247
+	-170;	250
+	-130;	250
+	-143;	251
+	-103;	251
+	-137;	272
+	0000
+
+/
+UPPERU,	-140;	331
+	-047;	332
+	-136;	333
+	-042;	334
+	0000
+
+/
+LOWERU,	-140;	371
+	-047;	372
+	-136;	373
+	-042;	374
+	0000
+
+/
+UPPERL,	-055;	243
+	-075;	243
+	0000
+
+
+/
+LOWERL,	-055;	243
+	-075;	243
+	0000
+
+/
+UPPERN,	-176;	321
+	0000
+
+/
+LOWERN,	-176;	361
+	0000
+
+/
+UPPERP,	-041;	266
+	0000
+
+/
+LOWERP,	-041;	266
+	0000
+
+/
+UPPERS,	-060;	247
+	-117;	247
+	-157;	247
+	-041;	247
+	0000
+
+/
+LOWERS,	-060;	247
+	-157;	247
+	-117;	247
+	-041;	247
+	-163;	337
+	0000
+
+/
+UPPERX,	-060;	250
+	-117;	250
+	-157;	250
+	0000
+
+/
+LOWERX,	-060;	250
+	-157;	250
+	-117;	250
+	0000
+
+/
+UPPERY,	-055;	245
+	-075;	245
+	-042;	335
+	0000
+
+/
+LOWERY,	-055;	245
+	-075;	245
+	-042;	375
+	0000
+
+/
+ULINE,	-101;	252
+	-141;	252
+	-117;	272
+	-157;	272
+	0000
+
+/
+VRTBAR,	-103;	242
+	-143;	242
+	0000
+
+DEGREE,	-040;	260
+	-101;	305
+	-141;	345
+	0000
+/
+	CMPTEN= .
+/
+/
+
+IFDEF ENGLSH <
+/		Normal	Shift	Caps	Ctrl	Key Pos		Legend
+/		------	-----	----	----	-------		------
+
+	*CMPTEN						
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		140;	176;	140;	036	/E00		` ~
+		061;	041;	061;	000	/E01		1 !
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		172;	132;	132;	032	/B01		Z
+		000;	000;	000;	000	/-		Unused
+		062;	100;	062;	4000	/E02		2 @
+		167;	127;	127;	027	/D02		W
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		063;	043;	063;	033	/E03		3 #
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		064;	044;	064;	034	/E04		4 $
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		065;	045;	065;	035	/E05		5 %
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		066;	136;	066;	036	/E06		6 ^
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		067;	046;	067;	037	/E07		7 &
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		155;	115;	115;	015	/B07		M
+		000;	000;	000;	000	/ - 		Unused
+		070;	052;	070;	177	/E08		8 *
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		054;	054;	054;	000	/B08		, ,
+		000;	000;	000;	000	/ -		Unused
+		071;	050;	071;	000	/E09		9 (
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		056;	056;	056;	000	/B09		. .
+		000;	000;	000;	000	/ - 		Unused
+		060;	051;	060;	000	/E10		0 )
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		073;	072;	073;	000	/C10		; :
+		057;	077;	057;	037	/B10		/ ?
+		000;	000;	000;	000	/ - 		Unused
+		075;	053;	075;	000	/E12		= +
+		135;	175;	135;	035	/D12		] }
+		134;	174;	134;	034	/C12		\ |
+		000;	000;	000;	000	/ - 		Unused
+		055;	137;	055;	000	/E11		- _
+		133;	173;	133;	033	/D11		[ {
+		047;	042;	047;	000	/C11		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		>
+
+
+IFDEF DUTCH <								/A021
+/		Normal	Shift	Caps	Ctrl	Key Pos		Legend
+/		------	-----	----	----	-------		------
+
+	*CMPTEN						
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		140;	176;	140;	036	/E00		` ~
+		061;	041;	061;	000	/E01		1 !
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		172;	132;	132;	032	/B01		Z
+		000;	000;	000;	000	/-		Unused
+		062;	100;	062;	4000	/E02		2 @
+		167;	127;	127;	027	/D02		W
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		063;	043;	063;	033	/E03		3 #
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		064;	044;	064;	034	/E04		4 $
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		065;	045;	065;	035	/E05		5 %
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		066;	136;	066;	036	/E06		6 ^
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		067;	046;	067;	037	/E07		7 &
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		155;	115;	115;	015	/B07		M
+		000;	000;	000;	000	/ - 		Unused
+		070;	052;	070;	177	/E08		8 *
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		054;	054;	054;	000	/B08		, ,
+		000;	000;	000;	000	/ -		Unused
+		071;	050;	071;	000	/E09		9 (
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		056;	056;	056;	000	/B09		. .
+		000;	000;	000;	000	/ - 		Unused
+		060;	051;	060;	000	/E10		0 )
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		073;	072;	073;	000	/C10		; :
+		057;	077;	057;	037	/B10		/ ?
+		000;	000;	000;	000	/ - 		Unused
+		075;	053;	075;	000	/E12		= +
+		135;	175;	135;	035	/D12		] }
+		134;	174;	134;	034	/C12		\ |
+		000;	000;	000;	000	/ - 		Unused
+		055;	137;	055;	000	/E11		- _
+		133;	173;	133;	033	/D11		[ {
+		047;	042;	047;	000	/C11		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		>
+
+
+
+IFDEF ITALIAN <								/A018
+/		Normal	Shift	(Caps)	Ctrl	Key Pos	Diacrit	Legend
+/		------	-----	----	----	-------	-------	------
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		201;	204;	201;	036	/E00	  *	` ~
+		243;	061;	061;	000	/E01*		1 @
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		167;	127;	127;	027	/B01*		W
+		000;	000;	000;	000	/-		Unused
+		351;	062;	062;	4000	/E02*		2 #
+		172;	132;	132;	032	/D02*		Z
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		042;	063;	063;	033	/E03*		3 "
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		047;	064;	064;	034	/E04*		4 '
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		050;	065;	065;	035	/E05*		5 (
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		137;	066;	066;	036	/E06*		6 _
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		350;	067;	067;	037	/E07*		7 e-acc
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		054;	077;	077;	000	/B07*		, ?
+		000;	000;	000;	000	/ - 		Unused
+		203;	070;	070;	177	/E08*	  *	8 ^
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		073;	056;	056;	000	/B08*		. ;
+		000;	000;	000;	000	/ -		Unused
+		347;	071;	071;	000	/E09*		9 c-cid
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		072;	057;	057;	000	/B09*		: /
+		000;	000;	000;	000	/ - 		Unused
+		340;	060;	060;	000	/E10*		0 a-acc
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		155;	115;	115;	015	/C10*		M
+		362;	041;	041;	000	/B10*		! o-grav
+		000;	000;	000;	000	/ - 		Unused
+		055;	053;	053;	000	/E12*		- +
+		044;	046;	046;	000	/D12*		$ &
+		052;	247;	247;	000	/C12*		* section
+		000;	000;	000;	000	/ - 		Unused
+		051;	260;	260;	000	/E11*		) degree
+		354;	075;	075;	000	/D11*		= i-grav
+		371;	045;	045;	000	/C11*		% u-grav
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		>
+		
+IFDEF V30FAO <								/A019
+/
+/		The keyboard below is for the Food and Agricultural	/A019
+/		Organisation ( Spanish Layout )				/A019
+/	
+
+		*CMPTEN			/ Relocate to End of Compose 	/A019
+
+/		Normal	Shift	Caps	Ctrl	Key Pos	Diacrit	Legend
+/		------	-----	----	----	-------	-------	------
+
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		277;	241;	277;	036	/E00*	*	` ~
+		061;	041;	061;	000	/E01		1 !
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		172;	132;	132;	032	/B01		Z
+		000;	000;	000;	000	/-		Unused
+		062;	042;	062;	0	/E02*		2 @
+		167;	127;	127;	027	/D02		W
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		063;	243;	063;	033	/E03*		3 #
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		064;	044;	064;	034	/E04		4 $
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		065;	045;	065;	035	/E05		5 %
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		066;	046;	066;	036	/E06*		6 ^
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		067;	057;	067;	037	/E07*		7 &
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		155;	115;	115;	015	/B07		M
+		000;	000;	000;	000	/ - 		Unused
+		070;	050;	070;	177	/E08*		8 *
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		054;	073;	054;	000	/B08*		, ,
+		000;	000;	000;	000	/ -		Unused
+		071;	051;	071;	000	/E09*		9 (
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		056;	072;	056;	000	/B09*		. .
+		000;	000;	000;	000	/ - 		Unused
+		060;	075;	060;	000	/E10*		0 )
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		361;	321;	321;	000	/C10*		; :
+		055;	137;	055;	037	/B10*		/ ?
+		000;	000;	000;	000	/ - 		Unused
+		272;	252;	272;	000	/E12*		= +
+		053;	052;	053;	035	/D12*		] }
+		347;	204;	347;	034	/C12*	*	\ |
+		000;	000;	000;	000	/ - 		Unused
+		047;	077;	047;	000	/E11*		- _
+		201;	203;	201;	033	/D11*	*	[ {
+		202;	210;	202;	000	/C11*	*	
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		>
+
+IFDEF SPANISH <								/A021
+/
+/	
+
+		*CMPTEN			/ Relocate to End of Compose 	
+
+/		Normal	Shift	Caps	Ctrl	Key Pos	Diacrit	Legend
+/		------	-----	----	----	-------	-------	------
+
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		277;	241;	277;	036	/E00*	*	` ~
+		061;	041;	061;	000	/E01		1 !
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		172;	132;	132;	032	/B01		Z
+		000;	000;	000;	000	/-		Unused
+		062;	042;	062;	0	/E02*		2 @
+		167;	127;	127;	027	/D02		W
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		063;	243;	063;	033	/E03*		3 #
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		064;	044;	064;	034	/E04		4 $
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		065;	045;	065;	035	/E05		5 %
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		066;	046;	066;	036	/E06*		6 ^
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		067;	057;	067;	037	/E07*		7 &
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		155;	115;	115;	015	/B07		M
+		000;	000;	000;	000	/ - 		Unused
+		070;	050;	070;	177	/E08*		8 *
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		054;	073;	054;	000	/B08*		, ,
+		000;	000;	000;	000	/ -		Unused
+		071;	051;	071;	000	/E09*		9 (
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		056;	072;	056;	000	/B09*		. .
+		000;	000;	000;	000	/ - 		Unused
+		060;	075;	060;	000	/E10*		0 )
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		361;	321;	321;	000	/C10*		; :
+		055;	137;	055;	037	/B10*		/ ?
+		000;	000;	000;	000	/ - 		Unused
+		272;	252;	272;	000	/E12*		= +
+		053;	052;	053;	035	/D12*		] }
+		347;	204;	347;	034	/C12*	*	\ |
+		000;	000;	000;	000	/ - 		Unused
+		047;	077;	047;	000	/E11*		- _
+		201;	203;	201;	033	/D11*	*	[ {
+		202;	210;	202;	000	/C11*	*	
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		>
+
+
+
+	IFDEF V30SWE <			/ Swedish Keyboard	/A020
+
+		
+		*CMPTEN			/ Relocate to End of Compose 	/A019
+
+/		Normal	Shift	Caps	Ctrl	Key Pos	Diacrit	Legend
+/		------	-----	----	----	-------	-------	------
+
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		204;	260;	204;	036	/E00*	*	` ~
+		061;	041;	061;	000	/E01		1 !
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		172;	132;	132;	032	/B01		Z
+		000;	000;	000;	000	/-		Unused
+		062;	042;	062;	0	/E02*		2 @
+		167;	127;	127;	027	/D02		W
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		063;	043;	063;	033	/E03*		3 #
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		064;	044;	064;	034	/E04		4 $
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		065;	045;	065;	035	/E05		5 %
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		066;	046;	066;	036	/E06*		6 ^
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		067;	057;	067;	037	/E07*		7 &
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		155;	115;	115;	015	/B07		M
+		000;	000;	000;	000	/ - 		Unused
+		070;	050;	070;	177	/E08*		8 *
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		054;	073;	054;	000	/B08*		, ,
+		000;	000;	000;	000	/ -		Unused
+		071;	051;	071;	000	/E09*		9 (
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		056;	072;	056;	000	/B09*		. .
+		000;	000;	000;	000	/ - 		Unused
+		060;	075;	060;	000	/E10*		0 )
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		366;	326;	326;	000	/C10*		; :
+		055;	137;	055;	037	/B10*		/ ?
+		000;	000;	000;	000	/ - 		Unused
+		351;	311;	311;	000	/E12*		= +
+		374;	334;	334;	035	/D12*		] }
+		047;	052;	047;	034	/C12*		\ |
+		000;	000;	000;	000	/ - 		Unused
+		053;	077;	053;	000	/E11*		- _
+		345;	305;	305;	033	/D11*		[ {
+		344;	304;	304;	000	/C11*		
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+
+	>
+	IFDEF V30NOR <			/ Norwegian Keyboard	/A020
+
+		
+		*CMPTEN			/ Relocate to End of Compose 	/A019
+
+/		Normal	Shift	Caps	Ctrl	Key Pos	Diacrit	Legend
+/		------	-----	----	----	-------	-------	------
+
+
+KBDMAP,		177;	177;	177;	030	/E13		Delete
+		015;	015;	015;	015	/C13		Return
+		011;	011;	011;	011	/D00		Tab
+		204;	260;	204;	036	/E00*	*	` ~
+		061;	041;	061;	000	/E01		1 !
+		161;	121;	121;	021	/D01		Q
+		141;	101;	101;	001	/C01		A
+		172;	132;	132;	032	/B01		Z
+		000;	000;	000;	000	/-		Unused
+		062;	042;	062;	0	/E02*		2 @
+		167;	127;	127;	027	/D02		W
+		163;	123;	123;	023	/C02		S
+		170;	130;	130;	030	/B02		X
+		074;	076;	074;	000	/B00		< >
+		000;	000;	000;	000	/-		Unused
+		063;	043;	063;	033	/E03*		3 #
+		145;	105;	105;	005	/D03		E
+		144;	104;	104;	004	/C03		D
+		143;	103;	103;	003	/B03		C
+		000;	000;	000;	000	/-		Unused
+		064;	044;	064;	034	/E04		4 $
+		162;	122;	122;	022	/D04		R
+		146;	106;	106;	006	/C04		F
+		166;	126;	126;	026	/B04		V
+		040;	040;	040;	4000	/A01		Space
+		040;	040;	040;	4000	/-A09		Space
+		065;	045;	065;	035	/E05		5 %
+		164;	124;	124;	024	/D05		T
+		147;	107;	107;	007	/C05		G
+		142;	102;	102;	002	/B05		B
+		000;	000;	000;	000	/ - 		Unused
+		066;	046;	066;	036	/E06*		6 ^
+		171;	131;	131;	031	/D06		Y
+		150;	110;	110;	010	/C06		H
+		156;	116;	116;	016	/B06		N
+		000;	000;	000;	000	/ - 		Unused
+		067;	057;	067;	037	/E07*		7 &
+		165;	125;	125;	025	/D07		U
+		152;	112;	112;	012	/C07		J
+		155;	115;	115;	015	/B07		M
+		000;	000;	000;	000	/ - 		Unused
+		070;	050;	070;	177	/E08*		8 *
+		151;	111;	111;	011	/D08		I
+		153;	113;	113;	013	/D08		K
+		054;	073;	054;	000	/B08*		, ,
+		000;	000;	000;	000	/ -		Unused
+		071;	051;	071;	000	/E09*		9 (
+		157;	117;	117;	017	/D09		O
+		154;	114;	114;	014	/C09		L
+		056;	072;	056;	000	/B09*		. .
+		000;	000;	000;	000	/ - 		Unused
+		060;	075;	060;	000	/E10*		0 )
+		160;	120;	120;	020	/D10		P
+		000;	000;	000;	000	/ -		Unused
+		370;	330;	330;	000	/C10*		; :
+		055;	137;	055;	037	/B10*		/ ?
+		000;	000;	000;	000	/ - 		Unused
+		202;	201;	201;	000	/E12*		= +
+		210;	203;	203;	035	/D12*		] }
+		047;	052;	047;	034	/C12*		\ |
+		000;	000;	000;	000	/ - 		Unused
+		053;	077;	053;	000	/E11*		- _
+		345;	305;	305;	033	/D11*		[ {
+		346;	306;	306;	000	/C11*		
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+		000;	000;	000;	000	/ -		Unused
+	>
+
+

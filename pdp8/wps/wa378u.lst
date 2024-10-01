@@ -1,0 +1,857 @@
+   1               / FILE: LOAD01.PA
+   2               /
+   3               /       ** -0- ** BOOTSTRAP WRITE-OUT ROUTINE. ****
+   4               /
+   5               /       ********* EDIT HISTORY ********
+   6               /
+   7               /008    WJY     06-FEB-84       DECmate I compatability
+   8               /007    WCE     05-SEP-83       Added WINNIE conditional to correct load
+   9               /                               problem with new WPSYSA module.
+  10               /006    WCE     03-SEP-83       Change RZ IOT's to standard RX IOT's
+  11               /005    WCE     20-JUL-83       Remove occurances of RETURN as an instruction
+  12               /004    DFB     01-FEB-82       Reset interleave for dd to 3
+  13               /003    DFB     28-JAN-82       Set interleave for dd to 2
+  14               /002    DFB     14-DEC-81       Comment only for LDSTRT address
+  15               /                               AFTER ANY ASSEMBLY--PLEASE NOTE FOLLOWING
+  16               /                               LDSTRT should be equal to wpaddr
+  17               /                               else change labels in RXPRDF.
+  18               /001    DFB     10-NOV-81       INSTALL.
+  19               
+  20               /       ** -0- ** LOCAL SYMBOLIC DEFINITIONS ****
+  21               /---------------------------------------------------------------------
+  22               /
+  23               /************************ LOCAL SYMBOLIC DEFINITIONS *****************
+  24               /
+  25               /---------------------------------------------------------------------
+  26               LOADPT= 200                             / EFFECTIVE LOADER ADDRESS.
+  27               
+
+
+  28                                               EJECT
+  29               /       ** -1- **  BOOTSTRAP WRITE-OUT ROUTINE ****
+  30               /---------------------------------------------------------------------
+  31               /
+  32               /************************ BOOTSTRAP WRITE ROUTINE ********************
+  33               /
+  34               /---------------------------------------------------------------------
+  35                                               FIELD   0
+  36                                               PAGE    0
+  37                                               *200
+  38 000200  5777          JMP     LOADBT
+  39               /                               *LOADPT
+  40 000377  2000                                  PAGE 10
+  41               /---------------------------------------------------------------------
+  42               /
+  43               /************************ BUILD CORRECT "FILL SILO" COMMAND **********
+  44               /
+  45               /---------------------------------------------------------------------
+  46 002000  7200  LOADBT, CLA
+  47                       RXIINI                  /INIT DISK                      /M006
+undefined       	     ^
+     002001  0000  
+  48                       RXISDN                  /DONE?                          /M006
+undefined       	     ^
+     002002  0000  
+  49 002003  5202          JMP     .-1             /NO
+  50 002004  1362          TAD     LDCON           /LOAD 1 CONSTANT
+  51                       RXILCD                  /LOAD COMMAND READ STATUS UNIT #1/M006
+undefined       	     ^
+     002005  0000  
+  52                       RXISDN                  /DONE?                          /M006
+undefined       	     ^
+     002006  0000  
+  53 002007  5206          JMP     .-1             /NO
+  54                       RXIXDR                  /READ STATUS                    /M006
+undefined       	     ^
+     002010  0000  
+  55                       RXISER                  /CLEAR ERROR IF SET             /M006
+undefined       	     ^
+     002011  0000  
+  56 002012  7000          NOP
+  57 002013  3361          DCA     L1STAT          /SAVE STATUS
+  58 002014  1361          TAD     L1STAT
+  59 002015  7006          RTL;RAL                 /MOVE DENSITY TO BIT AC3
+     002016  7004  
+  60 002017  0364          AND     LDMASK          /MASK DENSITY BIT
+  61 002020  3354          DCA     LDCMND                  / ......"FILL SILO",...
+  62 002021  1354          TAD     LDCMND
+  63 002022  1363          TAD     L2CON                   /SET COMMAND WITH UNIT#1
+  64 002023  3355          DCA     L2CMND
+  65 002024  1357          TAD     L1ADDR                  / SET/RESET,...
+  66 002025  3356          DCA     LDBFFR                  / ...START ADDRESS.
+  67 002026  4267          JMS     LDFILL                  /FILL SILO
+  68 002027  7201          CLA IAC
+  69 002030  3365          DCA LDSECT                      /SET SECTOR = 1
+  70 002031  4310          JMS     LDWRIT                  /WRITE 1ST SECT 1ST TRACK
+  71 002032  5234          JMP     LOAD02                  /NORMAL RETURN
+  72 002033  5200          JMP     LOADBT                  /ERROR RETURN
+  73               
+  74               /       THIS PROCESS IS VALID ONLY FOR CONTROLLER 0, UNIT 1.
+  75               /
+  76               /---------------------------------------------------------------------
+  77 002034  7301  LOAD02, CLA CLL IAC             / INITIALIZE SECTOR #,...
+  78 002035  3365          DCA     LDSECT          / ...TO UNITY.
+  79 002036  1360          TAD     L2ADDR          /SET BOOT WRITE ADDRESS
+  80 002037  3356          DCA     LDBFFR
+  81                                       SIZE=   .-LOAD02
+  82               /---------------------------------------------------------------------
+  83               /
+  84               /************************ DETERMINE NO. SECTORS TO WRITE *************
+  85               /
+  86               /---------------------------------------------------------------------
+  87                       AC7776                  / SET INITIAL COUNT,...
+undefined       	     ^
+     002040  0000  
+  88 002041  3366          DCA     LDSCTR          / ...TO -2 (SD) -1 (DD).
+  89 002042  1354          TAD     LDCMND          / ADJUST,...
+  90 002043  7640          SZA CLA                 / ...FOR,...
+  91 002044  7301          CLA CLL IAC             / ......A DOUBLE,...
+  92 002045  1366          TAD     LDSCTR          / .........DENSITY DISKETTE,...
+  93 002046  3366          DCA     LDSCTR          / ............AND SAVE.
+  94               /---------------------------------------------------------------------
+  95               /
+  96               /************************ CALCULATE PHYSICAL SECTOR ******************
+  97               /
+  98               /---------------------------------------------------------------------
+  99               LDINIT, AC0003                  / INITIALISE SECTOR,...
+undefined              	     ^
+     002047  0000  
+ 100 002050  1365          TAD     LDSECT          / ...COUNT,...
+ 101 002051  3365          DCA     LDSECT          / ......TO 4 (I.E. SD DEFAULT ).
+ 102 002052  1354          TAD     LDCMND          / ADJUST,...
+ 103 002053  7640          SZA CLA                 / ...FOR DOUBLE,...
+ 104 002054  7360          CLA CLL CMA CML         / ......DENSITY,...
+ 105 002055  1365          TAD     LDSECT          / .........DISKETTE,...
+ 106 002056  3365          DCA     LDSECT          / ............OPERATIONS.
+ 107 002057  4267          JMS     LDFILL          /FILL SILO
+ 108 002060  4310          JMS     LDWRIT          /WRITE
+ 109 002061  5263          JMP     LDNXT           /NORMAL RETURN
+ 110 002062  5234          JMP     LOAD02          /ERROR RETURN
+ 111               /---------------------------------------------------------------------
+ 112               /
+ 113               /************************ COMPLETION PROCESSOR ***********************
+ 114               /
+ 115               /---------------------------------------------------------------------
+ 116 002063  2366  LDNXT,  ISZ     LDSCTR          / YES - ALL SECTORS WRITTEN ?
+ 117 002064  5247          JMP     LDINIT          / NO - CONTINUE WITH SUBSEQUENT SECTORS.
+ 118                       RXIINI                                                          /M006
+undefined       	     ^
+     002065  0000  
+ 119 002066  5770          JMP I   LDEXIT          / YES - EXIT LOAD PROCESSOR TO OS8.
+ 120               
+ 121               /---------------------------------------------------------------------
+ 122               /
+ 123               /************************ SILO LOAD ROUTINE **************************
+ 124               /
+ 125               /---------------------------------------------------------------------
+ 126 002067  0000  LDFILL, 0
+ 127 002070  7200          CLA
+ 128 002071  1355          TAD     L2CMND                  /LOAD COMMAND
+ 129                       RXILCD                          /EXECUTE                        /M006
+undefined       	     ^
+     002072  0000  
+ 130 002073  7300  L1MORE, CLA CLL                         / ENSURE REGISTER CLEAR.
+ 131                       CDFPRT                          / SECONDARY BOOT GOES TO FIELD 1/M006
+undefined       	     ^
+     002074  0000  
+ 132 002075  1756          TAD I   LDBFFR                  / LOAD A DATUM,...
+ 133                       CDFSYS                          / ...RESTORE THIS DATA FIELD,.../M006
+undefined       	     ^
+     002076  0000  
+ 134 002077  2356          ISZ     LDBFFR                  / ......UPDATE ADDRESS IN SECOND BOOT.
+ 135 002100  4334          JMS     LDXFER                  / .........TRANSFER THE DATUM,...
+ 136 002101  5273          JMP     L1MORE                  /.......TRANSFER RETURN
+ 137 002102  5304          JMP     LDFLXT                  /DONE EXIT
+ 138 002103  5200          JMP     LOADBT                  /ERROR EXIT
+ 139 002104  7240  LDFLXT, CLA CMA
+ 140 002105  1356          TAD     LDBFFR
+ 141 002106  3356          DCA     LDBFFR                  /RESET -1 FOR NEXT SECTOR
+ 142 002107  5667          JMP I   LDFILL                  /EXIT
+ 143               /-------------------------------------------------------------------
+ 144               /
+ 145               /************************PHYSICAL I/O PRIMITIVE************************
+ 146               /
+ 147               /----------------------------------------------------------------------
+ 148 002110  0000  LDWRIT, 0
+ 149 002111  7307          CLA CLL IAC RTL                 / BUILD A "WRITE SECTOR",...
+ 150 002112  1355          TAD     L2CMND                  / COMMAND,...
+ 151                       RXILCD                          / AND TRANSMIT TO CONTROLLER.   /M006
+undefined       	     ^
+     002113  0000  
+ 152 002114  1365          TAD     LDSECT                  /LOAD SECTOR
+ 153 002115  4334          JMS     LDXFER                  / ..."SECTOR 1",...
+ 154 002116  5321          JMP     LDWRT1                  /...TR RETURN
+ 155 002117  5332          JMP     LDWRTE                  /DONE = ERROR RETURN
+ 156 002120  5332          JMP     LDWRTE                  /ERROR RETURN
+ 157 002121  7301  LDWRT1, CLA CLL IAC
+ 158 002122  4334          JMS     LDXFER                  / ......"TRACK 1.
+ 159 002123  5326          JMP     LDWRT2                  /TR DONE
+ 160 002124  5332          JMP     LDWRTE                  /DONE SET=ERROR
+ 161 002125  5332          JMP     LDWRTE                  /ERROR RET
+ 162 002126  4334  LDWRT2, JMS     LDXFER                  /CHECK DONE
+ 163 002127  5332          JMP     LDWRTE                  /TR = ERROR
+ 164 002130  5710          JMP I   LDWRIT                  /DONE = NORMAL RETURN
+ 165 002131  5332          JMP     LDWRTE                  /ERROR RETURN
+ 166 002132  2310  LDWRTE, ISZ     LDWRIT          /SET ERROR RETURN
+ 167 002133  5710          JMP I   LDWRIT                                                  /M005
+ 168               /---------------------------------------------------------------------
+ 169               /
+ 170               /************************ DATA TRANSFER PRIMITIVE ********************
+ 171               /
+ 172               /---------------------------------------------------------------------
+ 173 002134  0000  LDXFER, 0                       / ENTRY POINT TO "LDXFER".
+ 174               LDXRDY, RXISTR                  / CONTROLLER READY ?                    /M006
+undefined              	     ^
+     002135  0000  
+ 175 002136  5341          JMP     LDCKDN          /NO CHECK DONE
+ 176                       RXIXDR                  / YES - TRANSFER A DATUM,...            /M006
+undefined       	     ^
+     002137  0000  
+ 177 002140  5734          JMP I   LDXFER          / ...THEN RETURN TO CALLER.             /M005
+ 178               LDCKDN, RXISDN                  /OP COMPLETE?                           /M006
+undefined              	     ^
+     002141  0000  
+ 179 002142  5335          JMP     LDXRDY          /NO-CHECK AGAIN
+ 180 002143  2334          ISZ     LDXFER          /YES SET RETURN
+ 181                       RXISER                  /ANY ERRORS                             /M006
+undefined       	     ^
+     002144  0000  
+ 182 002145  5734          JMP I   LDXFER          /NO RETURN DONE                         /M005
+ 183 002146  7200          CLA                     /YES TRY AGAIN
+ 184 002147  1357          TAD     L1ADDR          /RESET START ADDRESS
+ 185 002150  3356          DCA     LDBFFR
+ 186 002151  2334          ISZ     LDXFER  /SET ERROR RETURN
+ 187 002152  5734          JMP I   LDXFER          /ERROR RETURN                           /M005
+ 188               /---------------------------------------------------------------------
+ 189               /
+ 190               /************************ LOCAL DATA AREA ****************************
+ 191               /
+ 192               /---------------------------------------------------------------------
+ 193 002153  7605  L1EXIT, 7605                            / ...VIA THE RE-ENTRY ADDRESS.
+ 194 002154  0000  LDCMND, 0                               / LOCAL STORAGE FOR COMMAND WORD.
+ 195 002155  0000  L2CMND, 0                       /STORAGE FOR COMMAND WORD WITH UNIT #1
+ 196 002156  0002  LDBFFR, 2                       / LOAD ADDRESS OF SECONDARY BOOTSTRAP./M006
+ 197 002157  0002  L1ADDR, 2                               / BACKUP ADDRESS OF START ADDRESS.
+ 198 002160  0400  L2ADDR, W2BOOT                  /ADDRESS OF 2ND BOOT AREA
+ 199 002161  0000  L1STAT, 0               /STATUS READ
+ 200 002162  0012  LDCON,  12              /READ STATUS UNIT 0
+ 201 002163  0000  L2CON,  0               /UNIT 1 CONSTANT
+ 202               
+ 203 002164  0400  LDMASK, 400                     / MASK FOR COMMAND.
+ 204 002165  0001  LDSECT, 1                       / INITIAL VALUE FOR PHYSICAL SECTOR #.
+ 205 002166  0000  LDSCTR, 0                       / SECTOR COUNT.
+ 206 002167  0000  LDTIMR, 0                       / SECONDARY TIMER WORD.
+ 207 002170  7605  LDEXIT, 7605                    / RE-ENTRY ADDRESS FOR OS8.
+ 208                                       SIZE=   .-LDCMND
+ 209               
+ 210               / FILE: BOOT01.PA
+ 266                       XLIST
+ 267               
+ 322                       XLIST
+ 323               
+ 347                       XLIST
+ 348               
+ 403                       XLIST
+ 404               
+ 448                       XLIST
+ 449               
+
+
+ 450                                               EJECT
+ 451               /       ** -0- ** SYMBOLIC DEFINITIONS ****
+ 452               /---------------------------------------------------------------------
+ 453               /
+ 454               /************************ SPECIAL SYMBOLIC DEFINITIONS ***************
+ 455               /
+ 456               /---------------------------------------------------------------------
+ 457               HACK=   " -1                    / DEFINITION OF THE "[H]ALF [A]SCII" [C]HARACTER [K]ONSTANT.
+ 458               PRBOOT= 2                       / LOAD POINT FOR THE PRIMARY BOOTSTRAP.
+ 459               BOOT02= PRBOOT+60               / LOAD POINT FOR THE REMAINING PRIMARY BOOT.
+ 460               
+
+
+ 461                                               EJECT
+ 462               /       ** -1- ** PRIMARY "WPS" BOOTSTRAP ****
+ 463                                               FIELD   1       / PRIMARY BOOTSTRAP IS ASSEMBLED IN FIELD 1.
+ 464                                               PAGE    0
+ 465                                               *PRBOOT         / LOAD ADDRESS FOR PRIMARY BOOT.
+ 466               /---------------------------------------------------------------------
+ 467               /
+ 468               /************************ PRIMARY BOOTSTRAP HEADER *******************
+ 469               /
+ 470               /---------------------------------------------------------------------
+ 471 010002  7402          HLT                     /STRT ADDR OVERLAYED IN DD MODE
+ 472 010003  0401  BTRXID, "#-HACK^100+" -HACK     / ...PRIMARY
+ 473 010004  7061  BTTRAK, "W-HACK^100+"P-HACK     / ......BOOTSTRAP
+ 474 010005  4552  BTLSEC, "D-HACK^100+"I-HACK     / .........HEADER
+ 475 010006  6454  BTSECT, "S-HACK^100+"K-HACK     / ............PRECEEDS
+ 476 010007  2074  BTSCTR, "/-HACK^100+"[-HACK     / ...............ACTUAL
+ 477 010010  0101          " -HACK^100+" -HACK     / ..................BOOTSTRAP.
+ 478 010011  0000          0
+ 479 010012  0000          0
+ 480               /---------------------------------------------------------------------
+ 481               /
+ 482               /************************ SPARE AUTO-INDEX AREA **********************
+ 483               /
+ 484               /---------------------------------------------------------------------
+ 485               
+ 486               /D008   IFDEF   WINNIE  .lt.                                            /A007
+ 487               BTTBUF, RXDLDP-201                                                      /M007
+undefined              	     ^
+     010013  7577  
+ 488               BTBFRA, RXDLDP-201                                                      /M007
+undefined              	     ^
+     010014  7577  
+ 489               BTBFRB, RXDLDP-201                                                      /M007
+undefined              	     ^
+     010015  7577  
+ 490               /D008                   .gt.    / END IFDEF WINNIE                      /A007
+ 491               /D008   IFNDEF  WINNIE  .lt.                                            /A007
+ 492               /D008BTTBUF,    RXDLDP-1
+ 493               /D008BTBFRA,    RXDLDP-1
+ 494               /D008BTBFRB,    RXDLDP-1
+ 495               /D008                   .gt.    / END IFNDEF WINNIE                     /A007
+ 496               
+ 497 010016  0377  BTBFFR, 377                                                     /C003
+ 498 010017  0422  MSK422, 422             /MASK FOR DENSITY,UNIT#,READ CODE       /M003
+ 499               /--------------------------------------------------------------------
+ 500               /
+ 501               /************************ SPARE MEMORY AREA **************************
+ 502               /
+ 503               /---------------------------------------------------------------------
+ 504 010020  0022  BTCMND, 22              /BITS=DD,UNIT#,READ
+ 505 010021  2400  MSK24,  2400            /ADD TO BTCMND TO ALTERNATELY SET UNIT & DENSITY
+ 506 010022  5041  BTINC,  JMP     BTPTCH          /ONE TIME JMP.  ON SUCCESFUL READ
+ 507 010023  2053          ISZ     BTXFER                  /SET DONE RETURN
+ 508 010024  5453          JMP I   BTXFER                  /RETURN
+ 509               /---------------------------------------------------------------------
+ 510               /
+ 511               /************************ "EMPTY SILO" OPERATION *********************
+ 512               /
+ 513               /---------------------------------------------------------------------
+ 514 010025  3416  BTMORE, DCA I   BTBFFR          / DEPOSIT DATUM IN CORE.
+ 515 010026  4053  BTEMPT, JMS     BTXFER          / TRANSFER A DATUM FROM SILO.
+ 516 010027  5025          JMP     BTMORE          / NOT DONE - REPEAT FOR ENTIRE SECTOR.
+ 517               /---------------------------------------------------------------------
+ 518               /
+ 519               /************************ OPERATION COMPLETION PROCESSOR *************
+ 520               /
+ 521               /---------------------------------------------------------------------
+ 522 010030  2007  BTDONE, ISZ     BTSCTR          / DONE - ALL SECTORS READ ?
+ 523 010031  5074          JMP     BTNEXT          / NO - READ NEXT.
+ 524 010032  5506          JMP I   BTSCND          / YES - ENTER SYSTEM BOOTSTRAP CODE.
+ 525               /---------------------------------------------------------------------
+ 526               /
+ 527               /************************ CRITICAL OVERLAY AREA 1 ********************
+ 528               /
+ 529               /---------------------------------------------------------------------
+ 530               BTBOO3, RXISDN                  / DONE ?                                /M006
+undefined                    ^
+     010033  0000  
+ 531 010034  5054          JMP     BTBOO8          / NO - WAIT FOR READY FIRST.
+ 532               /---------------------------------------------------------------------
+ 533               /
+ 534               /************************ TRANSFER PRIMITIVE PART 2 - DONE ***********
+ 535               /
+ 536               /---------------------------------------------------------------------
+ 537 010035  7300          CLA CLL                 / INSURE AC CLEAR FOR DONE RETURN
+ 538                       RXISER                  /ERROR?                                 /M006
+undefined       	     ^
+     010036  0000  
+ 539 010037  5022          JMP     BTINC           /NO INC RET
+ 540 010040  7410          SKP                     /IS ERROR
+ 541 010041  3022  BTPTCH, DCA     BTINC           /CLEAR JMP ON SUCCESSFUL DONE
+ 542               /D002   TAD     MSK360
+ 543 010042  1021          TAD     MSK24           /ALTERNATE 24 & 2400                    /A002
+ 544 010043  7002          BSW                                                             /A002
+ 545 010044  3021          DCA     MSK24                                                   /A002
+ 546 010045  1021          TAD     MSK24           /GET IT                                 /A002
+ 547 010046  5062          JMP     BTREAD          / JUMP OVER CRITICAL AREA 2
+ 548               /---------------------------------------------------------------------
+ 549               /
+ 550               /************************ CRITICAL OVERLAY AREA 2 ********************
+ 551               /
+ 552               /---------------------------------------------------------------------
+ 553 010047  4053  BTBOO5, JMS      BTBOO7         / TRANSFER A DATUM
+ 554 010050  3061  BTBOO6, DCA      BOOT02-1       / ...AND INSERT IT IN-LINE.
+ 555                                               BTOVLY=.
+ 556               /---------------------------------------------------------------------
+ 557               /
+ 558               /************************ DATA TRANSFER PRIMITIVE ********************
+ 559               /
+ 560               /---------------------------------------------------------------------
+ 561                               *BOOT02-7
+ 562               BTXFER,                         / ENTRY POINT TO "BTXFER".
+ 563               BTBOO7,                         / ### ENTRY POINT TO "READ" SUBROUTINE. ###
+ 564                               *BOOT02-6
+ 565               BTBOO8,                         / CONTROLLER READY ?
+ 566               /       RXISTR                  / CONTROLLER READY TO TRANSFER DATA ?   /M006
+ 567               /       JMP     BTBOO3          / NO - WAIT FOR IT.
+ 568               /       RXIXDR                  / YES - TRANSFER A DATUM.               /M006
+ 569               /       JMP I   BTXFER          / RETURN TO CALLER.                     /M005
+ 570               /---------------------------------------------------------------------
+ 571                               *BOOT02-2
+ 572               BTUNIT,                         / HARDWARE BOOTSTRAP COMMAND WORD.
+ 573               BTBOO9,                         / LINKAGE WITH SECONDARY BOOT.
+ 574                               *BOOT02-1
+ 575               BTBOO0,                         / LINKAGE WITH ALTERNATE SECONDARY BOOT.
+ 576               /---------------------------------------------------------------------
+ 577               /
+ 578               /************************ END CRITICAL OVERLAY AREA 2 ****************
+ 579               /
+ 580               /---------------------------------------------------------------------
+
+
+ 581                                               EJECT
+ 582                                               *BTOVLY
+ 583                                               RELOC   BOOT02
+ 584               /---------------------------------------------------------------------
+ 585               /
+ 586               /************************ SET THE CORRECT SECTOR COUNT ***************
+ 587               /
+ 588               /---------------------------------------------------------------------
+ 589               BTREAD, 
+ 590 010062* 1020          TAD     BTCMND
+ 591 010063* 0017          AND     MSK422          /KEEP DENSITY,UNIT# AND READ CODE
+ 592 010064* 3020          DCA     BTCMND          / ......DENSITY BIT IN COMMAND WORD
+ 593 010065* 1020          TAD     BTCMND          / LOAD THE COMMAND
+ 594 010066* 7006          RTL                     / ...AND ISOLATE
+ 595 010067* 7006          RTL                     / ......DENSITY BIT IN THE LINK
+ 596 010070* 7244          CLA CMA RAL             / .........THEN BUILD
+ 597 010071* 3007          DCA     BTSCTR          / ............THE CORRECT SECTOR COUNT.
+ 598               /---------------------------------------------------------------------
+ 599               /
+ 600               /************************ CALCULATE CORRECT BASE SECTOR **************
+ 601               /
+ 602               /---------------------------------------------------------------------
+ 603 010072* 7001          IAC                     / CALCULATE THE PROPER (SD OR DD)/D003/C004
+ 604               /D004   TAD     BTSCTR          /SET FOR INTERLEAVE             /A003
+ 605               /D004   CMA                     /0 FOR DD 1 FOR SD              /A003
+ 606 010073* 3006          DCA     BTSECT          / ......PHYSICAL SECTOR NUMBER.
+ 607               /---------------------------------------------------------------------
+ 608               /
+ 609               /************************ PHYSICAL "READ" OPERATION ******************
+ 610               /
+ 611               /---------------------------------------------------------------------
+ 612               BTNEXT, AC0004                  / SET THE PHYSICAL I/O BIT
+undefined              	     ^
+     010074* 0000  
+ 613 010075* 1020          TAD     BTCMND          / ...AND SUBMIT COMMAND TO CONTROLLER.
+ 614                       RXILCD                                                          /M006
+undefined       	     ^
+     010076* 0000  
+ 615                       AC0003                  / LOAD SECTOR # TO READ
+undefined       	     ^
+     010077* 0000  
+ 616 010100* 1006          TAD     BTSECT          / ...INCREMENT IT BY INTERLEAVE
+ 617 010101* 4053          JMS     BTXFER          / ......SUBMIT IT TO CONTROLLER
+ 618 010102* 3006          DCA     BTSECT          / .........AND SAVE IT AGAIN
+ 619 010103* 7301          CLA CLL IAC             / LOAD "BOOT" TRACK NUMBER,...
+ 620 010104* 4053          JMS     BTXFER          / ...AND SUBMIT IT TO CONTROLLER ALSO.
+ 621 010105* 4053          JMS     BTXFER          / WAIT FOR CONTROLLER "DONE"
+ 622               BTSCND,                 /LOC 400 = DD BIT USED TO SAVE SPACE/A003
+ 623 010106* 0400  BTDENS, 400
+ 624               /D003   BTSCND, 200                     / (SPARE) ADDRESS OF SECONDARY BOOT
+ 625               /---------------------------------------------------------------------
+ 626               /
+ 627               /************************ LOGICAL "READ" OPERATION *******************
+ 628               /
+ 629               /---------------------------------------------------------------------
+ 630 010107* 1020          TAD     BTCMND          / GET "EMPTY SILO" COMMAND
+ 631                       RXILCD                  / ...AND SUBMIT IT TO CONTROLLER.       /M006
+undefined       	     ^
+     010110* 0000  
+ 632 010111* 5026          JMP     BTEMPT          / GO EMPTY THE SILO
+ 633                                               /
+ 634               
+ 635                                       SPARE=  100-.+BTREAD-BTOVLY+PRBOOT
+ 636                                       RELOC   / BACK TO ORIGINAL ORIGIN.
+ 637               
+
+
+ 638                                               EJECT
+ 639               /       ** -0- ** SYMBOLIC DEFINITIONS ****
+ 640               /---------------------------------------------------------------------
+ 641               /
+ 642               /************************ SPECIAL SYMBOLIC DEFINITIONS ***************
+ 643               /
+ 644               /---------------------------------------------------------------------
+
+
+ 645                                               EJECT
+ 646               /       ** -1- ** SECONDARY BOOTSTRAP ****
+ 647                                       FIELD   1       / BOOT IS ASSEMBLED IN FIELD 1.
+ 648                                               PAGE    2       / USE SCND PAGE OF FIELD.
+ 649               /---------------------------------------------------------------------
+ 650               /
+ 651               /************************ PATCH TRANSFER ROUTINE FOR SECONDARY *******
+ 652               /
+ 653               /---------------------------------------------------------------------
+ 654               W2BOOT, AC0001                  /
+undefined              	     ^
+     010400  0000  
+ 655 010401  4307          JMS     TTY             /TYPE A=GOT IN THIS FAR
+ 656 010402  1372          TAD     BTHALT          / PUT A HALT INSTRUCTION AT THE END
+ 657 010403  3041          DCA     BTPTCH          / ...OF THE ERROR BRANCH
+ 658                       AC0002                  /
+undefined       	     ^
+     010404  0000  
+ 659 010405  4307          JMS     TTY             /B=UNIT 0 OK
+ 660               /---------------------------------------------------------------------
+ 661               /
+ 662               /************************ DETERMINE DISKETTE DENSITY *****************
+ 663               /
+ 664               /---------------------------------------------------------------------
+ 665 010406  1020          TAD     BTCMND          / LOAD COMMAND FROM PRIMARY BOOT.
+ 666 010407  7006          RTL                     / ISOLATE "SD"/"DD"
+ 667 010410  7006          RTL                     / ...IN REGISTER AS "0" OR "1"
+ 668 010411  7204          CLA RAL                 / ......AND SAVE IT.
+ 669 010412  3003          DCA     BTRXID
+ 670               /---------------------------------------------------------------------
+ 671               /
+ 672               /**************** DETERMINE WHETHER RX01/RX02 DRIVE ******************
+ 673               /
+ 674               /---------------------------------------------------------------------
+ 675 010413  1374          TAD     PRX02           /DO A REQUEST FOR STATUS
+ 676 010414  1020          TAD     BTCMND          /ADD DENSITY
+ 677                       RXILCD                  /  ...                                  /M006
+undefined       	     ^
+     010415  0000  
+ 678                       RXISDN                                                          /M006
+undefined       	     ^
+     010416  0000  
+ 679 010417  5216          JMP .-1                 / WAIT FOR DONE.
+ 680                       RXIXDR                  / GET STATUS RESPONSE.                  /M006
+undefined       	     ^
+     010420  0000  
+ 681 010421  0374          AND     PRX02           / ISOLATE THE RX02 BIT.
+ 682 010422  7650          SNA CLA                 / SKIP IF RX02 (RX28 DRIVE).
+ 683 010423  3363          DCA     BTLCM2          / ZAP THE RX02 LCD 2ND XFR COMMAND.
+ 684               /---------------------------------------------------------------------
+ 685               /
+ 686               /************************ ADJUST MODE (8B/12B) TO DENSITY ************
+ 687               /
+ 688               /---------------------------------------------------------------------
+ 689               /D003   TAD     BTCMND          / GET COMPLEMENT OF DENSITY BIT
+ 690               /D003   TAD     BTDENS          / ...FROM COMMAND WORD.
+ 691               /D003   AND     BTDENS
+ 692               /D003   CLL RTR                 / ROTATE IT INTO 8/12 BIT OF
+ 693 010424  1003          TAD     BTRXID          /0=DD 1=SD                      /A003
+ 694 010425  7650          SNA CLA                 /IS DD?                         /A003
+ 695 010426  7003          IAC BSW                 /NO SET 8 BIT MODE              /A003
+ 696 010427  1020          TAD     BTCMND          / ...COMMAND WORD.
+ 697 010430  3020          DCA     BTCMND
+ 698               /---------------------------------------------------------------------
+ 699               /
+ 700               /************************ CALCULATE LOGICAL SECTOR NUMBER ************
+ 701               /
+ 702               /---------------------------------------------------------------------
+ 703 010431  1003          TAD     BTRXID          / LOAD THE DENSITY PARAMETER
+ 704 010432  7650          SNA CLA                 / ......DOUBLE DENSITY ?
+ 705 010433  1367          TAD     BTBLKN          / NO - MAKE IT 3*BLOCK NUM
+ 706 010434  1367          TAD     BTBLKN          / YES - MAKE IT 2*BLOCK NUM
+ 707 010435  1367          TAD     BTBLKN
+ 708 010436  3005          DCA     BTLSEC          / ......AND SAVE IT.
+ 709               ///     CDF     DRVFLD
+ 710               
+
+
+ 711                                               EJECT
+ 712               /       ** -1- ** RX01/RX02 SECTOR READ PROCESSOR ****
+ 713               /---------------------------------------------------------------------
+ 714               /
+ 715               /************************ RX01/RX02 PROCESS DISPATCHER ***************
+ 716               /
+ 717               /---------------------------------------------------------------------
+ 718 010437  1003  NXTBLK, TAD     BTRXID          / "DD" OPERATION ?
+ 719 010440  7640          SZA CLA
+ 720 010441  5261          JMP     BTDBLD          / YES - SKIP THE "UNPACK" PROCESS
+ 721               /---------------------------------------------------------------------
+ 722               /
+ 723               /************************ SD - UNPACK FIRST SECTOR OF BLOCK **********
+ 724               /
+ 725               /---------------------------------------------------------------------
+ 726 010442  4317          JMS     BTPHYS          / EFFECT A "READ SECTOR" OPERATION.
+ 727 010443  5257          JMP     BTUNPK          / ENTER UNPACKING LOOP
+ 728 010444  7421  DXUNPK, MQL                     / SAVE DATA BYTE
+ 729 010445  7501          MQA                     / UNPACK FIRST NYBBLE
+ 730 010446  7012          RTR                     / ...ALIGN TO HO END
+ 731 010447  7002          BSW
+ 732 010450  0352          AND     DXNMSK          / ......ISOLATE HIGH 4 BITS
+ 733 010451  3413          DCA I   BTTBUF          / .........AND PUT IT AWAY
+ 734 010452  7501          MQA                     / UNPACK SECOND NYBBLE
+ 735 010453  7006          RTL                     / ...ALIGN TO HO END
+ 736 010454  7002          BSW
+ 737 010455  0352          AND     DXNMSK          / ......ISOLATE HIGH 4 BITS
+ 738 010456  3413          DCA I   BTTBUF          / .........AND PUT IT AWAY
+ 739 010457  4053  BTUNPK, JMS     BTXFER          / GET DATA BYTE FROM SECTOR
+ 740 010460  5244          JMP     DXUNPK          / (TR) ...AND GO UNPACK IT
+ 741               /---------------------------------------------------------------------
+ 742               /
+ 743               /************************ READ 2 SECTORS, SD OR DD *******************
+ 744               /
+ 745               /---------------------------------------------------------------------
+ 746               BTDBLD, AC7776                  / (DN) SET SECTOR COUNT
+undefined              	     ^
+     010461  0000  
+ 747 010462  3007          DCA     BTSCTR
+ 748 010463  4317  DYNEXT, JMS     BTPHYS          / EFFECT A "READ SECTOR" OPERATION.
+ 749 010464  7410          SKP                     / ENTER THE "MERGE" LOOP
+ 750 010465  3415  DYREAD, DCA I   BTBFRB          / SAVE WORD IN BUFFER.
+ 751 010466  1414          TAD I   BTBFRA          / LOAD CURRENT CONTENTS OF BUFFER.
+ 752 010467  4053          JMS     BTXFER          / LOAD A DATUM.
+ 753                                               /#(8 BIT MODE => INCLUSIVE OR INTO BITS 4-11)
+ 754                                               /#(12 BIT MODE => JAM XFER BITS 0-11)
+ 755 010470  5265          JMP     DYREAD          / (TR) CONTINUE FETCHING DATA
+ 756 010471  7240          CLA  CMA                        /-1
+ 757 010472  1014          TAD     BTBFRA          /RESET PTR TO LAST CHAR
+ 758 010473  3014          DCA     BTBFRA          /RESTORE
+ 759 010474  2007          ISZ     BTSCTR          / (DN) ALL SECTORS PROCESSED ?
+ 760 010475  5263          JMP     DYNEXT          / NO - PROCESS NEXT.
+ 761               /---------------------------------------------------------------------
+ 762               /
+ 763               /************************ COMPLETION PROCESSOR ***********************
+ 764               /
+ 765               /---------------------------------------------------------------------
+ 766 010476  2370          ISZ     BTBCTR          / YES - ALL BLOCKS PROCESSED ?
+ 767 010477  5237          JMP     NXTBLK          / NO - DO ANOTHER BLOCK.
+ 768                       AC0003                  /
+undefined       	     ^
+     010500  0000  
+ 769 010501  4307          JMS     TTY             /C=LOADER GOT IN OK
+ 770               /--------------------------------------------------------------------
+ 771               /
+ 772               /***************** CHECK DEVICE NO ************************************
+ 773               /
+ 774               /----------------------------------------------------------------------
+ 775 010502  1020          TAD     BTCMND
+ 776 010503  0371          AND     MSK20           /MASK OUT UNIT NO
+ 777 010504  7640          SZA CLA                 /0=UNIT 0
+ 778                       DOCSKP=.                /RXPRDF LDNOP SHOULD BE EQUAL THIS ADDRESS/A018
+ 779 010505  5716          JMP I   PRTMSG                  /NOT UNIT 0
+ 780               ///     CIF     DRVFLD
+ 781 010506  5773          JMP I   WPSTRT          / YES - START SYSTEM.
+ 782               /--------------------------------------------------------------------
+ 783               /
+ 784               /*********** OUTPUT 1 CHAR   ******************************************
+ 785               /
+ 786               /-----------------------------------------------------------------------
+ 787 010507  0000  TTY,    0
+ 788 010510  1337          TAD     P100            / MAKE ASCII.
+ 789 010511  6046          TLS
+ 790 010512  6041          TSF                     /WAIT TILL DONE
+ 791 010513  5312          JMP .-1
+ 792 010514  7200          CLA
+ 793 010515  5707          JMP I   TTY             /RETURN
+ 794               /--------------------------------------------------------------------
+ 795               /
+ 796               /****************** WRONG UNIT***************************************
+ 797               /               PRINT ERROR MSG
+ 798               /----------------------------------------------------------------------
+ 799               PRTMSG, DCSTRT          /START ADDRESS OF MESSAGE               /A002
+undefined              	     ^
+     010516  0000  
+ 800               /D002DRIVE1,    TAD     AY
+ 801               /D002   JMS     TTY
+ 802               ///     CMA                     /-1 IN AC
+ 803               /D002   JMP     .
+
+
+ 804                                               EJECT
+ 805               /       ** -1- ** PHYSICAL I/O AND "EMPTY" COMMAND ROUTINE ****
+ 806               /---------------------------------------------------------------------
+ 807               /
+ 808               /**************** ROUTINE TO EFFECT A "READ SECTOR" OPERATION ********
+ 809               /
+ 810               /---------------------------------------------------------------------
+ 811 010517  0000  BTPHYS, 0
+ 812               /---------------------------------------------------------------------
+ 813               /
+ 814               /************************* CALCULATE PHYSICAL & TRACK SECTOR *********
+ 815               /
+ 816               /---------------------------------------------------------------------
+ 817 010520  3004          DCA     BTTRAK          / INITIALISE TRACK #.
+ 818 010521  1005          TAD     BTLSEC          / LOAD THE LOGICAL SECTOR #.
+ 819 010522  2004  BTDIV1, ISZ     BTTRAK          / INCREMENT THE TRACK #.
+ 820 010523  3006          DCA     BTSECT          / SAVE THE SECTOR #,...
+ 821 010524  1006          TAD     BTSECT          / ...THEN RETREIVE IT.
+ 822 010525  1366          TAD     BTDVSR          / "SUBTRACT" THE # OF SECTORS/TRACK.
+ 823 010526  7500          SMA                     / OVERFLOW ?
+ 824 010527  5322          JMP     BTDIV1          / NO - CONTINUE.
+ 825 010530  7300          CLA CLL                 / YES - ENSURE REGISTER CLEAR
+ 826               /---------------------------------------------------------------------
+ 827               /
+ 828               /************************ INTERLEAVE SECTORS *************************
+ 829               /
+ 830               /---------------------------------------------------------------------
+ 831               /D004   TAD     BTRXID          /DD?                            /A003
+ 832               /D004   SNA CLA                 /YES 2*MQ                       /A003
+ 833 010531  1006          TAD     BTSECT          / BUILD 3*Q.
+ 834 010532  1006          TAD     BTSECT          /
+ 835 010533  1006          TAD     BTSECT
+ 836 010534  3006  BTDIV2, DCA     BTSECT          / SAVE "PHYSICAL" SECTOR #.
+ 837 010535  1006          TAD     BTSECT          / RETREIVE "PHYSICAL" SECTOR #.
+ 838               /D004   TAD     BTRXID          / ADJUST MODULUS FOR DENSITY TYPE.
+ 839 010536  1366          TAD     BTDVSR          / "SUBTRACT" # SECTORS/TRACK.
+ 840 010537  7500  P100,   SMA                     / OVERFLOW ?
+ 841 010540  5334          JMP     BTDIV2          / NO - REPEAT UNTIL OVERFLOW.
+ 842 010541  2006          ISZ     BTSECT          / YES - INCR TO BUILD CORRECT PHYSICAL SECTOR.
+ 843               /---------------------------------------------------------------------
+ 844               /
+ 845               /************************ EMIT PHYSICAL I/O COMMANDS *****************
+ 846               /
+ 847               /---------------------------------------------------------------------
+ 848                       AC0004                  / SET "PHYSICAL" BIT
+undefined       	     ^
+     010542  0000  
+ 849 010543  4356          JMS     BTLCMD
+ 850 010544  1006          TAD     BTSECT          / () GET PHYSICAL SECTOR
+ 851 010545  4053          JMS     BTXFER          / () ...AND SEND IT
+ 852 010546  7200          CLA                     / (TR) "RXIXDR" DOESN'T CLEAR AC
+ 853 010547  1004          TAD     BTTRAK          / (DN) GET PHYSICAL TRACK
+ 854 010550  4053          JMS     BTXFER          / ...AND SEND IT
+ 855 010551  4053          JMS     BTXFER          / (TR) WAIT FOR CONTROLLER DONE
+ 856 010552  7400  DXNMSK, 7400                    / (DN) (TR) (SPARE)
+ 857               /---------------------------------------------------------------------
+ 858               /
+ 859               /************************ EMIT LOGICAL I/O COMMAND *******************
+ 860               /
+ 861               /---------------------------------------------------------------------
+ 862 010553  4356          JMS     BTLCMD
+ 863               /---------------------------------------------------------------------
+ 864 010554  2005          ISZ     BTLSEC          / BUMP LOGICAL SECTOR FOR NEXT TIME
+ 865 010555  5717          JMP I   BTPHYS          / EXIT FROM PHYSICAL I/O ROUTINE
+ 866               /--------------------------------------------------------------------
+ 867               /
+ 868               /********************EMIT COMMAND PRIMITIVE***************************
+ 869               /
+ 870               /----------------------------------------------------------------------
+ 871 010556  0000  BTLCMD, 0
+ 872 010557  1020          TAD     BTCMND
+ 873                       RXILCD                                                          /M006
+undefined       	     ^
+     010560  0000  
+ 874 010561  1003          TAD     BTRXID
+ 875 010562  7650          SNA CLA
+ 876 010563  4053  BTLCM2, JMS     BTXFER
+ 877 010564  7200          CLA
+ 878 010565  5756          JMP I   BTLCMD
+ 879               
+ 880               /---------------------------------------------------------------------
+ 881               /
+ 882               /************************ LOCAL STORAGE DECLARATIONS *****************
+ 883               /
+ 884               /---------------------------------------------------------------------
+ 885 010566  7746  BTDVSR, -32                     / LOCAL STORAGE FOR THE TRACK/SECTOR CONSTANT.
+ 886 010567  0003  BTBLKN, 3
+ 887               BTBCTR, -DSRXLD                 / LOCAL STORAGE FOR THE BLOCK COUNTER.
+undefined              	      ^
+     010570  0000  
+ 888 010571  0020  MSK20,  20                      /UNIT MASK
+ 889               /D002AY,        "Y&77
+ 890 010572  7402  BTHALT, HLT                     / THIS WILL PATCH BTPTCH        /M002
+ 891                       WPADDR=.-200            /THIS ADDRESS SHOULD BE = LDSTRT IN RXPRDF/M004
+ 892               WPSTRT, RXDRIN                  / ENTRY POINT TODRIVER SYSTEM INIT LOAD   /M004
+undefined              	     ^
+     010573  0000  
+ 893               /D002P12,       12                              /REQUEST FOR STATUS
+ 894 010574  0010  PRX02,  10                      /RX02 BIT IN STATUS RESPONSE    /M002
+ 895                                               PAGE
+ 896               
+ 897               /---------------------------------------------------------------------
+ 898               /
+ 899               /************************ END-OF-FILE ********************************
+ 900               /
+ 901               /---------------------------------------------------------------------
+ 902               $                               / END-OF-FILE.
+
+BOOT02  0062
+BTBCTR  0570
+BTBFFR  0016
+BTBFRA  0014
+BTBFRB  0015
+BTBLKN  0567
+BTBOO0  0061 unreferenced
+BTBOO3  0033 unreferenced
+BTBOO5  0047 unreferenced
+BTBOO6  0050 unreferenced
+BTBOO7  0053
+BTBOO8  0054
+BTBOO9  0060 unreferenced
+BTCMND  0020
+BTDBLD  0461
+BTDENS  0106 unreferenced
+BTDIV1  0522
+BTDIV2  0534
+BTDONE  0030 unreferenced
+BTDVSR  0566
+BTEMPT  0026
+BTHALT  0572
+BTINC   0022
+BTLCM2  0563
+BTLCMD  0556
+BTLSEC  0005
+BTMORE  0025
+BTNEXT  0074
+BTOVLY  0051
+BTPHYS  0517
+BTPTCH  0041
+BTREAD  0062
+BTRXID  0003
+BTSCND  0106
+BTSCTR  0007
+BTSECT  0006
+BTTBUF  0013
+BTTRAK  0004
+BTUNIT  0060 unreferenced
+BTUNPK  0457
+BTXFER  0053
+DOCSKP  0505 unreferenced
+DXNMSK  0552
+DXUNPK  0444
+DYNEXT  0463
+DYREAD  0465
+HACK    0237
+L1ADDR  2157
+L1EXIT  2153 unreferenced
+L1MORE  2073
+L1STAT  2161
+L2ADDR  2160
+L2CMND  2155
+L2CON   2163
+LDBFFR  2156
+LDCKDN  2141
+LDCMND  2154
+LDCON   2162
+LDEXIT  2170
+LDFILL  2067
+LDFLXT  2104
+LDINIT  2047
+LDMASK  2164
+LDNXT   2063
+LDSCTR  2166
+LDSECT  2165
+LDTIMR  2167 unreferenced
+LDWRIT  2110
+LDWRT1  2121
+LDWRT2  2126
+LDWRTE  2132
+LDXFER  2134
+LDXRDY  2135
+LOAD02  2034
+LOADBT  2000
+LOADPT  0200 unreferenced
+MSK20   0571
+MSK24   0021
+MSK422  0017
+NXTBLK  0437
+P100    0537
+PRBOOT  0002
+PRTMSG  0516
+PRX02   0574
+SIZE    0015 unreferenced
+SPARE   0001 unreferenced
+TTY     0507
+W2BOOT  0400
+WPADDR  0373 unreferenced
+WPSTRT  0573

@@ -1,0 +1,122 @@
+/ PRIMHD - HEADER FOR PRIMATIVES
+
+/	005	DFB	16-AUG-84	Comments on how to convert GTE to WPS
+/	004	DFB	13-AUG-84	Comments on how to convert GTE to WPS
+/	003	DFB	30-MAY-84	Comments on how to convert GTE to WPS
+/	002	DFB	30-APR-84	Fix to handle addtn'l fld for graphics
+/	001	SBB	20-SEP-83	Made header file to integrate graphics
+/					modules from Maynard into WPS
+/-----------------------------------------------------------------------------
+/**********************************************************
+/
+/	The following is some directions on how to convert the GTE source
+/code to WPS....
+/
+/        some of the numeric constants are defined different in
+/          WPF1 than in PRIM..
+/
+/        AC00001  AC0100 AC4000 AC7777 ARE DIFFERENT IN PRIM
+/       Changes to the definitions in prim are made as follows.
+/       all the numeric constants in prim should be conditionalized
+/       out as  IFNDEF condor....(they could probably be deleted but
+/       I left them in ....
+/       ThE EQUATES FOR THE DIFFERENT DEFS SHOULD BE RENAMED
+/        THIS HOLDS TRUE FOR ALL REFERENCES
+/
+/        AC0001 SHOULD BE AC1   =7301	APPROX 15 REFERENCES
+/        AC0100   "    "  AC100 =7303	APPROX 4 REFERENCES
+/        AC4000   "    "  AC4K  =7330	APPROX 1 REFERENCE
+/        AC7777   "    "  ACNEG1=7340	APPROX 10 REFERENCES
+/
+/        The following labels and references are defined in WPF1
+/        ........and must be changed.
+/         DCHAR     TO    DDCHAR	APPROX 11 REFERENCES
+/         REG1      TO    REG11		APPROX 5 REFERENCES
+/         REG2      TO    REG12		APPROX 3 REFERENCES
+/
+/   AT LABEL  CLRCST PLUS 12   AFTER THE PR3
+/         PRMFLD    TO    PRGFLD AND DELETE ^10
+/	SHOULD LOOK LIKE  --  PBMFLD+4000+PRGFLD		/A005
+/   AT LABEL  CHRSTR -1        AFTER THE PR3
+/         PRMFLD    TO    PRGFLD AND DELETE ^10
+/	SHOULD LOOK LIKE  --  PBMFLD+4000+PRGFLD		/A005
+/***** FIELD REFERENCES ARE IN THIS MODULE ****
+/*******THEREFORE  IT IS NECESSARY TO CONDITIONALIZE ****
+/*******OUT THE FIELD REFERENCES AT THE BEGINNING****
+/*******OF THE PRIM SOURCE CODE. (IFNDEF CONDOR)****
+/******* MAY BE ABLE TO DELETE THESE REFERENCES AT LATER DATE**
+/
+/          *4000    TO   *ZENTRY
+/
+/     Take the table CHARMP from vt125
+/    .....and put it, with a PAGE code preceeding it
+/    .....after the label EDTBLE at the end of the PRIM module.
+/    .....with any pertinent comments.
+/    ....PRECEED THIS TABLE (CHARMP) WITH A FIELD 2 STATEMENT
+/       ....THIS IS ONLY FOR WRITEOUT PURPOSES
+/       ....THIS TABLE CAN BE WRITTEN OUT AS A SEPARATE MODULE
+/
+/
+//      If there are any major changes to the PRIM module
+/       or GTE  then additional steps may be necessary..
+/  If after conversion the graphics doesn't work
+/   check that all the code has been written out to the disk
+/   Case in point:: With all the changes that have been made(as in
+/  above directions) I found that one additional page of code was
+/   created in  the PRIM code..  I could have changed the writeout code
+/   but instead moved the module Z6SIMP to another area in field 6.
+/
+/
+/               GOOD LUCK
+/
+/************************************************************
+/
+	ZENTRY=4000		/HERE TO NOTE CORRECT ADDR WHEN CNVRTING
+				/.....GTE TO WPS
+
+/	DLPALF=DLOPRS
+/	DSPALF=4
+	*200
+	JMP I	.+3
+	JMP I	.+1
+	7605
+	RXLOAD			/CALL LOADER TO IMBED GRAPICS ONTO WPS DISK
+	*RXLDLS
+	RXEWT=4			/WRITE COMMAND
+	RXEWT
+	0
+	RXQBLK=11
+	RXQBLK
+	.
+
+	DLOPRM			/1ST BLOCK #
+	0	/	100			/1ST MEMORY LOCATION
+	CDF 30			/ASSEMBLY FIELD
+	-DSOPRM			/NUMBER OF BLOCKS
+
+
+	DLPRM1			/PRIM TO  EXEC OUT OF FIELD 6
+	0			/PAGE 0
+	CDF 40
+	-DSPRM1			/1 BLOCK
+
+	DLPRM2			/REST OF PRIM
+	ZENTRY			/START ADDRESS			/ADFB
+	CDF 40
+	-DSPRM2			/-NUM BLOCKS
+
+	DLPALF			/PRIMATIVES ALPHABET
+	CHARMP	/	
+	CDF 20
+	-DSPALF
+
+	0			/STOPPER FOR ABOVE RX TABLE
+
+
+	PRMFLD=	3		/ASSY FIELD FOR PRIMATIVES ROUTINES
+	PRGFLD=	50		/FIELD PRIM WILL RUN IN
+	PBMFLD=	5		/CONTROL PANEL FIELD FOR ALFA BITS
+	TABFLD=4		/PRIM TABLE ASSEMBLY FIELD=4
+	TBLFLD=60		/RUN FIELD FOR PRIM-REGIS COMBO FIELD=6
+
+

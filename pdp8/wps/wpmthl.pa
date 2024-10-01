@@ -1,0 +1,339 @@
+
+/ MATHOLE Math hole routines
+/
+/  --------------- EDIT  HISTORY -------------------
+/
+/ 003  KMD   09-Sep-85  Move PELINE (Print Error LINE) routine out of
+/                       LEXASC for more space to deal with MN Currency Smb
+/ 002  RCME  07-Aug-85  Squish MNC deads into 8-bit chars for LP (ppKMD)
+/ 001  RCME  24-Jun-85  Enable use of multinational currency symbols
+/
+/ This file contains the blasted routines for the MATH module.  It is
+/ assembled with the TMATH, LEXASC, and BCDASC routines.
+/
+  RELOC
+  FIELD  6
+  *200
+  RELOC  MATHOL
+/
+/GET_FieLd_Name:
+/begin
+/  initialization
+/     set Field_Name_CHaRacter_Count = - (MAXimum_Field_Name_Length + 1)
+/     set Field_Name_CHaracter_Count_with_Deads = - (MAXFNL +1)
+/
+/  posit
+/  |  call LEXic_ReaD_CHARacter
+/  |  if [FoRMula_CHaRacter neq ":"]
+/  |     ERRor_NFN ("Nonnumeric field name in formula.")
+/  |     quit posit
+/  |  repeat
+/  |  |  incrament Field_Name_CHar_Count_with_Deads
+/  |  |  if [Field_Name_CHar_Count_with_Deads < MAXimum_Field_Name_Length]
+/  |  |     increment ToKen_VaLue_Buffer_Pointer
+/  |  |     install character in TOKen_VaLue_Buffer
+/  |  |  if [DEAD_KEY_sequence_flag = 0]
+/  |  |     increment Field_Name_CHaRacter_Count
+/  |  |     if [Field_Name_CHaRacter_Count > MAXimum_Field_Name_Length]
+/  |  |        ERRor_LOF ("Length of field name is greater than 30 characters.")
+/  |  |        quit posit
+/  |  |  set AC = 0 (skip all special characters except space, tab, and <lf>)
+/  |  |  call LEXic_ReaD_CHARacter
+/  |  |  if [FoRMula_CHaRacter = "new_line"]
+/  |  |     ERRor_FTW ("Formula terminated within a field name.")
+/  |  |     quit posit
+/  |  |  if [FoRMula_CHaRacter = "<"]
+/  |  |     ERRor_UB ("Unmatched angle brackets")
+/  |  |     quit posit
+/  |  until [FoRMula_CHaRacter = ">"]
+/  |
+/  |  set TOKen_VALue = number of characters in field name
+/  |  terminate buffer (set bit0 in addr. of last word in ToKen_VaLue_Buffer)
+/  |  set AC = OPERANd
+/  |
+/  else (posit)
+/     set TOKen_VALue = error
+/     set AC = ERROR
+/  end_posit
+/
+/  set TOKEN = AC
+/
+/  return
+/end
+/
+FLNHOL,  XX
+  TAD  XNMAXFN    / set FNCHRC
+  DCA  FNCHRC
+/d001  DCA  DEADKEY    / Zero dead key flag just in case
+  TAD  FNCHRC    / Copy this to the other counter
+  DCA  FNCHCD    / Field_Name_CHar_Count_with_Deadkeys
+/
+  JMS I  XLEXRDCHAR  / read character following "<" of field name.
+  TAD  FRMCHR    / get character just read
+  TAD  XPCOLON    / is character = ":"?
+  SZA CLA      / skip if: character = ":"
+  JMP  RERNFN    / error - "Nonnumeric field name in formula."
+/
+GETFL1,  ISZ  FNCHCD    / inc Field_Name_CHar_Count_with_Deads
+  TAD  FNCHCD    / test the result for positive or zero
+  SMA CLA      / Is the field name (inc deads) 30 long?
+  JMP  GETFL2    / Yes, skip to test printable char length
+  ISZ  TKVLBP    / No, increment ToKen_VaLue_Buffer_Pointer
+  TAD  FRMCHR    / Get the character to save
+  DCA I  TKVLBP    / Install it in TOKen_VaLue_Buffer
+GETFL2,  TAD I  XDEADKEY  / Test the dead key sequence status
+  SNA CLA      / Are we currently processing a dead key?
+  ISZ  FNCHRC    / No, increment Field_Name_CHaRacter_Count
+  SKP      / still less than 30 characters in name.
+  JMP  RERLOF    / error - "Length of field name is greater
+        /          than 30 characters."
+
+  JMS I  XLEXRDCHAR  / get another character.
+
+  TAD  FRMCHR    / get character just read
+  TAD  XNECNWLN  / is it a "new_line"? (line_feed)
+  SNA      / skip if: not
+  JMP  RERFTW    / error - "Formula terminated within a field name."
+
+GETFL3,  TAD  XNLANGLE  / is character a "<"?
+  SNA      / skip if: not
+  JMP  RERUB    / error - "Unmatched angle brackets."
+
+GETFL4,  TAD  XNRANGLE  / is FRMCHR = ">"?
+  SZA CLA      / skip if: so
+  JMP  GETFL1    / save this character and get another.
+
+  TAD  FNCHCD
+  SMA      / Are there more than 30 chars inc deads?
+  AC7777      / Yes, there are only a max of 30 in buf
+  TAD  XMAXFNL    / set TOKen_VALue = number of characters in field name
+  DCA I  XTOKVAL
+  AC4000      / set terminator bit in last word of ToKen_VaLue_Buffer
+  TAD I  TKVLBP
+  DCA I  TKVLBP    / terminate buffer
+  TAD  XOPERAN    / set AC = OPERANd
+  JMP  GETFL7    / leave GETFLN - no errors encounted.  everthing a.o.k!
+/
+RERFTW,  TAD  XERRFTW    / error - "Formula terminated within a field name."
+RERLOF,  TAD  XERRLOF    / error - "Length of field name is greater
+        /          than 30 characters."
+RERUB,  TAD  XERRUB    / error - "Unmatched angle brackets."
+RERNFN,  TAD  XERRNFN    / error - "Nonnumeric field name in formula."
+  DCA I  XTOKVAL    / set TOKen_VALue = error number
+/
+GETFL7,  DCA  TOKEN    / set TOKEN
+/
+/
+  CDIMNU      / Return to menu field, wence called
+  JMP I  FLNHOL
+/
+/
+/
+/ The following are the links for the above, explicitly defined here to prevent
+/ auto generation outside the blast area.
+
+XNMAXFN,  -MAXFNL-1
+XLEXRDCHAR,  LEXRDCHAR
+XPCOLON,  -":+200
+XDEADKEY,  DEADKEY
+XNECNWLN,  -ECNWLN
+XNLANGLE,  ECNWLN-"<+200
+XNRANGLE,  "<-">
+XMAXFNL,  MAXFNL+1
+XTOKVAL,  TOKVAL
+XOPERAN,  OPERAN
+XERRFTW,  ERRFTW-ERRLOF
+XERRLOF,  ERRLOF-ERRUB
+XERRUB,    ERRUB-ERRNFN
+XERRNFN,  ERRNFN
+
+/------------
+  PAGE
+
+
+/  This next routine is not infact a maths routine at all.  It is  /a002
+/  a List Processing routine called via the maths hook and    /a002
+/  assembled in the maths hole block because there is no more room  /a002
+/  on the disk, or in the List Processing code.      /a002
+/
+/ SQUISH is a routine which is called from the List Processing numeric  /a002
+/  field value processor.  It takes any dead key sequences that  /a002
+/  form MCS characters and squishes them down to an 8 bit char  /a002
+/  that MATH can interpret (possibly) as an MCS currency symbol.  /a002
+/  It returns either the 8 bit value, or 0 if the deadkey is not  /a002
+/  an MCS character.            /a002
+
+  RELOC
+  *400
+  RELOC  LPHOLE    / Runs in List Processing field    /a002
+
+SQUHOL,  XX      / MCS deadkey to 8 bit routine    /a002
+  CDFLP      / This definately runs in the LP field  /a002
+  CLA      / Clear the 8 bit character store  /a002
+  DCA  SQURTN    / ....          /a002
+  JMS I  XSRBRD    / Call the get character routine  /a002
+  TAD  SQUM40    / Test for special deadkey introducer  /a002
+  SZA CLA      / Is it the correct introducer?    /a002
+  JMP  LOOKEN    / No, return with clear acc.    /a002
+  JMS I  XSRBRD    / Get the next character    /a002
+  TAD  SQUM40    / Check for a required space    /a002
+  SNA CLA      / Is it a required space?    /a002
+  JMP  LOOKEN    / Yes, so return a zero      /a002
+  JMS I  XSRBRD    / Get the multinational character  /a002
+  TAD  SQU200    / Make it 8 bit        /a002
+  DCA  SQURTN    / Save it for later      /a002
+LOOKEN,  JMS I  XSRBRD    / Get the next character    /a002
+  TAD  SQUNDO    / Test for the end of the deadkey  /a002
+  SZA CLA      / Have we an End of Dead?    /a002
+  JMP  LOOKEN    / No, keep looking      /a002
+  TAD  SQURTN    / Get the determined value back    /a002
+  CDFMTH      / Return via the maths blast hook  /a002
+  CIFMNU      / Via the blaster in menu fld    /a002
+  JMP I  SQUHOL    / ....          /a002
+
+SQURTN,  0      / Location in which to store the 8 bit  /a002
+
+/ Links are listed here to prevent generation by pal outside the blast  /a002
+
+SQUM40,  -40
+XSRBRD,  SSRBRD
+SQU200,  200
+SQUNDO,  -ECNDOV
+
+  RELOC                /a002
+
+
+/a003  This routine used to reside in LEXASC but was moved to here to
+/a003  allow more room in LEXASC for dealing with post-numeric muli-character
+/a003  currency symbols. (eg. PTS for spain).
+/A003  It is assembled immidiatly following the previous one so as not
+/a003  to use too much space in panel.
+
+*440
+RELOC MATHOL
+
+SWIDTH=77               /SCREEN WIDTH (63 DECIMAL)
+LMARGN=05               /LEFT MARGIN
+
+PELINX,  CLA
+  TAD I   APELINP  / INITIALIZE LINE COUNTER from SAVED PARAM  /M008
+  TAD  PLMARGN
+  DCA  PELIN1
+
+/D003  JMS  GETFLD    / GET CDI INSTRUCTION      /M007
+/D003  DCA  PELIN5    / STORE THE INSTRUCTION
+                  /D007
+  AC0002      / INITIALIZE READ LINE BUFFER CODE TO
+        /  READ FROM BEGINNING OF BUFFER TO
+        /   CURRENT POSITION IN BUFFER ONLY
+        /    (I.E. - UP TO THE POINT OF AND
+        /     INCLUSIVE OF ERROR CHARACTER)
+  JMS I  ARDLNBF    /
+
+  JMS  UPCURP    / UPDATE_CURSOR_POSITION
+
+PELIN6,  JMS I   ALEXRDCHAR  / READ A CHARACTER FROM THE BUFFER
+
+  TAD I  AFRMCHR    / GET THE CHARACTER
+  SNA      / SKIP IF: NOT TERMINATOR (0)
+  JMP  PELIN8    / TERMINATOR - SO LET'S TERMINATE
+  TAD  MECNWLN  / IS IT A <LF>?
+  SNA      / SKIP IF: NOT
+  JMP  PELI10    / END OF LINE - GO PRINT "^"
+  TAD  MECTAB  / IS IT A TAB?
+  SZA      / SKIP IF: SO        /M006
+  TAD  MECSPC  / RESTORE ORIGINAL CHAR. TO AC    /M006
+PELI10,  TAD  PECSPC    / CONVERT TAB OR LINE FEED TO A SPACE
+  DCA  PCHAR2    / SAVE CHARACTER IN BUFFER    /M006
+
+PELIN9,  ISZ  PELIN2    / INCREMENT CHARACTER_POSITION_COUNTER
+  JMP  PELIN7    / STILL ROOM ON LINE - KEEP GOING
+  JMS  UPCURP    / NO ROOM LEFT ON LINE - POSITION TO NEXT
+  JMP  PELIN9    / GO BUMP CHARACTER_POSITION_COUNTER
+
+PELIN7,  JMS  PCHAR    / PRINT THIS CHARACTER ON SCREEN
+
+  JMP  PELIN6    / PRINT MORE
+
+PELIN8,  TAD  PELIN2    / COMPUTE WHERE TO PUT THE "^"
+  TAD  SWLM100
+  TAD  PELIN1
+  DCA  PELIN1
+  JMS  POCUR
+  TAD  UPARROW
+  DCA  PCHAR2              /M006
+  JMS  PCHAR    / PRINT "^"
+/                  /TJRF
+  CIFMTH                /TJRF
+  JMS  RTRN1  / REINIT LNEBUF POINTER.  NEED TO DO THIS FOR  /TJRF
+      /  EDITOR MATH.  SHOULD NOT EFFECT LP MATH.  /TJRF
+/                  /TJRF
+/D003 PELIN5, .-.      / CIF CDF RETURN INSTALLED
+  CIFMNU                / BACK TO MENU FIELD AS WE WERE BLASTED /A003
+  JMP I  PELINX    / RETURN TO CALLER                           /M003
+/
+PELIN1,  0      / LINE AND COLUMN COUNTER
+PELIN2,  0      / CHARACTER POSITION COUNTER
+/
+/
+/ UPDATE LINE_COUNTER AND POSITION THE CURSOR. THEN INIT. CHARACTER_
+/  POSITION_COUNTER.
+UPCURP,  XX
+  AC0100      / INCREMENT LINE COUNTER
+  TAD  PELIN1
+  DCA  PELIN1
+
+  JMS  POCUR    / POSITION THE CURSOR
+
+  TAD  SWLMM1  / INIT. CHARACTER_POSITION_COUNTER
+  DCA  PELIN2
+
+  JMP I  UPCURP    / RETURN
+/
+/
+POCUR,  XX      / POSTION CURSOR ROUTINE
+  CIFMNU
+  JMS I  IOACAL
+  0
+  POCUR1      / ADDRESS OF COMMAND STRING
+  PELIN1      / POSITION VALUE
+  JMP I  POCUR    / RETURN
+
+POCUR1,  TEXT  "!P"    / INDIRECT TO GET POSTITION
+/
+/
+PCHAR,  XX      / PRINT CHARACTER
+  CIFMNU
+  JMS I  IOACAL
+  0
+  PCHAR1      / ADDRESS OF COMMAND STRING
+  PCHAR2      / ADDRESS OF CHARACTER TO PRINT    /M006
+  JMP I  PCHAR    / RETURN
+
+PCHAR1,  TEXT  "^A"              /M006
+PCHAR2,  ZBLOCK  2    / ASCII CHARACTER BUFFER    /A006
+/
+/
+/
+                  /D003
+/
+/
+/
+/ LINKS PLACED HERE TO STOP PAL GENERATING THEM AT END OF PAGE
+ARDLNBF,  RDLNBF                /ROUTINE ADDRESSES
+ALEXRDCHAR,  LEXRDCHAR
+AFRMCHR,  FRMCHR
+APELINP,  PELINP                /PARAMETER ADDRESS
+MECNWLN,  -ECNWLN               /CONSTANTS
+MECTAB,   -ECTAB+ECNWLN
+MECSPC,   ECTAB-ECSPC
+PECSPC,   ECSPC
+SWLM100,  SWIDTH-LMARGN+100
+UPARROW,  "^-200
+SWLMM1,   -SWIDTH+LMARGN-1
+PLMARGN,  LMARGN
+
+RELOC
+
+
+

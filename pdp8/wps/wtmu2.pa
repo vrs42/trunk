@@ -1,0 +1,181 @@
+/WTMU2 - WRITE OUT MENU - PART 2
+/
+/013	WCE	 4-JUN-84	ADDED WRITEOUT FOR SO7 MENU PAGE
+/012	GDH	27-OCT-81	RXHAN load sequence changes.
+/011	AIB	22-Oct-81	added error reporting block DLMLP8
+/010	GDH	28-Sep-81	added writeout of block SO5.
+/009	GDH	25-Sep-81	added writeout of block CX7.
+/008	GDH	 3-Sep-81	Newer write-out code conventions.
+/007	GDH	 1-Sep-81	New write-out code conventions.
+/006	GR	 6-AUG-81	REDEFINED ONE OF THE EDITOR BLOCKS
+/005	GR	 5-AUG-81	ADD BLOCKS FOR LP MATH ERROR HANDLING
+/004	WCE	13-JUL-81	ADD COMMENTS TO WRITE OUT LIST
+/003	TT	09-JUL-81	REMOVE SUPERFLUOUS CONDITIONALS
+/002	PHA	5-MAY-81	ADD GLOBAL SEARCH MENU
+/001	AJF	15-OCT-80	ADD SORT MENU
+/3.0	MSB	8-AUG-78	ADD ANOTHER COMMUNICATIONS MENU FOR TEST DOC.
+/III.C	KEE	27-MAR-78	ADD 3 SYSTEM OPTIONS MENUS + 2 TD MENUS
+/III.1	KEE	2/11/78 	ADD TRANSFER DOCUMENT MENUS
+/2.7-D	KEE	2/1/78  	SPLIT MENU ASSEMBLIES
+/2.7-2	KEE	1/5/78  	ADD MAGCRD RULER MENU 'DLMRLR'
+/2.5-3	RLT	11/3/77		ADD CP2 MENU
+/2.5-2	LDB	11/1/77		ADD SA AND CP MENUS FOR WT78 ONLY
+/2.5-1	RLT	10/21/77	ADD LOGON MENU FOR WT78 ONLY
+/2.4D+	RLT	10/18/77	ADD PS4 MENU
+/2.4C+	KEE	10/12/77	ADD CI MENU
+/2.P-4	KEE	9/17/77		ADD FIRST 2 CX MENUS
+/2.N	KEE	9/10/77		ADD MENU 'LCK'
+/2.J	KEE	8/26/77		ADD MENU PAGE 'QD1'
+
+/
+/	COMP MU<MTMPLT,MU
+/	LOAD MU,RXHAN,WTMU
+/
+
+	*200
+	JMP I	.+3
+	JMP I	.+1
+	7605
+	RXLOAD
+
+	*RXLDLS
+	RXEWT=4
+	RXEWT
+	0
+	RXQBLK=11
+	RXQBLK
+	WTMULS-1
+
+	*3000			/					/M012
+WTMULS,
+
+/	************************************************************	/A004
+/	************************************************************	/A004
+/	*****                                                  *****	/A004
+/	*****           F I E L D    1    M E N U S            *****	/A004
+/	*****                                                  *****	/A004
+/	*****                                                  *****	/A004
+/	*****                  C A U T I O N                   *****	/A004
+/	*****                                                  *****	/A004
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****	/A004
+/	*****                                                  *****	/A004
+/	************************************************************	/A004
+/	************************************************************	/A004
+
+	DLMEM1;ADMEM1;CDF 10;-DSMENU  /EDITOR MENUS - COPY DOCUMENT
+	DLMEM2;ADMEM2;CDF 10;-DSMENU  /EDITOR MAIN MENU
+	DLME2A;ADME2A;CDF 10;-DSMENU  /EDITOR MAIN MENU CONTINUED
+	DLMEM3;ADMEM3;CDF 10;-DSMENU  /EDITOR MAIN MENU CONTINUED
+	DLMEM4;ADMEM4;CDF 10;-DSMENU  /EDITOR - UDK MENU
+	DLMEM5;ADMEM5;CDF 10;-DSMENU  /EDITOR - ACTIVATE MATH SWITCH IN ED. MENU
+	DLMPP2;ADMPP2;CDF 10;-DSMENU  /CREATE DOCUMENT - COMMAND ERROR MESSAGES
+	DLMLP1;ADMLP1;CDF 10;-DSMENU  /LIST PROCESSING MENUS
+	DLMLP2;ADMLP2;CDF 10;-DSMENU  /LOTS OF SHORT LIST PROCESSING MENUS
+	DLMLP3;ADMLP3;CDF 10;-DSMENU  /LIST PROCESSING START MENU
+	DLMLP4;ADMLP4;CDF 10;-DSMENU  /LIST PROCESSING - MISC. MENU HELPERS
+	DLMLP5;ADMLP5;CDF 10;-DSMENU  /LIST PROC. & ED. MATH ERROR HANDLING
+	DLMLP6;ADMLP6;CDF 10;-DSMENU  /LIST PROC. & ED. MATH ERROR HANDLING
+	DLMLP7;ADMLP7;CDF 10;-DSMENU  /LIST PROC. & ED. MATH ERROR HANDLING
+	DLMLP8;ADMLP8;CDF 10;-DSMENU  /LIST PROC. & ED. MATH ERROR HANDLING
+
+/	************************************************************	/A004
+/	************************************************************	/A004
+/	*****                                                  *****	/A004
+/	*****           F I E L D    2    M E N U S            *****	/A004
+/	*****                                                  *****	/A004
+/	*****                                                  *****	/A004
+/	*****                  C A U T I O N                   *****	/A004
+/	*****                                                  *****	/A004
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****	/A004
+/	*****                                                  *****	/A004
+/	************************************************************	/A004
+/	************************************************************	/A004
+
+	DLMIN2;ADMIN2;CDF 20;-DSMENU  /INDEX MENU COMMAND PROCESSOR	/M011
+	DLMDL2;ADMDL2;CDF 20;-DSMENU  /DELETE DOCUMENT COMMAND PROCESSOR/M011
+	DLMAD3;ADMAD3;CDF 20;-DSMENU  /AX MENU PROCESSOR
+	DLMAD4;ADMAD4;CDF 20;-DSMENU  /AX MENU SETUP PROMPTS
+	DLMAD5;ADMAD5;CDF 20;-DSMENU  /AX MENU SETUP PROMPTS CONTINUED
+	DLMAD6;ADMAD6;CDF 20;-DSMENU  /DOC. MODIFICATION - TOP, BOTTM, OVERWRITE
+	DLMAD7;ADMAD7;CDF 20;-DSMENU  /COMMUNICATIONS ERROR MESSAGES
+	DLMA10;ADMA10;CDF 20;-DSMENU  /COMMUNICATIONS ERROR MESSAGES CONTINUED
+	DLMA11;ADMA11;CDF 20;-DSMENU  /DX OPTIONS MENU - COMMUNICATION STATS
+	DLMA12;ADMA12;CDF 20;-DSMENU  /COMMUNICATIONS ERROR MESSAGES CONTINUED
+	DLMA13;ADMA13;CDF 20;-DSMENU  /ERROR MESSAGES FOR TEST LIST DOCUMENT
+	DLMA14;ADMA14;CDF 20;-DSMENU  /TYPE MESSAGE FOR OTHER SYSTEM PROMPT
+	DLMA15;ADMA15;CDF 20;-DSMENU  /DX - FILE ALREADY EXISTS MENU
+	DLMA16;ADMA16;CDF 20;-DSMENU  /DX - RECEIVE MENU
+	DLMA17;ADMA17;CDF 20;-DSMENU  /DX - SEND MENU
+
+/	************************************************************	/A004
+/	************************************************************	/A004
+/	*****                                                  *****	/A004
+/	*****           F I E L D    3    M E N U S            *****	/A004
+/	*****                                                  *****	/A004
+/	*****                                                  *****	/A004
+/	*****                  C A U T I O N                   *****	/A004
+/	*****                                                  *****	/A004
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****	/A004
+/	*****                                                  *****	/A004
+/	************************************************************	/A004
+/	************************************************************	/A004
+
+	DLMA18;ADMA18;CDF 30;-DSMENU  /DX - CANNED ROUTINES
+	DLMA19;ADMA19;CDF 30;-DSMENU  /MAIN MENU FOR COMMUNICATIONS DISPLAY
+	DLMA20;ADMA20;CDF 30;-DSMENU  /MENU FOR AUTOMATIC DOC RECEIVE SETTINGS
+	DLMCX0;ADMCX0;CDF 30;-DSMENU  /MENU FOR THE TEST DOCUMENT ROUTINE IN CX
+	DLMCX1;ADMCX1;CDF 30;-DSMENU  /CX ERROR MESSAGES
+	DLMCX2;ADMCX2;CDF 30;-DSMENU  /CX MENU
+	DLMSO0;ADMSO0;CDF 30;-DSMENU  /DISPLAY THE MAIN SYSTEMS OPTIONS MENU
+	DLMSO1;ADMSO1;CDF 30;-DSMENU  /COMMUNICAITOINS PROTOCOL MENU
+	DLMSO2;ADMSO2;CDF 30;-DSMENU  /BUFFER CONTROL MENU
+	DLMSO3;ADMSO3;CDF 30;-DSMENU  /THE CX DOCUMENT TRANSFER FORMAT MENU
+	DLMSO4;ADMSO4;CDF 30;-DSMENU  /SECOND MENU FOR THE CX MENU DISPLAY
+	DLMSO5;ADMSO5;CDF 30;-DSMENU  /SET CONVENTIONS MENU		/M013
+	DLMSO6;ADMSO6;CDF 30;-DSMENU  /TERMINAL MODE MENU.		/A010
+	DLMSO7;ADMSO7;CDF 30;-DSMENU  /SET CONVENTIONS MENU CONTINUED	/A013
+	DLMCX3;ADMCX3;CDF 30;-DSMENU  /CX COMMUNICATIONS SETTINGS MENU
+	DLMCX4;ADMCX4;CDF 30;-DSMENU  /CX COMMUNICATIONS SETTINGS MENU CONTINUED
+
+/	************************************************************	/A004
+/	************************************************************	/A004
+/	*****                                                  *****	/A004
+/	*****           F I E L D    4    M E N U S            *****	/A004
+/	*****                                                  *****	/A004
+/	*****                                                  *****	/A004
+/	*****                  C A U T I O N                   *****	/A004
+/	*****                                                  *****	/A004
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****	/A004
+/	*****                                                  *****	/A004
+/	************************************************************	/A004
+/	************************************************************	/A004
+
+	DLMCX5;ADMCX5;CDF 40;-DSMENU  /INPUT PROCESSING FOR COMM SETTINGS
+	DLMCX6;ADMCX6;CDF 40;-DSMENU  /CX COMMUNICATIONS SETTING MENU END
+	DLMCX7;ADMCX7;CDF 40;-DSMENU  /MORE CX COMM SETTING MENU STUFF.
+	DLMRLR;ADMRLR;CDF 40;-DSMENU  /MAGCARD RULER MENU
+	DLMMGS;ADMMGS;CDF 40;-DSMENU  /MAGCARD SEND DOCUMENT OPTIONS MENU
+	DLMMGR;ADMMGR;CDF 40;-DSMENU  /MAGCARD RECEIVE DOCUMENT OPTIONS MENU
+	DLMSR1;ADMSR1;CDF 40;-DSMENU  /BLOCK FOR SORT MENUS		/A001
+/	DLMSR2;ADMSR2;CDF 40;-DSMENU  /BLOCK FOR SORT MENUS (RESERVED)	/A001
+	DLMGS1;ADMGS1;CDF 40;-DSMENU  /GLOBAL SEARCH AND REPLACE MENU	/A002
+	DLMGS2;ADMGS2;CDF 40;-DSMENU  /GBL SEARCH AND REPLACE MENU CONT./A002
+	DLMGS3;ADMGS3;CDF 40;-DSMENU  /GBL SEARCH AND REPLACE MENU CONT./A002
+
+/	************************************************************	/A004
+/	************************************************************	/A004
+/	*****                                                  *****	/A004
+/	*****           F I E L D    5    M E N U S            *****	/A004
+/	*****                                                  *****	/A004
+/	*****                                                  *****	/A004
+/	*****                  C A U T I O N                   *****	/A004
+/	*****                                                  *****	/A004
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****	/A004
+/	*****                                                  *****	/A004
+/	************************************************************	/A004
+/	************************************************************	/A004
+
+	0				/ ZERO FOR LAST ENTRY IN LIST
+
+                                                                                                                                                                  
+

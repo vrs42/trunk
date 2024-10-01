@@ -1,0 +1,238 @@
+/***********************************************************************
+/
+/	WPSPEL holes for blasting
+/
+/	Code moved out for blasting to accomodate multinational
+/	characters in the dictionaries and documents.
+/
+/***********************************************************************
+
+	FIELD	6		/ Assemble in field 6, out of way of
+				/ Spell code.
+	*SPHOLE			/ Assemble it to run in the hole page.
+
+CDFMYF=CDFMTH
+
+/----------
+/
+/ LODAPU - LOaD the APU
+/
+/----------
+
+SPHLAPU,XX
+	CDFMYF			/ Map to spell field
+	DCA I	(TIMES)		/ clear wait loop flag
+	AC0001			/ set
+	DCA I	(UPDCLK)	/ update clock flag
+	CDFMNU			/ Map menu field.
+	TAD	(BUFADR)	/ Init queue block parameters.
+	DCA I	(CMDBLK+RXQBAD)	/ Buffer address.			/M003
+	TAD	(CDFTXT)	/  ...
+	DCA I	(CMDBLK+RXQBFD)	/ Buffer field.				/M003
+	DCA I	(CMDBLK+RXQRS1)	/ Init block count to the default (1).	/M003
+
+	TAD	(OLL301)	/ Reset the field 2 lock words.
+	DCA I	(OLL301)	/  field 5 lock word.
+	TAD	(OLL301)	/  ...
+	DCA I	(OLL400)	/   and field 6 lock word.
+
+	TAD I	(MUBUF+MNOPTC)	/ Check for spelling corrector active	/A002
+	AND 	(SEDBIT)	/  ...					/A002
+	SZA CLA			/ Skip if not active			/A002
+	 AC0001			/  else set and ...			/A002
+	DCA	CORACT		/ Save CORrector ACTive flag		/A002
+
+				/ See if we're loading the user dictionary.
+	TAD I	(MUBUF+MNTMP6)	/ this will be 6 for SC; 7 for LU.
+	TAD	(-7)		/ This yields -1 for SC, 0 for LU, or	/M008
+				/  +4 for UD.				/A008
+	DCA	INIUSR		/ Set the SC/LU/UD indicator.		/A008
+/D004	TAD I	(MUBUF+MNOPTN)	/ Get the option word.
+/D004	AND	(MNRX7X)	/ Is the APU loaded?
+	TAD I	(MUBUF+MNPULD)	/ Get the external processor loaded word/A004
+	AND	(MNRX0X+MNRX1X)	/ Is the "APU" loaded ?			/A004
+	SNA CLA			/ Skip if yes. check for LU & overwrite.
+	 JMP	LODAP1		/ APU not loaded. Go load it.
+	TAD	INIUSR		/ Are we loading the user dictionary?
+	SZA CLA			/ Skip if yes.
+	 JMP	LODXIT		/ Normal SC run & APU is already loaded.
+	TAD I	(MUBUF+MNTMP5)	/ See if OVERWRITE (<>0) option.
+	SNA CLA			/ Skip if yes.
+	 JMP	LODXIT		/ For ADD (0) to user dictionary, nothing more to do.
+	CDFMYF			/ Back to current field.
+	TAD	(PCINUD)	/ Tell loaded Z80 to INIT the user dictionary.
+	JMS	SNDAPU		/  ...
+	JMP	LODAP3		/ Go wait for the done status.
+
+LODAP1,	CDFMYF			/ Back to current field.
+IFNDEF DEBUG	<		/ Don't assemble this if going out the comm line.
+	TAD	XPUFLG		/ Is the external processor an XPU	/A004
+	SZA CLA			/ Skip if not .. continue w APU code	/A004
+	 JMP	LODXPU		/  else branch to XPU specific code	/A004
+
+/ loop
+
+LODAP2,	JMS	MMCMD		/ load address - ( 16-bit )
+		0!CDBIT!XRBIT	/  ( 2 byte starting address for data xfer )
+	   TAD	STRTAH		/ get the starting address ( high order byte )
+	   JMS	SNDAPU		/ send to APU
+	   TAD	STRTAL		/  ... ( low order byte )
+	   JMS	SNDAPU		/ send to APU
+
+	JMS	MMCMD		/ load byte count ( 2 bytes )
+		1!CDBIT!XRBIT	/  ...
+	   AC0002		/ Hi byte of 1000.
+	   JMS	SNDAPU		/ high order length
+	   JMS	SNDAPU		/ low order 8-bit byte of 1000.
+
+	CIFMNU			/ Update the date & time display.
+	JMS I	(TIMDSP)	/  ...
+
+	JMS	MMCMD		/ load data to Z80 RAM - ( until byte count=0 )
+		2!CDBIT!XRBIT	/  ...
+	   TAD	STRTBK		/ block number to load
+	   JMS	PUTBLK		/ output the data
+
+	AC0002			/ bump to correct load address
+	TAD	STRTAH		/
+	DCA	STRTAH		/ high byte starting address for next block
+	ISZ	STRTBK		/ bump to next block
+	ISZ	NMBRBK		/ bump block count
+	  JMP	LODAP2		/   more blocks to load
+
+/ until: all blocks loaded
+
+/ Now start up the APU & wait for the done code.
+
+	JMS	MMCMD		/ load the PC
+		33!CDBIT!XRBIT	/  ( '1B' hex - load register pair )
+	TAD	(GTAPU1%400)	/ get starting address
+	JMS	SNDAPU		/ output the address ( high byte )
+IFNZRO	GTAPU1&377	<
+	TAD	(GTAPU1&377)	/  ...
+	>			/ IFNZERO GTAPU1&377
+	JMS	SNDAPU		/    ... ( low byte )
+	JMS	MMCMD		/ run from RAM
+		4!CDBIT!XRBIT	/  ( from saved PC address )
+	>			/IFNDEF DEBUG
+
+LODAPM,				/ Merge from LODXPU			/M004
+/d004	TAD I	(MUBUF+MNOPTN)	/ Get options word.
+/d004	TAD	(MNRX7X)	/ Add in the 'Z80 loaded' bit.
+/d004	DCA I	(MUBUF+MNOPTN)	/ Store new options word.
+	JMS	SETLDB		/ Go set the load bits			/A004
+	TAD	(RAMFIL)	/ Set file # to indicate RAM load file reads.
+	DCA	FILNUM		/  ...
+
+LODAP3,	JMS	GETAPU		/ wait for a response
+		-36		/ Time-out wait maximum - 30 seconds.
+		PCDONE;LODAP4	/  done, exit
+		0		/  all others are fatal
+
+LODAP4,	TAD	(MSTRLX)	/ Set file # to indicate master lex. file reads
+	DCA	FILNUM		/  ...
+
+LODXIT,	CDFSPL			/ date field to spell
+	DCA I	(UPDCLK)	/ clear update clock flag
+LODXYT,	CIFMNU			/ Return CIF goes here.
+	JMP I	SPHLAPU		/ finished loading 1 'something'
+
+
+STRTBK,	HMCODE			/ starting block #			/M004
+NMBRBK,	-50			/ -# of blocks to load
+
+	PAGE
+
+
+/----------
+/
+/ LODXPU - LOad the XPU
+/
+/		This code is branched to from LODAPU to perform the
+/		the XPU specific stuff involved in loading the Z80.
+/		Control is returned to a merge re-entry point in LODAPU
+/
+/----------
+
+
+LODXPU,				/ Z80 address space on the XPU is	
+				/  20000-3FFFF hex (on even byte bounds)
+				/  Segment register=2000h to address this space
+	JMS I	LODXP1		/ Send monitor command
+		1054		/ =22Ch=Write memory segment(MS) register
+	CLA			/ Low byte=0				
+	JMS I	LODXP2		/ Send it to the XPU
+	TAD	LODXP3		/ High byte = 20h
+	JMS I	LODXP2		/ Send it to the XPU
+	JMS I	LODXP4		/ Wait for status returned from monitor
+	JMS I	LODXP1		/ Send monitor command
+		1053		/ =22Bh=Write memory offset(MO) register
+	TAD	STRTAL		/ Get low byte of starting address	
+	RAL			/ x2 since we are wrting even bytes
+	JMS I	LODXP2		/ Send it to the XPU
+	TAD	STRTAH		/ Get high byte of starting address	
+	RAL			/ x2 since we are wrting even bytes
+	JMS I	LODXP2		/ Send it to the XPU
+	JMS I	LODXP4		/ Wait for status returned from monitor
+
+LODXPN,	
+	CIFMNU			/ Update the date & time display.
+	JMS I	LODXP5		/  ...
+
+	JMS I	LODXP1		/ Send monitor command
+		5		/ =Write block on even bytes
+	TAD I	LODXP6		/ Get block # to write
+	JMS I	LODXP7		/ & go write it
+	TAD I	LODXP8		/ Set BlocK transfer DoNe bit into AC
+	X80ST			/ & write it to XPU status register
+	CLA			/ Clear garbage left in AC
+	JMS I	LODXP4		/ Wait for status returned from monitor
+
+	ISZ I	LODXP6		/ bump to next block
+	ISZ I	LODXP9		/ bump block count
+	  JMP	LODXPN		/   more blocks to load
+
+/ until: all blocks loaded
+
+/ Now start up the XPU & wait for the done code.
+
+
+	JMS I	LODXP1		/ Send monitor command
+		1074		/ =23Ch=write z80 PC
+	TAD	STRTAL		/ Get low byte of starting address
+	JMS I	LODXP2		/ Send it to the XPU
+	TAD	STRTAH		/ Get high byte of starting address
+	JMS I	LODXP2		/ Send it to the XPU
+	JMS I	LODXP4		/ Wait for status returned from monitor
+
+	JMS I	LODXP1		/ Send monitor command
+		11		/ =9h=startup Z80
+
+	JMS I	LODXP4		/ Wait for status returned from monitor
+	JMP I	LODXP0		/ Merge back with original stream
+
+/ All addresses required by LODXPU are here so that the routine is blasted
+/ complete.
+
+LODXP0,	LODAPM
+LODXP1,	MMCMD
+LODXP2,	SNDAPU
+LODXP3,	40
+LODXP4,	MMSTA
+LODXP5,	TIMDSP
+LODXP6,	STRTBK
+LODXP7,	PUTBLK
+LODXP8,	BKDNBIT
+LODXP9,	NMBRBK
+
+/---------------
+
+	PAGE
+
+	RELOC
+
+	NOPUNCH
+
+
+
+

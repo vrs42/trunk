@@ -1,0 +1,6297 @@
+/WPSPEL.PA
+
+/		*******  EDIT HISTORY  *******
+/
+/ 019	rcme	22-May-85	Adapt to multinational characters in personal
+/				dictionaries.  Fix DEL CHAR/Tech character bug.
+/
+/ -------------------- All below refer to V2.0 and earlier --------------------
+/
+/ 018	WJY	07-NOV-84	Fix bug which caused XPU port patches to be
+/				done on a dictionary block
+/ 017	WJY	26-OCT-84	Eliminate file name display while user dictnry
+/				is loading to prevent possible wrong name
+/				from being displayed (WPSV2-315).
+/ 016	WJY	25-OCT-84	Fix bug induced in edit 15 which causes the UD
+/				operation to run when SC/LU should.(&vice versa?)
+/ 015	WJY	22-OCT-84	Report document open failure to user (WPSV2-240).
+/ 014	WJY	18-OCT-84	Change all occurrences of LINCOL to SPLINC
+/				to eliminate conflict in name with new symbol
+/				defined in WPEDIT.
+/ 013	WJY	28-AUG-84	Support larger Z80 ram files
+/ 012	WJY	21-AUG-84	Enable "Add New Word" functionality w/o
+/				new word list full message.
+/ 011	WJY	18-AUG-84	Fix bug which caused words followed by a period
+/				to miss possible corrections.
+/ 010	WJY	14-AUG-84	More "Update Personal Dictionary"
+/ 009	WJY	07-AUG-84	Reduce max word length to 31 to prevent HM code
+/				from dying. Bug WPSV2-156
+/ 008	WJY	24-JUL-84	Add "Update Personal Dictionary" functionality
+/ 007	WJY	21-JUL-84	Delete debugging halt accidentally installed
+/				in base level.
+/ 006	WJY	13-JUL-84	"Undelete" commented out code for XPU reset
+/				sequence.  Unnecessary in pass 1 boards but
+/				needed for pass 2.  Production boards ???
+/ 005	WJY	12-JUN-84	Eliminate the "Working" message & add
+/ 				additional XPU comments.
+/ 004	WJY	29-MAY-84	XPU & single American/British Utility disk
+/				support.
+/ 003	WCE	23-APR-84	Eliminated second QURX routine in Field TWO
+/ 002	WJY	06-APR-84	Unbundle Spelling Corrector
+/ 001	GDH/EH	AUG/SEP-83	Initial version
+/
+
+	FIELD	0		/ Write out code.
+
+*200				/ Set up for write-out.
+	JMP I	.+2
+	JMP I	.+2
+	RXLOAD
+	7605
+
+
+*RXLDLS
+	RXEWT;0;RXQBLK;.
+	IFNDEF DECDEV <
+	DLOSPL;100;CDF 20;-DSOSPL	/ Write-out primary spell-check code.
+	>
+	IFDEF DECDEV <
+	DLOSPL;100;CDF 40;-DSOSPL
+	>
+	DLOSPX;200;CDF 30;-DSOSPX	/ Writeout auxillary IOA & text code.
+	0
+
+	IFNDEF DECDEV <
+	FIELD	2		/ Assemble SPELLING CHECKER code into field 3.
+	>
+	IFDEF DECDEV <
+	FIELD	4
+	>
+
+CDFSPL=CDFMTH
+CIFSPL=CIFMTH
+CDISPL=CDIMTH
+CDFMYF=CDFSPL
+
+CDFTXT=CDFLP			/ Text field is field 5.
+CIFTXT=CIFLP			/  ...
+CDITXT=CDILP			/
+
+/ Page 0 values.
+
+	*100
+SCURSR,	0			/ Saved CURSOR value for start of word.
+SCURPT,	0			/ Saved CURPTR value for start of word.
+HYPHEN,	0			/ - ==> scan 'till hyphen seen.
+				/ 0 ==> no hyphen seen.
+				/ + ==> word is hyphenated.
+LINCNT,	0			/ # of lines word crosses.
+CHAR,	0			/ Saved char from TSTCHR routine.
+NOTWRD,	0			/ "NOT WORD" indicator. <> 0 means NOT A WORD.
+WRDSIZ,	0			/ Word size thus far.
+DISATR,	0			/ Contains attributes word for REPLACE replacement words.
+
+NEWLIN,	0			/ Flag to indicate that a NEW LINE has been scrolled.
+SLCRSR,	0			/ CURSOR value of 1st word on current line.
+
+ELINCT,	0			/ counter as to which line user is on during EDIT.
+RLINCT,	0			/ counter as to which line is the restart line.
+
+UNDLCT,	0			/ count of # of characters in undeleted buffer.
+NOINSR,	0			/ <> 0 when INSERT not allowed.
+NOMORE,	0			/ <> 0 when at end of current line.
+ECMODE,	0			/ current MODE of EDIT processing.
+ECERFL,	0			/ <> 0 When there is an error msg being displayed.
+OFFSET,	0			/ pointer to the option requested
+WDOFST,	0			/ pointer to the correct word requested
+LEVEL,	0			/ active menu line: 0/corr. list, 1/menu
+INPCHR,	0			/ char input by user to menu
+CURLSZ,	0			/ current logical size of correct word list
+RTNSTS,	0			/ return status code
+SIXTEN,	16			/ row 16
+P137,	137			/ 7-bit mask to uppercase
+M107,	-107			/ minus (107)
+LNCLMR,	0			/ line & column # of <.......> text
+TMPWRD,	0			/ temp location
+WRD,	0			/ pointer to start of word
+ROW,	0			/ row correct words are being displayed on
+WRDCNT,	0			/ counter of number of words
+NUMTRY,	0			/ number of times user reaches end of C.W.L
+WDSAVL,	0			/ if set, word not found in dictionary
+HLPLEN,	-110			/ number of 'spaces' in the HELP header
+VIDEO,	0			/ 1 if error word is highlighted, 0 if not.
+				/ Set/Cleared by DISPLY.
+HALTFG,	0			/ GOLD:HALT flag. Set if GOLD:HALT detected.
+UPDCLK,	0			/ If set, WTLOOP will update the screen clock.
+STRTAH,	1&377			/ high byte starting address to load Z80 from
+STRTAL,	0&377			/ low byte starting address to load Z80 from
+GTAPU1=400			/ starting address to go to ( 100 hex )
+INIUSR,	0			/ -1 for SC, 0 for LU (loading user dict'ry),/M008
+				/  >0 for UD (update user dict'ry)	/A008
+HOLDCH,	0			/ temp for DISWRD routine.
+FILNUM,	0			/ file # the APU should be reading from
+CORACT,	0			/ CORrector ACTivated flag:		/A002
+				/   =1 if Spelling Corrector Option active/A002
+				/   =0 otherwise (any other value INVALID)/A002
+XPUFLG,	0			/ True when the external processor is an XPU/A004
+MSTRLX=-2			/   Master lexicon file: file # 2
+RAMFIL=-3			/   RAM load file: file # 3
+HMCODE=620			/   Block # where Houghton-Mifflin code starts/M013
+
+UPDICT=1			/ *TEMPORARY* activates add new word..	/A012
+
+SLNMOD=JMS I .;ECSLMD		/ Spell Check equivalent of some editor routines.
+ADVPTR=JMS I .;ECAPTR		/  ...
+BKPPTR=JMS I .;ECBPTR		/
+INSCHR=JMS I .;ECICHR		/ INSERT (not same as EDITOR INSCHR)
+GETCHR=JMS I .;ECGCHR		/ CURMOV & LODCHR
+MOVCHR=JMS I .;CRSTMV		/ CURMOV only.
+LOADCH=JMS I .;ECLOAD		/ LODCHR
+UPDSCN=JMS I .;FXSCRN		/ FXSCRL
+CHKSCN=JMS I .;CKSCRN		/ TSTLIM & FXSCRL
+PUTCHR=JMS I .;PTCHRS		/ Output a string of 7 bit characters.
+CALEDT=JMS I .;CALLAR		/ Linkage to editor 'CALLAR' routine.
+
+/d009 MAXCHR=40			/ Maximum size of word (32 decimal).
+MAXCHR=37			/ Max. length=31 as temp fix for HM bug	/A009
+BUF0LEN=226			/ length of correct word buffer (150 dec.)
+BUF1LEN=74			/ length of table of correct words
+				/ (max. of 30 words, 2 entries/word)
+
+/ Below are the equates associated with the APU protocol.
+/
+PCSTWD=1			/ START word.
+PCENWD=2			/ END word.
+PCADWD=3			/ ADD word to user dictionary (IGNORE).
+PCRDBK=4			/ READ block.
+PCWDOK=5			/ Word FOUND and spelled correctly.
+PCWDNF=6			/ Word NOT FOUND in dictionary.
+PCNXWD=7			/ Get NEXT possible correct word(s).
+PCNOMR=10			/ No more possible corrections.
+PCDONE=11			/ Done ADD function.
+PCUSDF=12			/ User dictionary FULL.
+PCUDFE=13			/ Undefined Error.
+PCSTBK=14			/ Start of block.
+PCENBK=15			/ End of block.
+PCVRFY=16			/ Verify last word.
+PCINUD=17			/ Initialize user dictionary.
+PCDUPL=20			/ Duplicate word in user dictionary.
+PCADNW=21			/ ADD word to user dict. & new list (IGNORE)/A008
+PCRTNW=22			/ Return new user word list		/A008
+PCENNW=23			/ End of new word list			/A008
+PCSS8B="%&177			/ Single Shift an 8 bit character	/a019
+
+
+
+/
+/ These are the IOT's associated with the APU & XPU
+/
+/  APU	       XPU
+/ ------     -------
+Z80DF=6140 ;X80DF=6170		/ Set APU outbound data available flag
+Z80SF=6141 ;X80SF=6171		/ Skip next instruction if APU flag is set,
+				/  and clear flag.
+Z80RN=6142 ; / not used		/ Read APU outbound register, DO NOT clear/M005
+				/  APU outbound read not finished flag.
+Z80RS=6143 ;X80RS=6173		/ Read APU outbound register, clear APU
+				/  outbound read not finished flag.
+Z80NP=6144			/ NOP.
+	    X80ST=6174		/ Set selected bits in XPU status register/A005
+Z80LI=6145 ;X80LI=6175		/ Load APU interrupt enable.
+Z80WR=6146 ;X80WR=6176		/ Write APU inbound register.
+Z80IF=6147 ;X80IF=6177		/ Skip on APU inbound read complete flag,
+				/  and clear it.
+
+/
+/ Bit definitions for send to APU
+/
+
+CDBIT=0400			/ command
+XRBIT=1000			/ transfer ready
+RBIT=4000			/ reset
+
+/
+/ Bit definitions for the XPU IOTs.
+/
+
+ATTNBIT=4000			/ attention		(X80ST)	/A005
+BKDNBIT=2000			/ block transfer done	   "	/A005
+TIMRBIT=100			/ 10 msec timer		   "	/A005
+RSETBIT=1000			/ hardware reset 	(X80LI)	/A005
+
+/****************************************************************************
+/ ECDOIN	Hook to the origional routine which will trap		/a019
+/		any 8 bit characters input, and expand them to		/a019
+/		dead things						/a019
+/****************************************************************************
+
+ECDOIN,	XX			/ Return address for 8 bit ECDOIN	/a019
+	TAD	T1		/ Get the character			/a019
+	CIFTXT			/ Change to field containing 8 bit code	/a019
+	JMS	ECIMCH		/ Call the routine			/a019
+	JMP I	ECDOIN		/ Return				/a019
+/-----------
+	PAGE
+
+/------------------------------------------------------------------------/
+/
+/ NOTE:	All FATAL errors, after being reported, jmp to EOF for final
+/	cleanup. In order to catch the start-up errors, the entry point
+/	and exit CDI are assembled to return to appropriate clean-up
+/	code.
+/
+/------------------------------------------------------------------------/
+SPELL,	STRTGM			/ entry point to spelling checker.
+	RDF			/ Get return data field.
+	TAD	CIDF0		/ Make a return CID instruction.
+	DCA	SPLXIT		/ save for final return.
+	CDFMYF			/ Back to our field.
+/d015	TAD	INIUSR		/ See if SC or LU or UD			/A008
+/d015	SMA SZA CLA		/ It's SC or LU - SKIP			/A008
+	CIFTXT			/ Go do initial checking		/A015
+	JMS	SPINCK		/ ...					/A015
+	 JMP	UPDTPD		/  It's UD - Go update the user's dict.	/A008
+	  JMP	SCNXT2		/   PD or DS -merge below to get to 1st posn./M015
+				/    Couldn't open file -just exit	/A015
+
+EOF,	JMS	CLRRGN		/ Clear scrolling region.
+SPLXIT,	CDIEDT			/ Map return field.
+	JMP I	SPELL		/ Return to Menu (or where ever).
+
+
+/
+/ return to here to ignore.... SCFIX moved edit no. 008 - space wars	/M008
+/
+
+/
+/ merge here to scan to the start of the next word.
+/
+SCNEXT,	CDFEDT			/ Re-enable ECHO while scanning to next word.
+	AC0001			/  ...
+	DCA I	(ECHFLG)	/   ....
+	TAD I	(SCRLCT)	/ Test screen lag.
+	CDFMYF			/
+	SZA CLA			/ Skip if no lag.
+	 JMS	UNDOLG		/ Update screen.
+SCNXT1,	AC0001			/ Move to next CURSOR position.
+SCNXT2,	GETCHR			/ Get (next) character.
+	 JMP	EOF		/ If we get EOF then we're done.
+	AND	P177		/ Strip mode bits			/a019
+	JMS	TSTCHR		/ See if character is ALPHA-ONLY.
+	 JMP	SCNXT1		/ Jmp if no. Char must be a word separator.
+	 NOP			/ Allow words to begin w/ nuneric.
+	TAD	CHAR		/ Get character back.
+	JMS	TSTSPC		/ See if special (".", "-", or "'").
+	SNA CLA			/ Skip if none of those.
+	 JMP	SCNXT1		/ Don't allow those chars as introducers.
+/
+/	found Start of Word.
+/
+	CDFEDT			/ Map edit field.
+	TAD I	(CURSOR)	/ Save current context.
+	DCA	SCURSR		/ Current cursor posn.
+	TAD I	(CURPTR)	/ Save current text pointer.
+	DCA	SCURPT		/  ...
+	DCA I	(ECHFLG)	/ Turn off echo while scanning word.
+	TAD I	(SCRLCT)	/ Test screen lag to start of word.
+	CDFMYF			/ Back to our field.
+	SZA CLA			/ Skip if no lag.
+	 JMS	UNDOLG		/ Undo screen lag (Call FXSCRL).
+	TAD	NEWLIN		/ has there been a new line since the start of
+				/ the last word?
+	SNA CLA			/ Skip if yes.
+	 JMP	SCNXT3		/ JMP if no.
+	TAD	SCURSR		/ Save cursor of 1st word on the line.
+	DCA	SLCRSR		/  ...
+	DCA	NEWLIN		/ Reset new line seen flag.
+SCNXT3,	DCA	LINCNT		/ Init # of lines word is on.
+	TAD	(WRDBUF-1)	/ Init buffer to save chars in.
+	DCA	X0		/  ...
+	AC0001			/ Set "NOT A WORD" flag to say that word
+	DCA	NOTWRD		/  is "NOT A WORD" (yet).
+	DCA	WRDSIZ		/ Init # of chars of word to none.
+	DCA	CHARCT		/ Init # of chars to send to APU to 0	/a019
+	TAD	CHAR		/ Restore 1st character of word.
+MSLMRG,	AND	P377		/ Isolate only the character bits.
+	TAD	(-ECMDFL)	/ Trap out stray Line Modified Flags	/a019
+	SNA			/ Is this a line modified flag?		/a019
+	JMP	NEXTCH		/ Yes, ignore it			/a019
+	TAD	(ECMDFL)	/ No, restore character			/a019
+	JMS	TSTCHR		/ See if character is ALPHA-NUMERIC.
+	 JMP	DONWRD		/ Exit loop if no.
+	 JMP	MSLMG1		/ Allow numeric.
+	TAD	CHAR		/ Get character.
+	JMS	TSTSPC		/ See if allowable special (".", "-", or "'").
+	SZA CLA			/ Skip  if yes.
+	 DCA	NOTWRD		/ Otherwise set "WORD IS A WORD" when see alpha.
+MSLMG1,	TAD	CHARCT		/ See if word buffer is full.
+	TAD	(-MAXCHR)	/  ...
+	SMA CLA			/ Skip if no.
+	 JMP	SCANWD		/ If yes, word is too long. Scan it.
+	TAD	CHAR		/ Get character back.
+X="-&177
+	TAD	(-X)		/ Is character a hyphen?
+	SZA CLA			/ Skip if yes.
+	 JMP	NXTCH2		/ no. continue below.
+	TAD	HYPHEN		/ What mode are we currently in?
+	SPA CLA			/ Skip if 1st pass on word.
+	 JMP	DNWRD2		/ If 2nd pass, then stop on the hyphen.
+	ISZ	HYPHEN		/ Say that a hyphen has been seen.
+NXTCH2,	TAD	CHAR		/ Get character back.
+	DCA I	X0		/ Save character in intermediate buffer.
+	JMS	TSTLIN		/ Check for word wrapped.
+	CLA			/ Get rid off rubbish in AC		/a019
+	TAD	CHAR		/ Check for 8 bit character		/a019
+	AND	(200)		/ Is this an 8 bit character?		/a019
+	SZA CLA			/ ....					/a019
+	ISZ	CHARCT		/ Yes, increase no of chars to Z80 to	/a019
+				/ include toggle character sent to APU	/a019
+	ISZ	WRDSIZ		/ 1 more char in word buffer.
+	ISZ	CHARCT		/ And 1 more char to send to Z80	/a019
+NEXTCH,	AC0001			/ Move text ptr to next cursor posn.
+NXTCH1,	GETCHR			/ Load character.
+	 JMP	DONWRD		/    if EOF then we're done this word.
+	AND	P177		/ Mask out mode bits			/a019
+	JMP	MSLMRG		/ Check out this character.
+
+CHARCT,	0			/ Count of chars to be sent to Z80	/a019
+/****************************************************************************
+/ GETZ8C	Code here is placed around the old GETZ80 code to deal	/a019
+/		with 8 bit characters form the Z80, which appear as 	/a019
+/		stripped 7 bit preceeded by a toggle character		/a019
+/****************************************************************************
+
+GETZ8C,	XX			/ Start routine with return address	/a019
+	JMS	GETZ80		/ Use the old routine to get a char from/a019
+	TAD	(-PCSS8B)	/ the Z80 APU. Check for the SS 8 bit	/a019
+	SZA			/ Is it the single shift into 8 bit char?/a019
+	JMP	GETZXT		/ No, just return the character		/a019
+	JMS	GETZ80		/ Yes, get the next character		/a019
+	TAD	(200)		/ Set the 8th bit			/a019
+	SKP			/ as is new character, skip toggle add	/a019
+GETZXT,	TAD	(PCSS8B)	/ Recover origional 7 bit character	/a019
+	JMP I	GETZ8C		/ Return				/a019
+
+/-----------
+	PAGE
+
+SCANWD,	AC7777			/ Say that word (which is too long) is notaword.
+	DCA	NOTWRD		/  ...
+SCANLP,	AC0001			/ Move to next cursor position.
+	GETCHR			/ Get next character.
+	 JMP	EOF		/ Done at End of file.
+	JMS	TSTCHR		/ Check current character for ALPHA.
+	 JMP	DONWRD		/ Terminator character.
+	 JMP	SCANLP		/ Scan words with NUMERIC in them.
+	JMP	SCANLP		/ It is alpha. continue to scan.
+
+DONWRD,	TAD	HYPHEN		/ 1st pass?
+	SPA CLA			/ Skip if yes. Leave HYPHEN indicator as set.
+	 DCA	HYPHEN		/ Reset "STOP ON HYPHEN" flag.
+DNWRD2,	TAD	NOTWRD		/ Is word NOT A WORD?
+	SZA CLA			/ Skip if NO (ie word is still a word).
+	 JMP	WRDOK		/ Check HLT FLAG & then scan to next word.
+	JMS	TSTLIN		/ See if we word-wrapped.
+	TAD	X0		/ Get ptr to last char of word.
+DONXXX,	DCA	BUFPTR		/ Save ptr to last char.
+	TAD I	BUFPTR		/ Get last char of word.
+	JMS	TSTSPC		/ See if special (".", "-", or "'").
+	SZA CLA			/ Skip if yes.
+	 JMP	DONYYY		/ JMP if no. we're at the end of the word.
+	TAD	BUFPTR		/ Get ptr to last character of word.
+	TAD	(-WRDBUF)	/ See if we're at the start of the buffer.
+	SNA			/ Skip if no.
+	 JMP	WRDOK		/ If yes, then word is empty (& therefore OK).
+	TAD	(WRDBUF-1)	/ Backup the pointer by 1.
+	JMP	DONXXX		/ And try next character.
+
+DONYYY,	TAD	BUFPTR		/ Compute size of word.
+	TAD	(-WRDBUF+1)	/  ...
+	DCA	WRDSIZ		/ save it for those who need it.
+	DCA I	X0		/ Set a stopper at the real end of the word.
+	JMS	SNDWRD		/ Send the word to the APU.
+	JMS	GETAPU		/ Get response back.
+		-12		/ Time-out max. - 10 seconds
+		PCWDOK;WRDOK	/ Word is valid. Check HALT FLAG, then continue scanning.
+		PCWDNF;NOTFND	/ Word is not in dictionary.
+		PCDONE;WRDOK	/ Done adding word to user dictionary.
+		PCUSDF;USDFUL	/ User dictionary full.
+		PCDUPL;WRDOK	/ Word already in dictionary. Ignore error.
+		0		/ No more valid return options.
+
+NOTFND,	ISZ	BUFPTR		/ Bump to the next character.
+	TAD I	BUFPTR		/ Get next character.
+X=".&177			/ period character.
+	TAD	(-X)		/ See if next char is a period.
+	SZA CLA			/ Skip if yes.
+	 JMP	NTFND2		/ JMP if no. handle "WORD NOT FOUND".
+	ISZ	WRDSIZ		/ Bump word size.
+	JMS	SNDWRD		/ Retry the word with the period.
+	JMS	GETAPU		/ get response.
+		-12		/ Time-out maximum - 10 seconds.
+		PCWDOK;WRDOK	/ Word is valid after all. Check HALT FLAG, then continue.
+		PCWDNF;NTFND1	/ Word still isn't found.
+		0		/ All other returns are fatal.
+BUFPTR,	0			/ Ptr into word.
+
+WRDOK,	CDFSYS			/ Check the HALT FLAG.
+	TAD I	HLTFLG		/  ...
+	CDFMYF			/   ....
+	SNA CLA			/ Skip if it's set.
+	 JMP	SCNEXT		/ Halt flag not set. Continue scanning.
+	ISZ	HALTFG		/ Say that we GOLD:HALTed.
+	AC7777			/ Say that no word is highlighted.
+	DCA	VIDEO		/  ...
+	JMP	WRDERR		/ Merge to user menu.
+
+NTFND1,	AC7777			/ Bump size back down. Highlight the word
+	TAD	WRDSIZ		/  without the terminating period.
+	DCA	WRDSIZ		/   ...
+				/ Must use SNDWRD to tell HM that the	/A011
+				/  word it returns corrections for will	/A011
+				/  be "foo" not "foo."			/A011
+	JMS	SNDWRD		/ Send incorrectly spelt word w/o the period./M011
+	JMS	GETAPU		/ Get response				/A011
+		-12		/ Time-out max. - 10 secs.		/A011
+		PCWDNF;NTFND2	/ Word was not found B4 so this is the	/A011
+		0		/  only kosher response			/A011
+NTFND2,	TAD	HYPHEN		/ Is word hyphenated?
+	SMA SZA CLA		/ Skip if part of hyphenated word in error.
+	 JMP	NTFND4		/ Jmp if only done 1st pass on hyphenated word.
+	CDFEDT			/ Now do a 'screen check' for 158 col mode.
+	TAD I	(CURSOR)	/ If word terminates in 2nd half
+	TAD	(-WIDTH)	/  then be sure that 2nd screen gets displayed.
+	SMA CLA			/ Skip if word doesn't end in 2nd half.
+	 JMP	NTFND3		/ JMP if word ends in right-half screen.
+	TAD	SCURSR		/ Get start of word. Make sure that start-of-
+	DCA I	(CURSOR)	/  word half is mapped.
+NTFND3,	CDFMYF			/ Back to our field.
+	CHKSCN			/ Make sure right screen is displayed.
+	TAD	SCURSR		/ Restore CURSOR to point to start of word.
+	CDFEDT			/  ...
+	DCA I	(CURSOR)	/   ....
+	CDFMYF			/ back to our field.
+	JMS	DISPLY		/ Refresh word.
+		1		/ flag to say SET REVERSE VIDEO.
+	DCA	HALTFG		/ Say that NOT stopped due to GOLD:HALT.
+WRDERR,	JMP	ERRGCOR		/ set up to display corrections..
+
+/
+/ return to here to continue.....
+/
+SCCONT,	TAD	VIDEO		/ Did we edit the line?
+	SZA CLA			/ Skip if yes. Editting reset the restart point.
+	 JMP	SCFIX		/ Didn't edit. Unhighlight word & continue.
+	JMS	ECPSCN		/ Position cursor to start of restart word.
+	DCA	NEWLIN		/ Say "still on same old line".
+	JMP	SCNXT2		/ Rescan old word.
+
+
+/-----------
+	PAGE
+
+/-------
+/
+/DISPLY	- routine to redisplay currently selected word.
+/
+/	This routine refreshes the text on the screen starting at SCURPT
+/	for WRDSIZ characters. Screen
+/	position of start of word is minus LINCNT (-LINCNT) lines from the
+/	bottom of the screen. Column of start of word is SCURSR.
+/
+
+DISPLY,	XX			/ entry point.
+	TAD I	DISPLY		/ Get address of type of video call.
+	DCA	VIDEO		/ save.
+	ISZ	DISPLY		/ bump return address.
+	TAD	WRDSIZ		/ Get size of word.
+	CIA			/ Negate for IZZY loop.
+	DCA	DISCNT		/  ...
+	DCA	T2		/ reset current attributes.
+	JMS	SETATR		/  ...
+	AC7777			/ In all attributes initially.
+	DCA	DISATR		/  ...
+	JMS	POSNCU		/ Position CURSOR & init EDT pointers.
+	LOADCH			/ Load 1st character of word.
+	 XX			/ Should not get here.
+	JMP	DSPLY2		/ Merge below w/ character.
+DSPLY1,	ADVPTR			/ Advance CURPTR to next character.
+	 XX			/ should never get here.
+DSPLY2,	TAD	(-ECWWLN)	/ soft wrap?				/m019
+	SNA			/ skip if no.
+	 JMP	DSPLY4		/ Yes. output CR LF sequence.
+	TAD	(ECWWLN-ECHYLN)	/ Is character SOFT-HYPHEN?
+	SNA			/ Skip if no.
+	 JMP	DSPLY3		/ JMP if yes. output attributed hyphen & CRLF.
+	TAD	(ECHYLN-ECSTRL)	/ Start of ruler?
+	SNA			/ Skip if no.
+	 JMP	DSPLY5		/ Skip over ruler.
+	TAD	(ECSTRL-ECJSPC)	/ Soft space?
+	SNA			/ Skip if no.
+	 JMP	DSPLY6		/ Skip over soft space.
+	TAD	(ECJSPC)	/ Make character normal.
+	JMS	DSPLY7		/ Check the attributes			/a019
+/d019	DCA	T1		/ Save character.
+/d019	TAD	T1		/ Get character.
+/d019	AND	(1600)		/ Isolate attribute bits only.
+/d019	DCA	T2		/ Save temporarily			/a019
+/d019	TAD	T2		/ Retrieve again			/a019
+/d019	AND	DISATR		/ AND with prior attributes.
+/d019	DCA	DISATR		/ Set new attributes word.
+/d019	TAD	T1		/ Get character back.
+/d019	AND	(1600)		/ Isolate attributes.
+/d019	DCA	T2		/ See if same as previous attributes.
+/d019	TAD	T2		/  ...
+/d019	CIA			/   ...
+/d019	TAD	PRVATR		/    ....
+/d019	SZA CLA			/ Skip if yes.
+/d019	 JMS	SETATR		/ otherwise set new attributes.
+/d019	TAD	T1		/ Get character (with attributes).
+	CIFEDT			/ Call routine in editor field to output char.
+	CALEDT;	PUTSCH		/   ...
+		CDFEDT		/    ....
+	TAD	T1		/ Get the last character back again	/a019
+	TAD	(-ECSTOV)	/ Test for it being a dead key sequence	/a019
+	SZA CLA			/ Is this a dead key introducer?	/a019
+	JMP	DISNDK		/ No, don't display a dead key character/a019
+DISADV,	ADVPTR			/ Yes, skip the rest as PUTSCH displays	/a019
+	XX			/ Should never get here			/a019
+	TAD	(-ECNDOV)	/ the whole thing on the first pass	/a019
+	SNA			/ Is this the end of the dead sequence?	/a019
+	JMP	DISNDK		/ Yes, go deal with rest of word	/a019
+	TAD	(ECNDOV)	/ Restore the original character	/a019
+	JMS	DSPLY7		/ Check the attributes			/a019
+	JMP	DISADV		/ Deal with next char in dead key	/a019
+DISNDK,	TAD	T2		/ Get attributes back again		/a019
+	AND	DISATR		/ AND with prior attributes		/a019
+	DCA	DISATR		/ Set new attributes word		/a019
+	ISZ	DISCNT		/ See if done word yet.
+	 JMP	DSPLY1		/ Not at end yet. get next character.
+	TAD	VIDEO		/ Reverse video?
+	SZA CLA			/ Skip if no.
+	 JMS	CLRRV		/ Shut-off reverse video.
+	CIFPRT			/ Shut-down BLKBOX routine.
+	JMS I	(BLKBOX)	/  ...
+	JMP I	DISPLY		/ Return to caller.
+
+DSPLY3,	TAD	("-&177		/ Get hyphen character.
+	TAD	PRVATR		/ Add on attributes of immediate prior character.
+	CIFEDT			/ Call editor routine to output character.
+	CALEDT;	PUTSCH		/   ...
+		CDFEDT		/    ....
+DSPLY4,	PUTCHR;	4000+CR		/ Posn to start of next line.
+		0000+LF		/   ....
+	CDFEDT			/ Reset column pointer to start of line.
+	DCA I	(CURPOS)	/  ...
+DSPL4A,	CDFMYF			/ Back to our field.
+	JMP	DSPLY1		/ Loop back to get next character.
+
+DSPLY5,	ADVPTR			/ Scan an EDT buffer character.
+	 XX			/ Should never get here.
+	TAD	(-ECNDRL)	/ Is this the end of the ruler?
+	SZA CLA			/ Skip if yes.
+	 JMP	DSPLY5		/ Scan to next character.
+	JMP	DSPLY4		/ Skip to next line.
+
+DSPLY6,	PUTCHR;	4000+ESC	/ advance cursor.
+		4000+"[		/  ...
+		0000+"C		/   ....
+	CDFEDT			/ Bump column pointer to next column.
+	ISZ I	(CURPOS)	/  ...
+	JMP	DSPL4A		/ Reset data field & process next char.
+
+DSPLY7,	XX			/ Store and set new attributes routine	/a019
+	DCA	T1		/ Save character			/a019
+	TAD	T1		/ Get the character with the attributes	/a019
+	AND	(1600)		/ Mask out the attribute bits		/a019
+	DCA	T2		/ Save in temporary register		/a019
+	JMS	STATR1		/ Check against previous attributes and	/a019
+				/ change them if neccesary		/a019
+	TAD	T1		/ Get character back			/a019
+	JMP I	DSPLY7		/ Return				/a019
+
+PRVATR,	0			/ Saved attributes of previous character.
+DISCNT,	0			/ Count of # of chars in word.
+
+
+/****************************************************************************
+/ ECSCRL	moved elsewere to make space for DISPLY to expand	/a019
+/****************************************************************************
+
+/****************************************************************************
+/ SNDAPC	This code has been put round the origional SNDAPU to	/a019
+/		deal with 8 bit characters by proceeding them with a	/a019
+/		toggle character					/a019
+/****************************************************************************
+
+SNDAPC,	XX			/ Start routine with return address	/a019
+	DCA	T3		/ Save the character temporarily	/a019
+	TAD	T3		/ Get it back				/a019
+	AND	(200)		/ Is it an 8 bit character		/a019
+	SNA CLA			/ ?					/a019
+	JMP	CHROLY		/ No, send character only		/a019
+	TAD	(PCSS8B)	/ Yes, send a toggle character		/a019
+	JMS	SNDAPU		/ Send it via the old SNDAPU routine	/a019
+CHROLY,	TAD	T3		/ Get the character back		/a019
+	JMS	SNDAPU		/ Sent it				/a019
+	JMP I	SNDAPC		/ Return to caller			/a019
+
+/------------
+	PAGE
+
+NTFND4,	AC7777			/ Set flag to stop at next hyphen
+	DCA	HYPHEN		/ and rescan the word.
+	TAD	LINCNT		/ Get # of lines to start of word.
+	JMS	ECSCRL		/ Scroll to the line in question.
+	JMS	ECINI2		/ Posn cursor to start of word.
+	DCA	NEWLIN		/ Reset "still on same line" flag.
+	JMP	SCNXT2		/ Start rescanning the word.
+
+/-------------
+/
+/ECOPTN - handle EDIT option for SPELLING CORRECTOR.
+/
+/	This routine allows the user to EDit the line with the word in
+/	question on it. The user is allowed a subset of full editting
+/	capabilities. The user is not allowed to backup beyond the beginning
+/	of the line, nor are they allowed to advance beyond the last word on
+/	the line (which may cross multiple line boundries).
+/
+/
+/CALL:	JMS	ECOPTN		(from USER MENU dispatcher).
+/		rtn1		Return to take if the RETURN key is hit.
+/		rtn2		Return to take if the GOLD:MENU key is hit.
+/
+/--------------
+
+ECOPTN,	XX			/ Entry point.
+	ISZ	INEDIT		/ Say that we're editing.
+	TAD	VIDEO		/ Is word currently displayed in RV mode?
+	SZA CLA			/ Skip if no. Skip first time initialization.
+	 JMS	ECINIT		/ Do edit command initialization stuff.
+	JMS	ECPSCN		/ Position cursor (for gold:menu exit & return).
+	DCA	UNDLCT		/ Clear out the DELETE buffer.
+	DCA	DISATR		/ Zero word attributes so ECIMCH works	/a019
+	DCA	ECMODE		/ Reset MODE to ADVANCE.
+	JMS	ECINI2		/ Do rest of initialization.
+ECLOOP,	CDFEDT			/ Get scroll count (if any).
+	TAD I	(SCRLCT)	/  ...
+	CDFMYF			/ Back to our field.
+	DCA	T1		/ save.
+	TAD	T1		/ Get lag count.
+	TAD	ELINCT		/ Keep track which line we are on.
+	DCA	ELINCT		/  ...
+	TAD	T1		/ Get lag count.
+	TAD	RLINCT		/ update distance to restart line.
+	DCA	RLINCT		/  ...
+	CHKSCN			/ Update screen (call FXSCRL).
+	JMS	IPTCHR		/ Get next input character.
+				/  JWAIT until something available.
+	DCA	T1		/ Save character for a bit.
+	TAD	ECERFL		/ Is there an error line to clear?
+	SNA CLA			/ Skip if yes.
+	 JMP	ECHECK		/ Jmp if no. continue below.
+	JMS	PUTERR		/ Output error line.
+		BLANKL		/ blank line.
+	DCA	ECERFL		/ Say no error line being displayed.
+ECHECK,	TAD	(ECTBL-2)	/ Get address of command table.
+	DCA	X1		/ Save in an index register.
+	TAD	T1		/ Send the char in the AC.
+	JMS	DSPTCH		/ Dispatch to appropriate routine. If not command
+				/  then try inserting character into document.
+	TAD	T1		/ Get user edit command.
+	SPA CLA			/ Skip if insertable character.
+	 JMP	ECBDCM		/ Report "this command has no meaning here" error.
+ECINS1,	JMS	ECDOIN		/ Check for error & insert character.
+ECFIX,	MOVCHR			/ Fix up justification.
+ECFIX3,	DCA	ECMODE		/ Reset MODE to ADVANCE.
+	JMP	ECLOOP		/ Go wait for next command.
+
+ECBDCM,	JMS	PUTERR		/ Output error message.
+		NOMEAN		/ "this command has no meaning here".
+	JMP	ECLOOP		/ Wait for next command.
+
+ECRTN3,	ISZ	ECOPTN		/ GOLD:MENU return.
+	IAC			/ Set Gold:MENU exit flag.
+ECRTN2,	JMS	ECEXIT		/ Do common EDIT/REPLACE exit stuff.
+	JMP I	ECOPTN		/ return to caller.
+
+ECHELP,	JMS	SAVCUR		/ Save cursor & attributes.
+	AC0001			/ set to indicate edit line help
+	JMP	HLPKEY		/ display the help menu
+ECHPRN,	JMS	RSTCUR		/ Restore cursor & attributes.
+	JMP	ECLOOP		/ Get next input.
+
+INEDIT,	0			/ <> 0 while in ecoptn.
+
+ECINIT,	XX			/ Routine common both to EDIT & REPLACE cmnds.
+	JMS	DISPLY		/ Remove reverse video from incorrect word.
+		0		/  ...
+	TAD	LINCNT		/ Get # of lines from start of line w/ error.
+	DCA	ELINCT		/ Initialize our line counter.
+	TAD	ELINCT		/
+	DCA	RLINCT		/ Initialize distance to restart line.
+	TAD	ELINCT		/ Get distance to edit line.
+	JMS	ECSCRL		/ Scroll Screen down, if appropriate.
+	JMP I	ECINIT		/ Return to caller.
+
+ECINI2,	XX			/ Some more edit initialization code.
+	DCA	NOMORE		/ Reset the end-of-line error flag.
+	DCA	NOINSR		/ Reset insert inhibit flag.
+	CDFEDT			/ Map edit field.
+	TAD	SCURPT		/ Set pointers to point to start of word.
+	DCA I	(CURPTR)	/  text pointer.
+	TAD	SCURSR		/
+	DCA I	(CURSOR)	/  screen pointer.
+	CDFMYF			/ back to our field.
+	JMP I	ECINI2		/ return to caller.
+
+
+ECEXIT,	XX			/ Common exit code for EDIT/REPLACE.
+	DCA	T2		/ Save GOLD:MENU exit flag.
+	TAD	RLINCT		/ Get distance to restart line.
+	JMS	ECSCRL		/ Scroll Screen to there, if appropriate.
+	JMS	ECINI2		/ Restore EDT pointers to start of word.
+	MOVCHR			/ Load "line modified" char if sitting on it.
+	UPDSCN			/ Update screen (call FXSCRL).
+	DCA	LINCNT		/ Say that we're on bottom line.
+	TAD	ELINCT		/ Compute distance from start of line.
+	CIA			/  ...
+	TAD	RLINCT		/   ....
+	DCA	ELINCT		/ Save in case this is a GOLD:MENU exit.
+	DCA	RLINCT		/  Reinit for GOLD:MENU re-entry.
+	DCA	INEDIT		/ Say that we're done ECOPTN.
+	TAD	T2		/ Is this a GOLD:MENU exit?
+	SZA CLA			/ Skip if no.
+	 JMP	ECRTN		/ if yes, then we're done.
+	TAD	ELINCT		/ This is a hard exit back to the main checking
+	SNA CLA			/ loop. If we're not on the initial line
+	 JMP	ECRTN		/  (skip if we're not) then reset sol cursor.
+	TAD	SCURSR		/  ...
+	DCA	SLCRSR		/   ....
+ECRTN,	JMP I	ECEXIT		/ Return to caller.
+
+ECPSCN,	XX			/ Routine to call SETCUR.
+	CIFEDT			/ Call routine in editor field.
+	CALEDT;	SETCUR		/ routine will posn cursor to start of word.
+		CDFEDT		/ routine DF to editor field.
+	CDFEDT			/ Map editor field.
+	TAD I	(CURSOR)	/ Set screen posn same as CURSOR.
+	DCA I	(CURPOS)	/  ...
+	CDFMYF			/   ....
+	JMP I	ECPSCN		/ Return to caller.
+/------------
+	PAGE
+
+
+ECHYPS,	JMS	ECHYPP		/ Do common hyphen push/pull init.
+	 JMP	ECHYPY		/ Label to goto if prior line not hyphenated.
+	AC0001			/ Advance to next posn.
+ECHYPW,	MOVCHR			/  ...
+	CDFEDT			/ See if line scrolled yet.
+	TAD I	(SCRLFL)	/  ...
+	CDFMYF			/   ....
+	SZA CLA			/ Skip if no.
+	 JMP	ECHYPX		/ Jmp if yes. Stay where we ended up.
+	CDFEDT			/ Back to edit field.
+	TAD I	(CURSOR)	/ See if at right margin yet.
+	CIA			/  ...
+	TAD I	(RGTMAR)	/   ....
+	CDFMYF			/ Back to our field.
+	SPA SNA CLA		/ skip if 'not yet'.
+	 JMP	ECHYPZ		/ Jmp if yes.
+ECHYPD,	JMS	ECGTCH		/ Get character.
+	JMS	CHK040		/ See if in alpha range.
+	 JMP	ECHYPZ		/ Jmp if no.
+	TAD	(2000)		/ Add in the 'hyphenation' bit.
+	JMS	ECPTCH		/ save char w/ hyphenation bit.
+ECHYPZ,	AC0001			/ Advance to next posn until line wraps.
+	GETCHR			/  ...
+	 NOP			/ Ignore error.
+	JMS	CHK040		/ See if at end of word.
+	 JMP	ECHYPX		/  Jmp if yes.
+	CLA			/ Start w/ clear AC.
+	CDFEDT			/ See if line wrapped yet.
+	TAD I	(SCRLFL)	/  ...
+	CDFMYF			/   ....
+	SNA CLA			/ Skip if yes.
+	 JMP	ECHYPZ		/ Keep advancing until line wraps.
+ECHYPX,	JMS	CRSTRT		/ Re-compute restart point, etc.
+	JMP	ECFIX3		/ Reset mode to ADVANCE & wait for next input.
+
+
+ECHYPL,	JMS	ECHYPP		/ Do common hyphen-push/pull initialization.
+	 JMP	ECHYPZ		/ Lable to goto if prior line not hyphenated.
+	AC7777			/ Backup to prior character.
+	JMP	ECHYPW		/  ...
+
+ECHYPP,	XX			/ Common hyphen-push/pull initialization.
+	JMS	TSTLAG		/ See if we're on the initial line of error.
+	 JMP	ECBDCM		/ Cannot Hyphen Push/Pull on 1st line.
+	TAD I	ECHYPP		/ Get transfer instruction.
+	DCA	ECHYP1		/ Save.
+	ISZ	ECHYPP		/ Bump to real return.
+	CDFEDT			/ Map EDIT field. Have to do some diddleing.
+	TAD I	(LINE23)	/ Set text ptr to the start of the line.
+	DCA I	(CURPTR)	/  ...
+	DCA I	(CURSOR)	/ Reset screen ptr to start of line.
+	CDFMYF			/ Back to our field.
+	AC7777			/ Backup to last char on previous line.
+	GETCHR			/ Get the character.
+	 JMP	ECBDCM		/ Report error.
+	JMS	CHK040		/ See if char is in the alpha range.
+ECHYP1,	 JMP	ECHYPY		/ Jmp if no.
+	AND	(5777)		/ Clear 'break' bit.
+	JMS	ECPTCH		/ Store char w/o hyphenation bit.
+ECHYPY,	SLNMOD			/  ...
+	CDFEDT			/ Map edit field.
+	DCA I	(SCRLFL)	/ Reset 'line scrolled' flag.
+	CDFMYF			/ Back to our field.
+	JMP I	ECHYPP		/ Return to caller.
+
+CHK040,	XX			/ See if character is in alpha range (ie over 40).
+	DCA	T1		/ Save character.
+	TAD	T1		/ Get character.
+	AND	P177		/ isolate onlyy the character bits.
+	TAD	(-40)		/ See if in alpha range.
+	SPA SNA CLA		/ skip if yes.
+	 JMP	CKO40		/ Jmp to take 'not over' return.
+	TAD	T1		/ Get character back.
+	ISZ	CHK040		/ Take 2nd return (char is 'over 40').
+CKO40,	JMP I	CHK040		/ Return to caller.
+
+/
+/Dispatch table for Edit commands.
+/
+ECTBL,	-EDMENU;ECRTN3		/ GOLD:MENU
+	-EDNWLN;ECRTN2		/ RETURN key
+	-EDHELP;ECHELP		/ HELP key
+	-EDADVN;ECADVN		/ ADVANCE key
+	-EDBKUP;ECBKUP		/ BACKUP key
+	-EDWORD;ECWORD		/ WORD key
+	-EDBOLD;ECBOLD		/ BOLD key
+	-EDUBLD;ECUBLD		/ UNBOLD (gold:bold) key
+	-EDUNDL;ECUNDL		/ UNDERLINE key
+	-EDUUDL;ECUUDL		/ UNUNDERLINE (gold:underline) key
+	-EDUPPR;ECUPPR		/ UPPERCASE key
+	-EDLOWR;ECLOWR		/ LOWERCASE (gold:uppercase) key
+	-EDSWAP;ECSWAP		/ SWAP (current & next characters) key
+	-EDRBCH;ECRBCH		/ RUB CHAR OUT key
+	-EDRBWD;ECRBWD		/ RUB WORD OUT key
+	-EDDLTC;ECDLTC		/ DEL CHAR key
+	-EDDLTW;ECDLTW		/ DEL WORD key
+	-EDUDLT;ECUDLT		/ UNDELETE (gold:del char or gold:del word) key
+	-EDHYPS;ECHYPS		/ HYPHEN PUSH key
+	-EDHYPL;ECHYPL		/ HYPHEN PULL (gold:hyphen push) key
+	0			/ terminator
+/------------
+	PAGE
+
+ECGETU,	XX			/ Get next character of UNIT routine.
+	CLA			/ incase we're entered w/ non-zero AC.
+	TAD	NOMORE		/ Are we already at the end of the line?
+	SZA CLA			/ Skip if no.
+	 JMP	ECGETE		/ JMP if yes. Report error.
+	DCA	DEADKY		/ Say "not in DEAD-KEY sequence" (least not yet).
+	LOADCH			/ Get 1st next character.
+	 JMP	ECGETE		/ Sitting on Start/End of file. Return 0000.
+	JMS	OVTST		/ See what type of character current char is.
+	 JMP	ECGETF		/ OTHER. see if still on initial line.
+	 NOP			/ NUMERIC. we can always scan.
+				/ ALPHA-ONLY. we can always scan.
+ECGETG,	TAD	CHAR		/ Get initial character back.
+	JMS	ECHKUN		/ See if at end of UNIT yet.
+ECGETX,		XX		/ Co-routine return to test next UNIT char.
+	SMA SZA			/ Skip if not "at end of UNIT".
+	 JMP	ECGETY		/ At end of UNIT (or between UNITs).
+ECGETQ,	SMA CLA			/ Skip if at start of 2nd UNIT (-1) & return 0.
+	 JMS	ECGTCH		/ otherwise return current character.
+ECGETZ,	JMS I	ECGETU		/ Return next character of UNIT to caller.
+				/ Return 0 when done returning all characters of
+				/  the returned UNIT.
+	SZA			/ If MODE processor returned a MODEd character
+	 JMS	ECPTCH		/  save MODEd character over prior unMODEd char.
+	TAD	DEADKY		/ Are we in the midst of a "dead key sequence"?
+	SZA			/ Skip if NO.
+	 JMP	ECGETO		/ Jmp if yes. Return next character from D-K-S.
+	JMS	ECGTCH		/ Get current character back.
+	TAD	(-ECSTOV)	/ see if it's the start of a DEAD KEY SEQUENCE.
+	SNA CLA			/ Skip if no.
+	 JMP	ECGETP		/ YES. Process next character from D-K-S.
+ECGETY,	CLA			/
+	TAD	NOMORE		/ Is the next character the END-OF-LINE char?
+	SZA CLA			/ Skip if no.
+	 JMP	ECGETZ		/ Jmp if yes. report "end-of-unit".
+	AC0001			/ Advance to next cursor posn.
+	GETCHR			/ Get next character.
+	 JMP	ECGETZ		/ Return END-OF-UNIT if at end of FILE.
+	JMS	OVTST		/ See what kind of char we have.
+	 JMP	ECGETH		/ OTHER. do special end-of-line check.
+	 NOP			/ NUMERIC. treat as ALPHA-ONLY.
+ECGET2,	TAD	CHAR		/ Get character back.
+	JMP I	ECGETX		/ Return & process this character.
+
+ECGETP,	ISZ	DEADKY		/ Say that we're starting a DEAD KEY SEQUENCE.
+ECGETO,	SPA CLA			/ Skip if START OF or WITHIN a D-K-S.
+	 JMP	ECGETR		/ Handle DONE DEAD KEY SEQUENCE.
+	ADVPTR			/ Advance to the next character.
+	 JMP	ECGETZ		/ Premature termination.
+	TAD	(-ECNDOV)	/ is this the END-OF-DEAD-KEY-SEQ char?
+	SZA CLA			/ Skip if YES.
+	 JMP	ECGETQ		/ JMP if no. return character for processing.
+	AC7777			/ Set "end-of-dead-key" flag for next time.
+	DCA	DEADKY		/ That way, we'll get a chance to clean up.
+	JMP	ECGETQ		/ Go process the END-OF-DEAD-KEY-SEQ character.
+
+ECGETR,	DCA	DEADKY		/ Reset the "IN DEAD-KEY-SEQ" flag.
+	ADVPTR			/ Advance to the next character.
+	 JMP	ECGETZ		/ premature termination.
+	CIFEDT			/ Backup over the DEAD-KEY sequence.
+	CALEDT;	ESBSPC		/ (BKPSPC)
+		CDFBUF		/   ....
+	 NOP			/
+	JMP	ECGETY		/ Now really advance over the Dead Key Seq.
+
+ECGETF,	JMS	CHKEOL		/ See if char is a line terminator.
+	 JMP	ECGETE		/ JMP if yes. Report EOL error.
+	JMS	TSTLAG		/ See if still on line word was found on.
+	 JMP	ECGETG		/ YES. go process character.
+ECGETE,	JMS	PUTERR		/ display error message.
+		ERREOL		/ "end of line reached" error message.
+	JMP	ECGETZ		/ Return to caller. w/ end of UNIT.
+
+ECGETH,	JMS	CHKEOL		/ See if current char is a line terminator.
+	 JMP	ECGET2		/ If yes, return char (NOMORE is now set).
+	JMS	TSTLAG		/ See is still on same line.
+	 SKP			/ Yes. see if next char is end-of-line char.
+	JMP	ECGETZ		/ Return "end-of-UNIT" if no.
+	ADVPTR			/ Advance to the next character.
+	 JMP	ECGETI		/ next char is end-of-file.
+	TAD	(-ECWWLN)	/ See if next character is WORD-WRAP return.
+	SNA CLA			/ Skip if no.
+	 ISZ	NOMORE		/ If yes, then next time return end-of-unit.
+ECGETI,	BKPPTR			/ Backup a character posn.
+	 NOP			/ Cann't be at begining of file.
+	CLA			/ Don't really want returned character.
+	JMP	ECGET2		/ Return current character.
+
+ECGETD,	ISZ	NOMORE		/ Set "at-end-of-line" flag.
+	AC7777			/ Backup a chacacter.
+	GETCHR			/ Backup a character.
+	 NOP			/
+	CLA			/ don't really want returned character.
+	JMP	ECGETZ		/ Return "end-of-unit" code.
+
+
+DEADKY,	0			/ 0 when not in; 1 when in; -1 when exitting.
+
+TSTLAG,	XX			/ Routine to see if still on line w/ word on it.
+	CDFEDT			/ See if any current lag.
+	TAD I	(SCRLCT)	/  ...
+	CDFMYF			/ also see if any
+	TAD	ELINCT		/  lag from line word is on.
+	SZA CLA			/ Skip if yes. Take 1st return.
+	 ISZ	TSTLAG		/ Not on same line. take "end-of-UNIT" return.
+	JMP I	TSTLAG		/ Return to process end-of-UNIT.
+
+CHKEOL,	XX			/ Routine to see if current char is a line terminator.
+	TAD	CHAR		/ Get current character.
+	AND	P177		/ Isolate just the char bits.
+	TAD	(-ECNWLN)	/ See if it's a LINE TERMINATOR char.
+	SZA CLA			/ Skip if yes. process it.
+	 JMP	CKEOL1		/ Not line terminator, take 2nd return.
+	ISZ	NOMORE		/ Set NOMORE chars on line flag.
+	SKP			/ Take 1st return.
+CKEOL1,	ISZ	CHKEOL		/ Not line terminator. Take 2nd return.
+	JMP I	CHKEOL		/ Return to caller.
+
+
+ECPTCH,	XX			/ Routine to save character at posn ptd to by CURPTR.
+	DCA	T2		/ Save character to save.
+	CDFEDT			/ Map EDIT field.
+	TAD I	(CURPTR)	/ Get current text pointer.
+	DCA	T3		/ Save so that we can indirect thru.
+	CDFBUF			/ Map text field.
+	TAD	T2		/ Get character to save.
+	DCA I	T3		/ Save character.
+	CDFMYF			/ back to our field.
+	JMP I	ECPTCH		/ return to caller.
+/------------
+	PAGE
+
+ECRBWD,	IAC			/ compute ECUNIT
+ECRBCH,	DCA	ECUNIT		/ Set to 0 for CHARACTER, 1 for WORD.
+	TAD	(ECTMRK)	/ Insert marker into text.
+	INSCHR			/  ...
+	JMS	BACKUP		/ Backup 1 unit.
+	 JMS	ECTFBK		/ Beep & display B-O-L error message.
+	IAC			/ MODE = DELETE (continue).
+ECDLTW,	IAC			/ UNIT = WORD.
+ECDLTC,	DCA	ECUNIT		/ UNIT = CHAR.
+	JMS	ECDLTU		/ Go delete the selected unit.
+	JMP	ECFIX		/ Fix line & wait for next command.
+
+ECTFBK,	XX			/ To Far BacK. Display error msg.
+	JMS	PUTERR		/ Begining of line reached.
+		ERRBOL		/  ...
+	JMP I	ECTFBK		/ return to continue deletion.
+
+
+ECLOWR,	TAD	(40)		/ Set lower case.
+ECUPPR,	DCA	ECMODB		/ Save CASE bit.
+	IAC			/ Set CASE. MODE 4.
+	JMP	ECMOD3		/ Merge below setting of attribute bits.
+
+ECUNDL,	TAD	(400)		/ Set or
+ECUUDL,	DCA	ECMODB		/        clear UNDERLINE bit(s).
+ECMOD3,	IAC			/ UNDERLINING. MODE 3.
+	JMP	ECMOD2		/ Merge below.
+
+ECBOLD,	TAD	(200)		/ Set or
+ECUBLD,	DCA	ECMODB		/        clear bold bit(s).
+ECMOD2,	IAC			/ Set/clear attribute bit. MODE 2.
+ECBKUP,	IAC			/ Set BACKUP. MODE 1.
+ECADVN,	DCA	ECMODE		/ Set ADVANCE. MODE 0. Save mode.
+	SKP			/ UNIT type is CHARACTER.
+ECWORD,	IAC			/ UNIT type is WORD.
+	DCA	ECUNIT		/ Save UNIT type.
+	JMS	STADVU		/ Set ADVANCE UNIT transfer vector.
+	TAD	ECMODE		/ Get mode we're processing.
+	TAD	(JMP I MODTBL)	/ Compute JMP to MODE handle.
+	DCA	.+1		/ save as START OF UNIT handler.
+	JMP I	MODTBL		/ Start processing UNIT via MODE value.
+
+STADVU,	XX			/ Routine to set advance UNIT mode.
+	TAD	ECUNIT		/ Compute routine to check UNIT doneness.
+	TAD	(JMP I ECUNTB)	/  ...
+	DCA	JMPUNT		/ save for later transfer to.
+	JMP I	STADVU		/ Return to caller.
+
+STBKPU,	XX			/ Routine to set backup UNIT mode.
+	TAD	ECUNIT		/ Get UNIT type.
+	TAD	(JMP I ECBUNT)	/ Make a JMP to start of unit.
+	DCA	JMPUNT		/ Init for start of unit.
+	JMP I	STBKPU		/ return to caller.
+
+MODTBL,	ECADVU			/ MODE = ADVANCE
+	ECBAKU			/ MODE = BACKUP
+	ECBLDU			/ MODE = BOLD/UNBOLD
+	ECUNDU			/ MODE = UNDERLINE/UNUNDERLINE.
+	ECUPLO			/ MODE = UPPERCASE/LOWERCASE
+
+
+CHKRTN,	XX			/ Return from CHECK UNIT.
+				/ AC = 0 if scanning UNIT.
+				/ AC = 1 when scanning between UNITs (after
+				/	 scanning unit.
+				/ AC =-1 when at start of NEXT UNIT.
+	JMS I	ECHKUN		/ Co Routine return to caller.
+	JMP I	CHKRTN		/ Check this (next) character for UNITization.
+
+ECHKUN,	XX			/ Routine called by MODE processor to test
+				/ for end of UNIT.
+JMPUNT,	JMP I	ECUNTB		/ Jmp to UNIT processor to test for UNIT doneness.
+
+ECUNTB,	ECCHRU			/ UNIT = [advance] CHARACTER
+	ECWRDU			/ UNIT = [advance] WORD
+	ECCNTU			/ UNIT = [advance] DELETE (continue)
+
+ECBUNT,	ECBCHR			/ UNIT = [backup] CHARACTER
+	ECBWRD			/ UNIT = [backup] WORD
+
+ECUNIT,	0			/ UNIT type (0=char; 1=word).
+ECMODB,	0			/ Mode bits to be set in UNIT.
+
+/****************************************************************************
+/ BHOOK		Hokk to panel field blaster				/a019
+/****************************************************************************
+
+SBHOOK,	XX			/ Hook return address			/a019
+	DCA	SBLACSV		/ Save acc.				/a019
+	RDF			/ Read data field so that it can be	/a019
+	TAD	CDF0		/ preserved after the call		/a019
+	DCA	SBHKEXI		/ Save the constructed CDF routine	/a019
+	CDFMYF			/ Make sure I'm here			/a019
+	TAD I	SBHOOK		/ Get the table entry from after the call/a019
+	MQL			/ Push into MQ reg			/a019
+	TAD	SBLACSV		/ Get the acc. back			/a019
+	ISZ	SBHOOK		/ Inc return past parameter		/a019
+	CIFMNU			/ Blaster is in th menu field		/a019
+	IOF			/ Turn the interups off before....	/a019
+	JMS I	SBLASTH		/ Calling blaster			/a019
+	ISZ	SBHOOK		/ Skip return exit			/a019
+SBHKEXI,XX			/ Place for CDF instruction		/a019
+	JMP I	SBHOOK		/ Return				/a019
+SBLASTH,BLASTR			/ Blaster address (in WPF1)		/a019
+SBLACSV,0			/ Acc save area				/a019
+
+/****************************************************************************
+/ TSTCHR	Moved to give it room to breathe			/a019
+/****************************************************************************
+
+/****************************************************************************
+/ ECSCRL	moved here to give DISPLY room to expand		/a019
+/****************************************************************************
+
+ECSCRL,	XX			/ routine to scroll screen.
+	SNA			/ Skip if we need to scroll down.
+	 JMP I	ECSCRL		/ Return to caller if nothing to scroll.
+	SPA			/ Skip if to scroll screen down.
+	 JMP	ECSCUP		/ JMP to handle scroll up.
+	CIA			/ Get negative of cursor.
+	DCA	T1		/ Save negative number of lines to unscroll.
+ECSCR1,	CIFEDT			/ Call scrolldown to unscroll a line.
+	CALEDT;	SCRLDN		/  ...
+		CDFBUF		/ Map buffer field.
+	ISZ	T1		/ 1 more line unscrolled.
+	JMP	ECSCR1		/ Loop until finished.
+	JMP I	ECSCRL		/ Return to caller.
+
+ECSCUP,	DCA	T1		/ Save count of lines to scroll up.
+ECSCR2,	AC0001			/ Move to next char posn.
+	GETCHR			/  ...
+	 JMP	ECSCR3		/ Return if at EOF.
+	CLA			/ Don't really want char.
+	CDFEDT			/ See if line changed.
+	TAD I	(SCRLCT)	/  ...
+	CDFMYF			/ compare to where we want to be.
+	TAD	T1		/  ...
+	SPA CLA			/ Skip if we're back to the desired line.
+	 JMP	ECSCR2		/ Loop until we get there.
+ECSCR3,	JMP I	ECSCRL		/ Return when done.
+
+/****************************************************************************
+/ STATR1	Shell for DISPLY set atribute call			/a019
+/****************************************************************************
+
+STATR1,	XX			/ Location for return address		/a019
+	TAD	T2		/ Get the new attributes		/a019
+	CIA			/ See if the same as the previous ones	/a019
+	TAD	PRVATR		/ ....					/a019
+	SZA CLA			/  Skip if so				/a019
+	JMS	SETATR		/ If not the same, set new ones		/a019
+	JMP I	STATR1		/ Return				/a019
+/------------
+	PAGE
+
+ECCHRU,	SKP CLA			/ [advance] CHARACTER UNIT.
+ECLCHR,				/ LAST char of UNIT return point.
+ECBCHR,	AC7777			/ for [backup] or 2nd [advance] then done.
+	JMS	CHKRTN		/ Return code.
+	JMP	ECBCHR		/ Return done code.
+
+/------
+
+ECBWD1,	JMS	CHKRTN		/ Return 0 (scanning PRE-WORD UNIT).
+ECBWRD,	JMS	TSTCHR		/ See if character is part of word.
+	 JMP	ECBWD1		/ JMP if no. (non-alphanumeric) Scan more.
+	 NOP			/ NUMERIC -- Part of word.
+				/ ALPHA return -- Part of word.
+
+ECBWD2,	JMS	CHKRTN		/ Return 0 (Scanning WORD UNIT).
+ECWRDU,	JMS	TSTCHR		/ See if character is part of word.
+	 JMP	ECBWD3		/ Jmp if no longer in word.
+	 NOP			/ NUMERIC -- Part of word. Keep scanning.
+	JMP	ECBWD2		/ ALPHA -- Part of word. Keep scanning.
+
+ECBWD3,	AC0001			/ Return 1. now inbetween WORD unit(s).
+	JMS	CHKRTN		/  ...
+	JMS	TSTCHR		/ See if character is part of word.
+	 JMP	ECBWD3		/ Jmp if NO. continue scanning (non-alpahnumeric).
+	 NOP			/ NUMERIC. YES. Start of NEXT WORD UNIT.
+	JMP	ECLCHR		/ ALPHA. Return start of NEXT WORD UNIT code.
+
+/------
+
+ECCNT1,	JMS	CHKRTN		/ Return status (0) to caller.
+ECCNTU,	TAD	(-ECTMRK)	/ Are we at our previously inserted mark yet?
+	SZA CLA			/ Skip if yes.
+	 JMP	ECCNT1		/ Not yet, return "not done yet" code.
+	JMS	ECPTCH		/ ZAP the mark.
+	JMP	ECLCHR		/ Return LAST char of UNIT code.
+
+/------------
+
+ECADVU,	JMS	ECGETU		/ Check for end of unit.
+ECADVX,		XX		/  co-routine return point.
+	SZA CLA			/ zero in AC when at end of UNIT.
+	 JMP I	ECADVX		/ Get next character of UNIT.
+	JMP	ECLOOP		/ DONE! go to input loop.
+
+/------
+
+ECUPLO,	JMS	SVSCMD		/ Save "screen modified" info.
+	JMS	ECGETU		/ Check for end of UNIT.
+NXUPLO,		XX		/  co-routine return point.
+	SNA			/ Skip if not at end of unit yet.
+	 JMP	ECLOOP		/ DONE! go to edit input loop.
+	JMS	CKOV40		/ See if character >= 40 (octal).
+	 JMP I	NXUPLO		/ No, cannot upper/lower case it.
+	AND	(137)		/ Isolate lower case version.
+	TAD	(-133)		/ See if too big.
+	SMA			/ Skip if no.
+	 JMP	CKUPL1		/ Yes. cannot case change it.
+	TAD	(133-101)	/ Compare against lower range.
+	SPA CLA			/ Skip if too small.
+	 JMP	CKUPL1		/ Cannot case change.
+	TAD	T1		/ Get origional character back.
+	AND	(7737)		/ Isolate without the CASE bit.
+	TAD	ECMODB		/ Add CASE bit if appropriate.
+	JMS	ECPTCH		/ Store case-changed character.
+	JMS	CRSTRT		/ Check for new restart posn.
+	JMP I	NXUPLO		/ Return character & get next.
+
+CKUPL1,	CLA			/ Ignore character if not alpha-only.
+	JMP I	NXUPLO		/  ...
+
+/------
+
+ECBLDU,	JMS	SVSCMD		/ SaVe SCreen MoDified info.
+	JMS	ECGETU		/ Check for end of UNIT.
+NXBOLD,		XX		/ co-routine return point.
+	SNA			/ Skip if a character (of current unit) is returned.
+	 JMP	ECLOOP		/ DONE UNIT!!! go wait for next edit command.
+	JMS	CKOV40		/ Is character printable?
+	 JMP I	NXBOLD		/ Ignore char if no.
+	AND	(7577)		/ Isolate character minus bold bit.
+	TAD	ECMODB		/ Add BOLD attribute (if appropriate).
+	JMP I	NXBOLD		/ Return character with proper attributes.
+
+/------
+
+ECUNDU,	JMS	SVSCMD		/ Save "screen modified info".
+	JMS	ECGETU		/ Get next character of UNIT.
+NXUNDL,		XX		/ co-routine return point.
+	SNA			/ Skip if not end of UNIT.
+	 JMP	ECLOOP		/ DONE UNIT!!! Go process next edit command.
+	JMS	CKOV40		/ Is character printable?
+	 JMP I	NXUNDL		/ Ignore character if no.
+				/ allow UNDERLINE but only if
+				/  char not SUPERSCRIPTED.
+	RTL			/ Check the SUPERSCRIPT (1000) bit.
+	SPA CLA			/ If set, setting UNDERLINE bit yields SUBSCRIPT
+	 JMP I	NXUNDL		/  so ignore character if SUPERSCRIPTED.
+	TAD	T1		/ Get character to add attruibute to.
+	AND	(7377)		/ Isolate w/o UNDERLINE bit.
+	TAD	ECMODB		/ Add attribute bit (if setting).
+	JMP I	NXUNDL		/ Return attributed character.
+
+/------
+
+ECBAKU,	JMS	BACKUP		/ Back up a UNIT.
+	 JMS	ECTFBK		/ display "cannot edit before this line" error msg.
+	JMP	ECLOOP		/ Go get next user input.
+
+/------------
+
+SVSCMD,	XX			/ Routine to call SCRNMD editor routine.
+	CIFEDT			/  ...
+	CALEDT;	SCRNMD		/ This will set appropriate screen modified flags.
+		CDFEDT		/ Map EDIT field while we're there.
+	JMP I	SVSCMD		/ Return to caller.
+
+/-----------
+/
+/CHKDEL - Check char about to delete for a line terminator character.
+/
+/
+/CALL:	JMS	CHKDEL		/ AC contains 12 bit char to check.
+/		rtn1		/this return if yes.
+/		rtn2		/this return of no.
+/
+/	This routine sees if the character about to be deleted is in the class
+/	of line terminators (any new-line type and any new-page type). These
+/	chars can only be seen when deleting in a forward direction (ie DELCHR
+/	and DELWRD) and therefore the ECTMRK set for reverse direction deletes
+/	(RUBCHR & RUBWRD) won't be a problem of inadvertantly being left in.
+/
+/-----------
+
+CHKDEL,	XX			/ Entry point.
+	TAD	(-ECWWLN)	/ Check for soft terminators.
+	SZA			/ Skip if yes.
+	 TAD	(ECWWLN-ECHYLN)	/  another soft line terminator.
+	SZA			/ Skip if yes.
+	 TAD	(ECHYLN-ECPMRK)	/ Soft page (PAGE MARKER)?
+	SNA			/ Skip if no.
+	 JMP	CHKDL1		/ let these pass, they're not word terminators.
+	TAD	(ECPMRK)	/ Restore origional char.
+	AND	P177		/ Isolate only the character bits.
+	TAD	(-ECNWLN)	/ See if in the line class of terminators.
+	SZA			/ Skip if yes.
+	 TAD	(ECNWLN-ECNWPG)	/ if not see if in the page class of terminators.
+	SZA CLA			/ Skip if yes. take the 1st return.
+CHKDL1,	 ISZ	CHKDEL		/ Not a line terminator. Take the 2nd return.
+	JMP I	CHKDEL		/ Return to caller.
+/------------
+	PAGE
+
+BACKUP,	XX			/ Backup a UNIT.
+	CIFEDT			/ 1st save current LINE MODIFIED FLAG.
+	CALEDT;	SAVLMD		/   ...
+		CDFBUF		/    ....
+	JMS	TSTLAG		/ see if on initial line word is on.
+	 SKP			/ Skip if yes.
+	  JMP	BCKUPA		/ No. All backup is allowed.
+	TAD	SLCRSR		/ Get cursor address of 1st word on line.
+	CIA			/ Compare to where we currently are.
+	CDFEDT			/  ...
+	TAD I	(CURSOR)	/   ...
+	CDFMYF			/    ....
+	SPA SNA CLA		/ Skip if not at start of 1st word on line.
+	 JMP	BCKUPY		/ Return to caller to report error.
+BCKUPA,	AC7777			/ Do a CURMOV of -1.
+	GETCHR			/ Get previous character.
+	 JMP	BCKUPV		/ Already sitting on STX. Go fix.
+	CLA			/ Don't really want character.
+	ISZ	BACKUP		/ Bump return for when we finally take it.
+	JMS	STBKPU		/ Set Backup UNIT routine.
+	DCA	NOMORE		/ reset forward e-o-l indicator.
+	DCA	NOINSR		/ insert's are now allowed.
+	JMS	ECGTCH		/ Get current character.
+	JMS	ECHKUN		/ Start checking the UNIT.
+BCKUPZ,		XX		/ co-routine return goes here.
+	SZA			/ Skip if in unit.
+	 JMP	BCKUPX		/ Jmp if might not in unit.
+
+	AC7777			/ Backup to next character posn.
+	GETCHR			/ Backup to previous posn.
+	 JMP	BCKUPV		/ JMP if at start of text buffer.
+	JMP I	BCKUPZ		/ return character to UNIT processor.
+
+BCKUPX,	SPA CLA			/ Skip if just went beyound unit. must now advance.
+BCKUPY,	 JMP I	BACKUP		/ When at start of next unit we're done. RETURN.
+	AC0001			/ do an advance.
+	GETCHR			/ load next character.
+	 JMP	BCKUPY		/ Return if at end of text.
+	JMP I	BCKUPZ		/ Go process this character.
+
+BCKUPV,	GETCHR			/ Fix up CURSOR.
+	 NOP			/ Just return.
+	CLA			/ clear character just returned.
+	JMP	BCKUPY		/   ....
+
+/-------------
+/
+/RCOPTN - handle REPLACE option for SPELLING CORRECTOR.
+/
+/	This routine replaces the highlighted error word with the selected
+/	word from the replacement list. This routine essentially does a RUB WRD
+/	function to DELETE the error word & then does an INSERT WORD to insert
+/	the selected word. This routine is called with the AC pointing to the
+/	replacement word (which will always be terminated by a SPACE). Inputs
+/	to this routine are the same as those to the EDIT routine. Infact,
+/	common INIT and EXIT code has been placed into subroutines which both
+/	the EDIT command & this REPLACE command use.
+/
+/
+/CALL:	JMS	RCOPTN		(from USER MENU dispatcher). AC points to replacement word.
+/		rtn		Return here when done.
+/
+/--------------
+
+RCOPTN,	XX			/ Entry point.
+	DCA	RCTEMP		/ Save ptr to replacement text string.
+	ADVPTR			/ Bump to after last character.
+	 NOP			/ Ignore possible E-O-F.
+	CLA			/ Clear return code from ADVPTR.
+	TAD	(ECTMRK)	/ Insert stopper for DELETE routine.
+	INSCHR			/  ...
+	JMS	ECINIT		/ Call common initialization code.
+	JMS	ECINI2		/ Do rest of edit initialization.
+	AC0002			/ Set mode to DELETE mode.
+	DCA	ECUNIT		/  ...
+	JMS	ECDLTU		/ Delete the selected word.
+	AC7777			/ Get ptr minus 1 to text of replacement string.
+	TAD	RCTEMP		/  ...
+	DCA	X5		/ Save ptr to text in an index register.
+RCOPT1,	TAD I	X5		/ Get next char.
+	TAD	(-ECSPC)	/ Check for done.
+	SNA			/ Skip if not done.
+	 JMP	RCOPT2		/ JMP when done insert.
+	TAD	(ECSPC)		/ Get original char back.
+/d019	TAD	DISATR		/ Add in attributes.
+	DCA	T1		/ Save char for DOINSR.
+	JMS	ECDOIN		/ insert character.
+	JMP	RCOPT1		/ Loop for all replacement word chars.
+
+RCOPT2,	MOVCHR			/ Rejustify word.
+	CDFEDT			/ Get scroll count (if any).
+	TAD I	(SCRLCT)	/  ...
+	CDFMYF			/ Back to our field.
+	DCA	T1		/ save.
+	TAD	T1		/ Get lag count.
+	TAD	ELINCT		/ Keep track which line we are on.
+	DCA	ELINCT		/  ...
+	TAD	T1		/ Get lag count.
+	TAD	RLINCT		/ update distance to restart line.
+	DCA	RLINCT		/  ...
+	JMS	ECEXIT		/ Do common cleanup code. (Must call w/ AC=0).
+	JMP I	RCOPTN		/ Take RETURN return.
+
+RCTEMP,	0			/ Temp to hold ptr to replacement text.
+
+SETATR,	XX			/ routine to set attributes from T2.
+	TAD	T2		/ Get attributes to set.
+	DCA	PRVATR		/ Save them for ourselves.
+	TAD	T2		/ Now set them for BLKBOX.
+	CIFPRT			/  ...
+	JMS I	(BLKBOX)	/   now the screen has proper attributes set.
+	TAD	VIDEO		/ reverse?
+	SZA CLA			/ Skip if no.
+	 JMS	SETRV		/ When yes, add reverse video too!
+	JMP I	SETATR		/ return to caller.
+
+UNDOLG,	XX			/ Routine to call FXSCRL.
+	TAD	LINCNT		/ Update # of lines in word.
+	DCA	LINCNT		/  ...
+	ISZ	NEWLIN		/ Say that a NEW LINE has been seen!!!
+	UPDSCN			/ Update Screen (FXSCRL).
+	JMP I	UNDOLG		/ Return to caller.
+
+CKOV40,	XX			/ Routine to see if character passed is > 40.
+	DCA	T1		/ Save origional character.
+	TAD	T1		/ Get character back.
+	AND	P177		/ Isolate character bits.
+	TAD	(-ECTAB)	/ Is character a TAB character?
+	SZA			/ Skip if yes. Return as if it's a char.
+	TAD	(ECTAB-40)	/ See if >= 40.
+	SPA CLA			/ Skip if yes.
+	 JMP I	CKOV40		/ Return if no. take SPECIAL char return.
+	TAD	T1		/ otherwise return character in AC.
+	ISZ	CKOV40		/  and take the skip return.
+	JMP I	CKOV40
+/------------
+	PAGE
+
+/----------
+/
+/ECDLTU - Delete a UNIT.
+/
+/
+/	This routine deletes a UNIT. For RUB functions, an ECTMRK was inserted
+/	at the current posn, a backup UNIT (char/word) function was performed,
+/	and the MODE was set to CNTMOD (scan terminated by the ECTMRK). For a
+/	DEL function, the MODE was set to ADVANCE, and we delete characters
+/	until we come to the end of the UNIT (char/word).
+/
+/----------
+
+ECDLTU,	XX			/ Entry point.
+	JMS	STADVU		/ Set ADVANCE UNIT transfer vector.
+	TAD	(BASKET-1)	/ Get address of UNDELETED thing buffer.
+	DCA	X5		/ Save in an index register.
+	DCA	UNDLCT		/ Init count of characters to none.
+	CDFEDT			/
+	TAD I	(CURPTR)	/ Get ptr to start of thing to delete.
+	CDFMYF			/ Back to our field.
+	DCA	ECDPNT		/ Save pointer.
+	GETCHR			/ Load current character.
+	 JMP	ECDLTZ		/ Quit if at End-Of-File.
+	JMS	CHKDEL		/ See if line terminator.
+	 JMP	ECDEOL		/ JMP if yes. Display error & quit.
+	DCA	NOMORE		/ reset forward e-o-l indicator.
+	DCA	NOINSR		/ insert's are now allowed.
+	JMS	ECGTCH		/ Go get char back.
+	JMS	ECHKUN		/ Test char for end-of-UNIT.
+ECDLTN,		XX		/ Co-routine return point saved here.
+	SPA CLA			/ Skip if not at end of unit yet.
+	 JMP	ECDLTX		/ Quit when done.
+	JMS	ECGTCH		/ Get character.
+	JMS	CHKDEL		/ See if line terminator.
+	 JMP	ECDLTX		/ If yes, terminate delete operation & sit on it.
+	JMS	ECGTCH		/ Get character again.
+/d019	ECDLTP,	JMS	ECDPUT		/ Put char into the UNDELETE buffer.
+/d019	ECDLTA,	JMS	ECPTCH		/ Zap char with a null.
+/d019	ECDLTE,	ADVPTR			/ Advance (& expand text buffer) to next char.
+/d019		 JMP	ECDLTX		/ Jmp if End-Of-File.
+	TAD	(-ECSLPT)	/ Select point? (shouldn't unless from prior edit).
+	SNA			/ Skip if no.
+	 JMP	ECDLTS		/ Go handle SELECT POINT.
+	TAD	(ECSLPT-ECRMFL)	/ RULER Modified?
+	SNA			/ Skip if no.
+	 JMP	ECDLTM		/ YES, go handle RULER MODIFIED code.
+	TAD	(ECRMFL-ECSTRL)	/ Start of RULER?
+	SNA			/ Skip if no.
+	 JMP	ECDLTR		/ Go handle RULER.
+	TAD	(ECSTRL-ECSTOV)	/ Start of DEAD-KEY Sequence?
+	SNA CLA			/ Skip if no.
+	 JMP	ECDLTO		/ Go handle OVERSTRIKE (DEAD-KEY Sequence).
+	JMS	ECGTCH		/ Get character back.
+	CIFEDT			/ See if something "soft".
+	CALEDT;	ESJCHK		/   ...
+		CDFEDT		/    ....
+	SNA CLA			/ Skip if not "soft".
+	 JMP	ECDLTA		/ Zap the "softie" & advance to next char posn.
+ECDLTP,	JMS	ECDPUT		/ Put char into the UNDELETE buffer.	/m019
+ECDLTA,	JMS	ECPTCH		/ Zap char with a null.			/m019
+ECDLTE,	ADVPTR			/ Advance (& expand text buffer) to next char./m019
+	 JMP	ECDLTX		/ Jmp if End-Of-File.			/m019
+/d019	JMS	ECGTCH		/ Get character back.
+	JMP I	ECDLTN		/ Go check this character.
+
+ECDLTX,	TAD	(ECMDFL)	/ Set "line modified" flag.
+	INSCHR			/  so that if we crossed a ruler, all will justify.
+	JMS	ECDSET		/ Reset CURPTR back to start of stuff to delete.
+	SLNMOD			/ Set "line modified" flag.
+	CDFEDT			/ Get line modified flag.
+	TAD I	(LINMOD)	/  ...
+	CDFMYF			/
+	INSCHR			/  and insert it into text.
+	JMS	ECDSET		/ Reset CURPTR back to start of stuff to delete.
+	SLNMOD			/ Set "line modified" flag.
+	JMS	CRSTRT		/ Fix restart CURPTR/CURSOR.
+ECDLTZ,	JMP I	ECDLTU		/ Return to caller.
+
+ECDEOL,	JMS	PUTERR		/ Display "end-of-line" error message.
+		ERREOL		/  ...
+	JMP	ECDLTZ		/ and then quit.
+
+ECDLTM,	JMS	ECGTCH		/ Get current character.
+	CDFEDT			/ Map edit field so that
+	DCA I	(RLRMOD)	/  we can save the ruler modified flag.
+	CDFMYF			/ Back to our field.
+ECDLTS,	JMP	ECDLTA		/ Delete char from file & continue.
+
+ECDLTO,	JMS	ECDPUT		/ Output char to UNDELETE buffer.
+	JMS	ECPTCH		/ ZAP char. eliminate from text buffer.
+	ADVPTR			/ Advance to the next character.
+	 JMP	ECDLTX		/ exit if at end of file.
+	TAD	(-ECNDOV)	/ End of OVERSTRIKE (DEAD-KEY Sequence)?
+	SZA CLA			/ Skip if YES.
+	 JMP	ECDLTO		/ Loop if no. Go do next character.
+	JMP	ECDLTP		/ otherwise output & try advance.
+
+ECDLTR,	ADVPTR			/ Get next character
+	 SKP			/ treat E-O-F like End-Of-Ruler (AC is 0).
+	TAD	(-ECNDRL)	/ End of ruler?
+	SZA CLA			/ Skip if yes.
+	 JMP	ECDLTR		/ JMP if no. continue to scan until find end.
+	JMP	ECDLTE		/ Done processing ruler. Continue delete on next char.
+
+
+ECDPUT,	XX			/ Routine to output current char to DELETE buff.
+	TAD	UNDLCT		/ See if basket is full yet.
+	TAD	(-BASKSZ)	/ Compare to max.
+	SNA CLA			/ Skip if not yes.
+	 JMP I	ECDPUT		/ Return w/o saving char if DELETE area full.
+	JMS	ECGTCH		/ Get character.
+	CDFBUF			/ Save in waste-basket.
+	DCA I	X5		/  ...
+	CDFMYF			/ Back to our field.
+	ISZ	UNDLCT		/ 1 more char in basket.
+	JMP I	ECDPUT		/ Return to caller.
+
+
+ECDSET,	XX			/ Routine to reset CURPTR back ECDPNT.
+	CDFEDT			/ Reset CURPTR.
+	TAD	ECDPNT		/  set it to start of stuff to delete.
+	DCA I	(CURPTR)	/  ...
+	CDFMYF			/   ....
+	JMP I	ECDSET		/ Return to caller.
+
+ECDPNT,	0			/ CURPTR of start of deleted text.
+
+
+ECGTCH,	XX			/ Routine to get character pointer to by CURPTR.
+				/ Assumed that entered with AC=0.
+	CDFEDT			/ Map EDIT field.
+	TAD I	(CURPTR)	/ Get character pointer.
+	DCA	T3		/ Save pointer.
+	CDFBUF			/ Map TEXT field.
+	TAD I	T3		/ Get character.
+	CDFMYF			/ finally, return to caller.
+	JMP I	ECGTCH		/  ...
+/------------
+	PAGE
+
+ECSWAP,	TAD	NOINSR		/ Are we beyond the INSERT boundry?
+	SZA CLA			/ Skip if no. We can still SWAP.
+	 JMP	ECSWPB		/ Report at End-Of-Line.
+	JMS	ECSWPA		/ Check char we're sitting on for valid SWAP char.
+	AC0001			/ Move to next char posn.
+	GETCHR			/ Get to next character.
+	 JMP	INSERR		/ Report "at end of line" error.
+	DCA	T1		/ Save 2nd char (incase we SWAP).
+	JMS	ECSWPA		/ See if this (2nd) char is swapable.
+	JMS	ECPTCH		/ Zap 2nd character.
+	SLNMOD			/ Set line modified flag.
+	AC7777			/ Backup to prior (1st) char posn.
+	GETCHR			/ Backup to previous character.
+	 JMP	INSERR		/ Shouldn't get here but handle error.
+	CLA			/ not interested in returned char.
+	JMP	ECINS1		/ Go insert 2nd char infront of 1st char.
+
+ECSWPA,	XX			/ Routine to check char for valid SWAP char.
+	LOADCH			/ 1st, load char we're sitting on.
+	 JMP	ECSWPB		/ If error beep & give up.
+	AND	P177		/ Isolate char only.
+	TAD	(-ECNWLN)	/ LINE TERMINATOR is invalid SWAP char.
+	SZA			/ Skip if not valid.
+	 TAD	(ECNWLN-ECNWPG)	/ PAGE TERMINATOR is invalid SWAP char.
+	SZA			/ Skip if not valid.
+	 TAD	(ECNWPG-ECSTOV)	/ Start of DEAD-KEY is invalid SWAP char.
+	SZA CLA			/ Skip if not valid SWAP char.
+	 JMP I	ECSWPA		/ Return if char is swapable.
+ECSWPB,	JMS	PUTERR		/ Display "invalid SWAP" error message.
+		ERRSWP		/  ...
+	JMP	ECLOOP		/ go wait for another input.
+
+/----------
+/
+/ECUDLT - Undelete a UNIT.
+/
+/
+/	This routine the last deleted text of this edit. The text was saved
+/	in the 'waste-basket' (buffer field, @ basket), the length of the
+/	last deleted item is stored in UNDLCT. A zero there means that the
+/	waste basket is empty.
+/
+/----------
+ECUDLT,	TAD	UNDLCT		/ Get size of UNDELETE buffer.
+	SNA			/ Skip if there's something in it.
+	 JMP	ECFIX3		/ Reset MODE to advance & get next command.
+	CIA			/ compute ISZ count.
+	DCA	T2		/ Save character count.
+	TAD	(BASKET-1)	/ Get ptr to UNDELETE buffer.
+	DCA	X5		/ save in index register.
+ECUDLP,	CDFBUF			/ Map TEXT field.
+	TAD I	X5		/ Get char to UNDELETE.
+	CDFMYF			/ Back to our field.
+	DCA	T1		/ Save character for later check.
+	JMS	ECDOIN		/ insert character.
+	ISZ	T2		/ loop while still more to insert.
+	JMP	ECUDLP		/ Loop to undelete next character.
+	JMP	ECFIX		/ Fix mode & get next input.
+
+ECD8IN,	XX			/ Routine to check for allowable insert & do it.
+	TAD	NOINSR		/ Check for End-Of-Line encountered.
+	SZA CLA			/ Skip if not at End-Of-Line yet.
+	 JMP	INSERR		/ Report insert error (e-o-l reached).
+	TAD	T3		/ Get character to insert.		/m019
+	INSCHR			/ Insert char into document.
+	SLNMOD			/ Set "modified" flag.
+	TAD	T3		/ Get character back.			/m019
+	TAD	(-ECSTOV)	/ Start of "Dead Key Sequence"?
+	SNA			/ Skip if no.
+	 JMP	DOINS1		/ Go handle start of DEAD-KEY-SEQUENCE.
+	TAD	(ECSTOV-ECNDOV)	/ End of "Dead Key Sequence"?
+	SNA CLA			/ Skip if no.
+	 JMP	DOINS2		/ Jmp to process End of DEAD-KEY-SEQUENCE.
+	TAD	INSDKS		/ Are we currently in a DEAD-KEY sequence?
+	SNA CLA			/ Skip if YES.
+	 JMP	DOINS4		/ No. go handle regular insert.
+	BKPPTR			/ continue overstrike mode. See if prior char
+	 NOP			/  is END-OF-DEAD-KEY.
+	TAD	(-ECNDOV)	/ Check prior char for end-of-deadkey.
+	SZA CLA			/ Skip if yes. insert char there instead.
+	 JMP	DOINS3		/ No. cancel dead-key seq.
+	JMS	ECPTCH		/ Cancel prior end-of-deadkey.
+	ADVPTR			/ Advance to char just inserted.
+	 NOP			/  ...
+DOINS1,	ADVPTR			/ Advance just beyond char just inserted.
+	 NOP			/  ...
+	CLA
+	TAD	(ECNDOV)	/ Insert End-Of-Deadkey sequence char.
+	INSCHR			/  ...
+	ADVPTR			/ Advance beyond end-of-deadkey char just inserted.
+	 NOP			/  ...
+	AC0001			/ Say that we're in a dead-key sequence.
+	JMP	DOINS5		/ done.
+
+DOINS2,	JMS	ECPTCH		/ Cancel redundant end-of-deadkey.
+	CDFEDT			/ Bump cursor posn to next col.
+	ISZ I	(CURSOR)	/  ...
+	CDFMYF			/   ....
+	JMP	DOINS5		/ done.
+
+DOINS3,	ADVPTR			/ Bump past char just inserted.
+	 NOP			/  ...
+	CLA
+DOINS4,	CIFEDT			/ Do rejustification (if necessary).
+	CALEDT;	CHKREJ		/ Call CHKREJ to see if rejustification
+		CDFBUF		/  is appropriate.
+DOINS5,	DCA	INSDKS		/ Cancel/Set overstrike mode.
+	AC7777			/ Check restart CURSOR/CURPTR for insert.
+	JMS	CRSTRT		/ Check restart CURSOR/CURPTR.
+	TAD	T3		/ Get prior char (ie. the one just inserted.)/m019
+	JMS	TSTCHR		/ Check it's type.
+	 JMP	DOINS6		/ OTHER. See if we were at End-Of-Line.
+	 JMP	DOINS7		/ NUMERIC &
+	JMP	DOINS7		/  ALPHA-ONLY are always insertable.
+DOINS6,	JMS	TSTLAG		/ See if on same line as word was on.
+	 JMP	DOINS7		/ YES. char does not define new E-O-L.
+	ISZ	NOMORE		/ We just inserted a new E-O-L definition.
+	ISZ	NOINSR		/  so stop further ADVANCE & INSERT.
+DOINS7,	CDITXT			/ Back to field that called it		/a019
+	JMP I	ECD8IN		/ Return to caller. Char is inserted & flags set.
+
+INSDKS,	.-.
+
+
+INSERR,	JMS	PUTERR		/ Display error.
+		ERREOL		/ "End of line reached" error message.
+	JMP	ECFIX3		/ Reset MODE to ADVANCE & get next input.
+/-----------
+	PAGE
+
+/-----------
+/
+/CRSTRT - Check restart CURSOR & CURPTR
+/
+/
+/CALL:	JMS	CRSTRT		/AC=0/-1 upon entry & 0 upon exit.
+/				/ If insert, then AC=-1 so we know to backup.
+/
+/
+/	This routine checks to see if we're still on the 1st edit line.
+/	If not, then an immediate return is made & we are done. Otherwise
+/	there are 2 cases to consider.
+/
+/	Case 1)	We are before or on the prior restart point. In this case,
+/		CURSOR will be <= SCURSR before rejustification. In this
+/		case, the word we are on is by definition the word to backup
+/		to. So, we rejustify the line, save our new (rejustified) posn,
+/		backup a character if from INSERT, backup while not in OTHER,
+/		advance until in NUMERIC or ALPHA & save that posn as the
+/		restart point. We go back to our saved (rejustified) posn & are
+/		finished.
+/
+/	Case 2)	We are after the prior restart point. In this case,
+/		CURSOR will be > SCURSR before rejustification. We need to
+/		compute the proper SCURSR/SCURPT after rejustification. To
+/		accomplish this, we scan backwards counting the number of posns
+/		we pass until we get to the restart point. We remember this
+/		count, go back to our initial point, rejustify, scan backwards
+/		the remembered count & save that CURSOR/CURPTR as the restart
+/		SCURSR/SCURPT. We return to the new (rejustified) initial point
+/		and are finished.
+/
+/-----------
+
+CRSTRT,	XX			/ Entry point.
+	DCA	RSTMT3		/ Save insert indicator.
+	JMS	TSTLAG		/ Are we on the initial edit line?
+	 SKP			/ Skip if yes. we got's lots to do.
+	  JMP I	CRSTRT		/ No. just return.
+	TAD	SLCRSR		/ Compute distance to start of line.
+	JMS	GETDST		/  ...
+	DCA	SLDIST		/ Save the distance.
+	CDFEDT			/ See if the restart line is initial line.
+	TAD I	(SCRLCT)	/  ...
+	CDFMYF			/   ....
+	TAD	RLINCT		/ Is the restart line same line?
+	SZA CLA			/ Skip if yes.
+	 JMP	RCASE1		/ JMP if no. we're definately case 1.
+	CDFEDT			/ Map edit field.
+	TAD I	(CURSOR)	/ Get current screen posn.
+	CDFMYF			/
+	CIA			/ compare screen posn to start of restart word.
+	TAD	SCURSR		/  ...
+	SPA CLA			/ Skip if case 1. (ie we're on or before restart).
+	 JMP	RCASE2		/ Jump to handle case 2.
+RCASE1,	MOVCHR			/ Rejustify.
+	DCA	RSDIST		/ Init distance back to 0.
+	TAD	RSTMT3		/ Get "in INSERT" flag.
+	SNA			/ Skip if not 0. gotta move to char just inserted.
+	 JMP	CRSTL1		/ Merge below.
+	MOVCHR			/ Backup if in insert. this will posn us to
+				/  the char just inserted.
+	AC7777			/ start out our backup count for the 1st char.
+	DCA	RSDIST		/  ...
+CRSTL1,	AC7777			/ Make a note that 1 more char scanned.
+	TAD	RSDIST		/  ...
+	DCA	RSDIST		/   ....
+	AC7777			/ Backup until out of word.
+	GETCHR			/  ...
+	 JMP	CRSTL3		/   if hit start of file, quit.
+	JMS	TSTCHR		/ Check character type.
+	 JMP	CRSTL2		/ OTHER, quit.
+	 JMP	CRSTL1		/ NUMERIC. continue to backup.
+	JMP	CRSTL1		/ ALPHA. continue to backup.
+
+CRSTL2,	AC0001			/ Now advance to start of word.
+CRSTL3,	MOVCHR			/ Move CURSOR.
+	ISZ	RSDIST		/ Make a note that 1 less char got scanned.
+	 LOADCH			/ Skip if not at starting point yet.
+	  JMP	CRSTL4		/ If at starting point, then quit.
+	JMS	TSTCHR		/ Check character type.
+	 JMP	CRSTL2		/ OTHER. continue scanning.
+	 JMP	CRSTL4		/ NUMERIC. done.
+CRSTL4,	CDFEDT			/ Map edit field.
+	TAD I	(CURSOR)	/ Get CURSOR
+	DCA	SCURSR		/  Save as restart CURSOR.
+	TAD I	(CURPTR)	/ Get CURPTR.
+	DCA	SCURPT		/  Save as restart CURPTR.
+	TAD I	(SCRLCT)	/ compute distance to the restart line.
+	CIA			/    ....
+	DCA	RLINCT		/ save for future reference.
+	CDFMYF			/ Back to our field.
+	TAD	RSDIST		/ We're currently at the restart point. Compute
+	CIA			/  the distance to the start-of-line point
+	TAD	SLDIST		/ ie dist from restart minus dist from sol.
+	MOVCHR			/ Go to start of the line.
+	CDFEDT			/ Get CURSOR posn.
+	TAD I	(CURSOR)	/  ...
+	CDFMYF			/ and save it as the new
+	DCA	SLCRSR		/  start of line cursor posn...
+	TAD	SLDIST		/ Get distance back to our posn.
+	CIA			/  ...
+	MOVCHR			/   go back to our posn.
+	TAD	SLDIST		/ Are we at the start of the line?
+	SZA CLA			/ Skip if yes.
+	 JMP	CRSTL5		/ JMP if no. Leave ELINCT as is.
+	TAD	RLINCT		/ Reset ELINCT to allow for deleting
+	DCA	ELINCT		/  across a ruler.
+CRSTL5,	JMP I	CRSTRT		/ Return to caller.
+
+RCASE2,	TAD	SCURSR		/ Compute distance to restart point.
+	JMS	GETDST		/  ...
+	DCA	RSDIST		/ Save count to restart point.
+	MOVCHR			/ Rejustify the line.
+	TAD	RSDIST		/ Get # of posns to back to to restart point.
+	MOVCHR			/ backup to that posn.
+	JMP	CRSTL4		/ Save this posn as the restart posn, restore
+				/  to rejustified posn & we're done.
+CRSTMV,	XX			/ Routine to do a CURMOV only.
+	GETCHR			/ Get & LOAD char.
+	 NOP			/ Error will be handled later.
+	CLA			/ Don't return the char.
+	JMP I	CRSTMV		/ Return w/ clean AC.
+
+
+GETDST,	XX			/ Routine to compute distance from current posn
+				/  to posn passed in the AC. Return is negative.
+	DCA	RSTMT1		/ Save posn to backup to.
+	CDFEDT			/ Save current CURSOR & CURPTR.
+	TAD I	(CURSOR)	/  ...
+	DCA	SAVT1		/   ...
+	TAD I	(CURPTR)	/    ...
+	DCA	SAVT2		/     ....
+	CDFMYF			/ Back to our field.
+	DCA	RSTMT2		/ Init count.
+GTDST1,	CDFEDT			/ Map edit field.
+	TAD I	(CURSOR)	/ Get CURSOR.
+	CDFMYF			/ Back to our field.
+	CIA			/ Compare CURSOR to restart posn (SCURSR).
+	TAD	RSTMT1		/  ...
+	SNA CLA			/ Skip if not there yet.
+	 JMP	GTDST2		/ Jmp when we arrive to start of restart word.
+	AC7777			/ Backup that posn.
+	GETCHR			/  ...
+	 JMP	GTDST2		/ If error, quit.
+	CLA			/ Don't really want char.
+	ISZ	RSTMT2		/ 1 more char posn bumped over.
+	JMP	GTDST1		/ Go see if done yet.
+
+GTDST2,	CDFEDT			/ Now, restore us to where we were.
+	TAD	SAVT1		/ This way we won't rejustify (yet).
+	DCA I	(CURSOR)	/ Also, since rejustification hasn't been
+	TAD	SAVT2		/  done yet, we know that we're still on
+	DCA I	(CURPTR)	/  the same line.
+	CDFMYF			/ Back to our field.
+	TAD	RSTMT2		/ Get count.
+	CIA			/ Return negative count.
+	JMP I	GETDST		/  ...
+
+SAVT1,	0			/ Temp for saved CURSOR.
+SAVT2,	0			/ Temp for saved CURPTR.
+
+RSTMT1,	0			/ restart point to scan to.
+RSTMT2,	0			/ Distance to restart point.
+RSTMT3,	0			/ A temp.
+RSDIST,	0			/ Distance to restart point.
+SLDIST,	0			/ Distance to start of line.
+/------------
+	PAGE
+
+/-----------
+/
+/SLNMOD
+/
+/
+/-----------
+
+ECSLMD,	XX			/ Routine to x-field call SETLMD (SLNMOD).
+	CIFEDT			/ Call SETLMD to set screen update flags.
+	CALEDT;	SETLMD		/   ...
+		CDFEDT		/    ....
+	JMP I	ECSLMD		/ Return to caller.
+
+
+/-----------
+/
+/ADVPTR
+/
+/
+/-----------
+
+ECAPTR,	XX			/ Routine to call ESAPTR in edit field.
+	CIFEDT			/ Move CURPTR to next character.
+	CALEDT;	ESAPTR		/ ADVPTR routine.
+		CDFBUF		/ field to be mapped to.
+	 SKP			/ 1st return, take same return to caller.
+	ISZ	ECAPTR		/ Bump to correct return.
+	JMP I	ECAPTR		/  ...
+
+
+/-----------
+/
+/BKPPTR
+/
+/
+/-----------
+
+ECBPTR,	XX			/ Routine to call ESBPTR in edit field.
+	CIFEDT			/ Backup to where we were.
+	CALEDT;	ESBPTR		/   BKPPTR
+		CDFBUF		/    ....
+	 SKP			/ Take 1st return.
+	ISZ	ECBPTR		/ Take 2nd return.
+	JMP I	ECBPTR		/ Return to caller.
+
+
+/-----------
+/
+/INSCHR
+/
+/
+/-----------
+
+ECICHR,	XX			/ Routine to call INSERT in edit field.
+	CIFEDT			/
+	CALEDT;	INSERT		/   Call INSERT
+		CDFBUF
+	JMP I	ECICHR		/ Return to caller.
+
+
+/-----------
+/
+/GETCHR
+/
+/
+/-----------
+
+ECGCHR,	XX			/ Routine to call CURMOV & LODCHR.
+	CIFEDT			/ Call editor routine to insert character.
+	JMS I	(GETCH)		/ Call routine in editor field.
+	 SKP			/ Return via 1st return.
+	ISZ	ECGCHR		/ Return via 2nd return.
+	JMP I	ECGCHR		/ Return to caller.
+
+
+/-----------
+/
+/LOADCH
+/
+/
+/-----------
+
+ECLOAD,	XX			/ Routine to call LODCHR.
+	CIFEDT			/ Call editor routine to load character.
+	CALEDT;	LODCHR		/  ...
+		CDFBUF		/  buffer field to be BUFFLD.
+	 SKP			/ Take 1st return.
+	ISZ	ECLOAD		/ Take 2nd return.
+	JMP I	ECLOAD		/ Return to caller.
+
+
+/-----------
+/
+/UPDSCN
+/
+/
+/-----------
+
+FXSCRN,	XX			/ Routine to call FXSCRL in edit field.
+	CIFEDT			/
+	CALEDT;	FXSCRL		/   Call FXSCRL
+		CDFEDT		/    ....
+	JMP I	FXSCRN		/ Return to caller.
+
+
+/-----------
+/
+/CHKSCN
+/
+/
+/-----------
+
+CKSCRN,	XX			/ Routine to call TSTLIM & then FXSCRL.
+	CIFEDT			/
+	CALEDT;	TSTLIM		/   Call TSTLIM
+		CDFEDT		/    ....
+	UPDSCN			/ Call FXSCRL to repaint.
+	JMP I	CKSCRN		/ Return to caller.
+
+/-----------
+/
+/PUTERR - display error message on bottom line.
+/
+/
+/CALL:	JMS	PUTERR		/ display error message on bottom line.
+/		ptr		/ pointer to a TEXT string for IOA.
+/
+/-----------
+
+PUTERR,	XX			/ entry point.
+	JMS	SETMOD		/ set modes, ring bell, etc...
+	TAD I	PUTERR		/ Get error msg text pointer.
+	TAD	(-BLANKL)	/ Is this the call to clear the error msg?
+	SNA CLA			/ Skip if no. Ring the bell.
+	 JMP	PUTER1		/ Don't ring the bell if clearing the line.
+	  PUTCHR; BELL		/ Ring the bell.
+PUTER1,	TAD I	PUTERR		/ Get address of text string to display.
+	ISZ	PUTERR		/ Bump to return address.
+	DCA	PUTER2		/ Save it for IOACAL.
+	CIFTXT			/ Call output IOA output routine in TXT field.
+	JMS I	(CALIOA)	/ display the message
+PUTER2,		.-.		/ arg1
+		-2700		/ arg2
+		NOP		/ arg3
+	JMS	RSTCUR		/ restore cursor and attributes.
+	ISZ	ECERFL		/ Say that there is an error msg being displayed.
+	JMP I	PUTERR		/ return to caller.
+
+/----------
+/
+/
+/----------
+
+SETMOD,	XX
+	JMS	SAVCUR		/ save cursor posn and attributes.
+	JMS	SETABS		/ Set ORIGIN mode to ABSOLUTE mode.
+	JMS	CLRRV		/ Eliminate any current attributes.
+	JMS	SETRV		/ Error message gets output in reverse video.
+	JMP I	SETMOD
+
+
+TYMOUT,	TAD	(TIMERR-FATAL)	/ offset to error msg
+GTOOPS,
+BADBLO,
+DSKERR,	TAD	(FATAL)		/ pointer to text message
+	DCA	DYSKE1		/ set up for display
+	CDFMNU			/ Get the option word.
+	TAD I	(MUBUF+MNPULD)	/ Get the external processor loaded word./M004
+	AND (-1-MNRX0X-MNRX1X)	/ clear the American & British loaded bits./M004
+	DCA I	(MUBUF+MNPULD)	/ Save new external processor loaded word./M004
+	CDFMYF			/ Back to our field.
+DYSKER,	JMS	PUTERR		/ Ring bell & display error msg.
+DYSKE1,		.-.		/  arg1
+	JMS	IPTCHR		/ Get an input character.
+	TAD	(-EDNWLN)	/  Return typed?
+	SZA CLA			/ skip if yes.
+	 JMP	DYSKER		/ Repeat message if not RETURN key.
+	JMP	EOF		/ Time to shut down!!!
+
+/----------
+/
+/ DSPTCH - routine to dispatch control
+/
+/
+/ CALL:	JMS	DSPTCH
+/		rtn1	/ only return if: end of table encountered
+/
+/	Inputs:
+/		X1	- pointer to the dispatch table
+/		T1	- character being matched to the dispatch table
+/			  (passed here in the AC)
+/
+/	Outputs:
+/		Control is passed to the appropriate routine, unless
+/		a match is not made, in which case, return to caller
+/
+/----------
+
+DSPTCH,	XX			/ Return address
+	DCA	T1		/ save the input char to check
+DSPTC1,	ISZ	X1		/ bump rest of this entry.
+	TAD I	X1		/ Check next table entry.
+	SNA			/ Skip if there is one.
+	 JMP I	DSPTCH		/ no more valid commands, return to process.
+	TAD	T1		/ see if table entry matches desired command.
+	SZA CLA			/ Skip if yes.
+	 JMP	DSPTC1		/ Check entry.
+	TAD I	X1		/ Get address of routine to call.
+	DCA	T1		/ Save for jump indirect thru.
+	JMP I	T1		/ Dispatch to edit routine.
+
+/
+/ here if user dictionary fills up during initialization
+/
+USDFUL,	TAD	(UDFUL2)	/ error message.
+	DCA	DYSKE1		/  ...
+	JMP	DYSKER		/ Display error message, wait for return & abort.
+
+/----------
+	PAGE
+
+PTCHRS,	XX			/ Routine to output a string of chars.
+PUTCH1,	TAD I	PTCHRS		/ Get next character to output.
+	AND	P177		/ Isolate only the character bits.
+	JMS	OPTCHR		/ Output character.
+	TAD I	PTCHRS		/ Get character just output.
+	ISZ	PTCHRS		/ Bump to next char/return address.
+	SPA CLA			/ Skip if last one was the last.
+	 JMP	PUTCH1		/ Go do next character.
+	JMP I	PTCHRS		/ Done! return to caller.
+/
+/
+/
+OPTCHR,	XX			/ return address
+	JMP	OPTCH2
+OPTCH1,	CIFSYS
+	JWAIT
+OPTCH2,	CIFSYS
+	TTYOU			/ output the char
+	 JMP	OPTCH1	
+	JMP I	OPTCHR		/ return when done
+
+
+POSNCU,	XX			/ Routine to init EDT pointers to start of
+				/ word & posn screen CURSOR.
+	TAD	SCURPT		/ Reinit text pointer.
+	CDFEDT			/ CURPTR is in EDT field.
+	DCA I	(CURPTR)	/  ...
+	TAD	SCURSR		/ Reset cursor column address variable.
+	DCA I	(CURSOR)	/  ..
+	TAD	LINCNT		/ Reset cursor line address variable.
+	CIA			/
+	DCA I	(CURLIN)	/ "Current line number".
+	CDFMYF			/   ...
+	JMS	ECPSCN		/ Call SETCUR to posn the cursor.
+	JMP I	POSNCU		/ return to caller.
+
+
+/-----------
+/
+/ GRAFXS - set graphics mode
+/
+/
+/ CALL:	JMS	GRAFXS		AC ignored & destroyed on return
+/
+/		ESC ( 0
+/
+/-----------
+
+GRAFXS,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"(		/
+		"0&177		/
+	JMP I	GRAFXS		/ return to caller
+
+
+/-----------
+/
+/ GRAFXC - clear graphics mode
+/
+/
+/ CALL:	JMS	GRAFXC		AC ignored & destroyed on return.
+/
+/		ESC ( B
+/
+/-----------
+
+GRAFXC,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"(		/
+		"B&177		/
+	JMP I	GRAFXC		/ return to caller
+
+
+/-----------
+/
+/SETRGN - Set scrolling region up.
+/
+/
+/CALL:	JMS	SETRGN		AC ignored & destroyed on return.
+/
+/		ESC [ 3 ; 11 r
+/
+/-----------
+
+SETRGN,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/  define scrolling region from line 3 to 13
+		4000+"[		/ Send escape sequence to terminal to
+		4000+"3		/ From line 3,
+		4000+";		/  ...
+		4000+"1		/  to line
+		4000+"1		/          11
+		"r&177		/ terminator.
+	JMS	SETREL		/ Set ORIGIN mode to RELATIVE (relative to region).
+	JMP I	SETRGN		/ Return to caller.
+
+
+/-----------
+/
+/ STMRGN - Set scrolling region for help menus.
+/
+/
+/ CALL:	JMS	STMRGN		AC ignored & destroyed on return.
+/
+/		ESC [ 16 ; 24 r
+/
+/-----------
+
+STMRGN,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output the escape sequence to the terminal
+		4000+"[		/  define scrolling region
+		4000+"1		/  from line 14,
+		4000+"4		/  ...
+		4000+";		/  to line
+		4000+"2		/          24
+		4000+"4		/  ...
+		"r&177		/
+	JMP I	STMRGN		/ return to caller
+
+
+/-----------
+/
+/CLRRGN - Clear scrolling region upon exit.
+/
+/
+/CALL:	JMS	CLRRGN		AC ignored & destroyed on return.
+/
+/		ESC [ r
+/
+/-----------
+
+CLRRGN,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/ Send escape sequence to terminal to
+		4000+"[		/ undefine scrolling region.
+		"r&177		/ terminator.
+	JMS	SETABS		/ Set ORIGIN mode to absolute.
+	JMP I	CLRRGN		/ Return to caller.
+
+
+/-----------
+/
+/SETREL - Set ORIGIN mode to relative.
+/
+/
+/CALL:	JMS	SETREL		AC ignored & destroyed on return.
+/
+/		ESC [ ? 6 h
+/
+/-----------
+
+SETREL,	XX			/ Entry point.
+	PUTCHR;	4000+ESC	/ Send escape sequence to terminal.
+		4000+"[		/   ...
+		4000+"?		/    ...
+		4000+"6		/ ORIGIN mode
+		"h&177		/ relative.
+	JMP I	SETREL		/ Return to caller.
+
+
+/-----------
+/
+/SETABS - Set ORIGIN mode to absolute.
+/
+/
+/CALL:	JMS	SETABS		AC ignored & destroyed on return.
+/
+/		ESC [ ? 6 l
+/
+/-----------
+
+SETABS,	XX			/ Entry point.
+	PUTCHR;	4000+ESC	/ Send escape sequence to terminal.
+		4000+"[		/   ...
+		4000+"?		/    ...
+		4000+"6		/ ORIGIN mode
+		"l&177		/ absolute.
+	JMP I	SETABS		/ Return to caller.
+
+
+/-----------
+/
+/SAVCUR - Save cursor and attributes.
+/
+/CALL:	JMS	SAVCUR		AC ignored and destoryed on return.
+/
+/		ESC 7
+/
+/-----------
+
+SAVCUR,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/ Output escape sequence to save cursor & attr.
+		"7&177		/  ...
+	JMP I	SAVCUR
+
+
+/-----------
+/
+/RSTCUR - Restore cursor and attributes.
+/
+/CALL:	JMS	RSTCUR		AC ignored and destoryed on return.
+/
+/		ESC 8
+/
+/-----------
+
+RSTCUR,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/ Output escape sequence to restore cursor & attr.
+		"8&177		/  ...
+	JMP I	RSTCUR
+
+
+/-----------
+/
+/ SETRV - Set screen to reverse video mode.
+/
+/
+/ CALL:	JMS	SETRV		AC is 0 on entry & return.
+/
+/		ESC [ 7 m
+/
+/-----------
+
+SETRV,	XX
+	PUTCHR;	4000+ESC	/ Output escape sequence to set terminal attributes.
+		4000+"[		/
+		4000+"7		/
+		"m&177		/
+	JMP I	SETRV		/ Return to caller.
+
+
+/-----------
+/
+/ CLRRV - Reset screen of all attributes.
+/
+/
+/ CALL:	JMS	CLRRV		AC is 0 on entry & return.
+/
+/		ESC [ 0 m
+/
+/-----------
+
+CLRRV,	XX
+	PUTCHR;	4000+ESC	/ Output escape sequence to set terminal attributes.
+		4000+"[		/
+		4000+"0		/
+		"m&177		/
+	JMP I	CLRRV		/ Return to caller.
+
+
+/-----------
+/
+/ STBOLD - set bold
+/
+/
+/ CALL:	JMS	STBOLD		AC ignored & destroyed on return.
+/
+/		ESC [ 1 m
+/
+/-----------
+
+STBOLD,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"[		/
+		4000+"1		/
+		"m&177		/
+	JMP I	STBOLD		/ return to caller
+
+
+/-----------
+/
+/ STUNDR - set underline mode
+/
+/
+/ CALL:	JMS	STUNDR		AC ignored & destroyed on return.
+/
+/		ESC [ 4 m
+/
+/-----------
+
+STUNDR,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"[		/
+		4000+"4		/
+		"m&177		/
+	JMP I	STUNDR		/ return to caller
+/------
+	PAGE
+
+/----------
+/
+/ SNDWRD - Sends a word to the APU.
+/
+/		Send:
+/			Start-of-Word
+/			Word
+/			End-of-Word
+/		Wait:
+/			Done
+/		Send:
+/			1) Add-Word-to-User-Dictionary (if loading user dict.)
+/			or
+/			2) Verfiy-Word
+/
+/ CALL:	JMS	SNDWRD
+/
+/	Inputs:
+/
+/		WRDSIZ - word size
+/		WRDBUR - buffer containing the word
+/		INIUSR - 0 if loading user dictionary, -1 otherwise	/M008
+/
+/----------
+
+SNDWRD,	XX			/ Routine to send word to be tested to APU.
+				/ SNDWD1 moved inline since edit no.011	/A011
+				/  eliminated the other call to it	/A011
+/d011	JMS	SNDWD1		/ Use common routine to send the word.
+/d011 SNDWD1,	XX			/ Routine to send word & wait for DONE.
+	TAD	(PCSTWD)	/ Send 'start word' code.
+	JMS	SNDAPU		/  ...
+	TAD	WRDSIZ		/ Get word size.
+	CIA			/  ...
+	DCA	T1		/ Save for izzy loop.
+	TAD	(WRDBUF-1)	/ save address of word.
+	DCA	X0		/  ...
+SNDXX1,	TAD I	X0		/ Get char.
+	JMS	SNDAPC		/  send char.
+	ISZ	T1		/   loop on word size.
+	 JMP	SNDXX1		/    ....
+	TAD	(PCENWD)	/ Send "end word" code.
+	JMS	SNDAPU		/  ...
+	JMS	GETAPU		/ Wait to make sure the word was received.
+		-12		/  A maximum of 10 seconds.
+		PCDONE;SNDXX2	/  Acknowledgement of word.
+		0		/  That's the only return we want!
+/d011 SNDXX2,	JMP I	SNDWD1		/ Return to caller.
+
+SNDXX2,	TAD	INIUSR		/ Are we loading the user dictionary?	/M011
+	SMA CLA			/ Skip if: verify word.			/M008
+	 TAD	(PCADWD-PCVRFY)	/  Add word to user dictionary.
+	 TAD	(PCVRFY)	/  Verify word.
+	JMS	SNDAPU		/ Send code.
+	JMP I	SNDWRD		/ Return to caller.
+
+
+
+/----------------
+/
+/GETAPU
+/
+/CALL:	JMS	GETAPU
+/		-#
+/		arg;addr
+/		arg;addr
+/		...
+/		0
+/
+/	this routine handles the PCRDBK (read block) request internally,
+/	All other returns are checked against the caller return list.
+/	If the return is not in the caller return list, a FATAL error is
+/	declared. The number immediately following the call is the time-out
+/	wait.
+/
+/------------
+
+GETAPU,	XX			/ Entry point.
+	TAD I	GETAPU		/ Get the time-out maximum.
+	ISZ	GETAPU		/ Bump the pointer past the value.
+	DCA	TIMER		/ Set up the counter for the wait loop.
+	DCA	TIMES		/ Clear wait loop flag.
+GTNEXT,	JMS	GETZ80		/ Get character from the APU.
+	TAD	(-PCRDBK)	/ Is it requesting a BLOCK to be READ?
+	SNA			/ Skip if no.
+	 JMP	RDBLCK		/ Jmp to READ a BLOCK.
+	TAD	(PCRDBK)	/ restore original response.
+	CIA			/ Save negative of response.
+	DCA	T1		/ Save in a temp for compare against list.
+GTLOOP,	TAD I	GETAPU		/ Get next arg in return list.
+	SNA			/ Skip if not end of list.
+	 JMP	GTOOPS		/ OOPS! return code not in return list.
+	TAD	T1		/ See if return matches list entry.
+	SNA CLA			/ Skip if no. Try next entry.
+	 JMP	GTEXIT		/ JMP to take exit & process return.
+	ISZ	GETAPU		/ Bump to
+	ISZ	GETAPU		/         next entry.
+	JMP	GTLOOP		/ & try again.
+
+GTEXIT,	ISZ	GETAPU		/ Point to address of address to return to.
+	TAD I	GETAPU		/ Get return address argument.
+	DCA	T1		/ save for indirect.
+	JMP I	T1		/ Take return.
+
+RDBLCK,	JMS	GETZ80		/ Get type of file to read (RAM Load/Dict.).
+	DCA	T3		/ save.
+	JMS	GETZ80		/ Get lo byte of block #.
+	DCA	T1		/ save.
+	JMS	GETZ80		/ Get hi byte of block #.
+	DCA	T2		/ Save that too.
+	TAD	T1		/ Check lo byte for validity.
+	AND	(7400)		/  ...
+	SZA CLA			/ Skip if all is OK.
+	 JMP	BADBLOCKNUMBER	/ JMP if passed bad number.
+	TAD	T2		/ Check for validity.
+	AND	(7760)		/ HI bits should be zeros.
+	SZA CLA			/ Skip if all is well.
+	 JMP	BADBLOCKNUMBER	/ Jmp if block is out of range.
+	TAD	T2		/ Get hi byte of block #.
+	CLL BSW			/ Shift 6 bits.
+	RTL			/ shift 2 more bits (8 in all).
+	TAD	T1		/ Add in the LO byte.
+	DCA	T2		/ save.
+
+/
+/	Map the relative block # stored in T2 to an abosolute block #. First,
+/	 determine which file to map to.
+/
+/	 T3:
+/		2 - master lexicon
+/		3 - RAM load file
+/
+
+	TAD	(RAMFIL)	/ (-3)
+	TAD	T3		/ File number to map to.
+	SNA			/ Skip if: not RAM load file.
+	 JMP	RAMLOD		/  RAM load file read request.
+	IAC			/ Bump the contents of the AC.
+	SZA CLA			/ Skip if: master lexicon
+	 JMP	DSKERR		/  Invalid read request.
+	AC0002			/ Master lexicon file starts in block 3.
+	TAD	T2		/ Add offset to relative block number.
+	TAD	(-377)		/ Compare to block 377 (reserved).
+	SMA			/ Skip if: block number below 377.
+	 IAC			/  Bump absolute block number by one.
+	TAD	(377)		/ Restore offset.
+	JMP	RDBLC1		/ Continue.
+
+RAMLOD,				/ Read from RAM load file.
+
+/
+/	Check to see that we have not completed the initialization
+/	 process. If we have completed, and come here, error..
+/
+
+	TAD	FILNUM		/ Get the # of the file we are reading.
+	TAD	T3		/ Compare to the file # requested
+	SZA CLA			/ Skip if: requested expected file.
+	 JMP	DSKERR		/  Error. Completed init. shouldn't be here.
+
+	TAD	T2		/ Relative block number.
+	TAD	RAMLST		/ Plus starting location of RAM load file./M004
+RDBLC1,	DCA	T2		/ Creates block number to read.
+
+	TAD	(PCSTBK)	/ Send START of BLOCK.
+	JMS	SNDAPU		/  ...
+	TAD	T2		/ Get block #.
+	JMS	PUTBLK		/ Read the block.
+	TAD	(PCENBK)	/ Send END of BLOCK.
+	JMS	SNDAPU		/  ...
+	JMS	GETZ80		/ Wait for answering 'DONE'.
+	TAD	(-PCDONE)	/ Check response.
+	SNA CLA			/ Skip if not correct 'DONE' response.
+	 JMP	GTNEXT		/ Go handle the next APU request.
+	JMP	GTOOPS		/ Report error.
+
+RAMLST,	377			/ Start of American ramload file.  	/A004
+				/  patched at run time if British	/A004
+/------------
+	PAGE
+
+/
+/	Incorrect spelling of word has been found ...
+/
+
+ERRGCOR,
+	JMS	SETABS
+	DCA	WDOFST		/ initialize the correct word list pointer
+	TAD	HALTFG		/ Are we GOLD:HALTed?
+	SZA CLA			/ Skip if no. See if any corrections available.
+	 JMP	ERRHLT		/ Jmp to enter user menu via GOLD:HALT.
+	TAD	CORACT		/ Is Corrector active?			/A002
+	SNA CLA			/ Skip if yes.				/A002
+	JMP	ERRCORNA	/ else take CORrector Not Active path	/A002
+	TAD	(PCNXWD)	/ get next possible word code
+	JMS	SNDAPU		/
+	JMS	GETAPU		/ get response
+		-17		/ Time-out maximum - 15 seconds.
+		PCNOMR;ERRNCOR	/ no correction available
+		PCSTWD;ERRWCOR	/ successful completion, corrections avail.
+		0
+/
+ERRHLT,	JMS	DISERRMSG	/ menus
+	AC0004			/ set default menu option to CONTINUE.
+	JMP	ERRMRG		/ Merge below to display the default option.
+ERRWCOR,
+	JMS	GETWDS		/ get the correct words
+	  AC0001		/ rtn1 - no more corrections after these
+	  DCA	RTNSTS		/ rtn2 - still more corrections
+	JMS	DISWRD		/ display words to user
+	AC0001			/ highlight
+	JMS	ARRMOV		/ to hi-lite the first option
+	JMS	RFXMUP		/ replace menus
+	CLA			/ enter here on error w/corrections
+	JMP	ERRMRG		/
+ERRNCOR,
+	JMS	NCORRECT	/ no corrections available
+	NOP			/  routine currently takes rtn+1
+ERRCORNA,			/ spelling corrector option not active	/A002
+	JMS	DISERRMSG	/ menus
+	AC0001			/ enter here on error w/no corrections
+				/ AC - 0 or 1
+ERRMRG,	DCA	OFFSET		/ set up default offset to menu table
+	TAD	OFFSET		/ set up a flag depending on our status
+	DCA	WDSAVL		/ if set, no words available
+	TAD	WDSAVL		/
+	DCA	LEVEL		/ set level according to status
+ERRMR1,	JMS	MENULINE	/ display the menuline w/default option bolded
+ERRMR2,	JMS	SPOTCR		/ position the cursor
+/
+	JMP	MNUINP		/ get users input
+
+
+
+/----------
+/
+/ ROPSHUN - user has selected the replace option
+/
+/----------
+
+ROPSHUN,
+	TAD	VIDEO		/ Is the word in error highlighted?
+	SPA SNA CLA		/ Skip if yes.
+	 JMP	NORPLC		/  NO. Report error.
+	TAD	WDSAVL		/ Are there words available?
+	SZA CLA			/ skip if: words available
+	 JMP	NORPL1		/   No words to replace.
+	TAD	LEVEL		/ Check which level we are on.
+	SNA CLA			/ Skip if: on menu level.
+	 JMP	ROPSH0		/   Correct list level, replace w/selected word
+	DCA	LEVEL		/ Set level to correct list.
+	AC0001			/ hi-lite
+	JMS	ARRMOV		/ The currently active word.
+	JMS	RFXMUP		/ Re-paint the prompt line
+	JMP	MNUINP		/ Wait for more input.
+
+ROPSH0,	JMS	SETREL		/ set mode to relative
+
+/
+/	Set up a pointer to the word chosen
+/	 to be replacing the word in error.
+/
+
+	TAD	WDOFST		/ word # in the correct word list
+	CLL CML RAL		/ set up a pointer to the address	/m019
+	TAD	(WDTABLE)	/ within the offset table
+/
+	DCA	T3		/ save pointer to address
+	TAD I	T3		/ get the address in the AC
+/
+	JMS	RCOPTN		/ Call REPLACE edit code.
+COPSHUN,			/ COPSHUN - Continue OPtion merge point.
+				/	User has selected the continue option.
+TTABL1,	JMS	SETABS		/ set mode to absolute
+	CIFTXT
+	JMS I	(CALIOA)
+		CLREOS		/ clear the bottom of the screen
+		1400
+		NOP
+	JMS	MNUPNT		/ re-paint the menu line
+	JMS	SETREL		/ set relative mode
+	JMP	SCCONT		/ and continue
+
+/
+/	No word hi-lited (or available), cannot replace...
+/
+NORPL1,	JMS	PUTERR		/ output error message			/M008
+		NOEDT		/  no hi-lited				/A008
+	JMP	MNUINP		/ wait for more input			/A008
+
+NORPLC,	JMS	PUTERR		/ output error message			/M008
+		NOCORRECT	/  none available			/A008
+/d008	DCA	NORPL		/   ....
+/d008	JMS	PUTERR		/ output error message
+/d008NORPL,		.-.		/
+/
+	JMP	MNUINP		/ wait for more input
+
+/----------
+/
+/ EOPSHUN - user has selected the edit option
+/
+/----------
+
+EOPSHUN,	/ rtn2 - edit
+	JMS	EFXMUP		/ edit menus
+/
+	JMS	SETREL		/ set mode to relative
+	JMS	ECOPTN		/ Call EDIT code.
+	 JMP	TTABL1		/ rtn1 - end of edit (CR detected)
+				/        fix up screen, join main scroll loop
+	JMS	SETABS		/ rtn2 - (gold menu) - set mode to absolute
+	AC0004			/        set default mode
+	DCA	OFFSET		/        to finish
+	JMS	RFRSCN		/        refresh the screen
+	JMS	DISERRMSG	/        finish painting the screen
+	JMP	ERRMR2		/        listen for input
+
+/----------
+/
+/ IOPSHUN - user has selected the ignore option
+/
+/----------
+
+IOPSHUN,	/ rtn3 - ignore
+/
+	TAD	VIDEO		/ Is error word highlighted?
+	SPA SNA CLA		/ SKip if yes. IGNORE option is valid.
+	 JMP	NORPLC		/ JMP if no. cannot ignore if word not hilighted.
+	TAD	IOPSHNW		/ get add word code / w or w/o add to NW list/M008
+	JMS	SNDAPU		/ add word to user word list
+	JMS	GETAPU		/ get response
+		-12		/ Time-out maximum wait - 10 seconds
+		PCUSDF;IOPSH2	/ user dictionary full
+		PCDONE;COPSHUN	/ done ADD function
+		PCDUPL;COPSHUN	/ Word already in dictionary. Ignore error.
+IFNDEF UPDICT <	     0;     0 > / Update not implemented - all others fatal/A008
+IFDEF UPDICT <	PCENNW;COPSHUN >/ New Word list full/A008 / Say nothing	/M012
+		0		/ all other returns are fatal
+
+IOPSHNW,			/ When ignore is chosen we...		/A008
+
+	IFDEF UPDICT  <PCADNW>	/ Start out adding to NW list		/A008
+	IFNDEF UPDICT <PCADWD>	/ Add to user dict'ry only		/A008
+
+
+/
+/	IOPSH2 moved for space reasons edit no. 002
+
+/----------
+	PAGE
+
+
+/----------
+/
+/ MNUINP - get users input at menu level
+/
+/
+/ CALL:	JMP	MNUINP
+/
+/----------
+
+MNUINP,
+	JMS	IPTCHR		/ get a char from the user
+				/ char is returned in the AC
+	SMA			/ skip if: special character		/A008
+	 AND	P137		/  mask to 7 bits & uppercase		/A008
+	DCA	INPCHR		/ save the char
+/
+	JMS	PUTERR		/ clear any error messages
+		BLANKL		/  ....
+/
+MNUIN1,	TAD	(MNTABL-2)	/ set up a pointer to the allowable inputs
+	DCA	X1		/  ....
+	TAD	INPCHR		/ restore for compares
+	JMS	DSPTCH		/ dispatch to appropriate routine
+				/ return if: char not in dispatch table
+/d008	TAD	INPCHR		/ restore the char
+/d008	SPA			/ skip if: not special char
+/d008	 JMP	ILLEGAL		/   invalid input
+/d008	AND	P137		/ mask to 7-bit and upper-case
+/d008	DCA	INPCHR		/  ....
+/d008	TAD	(MNTABL-2)	/ set up a pointer to the allowable inputs
+/d008	DCA	X1		/  ....
+/d008	TAD	INPCHR		/ restore for compares
+/d008	JMS	DSPTCH		/ dispatch to appropriate routine
+/d008				/ return if: char not in dispatch table
+
+ILLEGAL,
+	CLA			/ Clear AC incase special char is in it.
+	JMS	PUTERR		/ display error message
+		NOPTION
+/
+	JMP	MNUINP		/ wait for valid input
+
+
+
+/-----
+/	Replace, Edit, Ignore, Continue, Finish, or Overview option requested
+/-----
+
+MNUIN3,	TAD	LEVEL		/ what level are we on?
+	SZA CLA			/ skip if: correct list level
+	 JMP	MNUIN4		/  menu line level already
+	AC7777			/ un-hi-lite
+	JMS	ARRMOV		/ the currently selected word
+	AC0001			/ set to menu level.
+	DCA	LEVEL		/  ...
+MNUIN4,	TAD	(-MNTABL)	/ pointer to start of input list
+	TAD	X1		/ create an offset into the table
+	CLL RAR
+MNUIN5,	DCA	OFFSET		/ save the offset
+	JMS	DISERRMSG	/ menus
+	JMP	ERRMR1		/ and wait for more input
+
+MNUIN6,	TAD	CORACT		/ is corrector active?			/A002
+	SNA CLA			/ skip if yes.				/A002
+	 JMP	ILLEGAL		/ else corrector NOT active, Replace illegal/A002
+	JMP	MNUIN4		/ continue processing			/A002
+
+/
+/ User has struck RETURN, hand off to the appropriate routine.
+/
+
+EXMNUINP,
+	TAD	OFFSET		/ set up an offset to the appropriate routine
+	TAD	(TRNTBL)	/ thru the transfer table
+	DCA	T1		/ save
+	TAD I	T1		/ address of routine
+	DCA	T1		/  ...
+	JMP I	T1		/ and goto the routine
+
+
+
+/
+/ allowable inputs to main menu
+/
+/	- ORDER IMPORTANT -
+/
+
+MNTABL,	-"R+200;MNUIN6		/ replace / new branch - is Corrector active?/M002
+	-"E+200;MNUIN3		/ edit
+	-"I+200;MNUIN3		/ ignore
+	-"C+200;MNUIN3		/ continue
+	-"F+200;MNUIN3		/ finish
+	-"O+200;MNUIN3		/ overwrite
+/	-"M+200;MORE		/ more
+	-EDHELP;HOPSHUN		/ help key
+	-EDUPAR;UPARRO		/ up arrow
+	-EDDNAR;DNARRO		/ down arrow
+	-EDADVN;ADVNCE		/ right arrow
+	-EDBKUP;BCKUP		/ left arrow
+	-EDNWLN;EXMNUINP	/ CR
+	0			/ terminator
+
+/
+/ allowable routines after recieving a RETURN
+/
+
+TRNTBL,
+	ROPSHUN		/ replace
+	EOPSHUN		/ edit
+	IOPSHUN		/ ignore
+	COPSHUN		/ continue
+	EOF		/ finish
+	HOPSHUN		/ help
+
+/
+/	- END ORDER IMPORTANT -
+/
+
+
+/----------
+/
+/ HOPSHUN - Help OPtion
+/
+/	User has selected the help option.
+/
+/----------
+
+HOPSHUN,
+	TAD	LEVEL		/ what line are we on?
+	SNA CLA			/ skip if: menu line
+	 AC7777			/   correction list, enter routine w/AC=(-1)
+	JMP	HLPKEY		/ display the help menu
+
+
+/----------
+/
+/ UPARRO - UP ARROw
+/
+/	Up arrow key was struck at user input level.
+/	If [on corrections list level]
+/	Then
+/		error
+/	Else
+/		If spelling corrector activated				/A002
+/		Then							/A002
+/			hi-lite active replacement word (if available)	/M002
+/		Else							/A002
+/			error						/A002
+/
+/----------
+
+UPARRO,	TAD	LEVEL		/ What level are we on?
+	SNA CLA			/ Skip if: on mene level.
+	 JMP	ILLEGAL		/  Correct list level, error
+	TAD	VIDEO		/ Is the word in error highlighted?
+	SPA SNA CLA		/ Skip if yes.
+	 JMP	NORPLC		/  NO. Report error.
+	JMS	CORCHK		/ skip if corrector is active		/A002
+	 JMP	ILLEGAL		/  else correct list level, error	/A002
+	TAD	WDSAVL		/ Check for replacement words available
+	SZA CLA			/ Skip if: no words available
+	 JMP	NORPL1		/ display error msg and wait for input
+	DCA	LEVEL		/ Set to corrections list level
+	DCA	OFFSET		/ Set to replace
+	AC0001			/ Hi-lite replacement word
+	JMS	ARRMOV		/  ...
+	JMS	RFXMUP		/ Replace menus
+	JMP	ERRMR1		/ Position cursor and wait for input.
+
+
+
+/----------
+/
+/ DNARRO - DowN ARROw
+/
+/	Down arrow key was struck at user input level.
+/	If [on menu level]
+/	Then
+/		error
+/	Else
+/		un-hi-lite selected replacement word
+/		hi-lite edit
+/
+/----------
+
+DNARRO,	TAD	LEVEL		/ What level are we on?
+	SZA CLA			/ Skip if: on correct list level
+	 JMP	ILLEGAL		/  Menu level, error
+	IAC			/ Set
+	DCA	LEVEL		/ Menu level
+	AC7777			/ Un-hi-lite
+	JMS	ARRMOV		/ Currently selected word
+	AC0001			/ Set to edit
+	JMP	MNUIN5		/ Hi-lite edit and wait for more input
+
+
+/	following moved here for space reasons edit no. 002
+
+IOPSH2,	JMS	PUTERR		/ display error msg. - 'user dictionary full'
+		UDFULL
+
+	JMP	MNUINP		/ wait for some other response
+
+
+
+
+IOPSH3,	TAD	(PCADWD)	/ get code to just add word to user dict/A008
+	DCA	IOPSHNW		/ & put into ignore option routine	/A008
+				/ so no more words will be added to new	/A008
+				/ word list in this session		/A008
+
+	JMS	PUTERR		/ display error msg. - 'new word list full'/A008
+		NWFULL
+
+	JMP	MNUINP		/ wait for input			/A008
+
+/----------
+	PAGE
+
+
+/----------
+/
+/ MORE -
+/
+/	User typed 'M' at input level.
+/
+/----------
+
+MORE,	TAD	RTNSTS		/ are there more corrections available
+	SZA CLA			/ skip if: more corrections available
+	 JMP	MORE1		/  no more corrections available
+	TAD	WDSAVL		/ are there words to begin with?
+	SZA CLA			/ skip if: words
+	 JMP	NORPL1		/   no words available, error
+	AC0001			/ set
+	DCA	MOORE		/ to indicate displaying <more...> (for STATTR)
+	TAD	LNCLMR		/ set up the line and column # to hi-lite <...>
+	SPA CLA			/  ...
+	 AC0001			/   ...
+	TAD	SIXTEN		/    ...
+	DCA	LYNE		/   ...
+	TAD	LNCLMR		/  ...
+	AND	P3777		/   ...
+	DCA	COLL		/    ...
+
+	PUTCHR;	ESC		/ output an escape sequence
+	CIFTXT			/ position the cursor
+	JMS I	(CALIOA)	/
+		TXTSTR		/
+LYNE,		.-.		/ line
+COLL,		.-.		/ column
+
+	TAD	(MORDIS)	/ pointer to <more...>
+	DCA	DISMO1		/  ...
+	JMS	SETRV		/ set reverse video
+	TAD	(SNL)		/ want to hi-lite <more...> with the same
+	DCA	STATT1		/ attributes as the selected word
+	JMS	STATTR		/ set correct attributes
+	JMS	DISMORE		/ re-paint
+	JMS	CLRRV		/ clear attributes
+
+	JMS	SPOTCR		/ re-position cursor for input
+
+	TAD	(-WDTABLE)	/ calculate the number of words
+	TAD	X3		/  ...
+	CLL RAR			/   ...
+	IAC			/ bump count by one
+	DCA	WDOFST		/ point to next word
+	DCA	MOORE		/ clear flag
+
+	JMP	GETM0		/ get the words
+
+MORE1,	JMS	PUTERR		/ Display
+		ENDCOR		/ No more corrections
+	JMP	MNUINP		/ wait for valid input
+
+MOORE,	0			/ flag to indicate painting <more...>
+
+/	BCKUP - ADVNCE routine moved for space reasons edit no. 002
+
+/----------
+/
+/ GETWDS - routine to read correct word list from the Z80
+/
+/
+/ CALL:	JMS	GETWDS
+/		rtn1	/ end of corrections
+/		rtn2	/ still more corrections available
+/
+/		Routine will fill up the correct word buffer with
+/		input supplied from the Z80, and build a count of
+/		the number of characters in the buffer.
+/
+/----------
+
+GETWDS,	XX			/ return address
+	TAD	(WDLIST-1)	/ set up a pointer to the correct word buffer
+	DCA	X0		/  ....
+	DCA	CURLSZ		/ initialize the char count
+	TAD	(-12)		/ set up time-out maximum time - 10 seconds
+	DCA	TIMER		/  ...
+	DCA	TIMES		/ clear wait loop flag
+/
+GETWD1,	JMS	GETZ8C		/ get a char from the Z80
+	TAD	(-PCENWD)	/ is it the end of word, (end of input)?
+	SNA			/ skip if: some other char
+	  JMP	GETWD2		/   end of input, wait for status.
+	TAD	(PCENWD)	/ restore the char
+	DCA I	X0		/ and store in the buffer.
+	ISZ	CURLSZ		/ bump the char count
+	JMP	GETWD1		/ and loop 'till done.
+/
+GETWD2,	JMS	GETAPU		/ get status
+		-12		/ Time-out maximum wait - 10 seconds.
+		PCNOMR;GETWD4	/  no more corrections
+		PCDONE;GETWD3	/  more corrections available
+		0		/  all others are fatal
+/
+GETWD4,	CIFTXT			/
+	JMS I	(CALIOA)	/ Display
+		ENDCOR		/ No more corrections available
+		2700		/
+		NOP		/
+	JMP	GETWD5		/ normal exit
+GETWD3,	ISZ	GETWDS		/ bump return if more corrections
+GETWD5,	JMP I	GETWDS		/ normal return if no more corrections
+
+
+
+/	following routines moved here for space reasons edit no. 002
+
+
+/----------
+/
+/ EFXMUP -
+/
+/	Fix up the screen prior to resuming the edit session.
+/
+/----------
+
+EFXMUP,	XX
+	CIFTXT
+	JMS I	(CALIOA)	/ clear to end of screen
+		CLREOS		/  ...
+		1400		/   starting from line 15
+		NOP		/    (filler)
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		MSGRP2
+		2300
+		2200		/ edit menu line
+/
+	JMP I	EFXMUP
+
+
+
+
+
+/----------
+/
+/ RFXMUP - Replace menus
+/
+/----------
+
+RFXMUP,	XX
+	CIFTXT
+	JMS I	(CALIOA)
+		REPRMT		/ replace menus
+		2300
+		2400
+	JMP I	RFXMUP
+
+
+
+
+/----------
+/
+/
+/----------
+
+NCORRECT,
+	XX			/ return address
+	JMS	CORCHK		/ skip if corrector is active		/A002
+	 JMP	NCOREXIT	/  else just exit w/o display		/A002
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		NOCORRECT	/ display no corrections message
+		1500
+		NOP		/    (filler)
+/
+NCOREXIT, ISZ	NCORRECT	/ routine takes return+1		/M002
+	JMP I	NCORRECT	/ return to caller
+
+/----------
+	PAGE
+
+/****************************************************************************
+/******     W A R N I N G   -   T H I S   P A G E   B L A S T E D      ******
+/****************************************************************************
+/ SPHOLE is defined in WPF1, and hence will cause an assembly error if	/a019
+/ moved from here.							/a019
+
+SPHOLE=.								/a019
+
+/
+/ Control passed here when user strikes the HELP key
+/
+HLPKEY,
+	DCA	SAVAC		/ save the AC upon entry
+/
+	JMS	SETABS		/ set mode to absolute
+	JMS	SETRV		/ set reverse video
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		RVHELP		/ display header
+		1400
+		NOP		/    (filler)
+/
+	TAD	HLPLEN		/ # of 'spaces' to output
+	DCA	T3		/ as a counter
+	TAD	(ECSPC)		/ output the remainder of the header
+	JMS	OPTCHR		/  ...
+	ISZ	T3		/   ...
+	 JMP	.-3		/    ...
+/
+	TAD	SAVAC		/ restore AC: 0=top level of help
+				/            -1=second level of help (replace)
+				/            +1=second level of help (edit)
+	SNA			/ skip if: second level
+	JMP	HELP0		/   top help level
+/
+	TAD	(MENU2TABLE)	/ set up a pointer to the menu header
+	DCA	HELP1		/  ...
+	TAD	SAVAC		/ restore AC
+	TAD	(HELP2TABLE)	/ set up a pointer to the help menu
+	JMP	HELP5		/  ... (join common code)
+/
+HELP0,	TAD	OFFSET		/ set up a pointer to the menu name
+	CLL RAL;IAC		/  ...
+	TAD	(MENUTABLE)	/   ...
+	DCA	HELP1
+/
+	TAD	OFFSET		/ set up a pointer to the correct menu
+	TAD	(HELPTABLE)
+HELP5,	DCA	T3
+	AC7777
+	TAD I	T3
+	DCA	X4
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		MENUNM
+		1477
+HELP1,		.-.		/ menu name
+/
+	JMS	CLRRV		/ clear reverse video
+	JMS	STMRGN		/ set up the scrolling region for the menus
+	JMS	SETREL		/ set relative mode
+
+/-----
+/
+/	Display the HELP menu
+/
+/-----
+
+HELP2,	TAD I	X4		/ get a text line
+	SNA			/ skip if: more lines available
+	 JMP	HELP3		/  end of initial input
+	DCA	HELP23		/ save pointer to menu line
+/
+HELP21,	TAD	HELP25		/ Set default NOP for BLANK lines.
+	DCA	HELP24		/  ...
+	TAD	HELP23		/ is this the BLANK line?
+	TAD	(-BLANK)	/  ...
+	SNA CLA			/ Skip if no. Set filler.
+	 JMP	HELP22		/ Go merge for this help line.
+	TAD I	X4		/ pick up the substring address
+	DCA	HELP24		/ deposit in the IOA string
+HELP22,	PUTCHR;	CR+4000		/ Output <CR><LF> sequence.
+		LF		/   ....
+/
+	CIFTXT			/ Display the menu line
+	JMS I	(CALIOA)	/
+HELP23,		.-.		/ address of the menu line
+HELP24,		.-.		/ this location can be modified for substrings
+HELP25,		NOP		/    (filler)
+	JMP	HELP2		/ loop for rest of menu
+/
+HELP3,	TAD I	X4		/ get next menu line
+	SNA			/ skip if: at end of first screen
+	 JMP	HELP4		/   at end of menu
+	DCA	HELP23		/   at end of first screen, save ptr. and
+				/   check if user wants to continue
+	JMS	IPTCHR		/ get a char
+/
+	TAD	(-EDHELP)	/ is it the HELP key?
+	SNA			/ skip if: not the HELP key
+	 JMP	HELP21		/  help key
+	SKP			/ some other key, exit
+HELP4,	JMS	IPTCHR		/ get a char
+	CLA			/ throw it away
+	JMS	SETRGN		/ re-set the document scrolling region
+	JMS	SETABS		/ set absolute mode
+/		
+	TAD	SAVAC		/ if coming from edit, refresh screen different
+	SMA SZA CLA		/ skip if: not in edit session
+	 JMP	EFIXMP		/   in process of edit
+	JMS	RFRSCN		/ refresh the screen
+	TAD	WDSAVL		/ get the status
+	TAD	(-4)		/ are we halted?
+	SMA			/ skip if: not halted
+	 JMP	HELP6		/  halted, no messages
+	TAD	(4)		/ restore value of WDSAVL
+	SZA CLA			/ skip if: words to display
+	 JMS	NCORRECT	/   display -no corrections- message to user
+	JMS	DISWRD		/   display words to user
+HELP6,	TAD	LEVEL		/ if on correction list, must hi-lite word
+	SZA CLA			/ skip if: on corrections list
+	 JMP	HELP8		/   menu line, wait for more input
+	AC0001			/ hi-lite
+	JMS	ARRMOV		/ selected word
+	JMS	RFXMUP		/ paint replace menus
+	JMP	ERRMR2		/ wait for more input
+
+HELP8,	JMS	DISERRMSG	/ menus
+	JMP	ERRMR2		/ wait for input
+/-----
+/
+/	Re-paint the screen prior to resuming the edit session
+/
+/-----
+
+EFIXMP,	JMS	EFXMUP		/ re-paint screen
+	JMP	ECHPRN		/ and return to edit
+/----------
+	PAGE
+
+/****************************************************************************
+/******     W A R N I N G   -   T H I S   P A G E   B L A S T E D      ******
+/****************************************************************************
+
+/****************************************************************************
+/ TSTCHR	Moved here to give it breathing space			/a019
+/****************************************************************************
+
+/-----------
+/
+/TSTCHR -- See if current character is ALPHA, NUMERIC, or OTHER.
+/
+/CALL:	JMS	TSTCHR		AC=0 on input.
+/		char=other return
+/		char=numeric return
+/		char=alpha-only return
+/
+/		char is stored in T1 for subsequent reference.
+/
+/------------
+
+TSTCHR,	XX			/ Entry point.
+	DCA	CHAR		/ Save character.
+TSTCND,				/ Entry point from OVTST		/a019
+	TAD	CHAR		/ Get character.
+	AND	P377		/ Isolate only the character bits.
+	AND	(200)		/ Test for 8 bit character		/a019
+	SZA CLA			/ Is the character 8 bit?		/a019
+	JMP	TSTALP		/ Yes, accept all 8 bit chars as ALPHA	/a019
+	TAD	CHAR		/ No, retrieve character		/a019
+	X="a&177		/ First check for lower case characters.
+	TAD	(-X)		/ Compare against little "a".
+	SPA			/ Skip if maybe.
+	 JMP	TSTUPR		/ See if upper case.
+	TAD	("a-"z)		/ See if within lowercase range.
+	SMA SZA			/ Skip if ALPHA ONLY.
+	 JMP	TSTOTH		/ Jmp to take OTHER return.
+TSTALP,	ISZ	TSTCHR		/ ALPHA-ONLY return.
+TSTNUM,	ISZ	TSTCHR		/ NUMERIC return.
+TSTOTH,	CLA			/ OTHER return.
+	JMP I	TSTCHR		/ Return to caller.
+
+TSTUPR,	TAD	("a-"A)		/ See if uppercase character.
+	SPA			/ Skip if possible UPPERCASE.
+	 JMP	TSNTAL		/ Definately not ALPHA-BETIC. See if numeric.
+	TAD	("A-"Z)		/ See if within ALPHA-ONLY range.
+	SMA SZA			/ Skip if ALPHA ONLY.
+	 JMP	TSTOTH		/ Must be OTHER.
+	JMP TSTALP		/ Jump to take ALPHA return.
+
+TSNTAL,	TAD	("A&177)	/ Normalize.
+	JMS	TSTSPC		/ See if special (".", "-", or "'").
+	SNA			/ Skip if no.
+	 JMP	TSTALP		/ Treat HYPHEN, PERIOD, and APOSTRAPHE as ALPHA.
+	TAD	("'-"0)		/ See if numeric.
+	SPA			/ Skip if maybe.
+	 JMP	TSTDED		/ Jmp if NO. Test for start of dead key./m019
+	TAD	("0-"9)		/ See if within NUMERIC range.
+	SMA SZA			/ Skip if yes.
+	 JMP	TSTOTH		/ Jmp if no. Must be OTHER.
+	JMP	TSTNUM		/ Take NUMERIC return.
+
+	X="0&177
+TSTDED,	TAD	(X-ECSTOV)	/ Test for a start of dead character	/a019
+	SZA			/ Is it a "Start of Dead"?		/a019
+	JMP	TSTOTH		/ No, it's something else		/a019
+	CDFEDT			/ Get the pointer into text buffer	/a019
+	TAD I	(CURPTR)	/ from the editor			/a019
+	DCA	X3		/ Store it in an index register		/a019
+	CDFBUF			/ Change to buffer field to get text	/a019
+	JMS	GETNON		/ Move the cursor on one character and	/a019
+				/ get the next character		/a019
+	AND	P177		/ Mask off character from mode bits	/a019
+	TAD	(-40)		/ Test for space			/a019
+	SZA			/ Is it a space?			/a019
+	JMP	FOUND8		/ No, user dead - so just pass 1st char	/a019
+	JMS	GETNON		/ Get the next character		/a019
+	AND	P177		/ Mask out mode bits again		/a019
+	TAD	(-40)		/ Test for a required space		/a019
+	SNA			/ Is it another space?			/a019
+	JMP	FOUND8		/ Yes, required space - output a space	/a019
+	TAD	(40-62)		/ Is this a multinational character?	/a019
+	SZA CLA			/ Is it?				/a019
+	JMP	FOUND8		/ No, is tech or line drawing - seperator/a019
+	JMS	GETNON		/ Yes, get the next character - this is	/a019
+				/ a striped 7 bit of the required 8 bit	/a019
+	AND	P177		/ Strip any mode bits			/a019
+	ISZ	TSTCHR		/ Prepare to return as ALPHA if multinat/a019
+	ISZ	TSTCHR		/ ...					/a019
+	TAD	(200-40)	/ Set the 8th bit and prepare for...	/a019
+FOUND8,	TAD	(40)		/ Adding in the 40 subtracted above	/a019
+	DCA	CHAR		/ Save the new version of the character	/a019
+FINDED,	JMS	GETNON		/ Start looking for the "End of Dead"	/a019
+	AND	P177		/ Strip mode bits			/a019
+	TAD	(-ECNDOV)	/ Test for "End of Dead"		/a019
+	SZA			/ Is this the end of the dead sequence?	/a019
+	JMP	FINDED		/ No, keep on searching			/a019
+	CDFMYF			/ Yes, back to home field before...	/a019
+	JMP	TSTOTH		/ Return (inced if ALPHA character)	/a019
+
+GETNON,	XX			/ Routine to get the next non-null char	/a019
+GETNLP,	TAD I	X3		/ pointed to by X3			/a019
+	SNA			/ Is this a null?			/a019
+	JMP	GETNLP		/ Yes, get next character		/a019
+	JMP I	GETNON		/ No, return				/a019
+
+TSTSPC,	XX			/ Routine to see if passed char is ".", "-", or "'".
+X=".&177			/ AC returns 0 if yes, char - "'" if no.
+	AND	P177		/ Isolate only the character bits.
+	TAD	(-X)		/ See if period.
+	SZA			/ Skip if yes.
+	TAD	(".-"-)		/ See if initial dash (hyphen).
+	SZA			/ Skip if yes.
+	TAD	("--"')		/ See if initial apostrophe.
+	JMP I	TSTSPC		/ Return 0 for special, char - "'" if not.
+
+
+/****************************************************************************
+/ LODAPU	Blasted out to give TSTCHR breathing space		/a019
+/****************************************************************************
+
+LODAPU,	XX			/ Hook to LODAPU routine to blast it in	/a019
+	RDF			/ This needs to be cross-field callable	/a019
+	TAD	CIDF0		/ so create and store the exit CIF CDF	/a019
+	DCA	LAPXIT		/ instruction				/a019
+	JMS	SBHOOK		/ Call the blaster hook			/a019
+		BLODAP		/ Blast in the LODAPU routine		/a019
+LAPXIT,	XX			/ The cross-field CIF CDF return instruc/a019
+	JMP I	LODAPU		/ Return on compleation of routine	/a019
+
+/d019	
+/d019	/----------
+/d019	/
+/d019	/ LODAPU - LOaD the APU
+/d019	/
+/d019	/----------
+/d019	LODAPU,	XX
+/d019		RDF			/ Get return field.
+/d019		TAD	CIDF0		/ Create a return CIF CDF.
+/d019		DCA	LODXYT		/  ...
+/d019		CDFSPL			/ Map spell field.
+/d019		DCA I	(TIMES)		/ clear wait loop flag
+/d019		AC0001			/ set
+/d019		DCA I	(UPDCLK)	/ update clock flag
+/d019		CDFMNU			/ Map menu field.
+/d019		TAD	(BUFADR)	/ Init queue block parameters.
+/d019		DCA I	(CMDBLK+RXQBAD)	/ Buffer address.			/M003
+/d019		TAD	(CDFTXT)	/  ...
+/d019		DCA I	(CMDBLK+RXQBFD)	/ Buffer field.				/M003
+/d019		DCA I	(CMDBLK+RXQRS1)	/ Init block count to the default (1).	/M003
+/d019	
+/d019		TAD	(OLL301)	/ Reset the field 2 lock words.
+/d019		DCA I	(OLL301)	/  field 5 lock word.
+/d019		TAD	(OLL301)	/  ...
+/d019		DCA I	(OLL400)	/   and field 6 lock word.
+/d019	
+/d019		TAD I	(MUBUF+MNOPTC)	/ Check for spelling corrector active	/A002
+/d019		AND 	(SEDBIT)	/  ...					/A002
+/d019		SZA CLA			/ Skip if not active			/A002
+/d019		 AC0001			/  else set and ...			/A002
+/d019		DCA	CORACT		/ Save CORrector ACTive flag		/A002
+/d019	
+/d019					/ See if we're loading the user dictionary.
+/d019		TAD I	(MUBUF+MNTMP6)	/ this will be 6 for SC; 7 for LU.
+/d019		TAD	(-7)		/ This yields -1 for SC, 0 for LU, or	/M008
+/d019					/  +4 for UD.				/A008
+/d019		DCA	INIUSR		/ Set the SC/LU/UD indicator.		/A008
+/d019	/D004	TAD I	(MUBUF+MNOPTN)	/ Get the option word.
+/d019	/D004	AND	(MNRX7X)	/ Is the APU loaded?
+/d019		TAD I	(MUBUF+MNPULD)	/ Get the external processor loaded word/A004
+/d019		AND	(MNRX0X+MNRX1X)	/ Is the "APU" loaded ?			/A004
+/d019	/d019		SNA CLA			/ Skip if yes. check for LU & overwrite.
+/d019		 JMP	LODAP1		/ APU not loaded. Go load it.
+/d019		TAD	INIUSR		/ Are we loading the user dictionary?
+/d019		SZA CLA			/ Skip if yes.
+/d019		 JMP	LODXIT		/ Normal SC run & APU is already loaded.
+/d019		TAD I	(MUBUF+MNTMP5)	/ See if OVERWRITE (<>0) option.
+/d019		SNA CLA			/ Skip if yes.
+/d019		 JMP	LODXIT		/ For ADD (0) to user dictionary, nothing more to do.
+/d019		CDFMYF			/ Back to current field.
+/d019		TAD	(PCINUD)	/ Tell loaded Z80 to INIT the user dictionary.
+/d019		JMS	SNDAPU		/  ...
+/d019		JMP	LODAP3		/ Go wait for the done status.
+/d019	
+/d019	LODAP1,	CDFMYF			/ Back to current field.
+/d019	IFNDEF DEBUG	<		/ Don't assemble this if going out the comm line.
+/d019		TAD	XPUFLG		/ Is the external processor an XPU	/A004
+/d019		SZA CLA			/ Skip if not .. continue w APU code	/A004
+/d019		 JMP	LODXPU		/  else branch to XPU specific code	/A004
+/d019	
+/d019	/ loop
+/d019	
+/d019	LODAP2,	JMS	MMCMD		/ load address - ( 16-bit )
+/d019			0!CDBIT!XRBIT	/  ( 2 byte starting address for data xfer )
+/d019		   TAD	STRTAH		/ get the starting address ( high order byte )
+/d019		   JMS	SNDAPU		/ send to APU
+/d019		   TAD	STRTAL		/  ... ( low order byte )
+/d019		   JMS	SNDAPU		/ send to APU
+/d019	
+/d019		JMS	MMCMD		/ load byte count ( 2 bytes )
+/d019			1!CDBIT!XRBIT	/  ...
+/d019		   AC0002		/ Hi byte of 1000.
+/d019		   JMS	SNDAPU		/ high order length
+/d019		   JMS	SNDAPU		/ low order 8-bit byte of 1000.
+/d019	
+/d019		CIFMNU			/ Update the date & time display.
+/d019		JMS I	(TIMDSP)	/  ...
+/d019	
+/d019		JMS	MMCMD		/ load data to Z80 RAM - ( until byte count=0 )
+/d019			2!CDBIT!XRBIT	/  ...
+/d019		   TAD	STRTBK		/ block number to load
+/d019		   JMS	PUTBLK		/ output the data
+/d019	
+/d019		AC0002			/ bump to correct load address
+/d019		TAD	STRTAH		/
+/d019		DCA	STRTAH		/ high byte starting address for next block
+/d019		ISZ	STRTBK		/ bump to next block
+/d019		ISZ	NMBRBK		/ bump block count
+/d019		  JMP	LODAP2		/   more blocks to load
+/d019	
+/d019	/ until: all blocks loaded
+/d019	/ Now start up the APU & wait for the done code.
+/d019	
+/d019		JMS	MMCMD		/ load the PC
+/d019			33!CDBIT!XRBIT	/  ( '1B' hex - load register pair )
+/d019		TAD	(GTAPU1%400)	/ get starting address
+/d019		JMS	SNDAPU		/ output the address ( high byte )
+/d019	IFNZRO	GTAPU1&377	<
+/d019		TAD	(GTAPU1&377)	/  ...
+/d019		>			/ IFNZERO GTAPU1&377
+/d019		JMS	SNDAPU		/    ... ( low byte )
+/d019		JMS	MMCMD		/ run from RAM
+/d019			4!CDBIT!XRBIT	/  ( from saved PC address )
+/d019		>			/IFNDEF DEBUG
+/d019	
+/d019	LODAPM,				/ Merge from LODXPU			/M004
+/d019	/d004	TAD I	(MUBUF+MNOPTN)	/ Get options word.
+/d019	/d004	TAD	(MNRX7X)	/ Add in the 'Z80 loaded' bit.
+/d019	/d004	DCA I	(MUBUF+MNOPTN)	/ Store new options word.
+/d019		JMS	SETLDB		/ Go set the load bits			/A004
+/d019		TAD	(RAMFIL)	/ Set file # to indicate RAM load file reads.
+/d019		DCA	FILNUM		/  ...
+/d019	
+/d019	LODAP3,	JMS	GETAPU		/ wait for a response
+/d019			-36		/ Time-out wait maximum - 30 seconds.
+/d019			PCDONE;LODAP4	/  done, exit
+/d019			0		/  all others are fatal
+/d019	
+/d019	LODAP4,	TAD	(MSTRLX)	/ Set file # to indicate master lex. file reads
+/d019		DCA	FILNUM		/  ...
+/d019	
+/d019	LODXIT,	CDFSPL			/ date field to spell
+/d019		DCA I	(UPDCLK)	/ clear update clock flag
+/d019	LODXYT,	XX			/ Return CIF CDF goes here.
+/d019		JMP I	LODAPU		/ finished loading 1 'something'
+/d019	
+/d019	
+/d019	STRTBK,	HMCODE			/ starting block #			/M004
+/d019	NMBRBK,	-50			/ -# of blocks to load
+
+/	RFXMUP moved for space reasons edit no. 002
+
+
+/
+/ return to here to ignore.... Moved here edit no. 008
+/
+
+SCFIX,	JMS	DISPLY		/ Refresh the word unreversed video.
+		0		/ Say NOT REVERSED VIDEO.
+	CDFEDT			/ Compute cursor posn of last char of word.
+	AC7777			/ CURPOS currently points to next posn so backup.
+	TAD I	(CURPOS)	/  ...
+	DCA I	(CURSOR)	/ Set current cursor posn to there.
+	JMP	SCNEXT		/ no longer in-line must now make specific jump/a008
+
+/----------
+	PAGE
+
+/----------
+/
+/ MENULINE -
+/
+/	This routine will display the menu line in reverse video mode,
+/	with the currently active menu option bolded.
+/
+/----------
+
+MENULINE,
+	XX			/ save callers return address
+	JMS	CORCHK		/ skip if corrector is active		/A002
+	 AC7777			/  else factor in bypass of Replace	/A002
+	TAD	OFFSET		/ set up a pointer the the selected option.
+	DCA	MENUCURSOR	/  ...
+	JMS	SETRV		/ set reverse video mode
+				/ set up a pointer to the menu options
+				/ and display them to the user
+	JMS	CORCHK		/ skip if corrector is active		/A002
+/A002	SNA CLA			/ ...					/A002
+	 AC0002			/  else bypass display of Replace	/A002
+	TAD	(MENUTABLE)	/
+	DCA	POSITION	/ set up pointer to address of cursor position
+	TAD	POSITION	/
+	IAC			/
+	DCA	ADDRESS		/ set up pointer to address of text string
+	JMS	CORCHK		/ skip if corrector is active		/A002
+/A002	SNA CLA			/ ...					/A002
+	 AC7777			/  else reduce # of options by 1	/A002
+	TAD	(ENDMENUTABLE-MENUTABLE%2)
+	CIA
+	DCA	OPTCNT		/ counter of # of options
+MENUL1,
+	TAD	MENUCURSOR
+	SNA CLA
+	JMS	STBOLD		/ set the bold attribute
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		MENUCONTROL
+POSITION,	.-.		/ address of ^P
+ADDRESS,	.-.		/ address of text string address
+
+	TAD	MENUCURSOR
+	SNA CLA
+	JMS	CLRBLD		/ bold is set, clear
+/
+	AC7777
+	TAD	MENUCURSOR
+	DCA	MENUCURSOR	/ decrement position of pointer
+/
+	AC0002			/ set up to display next option
+	TAD	POSITION
+	DCA	POSITION
+	AC0002
+	TAD	ADDRESS
+	DCA	ADDRESS
+	ISZ	OPTCNT
+	JMP	MENUL1
+
+	JMS	CLRRV		/ clear reverse video
+	JMP I	MENULINE	/ return to caller
+/
+CLRBLD,	XX			/ return address
+	JMS	CLRRV		/ clear attributes
+	JMS	SETRV		/ restore reverse video
+	JMP I	CLRBLD		/ return to caller
+/
+MENUCURSOR,
+	0			/ position of bolded option
+OPTCNT,	0			/ counter of # of options
+
+
+/	EFXMUP moved for space reasons edit no. 002
+
+
+
+/----------
+/
+/ Display the string:
+/
+/	<more...> or <no more>
+/
+/----------
+
+DISMORE,
+	XX
+	CIFTXT
+	JMS I	(CALIOA)
+DISMO1,		.-.		/ <more...> or <no more>
+		LABRKT		/ left angle bracket
+		RABRKT		/ right  "      "
+	JMP I	DISMORE
+
+
+/	NCORRECT moved for space reasons edit no. 002
+
+
+
+
+/----------
+/
+/ RFRSCN - refresh the screen
+/
+/
+/		This routine will erase the screen from the bottom
+/		of the scroll area to the bottom of the screen.  It
+/		will then re-paint the menu line with the current
+/		option highlighted.
+/
+/----------
+
+RFRSCN,
+	XX			/ return address
+	CIFTXT
+	JMS I	(CALIOA)	/
+		CLREOS		/ clear the screen
+		1400		/  starting line to clear from
+		NOP		/    (filler)
+/
+	JMS	RVBKGRND	/ paint the background for the main menu
+/
+	JMS	MENULINE	/ paint the menu line
+/
+	JMP I	RFRSCN		/ return to caller
+
+
+/ This routine is called to display the main error messages to the user
+
+DISERRMSG,
+	XX
+				/ highlight replace or edit, depending on
+				/ whether or not corrected spellings were found
+	CIFTXT
+	JMS I	(CALIOA)
+		E1RRLINE	/ display main error line 23
+		2300		/ display second line first
+		2400		/ and third line second
+
+	JMP I	DISERRMSG	/ prior to return, reset edit scrolling region
+
+
+IPTCHR,	XX			/ return address
+	JMP	IPTCH2
+/
+IPTCH1,	CIFSYS
+	JWAIT
+/
+IPTCH2,	CIFSYS
+	XLTIN
+	JMP	IPTCH1		/ nothing
+/
+	JMP I	IPTCHR		/ return to user with char in AC
+
+/	following moved here for space reasons edit no. 002
+/----------
+/
+/ BCKUP  -
+/        |-- adjust the offset into the menu line, and highlight...
+/ ADVNCE -
+/
+/
+/		Control is passed here when either a left or right
+/		arrow key is struck at input level.  Check to see
+/		which level we are on.  If on corrections list, pass
+/		control to another routine, if menu, move the highlighted
+/		option appropriately and check to make sure the cursor
+/		stays within the limits of the menu line.
+/
+/----------
+
+BCKUP,	AC7776
+ADVNCE,	IAC			/ AC = +/- 1
+	MQL			/ save AC
+	TAD	LEVEL		/ which level are we on?
+	SNA CLA			/ skip if: menu level
+	 JMP	MOVHILYT	/  corrections list
+	MQA			/ restore AC
+	TAD	OFFSET		/ modify current offset into menu table
+	SPA			/ skip if: moving right
+	TAD	(ENDMENUTABLE-MENUTABLE%2)
+	DCA	OFFSET		/ update offset pointer
+	TAD	(ENDMENUTABLE-MENUTABLE%2-1)
+	CIA
+	TAD	OFFSET		/
+	MQL			/ save for later use			/A002
+	MQA			/ restore for test			/A002
+	SMA SZA CLA		/ skip if: within bounds of menu line
+	DCA	OFFSET		/   reset pointer to start of menu line
+	TAD	CORACT		/ is corrector NOT active		/A002
+	TAD	OFFSET		/ AND is Replace function selected	/A002
+	SZA CLA			/ skip if yes.				/A002
+	 JMP	ADVBKX		/  else OFFSET is legal - continue	/A002
+	MQA			/ restore saved AC (= +1 or -5)		/A002
+	SPA			/ if it is =1 thats what we want	/A002
+	CIA			/  else make the -5 a positive value	/A002
+	DCA	OFFSET		/ & save the adjusted pointer		/A002
+ADVBKX,	JMS	MENULINE	/ re-paint menuline			/M002
+	JMS	SPOTCR		/ position the cursor
+	JMP	MNUINP		/ listen for input
+
+/----------
+/
+/ MMCMD - Send commands to the minimonitor  (moved here edit no. 010)
+/
+/----------
+
+MMCMD,	XX
+MMCMX,	Z80IF			/ wait for the inbound read complete flag/M004
+	 JMP	.-1		/ APU not ready to read yet...
+/d008	CLL CLA			/ ready for read...
+	TAD I	MMCMD		/ get the command
+	ISZ	MMCMD		/ bump return address
+MMCMY,	Z80WR			/ send the command			/M004
+	CLA CLL			/ AC is dirty on return
+	JMP I	MMCMD		/ return to caller
+
+/----------
+	PAGE
+
+/ paints the correct word list on the screen
+DISWRD,	XX
+/
+	TAD	(WDTABLE-1)	/ set up a pointer to the word buffer
+	DCA	X3
+/
+	JMS	SAVCUR		/ save the cursor position
+				/  ...
+/
+	TAD	(WDLIST-1)	/ set up a pointer to the word list
+	DCA	X0
+	TAD	(-BUF0LEN)	/ check to see if the word buffer is full.
+	TAD	CURLSZ		/  ...
+	SZA CLA			/ skip if: the word buffer is full.
+	 JMP	PNTLN0		/  word buffer is not full.
+	TAD I	(WDLIST+BUF0LEN-1) / get the last char in the word buffer.
+	TAD	(-ECSPC)	/ is it a 'space'?
+	SNA CLA			/ skip if: not a 'space'.
+PNTLN0,	 AC7777			/  the last valid char in the word buffer is
+				/   a 'space' so our count of valid characters
+				/    is one too many.
+	TAD	CURLSZ		/ and a counter of the number of chars
+	CIA
+	DCA	T1
+	DCA	T2		/ current column number
+	DCA	ROW		/ initialize row number for table
+/
+	CIFTXT
+	JMS I	(CALIOA)	/ position the cursor for paint
+		PCURSTRING
+		1500
+		NOP		/    (filler)
+/
+	JMS	SETRV		/ set reverse video
+/
+PNTLI1,	TAD	(SZL)		/ set up proper instruction
+	DCA	STATT1		/ for set attribute routine
+	JMS	STATTR		/ set up the proper attributes for paint
+	JMS	FNDLNXTWRD	/ find the length of the next word
+/
+PNTLI2,	TAD I	X0		/ get a char
+/
+	DCA	HOLDCH		/ save
+	TAD	HOLDCH		/ restore
+	TAD	(-ECSPC)	/ is the char a space?
+	SNA CLA			/ skip if: not a space
+	JMS	CHKATR		/   a space, set RV, check for bold
+/
+	TAD	HOLDCH		/ restore the char
+	JMS	OPTCHR		/ and output it to the screen
+/
+	ISZ	T2		/ bump the column #
+	ISZ	T1		/ more to output?
+	JMP	PNTLI4		/ jump if so...
+/
+	JMS	CLRRV		/ clear attributes
+/
+	JMS	FITITT		/ make sure we can fit the <.......> text
+				/  and display the appropriate <.......> text
+/
+	JMS	RSTCUR		/ restore the cursor position
+				/  ...
+	JMP I	DISWRD		/ and return to caller
+/
+PNTLI4,	ISZ	T3		/ bump the word char count
+	JMP	PNTLI2		/ output the rest of the word
+	JMP	PNTLI1		/ loop for more words
+/
+
+/----------
+/
+/ PUTBLK - PUT a 'BLocK' of data to the APU
+/
+/
+/	In order that this routine might be able to execute without
+/	the need of knowing which media is being used, whenever a
+/	request to read a block is made, compute the track and sector
+/	number for that block. (That way, DSKHND has all of the info.
+/	it needs regardless of media type.)
+/
+/	Upon entry:
+/
+/		AC = block # to read/send
+/
+/----------
+
+PUTBLK,	XX
+				/ compute track & sector for block #
+	DCA	T2		/ save the block number
+	DCA	T1		/ initialize counter for division
+	TAD	(SCTABL)	/ pointer to the sector table
+	DCA	T3		/  ...
+
+/
+/	compute the track #
+/
+/		TRACK # = [ (BLOCK#/(SECTORS per TRACK)) + 1 ]
+/
+/	   and
+/
+/	compute the sector #
+/
+/		SECTOR # = [ REMAINDER OF DIVISION FOR TRACK #
+/		             AS AN OFFSET INTO THE SECTOR TABLE ]
+/
+/
+
+	TAD	T2		/ restore ...
+				/ loop to divide the block number by 10
+PUTBL0,	TAD	(DIVIZR)	/
+	SPA			/ skip if: not done
+	  JMP	PUTBL1		/   division complete
+	ISZ	T1		/ counter
+	SZA			/
+	JMP	PUTBL0		/ continue ...
+	SKP			/ Remainder is 0.
+PUTBL1,	TAD	(-DIVIZR)	/ Restore the remainder.
+	TAD	T3		/ offset into the sector table
+	DCA	T3		/ save
+	TAD I	T3		/ and get the sector #
+	CDFMNU			/ MENU field.
+	DCA I	(CMDBLK+RXQSEC)	/ set the sector #			/M003
+	CDFMYF			/ MY field.
+	TAD	T1		/ get result of division
+	IAC			/ add 1
+	CDFMNU			/ MENU field.
+	DCA I	(CMDBLK+RXQTRK)	/ set the track #			/M003
+	CDFMYF			/ back to my-field
+
+	TAD	T2		/ block # to read.
+	CIFMNU			/ Map code.
+	JMS I	(RDFIO)		/ read the block
+		RXEPR+4000	/   physical (8-bit) read
+	SPA CLA			/ skip if: no error
+	  JMP	DSKERR		/   report the error
+
+	TAD	(HMCODE		/ get 1st block # of Z80 code		/A004
+	CIA			/ negate				/A004
+	TAD	T2		/ add in requested block #		/A004
+	SZA CLA			/ skip if 1st block of Z80 code		/A004
+	 JMP	PUTBLX		/  else bypass further checking		/A004
+	TAD	XPUFLG		/ is it an XPU?				/A004
+	SZA CLA			/ no, just continue			/A004
+	 JMS	CHPORT		/  yes, go change the port assignments	/A004
+				/  & masks in the 1st block of code	/A004
+
+PUTBLX,	TAD	(BUFADR-1)	/ pointer to start of buffer area	/M004
+	DCA	X0		/  ....
+	TAD	(-1000)		/ counter ( 512 8-bit bytes )
+	DCA	T1		/  ....
+PUTBL3,	CDFTXT			/ data field of data to send to APU
+	TAD I	X0		/ get a word
+	CDFMYF			/ back to my-field
+	AND	P377		/ mask to 8-bit
+	JMS	SNDAPU		/ send word to APU
+	ISZ	T1		/ bump the count
+	  JMP	PUTBL3		/ loop for all
+	JMP I	PUTBLK		/ return
+
+DIVIZR=-12			/ 10 sectors/track ( 5.25 inch disk )
+/----------
+	PAGE
+
+/ This routine finds the length of the next word in the word list, if it
+/  will fit on the current, return to the caller.  If the word will not
+/   fit on the current line, set the cursor to the beginning of the next
+/    line and return.
+FNDLNXTWRD,
+	XX
+	DCA	T3		/ reset word length count
+	TAD	X0		/ set up our own pointer to the word list
+	DCA	X1
+/
+FNDLN1,	TAD I	X1		/ get a char
+	TAD	(-ECSPC)	/ is it a space?
+	SNA CLA			/ skip if: not a space
+	JMP	FNDLN2		/   found the end of a word
+/
+	ISZ	T3		/ bump the word char count
+	JMP	FNDLN1		/ loop for more
+/
+/ found the end of the word, now see if it will fit on the current line
+/
+FNDLN2,	TAD	T2		/ current column #
+	TAD	T3		/ plus length of next word
+	TAD	(-120)		/ compare to max. # of chars.
+	SMA SZA CLA		/ skip if: next word fits on current line
+	JMP	FNDLN4		/   next word won't fit on this line
+/
+FNDLN3,	TAD	T3		/ make word length negative for counter
+	CMA
+	DCA	T3
+/
+	TAD	ROW		/ insert this word into the word buffer
+	TAD	T2
+	IAC
+	DCA I	X3		/ row and column number
+	AC0001
+	TAD	X0
+	DCA I	X3		/ pointer to beginning of word
+/
+	JMP I	FNDLNXTWRD	/ return to caller
+/
+FNDLN4,	DCA	T2		/ reset the column number
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		CURSTR		/ erase to end of line and
+		1600		/ position the cursor to next row
+		NOP		/
+	AC4000			/ adjust row number we're displaying on
+	DCA	ROW
+/
+	JMP	FNDLN3		/ return
+
+/ This routine moves the highlighted attributes on the correct word list
+ARRMOV,
+	XX			/ return address
+	SMA CLA			/ skip if: removing hi-lite from word
+	 TAD	(SNL-SZL)	/   hi-liting new word
+	TAD	(SZL)		/  removing hi-lites
+	DCA	STATT1		/ set up routine properly
+	JMS	STATTR		/ set modes for current word
+
+	JMS	SETRV		/ set reverse video
+
+	TAD	WDOFST		/ word number to modify
+	CLL;RAL			/ multiply count by 2
+	TAD	(WDTABLE)	
+	DCA	SPLINC		/ pointer to line and column number
+	TAD I	SPLINC
+	SPA CLA			/ skip if: positive, line 16
+	AC0001			/   negative, line 17
+	TAD	SIXTEN
+	DCA	LINE		/ line number of first word
+	TAD I	SPLINC
+	AND	P3777
+	DCA	COL		/ column number of first word
+	TAD	SPLINC
+	IAC
+	DCA	WRD		/ pointer to address of start of first word
+/
+	PUTCHR;	ESC		/ output an escape to the terminal
+	CIFTXT
+	JMS I	(CALIOA)
+		TXTSTR
+LINE,		.-.		/ address of line number
+COL,		.-.		/ address of column number
+/
+	AC7777
+	TAD I	WRD		/ set up a pointer to the word
+	DCA	X4
+/
+ARRMO2,	TAD I	X4		/ get a char
+	DCA	TMPWRD		/ save to output
+	TAD	TMPWRD
+	TAD	(-ECSPC)	/ is it a space (end of word)?
+	SNA CLA			/ skip if: not a space
+	JMP	ARRMO3		/   end of word
+/
+	TAD	TMPWRD
+	JMS	OPTCHR		/ output the char
+	JMP	ARRMO2		/ loop for more
+/
+ARRMO3,	JMS	CLRRV		/ clear reverse video
+/
+	JMP I	ARRMOV		/ return to caller
+/
+SPLINC,	0			/ line & column number of a word
+				/ if bit 0 on:  line 16
+				/ if bit 0 off: line 17
+
+CHKATR,	XX			/ return address
+	JMS	CLRRV		/ clear all attributes
+	JMS	SETRV		/ set reverse video
+	TAD	DISATR		/ attribute of the word in error
+	AND	(200)		/ check for bold
+	SZA CLA			/ skip if: no bold
+	JMS	STBOLD		/   bold the spaces, also
+	JMP I	CHKATR		/ return to caller
+
+
+/----------
+/
+/ SPOTCR - SPOT the CuRsor for input
+/
+/----------
+
+SPOTCR,	XX
+	CIFTXT			/
+	JMS I	(CALIOA)	/ position cursor for input
+		PCURSTRING	/
+		0000		/  line,column
+		NOP		/
+	JMP I	SPOTCR		/ return
+
+
+
+
+/-----------
+/
+/ CORCHK - CORrector CHecK - see if the Corrector has been activated	/A002
+/
+/-----------
+CORCHK,	XX								/A002
+	TAD	CORACT		/ is the Corrector active		/A002
+	SZA CLA			/ skip if it isn't (take normal return)	/A002
+	ISZ	CORCHK		/  else bump up return address		/A002
+	JMP I	CORCHK		/ return				/A002
+
+
+SCTABL,				/ sector table ( 5.25 inch disk )
+	1;3;5;7;11
+	2;4;6;10;12
+/----------
+	PAGE
+
+/ This routine adjusts the cursor pointer to the correct word line and
+/  hands off control to the routine which will paint the line properly.
+
+MOVHILYT,
+	MQA			/ restore AC, = +/- (1)
+	DCA	SAVAC		/ save the AC
+/
+	AC7777			/ clear attributes
+	JMS	ARRMOV		/ clear the bold attribute from the current wrd
+/
+	TAD	SAVAC		/ restore the AC
+	TAD	WDOFST		/ modify current offset into correct word table
+	SPA			/ skip if: moving to the right
+	 JMP	FSTLST		/   set to last word in line
+MOVHI1,	DCA	WDOFST		/ update offset pointer
+/
+	TAD	(WDTABLE)	/ pointer to start of table
+	CIA			/
+	TAD	X3		/ pointer to end of table
+	CLL RAR			/ divide by two
+	CIA
+	TAD	WDOFST		/ are we beyond the end of the table?
+	SMA SZA CLA		/ skip if: within bounds of table
+	JMP	GETMOR		/   at end of list, see if there are more
+/
+MOVHI2,	TAD	LEVEL		/ which line are we on?
+	SZA CLA			/ skip if: on correction list line
+	 JMP	MOVHI3		/  requested more words from the menu line
+	AC0001			/ set bold
+	JMS	ARRMOV		/ hi-lite the selected word
+/
+MOVHI3,	JMS	SPOTCR		/ position the cursor for input
+	JMP	MNUINP		/ wait for more input
+
+/-----
+/
+/	Hi-lited word was the first word in the corrections list, and
+/	the left arrow key was struck, position the hi-lite to the last
+/	word in the list.
+/
+/-----
+
+FSTLST,	CLA			/ Dirty AC upon entry
+	TAD	(-WDTABLE)	/ Pointer to start of table
+	TAD	X3		/ Pointer to end of table
+	CLL RAR			/ Divide to get number of words
+	JMP 	MOVHI1		/ Return to update WDOFST
+
+
+
+/
+/
+/
+/
+GETMOR,	
+	JMS	SPOTCR		/ position the cursor for input
+/
+	TAD	RTNSTS		/ get the return status
+	SNA CLA			/ skip if: no more words available
+	JMP	MORE		/   more words, get them.
+/
+				/   no more corrections
+GET0,	DCA	WDOFST		/ wrap to start of correction list
+	JMP	MOVHI2		/ hi-lite first correction
+/
+GETM0,	TAD	(PCNXWD)	/ get next possible word code
+	JMS	SNDAPU		/
+/
+GETMO0,	JMS	GETAPU		/ wait for start-of-word
+		-17		/ Time-out wait maximum - 15 seconds.
+		PCSTWD;GETM00	/ got it..
+		0		/ all others are fatal
+
+GETM00,	TAD	CURLSZ		/ save the length of the correct word list
+	DCA	HLDSIZ		/  ....
+
+	JMS	GETWDS		/ get more words
+	  AC0001		/ rtn1 - no more correction available
+	  DCA	RTNSTS		/ rtn2 - more corrections available
+	JMS	DISWRD		/ display the correct word line
+
+	TAD	HLDSIZ		/ restore the saved length of the list
+	CIA			/ compare to
+	TAD	CURLSZ		/ the current length
+	SZA CLA			/ skip if: we didn't get more words
+	 JMP	MOVHI2		/ hi-lite first new word
+	CIFTXT			/
+	JMS I	(CALIOA)	/ Display
+		ENDCOR		/ no more corrections
+		2700		/
+		NOP		/
+	AC7777			/ bump word pointer back
+	TAD	WDOFST		/  ....
+	JMP	GET0		/  didn't get any more words
+/
+/
+HLDSIZ,	0			/ temp storage
+SAVAC,	0			/ save the AC upon entry
+
+
+/----------
+/
+/ SCRNINIT - This routine sets up the initial screen display prior
+/		to the start of the corrector portion of the feature.
+/
+/   1) Display the document name.
+/   2) Delimit the scrolling region by solid lines.
+/   3) Display the main menu line.
+/   4) Set up the scrolling region to range from lines 3 to 13.
+/   5) Pass control to the Main Scrolling Loop.
+/
+/----------
+
+SCRNINIT,
+	XX			/ save callers return address
+	RDF			/ Get return field.
+	TAD	CIDF0		/ Make a return CIF CDF instruction.
+	DCA	SCRNXT		/ save for the exit.
+	CDFMYF			/ Map our field for the duration of our stay.
+
+	JMS	SETABS		/ Set screen orgin mode to ABSOLUTE.
+	JMS	DISDOCNAME	/ display and save document name
+	JMS	SOLIDLINE	/ paint the solid lines
+	TAD	INEDIT		/ Are we currently in edit mode?
+	SZA CLA			/ Skip if no. Paint just paint menu line.
+	 JMP	SCRNI1		/ Jmp if currently editting.
+	JMS	MNUPNT		/ Paint the menu line.
+	JMP	SCRNI2		/ Merge below to finish up screen initialization.
+
+SCRNI1,	JMS	EFXMUP		/ Display 'editting' message.
+SCRNI2,	JMS	SETRGN		/ set up the scrolling region for the
+				/ document being corrected
+/
+SCRNXT,	XX			/ Return CIF CDF goes here.
+	JMP I	SCRNINIT	/ return to caller
+
+SETLDB,	XX
+	CDFMNU
+	TAD I	(MUBUF+MNFMAT)	/ Get format word			/A004
+	AND	(MNFM3X)	/ Mask out 'British dictionary' bit	/A004
+	SZA CLA			/ Skip if NOT British			/A004
+	 AC0001			/  Set AC=1 if British			/A004
+	IAC			/ AC=1 American, AC=2 British		/A004
+	TAD I	(MUBUF+MNPULD)	/ Add in external processor loaded word	/A004
+	DCA I	(MUBUF+MNPULD)	/ & save it with new settings		/A004
+	TAD I	(MUBUF+MNFMAT)	/ Get format word again			/A004
+	CDFMYF			/ Back to current field.
+	AND	(MNFM3X)	/ Mask out 'British dictionary' bit	/A004
+	SZA CLA			/ Skip if NOT British			/A004
+	 TAD	(110)		/  British ramload starts at American+110/M013
+	TAD	RAMLST		/ Add start of AMerican ramload		/A004
+	DCA	RAMLST		/ & save new start			/A004
+	JMP I	SETLDB
+
+/----------
+	PAGE
+
+
+/----------
+/
+/ DISDOCNAME -
+/
+/	This routine will display the document (name & number)
+/	being corrected, centering it on the top line of the screen.
+/
+/----------
+
+DISDOCNAME,
+	XX			/ return address
+/
+	CIFTXT
+	JMS I	(CALIOA)	/
+		CLREOS		/ erase the screen
+		0		/ line to start clearing from
+		NOP		/    (filler)
+/
+				/ See if we are dealing with the user	/A017
+				/ dictionary.  If we are exit w/o 	/A017
+				/ displaying the file name		/A017
+
+	TAD	INIUSR		/ Get SC/LU/UD indicator		/A017
+	SMA CLA			/ Skip on SC				/A017
+	 JMP	DISDO4		/  LU or UD - just exit			/A017
+/
+	CDFMNU		/*****	/ data field to menu
+	TAD I	(MUBUF+MNDRV)	/ Get drive #.
+	DCA	DOCDRV		/ save for IOA.
+	TAD I	(MUBUF+MNDOCN)	/ Get document #.
+	DCA	DOCNUM		/ save that too.
+	AC7777
+	TAD I	(MUBUF+MNFNAM)	/ set up a pointer to the filename
+	CDFMYF		/*****	/ back to my field
+
+	DCA	X1		/ and save the pointer
+	TAD	X1		/  ...
+	DCA	X2		/ and save a copy
+	DCA	T1		/ initialize a counter for length of word
+
+/ The following 2 routines position the cursor so that the
+/  document name will be centered on the screen
+/   First, find the length of the document name
+/
+DISDO1,	CDFMNU		/*****	/ data field to menu
+	TAD I	X1		/
+	CDFMYF		/*****	/ back to my field
+	
+	SNA CLA			/ skip if: have not found end of filename
+	JMP	DISDO2		/   found end of name, exit
+
+	ISZ	T1		/ bump counter
+	JMP	DISDO1		/ and continue
+/
+/ T1 now contains the length of the word, get the width of the screen
+/  and find the starting location for the paint of the name
+/
+/ Due to manual wide screen mode spell code cannot enter wide screen	/A017
+/  so the following lines were extraneous & were deleted to make room	/A017
+/
+DISDO2,	/d017 CDFEDT		/*****	/ edit field
+/d017 	TAD I	(SPLTFL)	/ wide screen?
+/d017 	CDFMYF		/*****	/ my-field
+/d017 	SZA CLA			/ skip if: normal screen
+/d017 	TAD	(32)
+	TAD	(45)
+	DCA	T2		/ pointer to center of screen
+/
+	TAD	T1		/ get document name length
+	CLL RAR			/ divide length by 2
+	CIA			/ make negative
+	TAD	T2		/ subtract from mid-screen
+	DCA	DISD2A		/ set up position to start paint from
+
+	CIFTXT
+	JMS I	(CALIOA)	/  ...
+		PCURSTRING	/   ...
+DISD2A,		.-.		/    ...
+		NOP		/    (filler)
+
+	CIFTXT			/ Display '(drive.doc) '
+	JMS I	(CALIOA)	/  ...
+		DISTXT		/ text string.
+DOCDRV,		0		/ drive # of the document.
+DOCNUM,		0		/ document # of the document.
+
+DISDO3,				/ now display the document name
+	CDFMNU		/*****
+	TAD I	X2
+	CDFMYF		/*****
+
+	SNA
+	JMP	DISDO4
+/
+	JMS	OPTCHR		/ output the character
+/
+	JMP	DISDO3		/ continue with next
+/
+DISDO4,	JMP I	DISDOCNAME	/ return to caller
+
+
+/----------
+/
+/ SOLIDLINE -
+/
+/	This routine will paint the 2 lines delimiting the scrolling region.
+/
+/----------
+
+SOLIDLINE,
+	XX			/ callers return address
+	JMS	GRAFXS		/ switch to grafix
+/
+	JMS	SETCNT		/ set up counter for width of screen
+/
+	CIFTXT
+	JMS I	(CALIOA)
+		PCURSTRING
+		100		/ position cursor to start of line 2
+		NOP		/    (filler)
+	JMS	LOOPS		/ display first line
+/
+	JMS	SETCNT		/ set up counter for width of screen
+/	
+	CIFTXT
+	JMS I	(CALIOA)
+		PCURSTRING
+		1300		/ position cursor to start of line 14
+		NOP		/    (filler)
+	JMS	LOOPS		/ display second line
+/
+	JMS	GRAFXC		/ restore SI
+/
+	JMP I	SOLIDLINE	/ return to caller
+
+/
+/ routine to print horizontal line (scan 5) to screen
+/
+
+LOOPS,	XX			/ return address
+LOOPA,	TAD	(161)		/ horizontal line, (scan 5)
+	JMS	OPTCHR		/ print the char
+	ISZ	T1		/ bump the character count
+	 JMP	LOOPA		/ loop for more
+	JMP I	LOOPS		/ return to caller
+
+/
+/ routine to set up counter for width of screen
+/
+
+SETCNT,	XX
+	CDFEDT			/ from edit field.
+	TAD I	(SPLTFL)	/ wide screen?
+	CDFMYF			/ Back to current field.
+	SZA CLA			/ skip if: narrow screen
+	TAD	(64)
+	TAD	(120)
+	CIA
+	DCA	T1		/ counter for number of prints
+	JMP I	SETCNT		/ return
+
+
+/----------
+/
+/ RVBKGRND -
+/
+/	Reverse video the background of the menu line.
+/
+/----------
+
+RVBKGRND,
+	XX			/ return address
+	JMS	SETRV		/ set reverse video mode
+/
+	CIFTXT
+	JMS I	(CALIOA)	/ position the cursor on the menu line
+		PCURSTRING
+		2000
+		NOP		/    (filler)
+/
+	TAD	MENULEN		/ length of menu line (-62)
+	DCA	T1		/ set up as a counter
+/
+	TAD	(ECSPC)		/ output spaces
+	JMS	OPTCHR		/  ...
+	ISZ	T1		/ bump the character count
+	JMP	.-3		/ loop 'till done
+/
+	JMS	CLRRV		/ clear reverse video
+/
+	JMP I	RVBKGRND	/ return to caller
+/
+MENULEN,
+	-62			/ minus the length of the menu line
+
+/----------
+/
+/ MNUPNT - Paint the initial menu line
+/
+/----------
+
+MNUPNT,	XX			/
+	JMS	RVBKGRND	/ reverse video the background of the menu line
+	AC7777			/
+	DCA	OFFSET		/ clear display at start-up
+	JMS	MENULINE	/ display the menu line
+	JMP I	MNUPNT		/ return
+/----------
+	PAGE
+
+HELPR,			/ replace
+	BLANK		/ screen #1
+	HLPR1;HYLTWD
+	HLPR2;NOP
+	BLANK
+	BLANK
+	HLPR4;FTMET
+	HLPR5;ULARAK
+	BLANK
+	BLANK
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPE,			/ edit
+	BLANK		/ screen #1
+	HLPE1;HYLTWD
+	HLPE2;NOP
+	HLPE3;NOP
+	BLANK
+	HLPE4;FTMET
+	HLPR5;ULARAK
+	BLANK
+	BLANK
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPI,			/ ignore
+	BLANK		/ screen #1
+	HLPI1;NOP
+	HLPI2;NOP
+	BLANK
+	HLPI3;FTMET
+	HLPR5;ULARAK
+	BLANK
+	BLANK
+	BLANK
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPC,			/ continue
+	BLANK		/ screen #1
+	HLPI1;NOP
+	HLPC1;NOP
+	BLANK
+	HLPC2;FTMET
+	HLPR5;ULARAK
+	BLANK
+	BLANK
+	BLANK
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPF,			/ finish
+	BLANK		/ screen #1
+	HLPF1;NOP
+	BLANK
+	BLANK
+	HLPF3;FTMET
+	HLPR5;ULARAK
+	BLANK
+	BLANK
+	BLANK
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPH,			/ help
+	BLANK		/ screen #1
+	HLPH1;DSPAID
+	HLPH2;NOP
+	BLANK
+	HLPH3;DSPAID
+	HLPH4;HOUMIF
+	HLPH5;NOP
+	BLANK
+	HLPH6;NOP
+	HLPH7;NOP
+	EXIT2;EXIT10
+	0
+	BLANK		/ screen #2
+	HLPH8;NOP
+	BLANK
+	HLPH9;NOP
+	HLPH90;NOP
+	HLPH0;ULARAK
+	HLPH10;NOP
+	BLANK
+	HLPH11;NOP
+	BLANK
+	EXIT2;EXIT10
+	0
+	BLANK		/ screen #3
+	HLPH12;NOP
+	BLANK
+	HLPH13;NOP
+	HLPH14;NOP
+	HLPH15;NOP
+	HLPH16;NOP
+	HLPH17;NOP
+	BLANK
+	BLANK
+	EXIT2;EXIT10
+	0
+	BLANK		/ screen #4
+	HLPH18;HOUMIF
+	HLPH19;HOUMIF
+	BLANK
+	HLPH20;HOUMIF
+	HLPH21;NOP
+	HLPH22;NOP
+	BLANK
+	HLPH24;NOP
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPK,			/ corrections list
+	BLANK		/ screen #1
+	HLPK1;NOP
+	BLANK
+	HLPK2;NOP
+	HLPK3;ULARAK
+	BLANK
+	HLPK4;LABRKT
+	HLPK5;NOP
+	BLANK
+	HLPK7;NOP
+	EXIT1;EXIT10
+	0
+	0
+/
+HELPL,			/ editing the line
+	BLANK		/ screen #1
+	BLANK
+	HLPL1;EDIT
+	BLANK
+	HLPL2;OCASD
+	HLPL3;OCASD
+	HLPL4;NOP
+	HLPL5;LABRKT
+	BLANK
+	BLANK
+	EXIT2;EXIT10
+	0
+	BLANK		/ screen #2
+	HLPL9;NOP
+	BLANK
+	HLPL6;TODELA
+	HLPL7;TODELA
+	HLPL8;GOLD
+	HLPL10;CHRWRD
+	HLPL11;CHRWRD
+	HLPL12;CHRWRD
+	HLPL13;CHRWRD
+	EXIT2;EXIT10
+	0
+	BLANK		/ screen #3
+	HLPL9;NOP
+	BLANK
+	HLPL14;CHRWRD
+	HLPL15;CHRWRD
+	HLPL16;NOP
+	HLPL17;NOP
+	HLPL18;NOP
+	BLANK
+	BLANK
+	EXIT1;EXIT10
+	0
+	0
+/
+
+HELPTABLE,			/ table of help menus
+	HELPR			/ replace
+	HELPE			/ edit
+	HELPI			/ ignore
+	HELPC			/ continue
+	HELPF			/ finish
+	HELPH			/ overwrite
+/
+	HELPK			/ correct list
+HELP2TABLE,			/ table of help menus at second level
+	XX			/ not used
+	HELPL			/ editing line
+/
+
+
+/
+/ This buffer area holds the word as it's scanned by the high level scanner.
+/
+WRDBUF,
+/	ZBLOCK	MAXCHR
+/	X=.
+/	Since WRDBUF is only in use during high level scan & since WDLIST
+/	is only in use after an error has been detected, both use the same
+/	buffer (WDLIST is the larger).
+
+/
+/ This buffer contains the correct word choices.  The buffer has a hard
+/  space coded at the end to make sure the buffer always ends with a space.
+/
+
+WDLIST,
+	ZBLOCK	BUF0LEN
+
+	X=.
+
+	ECSPC
+
+	X=.
+
+/
+/ This buffer is built as new words are received.  The reason for the
+/  separate buffer is for moving the cursor and the attributes along
+/   the correct word list.  The buffer is set up in the following form:
+/
+/        line,column;address
+/
+
+WDTABLE,
+	ZBLOCK	BUF1LEN	
+
+	X=.
+
+/-----------
+/
+/SNDAPU	- Sends a character/code to the APU.
+/
+/
+/CALL:	JMS	SNDAPU		AC=character to send.
+/
+/Return	AC=0 & character is sent. All waiting done by this routine.
+/
+/-------------
+
+IFDEF	DEBUG	<		/ Assemble this version to debug across comm line.
+SNDAPU,	XX			/ Entry point.
+	JMP	SNDGO		/ Merge below.
+
+SNDWT,	CIFSYS			/ The APU is busy. Let others run.
+	JSWAP			/  & then try again.
+SNDGO,	CIFSYS			/ try sending the character.
+	HS2OU			/ for now use the host line.
+	 JMP	SNDWT		/ Busy. wait & try again.
+	JMP I	SNDAPU		/ Return to caller when done.
+	>			/ IFDEF	DEBUG
+
+	IFNDEF	DEBUG	<	/ Assemble this version to run on the Z80.
+SNDAPU,	XX
+SNDAP0,	MQL			/ put contents of AC into MQ, clear AC
+	TAD	(-20)		/ iteration count.
+	DCA	XFRCNT		/  save for izzy.
+	TAD	(XRBIT)		/ transfer ready bit
+	MQA			/ OR MQ back in
+SNDAP1,	Z80IF			/ Skip on APU inbound read complete flag,
+	 JMP	SNDAP2		/ not ready
+SNDAPX,	Z80WR			/ send the data out			/M004
+	CLL CLA			/ AC is dirty on return
+	JMP I	SNDAPU		/ return to caller
+
+SNDAP2,	ISZ	XFRCNT		/ Bump iszy count.
+	JMP	SNDAP1		/  count not zero yet. try again.
+	DCA	XFRCNT		/ Save character to send.
+	JMS	WTLOOP		/ Check for time-out.
+	 SKP			/ No time-out yet. continue below.
+	 JMP	TYMOUT		/ Report time-out error.
+	TAD	XFRCNT		/ Get character to send.
+	JMP	SNDAP0		/ restart...
+
+XFRCNT,	0			/ Iteration count.
+	>			/ IFNDEF DEBUG
+
+/-----------
+/
+/ GETZ80 - Gets a character/code from the APU.
+/
+/
+/ CALL:	JMS	GETZ80		
+/
+/ Return:
+/		AC=character sent from the APU.
+/		All waiting done by this routine. If the time limit
+/		that has been set for the particular 'GET' is
+/		exceeded, this routine will hand off to the DYSKER
+/		routine to display the error message.
+/
+/-------------
+
+IFDEF	DEBUG	<		/ Assemble this version to debug across comm line.
+GETZ80,	XX			/ Entry point.
+GETAP1,	CIFSYS			/ for now use HS2IN.
+	HS2IN			/  ...
+	 JMP	GETAP2
+/	MQL			/ save byte
+/	CLA			/ to be sure...
+/	DCA	TIMES		/ clear wait loop flag
+/	MQA			/ restore...
+	JMP I	GETZ80		/ return to caller w/ return byte.
+
+GETAP2,	JMS	WTLOOP		/ Let other's run.
+	 JMP	GETAP1		/  rtn1 - then try again (more time to wait).
+	 JMP	TYMOUT		/  rtn2 - time-out error.
+	>			/ IFDEF DEBUG
+
+
+IFNDEF	DEBUG	<		/ Assemble this version to run in the same machine.
+GETZ80,	XX			/ Entry point.
+GETAP0,	TAD	(-200)		/ iteration count.
+	DCA	XFRCNT		/ save for loop count.
+GETAP1,	Z80SF			/ wait for flag
+	 JMP	GETAP2		/ not ready....
+GETAPX,	Z80RS			/ get a byte				/M004
+GETAPY,	AND	P377		/ mask off data I/O channel #.		/M004
+	JMP I	GETZ80		/ return to caller w/ return byte.
+
+GETAP2,	ISZ	XFRCNT		/ Bump iszy count.
+	JMP	GETAP1		/  count not zero yet. try again.
+	DCA	XFRCNT		/ Save character to send.
+	JMS	WTLOOP		/ Check for time-out.
+	 SKP			/ No time-out yet. continue below.
+	 JMP	TYMOUT		/ Report time-out error.
+	TAD	XFRCNT		/ Get character to send.
+	JMP	GETAP0		/ restart...
+	>			/ IFNDEF DEBUG
+/----------
+	PAGE
+
+/----------
+/
+/ STATTR - SeT ATTRibutes
+/
+/	This routine must have a location modified prior to calling.  If
+/	the correct word list is being displayed, set STATT1 up as a (SZL)
+/	instruction.  If the selected word is being hi-lited, set up STATT1
+/	as a (SNL) instruction.
+/
+/	Disatr - location containing attributes to be appended
+/
+/      |0|1|2|3|4|5|6|7|8|9|10|11|
+/      ---------------------------
+/      |*| |*|*|*| |*| | | |  |  |
+/      ---------------------------
+/       ^   ^ ^ ^   ^
+/	|   | | |   |
+/       |   | | |    \
+/       |   | | |     ---> lower case character
+/       |   | |  \
+/       |   | |   -------> bold
+/       |   |  \
+/       |   |   ---------> | 00 - none
+/       |    \             | 01 - underscore
+/       |     -----------> | 10 - superscript
+/       |                  | 11 - subscript
+/        \
+/         ---------------> upper case first character in word ONLY
+
+STATTR,	XX			/ return address
+	TAD	DISATR		/ get the attributes word
+	AND	(0600)		/ mask for underline and bold
+	CLL;BSW;RTR		/ if underline, AC=1; if bold, L=1
+	DCA	HOLDCH		/ save the AC, (in case underline)
+STATT1,	.-.			/ (SZL) if setting true word mode
+				/ (SNL) if setting hi-lite on selected word
+	 JMS	STBOLD		/ send bold escape sequence
+	TAD	MOORE		/ are we displaying <more...>?
+	SZA CLA			/ skip if: not
+	 JMP I	STATTR		/  displaying <more...>, no underlines.
+	TAD	HOLDCH		/ restore
+	SZA CLA			/ skip if: no underline
+	 JMS	STUNDR		/   send escape sequence to set underline
+	JMP I	STATTR		/ return to caller
+
+/
+/ routine to see that the <.......> text can fit on the first
+/  line of the correct word list.  if it can, return to the
+/   caller, otherwise, position the cursor to the start of the
+/    second line for the display.
+/
+
+FITITT,	XX
+	AC7777			/ bump the word table pointer back
+	TAD	X3		/  ....
+	DCA	T2		/   ....
+	AC4000			/ mask
+	AND I	T2		/ get the line # of the last word
+	DCA	LNCLMR		/  ....
+	TAD I	T2		/ line, column number
+	AND	P3777		/ column #
+	DCA	T1
+	TAD	X3		/ pointer to the word table
+	DCA	T2		/   ....
+	AC7777			/
+	TAD I	T2		/ index pointer to start of last word
+	DCA	X2		/ a pointer to the last word on the first line
+
+/ loop
+
+	  TAD I	X2		/ get the next char in the word
+	  TAD	(-ECSPC)	/ a space?
+	 SNA CLA		/ skip if: not a space, end of word
+	   JMP	FITIT0		/  found end of word
+	  ISZ	T1		/ bump the column number
+	  JMP	.-5		/  find end of word
+
+/ 'till "space" found
+
+FITIT0,	AC0001			/ 1+
+	TAD	T1		/ column # of last char
+	TAD	LNCLMR		/ combine with line # of last word
+	DCA	LNCLMR		/ and save
+	TAD	T1		/ restore...
+	TAD	M107		/ compare to the max length allowed
+	SPA SNA CLA		/ skip if: <??????> will not fit
+	 JMP	FITIT1		/   continue
+	CIFTXT			/
+	JMS I	(CALIOA)	/
+		CURSTR		/ erase to end of line and
+		1600		/ bump cursor to next line for display
+		NOP		/
+	TAD	(4002)		/ Set up line/col # for <more> (2nd line,col 1)
+	DCA	LNCLMR		/  ...
+FITIT1,	TAD	(ECSPC)		/ 'space'
+	JMS	OPTCHR		/ output a 'space' at the end of the list
+	TAD	RTNSTS		/ get the return status
+	SZA CLA			/ skip if: more corrections available
+	 TAD	(NOMORDIS-MORDIS)/   no more corrections, display <no more>
+	TAD	(MORDIS)	/   more corrections, display <more...>
+	DCA	DISMO1		/ set up for display
+	JMS	DISMORE		/ and display the text
+/
+	JMP I	FITITT		/ return
+
+
+/----------
+/
+/ WTLOOP - Wait Loop
+/
+/	Upon entry:
+/
+/		TIMER should be set up to indicate the
+/		number of seconds to wait.
+/
+/ CALL:	JMS	WTLOOP
+/		rtn1	/ have not reached maximum time.
+/		rtn2	/ end of wait time reached.
+/
+/----------
+
+TIMER,	0			/ number of seconds to wait (negative form)
+TIMER1,	0			/ current seconds
+TIMES,	0			/ 0 if first time thru/wait
+
+WTLOOP,	XX
+
+	RDF			/ get return field
+	TAD	CIDF0		/ make a return CIF CDF instruction
+	DCA	WTLOO4		/ save for the exit
+	CDFSPL			/
+
+	TAD	UPDCLK		/ Should we update the clock?
+	SNA CLA			/ Skip if: yes
+	 JMP	WTLOO0		/  don't update the screen clock
+	CIFMNU			/ Update the time & date display.
+	JMS I	(TIMDSP)	/  ...
+
+WTLOO0,	TAD	TIMER		/ are we done before we start?
+	SNA CLA			/ skip if: more time to wait
+	 JMP	WTLOO3		/  waited long enough
+	TAD	TIMES		/ have we been here before
+	SZA CLA			/ skip if: first time thru
+	 JMP	WTLOO1		/  been here before, don't re-init time
+	CDFSYS			/ sys-field
+	TAD I	(CLOCK+2)	/ get the seconds
+	CDFMYF			/ back to my field
+	DCA	TIMER1		/ save for compares
+	AC0001			/ set to indicate first time thru
+	DCA	TIMES		/  ...
+
+WTLOO1,	CIFSYS			/
+	JSWAP			/ wait for others
+/
+	CDFSYS			/
+	TAD I	(CLOCK+2)	/ get current seconds
+	CDFMYF			/
+	CIA			/ negative for compare
+	TAD	TIMER1		/ to saved tenths
+	SNA			/ skip if: change
+	 JMP	WTLOO4		/   no change in time, exit
+	CIA			/ Restore to new value.
+	TAD	TIMER1		/  ...
+	DCA	TIMER1		/  ...
+/D005	TAD	UPDCLK		/ Get the update clock flag
+/D005	SNA CLA			/ Skip if: set
+/D005	 JMP	WTLOO2		/  Not set
+/D005	CIFTXT			/ Set...
+/D005	JMS I	(CALIOA)	/  Display...
+/D005		WRKING		/   Working...
+/D005		1732		/
+/D005		1732		/
+WTLOO2,	ISZ	TIMER		/ bump our counter
+	 NOP			/ in case time goes to zero
+	JMP	WTLOO4		/ exit
+
+WTLOO3,	DCA	TIMES		/ clear first time thru flag
+	ISZ	WTLOOP
+WTLOO4,	.-.			/ return CIF CDF instruction
+	JMP I	WTLOOP		/ return
+
+PORTBL,	11			/ XPU status port
+	10			/ XPU data port
+	100			/ XPU output ready mask
+	1			/ XPU input available mask
+	100			/ XPU output ready XOR mask
+	0			/ end of table	
+/----------
+	PAGE
+
+/****************************************************************************
+/ OVTST		Entry point for the TSTCHR routine which drops through	/a019
+/		Start Dead Key Sequence characters			/a019
+/****************************************************************************
+
+OVTST,	XX			/ The required return address is here	/a019
+	DCA	CHAR		/ The character is placed here		/a019
+	TAD	OVTST		/ Get the required return address	/a019
+	DCA	TSTCHR		/ Pass it to the TSTCHR routine		/a019
+	TAD	CHAR		/ Get the character back		/a019
+	TAD	(-ECSTOV)	/ Test for Start-of-Dead		/a019
+	SZA CLA			/ Is it Start-Of-Dead?			/a019
+	JMP	TSTCND		/ No, enter the TSTCHR routine		/a019
+	JMP I	OVTST		/ Yes, return as an OTHER character	/a019
+
+/****************************************************************************
+/ LODXPU	has been blasted out to join LODAPU			/a019
+/****************************************************************************
+
+/----------
+/
+/ LODXPU - LOad the XPU
+/
+/		This code is branched to from LODAPU to perform the
+/		the XPU specific stuff involved in loading the Z80.
+/		Control is returned to a merge re-entry point in LODAPU
+/
+/----------
+
+/d019	LODXPU,				/ Z80 address space on the XPU is	
+/d019					/  20000-3FFFF hex (on even byte bounds)
+/d019					/  Segment register=2000h to address this space
+/d019		JMS	MMCMD		/ Send monitor command
+/d019			1054		/ =22Ch=Write memory segment(MS) register
+/d019		CLA			/ Low byte=0				
+/d019		JMS	SNDAPU		/ Send it to the XPU
+/d019		TAD	(40		/ High byte = 20h
+/d019		JMS	SNDAPU		/ Send it to the XPU
+/d019		JMS	MMSTA		/ Wait for status returned from monitor
+/d019		JMS	MMCMD		/ Send monitor command
+/d019			1053		/ =22Bh=Write memory offset(MO) register
+/d019		TAD	STRTAL		/ Get low byte of starting address	
+/d019		RAL			/ x2 since we are wrting even bytes
+/d019		JMS	SNDAPU		/ Send it to the XPU
+/d019		TAD	STRTAH		/ Get high byte of starting address	
+/d019		RAL			/ x2 since we are wrting even bytes
+/d019		JMS	SNDAPU		/ Send it to the XPU
+/d019		JMS	MMSTA		/ Wait for status returned from monitor
+/d019	
+/d019	LODXPN,	
+/d019		CIFMNU			/ Update the date & time display.
+/d019		JMS I	(TIMDSP)	/  ...
+/d019	
+/d019		JMS	MMCMD		/ Send monitor command
+/d019			5		/ =Write block on even bytes
+/d019		TAD	STRTBK		/ Get block # to write
+/d019		JMS	PUTBLK		/ & go write it
+/d019		TAD	(BKDNBIT)	/ Set BlocK transfer DoNe bit into AC
+/d019		X80ST			/ & write it to XPU status register
+/d019		CLA			/ Clear garbage left in AC
+/d019		JMS	MMSTA		/ Wait for status returned from monitor
+/d019	
+/d019		ISZ	STRTBK		/ bump to next block
+/d019		ISZ	NMBRBK		/ bump block count
+/d019		  JMP	LODXPN		/   more blocks to load
+/d019	
+/d019	/ until: all blocks loaded
+/d019	
+/d019	/ Now start up the XPU & wait for the done code.
+/d019	
+/d019	
+/d019		JMS	MMCMD		/ Send monitor command
+/d019			1074		/ =23Ch=write z80 PC
+/d019		TAD	STRTAL		/ Get low byte of starting address
+/d019		JMS	SNDAPU		/ Send it to the XPU
+/d019		TAD	STRTAH		/ Get high byte of starting address
+/d019		JMS	SNDAPU		/ Send it to the XPU
+/d019		JMS	MMSTA		/ Wait for status returned from monitor
+/d019	
+/d019		JMS	MMCMD		/ Send monitor command
+/d019			11		/ =9h=startup Z80
+/d019	
+/d019		JMS	MMSTA		/ Wait for status returned from monitor
+/d019		JMP	LODAPM		/ Merge back with original stream
+
+/-----------
+/
+/ MMSTA - MiniMonitor STAtus return
+/
+/-----------
+
+MMSTA,	XX
+	TAD	(NOP)		/ Get a "NOP" into AC
+	DCA	GETAPY		/ & put into the "GETAPU" routine to prevent
+				/  masking out the high order bits of a valid
+				/  monitor response
+	JMS	GETAPU		/ Get output from XPU monitor
+	-5			/ Time out after 5 seconds
+	7400;MMSTAC		/ =F00h=Normal completion of a monitor command
+	0			/ Any other is fatal
+MMSTAC, TAD	(AND P377)	/ Get the 'mask to 8 bits' instruction into AC
+	DCA	GETAPY		/ & restore it into the "GETAPU" routine
+	JMP I	MMSTA		/ & Return
+
+
+/----------
+/
+/ CHPORT - CHange Z80 PORT assignments for the XPU			/A005
+/
+/		Called once when loading the 1st block of Z80 code into the XPU
+/
+/----------
+
+
+CHPORT,	XX
+	AC0002			/ Just return if we are reading the dictn/A018
+	TAD	FILNUM		/					/A018
+	SNA CLA			/					/A018
+	 JMP I	CHPORT		/					/A018
+	TAD	(PORTBL-1)	/ Point to beginning of XPU port assignment table
+	DCA	X0		/ & save for auto-index
+	TAD	(BUFADR+2)	/ Point to address in Z80 code where port
+				/  assignments are stored (START + 3)
+	DCA	X1		/ & save for auto-index
+CHPOLP,	CDFMYF			/ Back to our field
+	TAD I	X0		/ Pick up entry in table
+	SNA			/ Skip if there was an entry
+	 JMP I	CHPORT		/  AC=0  End Of Table  Return
+	CDFTXT			/ Change to our buffer field
+	DCA I	X1		/ & store into corresponding address in Z80 code
+	JMP	CHPOLP		/ Go get next entry
+
+
+UPDTPD,	TAD	(PCADNW)	/ Get command to add to new word list	/A008
+	DCA	IOPSHNW		/ & store in IOPSHUN routine.  We are	/A008
+				/ clearing new word list, so adding to	/A008
+				/ it will be ok again.			/A008
+
+	BKPPTR			/ GET TO BEGINNING OF FILE		/A008
+	SKP								/A008
+	JMP	.-2							/A008
+	GETCHR			/ ADVANCE PAST RULER			/A008
+	NOP			/					/A008
+	CLA CLL			/					/A008
+
+
+	TAD	(-12)		/ 10 SEC. TIMEOUT			/A008
+	DCA	TIMER							/A008
+	DCA	TIMES							/A008
+	TAD	(PCRTNW)	/ Tell Z80 to ReTurn the New Word list	/A008
+	JMS	SNDAPU							/A008
+UPDTNX,	CLA			/ Clear possible dirty AC
+	JMS	GETAPU		/ Get the response			/A008
+		-12		/ 10 sec. timeout 			/M010
+		PCENNW;SPLXIT	/ End of list - exit spell		/A008
+		PCSTWD;GETNEW	/ Start of word - get the word		/A008
+		0		/ All others fatal			/A008
+
+GETNEW,	JMS	GETZ8C		/ Get the next character		/A008
+	TAD	(-PCENWD)	/ Check for end of word			/A008
+	SNA			/ Skip if: NOT end of word		/A008
+	 JMP	GETEND		/  End of word - put EOL		/M010
+	TAD	(PCENWD)	/ Restore the original character	/A008
+	INSCHR;ADVPTR;NOP	/ & put it to file.			/A008
+	JMP	GETNEW		/ Loop for next char			/A008
+
+GETEND,	TAD	(LF)		/ Put LF to file 			/M010
+	INSCHR;ADVPTR;NOP	/					/M010
+	JMP	UPDTNX		/ Get next word				/A010
+
+/****************************************************************************
+/ TSTLIN	Moved here to make room in page 200			/a019
+/****************************************************************************
+
+TSTLIN,	XX			/ Routine to see if word wrapped to next line.
+	CDFEDT			/ Map edit field.
+	TAD I	(SCRLCT)	/   (get lag counter).
+	CDFMYF			/ Back to our field.
+	SNA			/ Skip if we bumped a line.
+	 JMP	TSTLNX		/  return if still on same line.
+	JMS	UNDOLG		/ Undo screen lag (via FXSCRL).
+	TAD	WRDSIZ		/ Backup to the start of the word.
+	CIA			/  ...
+	MOVCHR			/   posn to start of word.
+	CDFEDT			/ Map edit field.
+	TAD I	(SCRLCT)	/ See if word still starts on same initial line.
+	TAD	LINCNT		/ compare lag count to line count.
+	SPA SNA CLA		/ Skip if now we're fewer lines. (accounted for
+	 JMP	MFIXUP		/  by wrapping text when modified). JMP if OK.
+	TAD I	(SCRLCT)	/ Reset # of lines to start of word.
+	CIA			/  ...
+	DCA	LINCNT		/   ....
+	TAD I	(CURSOR)	/ Save CURSOR posn of start of word.
+	DCA	SCURSR		/  ...
+	TAD I	(CURPTR)	/ Save text ptr to start of word.
+	DCA	SCURPT		/  ...
+	TAD	SCURSR		/ Reset start of line pointer.
+	DCA	SLCRSR		/  (cursor posn).
+	DCA	NEWLIN		/ Reset 'new line' indicator since start of line
+				/  pointers already initialized.
+MFIXUP,	CDFMYF			/ back to our field.
+	TAD	WRDSIZ		/ Get distance to where we were.
+	MOVCHR			/ Go there.
+TSTLNX,	JMP I	TSTLIN		/ Return to caller.
+
+/----------
+	PAGE
+
+
+	FIELD	3		/ This is the auxillary field.
+				/ note that the editor loads into 6400-7777
+				/ of this field. Also note that several
+				/ editor routines use some of the globaly
+				/ defined temps (X0, X1, X2, T1, etc.)
+	*200			/ Start assembling code at 200.
+BUFADR,			/ Buffer for I/O starts here.
+
+CDFMYF=CDFTXT			/ A CDF to this field.
+
+/d015	ZBLOCK	400		/ Reserve 2 pages for start of 1000 word buffer.
+	ZBLOCK	200		/ Only one page is necessary now as XPU	/A015
+				/  code has pushed the resident code up	/A015
+				/  & we need the space.			/A015
+/----------
+	PAGE
+
+/----------
+/
+/ CHKAPU - CHecK the APU
+/
+/
+/	This routine, checks to be sure that the APU board is present.
+/	If so, it then performs a mini-self-test to see that it is
+/	functioning proporly.  If either of these tests fail, set up
+/	a pointer to an error message, and take the normal return to
+/	display the error message, otherwise, take a return+1.
+/
+/
+/ CALL:	JMS	CHKAPU
+/		rtn1	/ error
+/		rtn2	/ APU is present & OK
+/
+/----------
+
+CHKAPU,	XX
+	RDF			/ Get return field.
+	TAD	CIDF0		/  ...
+	DCA	CHKAP3		/ Save for the return trip home.
+	AC0001			/ Set flag allows for updating of screen clock
+	CDFSPL			/ Spell field
+	DCA I	(UPDCLK)	/  Update clock flag
+
+	CDFMNU			/ See if APU has been loaded already.
+	TAD I	(MUBUF+MNOPTN)	/ Get options word.
+	AND	(MNRX7X)	/ See if the XPU bit is set.		/M004
+	DCA	XPUFLG		/ & save for later use			/A004
+	TAD I	(MUBUF+MNPULD)	/ Get external processor loaded word	/A004
+	AND	(MNRX0X+MNRX1X)	/ Mask out American/British loaded bits	/A004
+	SZA CLA			/ Skip if both bits are 0...APU not loaded./M004
+	 JMP	CHKAP1		/ APU is loaded, so skip the self-test.
+
+	CDFMYF			/ Now map our field.
+	TAD	XPUFLG		/ See which device to start up		/A004
+	SZA CLA			/ Skip if it is APU (XPUFLG NOT set)	/A004
+	 JMP	CHKXPU		/  Else go to XPU start up routine	/A004
+
+	Z80LI			/ No APU interrupt. (AC=0)
+
+	JMS	WAKAPU		/ Start the APU and wait for it to answer
+	 JMP	APUINC		/  rtn1 - APU incompatible or failure
+	 JMP	APUBAD		/  rtn2 - APU failure
+	JMS	WAKAPU		/ Reset the APU and wait for another flag
+	 JMP	APUINC		/  rtn1 - APU incompatible or failure
+	 JMP	APUBAD		/  rtn2 - APU failure
+
+	/ Test the data communications channels used for all data
+	/  and command I/O.  Send a byte of data to the APU, which
+	/   will echo the byte back with a walking '1' in the address
+	/    field, until a 'command' byte is received.
+
+	AC4000			/ Zero on right, walking '1' on left.
+CHKAPA,	DCA	TEMP2		/ Store in temp2.
+	TAD	TEMP2		/ Restore.
+	AND	P377		/ 8-bit mask.
+	SNA CLA			/ First time through?
+	 JMP	CHKAPC		/   Don't wait first time through.
+	TAD	(-200)		/ Set maximum number of retries.
+	DCA	INTTIM		/ Into the internal timer.
+CHKAA1,	CLL CLA			/
+	Z80IF			/ Wait for inbound read complete flag.
+	 SKP			/  Not ready, test for timed out.
+	 JMP	CHKAPC		/  ready, continue test
+	ISZ	INTTIM		/ Bump our internal timer (counter).
+	 JMP	CHKAA1		/ Continue waiting.
+	JMP	APUBAD		/ Timed out.	
+
+CHKAPC,	TAD	TEMP2		/ Restore temp2.
+	AND	P377		/ 8-bit mask.
+	MQL			/ AC into MQ
+	TAD	(XRBIT)		/ Transfer ready bit.
+	MQA			/ 'OR' MQ back into AC.
+	Z80WR			/ Put out temp2.
+	CLL CLA			/ Dirty AC after call.
+	TAD	(-200)		/ Set maximum number of retries.
+	DCA	INTTIM		/ Into the internal timer (counter).
+CHKAC1,	CLL CLA			/
+	Z80SF			/ Test the inbound data ready flag.
+	 SKP			/  Not ready, test for timed out.
+	 JMP	CHKAPD		/  Ready, continue.
+	ISZ	INTTIM		/ Bump the timer.
+	 JMP	CHKAC1		/ Continue to wait.
+	JMP	APUBAD		/ Timed out, error.
+
+CHKAPD,	Z80RS			/ Get the data from the APU.
+	CIA			/ Make negative for compare.
+	TAD	TEMP2		/ To the expected value
+	SZA CLA			/ Skip if: interface OK, so far.
+	 JMP	APUBAD		/  Interface test failed.
+	TAD	TEMP2		/ Get back old expected value.
+	IAC			/ Bump data portion up by 1.
+	AND	P377		/ Mask out upper bit.
+	SNA			/ Skip if: more testing to do.
+	 JMP	CHKAPZ		/  Finished this test.
+	MQL			/ New data value into MQ
+	CLA			/ To be sure!
+	TAD	TEMP2		/ Old value for rotate.
+	AND	(7400)		/ Just these 4-bits.
+	CLL RAR			/ Rotate right 1-bit.
+	DCA	TEMP2		/ Save as new temp2.
+	TAD	TEMP2		/ Restore.
+	TAD	(-200)		/ Have we rotated too far?
+	SZA CLA			/ Skip if: too far.
+	 JMP	.+3		/  Not too far, TEMP2 is OK.
+	AC4000			/
+	SKP			/
+	TAD	TEMP2		/ Here is rotate was OK.
+	MQA			/ 'OR' in data stored in MQ
+	JMP	CHKAPA		/ Loop ...
+
+	/ Now, let the APU do its RAM test. First, send any command.
+
+CHKAPZ,	TAD	(CDBIT!XRBIT)	/ Turn on command bit.
+	Z80WR			/ Put out temp2.
+	CLL CLA			/ Dirty AC after call.
+
+	TAD	(-10)		/ Wait for 10 seconds.
+	CDFSPL			/ data field to spell.
+	DCA I	(TIMER)		/  ...
+	CDFMYF			/ Back to my field.
+CHKAP0,	CIFSPL			/ Instruction field to spell.
+	JMS	WTLOOP		/ For RAM test to complete.
+	 SKP			/  rtn1 - not finished wait.
+	 JMP	APUBAD		/  rtn2 - wait completed.
+
+	Z80SF			/ Skip on device falg.
+	 JMP	CHKAP0		/  Not ready.
+	Z80RS			/ Get the data from the APU.
+	TAD	(-7401)		/ Should be 'f01' (hex).
+	SZA CLA			/ Skip if: OK.
+	 JMP	APUBAD		/  Failed RAM test.
+
+	/ Successfully completed the APU Self-Test.
+
+CHKAP1,	ISZ	CHKAPU		/ bump on success return
+CHKAP2,	/D004 CLA			/ Clear update clock flag
+	CDFSPL			/ Spell field
+	DCA I	(UPDCLK)	/ Clear update clock flag		/M004
+	TAD	XPUFLG		/ See if we need to put patches in main	/A004
+				/ spell code for XPU.			/A004
+	SZA CLA			/ Skip if APU				/A004
+	 JMS	PATXPU		/  Else go do XPU patches		/A004
+CHKAP3,	XX			/ Return CIF CDF instruction goes here.
+	JMP I	CHKAPU		/ return to caller
+
+INTTIM,	0			/ Internal timer (counter).
+TEMP2,	0			/ Temp storage for the I/O tests.
+/----------
+	PAGE
+
+/----------
+/
+/ RSTAPU - ReSeT the APU
+/
+/----------
+
+RSTAPU,	XX
+	CLA
+	TAD	(RBIT)		/ get the reset bit
+	Z80WR			/ RESET
+
+/
+/	The sequence RESET/RELEASE RESET does not clear the APU outbound
+/	data available flag, nor does it clear (entirely) the data coming
+/	from the APU.  Hence, the next 5 instructions were added to make
+/	sure that the data available flag does get cleared, so that when
+/	a read is issued, expected data is returned (no error condition).
+/
+/-----
+/
+
+	Z80DF			/ set APU outbound data available flag
+	Z80SF			/ skip on APU outbnd data avail. flg, clear it
+	 JMP	.-1		/  wait for flag
+	Z80SF			/ just in case (H/W)
+	 NOP			/
+
+/
+/-----
+/
+
+	CLL CLA			/ clear dirty AC
+	Z80WR			/ RELEASE RESET
+	CLL CLA			/ clear dirty AC
+	JMP I	RSTAPU		/ return
+
+/----------
+/
+/ WAKAPU - Wake up the APU
+/
+/	Reset the APU, wait for 3 seconds, and see if
+/	we got a response back.
+/
+/----------
+
+WAKAPU,	XX
+
+	JMS	RSTAPU		/ reset the APU
+
+	AC7775			/ maximum of 3 seconds.
+	CDFSPL			/ data field to spell
+	DCA I	(TIMER)		/  ...
+	CDFMYF			/ back to my field
+WAKAP0,	CIFSPL			/ instruction field to spell
+	JMS	WTLOOP		/ wait loop
+	 SKP			/  rtn1 - not finished wait.
+	 JMP	WAKAP1		/  rtn2 - wait completed - never heard
+
+	/ check if device 14 has signalled ...
+
+	Z80SF			/ skip if: APU flag set
+	  JMP	WAKAP0		/   never heard from the APU
+	Z80RS			/ get the data from the APU
+	TAD	(-7400)		/ make sure it's 'F00' (hex)
+	SNA CLA			/ skip if: wrong response
+	  ISZ	WAKAPU		/   good response, bump return
+	ISZ	WAKAPU		/  wrong response
+WAKAP1,	CDFSPL			/ data field to spell
+	DCA I	(TIMES)		/ clear wait loop flag
+	CDFMYF			/
+	JMP I	WAKAPU		/   return+1 if OK, normal return otherwise.
+
+/
+/ error detected, display appropriate error message before returning.
+/
+
+APUINC,	TAD	(INCAPU-BADAPU)	/ APU incompatibility
+APUBAD,	TAD	(BADAPU)	/ APU failure
+	DCA	APUBA1		/ Set up for display
+	CIFMNU			/ Do a MENU call to display the message.
+	JMS I	IOACAL		/  ...
+		0		/ Display to the screen.
+APUBA1,		.-.		/ Error message ptr.
+		-2700		/  arg1
+		ASTRNG		/  arg2
+		THREST		/  arg3
+	JMS	WAITRT		/ Wait for a return.
+	 JMP	APUBAD		/ Something else was typed. Repeat error.
+	JMP	CHKAP2		/ normal return on error
+
+
+
+WAITRT,	XX			/ Routine to wait for 1st input char & check it.
+	JMP	BADAP2		/ Merge below.
+BADAP1,	CIFSYS			/ JWAIT for a bit.
+	JWAIT			/  ...
+BADAP2,	CIFSYS			/ Get an input character.
+	XLTIN			/  ...
+	 JMP	BADAP1		/ Loop & wait if none.
+	TAD	(-EDNWLN)	/  Return typed?
+	SNA CLA			/ Skip if no. Return to repeat error.
+	 ISZ	WAITRT		/ Take success return.
+	JMP I	WAITRT		/ return to caller.
+
+
+
+/-----------
+/
+/ WTIDRD - WaiT for xpu Input Data ReaD flag				/A005
+/
+/-----------
+
+WTIDRD,	XX
+AIDRD,	X80IF			/ Skip if XPU has read input data
+	 SKP CLA		/  else go wait a bit
+	JMP I	WTIDRD		/ RETURN
+	CIFSPL			/ Change to spell field
+	JMS	WTLOOP		/ Check for timeout, etc.
+	JMP	AIDRD		/ No timeout - try again
+	JMP	APUBAD		/ Timeout error
+
+
+
+
+/-----------
+/
+/ WTODAV - WaiT for xpu Outbound Data AVailable flag			/A005
+/
+/-----------
+
+
+WTODAV,	XX
+AODAV,	X80SF			/ Skip if XPU has output data available
+	 SKP CLA		/  else go wait a bit
+	JMP I	WTODAV		/ RETURN
+	CIFSPL			/ Change to spell field
+	JMS	WTLOOP		/ Check for timeout, etc.
+	JMP	AODAV		/ No timeout - try again
+	JMP	APUBAD		/ Timeout error
+
+
+
+
+/----------
+/
+/ RSTXPU - ReSeT the XPU
+/
+/----------
+
+RSTXPU,	XX
+	CLA
+	TAD	(RSETBIT)
+	X80LI
+/
+/	The sequence RESET/RELEASE RESET does not clear the XPU outbound
+/	data available flag, nor does it clear (entirely) the data coming
+/	from the XPU.  Hence, the next 6 instructions were added to make
+/	sure that the data available flag does get cleared, so that when
+/	a read is issued, expected data is returned (no error condition).
+/
+/-----
+/
+
+	AC0001								/M006
+	X80DF			/ set XPU outbound data available flag	/M006
+	X80SF			/ skip on XPU outbnd data avail. flg, clear it/M006
+	 JMP	.-1		/  wait for flag			/M006
+	X80SF			/ just in case (H/W)			/M006
+	 NOP			/					/M006
+
+/
+/-----
+/
+
+	CLL CLA			/ clear dirty AC
+	X80LI
+	CLL CLA			/ clear dirty AC
+	JMP I	RSTXPU		/ return
+
+/----------
+/
+/ WAKXPU - Wake up the XPU
+/
+/	Reset the XPU, wait for 3 seconds, and see if
+/	we got a response back.
+/
+/----------
+
+WAKXPU,	XX
+
+	JMS	RSTXPU		/ reset the XPU
+
+	AC7775			/ maximum of 3 seconds.
+	CDFSPL			/ data field to spell
+	DCA I	(TIMER)		/  ...
+	CDFMYF			/ back to my field
+WAKXP0,	CIFSPL			/ instruction field to spell
+	JMS	WTLOOP		/ wait loop
+	 SKP			/  rtn1 - not finished wait.
+	 JMP	WAKXP1		/  rtn2 - wait completed - never heard
+
+	/ check if device 17 has signalled ...
+
+	X80SF			/ skip if: XPU flag set
+	  JMP	WAKXP0		/   never heard from the XPU
+	X80RS			/ get the data from the XPU
+	DCA	XTMP1
+	  ISZ	WAKXPU		/   good response, bump return
+	ISZ	WAKXPU		/  wrong response
+WAKXP1,	CDFSPL			/ data field to spell
+	DCA I	(TIMES)		/ clear wait loop flag
+	CDFMYF			/
+	JMP I	WAKXPU		/   return+1 if OK, normal return otherwise.
+
+
+/----------
+	PAGE
+
+/---------
+/
+/ PATXPU - PATch the spell code with XPU specific IOTs, etc.
+/
+/---------
+
+
+PATXPU,	XX
+	TAD	(PATTBL-1)	/ Get address of patch table-1
+	DCA	X0		/ & save for auto-indexing
+PATXLP,	CDFMYF			/ Change to our field
+	TAD I	X0		/ Get address to be patched
+	SNA			/ Skip if valid address (.NE. 0)
+	 JMP I	PATXPU		/  else RETURN
+	DCA	T1		/ Save address
+	TAD I	X0		/ Get patch
+	CDFSPL			/ Change to spell field
+	DCA I	T1		/ & put in the patch
+	JMP	PATXLP		/ Loop back for the next
+
+PATTBL,	GETAP1	;X80SF
+	GETAPX	;X80RS
+	SNDAP1	;X80IF
+	MMCMX	;X80IF
+	SNDAPX	;X80WR
+	MMCMY	;X80WR
+	XPUFLG	;1		/ This signals the code in the spell field
+				/  that it is dealing with an XPU
+	0
+
+
+
+
+/------------
+/
+/ CHKXPU - CHecK the XPU						/A005
+/
+/		Branched to from CHKAPU to perform the XPU specific startup
+/		and self-test handshaking.  Takes same error path as CHKAPU
+/		& branches back to CHKAPU on successful completion
+/
+/------------
+
+
+CHKXPU,	/d007 7402		/ **temp**
+	X80LI			/ No XPU interrupt. (AC=0)
+
+	JMS	WAKXPU		/ Start the XPU and wait for it to answer
+	 JMP	APUINC		/  rtn1 - XPU incompatible or failure
+	 JMP	APUBAD		/  rtn2 - XPU failure
+	JMS	WAKXPU		/ Reset the XPU and wait for another flag
+	 JMP	APUINC		/  rtn1 - XPU incompatible or failure
+	 JMP	APUBAD		/  rtn2 - XPU failure
+
+	TAD	(-12)		/ Set AC=-10 decimal.  Allow 10 secs. for
+				/ completion of self-test.
+	CDFSPL			/ Change data field to spell &
+	DCA I	(TIMER)		/ Set the timer.
+	CDFMYF			/ Back to our field.
+
+	JMS	WTODAV		/ Wait for xpu to signal it has output ready
+
+/note: this code is adapted directly from the self test performed under
+/	CP/M which waits for output but then ignores it (an error !?!?)
+/	Probably should be an X80RS etc. here, but when in Rome ....
+
+	X80WR			/ Send xpu anything
+
+	CLA CLL			/ Clear garbage
+	JMS	WTIDRD		/ Wait for xpu to signal input data read
+
+	CLA CLL			/ Clear garbage
+	TAD	(TIMRBIT)	/ Set RS.TIMR bit in XPU RSTATUS register
+	X80ST			/ ...
+	CLA CLL			/ Clear garbage
+
+	JMS	WTODAV		/ Wait for xpu to signal it has output ready
+
+	X80RS			/ Get output from XPU
+	DCA	XTMP1		/ & save it
+
+	TAD	(BKDNBIT)	/ Set RS.BKDN bit in XPU RSTATUS register
+	X80ST			/ ...
+	CLA CLL			/ Clear garbage
+
+	JMS	WTODAV		/ Wait for xpu to signal it has output ready
+
+	X80RS			/ Get output from XPU
+	DCA	XTMP1		/ & save it
+
+	TAD	(ATTNBIT)	/ Set RS.ATTN bit in XPU RSTATUS register
+	X80ST			/ ...
+	CLA CLL			/ Clear garbage
+
+	JMS	WTODAV		/ Wait for xpu to signal it has output ready
+
+	X80RS			/ Get output from XPU
+	DCA	XTMP1		/ & save it
+
+	AC0001			/ Initialize the starting pattern
+TEST1B,	DCA	XTMP2		/ Save the pattern
+	AC7776			/ Set inner loop counter for 2 patterns
+	DCA	INSCNT		/ ...
+TEST1C,	TAD	XTMP2		/ Get the pattern
+	X80WR			/ Send it to the XPU
+	CLA CLL			/ Clear garbage
+	JMS	WTIDRD		/ Wait for xpu to signal input data read
+	JMS	WTODAV		/ Wait for xpu to signal it has output ready
+	X80RS			/ Get output from XPU
+	DCA	XTMP1		/ & save it
+	TAD	XTMP2		/ Get back pattern originally sent
+	CIA			/ Negate it
+	TAD	XTMP1		/ Add in what XPU returned
+	SZA CLA			/ Skip if the same
+	 JMP	APUBAD		/  else report error
+	TAD	XTMP2		/ Get the pattern just sent
+	CMA			/ Complement it
+	DCA	XTMP2		/ & save the new pattern
+	ISZ	INSCNT		/ Update the inner loop counter
+	 JMP	TEST1C		/  Did floating 1 - now do floating 0
+	TAD	XTMP2		/ Get the pattern
+	CLL	RAL		/ Shift the floating 1 once left
+	SNL			/ Skip if we've been through every bit
+	 JMP	TEST1B		/  else go do this pattern
+	CLA CLL			/ Clear garbage
+	TAD	(BKDNBIT)	/ Tell the XPU we're finished sending data
+	X80ST			/ ...
+	CLA CLL			/ Clear garbage
+
+	JMS	WTODAV		/ Wait for xpu to signal it has output ready
+
+	X80RS			/ Get output from XPU
+	DCA	XTMP1		/ & save it
+	TAD	XTMP1		/ Get it back
+	TAD	(-7401)		/ See if it was F01h=Monitor ready after reset
+	SZA CLA			/ Skip if it was
+	 JMP	APUBAD		/  else report error
+
+				/ Because of the difference between the way
+				/  the APU & XPU start up the following is
+				/  done to prevent a timeout from occurring
+				/  in the routine MMCMD the first time it is
+				/  entered.
+
+	AC0002			/ Set the XPU input data read flag
+	X80DF			/ ...
+	CLA CLL			/ Clear garbage
+
+	CDFSPL			/ Change to spell field
+	DCA I	(TIMES)		/ Clear wait loop flag
+	JMP	CHKAP1		/ Merge back into CHKAPU stream
+
+
+XTMP1,	0
+XTMP2,	0
+INSCNT,	0
+/----------
+	PAGE
+
+
+/----------
+/
+/
+/	Jms	Calioa
+/		****	/ arg1 (text string)
+/		****	/ arg2
+/		****	/ arg3
+/
+/----------
+
+CALIOA,	XX
+	TAD I	CALIOA		/ pick up the text string address
+	DCA	CALIO1		/  ...
+	ISZ	CALIOA		/ bump to next location
+	TAD I	CALIOA		/ pick up next arg
+	DCA	CALIO2		/  ...
+	ISZ	CALIOA		/ bump to next location
+	TAD I	CALIOA		/ pick up next arg
+	DCA	CALIO3		/  ...
+	ISZ	CALIOA		/ bump for return
+	RDF			/ Get field of caller.
+	TAD	CIDF0		/ Make return CIF CDF.
+	DCA	CALIO4		/ save for the return.
+	CDFMYF			/ Map our field.
+/
+	CIFMNU
+	JMS I	IOACAL
+		0
+CALIO1,		.-.
+CALIO2,		.-.
+CALIO3,		.-.
+
+CALIO4,	XX			/ return CDI
+	JMP I	CALIOA		/ return to caller
+
+
+
+/
+/
+/	SPINCK - SPell INitial ChecK ,  See that document file was opened
+/			& if not report,  Check what operation to do.
+/			ADDED EDIT NUMBER 015
+/
+/
+SPINCK,	XX	
+	RDF			/ Get field of caller
+	TAD	CIDF0		/ Make return CIF CDF
+	DCA	SPINEX		/ & save for the return
+	TAD I	SPINT0		/ Get the SC/LU/UD indicator		/M016
+	CDFMYF			/ Map our field
+	SWP			/ Save indicator in MQ for now
+				/ & get open file flag into AC
+	SNA CLA			/ Skip on open file
+	 JMP	SPINFO		/  File open failed - inform user
+	ACL			/ Get back SC/LU/UD indicator
+	SPA SNA CLA		/ Skip on SC or LU ("Normal" return)
+SPINT1,	 ISZ	SPINCK		/  Increment return ("Skip")
+SPINEX,	XX			/ Return CDI
+	JMP I	SPINCK		/ Return to caller
+
+SPINFO,	JMS	CALIOA		/ Clear screen from 2nd line down
+		CLREOS
+		0100
+		NOP
+
+	JMS	CALIOA		/ Give "Document could not be opened..." msg
+		FOMGTX
+		1404
+		NOP
+
+	JMP	SPFOIP		/ Go look for GOLD MENU (actually any key)
+
+SPFOWT,	CIFSYS			/ Wait for an event
+	JWAIT			/ ...
+
+SPFOIP,	CIFSYS			/ See if user struck a "key"
+	XLTIN			/ ...
+	 JMP	SPFOWT		/  Not yet - Go wait
+	CLA			/ Get rid of it
+	ISZ	SPINCK		/ Bump the return address
+	JMP	SPINT1		/ Go bump the return again & exit (Double "Skip")
+
+SPINT0,	INIUSR			/ INIUSR is zero page, so we need this	/A016
+				/ literal to get at it from this field	/A016
+
+/----------------------------------------
+/
+/	***** C A U T I O N *****
+/ the next locations are order important
+/
+/----------------------------------------
+MENUTABLE,			/ table of menu options
+	2000;	REPLACE		/ 'replace' option
+	2012;	EDIT		/ 'edit' option
+	2021;	IGNORE		/ 'ignore' option
+	2032;	CONTINUE	/ 'continue' option
+	2045;	FINISH		/ 'finish' option
+	2056;	OVERVIEW	/ 'overview' option
+ENDMENUTABLE=.			/ end of table
+/
+	CORRECT			/ correct list help header
+MENU2TABLE,			/ headers for help menus at second level
+	XX			/ not used
+	EDTING			/ editing line help header
+/----------------------------------------
+/
+/	end order important
+/
+/----------------------------------------
+
+/****************************************************************************
+/
+/	The next routine has been inserted to deal with correction of	/a019
+/	words containing 8-bit characters.  It emulates the editor 8-bit/a019
+/	expansion routine, without calling the screen update routines	/a019
+/
+/****************************************************************************
+
+ECIMCH,	XX			/ 8 bit character/dead key expansion rtn/a019
+	DCA	EC8		/ Save the character			/a019
+	TAD	EC8		/ Get it back				/a019
+	AND	(200)		/ Check for 8 bit data			/a019
+	SNA CLA			/ Is it 8 bit?				/a019
+	JMP	ECN8BT		/ No, output it normally		/a019
+	TAD	EC8SPC		/ Get the space of the dead sequence	/a019
+	AND	P177		/ Mask out previous attributes		/a019
+	TAD I	(DISATR)	/ Add the attributes in			/a019
+	DCA	EC8SPC		/ Restore the space with the attributes	/a019
+	TAD	EC8CST		/ Get the character set identifier	/a019
+	AND	P177		/ Mask off previous attributes		/a019
+	TAD I	(DISATR)	/ Add the attributes in			/a019
+	DCA	EC8CST		/ Restore the identifier		/a019
+	TAD	EC8		/ Get the character			/a019
+	AND	P177		/ Mark off the 8th bit			/a019
+	TAD I	(DISATR)	/ Add in the attributes			/a019
+	DCA	EC8		/ Restore the character			/a019
+	CDFMYF			/ Back to my field			/a019
+	TAD	(EC8STR-1)	/ Get addr of dead seq. string		/a019
+	DCA	X4		/ Save in an index register		/a019
+EC8LOP,	TAD I	X4		/ Get the next character in the dead seq/a019
+	SNA			/ Is it the end of the string?		/a019
+	JMP	EC8RTN		/ Yes, exit via CIDF instruction	/a019
+	JMS	ECIMCR		/ No, insert the character into the text/a019
+	JMP	EC8LOP		/ Get the next character in the seq.	/a019
+
+ECN8BT,	TAD	EC8		/ Get the 7 bit character		/a019
+	TAD I	(DISATR)	/ Add in the attributes			/a019
+	CDFMYF			/ Return data to here			/a019
+	JMS	ECIMCR		/ Insert it into the text buffer	/a019
+EC8RTN,	CDISPL			/ Place for CIDF instruction		/a019
+	JMP I	ECIMCH		/ Return				/a019
+
+ECIMCR,	XX			/ Routine to call the editor INSERT rtn	/a019
+	CDFSPL			/ Change to Spelling data field		/a019
+	DCA I	(T3)		/ Store the character in insert param	/a019
+	CIFSPL			/ Change to the spelling field		/a019
+	JMS	ECD8IN		/ Call INSERT				/a019
+	JMP I	ECIMCR		/ Return to caller			/a019
+
+EC8ATT,	0			/ Attributes of the 8 bit character	/a019
+EC8STR,	ECSTOV			/ Dead string to insert for 8 bit char	/a019
+EC8SPC,	" 			/ Space alternate char set introducer	/a019
+EC8CST,	"2			/ Multinational character set selector	/a019
+EC8,	0			/ Location for storage of character	/a019
+	ECNDOV			/ End of dead sequence			/a019
+	0			/ End of string				/a019
+
+/----------------
+	PAGE
+
+FOMGTX,
+	TEXT /^P&DOCUMENT COULD NOT BE OPENED.  &PRESS !&GOLD !&MENU TO //A015
+*.-1									/A015
+	TEXT /RETURN TO MAIN MENU./					/A015
+INCAPU,
+	TEXT /!X^P^A&BOARD INCOMPATIBILITY OR FAILURE.^S!Y/
+BADAPU,
+	TEXT /!X^P^A&BOARD FAILURE.^S!Y/
+ASTRNG,
+	BELL; ESC; "[; "0; ";; "7; "m&177; 0	/ Ring bell; set reverse Video.
+
+NOMEAN,
+	TEXT	/^P&THAT COMMAND HAS NO MEANING HERE./
+ERREOL,
+	TEXT	/^P&END OF LINE REACHED.  &CANNOT EDIT BEYOND THIS LINE./
+ERRBOL,
+	TEXT	/^P&START OF LINE REACHED.  &CANNOT EDIT BEFORE THIS LINE./
+ERRSWP,
+	TEXT	/^P&INVALID SWAP./
+FATAL,
+	TEXT	'^P&READ/&WRITE ERROR. &VERIFY YOUR DISKETTE OR &Z80 BOARD.'
+*.-1
+	TEXT	' &PRESS !&RETURN.'
+THREST,
+	TEXT	/ &PRESS !&RETURN./
+TIMERR,
+	TEXT	/^P&TIME-OUT ERROR. &PRESS !&RETURN TO RETURN TO &MAIN &MENU./
+NWFULL,									/A008
+	TEXT	/^P&NEW WORD LIST FULL. &WORDS IGNORED FROM NOW ON WILL NOT//A008
+*.-1
+	TEXT	/ BE INCLUDED IN AN UPDATE/				/A008
+UDFULL,
+	TEXT	/^P&TEMPORARY MEMORY FULL. &CANNOT IGNORE ANY MORE WORDS./
+UDFUL2,
+	TEXT	/^P&PERSONAL DICTIONARY TOO LARGE. &PRESS !&RETURN./
+ESCAPE,
+	33;0
+LABRKT,
+	74;0
+RABRKT,
+	76;0
+ERASE,
+	TEXT	/!E/
+BLANKL,
+PCURST,
+	TEXT	/^P/
+CURSTR,
+	TEXT	/!L^P/
+CLREOS,
+	TEXT	/^P!E/
+MENUCONTROL,
+	TEXT	/!P!S/
+CONTROL,
+	TEXT	/^A/
+TXTSTR,
+	TEXT	/&[^D;^D&H/
+MENUNM,
+	TEXT	/^P&!S/
+DISTXT,
+	TEXT	/(^D.^D) /
+REPLACE,
+	TEXT	/&REPLACE/
+EDIT,
+	TEXT	/&EDIT/
+IGNORE,
+	TEXT	/&IGNORE/
+CONTINUE,
+	TEXT	/&CONTINUE/
+FINISH,
+	TEXT	/&FINISH/
+OVERVIEW,
+	TEXT	/&OVERVIEW/
+CORRECT,
+	TEXT	/&CORRECTIONS &LIST/
+EDTING,
+	TEXT	/&EDITING THE &LINE/
+RVHELP,
+	TEXT	/^P!E  &H &E &L &P/
+/D005WRKING,
+/D005	TEXT	/^P             ^P...&WORKING.../
+E1RRLINE,
+	TEXT	/^P!L&SELECT AN OPTION WITH !&ADVANCE OR !&BACKUP, /
+*.-1
+	TEXT	/OR TYPE THE LETTER. &PRESS !&RETURN./
+*.-1
+	TEXT	/^P!L&FOR MORE INFORMATION, PRESS THE !&HELP KEY./
+NOPTION,
+	TEXT	/^P!L&INVALID CHOICE - &SELECT ANOTHER OPTION./
+NOCORRECT,
+	TEXT	/^P!L&NO CORRECTIONS AVAILABLE FOR THIS WORD./
+MSGRP2,
+	TEXT	/^P!L&FOR MORE INFORMATION, PRESS THE !&HELP KEY./
+*.-1
+	TEXT	/^P!L&EDIT AND PRESS !&RETURN. !&OR PRESS &GOLD !&MENU TO RETURN /
+*.-1
+	TEXT	/TO &SPELLING &MENU./
+REPRMT,
+	TEXT	/^P!L&SELECT AN ALTERNATE WITH !&ADVANCE OR !&BACKUP /
+*.-1
+	TEXT	/AND PRESS !&RETURN. !&OR TYPE /
+*.-1
+	TEXT	/^P!LA LETTER FOR AN OPTION. &FOR MORE INFORMATION,/
+*.-1
+	TEXT	/ PRESS THE !&HELP KEY. /
+NOEDT,
+	TEXT	/^P!L&NO ERROR HIGHLIGHTED. &SELECT ANOTHER OPTION./
+ENDCOR,
+	TEXT	/^P&NO MORE CORRECTIONS AVAILABLE FOR THIS WORD./
+MORDIS,
+	TEXT	/^A&MORE...^A/
+NOMORDIS,
+	TEXT	/^ANO MORE^A/
+HYLTWD,
+	TEXT	/ THE ERROR (HIGHLIGHTED/
+FTMET,
+	TEXT	/ FROM THE MENU, EITHER TYPE /
+ULARAK,
+	TEXT	/USING THE !&BACKUP AND !&ADVANCE KEYS/
+DSPAID,
+	TEXT	/&D&E&CSPELL /
+HOUMIF,
+	TEXT	/&HOUGHTON &MIFFLIN/
+BLANK,
+	TEXT	//
+HLPR1,
+TEXT	/   &LETS YOU REPLACE^S WORD) WITH A WORD FROM/
+
+HLPR2,
+TEXT	/   THE CORRECTIONS LIST. &THIS LIST APPEARS JUST BELOW THE TEXT./
+
+HLPR4,
+TEXT	/   &TO SELECT &REPLACE^S&R, OR HIGHLIGHT &REPLACE/
+
+HLPR5,
+TEXT	/   ^S. &THEN PRESS !&RETURN./
+
+EXIT1,
+TEXT	/^SKEY./
+
+EXIT10,
+TEXT	/ &TO EXIT HELP, PRESS ANY /
+
+HLPE1,
+TEXT	/   &LETS YOU EDIT THE LINE WHICH CONTAINS^S/
+
+HLPE2,
+TEXT	/   WORD). &YOU CANNOT EDIT ANY OTHER LINE. &IF YOU ADD OR DELETE ANY/
+
+HLPE3,
+TEXT	/   WORDS THE TEXT WILL BE REFORMATTED./
+
+HLPE4,
+TEXT	/   &TO SELECT &EDIT^S&E, OR HIGHLIGHT &EDIT/
+
+HLPI1,
+TEXT	/   &CONTINUES CHECKING THE DOCUMENT, LEAVING THE HIGHLIGHTED WORD/
+
+HLPI2,
+TEXT	/   UNCHANGED. &ANY FURTHER OCCURRENCES OF THE WORD ARE IGNORED./
+
+HLPI3,
+TEXT	/   &TO SELECT &IGNORE^S&I, OR HIGHLIGHT &IGNORE/
+
+HLPC1,
+TEXT	/   WORD UNCHANGED./
+
+HLPC2,
+TEXT	/   &TO SELECT &CONTINUE^S&C, OR HIGHLIGHT &CONTINUE/
+
+HLPF1,
+TEXT	/   &LEAVES &D&E&CSPELL. &THE DOCUMENT IS UPDATED TO INCLUDE ANY /
+*.-1
+TEXT	/CORRECTIONS./
+
+HLPF3,
+TEXT	/   &TO SELECT &FINISH^S&F, OR HIGHLIGHT &FINISH/
+
+HLPH1,
+TEXT	/   ^SDETECTS AND CORRECTS SPELLING MISTAKES AND CAPITALIZATION/
+
+HLPH2,
+TEXT	/   ERRORS IN ANY SELECTED DOCUMENT./
+
+HLPH3,
+TEXT	/   ^SCHECKS EACH WORD USING A DICTIONARY BASED UPON &AMERICAN/
+
+HLPH4,
+TEXT	/   &HERITAGE &DICTIONARIES PUBLISHED BY ^S AND USING/
+
+HLPH5,
+TEXT	/   YOUR OWN PERSONAL DICTIONARY, TO WHICH YOU CAN ADD WORDS./
+
+HLPH6,
+TEXT	/   &WORDS THAT ARE NOT IN THE DICTIONARIES ARE HIGHLIGHTED AS ERRORS./
+
+HLPH7,
+TEXT	/   &YOU CAN CORRECT OR IGNORE ERRORS USING OPTIONS FROM THE MENU./
+
+EXIT2,
+TEXT	/ &FOR MORE HELP, PRESS THE !&HELP KEY.^SOTHER KEY./
+
+HLPH8,
+TEXT	/   &TO SELECT AN OPTION FROM THE MENU:/
+
+HLPH9,
+TEXT	/   . &TYPE THE FIRST LETTER OF THE OPTION AND PRESS !&RETURN./
+
+HLPH90,
+TEXT	/   &O&R/
+
+HLPH0,
+TEXT	/   . &HIGHLIGHT THE OPTION ^S AND/
+
+HLPH10,
+TEXT	/     THEN PRESS !&RETURN./
+
+HLPH11,
+TEXT	/   &TO RECEIVE HELP ON THAT OPTION, PRESS THE !&HELP KEY INSTEAD OF /
+*.-1
+TEXT	/!&RETURN./
+
+HLPH12,
+TEXT	/   &THE FOLLOWING OPTIONS ARE AVAILABLE FROM THE MENU./
+
+HLPH13,
+TEXT	/   !&REPLACE  - LETS YOU REPLACE THE ERROR WITH A CORRECTION./
+
+HLPH14,
+TEXT	/   !&EDIT     - LETS YOU EDIT THE LINE CONTAINING THE ERROR./
+
+HLPH15,
+TEXT	/   !&IGNORE   - IGNORES THE ERROR AND ALL FURTHER OCCURRENCES OF IT./
+
+HLPH16,
+TEXT	/   !&CONTINUE - IGNORES THE ERROR./
+
+HLPH17,
+TEXT	/   !&FINISH   - LEAVES &D&E&CSPELL; THE DOCUMENT IS UPDATED TO THIS POINT./
+
+/HLPH71,
+/TEXT	/   &M        - DISPLAYS MORE CORRECTIONS (IF ^A&MORE...> IS DISPLAYED)./
+
+HLPH18,
+TEXT	/             ^S &SPELLING &VERIFICATION - &CORRECTION,/
+
+HLPH19,
+TEXT	/   (C) &COPYRIGHT 1983, 1981, ^S. &ALL RIGHTS STRICTLY RESERVED./
+
+HLPH20,
+TEXT	/   &CONTAINS CONFIDENTIAL UNPUBLISHED PROPERTY OF ^S,/
+
+HLPH21,
+TEXT	/   LICENSED SOLELY FOR USE IN &DIGITAL SOFTWARE. &REPRODUCTION, DISCLOSURE, /
+
+HLPH22,
+TEXT	/   OR RE-CREATION OF EMBODIED COMPUTER PROGRAMS OR ALGORITHMS PROHIBITED./
+
+HLPH24,	TEXT /          &D&E&CSPELL, (C) COPYRIGHT !&DIGITAL &EQUIPMENT /
+*.-1
+	TEXT	/&CORPORATION 1983/
+HLPK1,
+TEXT	/   &A LIST OF POSSIBLE REPLACEMENTS FOR THE ERROR./
+
+HLPK2,
+TEXT	/   . &TO INSERT A REPLACEMENT INTO THE TEXT, HIGHLIGHT THE WORD/
+
+HLPK3,
+TEXT	/     ^S, THEN PRESS !&RETURN./
+
+HLPK4,
+TEXT	/   . &TO DISPLAY MORE CORRECTIONS (IF ^A&MORE...> IS DISPLAYED), PRESS /
+
+HLPK5,
+TEXT	/     THE &A&D&V&A&N&C&E KEY WHEN THE HIGHLIGHTING IS ON THE LAST/
+*.-1
+TEXT	/ CORRECTION./
+
+HLPK7,
+TEXT	/   &TO RETURN TO THE MENU, TYPE THE LETTER OF THE DESIRED MENU OPTION./
+
+OCASD,
+TEXT	/ ONE CHARACTER AND SET DIRECTION /
+
+TODELA,
+TEXT	/ TO DELETE A /
+
+GOLD,
+TEXT	/ !&GOLD /
+
+HLPL1,
+TEXT	/   &^S THE WORDS ON THE LINE USING THE FOLLOWING KEYS:/
+
+HLPL2,
+TEXT	/   !&ADVANCE  - TO MOVE FORWARD^SFORWARD/
+
+HLPL3,
+TEXT	/   !&BACKUP   - TO MOVE BACK^SBACKWARD/
+
+HLPL4,
+TEXT	/   !&WORD     - TO MOVE ONE WORD IN SET DIRECTION/
+
+HLPL5,
+TEXT	/   ^A-- -->  - TO MOVE ONE CHARACTER IN EITHER DIRECTION/
+
+HLPL6,
+TEXT	/   !&RUBOUT !&KEY OR !&DEL !&CHAR       -^SCHARACTER/
+
+HLPL7,
+TEXT	/   !&RUBOUT !&KEY OR !&DEL !&WORD       -^SWORD/
+
+HLPL8,
+TEXT	/   !&GOLD !&DEL !&WORD,^S!&DEL !&CHAR - TO RECOVER ERASED TEXT/
+
+HLPL9,
+TEXT	/ &OTHER KEYS AVAILABLE:/
+
+HLPL10,
+TEXT	/   !&UPPER !&CASE                   - TO CAPITALIZE^S/
+
+HLPL11,
+TEXT	/   !&GOLD !&UPPER !&CASE              - TO LOWER-CASE^S/
+
+HLPL12,
+TEXT	/   !&BOLD                         - TO BOLD^S/
+
+HLPL13,
+TEXT	/   !&GOLD !&BOLD                    - TO UN-BOLD^S/
+
+HLPL14,
+TEXT	/   !&UNDERLINE      - TO UNDERLINE^S/
+
+HLPL15,
+TEXT	/   !&GOLD !&UNDERLINE - TO REMOVE UNDERLINE FROM^S/
+
+HLPL16,
+TEXT	/   !&SWAP           - TO SWAP CHARACTERS/
+
+HLPL17,
+TEXT	/   !&HYPH !&PUSH      - MOVES FIRST CHARACTER IN LINE UP TO PREVIOUS LINE/
+
+HLPL18,
+TEXT	/   !&GOLD !&HYPH !&PULL - MOVES LAST CHARACTER IN PREVIOUS LINE DOWN TO /
+*.-1
+TEXT	/CURRENT LINE/
+
+CHRWRD,
+TEXT	/ A CHARACTER OR WORD/
+
+/------
+	PAGE
+	NOPUNCH
+
+

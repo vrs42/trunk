@@ -1,0 +1,852 @@
+
+/WPSC.PA
+	XLIST
+/		*******  EDIT HISTORY  *******
+/
+/002	SBB	26-MAR-84	INITIAL VERSION  BASED ON WPSC
+/001	GDH/EH	AUG/SEP-83	Initial version
+/
+
+	FIELD	0		/ Write out code.
+
+*200				/ Set up for write-out.
+	JMP I	.+2
+	JMP I	.+2
+	RXLOAD
+	7605
+
+
+*RXLDLS
+	RXEWT;0;RXQBLK;.
+	DLOPPI;SPINIT;CDF 10;-DSOPPI	/ Write-out spell check init code.
+	DLOPPS;SPSTAT;CDF 10;-DSOPPS	/ Write-out spell check status line stuff.
+	0
+
+	FIELD	1		/ This is the auxillary field.
+				/ note that the editor loads into 6400-7777
+				/ of this field. Also note that several
+				/ editor routines use some of the globaly
+				/ defined temps (X0, X1, X2, T1, etc.)
+
+
+IFNDEF	OVLAY1	<OVLAY1=7400>	/ for 1st pass only. OVLAY1 is defined in WPEDIT
+IFNDEF	OVLAYM	<OVLAYM=400>	/ for 1st pass only. OVLAYM is defined in WPEDIT
+
+	*SWPBEG			/ Start assembling code at the begining of the SWAP area.
+				/ That is where the code will eventually load
+				/  at run-time (in field 2).
+CDFMYF=CDFMNU			/ A CDF to current field.
+SPSTAT=.
+
+/***************************************************************************
+/****	 TRANSFER VECTOR ENTRY POINTS FOR EDITOR SWAP AREA ROUTINES	****
+/***************************************************************************
+
+SWAPAD,				/
+CALLN1,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 1
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	JMS	UPDTSC		/ GO UPDATE STATUS LINE (SCREEN) INFO.
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN2,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 2
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ GO CHECK FOR STATUS VALUE CHANGES
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN3,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 3
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ GO HANDLE SCROLL DOWN EVENT
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN4,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 4
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ GO HANDLE SCROLL UP EVENT
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN5,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 5
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ PLACE FOR TRANSFER TO SPECIAL CODE
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN6,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 6
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ PLACE FOR TRANSFER TO SPECIAL CODE
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN7,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 7
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ PLACE FOR TRANSFER TO SPECIAL CODE
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN8,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 8
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ PLACE FOR TRANSFER TO SPECIAL CODE
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+CALLN9,	XX			/ ENTRY POINT FOR ROUTINE NUMBER 9
+	JMS	CALSUB		/ SET UP RETURN ADDRESS AND RETURN FIELD
+	NOP			/ PLACE FOR TRANSFER TO SPECIAL CODE
+	JMP	CALXIT		/ GO TO RETURN TO CALLER CODE
+
+/***************************************************************************
+/****	     SET UP RETURN FIELD AND ADDRESS FOR CALLN# ROUTINES 	****
+/***************************************************************************
+
+CALSUB,	XX			/ ROUTINE TO SET UP RETURN FIELD AND ADDRESS
+	DCA	T1		/ SAVE CONTENTS OF ACCUMULATOR
+
+	RDF			/ READ CALLERS DATA FIELD
+	TAD	CIDF0		/ MAKE CDF-CIF INSTRUCTION BACK TO CALLER
+	DCA	CALXIT		/ STORE FOR RETURN TO CALLER
+	CDFMNU			/ SET DATA FIELD BACK TO MY FIELD
+
+	AC7776			/ SET UP TO SUBTRACT A VALUE OF TWO
+	TAD	CALSUB		/ MAKE POINTER TO VECTOR ENTRY POINT
+	DCA	T2		/ STORE FOR USE IN AN INDIRECT LOOKUP
+	TAD I	T2		/ PICK UP CALLERS RETURN ADDRESS
+	DCA	CALRTN		/ STORE ADDRESS FOR LATER RETURN TO CALLER
+
+	JMP I	CALSUB		/ GO TRANSFER TO SPECIALIZED ROUTINES
+
+CALXIT,	XX			/ LOCATION FOR CDF-CIF INSTRUCTION TO CALLER
+	JMP I	CALRTN		/ RETURN BACK TO CALLER
+CALRTN,	XX			/ LOCATION FOR CALLERS RETURN ADDRESS
+
+/***************************************************************************
+/****	THE CODE ASSEMBLED HERE IS USED BY THE EDITOR FOR STATUS LINE	****
+/***************************************************************************
+
+/ UPDTSC ROUTINE IS USED TO DISPLAY THE STATUS LINE INFORMATION IN THE EDITOR
+/
+/ THE STATUS LINE AREA CONSISTS OF TWO LINES AS FOLLOWS:
+/ LINE  1 = TOP LINE OF SCREEN - CURRENT PAGE NUMBER, CURRENT LINE NUMBER,
+/           DRIVE NUMBER, DOCUMENT NUMBER AND DOCUMENT NAME BEING EDITED
+/ LINE 24 = CURRENT RULER IN EFFECT FOR EDITING
+/
+/ UPON ENTRY, THE VALUE CONTAINED IN THE T1 DETERMINES FUNCTION AS FOLLOWS:
+/
+/	T1 = 0	CLEAR THE SCREEN AND DISPLAY COMPLETE STATUS AREA
+/		DEFINE SCROLLING REGION AND SET RELITIVE SCREEN ADDRESSING
+/	T1 = 1	UPDATE DISPLAY OF TOP STATUS LINE ONLY
+/	T1 = 2	UPDATE DISPLAY OF BOTTOM STATUS LINE ONLY (DISPLAY RULER)
+/	T1 = 3	CLEAR THE SCREEN AND RESET SCROLLING AREA TO FULL SCREEN
+
+UPDTSC,	XX			/ Entry point.
+	TAD	T1		/ PICK UP SAVED CONTENTS OF T1CUMULATOR
+	TAD	LITSC1		/ Index into dispatch table.
+	DCA	.+1;XX		/ Go dispatch to routine to handle request.
+
+LITSC1,	JMP I	UPDTDS		/ Jmp thru dispatch table.
+UPDTDS,	UPDT00			/ Case 0.
+	UPDT01			/ Case 1.
+	UPDT02			/ Case 2.
+	UPDT03			/  and Case 3.
+
+
+UPDT00,	CIFSPL			/ Map speller field.
+	JMS I	(SCRNIN)	/ Call screen initialization routine.
+UPDT01,
+UPDT02,	JMP I	UPDTSC		/ Return to caller.
+
+UPDT03,	JMS I	IOACAL		/ Clear the screen & region area.
+		0		/  ....
+		SCSTS1		/ ^A
+		SCSTS2		/ all the esc sequences to do it.
+	JMP I	UPDTSC		/ Return to caller.
+
+SYPRMP,	XX			/ Prompt for system diskette.
+	RDF			/ Get return field.
+	TAD	CIDF0		/ Create a return CIF CDF instruction.
+	DCA	SYPXIT		/ Save for the exit.
+	CDFMYF			/ Map our field.
+SYPRM1,	CIFMNU			/ Call IOACAL in the menu field.
+	JMS I	IOACAL		/  ...
+		0		/ Display to the screen.
+		SYDISK		/ Replace the system diskette, etc.
+		0000		/ Cursor Home address.
+		1505		/ Error message address.
+		2305		/ posn of 2nd part of prompt.
+	JMP	SYPAP2		/ Merge below.
+SYPAP1,	CIFSYS			/ JWAIT for a bit.
+	JWAIT			/  ...
+SYPAP2,	CIFSYS			/ Get an input character.
+	XLTIN			/  ...
+	 JMP	SYPAP1		/ Loop & wait if none.
+	TAD	(-EDNWLN)	/  Return typed?
+	SZA CLA			/ Skip if yes. Otherwise repeat error.
+	 JMP	SYPRM1		/ Repeat the message.
+SYPXIT,	XX			/ Return CIF CDF instruction goes here.
+	JMP I	SYPRMP		/ Return to caller.
+
+SYDISK,
+TEXT /^P!E^P&REPLACE THE SYSTEM DISKETTE IN DRIVE 0^P&AND &PRESS !&RETURN/
+
+/------------
+	PAGE
+
+RDFIO,	XX
+	DCA	RDFQBK+RXQBLK 	/ STORE BLOCK NUMBER
+	RDF			/ Get field of caller.
+	TAD	CIDF0		/ Make a return CIF CDF.
+	DCA	RDFXIT		/  and save for the exit.
+	TAD I	RDFIO 		/ ++++
+	CDFMYF			/ Now map our field.
+	DCA	RDFQBK+RXQFNC 	/ AND FUNCTION CODE
+	ISZ	RDFIO
+	CIFSYS 			/ ++++
+	ENQUE 			/ ++++
+	RDFQB 			/ QUEUE TO HANDLER
+RDFIO1,	CIFSYS 			/ ++++
+	JWAIT 			/ WAIT TIL DONE
+	TAD	RDFQBK+RXQCOD 	/ DONE YET?
+	SNA 			/ ++++
+	 JMP	RDFIO1 		/ LOOP IF NOT
+RDFXIT,	XX			/ CIF CDF to return field goes here.
+	JMP I	RDFIO 		/ ELSE RETURN STATUS
+
+
+RDFQB,	DSKQUE 			/ ++++
+	0 			/ ++++
+	0 			/ QUEUE HEADER
+RDFQBK,	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0 			/ ++++
+	0
+
+/
+/FILLIO -- fills queue block with I/O parameters & then does I/O.
+/
+/CALL:	JMS	FILLIO
+/		CDF to buffer to read into.
+/		ADDRESS to load into.
+/		-# of disk blocks to read.
+/		START block #.
+/	Rtn1:	Return here if I/O error.
+/	Rtn2:	Normal completion return.
+/
+
+FILLIO,	XX			/ Entry point.
+	TAD I	FILLIO		/ Get CDF to buffer.
+	DCA	RDFQBK+RXQBFD	/ Set into queue block.
+	ISZ	FILLIO		/ Bump to load address.
+	TAD I	FILLIO		/ Get load address.
+	DCA	RDFQBK+RXQBAD	/ Set into queue block.
+	ISZ	FILLIO		/ Bump to size (in blocks).
+	TAD I	FILLIO		/ Get minus number of blocks to read.
+	DCA	RDFQBK+RXQRS1	/ Set into queue block.
+	ISZ	FILLIO		/ Bump to startint block #.
+	RDF			/ Get return field.
+	TAD	CIDF0		/ Convert into a return CIF CDF.
+	DCA	FILXIT		/ Save for final return.
+	TAD I	FILLIO		/ Get starting block #.
+	ISZ	FILLIO		/ Bump to return address.
+	CDFMYF			/ Map current field.
+	JMS	RDFIO		/ Go do the read.
+		RXERD+4000	/  ...
+	SMA CLA			/ Skip if error returned.
+	 ISZ	FILLIO		/ For normal return, bump address.
+FILXIT,	XX			/ Return CIF CDF goes here.
+	JMP I	FILLIO		/ Return to caller.
+
+VALDAT,	XX			/ Routine to validate the diskette.
+/	CDFMYF			/ Map current field.
+	JMS	FILLIO		/ 1st read in the ALLOC block.
+		CDFTXT		/ Use the buffer defined in TXT field.
+		BUFADR		/ Buffer address.
+		-1		/ 1 block.
+		DLALOC		/ Alloc block.
+	 JMP	BADVAL		/ Report bad diskette.
+	CDFTXT			/ Map buffer
+	TAD I	(BUFADR+1)	/ See if DOC diskette.
+	TAD	(-40)		/  40 means document diskette.
+	SZA CLA			/ Skip if doc diskette.
+	 JMP	BADVAL		/ Report validation error.
+	TAD I	(BUFADR+2)	/ Check max number of documents allowed.
+	SZA CLA			/ skip if none.
+	 JMP	BADVAL		/ Report validation error.
+	CDFMYF			/ Back to our field.
+	JMS	FILLIO		/ now read the home block.
+		CDFTXT		/ Use the same 2 pages.
+		BUFADR		/  ...
+		-1		/ 1 block.
+		DLDIR		/ home block.
+	 JMP	BADVAL		/ Report bad diskette.
+	AC7777			/ Get ptr to string to compare against.
+	TAD	VALDAT		/  ...
+	DCA	X0		/   ....
+	AC7775			/ 3 words to compare.
+	DCA	T1		/  ...
+	TAD	(BUFADR+2-1)	/ ptr to actual document name.
+	DCA	X1		/  ...
+VAL001,	CDFEDT			/ compare against desired name.
+	TAD I	X0		/  ...
+	CIA			/ see if it's same as desired name.
+	CDFTXT			/ Get word.
+	TAD I	X1		/ Get word of actual doc name.
+	SZA CLA			/ Skip if the same.
+	 JMP	BADVAL		/ Report validation error.
+	ISZ	T1		/ Bump count of words to compare.
+	JMP	VAL001		/ Loop on the count of the number of words to compare.
+	ISZ	X1		/ Point to date of build.
+	ISZ	X1		/  ...
+/SBX=BLDDY^100+BLDMO		/ Compute expected DAY-MONTH value.
+/SB	TAD	(-X)		/ See if date of build matches diskette.
+/SB	TAD I	X1		/  if not then diskette is of a different build
+/SB	SZA CLA			/  and therefore is to be rejected.
+/SB	 JMP	BADVAL		/ Reject diskette if from a different build.
+/SB	TAD	(-BLDYR)	/ Compare year of build too.
+/SB	TAD I	X1		/  that should match as well.
+/SB	SNA CLA			/ Skip if no-match. report error.
+	ISZ	VALDAT		/ Bump past error return.
+	JMP	BADVA1		/ Join in common code
+BADVAL,	CDFMNU			/ ...
+	TAD	(BELL)		/ Ring the bell on error
+	CIFSYS			/  ...
+	TTYOU			/   ...
+	 JMP	.-2		/    ...
+BADVA1,	ISZ	VALDAT		/ Bump past arguments.
+	ISZ	VALDAT		/  ...
+	ISZ	VALDAT		/   to the return address.
+	CDIEDT			/ Map return (edit) field.
+	JMP I	VALDAT		/ Return to caller.
+/------------
+	PAGE
+
+INITOV=.
+
+/The text immediately below loads into field 2 & is referenced by the
+/status line stuff in the pages loading at 2000-2400. due too lack of room,
+/these text lines are assembled for here. though this page gets copied
+/down into the editor root, the editor does not reference these symbols.
+
+SCSTS1,	TEXT	/^A/
+SCSTS2,	ESC; "[&177; "?&177; "6&177; "l&177	/ Set absolutee mode.
+	ESC; "[&177; "2&177; "J&177		/ Erase entire screen.
+	ESC; "[&177; "r&177			/ Clear scrolling region.
+	0					/ stopper.
+
+X=.-INITOV			/ Compute size of above text.
+
+
+
+	RELOC	OVLAYM+X	/ Relocate this code to editor root.
+
+INITSP,	XX			/ Entry point of initialization code.
+	RDF			/ Get return field.
+	TAD	CIDF0		/  ...
+	DCA	INITXT		/ save return CIF CDF instruction.
+	CDFEDT			/ Map current (editor) field.
+	TAD	(NLINES)	/ Set edit screen size to 9 lines.
+	DCA	SCRNLN		/  ...
+	TAD	(NLINES)	/ Set wide screen size too.
+	DCA	WIDSIZ		/  ...
+	TAD	(SINZRO-1)	/ Get start of editor stuff to zap.
+	DCA	X0		/  ...
+	TAD	(-NINZRO)	/ Get size of initialization area.
+	JMS	ZAP		/ Initial the area to zero.
+	DCA	BUFBEG		/ Initialize editor buffer pointers.
+	TAD	(BUFEND) 	/ ++++
+	DCA	BUFSIZ		/  ....
+/
+/	INITIALIZE EDIT BUFFER
+/	***
+/
+	AC7777 			/ SET POINTER TO BUFFER_BEGIN - 1
+	DCA	X0
+	CDFBUF
+	TAD	(ECBFBG) 	/ GET BUFFER BEGIN CODE
+	DCA I	X0 		/ INSTALL AT TOP OF BUFFER
+	TAD	(ECSTX) 	/ GET START OF TEXT CODE
+	DCA I	X0 		/ INSTALL IN NEXT BUFFER LOCATION
+	TAD	(ECETX) 	/ GET END OF TEXT CODE
+	DCA I	X0 		/ INSTALL IN NEXT BUFFER LOCATION
+	TAD	X0 		/ SET CURPTR TO POINT AT ETX CHAR. THAT
+				/  WAS JUST INSTALLED
+	DCA	CURPTR		/  ...
+/
+/ CLEAR THE REST OF THE BUFFER
+/
+	TAD	(4-BUFEND)	/ Compute negative counter of # of words to clear.
+	JMS	ZAP		/ Zero out the rest of the buffer.
+
+	TAD	(ECBFND) 	/ INSTALL BUFFER_END CHARACTER
+	DCA I	X0
+/
+/ INITIALIZE EDIT PTRBLK (POINTER_BLOCK) TABLE
+/
+	CDFEDT
+	TAD	(PTRBLK-1) 	/ ++++
+	DCA	X0
+	TAD	(-NPTRS+1) 	/ ++++
+	JMS	ZAP		/ Zero area out.
+	TAD	CURPTR		/ Set last loc in PTRBLK = CURPTR.
+	DCA I	X0
+/
+	TAD	CURPTR		/ Initialize LINE 23 pointer.
+	DCA	LINE23		/  ...
+	DCA	CURSOR		/ Init cursor posn.
+	DCA	LOWLIM		/  and screen bais.
+
+	CDFMNU			/ Get file # from menu field.
+	TAD I	(MUBUF+MNFNO)	/  ...
+	CDFEDT			/ Back to our field.
+	MQL			/ WPFILS wants file # in MQ.
+	CIFFIO;FILEIO;XDSKIN	/ Open input file.
+	SPA;NOP;CLA		/  ...
+
+	CDFSYS			/ Save start time.
+	TAD I	(CLOCK+3)	/  (minutes),
+	MQL			/ save in MQ.
+	TAD I	(CLOCK+4)	/  (hours),
+	CDFEDT			/ Save these for the editor.
+	DCA	OLDHR		/  ...
+	MQA			/ get minutes back.
+	DCA	OLDMIN		/   ....
+	AC0001			/ Set ECHO flag so that we keep screen uptodate.
+	DCA	ECHFLG		/ ...
+	JMS	CLRULR		/ Finally, initialize the ruler area.
+	JMS	COPRUL		/ and copy default ruler in.
+	JMS	LODCHR		/ Get 1st character of file.
+	 JMP	INITRL		/ Insert initial ruler if file is empty.
+	TAD	(-ECSTRL)	/ Is the 1st character "start of ruler"?
+	SNA CLA			/ Skip if no. Insert default ruler.
+	 JMP	INITDN		/ 1st char is "start of ruler" so exit.
+INITRL,	CDFEDT			/  ...
+	JMS	RLGETS		/ Get default ruler (ruler 0).
+	JMS	INSRUL		/ Insert it.
+	TAD	(ECRMFL)	/ Insert "ruler modified" flag.
+	JMS	INSRL1		/  ...
+	TAD	LINE23		/ Reset CURPTR to start of newly inserted ruler.
+	DCA	CURPTR		/  ...
+INITDN,	JMS	CLSSET		/ Init ptrs to that 1st time FXSCRL is called,
+				/  CLRSCN gets called.
+INITXT,	XX			/ Back to Speller.
+	ISZ I	(OPNFIL)	/ Say that file is now open.
+	JMP I	INITSP		/ Return to caller.
+
+/-------
+
+ZAP,	XX			/ routine to zero out a portion of memory.
+	DCA	T1		/ Save negative count.
+ZAP1,	DCA I	X0		/ Zero out next location.
+	ISZ	T1 		/ ++++
+	JMP	.-2
+	JMP I	ZAP		/ Return when done.
+/------------
+	PAGE
+
+	RELOC
+SPELOV=.
+/
+/ The code immediately below is called by the startup code. This code decides
+/ whether or not the SC disk need to be loaded. This code runs in field 2.
+/
+CHKSC,	XX			/ Entry point.
+	TAD I	CHKSC1		/ See if FIELD 5 need be re-loaded.
+	TAD	CHKSC2		/ Check currently loaded OLAY block.
+	SZA CLA			/ Skip if no.
+	 JMP	LOADSC		/ JMP if yes. SC needs to be loaded.
+	TAD I	CHKSC3		/ Now check FIELD 6.
+	TAD	CHKSC2		/  ...
+	SZA CLA			/ Skip if field 6 still loaded.
+	 JMP	LOADSC		/ JMP if field 6 needs loading.
+	TAD I	CHKSC4		/ Get options word.
+	AND	CHKSC5		/ See if APU has been loaded yet.
+	SNA CLA			/ Skip if APU loaded.
+LOADSC,	 ISZ	CHKSC		/ Take bump return to load/re-load the spell disk.
+	CDIEDT			/ Back to caller.
+	JMP I	CHKSC		/  ...
+
+CHKSC1,	OLL301			/ Ptr to lock word for field 5.
+CHKSC2,	-OLL301			/ Lock word value, when field 5/6 is loaded.
+CHKSC3,	OLL400			/ Ptr to lock word for field 6.
+CHKSC4,	MUBUF+MNOPTN		/ Ptr to options word (in field 2).
+CHKSC5,	MNRX7X			/ Bit value of "APU-LOADED" bit.
+
+X=.-SPELOV			/ Compute size of above code.
+
+
+
+	RELOC	OVLAYM+X	/ Relocate this code to editor root.
+
+GETCH,	XX			/ entry point.
+	CDFBUF			/ Map data field to buffer field.
+	CURMOV			/  ...
+	 SKP			/ Handle EOF condition below.
+	JMS	LODCHR		/ Get character to check.
+	 SKP			/ non-skip return if E-O-F.
+	  ISZ	GETCH		/ skip return if not E-O-F.
+	CDISPL			/ Return CIF CDF to spell checker field.
+	JMP I	GETCH		/ return to caller.
+
+
+CLOSEF,	XX			/ This routine closes the correct file.
+	RDF			/ Get caller's field.
+	TAD	CIDF0		/ Make return CDI instruction.
+	DCA	CLOSEX		/ Save for the return trip.
+	CDFEDT			/ Map our field.
+	JMS	SAVLMD		/ Save line modified flag.
+/
+	SKP CLA			/ Scan 'til end of text buffer.
+CLOSE1,	AC0001			/  ...
+	CHKPTR			/   ....
+	SMA CLA			/ Skip if at end of buffer.
+	 JMP	CLOSE1		/ Jmp if not.
+CLOSE2,	AC7777			/ Copy from end of the buffer
+	CHKPTR			/  (1st see if another character)
+	SPA CLA			/  (skip if yes).
+	 JMP	CLOSE3		/  (Jmp if no. time to exit).
+	TAD I	CURPTR		/ Get last character in buffer.
+	JMS	DSKCAL;XPUTET	/ and put it out to the file.
+	JMP	CLOSE2		/ Loop until buffer emptied to the file.
+
+CLOSE3,	CDFSYS
+	TAD I	(CLOCK+3) 	/ ++++
+	DCA	CLSMIN 		/ CURRENT MINUTES
+	TAD I	(CLOCK+4) 	/ CURRENT HOUR
+	CDFEDT
+	JMS	CVTMIN 		/ ++++
+	DCA	CLSMN2
+	TAD	OLDMIN 		/ ++++
+	DCA	CLSMIN 		/ INITIAL MINUTES
+	TAD	OLDHR 		/ INITIAL HOURS
+	JMS	CVTMIN
+	CIA
+	TAD	CLSMN2 		/ CURRENT TIME - INITIAL TIME
+	SPA 			/ ++++
+	TAD	(30^74)		/ IF NEGATIVE, THE CLOCK ROLLED OVER..
+				/ ADD 60 * 24 = MINUTES IN A DAY
+	DCA	CLSMN2
+	TAD	(15) 		/ ++++
+	CIFFIO 			/ ++++
+	FILEIO 			/ ++++
+	XHDRGT 			/ GET OLD TOTAL TIME
+	CLL			/ DONE TO CHECK FOR OVERFLOW IN NEXT ADD
+	TAD	CLSMN2 		/ NEW TOTAL TIME
+	SZL			/ SKIP IF TIME < 68:15
+	AC7777			/ TIME WAS RESET, SET TO MAX
+	MQL 			/ ++++
+	TAD	(15)
+	CIFFIO 			/ ++++
+	FILEIO 			/ ++++
+	XHDRPT 			/ STORE NEW TOTAL TIME
+	TAD	CLSMN2
+	MQL 			/ ++++
+	TAD	(14)
+	CIFFIO 			/ ++++
+	FILEIO 			/ ++++
+	XHDRPT 			/ SAVE TIME THIS EDIT
+	TAD	(30)		/ Set screen size back to max.
+	DCA	SCRNLN		/  ...
+	JMS	CLR132		/ Back to 80 col mode.
+	AC0003			/ Clear screen & region.
+	CIFMNU			/  ...
+	JMS I	(CALLN1)	/   ....
+	JMS	PROMPT		/ display "filing being completed.
+		MSGF		/  ...
+	JMS	DSKCAL		/ and close the file.
+		XDSKCL		/  ...
+CLOSEX,	XX			/ Map field to return to.
+	JMP I	CLOSEF		/ Return to caller.
+
+/
+CVTMIN,	XX			/ SUBROUTINE TO CONVERT HOURS AND MINUTES TO MINUTES
+	SNA 			/ ++++
+	JMP	CVTMN2 		/ IF ZERO AC (NO HOURS), JUMP
+	CIA 			/ ++++
+	DCA	CLSHR 		/ CVTMN1 CONTROL
+CVTMN1,	TAD	(74
+	ISZ	CLSHR 		/ ++++
+	JMP	CVTMN1
+CVTMN2,	TAD	CLSMIN 		/ ADD MINUTES-FROM-HOURS TO MINUTES
+	JMP I	CVTMIN
+/
+CLSMN2,	0 			/ TEMP., ALWAYS CONTAINS MINUTES
+CLSMIN,	0 			/ MINUTES FOR CVTMIN
+CLSHR,	0 			/ NEG OF HOURS IN CVTMIN
+/------------
+	PAGE
+
+	RELOC
+SPINIT=.
+CDFMYF=CDFEDT			/ This code loads in the editor field.
+	RELOC	OVLAY1		/ This code will load in editor from 7400-7777.
+
+STRTUP,	XX			/ Do initialization stuff.
+	RDF			/ Get return field.
+	TAD	CIDF0		/  ...
+	DCA	SCEXIT		/ save for exit return.
+	CDIMNU			/ Map MENU field.
+	TAD I	(MUBUF+MNOPTC)	/ Get options word.
+	DCA	OPTNWD		/ save it aside.
+	TAD	OPTNWD		/ Save it for editing w/o MABIT.
+	AND	(-1-MABIT)	/ Isolate all but MABIT.
+	DCA I	(MUBUF+MNOPTC)	/  ...
+	CDFMYF			/ Map data field back to our field.
+	TAD	(DLOSPS)	/ Load Spell-Check status line stuff.
+	PGSWAP			/  ...
+	CIFMNU			/ Map menu field, where FILLIO resides.
+	JMS I	(FILLIO)	/ Re-read in field 2 menu interpreter code.
+		CDFMNU		/ field.
+		SWAPAD+1000	/ load address.
+		-DSSWAP+2	/ size in blocks.
+		DLFD3+2		/ start block #.
+	 JMP	MYEXIT		/ If I/O error, abort.
+	JMS	GTDKID		/ Get system disk id.
+		SYSID-1		/  ...
+	 JMP	MYEXIT		/ Gold:Menu return.
+
+	CDIMNU			/ Map menu field.
+	JMS I	(CHKSC)		/ See if SC diskette needs to be loaded.
+	 JMP	NODD		/ JMP if no. We are currently loaded.	/SB
+
+	AC7777			/ Init MQ to -1 for drive # prompt.
+SCDERR,	MQL			/ Load drive # prompt.
+	JMS	GETDRV		/  ...
+	CDIMNU			/ Call routine in MENU field.
+	JMS I	(VALDAT)	/ Validate disk as SC diskette.
+		4546		/ 'DE'
+		4464		/    'CS'
+		6155		/       'PL' diskette name.
+	 JMP	SCDERR		/ Report missing SC disk.
+	CIFMNU			/ Call routine down in menu field.
+	JMS I	(FILLIO)	/ Fill queue block parameters.
+		CDFSPL		/ Field.
+		100		/ load address.
+		-DSOSPL		/ Size in blocks.
+		DLOSPL		/ Starting block #.
+	 JMP	SCDERR		/ Report missing sc disk error.
+	CIFMNU			/ Call routine down in menu field.
+	JMS I	(FILLIO)	/ Now read field 5 stuff.
+		CDFTXT		/  ...
+		200		/ Load address.
+		-DSOSPX		/ size in blocks.
+		DLOSPX		/ Starting block #.
+	 JMP	SCDERR		/ Report missing sc disk error.
+	JMS	CPYBUF		/ Copy locations 0-77 to field 6.
+		-100		/ 100 locations
+		CDFMYF		/ from our field
+		0000		/  location 0,
+		CDFSPL		/   to field 6,
+		0000		/    location 0.
+/SB	CIFTXT			/ Map field 5 code.
+/SB	JMS I	(CHKAPU)	/ Do APU initialization.
+/SB	 JMP	STRTGM		/ Return if APU init failure.
+/SBNOSC,	CIFSPL			/ Map spelling field.
+/SB	JMS I	(LODAPU)	/ Load the APU.
+/SB
+/SB	CDFMNU			/ Now see if the DD disk need be loaded.
+/SB	TAD I	(MUBUF+MNTMP6)	/ Get MNTMP6.
+/SB	CDFMYF			/ Back to our field.
+/SB	TAD	(-6)		/ See if SC (6) or PD (7)
+/SB	SZA CLA			/ Skip if not PD. SC requires the DD disk.
+	 JMP	NODD		/ Jmp if DD is not required.
+
+	AC7777			/ Init MQ to -1 to prompt for drive #.
+DDDERR,	MQL			/ Set 'prompt' flag.
+	AC0001			/ Get dictionary diskette drive #.
+	JMS	GETDRV		/  ...
+	CDIMNU			/ Call validation routine in MENU field.
+	JMS I	(VALDAT)	/ Validate disk as DD diskette.
+		4570		/ 'DW'
+		6063		/    'OR'
+		4564		/       'DS' dictionary diskette name.
+	 JMP	DDDERR		/ report missing DD disk.
+
+NODD,	JMS	LOADOV		/ Load initialization overlay into editor area.
+		INITOV		/  ...
+	JMS	INITSP		/ Go execute Spelling Checker editor initialization.
+	JMS	LOADOV		/ Load run-time overlay.
+		SPELOV		/  ...
+	CIFSPL			/ Map spell field.
+	JMS I	(SPELL)		/ Start up the spell checker.
+STRTGM,	JMS	CHKID		/ Make sure original system diskette is installed.
+MYEXIT,	AC7777			/ Restore Menu field stuff.
+	CIFMNU			/  ...
+	PGSWAP			/   ....
+SCEXIT,	XX			/ Return CDI instruction goes here.
+	JMP I	STRTUP		/ Return to caller.
+
+GETDRV,	XX			/ Routine to get drive # via menu.
+	CDIMNU			/ Map menu field.
+	DCA I	(MUBUF+MNTMP2)	/ Set temp2 to indicate which menu to display.
+	MQA			/ Check 'prompt' flag.
+	SPA			/ Skip if 'no prompt' set.
+	 DCA I	(MUBUF+MNTMP3)	/ Prompt for drive #.
+	CDFMYF			/ back to our field.
+	JMS I	MNUCAL		/ Call in menu.
+		DLMSPL		/  ...
+	CDFMNU			/ Get user response.
+	TAD I	(MUBUF+MNTMP2)	/ Get return code.
+	CLL RAL			/ save return status in the link.
+	TAD I	(MUBUF+MNTMP3)	/ Get SC drive #.
+	CDFMYF			/ back to our field.
+	SNL			/ Skip if GOLD:MENU return.
+	 JMS	GETDEN		/ Get density of SC/DD diskette.
+	  JMP	STRTGM		/  User opted for GOLD:MENU return.
+	JMP I	GETDRV		/ Return to caller.
+
+OPTNWD,	0			/ Save location for MNOPTC word during spell check.
+/------------
+	PAGE
+
+/***********************************************************************
+/
+/	GETDEN gets the density of the diskette in drive passed in the AC.
+/	This routine does not return until a diskette density is successfully
+/	obtained.
+/
+/***********************************************************************
+
+GETDEN,	XX			/ The entry point.
+	CDFMNU			/ Map MENU field.
+	DCA I	(RDFQBK+RXQDRV)	/ Set the drive #.
+	CDFMYF			/ Back to our field.
+GTDEN1,	CIFMNU			/ Call RDFIO in MENU field.
+	JMS I	(RDFIO)		/ Do a GET DENSITY to establish drive density.
+		RXEDN+4000	/ "GET DENSITY" code.
+	SMA CLA			/ Skip if error.
+	 JMP	GETDN2		/ Return when no error.
+	CDFMNU			/ Get drive #.
+	TAD I	(RDFQBK+RXQDRV)	/  ...
+	CDFMNU			/ Save it in the menu area for display.
+	DCA I	(MUBUF+MNTMP3)	/  ...
+	AC0002			/ Set error message #.
+	DCA I	(MUBUF+MNTMP2)	/  ...
+	CDFMYF			/ Back to our field.
+	CIFMNU			/ Go output the error.
+	JMS I	MNUCAL		/  ...
+		DLMSPL		/   ....
+	CDFMNU			/ Get return code.
+	TAD I	(MUBUF+MNTMP2)	/  ...
+	CDFMYF			/ back to our field.
+	SMA CLA			/ Skip if Gold Menu return.
+	 JMP	GTDEN1		/ Go try again.
+	SKP			/ Take GOLD:MENU return.
+GETDN2,	 ISZ	GETDEN		/ Take Gold Menu return.
+	JMP I	GETDEN		/  ...
+
+/***********************************************************************/
+/									/
+/	CHKID--CHECK TO MAKE SURE ORIGINAL SYSTEM DISKETTE IS INSTALLED	/
+/		BEFORE WE RETURN TO MENU.
+/									/
+/		WHEN WPSPEL IS CALLED, THE NAME AND DISK "RANDOM" ID	/
+/		ARE READ INTO SYSID0-3.  BEFORE WPSPEL IS EXITED,	/
+/		THE NAME AND "RANDOM" ID FOR THE DISK IN DRIVE 0	/
+/		ARE READ INTO SYSID4-7.  THIS ROUTINE CHECKS TO MAKE	/
+/		SURE THAT BOTH BLOCKS MATCH				/
+/									/
+/		IF NO MATCH IS FOUND, THE OPERATOR IS ASKED TO INSERT	/
+/		THE ORIGINAL SYSTEM DISKETTE.  THE ROUTINE IS NOT	/
+/		EXITED UNTIL THE NAME AND "RANDOM" ID MATCH		/
+/									/
+/***********************************************************************/
+
+CHKID,	XX			/ CHECK ORIGINAL SYSTEM DISKETTE
+	TAD	OPTNWD		/ Get original option word.
+	CDFMNU			/ Map MENU field.
+	DCA I	(MUBUF+MNOPTC)	/ Restore it.
+	CDFMYF			/ Back to our field.
+	TAD	OPNFIL		/ Did we open the file?
+	SZA CLA			/ Skip if no. nothing to close.
+	 JMS	CLOSEF		/ Call close file routine.
+CHKID1,	JMS	GTDKID		/ Go read current drive diskette name & ID.
+		SYSID+4-1	/  ...
+	 NOP			/ Ignore Gold Menu return. that's where we headed.
+	TAD	(-4		/
+	DCA	T1		/ SET UP COUNTER
+	TAD	(SYSID-1	/
+	DCA	X1		/ SET UP SOURCE INDEX
+	TAD	(SYSID+4-1	/
+	DCA	X2		/ SET UP COMPARE INDEX
+CHKIDL,	TAD I	X1		/ READ OLD WORD
+	CIA			/
+	TAD I	X2		/ COMPARE WITH NEW WORD
+	SZA CLA			/
+	 JMP	CHKID2		/ NO, GO ASK FOR ORIGINAL
+	ISZ	T1		/ SEE IF LAST WORD
+	JMP	CHKIDL		/ NO, LOOP BACK
+	JMP I	CHKID		/ RETURN
+
+CHKID2,	CIFMNU			/ Prompt the user to insert the system diskette.
+	JMS I	(SYPRMP)	/  ...
+	JMP	CHKID1		/ Go retry.
+
+
+OPNFIL,	0			/ 0 until file has been opened.
+
+LOADOV,	XX			/ Routine to copy a page from MNU to EDIT flds.
+	AC7777			/ Get address in MNU field of page start.
+	TAD I	LOADOV		/  ...
+	ISZ	LOADOV		/ Bump return address.
+	DCA	X0		/ the editor root section at OVLAYM
+	TAD	(OVLAYM-1)	/  Destination address.
+	DCA	X1		/   ...
+	TAD	(-200)		/ 1 page to copy.
+	DCA	T1		/ save negative of size to move.
+LOAD1,	CDFMNU			/ init overlay is loaded into MENU field.
+	TAD I	X0		/ Get word to move.
+	CDFEDT			/ Map editor field.
+	DCA I	X1		/ Move to editor.
+	ISZ	T1		/ Decrement loop counter.
+	JMP	LOAD1		/ Loop back 'till page is moved.
+	CDFMYF			/ Back to our field.
+	JMP I	LOADOV		/ Return to caller.
+
+/***********************************************************************
+/
+/	GTDKID GETS THE DISK ID OF THE SYSTEM DISK
+/	THE ID IS THE THREE NAME WORDS AND THE "RANDOM" WORD
+/	IT IS USED TO INSURE THAT THE SAME SYSTEM DISK IS REINSERTED
+/	IN CASES WHERE IT MUST BE REMOVED.
+/
+/***********************************************************************
+
+GTDKID,	XX
+	TAD I	GTDKID		/ Get buffer address to copy NAME & ID into.
+	ISZ	GTDKID		/ Bump to return address.
+	DCA	GTDKIA		/ save buffer address.
+	DCA	T2		/ Init temp.
+GTDK1,	JMS	GETDEN		/ Get density of drive 0.
+	 ISZ	T2		/ Say that we want to return to Main Menu.
+	CIFMNU			/ Go read in the home block.
+	JMS I	(FILLIO)	/  ...
+		CDFTXT		/ Read home block into block buffer.
+		BUFADR		/  buffer address.
+		-1		/ Size (1 block).
+		DLDIR		/ Read the home block.
+	 JMP	GTDKER		/ Error. Display "replace" msg.
+	JMS	CPYBUF
+		-4		/ Size
+		CDFTXT		/ Source field.
+		BUFADR+2-1	/ Source Address
+		CDFMYF		/ DESTINATION FIELD
+GTDKIA,		XX		/ DESTINATION ADDRESS
+	TAD	T2		/ Return to MM?
+	SNA CLA			/ Skip if yes.
+	 ISZ	GTDKID		/ Take skip return to continue.
+	JMP I	GTDKID		/ RETURN
+
+GTDKER,	JMP	GTDK1		/ Go retry.
+
+
+SYSID,	0;0;0;0			/ System disk ID.
+	0;0;0;0			/ ID of diskette in drive 0 at exit time.
+/------------
+	PAGE
+	RELOC
+	NOPUNCH
+
+

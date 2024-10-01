@@ -1,0 +1,2316 @@
+/WPSFF.PA
+
+/		*******  EDIT HISTORY  *******
+/
+/010	WJY	29-SEP-84	Fix bug #293 - use ruler imbedded in control
+/				 block like printer.
+/009	BC	20-JUL-84	Fix footnote w/dead keys; Field 5&6 lock words
+/008	BC	 6-JUL-84	Change WPS FOOTNOTE RULER to FOOTNOTE
+/007	BC	26-JUN-84	Fixes bug with footnote after New Page Mark.
+/006	BC	20-JUN-84	Delete check for superscpt # before footnote
+/005	BC	18-JUN-84	Support footnote rulers (defined in ctrl blks)
+/				Delete code leftover from spelling.
+/004	BC	 4-JUN-84	Enable read/write of footnote text to scratch
+/				area of utility disk. Allow GOLD HALT abort.
+/003	BC	30-MAY-84	Add error messages, speed footnote cutting.
+/				Increase size of scrolling region.
+/002	BC	24-MAY-84	Add minimal footnote algorithm
+/001	SBB	14-APR-84	INITIAL VERSION
+/
+
+	FIELD	0		/ Write out code.
+
+*200				/ Set up for write-out.
+	JMP I	.+2
+	JMP I	.+2
+	RXLOAD
+	7605
+
+
+*RXLDLS
+	RXEWT;0;RXQBLK;.
+	DLOFFF;100;CDF 20;-DSOFFF	/ Write-out primary spell-check code.
+/	DLOSPX;200;CDF 30;-DSOSPX	/ Writeout auxillary IOA & text code.
+	0
+
+	FIELD	2		/ Assemble FOOTNOTE FORMATTER code in field 3.
+
+CDFSPL=CDFMTH
+CIFSPL=CIFMTH
+CDISPL=CDIMTH
+CDFMYF=CDFSPL
+
+CDFTXT=CDFLP			/ Text field is field 5.
+CIFTXT=CIFLP			/  ...
+CDITXT=CDILP			/
+
+/ Page 0 values.
+
+	*100
+SCURSR,	0			/ Saved CURSOR value for start of word.
+SCURPT,	0			/ Saved CURPTR value for start of word.
+LINCNT,	0			/ # of lines word crosses.
+CHAR,	0			/ Saved char from TSTCHR routine.
+NEWLIN,	0			/ Flag to indicate that a NEW LINE has been scrolled.
+OFFSET,	0			/ pointer to the option requested
+ECERFL,	0			/ # 0 When there is an error msg being displayed.
+	IFDEF OLDSPL <							/A003
+HYPHEN,	0			/ - == scan 'till hyphen seen.
+				/ 0 == no hyphen seen.
+				/ + == word is hyphenated.
+NOTWRD,	0			/ "NOT WORD" indicator. # 0 means NOT A WORD.
+WRDSIZ,	0			/ Word size thus far.
+DISATR,	0			/ Contains attributes word for REPLACE replacement words.
+SLCRSR,	0			/ CURSOR value of 1st word on current line.
+ELINCT,	0			/ counter as to which line user is on during EDIT.
+RLINCT,	0			/ counter as to which line is the restart line
+UNDLCT,	0			/ count of # of characters in undeleted buffer
+NOINSR,	0			/ # 0 when INSERT not allowed.
+NOMORE,	0			/ # 0 when at end of current line.
+ECMODE,	0			/ current MODE of EDIT processing.
+WDOFST,	0			/ pointer to the correct word requested
+LEVEL,	0			/ active menu line: 0/corr. list, 1/menu
+INPCHR,	0			/ char input by user to menu
+CURLSZ,	0			/ current logical size of correct word list
+RTNSTS,	0			/ return status code
+SIXTEN,	16			/ row 16
+M107,	-107			/ minus (107)
+LNCLMR,	0			/ line & column # of (.......) text
+TMPWRD,	0			/ temp location
+WRD,	0			/ pointer to start of word
+ROW,	0			/ row correct words are being displayed on
+WRDCNT,	0			/ counter of number of words
+NUMTRY,	0			/ number of times user reaches end of C.W.L
+WDSAVL,	0			/ if set, word not found in dictionary
+HLPLEN,	-110			/ number of 'spaces' in the HELP header
+VIDEO,	0			/ 1 if error word is highlighted, 0 if not.
+				/ Set/Cleared by DISPLY.
+UPDCLK,	0			/ If set, WTLOOP will update the screen clock.
+STRTAH,	1&377			/ high byte starting address to load Z80 from
+STRTAL,	0&377			/ low byte starting address to load Z80 from
+GTAPU1=400			/ starting address to go to ( 100 hex )
+INIUSR,	0			/ 0 for SC, 1 for LU (loading user dictionary).
+HOLDCH,	0			/ temp for DISWRD routine.
+FILNUM,	0			/ file # the APU should be reading from
+MSTRLX=-2			/   Master lexicon file: file # 2
+RAMFIL=-3			/   RAM load file: file # 3
+	> / end ifdef OLDSPL						/A003
+P137,	137			/ 7-bit mask to uppercase
+HALTFG,	0			/ GOLD:HALT flag. Set if GOLD:HALT detected.
+
+/ Page 0 values for Footnoting						/A002
+
+WTHNFN, 0		/ = 1 if within a footnote			/A002
+APFN,	0		/ = 1 if autopaginating footnotes		/A002
+FNRLSN,	0		/ = 1 if footnote ruler seen			/A002
+FNOTP,	0		/ = 1 if footnotes on this page			/A002
+FNLTP,	0		/ = # of footnote lines, this page		/A002
+PGESFN,	0		/ = # of pages worth of footnotes		/A002
+FNBPLP,	0		/ ->next put entry in footnote buffer list (-1)	/A002
+FNBPCT,	0		/ = count of room in footnote put buffer	/A002
+FNBPPT,	0		/ ->next word in footnote put buffer		/A002
+FNBGLP,	0		/ ->next get entry in footnote buffer list (-1)	/A002
+FNBGCT,	0		/ = count of room in footnote get buffer	/A002
+FNBGPT,	0		/ ->next word in footnote get buffer		/A002
+FNDLAD,	0		/ = address of footnote delimiter string	/A002
+FNODSK,	0		/ = 1 if footnotes spilled over to disk		/A003
+FNFDSK,	0		/ = 1 if started reading footnote text from disk/A003
+FNWSPC,	0		/ = minus # blocks avail. for writing ftnt text	/A003
+FNRSPC,	0		/ = minus # blocks avail. for reading ftnt text	/A003
+FNRFLG,	0		/ = 0 if no footnote ruler encountered		/A005
+
+SLNMOD=JMS I .;ECSLMD		/ Footnote equivalent of some editor routines.
+ADVPTR=JMS I .;ECAPTR		/  ...
+BKPPTR=JMS I .;ECBPTR		/
+INSCHR=JMS I .;ECICHR		/ INSCHR
+INSTCH=JMS I .;ECNCHR		/ INSERT				/A005
+GETCHR=JMS I .;ECGCHR		/ CURMOV & LODCHR
+MOVCHR=JMS I .;CRSTMV		/ CURMOV only.
+LOADCH=JMS I .;ECLOAD		/ LODCHR
+UPDSCN=JMS I .;FXSCRN		/ FXSCRL
+CHKSCN=JMS I .;CKSCRN		/ TSTLIM & FXSCRL
+PUTCHR=JMS I .;PTCHRS		/ Output a string of 7 bit characters.
+
+CALEDT=JMS I .;CALLAR		/ Linkage to editor 'CALLAR' routine.
+NXTCHR=JMS I .;FNXCHR, 0	/ Get next char (= GETCHR /or/ ADVPTR)	/A003
+
+MAXCHR=40			/ Maximum size of word (32 decimal).
+NLINES=11			/ Number of lines within scrolling region.
+FLINES=24			/ # of lines in footnote scrolling region/A003
+BUF0LEN=226			/ length of correct word buffer (150 dec.)
+BUF1LEN=74			/ length of table of correct words
+				/ (max. of 30 words, 2 entries/word)
+
+
+/ Equates for Footnote Processing					/A002
+
+ECSTFN=74		/ Start of footnote (left angle bracket)	/A002
+ECNDFN=76		/ End of footnote (right angle bracket)		/A002
+SUPBIT=1000		/ Superscript bit				/A002
+DECIMAL
+MAXCOL=238		/ Maximum column number is 238 decimal		/A005
+OCTAL
+
+IFNDEF DSUSAV	<		/***TEMP***				/A003
+DSUSAV=57			/***TEMP***				/A003
+	> / end ifndef DSUSAV						/A003
+
+/---------
+	PAGE
+
+/------------------------------------------------------------------------/
+/
+/ NOTE:	All FATAL errors, after being reported, jmp to EOF for final
+/	cleanup. In order to catch the start-up errors, the entry point
+/	and exit CDI are assembled to return to appropriate clean-up
+/	code.
+/
+/------------------------------------------------------------------------/
+SPELL,	STRTGM			/ entry point to spelling checker.
+	RDF			/ Get return data field.
+	TAD	CIDF0		/ Make a return CID instruction.
+	DCA	SPLXIT		/ save for final return.
+/D005	CDFMYF			/MAKE SURE WE'RE HERE (HURTS LT PINCH)	/001
+/D005	TAD	(SCRNIN)	/NEED ADR OF SCREEN INIT ROUTINE	/001
+/D005	CDFEDT			/WPSC IS IN PART OF EDIT FLD		/001
+/D005	CLA	/DCA I	(SINADR)	/INTO DISPATCH TABLE IN WPSC	/001
+	CDFMNU			/NEED TO ZAP LOCK WORDS
+/D009	TAD	(OLL301)	/USE ADDRESS FOR RANDOMCONSTANT
+	DCA I	(OLL301)	/TO ZAP FIELD 5 LOCK WORD
+/D009	TAD	(OLL301)	/AGAIN
+	DCA I	(OLL400)	/TO ZAP FIELD 6 LOCK WORD
+	CDFMYF			/ Back to our field.
+	JMS	INITFN		/ Init footnote process			/A002
+	JMP	SCNXT2		/ merge below to get to 1st posn.
+
+
+EOF,	JMS	CLRRGN		/ Clear scrolling region.
+SPLXIT,	CDIEDT			/ Map return field.
+	JMP I	SPELL		/ Return to Menu (or where ever).
+
+CHKAPU,					/THESE TAGS ARE TO PREVENT 'US'	/001
+LODAPU,					/ASSEMBLY ERRORS IN WPSC	/001
+
+	IFDEF OLDSPL <							/A005
+/
+/ return to here to ignore....
+/
+
+SCFIX,/SB	JMS	DISPLY		/ Refresh the word unreversed video.
+/SB		0		/ Say NOT REVERSED VIDEO.
+	CDFEDT			/ Compute cursor posn of last char of word.
+	AC7777			/ CURPOS currently points to next posn so backup.
+	TAD I	(CURPOS)	/  ...
+	DCA I	(CURSOR)	/ Set current cursor posn to there.
+/
+/ merge here to scan to the start of the next word.
+/
+SCNEXT,	CDFEDT			/ Re-enable ECHO while scanning to next word.
+	AC0001			/  ...
+	DCA I	(ECHFLG)	/   ....
+	TAD I	(SCRLCT)	/ Test screen lag.
+	CDFMYF			/
+	SZA CLA			/ Skip if no lag.
+	 JMS	UNDOLG		/ Update screen.
+	> / end ifdef OLDSPL						/A003
+
+SCNXT1,	AC0001			/ Move to next CURSOR position.
+SCNXT2,	NXTCHR			/ Get (next) character.			/C003
+	 JMP	FNDUMP		/ If we get EOF, go dump the footnotes	/A002
+	DCA	CHAR		/ Save character			/A002
+	CDFSYS			/ Check the HALT FLAG.			/A004
+	TAD I	HLTFLG		/  ...					/A004
+	CDFMYF			/   ....				/A004
+	SZA CLA			/ Skip if it's not set.			/A004
+	 JMP	HLTERR		/ Halt flag set. Abort process		/A004
+	TAD	CHAR		/ Get character				/A005
+	TAD	(-ECPCT1	/ Is is Start Control?			/A005
+	SNA CLA			/					/A005
+	 JMP	CKFNRL		/ Yes, check if footnote ruler defn	/A005
+SCNXT5,	TAD	FNOTP		/ Footnotes on this page?		/A002
+	SNA CLA			/					/A002
+	 JMP	SCNXT4		/ No, just look for footnote start	/A002
+	TAD	CHAR		/ Get character				/A002
+	TAD	(-ECNWPG	/ Is it New Page Mark?			/A002
+	SNA CLA			/ 					/M005
+	 JMP	FNDUMP		/ Yes, go dump the footnotes		/A002
+/D005	TAD	(ECNWPG-ECPMRK	/ Is it Page Mark?			/A002
+/D005	SZA CLA			/					/A002
+/D005	 JMP	SCNXT3		/ No					/A002
+/D005	TAD	APFN		/ Yes, are we autopaginating?		/A002
+/D005	SNA CLA			/					/A002
+/D005	 JMP	FNDUMP		/ No, so page mark => dump footnotes 	/A002
+SCNXT3,	TAD	WTHNFN		/ Are we within a footnote?		/A002
+	SZA CLA			/ 					/A002
+	 JMP	FNCHAR		/ Yes, process a footnote character	/A002
+	TAD	APFN		/ Not in a footnote, are we autopaging?	/A002
+	SNA CLA			/ 					/A002	
+	 JMP	SCNXT4		/ Nope, see if it's footnote start	/A002
+	JMS	INCRLN		/ Autopaging: check line count change	/A002
+	 JMP	SCNXT1		/  no change				/A002
+	JMS	PGFULL		/ Check if the page is full		/A002
+	 JMP	SCNXT1		/  nope					/A002
+/ Should backup to line start and dump footnotes, but doesn't yet	/A002
+	JMP	SCNXT1		/  yup					/A002
+
+/ Look for footnote start
+
+SCNXT4,	TAD	CHAR		/ Get character				/A002
+/ Should handle footnote ruler, but doesn't yet				/A002
+	AND	P177		/ Isolate only the character bits	/A002
+	TAD	(-ECSTFN	/ Is it footnote start?			/A002
+	SZA CLA			/					/A002
+	 JMP	SCNXT1		/ No, go on				/A002
+	JMP	MAYBFN		/ Maybe footnote start			/A002
+
+INCRLN,	XX								/A002
+/ Should check line count change					/A002
+	JMP I	INCRLN							/A002
+
+PGFULL,	XX								/A002
+/ Should check if page is full						/A002
+	JMP I	PGFULL		/					/A002
+
+
+
+/------
+	PAGE
+
+
+/
+/ FNCHAR - Here when processing a footnote. We've seen the footnote start
+/	and we're picking up the footnote characters, deleting them from
+/	the editor buffer, and storing them in the footnote buffer. We
+/	delete soft spaces, line wraps, and select marks, etc. since these
+/	have to be recalculated when the footnote is re-inserted at the
+/	end of the page. If we encounter a Start Ruler command, we abort
+/	the process, as this is illegal (we don't know how to move the
+/	ruler). If we find a start of dead key sequence, we loop till we
+/	find the end, not checking anything within the sequence.
+/
+
+FNCHAR,	TAD	CHAR		/ Get the character			/A002
+	AND	P177		/ Isolate only the character bits	/A002
+	TAD	(-ECSTOV	/ Is it start of dead key sequence?	/A009
+	SNA			/					/A009
+	 JMP	FNDKS		/ Yes, go handle it			/A009
+	TAD	(ECSTOV-ECNDFN	/ Is it footnote end?			/M009
+	SNA			/					/A002
+	 JMP	FFNEND		/ Maybe, go find footnote end		/A002
+	TAD	(ECNDFN-ECMDFL	/ Is it line/ruler modified?		/A003
+	SNA			/					/A003
+	 JMP	SCNXT1		/ Yes, skip over it			/A003
+	TAD	(ECMDFL-ECSTRL	/ Is it ruler start?			/A003
+	SNA			/ 					/A003
+	 JMP	RLRINF		/ Yes, that's a no-no			/A003
+	TAD	(ECSTRL-ECSPC	/ Is it space, justify space, posn mark?/A003
+	 SZA			/ Yes, delete all but space		/A003
+	TAD	(ECSPC-ECNWLN	/ Is it new line class?			/A003
+	SZA CLA			/ 					/A003
+	 JMP	FNCHR1		/ No					/A003
+	TAD	CHAR		/ Get original char			/A003
+	AND	(2000		/ Is it wrapped line or select point?	/A003
+	TAD	(-2000		/  (or justify space or posn marker?)	/A003
+	SZA CLA			/ 					/A003
+	 JMP	FNCHR1		/ No					/A003
+	JMS	DELCHR		/ Yes, delete it			/A003
+	JMP	SCNXT2		/ Proceed				/A003
+
+FNCHR1,	TAD	APFN		/ Are we autopaginating?		/A002
+	SZA CLA			/					/A002
+	 JMP	FNCAPY		/ Yes, process footnote char. w/AP=Yes	/A002
+	TAD	CHAR		/ No, just put char in footnote buffer	/A002
+	JMS	PUTFNB		/					/A002
+	JMS	DELCHR		/ And delete it from Editor buffer	/A002
+	JMP	SCNXT2		/ Proceed				/A002
+
+/ Start of dead key sequence encountered in footnote: scan for the	/A009
+/ end of it, moving characters to the footnote buffer without checking	/A009
+/ for special characters.						/A009
+
+FNDKS1,	NXTCHR			/ Get next character			/A009
+	 JMP	WRDEOF		/ EOF in middle of dead key sequence?	/A009
+	DCA	CHAR		/ Store the character			/A009
+FNDKS,	TAD	CHAR		/ Get the character			/A009
+	JMS	PUTFNB		/ Store in footnote buffer 		/A009
+	JMS	DELCHR		/ Delete char from edit buffer		/A009
+	TAD	CHAR		/ Was it end of dead key sequence?	/A009
+	TAD	(-ECNDOV	/					/A009
+	SNA CLA			/					/A009
+	 JMP	SCNXT2		/ Yes, back to normal process		/A009
+	JMP	FNDKS1		/ No, keep looking for end dead		/A009
+
+/ Ruler encountered within footnote: error, as we're not smart enough	/A003
+/ to move it correctly.							/A003
+
+RLRINF,	TAD	(ERRRWF		/ Get pointer to msg			/A003
+	JMP	DSKERR		/ Go print msg and wait for RETURN	/A003
+
+FNCAPY,	
+/ Should check line count incr/page full, but doesn't yet		/A002
+	JMP	SCNXT1		/ Proceed				/A002
+
+
+/
+/ MAYBFN - May be Footnote Start
+/
+/	Here when found a single angle bracket (<). We check if it is
+/	followed by another (<) and is preceded by a superscripted
+/	character. If so, then it defines start of a footnote.
+/
+MAYBFN,	AC0001			/ Move to next cursor position		/A002
+	NXTCHR			/ Get next character			/C003
+	 JMP	FNDUMP		/ EOF, dump footnotes			/A002
+	AND	P177		/ Isolate character bits only		/A002
+	TAD	(-ECSTFN	/ Is it footnote start?			/A002
+	SZA CLA			/					/A002
+	 JMP	SCNXT2		/ No					/A002
+	BKPPTR			/ Yes, backup before footnote start	/A002
+	 JMP	WRDEOF		/ Wierd EOF				/A002
+/D006	BKPPTR			/ Now look at char before footnote	/A002
+/D006	 JMP	FFNST1		/ File must start with '<<'		/A002
+/D006	DCA	CHAR		/ Save character			/A002
+/D006	TAD	CHAR		/ Get character				/A002
+/D006	AND	(SUPBIT		/ Isolate superscript bit		/A002
+/D006	TAD	(-SUPBIT	/ Is it superscripted?			/A002
+/D006	SZA CLA			/					/A002
+/D006	 JMP	FFNST2		/ No					/A002
+/D005	TAD	CHAR		/ Get the character			/A002
+/D005	AND	P177		/ Isolate character bits only		/A002
+/D005	X="0&177
+/D005	TAD	(-X		/ See if numeric			/A002
+/D005	SPA			/					/A002
+/D005	 JMP	FFNST2		/ No					/A002
+/D005	TAD	("0-"9		/					/A002
+/D005	SMA SZA CLA		/					/A002
+/D005	 JMP	FFNST2		/ No					/A002
+/ ?Should we check footnote within footnote? if so, change SCNXT4	/A002
+MAYBF1,
+/D006	ADVPTR			/ Yes, a real footnote, point at '<<'	/A002
+/D006	 JMP	WRDEOF		/ Wierd EOF				/A002
+/ Should assign a footnote number, if we're autonumbering-doesn't yet	/A002
+FNSTRT,	JMS	DELCHR		/ Delete first '<' from  Editor buffer	/A002
+	TAD	(ECTMRK		/ And insert marker to return to	/A002
+	INSCHR			/					/A002
+	JMS	DELCHR		/ Delete second '<'			/A002
+	ISZ	WTHNFN		/ Set Within Footnote			/A002
+/ Should insert CR, Footnote Ruler in Editor Buffer-doesn't		/A002
+	TAD	(ECAPTR		/ Set so NXTCHR does ADVPTR		/A003
+	DCA	FNXCHR		/					/A003
+	TAD	APFN		/ Autopaginating?			/A002
+	SZA CLA			/					/A002
+	 JMP	FNSTR1		/ Yes					/A002
+	TAD	FNOTP		/ Footnotes on this Page?		/A002
+	SZA CLA			/					/A002
+	 JMP	FNSTR2		/ Yes, skip insertion of short-rule	/A002
+	TAD	FNDLAD		/ No, get addr. of footnote delimiter	/A002
+	DCA	X1		/  into auto-index register		/A002
+FNSTR4,	TAD I	X1		/ Get a character of delimiter		/A002
+	SNA			/ End of delimiter string?		/A002
+	 JMP	FNSTR2		/ Yes					/A002
+	JMS	PUTFNB		/ No, put character in footnote buffer	/A002
+	JMP	FNSTR4		/ Loop					/A002
+/Should see if room on page for short-rule & first footnote line-doesn't/A002
+/ if not-do footnote crosses page w/AP=yes, if so, start count of foot	/A002
+/ note lines this page.							/A002
+FNSTR1,
+FNSTR2,	ISZ	FNOTP		/ Set Footnotes on this Page.		/A002
+	JMP	SCNXT2		/ Proceed				/A002
+
+
+/D006FFNST2,	ADVPTR		/ Forward over non-superscript char	/A002
+/D006	 JMP	WRDEOF		/ Wierd EOF				/A002
+/D006FFNST1,	ADVPTR		/ Forward over fake footnote start	/A002
+/D006	 JMP	WRDEOF		/ Wierd EOF				/A002
+/D006	JMP	SCNXT1		/ Go get next character			/A002
+
+/------
+	PAGE
+
+/
+/ FFNEND - Found Footnote End
+/
+/	Here when we find the closing (>>) to end the footnote. We terminate
+/	the footnote in the footnote buffer with a New Line. Then we fix
+/	the NXTCHR routine so that it does GETCHR's instead of ADVPTR's (so
+/	the non-footnote text scrolls by on the screen.
+/
+FFNEND,	ADVPTR			/ Get next character			/A002
+	 JMP	FNEND		/ EOF, treat as footnote end		/A002
+	DCA	CHAR		/ Store char				/A003
+	TAD	CHAR		/ Get char				/A003
+	AND	P177		/ Isolate character bits only		/A002
+	TAD	(-ECNDFN	/ Is it footnote end?			/A002
+	SZA CLA			/					/A002
+	 JMP	SCNXT2		/ No					/A002
+	JMS	DELCHR		/ Yes, delete the second char		/A002
+FNEND,	BKPPTR			/ Backup CURPTR				/A002
+	 JMP	WRDEOF		/ Wierd EOF???				/A002
+	JMS	DELCHR		/ Delete the first char			/A002
+FNEND1,	BKPPTR			/ Backup CURPTR				/A002
+	 JMP	WRDEOF		/ Wierd EOF???				/A002
+	TAD	(-ECTMRK	/ This the marker we left in?		/A002
+	SZA CLA			/					/A002
+	 JMP	FNEND1		/ No					/A002
+	JMS	DELCHR		/ Yup, delete it			/A002
+	DCA	WTHNFN		/ Clear Within Footnote flag		/A002
+	TAD	(ECGCHR		/ Set so NXTCHR does GETCHR		/A003
+	DCA	FNXCHR		/					/A003
+	TAD	APFN		/ Autopaginating?			/A002
+	SZA CLA			/					/A002
+	 JMP	APFNND		/ Yes, handle footnote end		/A002
+	TAD	(ECNWLN		/ Put New Line in buffer		/A002
+	JMS	PUTFNB		/  to terminate this footnote		/A002
+/ Should backup to mark, delete hard rtn & footnote ruler-doesn't	/A002
+	JMP	SCNXT2		/ Proceed				/A002
+
+APFNND,				/					/A002
+/ Should put new line in bfr, chk for field 5 full, chk for more than	/A002
+/ one page worth of footnotes, etc.- doesn't				/A002
+	TAD	(ECNWLN		/ Put New Line in buffer		/A002
+	JMS	PUTFNB		/  to terminate this footnote		/A002
+	JMP	SCNXT1		/ Proceed				/A002
+	
+WRDEOF,	TAD	(ERRUEF		/ Unexpected End of File		/A003
+	JMP	DSKERR		/ Give the message and terminate	/A003
+
+
+/
+/ DELCHR - Delete character from editor buffer
+/
+/	Deletes current character from editor buffer, and sets line
+/	modified flag.
+/
+DELCHR,	XX			/					/A002
+	CLA			/ Clear out the trash			/A002
+	CDFEDT			/ Change to Editor Field		/A002
+	TAD I	(CURPTR		/ Pickup CURPTR				/A002
+	DCA	SCURPT		/ Store it locally			/A002
+	CDFBUF			/ Change to Editor buffer field		/A002
+	DCA I	SCURPT		/ Delete the footnote character		/A002
+	CDFMYF			/ Back to our field			/A002
+	SLNMOD			/ Set line modified			/A002
+	JMP I	DELCHR		/ Return				/A002
+
+/
+/ FNDUMP - Dump the footnote at end of page (or end of document).
+/
+/	Here when we hit New Page mark or End of File. We store an EOF in
+/	the footnote buffer. If footnote text has spilled over to
+/	the scratch area on the disk, we write out the last block and read
+/	in the first block, in preparation for inserting footnotes into
+/	the editor buffer.
+/
+/	If a footnote ruler was defined in a Footnote Control Block, we
+/	insert the ruler, followed by the footnote text. After all the
+/	text is inserted, we restore the ruler which was in effect prior
+/	to insertion of footnotes.
+/
+FNDUMP,	TAD	FNOTP		/ Footnotes on this page?		/A002
+	SNA CLA			/					/A002
+	 JMP	NOFN		/ Nope					/A002
+	JMS	PUTFNB		/ Yes, store EOF in footnote buffer	/A002
+	TAD	FNODSK		/ Footnotes overflow onto disk?		/A003
+	SNA CLA			/ 					/A003
+	 JMP	FNDMP5		/ No					/A003
+	JMS	WRTFNB		/ Yes, write out last buffer		/A003
+	JMS	RDFRST		/ And read in first			/A003
+FNDMP5,	TAD	WTHNFN		/ Within footnote?			/A002
+	SZA CLA			/					/A002
+	 JMP	NDMSNG		/ Yes, end of footnote missing		/A002
+FNDMP0,	BKPPTR			/ Backup to check previous character	/A005
+	 JMP	WRDEOF		/ Wierd EOF				/A005
+	DCA	CHAR		/ Save temporarily			/A005
+	ADVPTR			/ Back where we were			/A005
+	 NOP			/ Have to ignore EOF here		/A005
+	CLA			/ Clear out the garbage			/A005
+	TAD	CHAR		/ Get previous character		/A005
+	AND	P177		/ Just the character bits		/A005
+	TAD	(-ECNWLN	/ Is it new line of some sort?		/A005
+	SZA CLA			/ 					/A005
+	 TAD	(ECNWLN		/ No, so insert new line before footnts	/A005
+	SZA			/ Don't insert a null			/A005
+	INSCHR			/ In case no CR at last line		/A005
+	JMS	INSRL		/ Now insert footnote ruler		/A002
+	 FNRLBF			/ Which is stored in FNRLBF		/A002
+FNDMP1,	JMS	GETFNB		/ Get character from footnote buffer	/A002
+	SNA			/ Footnote EOF?				/A002
+	 JMP	FNDMP2		/ Yup					/A002
+	INSCHR			/ No, insert it in Editor buffer	/A002
+	CDFSYS			/ Check the HALT FLAG.			/A004
+	TAD I	HLTFLG		/  ...					/A004
+	CDFMYF			/   ....				/A004
+	SNA CLA			/ Skip if it's set.			/A004
+	 JMP	FNDMP1		/ Loop back				/A002
+HLTERR,	TAD	(ERRHLT		/ Print message and abort		/A004
+	JMP	DSKERR		/					/A004	
+
+FNDMP2,	TAD	APFN		/ Autopaginating?			/A002
+	SNA CLA			/					/A002
+	 JMP	FNDMP4		/ No					/A002
+	AC7777			/ Yes, decr. # pages worth of footnotes	/A002
+	TAD	PGESFN		/					/A002
+	SPA			/ More footnotes in buffer?		/A002
+	 JMP	FNDMP3		/ No					/A002
+	DCA	PGESFN		/ Yes, store updated count		/A002
+/ Should reset count of footnote lines to count for next page-doesn't	/A002
+/ and if at Eof, should dump rest of footnotes				/A002
+	JMP	FNDMPX		/ Done					/A002
+FNDMP4,	JMS	INSRL		/ Now restore old current ruler		/A005
+	 CURLBF			/ Which is stored in CURLBF		/A005
+	ADVPTR			/ Move over (New) Page Mark		/A002
+	 NOP			/ Eof is caught below			/A002
+FNDMP3,	CLA			/ Set no more Footnotes on this Page	/A002
+	DCA	FNOTP		/					/A002
+NOFN,	JMS	INITPG		/ Init for next page processing		/A002
+FNDMPX,	GETCHR			/ Are we at EOF?			/A002
+	 JMP	EOF		/ Yes, finish up			/A002
+	CLA			/   clear out the junk			/A007
+	JMP	SCNXT2		/ No, proceed				/A002
+
+NDMSNG,	TAD	(ERRFEM		/ Footnote end missing			/A003
+/ Should print message, then allow continue-doesn't			/A002
+	JMP	DSKERR		/ Give the message and terminate	/A003
+
+/-----------
+	PAGE
+
+	IFDEF	OLDSPL	<						/SB
+WRDOK,	CDFSYS			/ Check the HALT FLAG.
+	TAD I	HLTFLG		/  ...
+	CDFMYF			/   ....
+	SNA CLA			/ Skip if it's set.
+	 JMP	SCNEXT		/ Halt flag not set. Continue scanning.
+	ISZ	HALTFG		/ Say that we GOLD:HALTed.
+	AC7777			/ Say that no word is highlighted.
+	DCA	VIDEO		/  ...
+	JMP	WRDERR		/ Merge to user menu.
+
+NTFND1,	AC7777			/ Bump size back down. Highlight the word
+	TAD	WRDSIZ		/  without the terminating period.
+	DCA	WRDSIZ		/   ...
+/SB	JMS	SNDWD1		/ Send incorrectly spelt word w/o the period.
+NTFND2,	TAD	HYPHEN		/ Is word hyphenated?
+	SMA SZA CLA		/ Skip if part of hyphenated word in error.
+	 JMP	NTFND4		/ Jmp if only done 1st pass on hyphenated word.
+	CDFEDT			/ Now do a 'screen check' for 158 col mode.
+	TAD I	(CURSOR)	/ If word terminates in 2nd half
+	TAD	(-WIDTH)	/  then be sure that 2nd screen gets displayed.
+	SMA CLA			/ Skip if word doesn't end in 2nd half.
+	 JMP	NTFND3		/ JMP if word ends in right-half screen.
+	TAD	SCURSR		/ Get start of word. Make sure that start-of-
+	DCA I	(CURSOR)	/  word half is mapped.
+NTFND3,	CDFMYF			/ Back to our field.
+	CHKSCN			/ Make sure right screen is displayed.
+	TAD	SCURSR		/ Restore CURSOR to point to start of word.
+	CDFEDT			/  ...
+	DCA I	(CURSOR)	/   ....
+	CDFMYF			/ back to our field.
+	DCA	HALTFG		/ Say that NOT stopped due to GOLD:HALT.
+WRDERR,	JMP	EOF	/SBERRGCOR		/ set up to display corrections..
+
+/
+/ return to here to continue.....
+/
+SCCONT,	TAD	VIDEO		/ Did we edit the line?
+	SZA CLA			/ Skip if yes. Editting reset the restart point.
+	 JMP	SCFIX		/ Didn't edit. Unhighlight word & continue.
+/SB	JMS	ECPSCN		/ Position cursor to start of restart word.
+	DCA	NEWLIN		/ Say "still on same old line".
+	JMP	SCNXT2		/ Rescan old word.
+				/  to rejustified posn & we're done.
+			>	/END IFDEF OLDSPL			/SB
+
+/
+/ CKFNRL - Check if control block is a footnote ruler definition
+/
+/	Come here when we find a start control block. We check if the
+/	control block begins with the phrase "FOOTNOTE" and
+/	if so, start looking for ruler setting commands like "L=1",
+/	"R=65", "T=20", "<=44" etc. They may be in any order, as the
+/	Editor doesn't care, but they must end with New Line, and must
+/	not have embedded spaces. They may be upper or lower case.
+/
+/	Edit 010 now uses new logic to copy the forward pointing ruler
+/	from any ruler imbedded in the control block.  If there is no
+/	ruler in the control block, the existing format ruler (if any)
+/	is shut off.
+/
+CKFNRL,	TAD	(FNRTXT-1	/ Get addr of key phrase		/A005
+	DCA	CKFRT1		/ To temp storage			/A005
+CKFNR1,									/M010
+/d010	TAD	CHAR		/					/A005
+/d010	TAD	(-ECPCT2	/ Is it end of control block?		/A005
+/d010	SNA CLA			/					/A005
+/d010 	 JMP	SCNXT5		/ Yeah, back where we came from		/A005
+	ISZ	CKFRT1		/ Bump to next character		/A005
+	TAD I	CKFRT1		/ Get character of Footnote ruler phrase/A005
+	SNA CLA			/ End of string?			/M010
+	 JMP	CKFNR2		/ Yes					/A005
+	AC0001			/ ...					/A005
+	NXTCHR			/ Get next character			/A005
+	 JMP	FNDUMP		/ If EOF, dump the footnotes		/A005
+	DCA	CHAR		/ Store character			/A005
+	TAD I	CKFRT1		/ Get back char. of Footnote ruler phrase/M010
+	TAD	CHAR		/ Add the text character		/A005
+	AND	P177		/ Just the character bits		/A005	
+	SNA			/ Match?				/A005
+	 JMP	CKFNR1		/ Yes					/A005
+	TAD	(-40		/ Try lower case version		/A005
+	SNA CLA			/ Match?				/A005
+	 JMP	CKFNR1		/ Yes, keep going			/A005
+	JMP	SCNXT5		/ No, go back where we came from	/A005
+
+CKFRT1,	0			/ -> into footnote ruler phrase		/A005
+FNRCHR,	0			/ Temp storage for footnote ruler char	/A005
+
+/ Found Footnote Ruler Control Block					/A005
+/ Start looking for ruler(s).						/M010
+
+CKFNR2,	DCA	FNRFLG		/ Shut off footnote ruler		/A010
+/d010	SKP			/ Already got next char			/A005
+CKFNR8,
+	ADVPTR			/ Peek ahead				/A010
+	 NOP			/  Handle EOF later			/A010
+	TAD	(-ECSTRL	/ Are we at a ruler?			/A010
+	SNA CLA			/ Skip if NOT a ruler			/A010
+	 JMP	CKFINR		/ Go process ruler			/A010
+CKFNR9,	BKPPTR			/ Back to where we started		/A010
+	 NOP			/ Don't care about EOF			/A010
+
+	AC0001			/ Get next char				/A005
+	NXTCHR			/ ... 					/A005
+	 JMP	FNDUMP		/ If EOF, go dump the footnotes		/A005
+	DCA	CHAR		/ Store it				/M010
+	TAD	CHAR		/ Get it back				/A005
+	TAD	(-ECPCT2	/ Is it End Control Block?		/A005
+	SNA CLA			/					/A005
+	 JMP	SCNXT1		/ Yes, back to main line		/M010
+	JMP	CKFNR8		/ Look at next char in control block	/A010
+
+CKFINR,				/ Read the ruler until we find the 	/A010
+				/  forward pointing portion		/A010
+
+	TAD	(FNRLBF+2	/ Get adr of footnote ruler buffer	/A005
+	DCA	FNRBFP		/ Store in pointer to buffer		/A005
+	DCA	CKFRT1		/ use to count how far forward we go	/A010
+CKFIN1,	ISZ	CKFRT1		/ INCREMENT COUNT			/A010
+	 SKP			/ NORMAL PATH				/A010
+	JMP	FCBERR		/ RULER MUCH TOO LONG!			/A010
+	ADVPTR			/ Get next character			/A010
+	 JMP	WRDEOF		/  Any file that ends in a ruler is WIERD/A010
+	TAD	(-ECMDRL	/ Is it the mid-ruler character?	/A010
+	SZA CLA			/ Skip if it is				/A010
+	 JMP	CKFIN1		/  Else not there yet - get next char	/A010
+CKFCPR,				/ Now copy each char into the format	/A010
+				/  ruler buffer until end of ruler | ERR/A010
+	ISZ	CKFRT1		/ INCREMENT COUNT			/A010
+	 SKP			/ NORMAL PATH				/A010
+	JMP	FCBERR		/ RULER MUCH TOO LONG!			/A010
+	ADVPTR			/ Get next character			/A010
+	 JMP	WRDEOF		/  Any file that ends in a ruler is WIERD/A010
+	TAD	(-ECNDRL	/ Have we reached the end?		/A010
+	SNA			/ Skip if NOT end			/A010
+	 JMP	FNREND		/  Else end of ruler - go finish up	/A010
+	TAD	(ECNDRL		/ Get character back			/A010
+	JMS	PTFNR		/ & copy it to footnote ruler buffer	/A010
+	JMP	CKFCPR		/ & loop back for next character	/A010
+
+
+/d010 	TAD	(-FNRTSZ	/ Get counter for ruler char table	/A005
+/d010 	DCA	CKFRT1		/ Store in a temp			/A005
+/d010 	TAD	(FNRTBL-1	/ Get adr of ruler char table		/A005
+/d010 	DCA	X1		/ Store in auto index reg		/A005
+/d010 	TAD	CHAR		/ Get char back				/A005
+/d010 	AND	P177		/ Just the char bits			/A005
+/d010 	TAD I	X1		/ Is it "."?				/A005
+/d010 	SNA			/					/A005
+/d010 	 JMP	CKFNR3		/ Yes, go handle it			/A005
+/d010 	ISZ	X1		/ No, skip equiv. char.			/A005
+/d010 	TAD I	X1		/ Is it ">"?				/A005
+/d010 	SNA			/					/A005
+/d010 	 JMP	CKFNR3		/ Yes, go handle it			/A005
+/d010 CKFNR4,	ISZ	X1		/ Skip equiv. char.			/A005
+/d010 	TAD I	X1		/ Match this char?			/A005
+/d010 	SNA			/					/A005
+/d010 	 JMP	CKFNR3		/ Yes, go handle it			/A005
+/d010 	TAD	(-40		/ No, match lower case version of it?	/A005
+/d010 	SNA			/					/A005
+/d010 	 JMP	CKFNR3		/ Yes, go handle it			/A005
+/d010 	TAD	(40		/ No, back to uppercase check		/A005
+/d010 	ISZ	CKFRT1		/ End of table?				/A005
+/d010 	 JMP	CKFNR4		/ No, loop to next			/A005
+/d010 CKFNR5,	TAD	(ERRIRC		/ Char not legal Footnote Ruler Operator/A005
+/d010 	JMP	DSKERR		/ Give message and terminate		/A005
+
+FCBERR,	TAD	(ERRFCB		/ Footnote Control Block error		/A005
+	JMP	DSKERR		/					/A005
+
+/ Found character in table of legal ruler characters, get the		/A005
+/ equivalent internal character, then pick up the column number.	/A005
+
+/d010 CKFNR3,	TAD I	X1		/ Get equivalent character		/A005
+/d010 	DCA	FNRCHR		/ Store for later			/A005
+/d010 	DCA	FNRCOL		/ Init column number to zero		/A005
+/d010 	AC0001			/ Get next char				/A005
+/d010 	NXTCHR			/					/A005
+/d010 	 JMP	FNDUMP		/ If EOF, go dump the footnotes		/A005
+/d010 	DCA	CHAR		/ Store it				/A005
+/d010 	TAD	CHAR		/ Get it back				/A005
+/d010 	AND	P177		/ Just the char bits			/A005
+/d010 X="=&177
+/d010 	TAD	(-X		/ Is it equals sign?			/A005
+/d010 	SZA CLA			/ 					/A005
+/d010 	 JMP	CKFNR5		/ No, error				/A005
+/d010 CKFNR6,	JMS	CVTD		/ Yes, convert column number to decimal	/A005
+/d010 	 JMP	CKFNR7		/ End of string				/A005
+/d010 	JMP	CKFNR6		/ Digit, keep checking			/A005
+/d010 CKFNR7,	TAD	FNRCOL		/ Get the column number			/A005
+/d010 	RTR			/ Isolate top 4 bits of col		/A005
+/d010 	RTR			/ ...					/A005
+/d010 	AND	(17		/					/A005
+/d010 	SZA			/ Don't  store first digit of 0		/A005
+/d010 	 TAD	(60		/ Make it ascii				/A005
+/d010 	SZA			/ Don't  store first digit of 0		/A005
+/d010 	 JMS	PTFNR		/ Store it in the ruler buffer		/A005
+/d010 	TAD	FNRCOL		/ Now the low 4 bits of col		/A005
+/d010 	AND	(17		/ ...					/A005
+/d010 	TAD	(60		/ ...					/A005
+/d010 	JMS	PTFNR		/ Store it in ruler buffer		/A005
+/d010 	TAD 	FNRCHR		/ Get the footnote ruler char		/A005
+/d010 	JMS	PTFNR		/ Store it in ruler buffer		/A005
+/d010 	JMP	CKFNR8		/ Go check for more ruler chars		/A005
+
+FNREND,	TAD	(ECNDRL		/ Store end ruler flag in buffer	/A005
+	JMS	PTFNR		/					/A005
+	AC7777			/ Set footnote ruler encountered	/A005
+	DCA	FNRFLG		/ ...					/A005
+	TAD	CKFRT1		/ GET COUNT OF HOW FAR WE WANDERED	/A010
+	CIA			/ NEGATE				/A010
+	DCA	CKFRT1		/ SAVE IT FOR LOOP COUNTER		/A010
+FNREN1,	BKPPTR			/ Back to where we were			/A010
+	 NOP			/  Ignore EOF here			/A010
+	ISZ	CKFRT1		/ SKIP IF WE ARE BACK			/A010
+	 JMP	FNREN1		/ 					/A010
+	JMP	CKFNR9							/A010
+
+
+/------									/A005
+	PAGE
+
+
+/
+/ PTFNR - Put character to footnote ruler				/A005
+/
+PTFNR,	XX			/					/A005
+	DCA I	FNRBFP		/ Store character in ruler buffer	/A005
+	ISZ	FNRBFP		/ Increment pointer			/A005
+	CLL			/					/A005
+	TAD	FNRBFP		/ Past end of buffer?			/A005
+	TAD	(-FNRLBE	/					/A005
+	SZL CLA			/					/A005
+	 JMP	FCBERR		/ Give Error and abort			/A005
+	JMP I	PTFNR		/ Return				/A005	
+
+FNRBFP,	0			/ -> into footnote ruler buffer		/A005
+
+/
+/ CVTD - Convert ASCII column number to decimal				/A005
+/		JMS	CVTD						/A005
+/		 JMP	NOTDIG	/ End of string				/A005
+/		JMP	.-2	/ Char was a digit, loop		/A005
+/									/A005
+/ Value stored in FNRCOL						/A005
+/
+/d010 CVTD,	XX			/					/A005
+/d010 	AC0001			/ Get next char				/A005
+/d010 	NXTCHR			/					/A005
+/d010 	 JMP	FNDUMP		/ If EOF, go dump the footnotes		/A005
+/d010 	DCA	CHAR		/ Store it				/A005
+/d010 	TAD	CHAR		/ Get the char.				/A005
+/d010 	AND	P177		/ Isolate character bits		/A005
+/d010 X="9&177			/					/A005
+/d010 	TAD	(-X		/ Is it a decimal digit?		/A005
+/d010 	SMA SZA			/					/A005
+/d010 	 JMP	CVTD2		/ Nope					/A005
+/d010 	TAD	("9-"0		/ Keep checking				/A005
+/d010 	SPA			/					/A005
+/d010 	 JMP	CVTD2		/ Not a digit				/A005
+/d010 	DCA	T1		/ Ok, store in a temp			/A005
+/d010 	TAD	FNRCOL		/ Get footnote ruler column so far	/A005
+/d010 	CLL RTL			/  x 4					/A005
+/d010 	TAD	FNRCOL		/  x 5					/A005
+/d010 	RAL			/  x 10					/A005
+/d010 	TAD	T1		/  + digit				/A005
+/d010 	TAD	(-MAXCOL	/ Is it greater than 238 decimal?	/A005
+/d010 	SMA			/ 					/A005
+/d010 	 JMP	CKFNR5		/ Yes, error				/A005
+/d010 	TAD	(MAXCOL		/ Get column number back		/A005
+/d010 	DCA	FNRCOL		/ Store it away				/A005
+/d010 	ISZ	CVTD		/ Return to call +2			/A005
+/d010 CVTD1,	JMP I	CVTD		/ Return				/A005
+
+/d010 CVTD2,	CLA			/					/A005
+/d010 	TAD	CHAR		/					/A005
+/d010 	AND	P177		/					/A005
+/d010 	TAD	(-ECNWLN	/ Is it New Line?			/A005
+/d010 	SZA CLA			/ 					/A005
+/d010 	 JMP	CKFNR5		/ No, error				/A005
+/d010 	JMP	CVTD1		/ Yes, return to call+1			/A005
+/d010 	
+/d010 FNRCOL,	0			/ Holds footnote ruler column number	/A005
+
+/ 									/A002
+/ INSRL - Insert Ruler into Editor Buffer				/A002
+/									/A005
+/	Inserts ruler into editor buffer, backs over it, then CURMOV's	/A005
+/	over it so old current ruler is inserted into ruler. Then backs	/A005
+/	over it and saves old current ruler in CURLBF so it can be	/A005
+/	reinserted after footnotes have been dumped.			/A005
+/
+/	JMS	INSRL							/A002
+/	 BUFADR			/ address of buffer containing ruler	/A005
+/
+INSRL,	XX			/					/A002
+	TAD	FNRFLG		/ Was a footnote ruler encountered?	/A005
+	SNA CLA			/ 					/A005
+	 JMP	INSRX		/ No, so just return			/A005
+	TAD I	INSRL		/ Get pointer to ruler			/A005
+	DCA	FNRBFP		/ Store in a temp			/A005
+	AC7777			/ Backup pointer by one			/A005
+	GETCHR			/					/A005
+	 JMP	WRDEOF		/					/A005
+	CLA			/ Clear the character			/A005
+	CDFEDT			/ To the editor field			/A005
+	TAD I	(CURPTR		/ Get CURPTR				/A005
+	CDFMYF			/ Back to my field			/A005
+	DCA	SCURPT		/ Save it locally			/A005
+	ADVPTR			/ Advance one char			/A005
+	 NOP			/ Have to ignore EOF here		/A005
+	CLA			/ Clear out garbage			/A005
+INSR1,	TAD I	FNRBFP		/ Get a char of the ruler		/A005
+	INSTCH			/ Insert the char into Editor Buffer	/A005
+	ADVPTR			/ Step over it				/A005
+	 NOP			/ Have to ignore EOF here		/A005
+	CLA			/ Clear out the garbage			/A005
+	TAD I	FNRBFP		/ Get the char back			/A005
+	ISZ	FNRBFP		/ Bump the pointer			/A005
+	TAD	(-ECNDRL	/ Is it end of ruler?			/A005
+	SZA CLA			/					/A005
+	 JMP	INSR1		/ No, continue				/A005
+INSR2,	CDFEDT			/ To editor field			/A005
+	TAD	SCURPT		/ Get saved CURPTR			/A005
+	DCA I	(CURPTR		/ Restore it				/A005
+	CDFMYF			/ Back home				/A005
+	AC0001			/ Ok, now CURMOV past the ruler		/A005
+	GETCHR			/					/A005
+	 NOP			/ Have to ignore EOF here		/A005
+INSR3,	BKPPTR			/ Now backup over ruler again		/A005
+	 JMP	WRDEOF		/ Should never happen			/A005
+	TAD	(-ECSTRL	/ Is it start of ruler?			/A005
+	SZA CLA			/					/A005
+	 JMP	INSR3		/ No, keep backing up			/A005
+	TAD	(CURLBF+2	/ Yes, get pointer to save bfr for curul/A005
+	DCA	FNRBFP		/ Save in a temp			/A005
+INSR4,	ADVPTR			/ Step over ruler start			/A005
+	 JMP	WRDEOF		/ Should never happen			/A005
+	TAD	(-ECMDRL	/ Is it ruler middle?			/A005
+	SNA			/					/A005
+	 JMP	INSR5		/ Yes, end of current ruler		/A005
+	TAD	(ECMDRL		/ Restore the char			/A005
+	DCA I	FNRBFP		/ Store in current ruler save buffer	/A005
+	ISZ	FNRBFP		/ Bump the pointer			/A005
+	JMP	INSR4		/ Loop back				/A005
+INSR5,	TAD	(ECNDRL		/ Store End Ruler in the buffer		/A005
+	DCA I	FNRBFP		/					/A005
+INSR6,	ADVPTR			/ Look for ruler end			/A005
+	 JMP	WRDEOF		/ Should never happen			/A005
+	TAD	(-ECNDRL	/ Is it ruler end?			/A005
+	SZA CLA			/					/A005
+	 JMP	INSR6		/ No					/A005
+	ADVPTR			/ Yes, skip over it			/A005
+	 NOP			/ Have to ignore EOF here		/A005
+	CLA			/ Clear out the garbage			/A005
+	TAD	(ECRMFL		/ Insert Ruler Modified flag		/A005
+	INSCHR			/ Into editor buffer			/A005
+INSRX,	ISZ	INSRL		/ Bump return address			/A005
+	JMP I	INSRL		/ Return				/A002
+	
+
+/------
+	PAGE
+
+/
+/ FNRTBL - Table of legal footnote ruler settings and equivalent internal
+/ 	   characters used by the editor.
+/
+/	   Format of table:
+/	1st:	-"x;	"y&177	/ x is setting, y is equiv. internal character
+/	rest:	"x-"z;	"w&177	/ z is setting, w is equiv. internal char.
+/		     etc.
+/	end:	0
+/ (Note: "." and ">" must be first two, since after first two, code checks
+/ for upper/lower case value of setting.
+/
+
+X=".&177			/					/A005
+FNRTBL,	-X;	"A&177		/ Decimal tab				/A005
+	".-">;	"B&177		/ Right-just tab			/A005
+FNRTB1,	">-"T;	"C&177		/ Normal tab				/A005
+	"T-"L;	"D&177		/ Left margin, single spaced		/A005
+	"L-"R;	"E&177		/ Right margin, ragged			/A005
+	"R-"D;	"F&177		/ Left margin, double spaced		/A005
+	"D-"J;	"G&177		/ Right margin, justified		/A005
+	"J-"W;	"H&177		/ Word wrap indent			/A005
+	"W-"P;	"I&177		/ Paragraph indent			/A005
+	"P-"C;	"J&177		/ Centering Point			/A005
+	"C-"N;	"K&177		/ Left margin, space and a half		/A005
+	"N-"H;	"L&177		/ Hyphenation zone			/A005
+	"H-"F;	"M&177		/ Left Margin, half line spaced		/A005
+FNRTBE,	0			/ End of table				/A005
+
+FNRTSZ=FNRTBE-FNRTB1		/ Size of alpha portion of table	/A005
+
+/
+/ FNRTXT - Text which marks a control block as a footnote control block.
+/	   Must match this (upper/lower case unimportant) or else the
+/	   control block is ignored.
+/
+FNRTXT,	-"F; -"O; -"O; -"T; -"N; -"O; -"T; -"E				/C008
+	-ECNWLN								/C008
+	0			/ End of table				/A005
+/
+/ Footnote Buffer List							/A002
+/   Each entry is 3 words:						/A002
+/	 Word 1 = CDF to buffer field					/A002
+/	 Word 2 = -(size of buffer in words)				/A002
+/	 Word 3 = start addr of buffer (page boundary)			/A002
+/   0 Terminates list							/A002
+/ Last entry in list is address of footnote I/O buffer. If no room in	/A003
+/ memory for all footnote text, this buffer is used over and over to	/A003
+/ read/write excess footnote text on the utility diskette.		/A003
+
+/ ** Hopefully temp., first word of fld 5 was being zapped, use 200 **	/A002
+
+FNBFL,	CDFTXT		/ = CDF to buffer field				/A002
+	-40+5^200	/ = -size of buffer (in words)			/A002
+	200		/ = start addr of buffer (page boundary)	/A002
+FNIOBP,	CDFMYF		/*** Must be LAST entry in list ***		/A003
+	-400		/ = 1 block buffer				/A003
+	FNIOBF		/ = addr of footnote I/O buffer			/A003
+	0		/ List terminator				/A002
+/
+/ Short Ruled line for footnote delimiter				/A002
+/
+SHRTRL, "_&177; "_&177; "_&177; "_&177; "_&177; "_&177; ECNWLN; ECNWLN	/A002
+	0		/ List terminator				/A002
+
+/
+/ Init Footnote Process							/A002
+/
+INITFN,	XX			/					/A002
+	DCA	WTHNFN		/ Not within a footnote			/A002
+	DCA	APFN		/ Assume not autopaginating		/A002
+	DCA	FNRLSN		/ Footnote ruler not seen yet		/A002
+	DCA	PGESFN		/ 0 pages worth of footnotes		/A002
+	JMS	INITBL		/ Init footnote buffer list ptrs	/A002
+	JMP I	INITFN		/ Return				/A002
+/
+/ Init Footnote Buffer List Pointers and Next Char Routine Pointer	/A002
+/
+INITBL,	XX			/					/A002
+	TAD	(FNBFL-1	/ Get pointer to footnote buffer list	/A002
+	DCA	X1		/  into auto-index reg.			/A002
+	TAD I	X1		/ Get CDF to buffer field		/A002
+	DCA	FNPCDF		/ Store in buffer fill (put) routine	/A002
+	TAD	FNPCDF		/					/A002
+	DCA	FNGCDF		/  and buffer empty (get) routine	/A002
+	TAD I	X1		/ Get minus size of buffer		/A002
+	DCA	FNBPCT		/ Store as count of room in buffer (put)/A002
+	TAD	FNBPCT		/ 					/A002
+	DCA	FNBGCT		/  (and get)				/A002
+	TAD I	X1		/ Get start addr of buffer		/A002
+	DCA	FNBPPT		/ Store in footnote buffer put pointer	/A002
+	TAD	FNBPPT		/					/A002
+	DCA	FNBGPT		/  (and get pointer)			/A002
+	TAD	X1		/ Store addr-1 of next buffer list entry/A002
+	DCA	FNBPLP		/  in buffer list put pointer		/A002
+	TAD	FNBPLP		/					/A002
+	DCA	FNBGLP		/  (and get pointer)			/A002
+	TAD	(SHRTRL-1	/ Store address of shortruled line	/A002
+	DCA	FNDLAD		/  as address of footnote delimiter	/A002
+	TAD	(ECGCHR		/ Init next char routine to do GETCHR	/A003
+	DCA	FNXCHR		/					/A003
+	JMP I	INITBL		/ Return				/A002
+/
+/ Init for next page processing						/A002
+/
+INITPG,	XX			/					/A002
+	TAD	(ECGCHR		/ Init next char routine to do GETCHR	/A003
+	DCA	FNXCHR		/					/A003
+	TAD	APFN		/ Autopaginating?			/A002
+	SNA CLA			/					/A002
+	JMS	INITBL		/ No, init footnote buffer list ptrs	/A002
+INITPX,	JMP I	INITPG		/ Return				/A002
+
+CRSTMV,	XX			/ Routine to do a CURMOV only.
+	GETCHR			/ Get & LOAD char.
+	 NOP			/ Error will be handled later.
+	CLA			/ Don't return the char.
+	JMP I	CRSTMV		/ Return w/ clean AC.
+
+
+/------
+	PAGE
+
+/ PUTFNB - Put Character in Footnote Buffer				/A002
+/									/A002
+/	JMS	PUTFNB							/A002
+/									/A002
+/ (If no more room for footnotes, generates error and terminates)	/A002
+/									/A002
+PUTFNB,	XX			/					/A002
+FNPCDF,	XX			/ CDF to footnote buffer field		/A002
+	DCA I	FNBPPT		/ Store the character			/A002
+	CDFMYF			/ CDF back home				/A002
+	ISZ	FNBPCT		/ Bump count of room in buffer		/A002
+	 JMP	PUTFN1		/ Still some space left			/A002
+/ Here when a footnote buffer fills, get next entry in list of buffers	/A002
+	TAD	FNBPLP		/ Get addr-1 of next buffer list entry	/A002
+PUTFN0,	DCA	X1		/ Store in index reg.			/A002
+	TAD I	X1		/ Get CDF to buffer field		/A002
+	SNA			/ End of buffer list?			/A002
+	 JMP	PTFNBK		/  Yes, footnotes are too big		/A002
+	DCA	FNPCDF		/ Store CDF in line			/A002
+	TAD I	X1		/ Get minus size of buffer		/A002
+	DCA	FNBPCT		/ Store as put counter			/A002
+	TAD I	X1		/ Get addr of buffer			/A002
+	DCA	FNBPPT		/ Store as buffer put pointer		/A002
+	TAD	X1		/ Store addr-1 of next buffer put entry	/A002
+	DCA	FNBPLP		/  in footnote buffer list pointer	/A002
+	SKP			/ 					/A002
+PUTFN1,	 ISZ	FNBPPT		/ INC put ptr (won't skip: count didn't)/A002
+	JMP I	PUTFNB		/ Return				/A002
+
+/ Footnote buffer filled, and no more entries in buffer list 		/A002
+
+PTFNBK,	TAD	FNODSK		/ Any FootNotes On DiSK?		/A003
+	SZA CLA			/					/A003
+	 JMP	PTFNB1		/ Yup, already initialized		/A003
+	TAD	(-DSUSAV-1	/ No, get minus size of area on disk	/A003
+	DCA	FNWSPC		/ Store as footnote WRITE space avail.	/A003
+	TAD	(DLCUTB		/ Get address of first block		/A003
+	DCA	WTFNBK		/ Store it in call to write routine	/A003
+	ISZ	FNODSK		/ Say there are footnotes on disk	/A003
+	JMP	PTFNB2		/ Proceed				/A003
+PTFNB1,	ISZ	FNWSPC		/ Any WRITE space left on disk?		/A003
+	JMP	PTFNB2		/ Yes, go write the buffer out		/A003
+FSERR,	TAD	(ERRFSE		/ No, Footnote Storage Exceeded		/A003
+	JMP	DSKERR		/ Issue the msg and terminate		/A003
+
+PTFNB2,	JMS	WRTFNB		/ Write footnote bfr to CUT/PASTE blocks/A002
+	TAD	(FNIOBP-1	/ Get -> footnote I/O buffer list entry	/A002
+	JMP	PUTFN0		/ Go continue				/A002
+
+/
+/ Get Character from Footnote Buffer					/A002
+/									/A002
+/	JMS	GETFNB							/A002
+/									/A002
+/
+GETFNB,	XX			/					/A002
+FNGCDF,	XX			/ CDF to footnote buffer field		/A002
+	TAD I	FNBGPT		/ Get the character			/A002
+	CDFMYF			/ CDF back home				/A002
+	ISZ	FNBGCT		/ Bump count of chars taken from buffer	/A002
+	 JMP	GETFN1		/ Still some left			/A002
+/ Here when a footnote buffer empties, get next entry in list of buffers/A002
+	DCA	GTMP		/ Save the character			/A002
+	TAD	FNBGLP		/ Get addr-1 of next buffer list entry	/A002
+GETFN0,	DCA	X1		/ Store in index reg.			/A002
+	TAD I	X1		/ Get CDF to buffer field		/A002
+	SNA			/ End of buffer list?			/A002
+	 JMP	GTFNBK		/  Yes, footnotes spill onto disk	/A002
+	DCA	FNGCDF		/ Store CDF in line			/A002
+	TAD I	X1		/ Get minus size of buffer		/A002
+	DCA	FNBGCT		/ Store as get counter			/A002
+	TAD I	X1		/ Get addr of buffer			/A002
+	DCA	FNBGPT		/ Store as buffer get pointer		/A002
+	TAD	X1		/ Store addr-1 of next buffer list entry/A002
+	DCA	FNBGLP		/  in footnote buffer get list pointer	/A002
+	TAD	GTMP		/ Get character back			/A002
+	SKP			/ 					/A002
+GETFN1,	 ISZ	FNBGPT		/ INC get ptr (won't skip: count didn't)/A002
+	JMP I	GETFNB		/ Return				/A002
+
+/ Footnote bfr emptied: no more entries in buffer list, get disk block	/A003
+
+GTFNBK,	ISZ	FNRSPC		/ Any more footnote text on disk?	/A003
+	JMP	GTFNB2		/ Yes, go read the buffer in		/A003
+FRERR,									/A003
+/ Should never happen...Physical EOF before footnote EOF		/A003
+	TAD	(ERRFSE		/ No, Footnote Storage Exceeded		/A003
+	JMP	DSKERR		/ Issue the msg and terminate		/A003
+
+GTFNB2,	JMS	RDFNB		/ Read to footnt bfr frm CUT/PASTE blks	/A002
+	TAD	(FNIOBP-1	/ Get -> footnote I/O buffer list entry	/A002
+	JMP	GETFN0		/ Go continue				/A002
+/
+/ Read first block of footnotes stored on disk				/A003
+/
+RDFRST,	XX			/					/A003
+	TAD	(-DSUSAV-1	/ Get minus size of area on disk	/A003
+	DCA	FNRSPC		/ Store as footnote read space avail.	/A003
+	TAD	(DLCUTB		/ Get address of first block		/A003
+	DCA	RDFNBK		/ Store it in call to read routine	/A003
+	JMS	RDFNB		/ Read the first block			/A003
+	JMP I	RDFRST		/ Return				/A003
+
+GTMP,	0			/ Temp character storage		/A002
+
+/ Write footnote buffer to CUT/PASTE blocks				/A003
+
+WRTFNB,	XX			/					/A003
+	CIFMNU			/ Menu field				/A003
+	JMS I	(FILLIO		/ Write out the footnote I/O buffer	/A003
+		RXEWT+2000	/ Write function			/A003
+		CDFMYF		/ Buffer field				/A003
+		FNIOBF		/ Buffer address			/A003
+		-1		/ 1 block.				/A003
+WTFNBK,		0		/ block # to write to			/A003
+	 JMP	FNWERR		/ Footnote write error			/A003
+	ISZ	WTFNBK		/ Bump block # for next write		/A003
+	 NOP			/ (just in case)			/A003
+	JMP I	WRTFNB		/ Return				/A003
+
+FNWERR,	TAD	(ERRFNW		/ Error writing footnote text to disk	/A003
+	JMP	DSKERR		/ Give msg and terminate		/A003
+
+/ Read footnote buffer from CUT/PASTE blocks				/A003
+
+RDFNB,	XX			/					/A003
+	CIFMNU			/ Menu field				/A003
+	JMS I	(FILLIO		/ Read in the footnote I/O buffer	/A003
+		RXERD+4000	/ Read function				/A003
+		CDFMYF		/ Buffer field				/A003
+		FNIOBF		/ Buffer address			/A003
+		-1		/ 1 block.				/A003
+RDFNBK,		0		/ block # to read from			/A003
+	 JMP	FNRERR		/ Footnote read error			/A003
+	ISZ	RDFNBK		/ Bump block # for next read		/A003
+	 NOP			/ (just in case)			/A003
+	JMP I	RDFNB		/ Return				/A003
+
+FNRERR,	TAD	(ERRFNR		/ Error reading footnote text from disk	/A003
+	JMP	DSKERR		/ Give msg and terminate		/A003
+
+/------									/A002
+	PAGE
+
+/----------
+/
+/
+/	Jms	Calioa
+/		****	/ arg1 (text string)
+/		****	/ arg2
+/		****	/ arg3
+/
+/----------
+
+CALIOA,	XX
+	TAD I	CALIOA		/ pick up the text string address
+	DCA	CALIO1		/  ...
+	ISZ	CALIOA		/ bump to next location
+	TAD I	CALIOA		/ pick up next arg
+	DCA	CALIO2		/  ...
+	ISZ	CALIOA		/ bump to next location
+	TAD I	CALIOA		/ pick up next arg
+	DCA	CALIO3		/  ...
+	ISZ	CALIOA		/ bump for return
+	RDF			/ Get field of caller.
+	TAD	CIDF0		/ Make return CIF CDF.
+	DCA	CALIO4		/ save for the return.
+	CDFMYF			/ Map our field.
+/
+	CIFMNU
+	JMS I	IOACAL
+		0
+CALIO1,		.-.
+CALIO2,		.-.
+CALIO3,		.-.
+
+CALIO4,	XX			/ return CDI
+	JMP I	CALIOA		/ return to caller
+
+
+/
+/ IPTCHR - Accept a character from the keyboard				/A003
+/	   Used to read a RETURN after error messages
+
+IPTCHR,	XX			/					/A003
+	JMP	IPTCH2		/					/A003
+IPTCH1,	CIFSYS			/					/A003
+	JWAIT			/					/A003
+IPTCH2,	CIFSYS			/					/A003
+	XLTIN			/					/A003
+	JMP	IPTCH1		/ nothing				/A003
+	JMP I	IPTCHR		/ Return to our field with char in AC	/A003
+
+	IFDEF	OLDSPL	<						/SB
+TSTLAG,	XX			/ Routine to see if still on line w/ word on it.
+	CDFEDT			/ See if any current lag.
+	TAD I	(SCRLCT)	/  ...
+	CDFMYF			/ also see if any
+	TAD	ELINCT		/  lag from line word is on.
+	SZA CLA			/ Skip if yes. Take 1st return.
+	 ISZ	TSTLAG		/ Not on same line. take "end-of-UNIT" return.
+	JMP I	TSTLAG		/ Return to process end-of-UNIT.
+
+CHKEOL,	XX			/ Routine to see if current char is a line terminator.
+	TAD	CHAR		/ Get current character.
+	AND	P177		/ Isolate just the char bits.
+	TAD	(-ECNWLN)	/ See if it's a LINE TERMINATOR char.
+	SZA CLA			/ Skip if yes. process it.
+	 JMP	CKEOL1		/ Not line terminator, take 2nd return.
+	ISZ	NOMORE		/ Set NOMORE chars on line flag.
+	SKP			/ Take 1st return.
+CKEOL1,	ISZ	CHKEOL		/ Not line terminator. Take 2nd return.
+	JMP I	CHKEOL		/ Return to caller.
+
+
+ECPTCH,	XX			/ Routine to save character at posn ptd to by CURPTR.
+	DCA	T2		/ Save character to save.
+	CDFEDT			/ Map EDIT field.
+	TAD I	(CURPTR)	/ Get current text pointer.
+	DCA	T3		/ Save so that we can indirect thru.
+	CDFBUF			/ Map text field.
+	TAD	T2		/ Get character to save.
+	DCA I	T3		/ Save character.
+	CDFMYF			/ back to our field.
+	JMP I	ECPTCH		/ return to caller.
+
+ECPSCN,	XX			/ Routine to call SETCUR.
+	CIFEDT			/ Call routine in editor field.
+	CALEDT;	SETCUR		/ routine will posn cursor to start of word.
+		CDFEDT		/ routine DF to editor field.
+	CDFEDT			/ Map editor field.
+	TAD I	(CURSOR)	/ Set screen posn same as CURSOR.
+	DCA I	(CURPOS)	/  ...
+	CDFMYF			/   ....
+	JMP I	ECPSCN		/ Return to caller.
+
+NTFND4,	AC7777			/ Set flag to stop at next hyphen
+	DCA	HYPHEN		/ and rescan the word.
+	TAD	LINCNT		/ Get # of lines to start of word.
+/SB	JMS	ECSCRL		/ Scroll to the line in question.
+/SB	JMS	ECINI2		/ Posn cursor to start of word.
+	CLA	/SB
+	DCA	NEWLIN		/ Reset "still on same line" flag.
+	JMP	SCNXT2		/ Start rescanning the word.
+
+			>	/END IFDEF OLDSPL			/SB
+/------------
+
+/D002TSTSSC,	XX			/TEST FOR SUPERSCRIPT CHAR	/SB
+/D002	ISZ	TSTSSC		/TO LOOK FOR NEXT			/SB
+/D002	JMP I	TSTSSC		/GO BACK FOR MORE			/SB
+/-----------
+	IFDEF	OLDSPL	<						/SB
+/
+/TSTCHR -- See if current character is ALPHA, NUMERIC, or OTHER.
+/
+/CALL:	JMS	TSTCHR		AC=0 on input.
+/		char=other return
+/		char=numeric return
+/		char=alpha-only return
+/
+/		char is stored in T1 for subsequent reference.
+/
+/------------
+
+TSTCHR,	XX			/ Entry point.
+	DCA	CHAR		/ Save character.
+	TAD	CHAR		/ Get character.
+	AND	P177		/ Isolate only the character bits.
+	X="a&177		/ First check for lower case characters.
+	TAD	(-X)		/ Compare against little "a".
+	SPA			/ Skip if maybe.
+	 JMP	TSTUPR		/ See if upper case.
+	TAD	("a-"z)		/ See if within lowercase range.
+	SMA SZA			/ Skip if ALPHA ONLY.
+	 JMP	TSTOTH		/ Jmp to take OTHER return.
+TSTALP,	ISZ	TSTCHR		/ ALPHA-ONLY return.
+TSTNUM,	ISZ	TSTCHR		/ NUMERIC return.
+TSTOTH,	CLA			/ OTHER return.
+	JMP I	TSTCHR		/ Return to caller.
+
+TSTUPR,	TAD	("a-"A)		/ See if uppercase character.
+	SPA			/ Skip if possible UPPERCASE.
+	 JMP	TSNTAL		/ Definately not ALPHA-BETIC. See if numeric.
+	TAD	("A-"Z)		/ See if within ALPHA-ONLY range.
+	SMA SZA			/ Skip if ALPHA ONLY.
+	 JMP	TSTOTH		/ Must be OTHER.
+	JMP TSTALP		/ Jump to take ALPHA return.
+
+TSNTAL,	TAD	("A&177)	/ Normalize.
+	JMS	TSTSPC		/ See if special (".", "-", or "'").
+	SNA			/ Skip if no.
+	 JMP	TSTALP		/ Treat HYPHEN, PERIOD, and APOSTRAPHE as ALPHA.
+	TAD	("'-"0)		/ See if numeric.
+	SPA			/ Skip if maybe.
+	 JMP	TSTOTH		/ Jmp if NO. Must be OTHER.
+	TAD	("0-"9)		/ See if within NUMERIC range.
+	SMA SZA			/ Skip if yes.
+	 JMP	TSTOTH		/ Jmp if no. Must be OTHER.
+	JMP	TSTNUM		/ Take NUMERIC return.
+
+
+TSTSPC,	XX			/ Routine to see if passed char is ".", "-", or "'".
+X=".&177			/ AC returns 0 if yes, char - "'" if no.
+	AND	P177		/ Isolate only the character bits.
+	TAD	(-X)		/ See if period.
+	SZA			/ Skip if yes.
+	TAD	(".-"-)		/ See if initial dash (hyphen).
+	SZA			/ Skip if yes.
+	TAD	("--"')		/ See if initial apostrophe.
+	JMP I	TSTSPC		/ Return 0 for special, char - "'" if not.
+/------------
+			>	/END  IFDEF SPL				/SB
+	PAGE
+
+IFDEF	OLDSPL	<							/A005
+UNDOLG,	XX			/ Routine to call FXSCRL.
+	TAD	LINCNT		/ Update # of lines in word.
+	DCA	LINCNT		/  ...
+	ISZ	NEWLIN		/ Say that a NEW LINE has been seen!!!
+	UPDSCN			/ Update Screen (FXSCRL).
+	JMP I	UNDOLG		/ Return to caller.
+	> /END  IFDEF OLDSPL						/A005
+
+/-----------
+/
+/SLNMOD
+/
+/
+/-----------
+
+ECSLMD,	XX			/ Routine to x-field call SETLMD (SLNMOD).
+	CIFEDT			/ Call SETLMD to set screen update flags.
+	CALEDT;	SETLMD		/   ...
+		CDFEDT		/    ....
+	JMP I	ECSLMD		/ Return to caller.
+
+
+/-----------
+/
+/ADVPTR
+/
+/
+/-----------
+
+ECAPTR,	XX			/ Routine to call ESAPTR in edit field.
+	CIFEDT			/ Move CURPTR to next character.
+	CALEDT;	ESAPTR		/ ADVPTR routine.
+		CDFBUF		/ field to be mapped to.
+	 SKP			/ 1st return, take same return to caller.
+	ISZ	ECAPTR		/ Bump to correct return.
+	JMP I	ECAPTR		/  ...
+
+
+/-----------
+/
+/BKPPTR
+/
+/
+/-----------
+
+ECBPTR,	XX			/ Routine to call ESBPTR in edit field.
+	CIFEDT			/ Backup to where we were.
+	CALEDT;	ESBPTR		/   BKPPTR
+		CDFBUF		/    ....
+	 SKP			/ Take 1st return.
+	ISZ	ECBPTR		/ Take 2nd return.
+	JMP I	ECBPTR		/ Return to caller.
+
+
+/-----------
+/
+/INSCHR
+/
+/
+/-----------
+
+ECICHR,	XX			/ Routine to call ESICHR in edit field.
+	CIFEDT			/
+	CALEDT;	ESICHR		/   Call ESICHR
+		CDFBUF		/    ....
+	JMP I	ECICHR		/ Return to caller.
+
+
+/-----------
+/
+/INSTCH									/A005
+/
+/
+/-----------
+
+ECNCHR,	XX			/ Routine to call INSERT in edit field.
+	CIFEDT			/
+	CALEDT;	INSERT		/   Call INSERT
+		CDFBUF		/    ....
+	JMP I	ECNCHR		/ Return to caller.
+
+
+/-----------
+/
+/GETCHR
+/
+/
+/-----------
+
+ECGCHR,	XX			/ Routine to call CURMOV & LODCHR.
+	CIFEDT			/ Call editor routine to insert character.
+	JMS I	(GETCH)		/ Call routine in editor field.
+	 SKP			/ Return via 1st return.
+	ISZ	ECGCHR		/ Return via 2nd return.
+	JMP I	ECGCHR		/ Return to caller.
+
+
+/-----------
+/
+/LOADCH
+/
+/
+/-----------
+
+ECLOAD,	XX			/ Routine to call LODCHR.
+	CIFEDT			/ Call editor routine to load character.
+	CALEDT;	LODCHR		/  ...
+		CDFBUF		/  buffer field to be BUFFLD.
+	 SKP			/ Take 1st return.
+	ISZ	ECLOAD		/ Take 2nd return.
+	JMP I	ECLOAD		/ Return to caller.
+
+
+/-----------
+/
+/UPDSCN
+/
+/
+/-----------
+
+FXSCRN,	XX			/ Routine to call FXSCRL in edit field.
+	CIFEDT			/
+	CALEDT;	FXSCRL		/   Call FXSCRL
+		CDFEDT		/    ....
+	JMP I	FXSCRN		/ Return to caller.
+
+
+/-----------
+/
+/CHKSCN
+/
+/
+/-----------
+
+CKSCRN,	XX			/ Routine to call TSTLIM & then FXSCRL.
+	CIFEDT			/
+	CALEDT;	TSTLIM		/   Call TSTLIM
+		CDFEDT		/    ....
+	UPDSCN			/ Call FXSCRL to repaint.
+	JMP I	CKSCRN		/ Return to caller.
+
+/-----------
+/
+/PUTERR - display error message on bottom line.
+/
+/
+/CALL:	JMS	PUTERR		/ display error message on bottom line.
+/		ptr		/ pointer to a TEXT string for IOA.
+/
+/-----------
+
+PUTERR,	XX			/ entry point.
+	JMS	SETMOD		/ set modes, ring bell, etc...
+	TAD I	PUTERR		/ Get error msg text pointer.
+	TAD	(-PCURST)	/ Is this the call to clear the error msg?
+	SNA CLA			/ Skip if no. Ring the bell.
+	 JMP	PUTER1		/ Don't ring the bell if clearing the line.
+	  PUTCHR; BELL		/ Ring the bell.
+PUTER1,	TAD I	PUTERR		/ Get address of text string to display.
+	ISZ	PUTERR		/ Bump to return address.
+	DCA	PUTER2		/ Save it for IOACAL.
+	/SB	CIFTXT			/ Call output IOA output routine in TXT field.
+	JMS I	(CALIOA)	/ display the message
+PUTER2,		.-.		/ arg1
+		-2700		/ arg2
+		PRSRTN		/ arg3
+	JMS	RSTCUR		/ restore cursor and attributes.
+	ISZ	ECERFL		/ Say that there is an error msg being displayed.
+	JMP I	PUTERR		/ return to caller.
+
+/----------
+/
+/
+/----------
+
+SETMOD,	XX
+	JMS	SAVCUR		/ save cursor posn and attributes.
+	JMS	SETABS		/ Set ORIGIN mode to ABSOLUTE mode.
+	JMS	CLRRV		/ Eliminate any current attributes.
+	JMS	SETRV		/ Error message gets output in reverse video.
+	JMP I	SETMOD
+
+
+	IFDEF	OLDSPL	<						/SB
+/----------
+/
+/ DSPTCH - routine to dispatch control
+/
+/
+/ CALL:	JMS	DSPTCH
+/		rtn1	/ only return if: end of table encountered
+/
+/	Inputs:
+/		X1	- pointer to the dispatch table
+/		T1	- character being matched to the dispatch table
+/			  (passed here in the AC)
+/
+/	Outputs:
+/		Control is passed to the appropriate routine, unless
+/		a match is not made, in which case, return to caller
+/
+/----------
+
+DSPTCH,	XX			/ Return address
+	DCA	T1		/ save the input char to check
+DSPTC1,	ISZ	X1		/ bump rest of this entry.
+	TAD I	X1		/ Check next table entry.
+	SNA			/ Skip if there is one.
+	 JMP I	DSPTCH		/ no more valid commands, return to process.
+	TAD	T1		/ see if table entry matches desired command.
+	SZA CLA			/ Skip if yes.
+	 JMP	DSPTC1		/ Check entry.
+	TAD I	X1		/ Get address of routine to call.
+	DCA	T1		/ Save for jump indirect thru.
+	JMP I	T1		/ Dispatch to edit routine.
+			>	/END IFDEF OLDSPL			/SB
+
+/
+/ DSKERR - Issue error message, and wait for user to hit RETURN. Then
+/ go to EOF to finish up and close files.
+/
+/ Address of message is in AC on entry
+
+DSKERR,	DCA	DYSKE1		/ set up for display
+	CDFMYF			/ Back to our field.
+DYSKER,	JMS	PUTERR		/ Ring bell & display error msg.
+DYSKE1,		.-.		/  arg1
+	JMS	IPTCHR		/ Get an input character.
+	TAD	(-EDNWLN)	/  Return typed?
+	SZA CLA			/ skip if yes.
+	 JMP	DYSKER		/ Repeat message if not RETURN key.
+	JMP	EOF		/ Time to shut down!!!
+/----------
+	PAGE
+
+PTCHRS,	XX			/ Routine to output a string of chars.
+PUTCH1,	TAD I	PTCHRS		/ Get next character to output.
+	AND	P177		/ Isolate only the character bits.
+	JMS	OPTCHR		/ Output character.
+	TAD I	PTCHRS		/ Get character just output.
+	ISZ	PTCHRS		/ Bump to next char/return address.
+	SPA CLA			/ Skip if last one was the last.
+	 JMP	PUTCH1		/ Go do next character.
+	JMP I	PTCHRS		/ Done! return to caller.
+/
+/
+/
+OPTCHR,	XX			/ return address
+	JMP	OPTCH2
+OPTCH1,	CIFSYS
+	JWAIT
+OPTCH2,	CIFSYS
+	TTYOU			/ output the char
+	 JMP	OPTCH1	
+	JMP I	OPTCHR		/ return when done
+
+IFDEF OLDSPL <								/A005
+POSNCU,	XX			/ Routine to init EDT pointers to start of
+				/ word & posn screen CURSOR.
+	TAD	SCURPT		/ Reinit text pointer.
+	CDFEDT			/ CURPTR is in EDT field.
+	DCA I	(CURPTR)	/  ...
+	TAD	SCURSR		/ Reset cursor column address variable.
+	DCA I	(CURSOR)	/  ..
+	TAD	LINCNT		/ Reset cursor line address variable.
+	CIA			/
+	DCA I	(CURLIN)	/ "Current line number".
+	CDFMYF			/   ...
+	JMS	ECPSCN		/ Call SETCUR to posn the cursor.
+	JMP I	POSNCU		/ return to caller.
+	> / end ifdef OLDSPL						/A005
+
+/-----------
+/
+/ GRAFXS - set graphics mode
+/
+/
+/ CALL:	JMS	GRAFXS		AC ignored & destroyed on return
+/
+/		ESC ( 0
+/
+/-----------
+
+GRAFXS,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"(		/
+		"0&177		/
+	JMP I	GRAFXS		/ return to caller
+
+
+/-----------
+/
+/ GRAFXC - clear graphics mode
+/
+/
+/ CALL:	JMS	GRAFXC		AC ignored & destroyed on return.
+/
+/		ESC ( B
+/
+/-----------
+
+GRAFXC,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"(		/
+		"B&177		/
+	JMP I	GRAFXC		/ return to caller
+
+
+/-----------
+/
+/SETRGN - Set scrolling region up.
+/
+/
+/CALL:	JMS	SETRGN		AC ignored & destroyed on return.
+/
+/		ESC [ 3 ; 11 r
+/
+/-----------
+
+SETRGN,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/  define scrolling region from line 3 to 13
+		4000+"[		/ Send escape sequence to terminal to
+		4000+"3		/ From line 3,
+		4000+";		/  ...
+		4000+"2		/  to line				/C003
+		4000+"2		/          22				/C003
+		"r&177		/ terminator.
+	JMS	SETREL		/ Set ORIGIN mode to RELATIVE (relative to region).
+	JMP I	SETRGN		/ Return to caller.
+
+IFDEF OLDSPL	<							/A003
+/-----------
+/
+/ STMRGN - Set scrolling region for help menus.
+/
+/
+/ CALL:	JMS	STMRGN		AC ignored & destroyed on return.
+/
+/		ESC [ 16 ; 24 r
+/
+/-----------
+
+STMRGN,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output the escape sequence to the terminal
+		4000+"[		/  define scrolling region
+		4000+"1		/  from line 14,
+		4000+"4		/  ...
+		4000+";		/  to line
+		4000+"2		/          24
+		4000+"4		/  ...
+		"r&177		/
+	JMP I	STMRGN		/ return to caller
+	> / end ifdef OLDSPL						/A003
+
+/-----------
+/
+/CLRRGN - Clear scrolling region upon exit.
+/
+/
+/CALL:	JMS	CLRRGN		AC ignored & destroyed on return.
+/
+/		ESC [ r
+/
+/-----------
+
+CLRRGN,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/ Send escape sequence to terminal to
+		4000+"[		/ undefine scrolling region.
+		"r&177		/ terminator.
+	JMS	SETABS		/ Set ORIGIN mode to absolute.
+	JMP I	CLRRGN		/ Return to caller.
+
+
+/-----------
+/
+/SETREL - Set ORIGIN mode to relative.
+/
+/
+/CALL:	JMS	SETREL		AC ignored & destroyed on return.
+/
+/		ESC [ ? 6 h
+/
+/-----------
+
+SETREL,	XX			/ Entry point.
+	PUTCHR;	4000+ESC	/ Send escape sequence to terminal.
+		4000+"[		/   ...
+		4000+"?		/    ...
+		4000+"6		/ ORIGIN mode
+		"h&177		/ relative.
+	JMP I	SETREL		/ Return to caller.
+
+
+/-----------
+/
+/SETABS - Set ORIGIN mode to absolute.
+/
+/
+/CALL:	JMS	SETABS		AC ignored & destroyed on return.
+/
+/		ESC [ ? 6 l
+/
+/-----------
+
+SETABS,	XX			/ Entry point.
+	PUTCHR;	4000+ESC	/ Send escape sequence to terminal.
+		4000+"[		/   ...
+		4000+"?		/    ...
+		4000+"6		/ ORIGIN mode
+		"l&177		/ absolute.
+	JMP I	SETABS		/ Return to caller.
+
+
+/-----------
+/
+/SAVCUR - Save cursor and attributes.
+/
+/CALL:	JMS	SAVCUR		AC ignored and destoryed on return.
+/
+/		ESC 7
+/
+/-----------
+
+SAVCUR,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/ Output escape sequence to save cursor & attr.
+		"7&177		/  ...
+	JMP I	SAVCUR
+
+
+/-----------
+/
+/RSTCUR - Restore cursor and attributes.
+/
+/CALL:	JMS	RSTCUR		AC ignored and destoryed on return.
+/
+/		ESC 8
+/
+/-----------
+
+RSTCUR,	XX			/ entry point.
+	PUTCHR;	4000+ESC	/ Output escape sequence to restore cursor & attr.
+		"8&177		/  ...
+	JMP I	RSTCUR
+
+
+/-----------
+/
+/ SETRV - Set screen to reverse video mode.
+/
+/
+/ CALL:	JMS	SETRV		AC is 0 on entry & return.
+/
+/		ESC [ 7 m
+/
+/-----------
+
+SETRV,	XX
+	PUTCHR;	4000+ESC	/ Output escape sequence to set terminal attributes.
+		4000+"[		/
+		4000+"7		/
+		"m&177		/
+	JMP I	SETRV		/ Return to caller.
+
+
+/-----------
+/
+/ CLRRV - Reset screen of all attributes.
+/
+/
+/ CALL:	JMS	CLRRV		AC is 0 on entry & return.
+/
+/		ESC [ 0 m
+/
+/-----------
+
+CLRRV,	XX
+	PUTCHR;	4000+ESC	/ Output escape sequence to set terminal attributes.
+		4000+"[		/
+		4000+"0		/
+		"m&177		/
+	JMP I	CLRRV		/ Return to caller.
+
+
+/-----------
+/
+/ STBOLD - set bold
+/
+/
+/ CALL:	JMS	STBOLD		AC ignored & destroyed on return.
+/
+/		ESC [ 1 m
+/
+/-----------
+
+STBOLD,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"[		/
+		4000+"1		/
+		"m&177		/
+	JMP I	STBOLD		/ return to caller
+
+
+/-----------
+/
+/ STUNDR - set underline mode
+/
+/
+/ CALL:	JMS	STUNDR		AC ignored & destroyed on return.
+/
+/		ESC [ 4 m
+/
+/-----------
+
+STUNDR,	XX			/ return address
+	PUTCHR;	4000+ESC	/ output escape sequence to the terminal
+		4000+"[		/
+		4000+"4		/
+		"m&177		/
+	JMP I	STUNDR		/ return to caller
+/------
+	PAGE
+
+/----------
+/
+/ DISDOCNAME -
+/
+/	This routine will display the document (name & number)
+/	being corrected, centering it on the top line of the screen.
+/
+/----------
+
+DISDOCNAME,
+	XX			/ return address
+/
+/SB	CIFTXT
+	JMS I	(CALIOA)	/
+		CLREOS		/ erase the screen
+		0		/ line to start clearing from
+		NOP		/    (filler)
+/
+	CDFMNU		/*****	/ data field to menu
+	TAD I	(MUBUF+MNDRV)	/ Get drive #.
+	DCA	DOCDRV		/ save for IOA.
+	TAD I	(MUBUF+MNDOCN)	/ Get document #.
+	DCA	DOCNUM		/ save that too.
+	AC7777
+	TAD I	(MUBUF+MNFNAM)	/ set up a pointer to the filename
+	CDFMYF		/*****	/ back to my field
+
+	DCA	X1		/ and save the pointer
+	TAD	X1		/  ...
+	DCA	X2		/ and save a copy
+	DCA	T1		/ initialize a counter for length of word
+
+/ The following 2 routines position the cursor so that the
+/  document name will be centered on the screen
+/   First, find the length of the document name
+/
+DISDO1,	CDFMNU		/*****	/ data field to menu
+	TAD I	X1		/
+	CDFMYF		/*****	/ back to my field
+	
+	SNA CLA			/ skip if: have not found end of filename
+	JMP	DISDO2		/   found end of name, exit
+
+	ISZ	T1		/ bump counter
+	JMP	DISDO1		/ and continue
+/
+/ T1 now contains the length of the word, get the width of the screen
+/  and find the starting location for the paint of the name
+/
+DISDO2,	CDFEDT		/*****	/ edit field
+	TAD I	(SPLTFL)	/ wide screen?
+	CDFMYF		/*****	/ my-field
+	SZA CLA			/ skip if: normal screen
+	TAD	(32)
+	TAD	(45)
+	DCA	T2		/ pointer to center of screen
+/
+	TAD	T1		/ get document name length
+	CLL RAR			/ divide length by 2
+	CIA			/ make negative
+	TAD	T2		/ subtract from mid-screen
+	DCA	DISD2A		/ set up position to start paint from
+
+/SB	CIFTXT
+	JMS I	(CALIOA)	/  ...
+		PCURSTRING	/   ...
+DISD2A,		.-.		/    ...
+		NOP		/    (filler)
+
+/SB	CIFTXT			/ Display '(drive.doc) '
+	JMS I	(CALIOA)	/  ...
+		DISTXT		/ text string.
+DOCDRV,		0		/ drive # of the document.
+DOCNUM,		0		/ document # of the document.
+
+DISDO3,				/ now display the document name
+	CDFMNU		/*****
+	TAD I	X2
+	CDFMYF		/*****
+
+	SNA
+	JMP	DISDO4
+/
+	JMS	OPTCHR		/ output the character
+/
+	JMP	DISDO3		/ continue with next
+/
+DISDO4,	JMP I	DISDOCNAME	/ return to caller
+
+
+/----------
+/
+/ SOLIDLINE -
+/
+/	This routine will paint the 2 lines delimiting the scrolling region.
+/
+/----------
+
+SOLIDLINE,
+	XX			/ callers return address
+	JMS	GRAFXS		/ switch to grafix
+	JMS	SETCNT		/ set up counter for width of screen
+/SB	CIFTXT
+	JMS I	(CALIOA)
+		PCURSTRING
+		100		/ position cursor to start of line 2
+		NOP		/    (filler)
+	JMS	LOOPS		/ display first line
+	JMS	SETCNT		/ set up counter for width of screen
+/SB	CIFTXT
+	JMS I	(CALIOA)
+		PCURSTRING
+		2600		/ position cursor to start of line 26	/C003
+		NOP		/    (filler)
+	JMS	LOOPS		/ display second line
+	JMS	GRAFXC		/ restore SI
+	JMP I	SOLIDLINE	/ return to caller
+
+/
+/ routine to print horizontal line (scan 5) to screen
+/
+
+LOOPS,	XX			/ return address
+LOOPA,	TAD	(161)		/ horizontal line, (scan 5)
+	JMS	OPTCHR		/ print the char
+	ISZ	T1		/ bump the character count
+	 JMP	LOOPA		/ loop for more
+	JMP I	LOOPS		/ return to caller
+
+/
+/ routine to set up counter for width of screen
+/
+
+SETCNT,	XX
+	CDFEDT			/ from edit field.
+	TAD I	(SPLTFL)	/ wide screen?
+	CDFMYF			/ Back to current field.
+	SZA CLA			/ skip if: narrow screen
+	TAD	(64)
+	TAD	(120)
+	CIA
+	DCA	T1		/ counter for number of prints
+	JMP I	SETCNT		/ return
+
+/----------
+/
+/ RVBKGRND -
+/
+/	Reverse video the background of the menu line.
+/
+/----------
+RVBKGRND,
+	XX			/ return address
+	JMS	SETRV		/ set reverse video mode
+/SB	CIFTXT
+	JMS I	(CALIOA)	/ position the cursor on the menu line
+		PCURSTRING
+		2000
+		NOP		/    (filler)
+	TAD	MENULEN		/ length of menu line (-62)
+	DCA	T1		/ set up as a counter
+	TAD	(ECSPC)		/ output spaces
+	JMS	OPTCHR		/  ...
+	ISZ	T1		/ bump the character count
+	JMP	.-3		/ loop 'till done
+	JMS	CLRRV		/ clear reverse video
+	JMP I	RVBKGRND	/ return to caller
+
+MENULEN, -62			/ minus the length of the menu line
+
+/----------
+/
+/ MNUPNT - Paint the initial menu line
+/
+/----------
+MNUPNT,	XX			/
+	JMS	RVBKGRND	/ reverse video the background of the menu line
+	AC7777			/
+	DCA	OFFSET		/ clear display at start-up
+/SB	JMS	MENULINE	/ display the menu line
+	JMP I	MNUPNT		/ return
+/----------
+	PAGE
+
+	IFDEF	OLDSPL	<						/SB
+ECDOIN,	XX			/ Routine to check for allowable insert & do it.
+/SB	TAD	NOINSR		/ Check for End-Of-Line encountered.
+/SB	SZA CLA			/ Skip if not at End-Of-Line yet.
+/SB	 JMP	INSERR		/ Report insert error (e-o-l reached).
+	TAD	T1		/ Get character to insert.
+	INSCHR			/ Insert char into document.
+	SLNMOD			/ Set "modified" flag.
+	TAD	T1		/ Get character back.
+	TAD	(-ECSTOV)	/ Start of "Dead Key Sequence"?
+	SNA			/ Skip if no.
+	 JMP	DOINS1		/ Go handle start of DEAD-KEY-SEQUENCE.
+	TAD	(ECSTOV-ECNDOV)	/ End of "Dead Key Sequence"?
+	SNA CLA			/ Skip if no.
+	 JMP	DOINS2		/ Jmp to process End of DEAD-KEY-SEQUENCE.
+	TAD	INSDKS		/ Are we currently in a DEAD-KEY sequence?
+	SNA CLA			/ Skip if YES.
+	 JMP	DOINS4		/ No. go handle regular insert.
+	BKPPTR			/ continue overstrike mode. See if prior char
+	 NOP			/  is END-OF-DEAD-KEY.
+	TAD	(-ECNDOV)	/ Check prior char for end-of-deadkey.
+	SZA CLA			/ Skip if yes. insert char there instead.
+	 JMP	DOINS3		/ No. cancel dead-key seq.
+	JMS	ECPTCH		/ Cancel prior end-of-deadkey.
+	ADVPTR			/ Advance to char just inserted.
+	 NOP			/  ...
+DOINS1,	ADVPTR			/ Advance just beyond char just inserted.
+	 NOP			/  ...
+	CLA
+	TAD	(ECNDOV)	/ Insert End-Of-Deadkey sequence char.
+	INSCHR			/  ...
+	ADVPTR			/ Advance beyond end-of-deadkey char just inserted.
+	 NOP			/  ...
+	AC0001			/ Say that we're in a dead-key sequence.
+	JMP	DOINS5		/ done.
+
+DOINS2,	JMS	ECPTCH		/ Cancel redundant end-of-deadkey.
+	CDFEDT			/ Bump cursor posn to next col.
+	ISZ I	(CURSOR)	/  ...
+	CDFMYF			/   ....
+	JMP	DOINS5		/ done.
+
+DOINS3,	ADVPTR			/ Bump past char just inserted.
+	 NOP			/  ...
+	CLA
+DOINS4,	CIFEDT			/ Do rejustification (if necessary).
+	CALEDT;	CHKREJ		/ Call CHKREJ to see if rejustification
+		CDFBUF		/  is appropriate.
+DOINS5,	DCA	INSDKS		/ Cancel/Set overstrike mode.
+/SB	AC7777			/ Check restart CURSOR/CURPTR for insert.
+/SB	JMS	CRSTRT		/ Check restart CURSOR/CURPTR.
+	TAD	T1		/ Get prior char (ie. the one just inserted.)
+	JMS	TSTCHR		/ Check it's type.
+	 JMP	DOINS6		/ OTHER. See if we were at End-Of-Line.
+	 JMP	DOINS7		/ NUMERIC &
+	JMP	DOINS7		/  ALPHA-ONLY are always insertable.
+DOINS6,	JMS	TSTLAG		/ See if on same line as word was on.
+	 JMP	DOINS7		/ YES. char does not define new E-O-L.
+	ISZ	NOMORE		/ We just inserted a new E-O-L definition.
+	ISZ	NOINSR		/  so stop further ADVANCE & INSERT.
+DOINS7,	JMP I	ECDOIN		/ Return to caller. Char is inserted & flags set.
+
+INSDKS,	.-.
+
+
+/SBINSERR,	JMS	PUTERR		/ Display error.
+/SB		ERREOL		/ "End of line reached" error message.
+/SB	JMP	ECFIX3		/ Reset MODE to ADVANCE & get next input.
+/-----------
+	PAGE
+	PAGE
+			>	/END IFDEF OLDSPL			/SB
+
+/ Footnote I/O Buffer							/A003
+/	Used to read/write footnote text from/to the scratch area on the/A003
+/	WPS Utility Diskette. 						/A003
+
+FNIOBF,	ZBLOCK	400							/A003
+
+PCURST,	TEXT	/^P/
+CLREOS,	TEXT	/^P!E/
+DISTXT,	TEXT	/(^D.^D) /
+ERRFEM,	IFDEF ENGLSH <TEXT /^P&MISSING BRACKETS (>>).^S/>		/M005
+	IFDEF ITALIAN<TEXT /^P&MANCANO LE PARENTESI (>>).^S/>
+
+ERRRWF,	IFDEF ENGLSH <TEXT /^P&RULER IN FOOTNOTE.^S/>			/M005
+	IFDEF ITALIAN<TEXT /^P&DESCRITTORE RIGA IN NOTE A PI\H PAGINA.^S/>
+
+ERRUEF,	IFDEF ENGLSH <TEXT /^P&UNEXPECTED END OF FILE.^S/>		/M005
+	IFDEF ITALIAN<TEXT /^P&FINE DEL FILE INCONTRATA.^S/>
+
+ERRFSE,	IFDEF ENGLSH <TEXT /^P&TOO MUCH FOOTNOTE TEXT.^S/>		/M005
+	IFDEF ITALIAN<TEXT /^P&TROPPE NOTE A PI\H PAGINA.^S/>
+
+ERRFNR,	IFDEF ENGLSH <TEXT /^P&FOOTNOTE READ ERROR.^S/>			/M005
+	IFDEF ITALIAN<TEXT /^P&ERRORE IN LETTURA.^S/>
+
+ERRFNW,	IFDEF ENGLSH <TEXT /^P&FOOTNOTE WRITE ERROR.^S/>		/M005
+	IFDEF ITALIAN<TEXT /^P&ERRORE IN SCRITTURA.^S/>
+
+ERRHLT,	IFDEF ENGLSH <TEXT /^P&QUITTING AFTER !&GOLD !&HALT.^S/>	/M005
+	IFDEF ITALIAN<
+	TEXT /^P&ANNULLO OPERAZIONE DOPO AVER PREMUTO !&ORO !&STOP.^S/>
+
+ERRIRC,	IFDEF ENGLSH <TEXT /^P&ILLEGAL FOOTNOTE RULER SETTING.^S/>	/A004
+	IFDEF ITALIAN<TEXT /^P&PARAMETRO DESCRITTORE RIGA NON VALIDO.^S/>
+
+ERRFCB,	IFDEF ENGLSH <TEXT /^P&ILLEGAL RULER IN FOOTNOTE CONTROL BLOCK.^S/>/M010
+	IFDEF ITALIAN<
+	TEXT /^P&DESCRITTORE RIGA NON VALIDO NEL BLOCCO DI CONTROLLO.^S/>
+
+PRSRTN, IFDEF ENGLSH <TEXT / &PRESS !&RETURN./>				/ARCM
+	IFDEF ITALIAN<TEXT / &PREMERE !&RITORNO./>
+
+/ Footnote ruler buffer. Footnote ruler, if one exists, is stored here.	/A005
+
+FNRLBF,	ECSTRL; ECMDRL		/ Beginning of footnote ruler		/A005
+	ZBLOCK	50^3+2		/ Storage for footnote ruler		/A005
+FNRLBE=.			/ Space for 40 settings + ruler end	/A005
+
+/ Current ruler in effect at time footnotes are dumped is saved here.	/A005
+
+CURLBF,	ECSTRL; ECMDRL		/ Beginning of storage for saved ruler	/A005
+	ZBLOCK	50^3+2		/ Storage for saved ruler		/A005
+CURLBE=.			/ Space for 40 settings + ruler end	/A005
+/-----------
+	PAGE
+
+	*6000			/HOPEFULLY TEMPORARY			/SB
+OPENER,	XX			/CALLED TO OPEN POST PROCESSOR FILES	/SB
+	RDF			/NEED TO FIND WAY BACK  TO RIGHT FLD	/SB
+	TAD	CIDF0		/GET BLANK FLD CHANGE INST		/SB
+	DCA	OPENEX		/PLUG INTO RETURN PATH			/SB
+	CDFMNU			/OUTPUT FILENO IS IN MENUFLD		/SB
+	TAD I	(MUBUF+MNFNO)	/WHERE IT USUALLY IS			/SB
+	MQL			/WPFILS EXPECTS IT IN MQ		/SB
+	TAD I	(MUBUF+MNTMP1)	/NEED T-B-O OPTION (0 1 -1)		/SB
+	CDFMYF			/BACK HERE				/SB
+	CIFFIO;FILEIO;XDSKIN	/OPEN FILE FOR  INPUT OR OUTPUT		/SB
+	SPA;NOP;CLA		/A LOT OF NECESSARY NOTHING		/SB
+		/NOWGET READY TO OPEN FILE FOR INPUT ONLY		/SB
+	TAD	(XRDFNC)	/NEXT 4 PAIRS ARE MAGIC FROM OVMRG1	/SB
+	CDFEDT			/MG LABELS ARE IN EDITOR		/SB
+	DCA I	(MGPTC1)						/SB
+	CLA								/SB
+	TAD	(SKP CLA)						/SB
+	DCA I	(MGPTC2)						/SB
+	TAD I	(MGPTC2)	/AGAIN					/SB
+	DCA I	(MGPTC3)						/SB
+	CLA								/SB
+	TAD	(ESGETX&177+4600)					/SB
+	DCA I	(MGPTC4)						/SB
+
+	TAD	(FLINES		/ Get # lines in Footnote scroll region	/A003
+	DCA I	(SCRNLN		/ Store in edit screen size		/A003
+	TAD	(FLINES		/ 					/A003
+	DCA I	(WIDSIZ		/ and in wide screen size, too		/A003
+	CDFMNU			/GET LAST FILENO			/SB
+	TAD I	(MUBUF+MNFNO)	/IE 'RESULT' FILE			/SB
+	CDFMYF			/PUT NEAR SAVED INPUT FILE		/SB
+	DCA	INFNO-1		/	DCA I	(OPENER+1)	/IS CUB2+1 IN WPCUT			/SB
+	TAD	7500	/	TAD I	(OPENER)	/SAVED  INPUT FILE			/SB
+	CDFMNU								/SB
+	DCA I	(MUBUF+MNFNO)	/PLUG IN FOR FUTURE REFERENCES		/SB
+
+	CDFMYF			/BACK HERE				/SB
+	TAD	7500		/NOW HERE				/SB
+	NOP	/SB	MQL			/WPFILS EXPECTS IT HERE			/SB
+	CIFFIO;FILEIO;XRDFIN	/OPEN FOR INPUT ONLY			/SB
+	SPA;NOP;CLA		/IS THIS ALL NECESSARY			/SB
+
+	TAD	INFNO-1		/RETRIEVE RESULT FILE #			/SB
+	CDFMNU			/WANT TO PUT IT IN MNFNO		/SB
+	DCA I	(MUBUF+MNFNO)	/TO CONINCIDE WITH REMEMBERED FILE NAME	/SB
+	CDFMYF			/DON'T LOSE TRACK OF WHERE WE ARE NOW	/SB
+OPENEX,	XX			/GETS FILLED WITH RETURN CIF		/SB
+	JMP I	OPENER		/THAT'S ALL FOLKS			/SB
+
+
+/----------
+/
+/ SCRNINIT - This routine sets up the initial screen display prior
+/		to the start of the corrector portion of the feature.
+/
+/   1) Display the document name.
+/   2) Delimit the scrolling region by solid lines.
+/   3) Display the main menu line.
+/   4) Set up the scrolling region to range from lines 3 to 13.
+/   5) Pass control to the Main Scrolling Loop.
+/
+/----------
+
+	*6077		/******TEMP ******				/SB
+SCRNINIT,
+	XX			/ save callers return address
+	RDF			/ Get return field.
+	TAD	CIDF0		/ Make a return CIF CDF instruction.
+	DCA	SCRNXT		/ save for the exit.
+	CDFMYF			/ Map our field for the duration of our stay.
+
+	JMS	SETABS		/ Set screen orgin mode to ABSOLUTE.
+	JMS	DISDOCNAME	/ display and save document name
+	JMS	SOLIDLINE	/ paint the solid lines
+/SB	TAD	INEDIT		/ Are we currently in edit mode?
+/SB	SZA CLA			/ Skip if no. Paint just paint menu line.
+/SB	 JMP	SCRNI1		/ Jmp if currently editting.
+/SB	JMS	MNUPNT		/ Paint the menu line.
+/SB	JMP	SCRNI2		/ Merge below to finish up screen initialization.
+/SB
+/SBSCRNI1,	JMS	EFXMUP		/ Display 'editting' message.
+SCRNI2,	JMS	SETRGN		/ set up the scrolling region for the
+				/ document being corrected
+/
+SCRNXT,	XX			/ Return CIF CDF goes here.
+	JMP I	SCRNINIT	/ return to caller
+/----------
+	PAGE
+	*7500		/HOPEFULLY TEMPORARY				/SB
+INFNO,	0			/TEMP					/SB
+	FIELD	3	/AUXILIARY FIELD
+	*200
+BUFADR,			/BUFFER FOR I/O STARTS HERE
+	ZBLOCK	400	/RESERVE 2 PAGES
+	PAGE
+	NOPUNCH
+
+
+
+

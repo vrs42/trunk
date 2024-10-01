@@ -1,0 +1,143 @@
+/	WTMU1 - WRITE OUT MENUS - PART 1
+/
+/ EDIT HISTORY
+/ 001  KMD  02-sep-85  Move pp1 and ed1 from field 1 to 2 as 1 overflowed
+
+	*200			/ START ADDRESS USED BY OS8 "GO" COMMAND
+	JMP I	.+3		/ LOCATION USED TO START UP RXHAN
+	JMP I	.+1		/ LOCATION USED TO RETURN TO OS8 MONITOR
+	7605			/ ADDRESS OF OS8 MONITOR RETURN POINT
+	RXLOAD			/ ADDRESS OF START LOCATION FOR RXHAN
+
+	*RXLDLS			/ ADDRESS WITHIN RXHAN TO OVERLAY
+	RXEWT			/ WRITE FUNCTION CODE
+	0			/
+	RXQBLK			/ ADDRESS OF QUEUE BLOCK TO USE
+	WTMULS-1		/ ADDRESS OF TABLE OF DISK COMMANDS
+
+	*3000			/ TABLE LOCATION IN FIELD ZERO
+
+WTMULS,
+
+/	************************************************************
+/	************************************************************
+/	*****                                                  *****
+/	*****           F I E L D    1    M E N U S            *****
+/	*****                                                  *****
+/	*****                                                  *****
+/	*****                  C A U T I O N                   *****
+/	*****                                                  *****
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****
+/	*****                                                  *****
+/	************************************************************
+/	************************************************************
+
+	DLMSM0;ADMSM0;CDF 10;-DSMENU	/ START UP MENU INITIALIZATION
+	DLMSM1;ADMSM1;CDF 10;-DSMENU	/ START UP MENU BEGIN
+	DLMSM2;ADMSM2;CDF 10;-DSMENU	/ START UP MENU END
+	DLMMM0;ADMMM0;CDF 10;-DSMENU	/ COMMAND DECODER FOR MAIN MENU
+	DLMMM1;ADMMM1;CDF 10;-DSMENU	/ MAIN MENU PART ONE
+	DLMMM2;ADMMM2;CDF 10;-DSMENU	/ MAIN MENU PART TWO
+	DLMMM3;ADMMM3;CDF 10;-DSMENU	/ MAIN MENU PART THREE
+	DLMMM4;ADMMM4;CDF 10;-DSMENU	/ MAIN MENU PART FOUR
+
+
+/	************************************************************
+/	************************************************************
+/	*****                                                  *****
+/	*****           F I E L D    2    M E N U S            *****
+/	*****                                                  *****
+/	*****                                                  *****
+/	*****                  C A U T I O N                   *****
+/	*****                                                  *****
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****
+/	*****                                                  *****
+/	************************************************************
+/	************************************************************
+
+	DLMPR1;ADMPR1;CDF 20;-DSMENU	/ PRINTER ENTRY MENU
+	DLMPR2;ADMPR2;CDF 20;-DSMENU	/ PRINT MENU PARAMETER HANDLING
+	DLMPR3;ADMPR3;CDF 20;-DSMENU	/ START OF FIRST PRINT MENU
+	DLMPR4;ADMPR4;CDF 20;-DSMENU	/ FIRST PRINT MENU CONTINUED
+	DLMPR5;ADMPR5;CDF 20;-DSMENU	/ PRINTER ARGUMENTS
+	DLMPR6;ADMPR6;CDF 20;-DSMENU	/ PRINT MENU ARGUMENT PROCESSING
+	DLMPR7;ADMPR7;CDF 20;-DSMENU	/ START OF SECOND PRINT MENU
+	DLMPR8;ADMPR8;CDF 20;-DSMENU	/ SECOND PRINT MENU CONTINUED
+	DLMPR9;ADMPR9;CDF 20;-DSMENU	/ START OF THIRD PRINT MENU
+	DLMPRA;ADMPRA;CDF 20;-DSMENU	/ THIRD PRINT MENU CONTINUED
+	DLMPRB;ADMPRB;CDF 20;-DSMENU	/ THIRD PRINT MENU CONTINUED
+	DLMPRC;ADMPRC;CDF 20;-DSMENU	/ MORE OF THE FIRST & SECOND PRINT MENUS
+	DLMQD1;ADMQD1;CDF 20;-DSMENU	/ PRINT QUEUE MESSAGES
+	DLMPP1;ADMPP1;CDF 20;-DSMENU	/ CREATE DOCUMENT ENTRY MENU
+	DLMED1;ADMED1;CDF 20;-DSMENU	/ EDIT DOCUMENT ENTRY MENU
+
+/	************************************************************
+/	************************************************************
+/	*****                                                  *****
+/	*****           F I E L D    3    M E N U S            *****
+/	*****                                                  *****
+/	*****                                                  *****
+/	*****                  C A U T I O N                   *****
+/	*****                                                  *****
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****
+/	*****                                                  *****
+/	************************************************************
+/	************************************************************
+
+	DLMDU1;ADMDU1;CDF 30;-DSMENU	/ DISKETTE UTILITIES
+	DLMDU2;ADMDU2;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU3;ADMDU3;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU4;ADMDU4;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU5;ADMDU5;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU6;ADMDU6;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU7;ADMDU7;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU8;ADMDU8;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	DLMDU9;ADMDU9;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+
+	DLMUB1;ADMUB1;CDF 30;-DSMENU	/ ACTIVATE FEATURES MENU
+	IFDEF	UNBUND	<
+	DLMUB2;ADMUB2;CDF 30;-DSMENU	/ PROCESS USER RESPONSE
+	DLMUBE;ADMUBE;CDF 30;-DSMENU	/ UNBUNDLING ERROR MESSAGES
+			>		/ END IFDEF UNBUND
+	DLMDUA;ADMDUA;CDF 30;-DSMENU	/ DISKETTE UTILITIES CONTINUED
+	IFDEF	CONDOR	<
+	DLMDUB;ADMDUB;CDF 30;-DSMENU	/ WINCHESTER MAINT. MENU
+			>		/ END IFDEF CONDOR
+
+/	************************************************************
+/	************************************************************
+/	*****                                                  *****
+/	*****           F I E L D    4    M E N U S            *****
+/	*****                                                  *****
+/	*****                                                  *****
+/	*****                  C A U T I O N                   *****
+/	*****                                                  *****
+/	*****    ONLY 16 DECIMAL MENU ENTRIES FOR THIS FIELD   *****
+/	*****                                                  *****
+/	************************************************************
+/	************************************************************
+
+
+	DLMRS1;ADMRS1;CDF 40;-DSMENU	/ STORE AND RECALL PRINTER QUEUE
+	DLMPS1;ADMPS1;CDF 40;-DSMENU	/ PRINTER STOP
+	DLMPS2;ADMPS2;CDF 40;-DSMENU	/ PRINTER STOP CONTINUED
+	DLMPS3;ADMPS3;CDF 40;-DSMENU	/ PRINTER STOP CONTINUED
+	DLMPS4;ADMPS4;CDF 40;-DSMENU	/ PRINTER STOP CONTINUED
+	DLMPS5;ADMPS5;CDF 40;-DSMENU	/ PRINTER STOP CONTINUED
+	DLMPS6;ADMPS6;CDF 40;-DSMENU	/ PRINTER STOP CONTINUED
+	DLMCI2;ADMCI2;CDF 40;-DSMENU	/ CI COMMAND, PART 1
+	DLMCI1;ADMCI1;CDF 40;-DSMENU	/ CI COMMAND, PART 2
+	DLMIN1;ADMIN1;CDF 40;-DSMENU	/ INDEX COMMAND
+	DLMDK1;ADMDK1;CDF 40;-DSMENU	/ DEFINE USER KEYS
+	DLMCPM;ADMCPM;CDF 40;-DSMENU	/ CPYDSK'S RESIDENT MENU
+
+	IFDEF	CONDOR	<
+	DLMSPL;ADMSPL;CDF 40;-DSMENU	/ Spelling Corrector menu support
+	DLMPPM;ADMPPM;CDF 40;-DSMENU	/ POST PROCESSOR MENUS
+	DLM125;ADM125;CDF 40;-DSMENU	/ VT125 installation menu
+			>		/ END IFDEF CONDOR
+
+	0				/ ZERO FOR LAST ENTRY IN LIST
+
+
+

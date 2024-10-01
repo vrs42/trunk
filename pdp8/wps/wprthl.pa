@@ -1,0 +1,1300 @@
+/
+/
+/	WPPRHL V1.0 CREATED 18TH MARCH 1985
+/
+/	WPPRHL is a file containing all the routines to be blasted into the 
+/	printer overlay for WPS V2.5 NL from panel memory.
+/
+/	Edit history:-
+/
+/
+
+/	058	EMcD	25-Sep-85	SPANISH/DUTCH Xlations.
+/	057	EMcD	25-Sep-85	Nordic Xlations.
+/	056	Mart	05-july85	allow required space for tech chars
+/					on an LQP03
+/	055	Mart	07-jun-85	allow for shadow printing and 
+/					underlining of 8 bit chars
+/	054	RCME	03-Jun-85	Fix print screen hang on printer error
+/					provide print screen status report
+/	053	mart	28-may-85	take out links in PRINT SCREEN
+/	052	mart	24-may-85	modify for PUM mode detection
+/	051	MART	15-may-85	added Blaster hook for SYS
+/	050	mart	08-may-85	allow sys to do fallback if ness
+/	049	MART	07-MAY-85	Add hole for 8 bit fallback on LQP02
+/	048	Mart	22-apr-85	changed CIF to CDI for return from
+/					printscreen see WP2CMF
+/	047	MART	15-APR-85	move bulk of PLINIT to the panel area
+/	046	Mart	8-apr-85	allow for width of multinational c's
+/	045	Mart	25-mar-85	routine to make space in TCLQP
+/	044	Mart	25-mar-85	allow for insertion of fallback chars
+/					into the print buffer	
+/	043	RCME	25-MAR-85	Copy Bold and Underline characters
+/	042	RCME	21-MAR-85	Add MC load to G1. Clear AC on entry
+/	041	RCME	18-mar-85	Creation of printer hole routines
+/					file.
+/
+/	------ For prior edits, see WP2CMF file, from which this is taken -----
+/	------ this comment applies to printscreen only                   -----
+/
+/	***********************************************************************
+/	*								      *
+/	*	Any routine entered in this file should have its field value  *
+/	*	in the hole blaster routine table set to 1 and the relocation *
+/	*	address used (probably in page 7400) entered there also.      *
+/	*	See the hole blaster code for more details.		      *
+/	*								      *
+/	***********************************************************************
+/
+	ENPUNCH		/Re-enable writing of binary file
+
+	*400
+
+	FIELD 6
+	RELOC
+	*400
+	RELOC	PRTHOL
+
+/
+/	***********************************************************************
+/	*								      *
+/	*	Any routine entered in this file should have its field value  *
+/	*	in the hole blaster routine table set to 3 and the relocation *
+/	*	address used (HERE in page 1200) entered there also.      *
+/	*	Also reset the instruction field to MENU before EXIT from	*
+/	*	the subroutine.							*
+/	*	Watch what you call from these subroutines ; make sure they   *
+/	*	are not overlayed ; make sure they always return to the 	*
+/	*	calling routine .						*
+/	*	Subroutines here must always return cleanly (a one skip return	*
+/	*	is also alowed) with a CIFMNU;JMP I SUBROUTINESTART		*
+/	*	See the hole blaster code for more details.		      *
+/	*								      *
+/	***********************************************************************
+/
+
+
+
+
+/ PRGTCH	Copy a technical char to the print buffer
+/		If it is a multinational char then
+/		If the printer can cope with it then allow char into buffer 
+/		Else use the fallback chars to send to the printer
+/
+
+ 
+PRGTCH,	XX			/ return address 
+	CLA			/ make sure the ac is clear
+/ examine the character set
+	TAD I	PRGCCL		/ get the char set control char
+	TAD	M22		/ is it G2 [22] ie a multinational char
+	SNA CLA			/ 
+	JMP 	PRGMNC		/ yes deal with the MN char
+
+/ no .. so it must be either a tech char or a line drawing set
+/ deal with them as normal chars
+
+PRGTC1,	TAD I	PLPTR		/ get the tech char
+	DCA	T1		/ save it
+	TAD I	PRGCCL		/ get the control
+	JMS	PRGPNX		/ put the control char
+	TAD	T1		/ get back the cahr
+	JMS	PRGPNX		/ go put it
+	JMP	PRGEXI		/ go exit
+
+PRGMNC,
+/ we have a MN Char lets do something with it
+/d050	JMS I	SKPIF			/ test for a multinational printer
+/d050	MNMSK			/ multinational mask
+/d050	JMP	PRGFBK		/ no use fallback
+	CLA			/??
+	JMP	PRGTC1		/ go print it as if it were a tech char
+
+/d050PRGFBK,	CLA			/??
+/d050	TAD I	PLPTR		/ get the char bach
+/d050	AND	P177		/ just use th 7 bits
+/d050	TAD	M40		/ the fist 40 are not valid
+/d050	RAL			/ two words per entry *2
+/d050	TAD	FLBADD		/ get the address to load
+/d050	DCA	PRGAG1		/ put in the panel request buffer arg 1
+
+/d050PRGGFB,	PRQ3			/ panel request to get the table entry
+/d050	5015			/ get from panel 5 to the user field
+/d050PRGAG1,	0			/ adress of fallback chars
+/d050	PRFBC			/ address of the buffer
+/d050	-2 			/ word count to copy
+/d050	-1			/ terminator	
+/d050	TAD I	PLPTR		/ get the original char
+/d050	AND	P1600		/ save the mode bits
+/d050	DCA	PRGMDS		/ in a temp buffer
+/d050	TAD I	PRFBCL		/ get the first char
+/d050	TAD	PRGMDS		/ add the mode bits
+/d050	JMS	PRGPNX		/ put the next one in the buffer
+/d050	TAD 	BKSPCE		/ get the back space
+/d050	JMS	PRGPNX		/ put it in the buffer
+/d050	TAD I	PRFBCL+1	/ get the second char
+/d050	TAD	PRGMDS		/ add in the mode bits
+/d050	JMS	PRGPNX		/ put in the buffer
+
+PRGEXI,	CIFMNU			/set up the return field
+	JMP I	PRGTCH		/ return
+
+PRGPNX,	XX			/ put next char in the print buffer
+	DCA I	PLPTR		/ Save the cahr
+	TAD I	PLPTR		/ RECOVER IT
+	AND 	P1600		/ GET THE MODE FLAGS
+	DCA I	PRHMD		/ SAVE for future use
+	JMS I	PLNXTC		/ put next character
+	NOP			/ ignore any error return
+	JMP I	PRGPNX		/ return
+
+SKPIF,	SKIPIF			/ LINK TO SKIPIF
+P1600,	1600
+PLNXTC,	PLNXT			/ put next character link
+PRHMD,	PRHMOD			/ link
+PRGMDS,	0			/ move saveed	
+BKSPCE,	BS
+M40,	-40
+PRGCCL,	PRGCCS			/ control (precedence) char
+M22,	-22
+FLBADD,	FLBKTB			/ fall back table address
+PRFBCL,	PRFBC			/ FALL  back character area links
+	PRFBC+1			/  "     "      "       "     "	
+
+	PGFREE= PRTHOL+140-.
+	
+	ZBLOCK PGFREE
+
+/***********************************************************************/a045
+/	MCLQPS	Subroutine to set up 8 bit char for multinational	/a045
+/		or insert a required space if its a tech char		/a045
+/****************************************************************************
+
+MCLQPS,	XX			/ called via BLASTR			/a045
+	SZA			/ test incoming ac if not 0 then 	/a045
+				/ its a multinational char		/a045
+	JMP	MCLMNF		/ set multinational flag		/a045
+
+/ otherwise just set up a required space
+
+	JMS I	PLNXTM		/ get the next char			/a045
+	HLT			/ if we get here  the we've scrapped it	/a045
+	TAD I	PLPTR		/ get the char in the buffer		/a045
+	AND	P7600		/ strip off the char bits		/a045
+	TAD	P177		/ add in the required space code	/a045
+	DCA I	PLPTR		/ save the new char			/a045
+	JMP	MCLEXI		/ exit					/a045
+
+/ come here if multinational char					/a045
+					
+MCLMNF,	AC7777			/ set up to do multinational flag	/a045	
+	DCA	MNCFLG		/ save					/a045
+	JMS I	PLNXTM		/ get the next char			/a045
+	HLT			/ there must be one			/a045
+MCLEXI,	CIFMNU			/ return to BLASTR			/a045
+	JMP I 	MCLQPS		/ RETURN				/a045
+
+P7600,	7600			/ mask					/a045
+
+PLNXTM,	PLNXT			/ link					/a045
+
+
+
+	PGFREE= PRTHOL+200-.
+	
+	ZBLOCK PGFREE
+/***************************************************************************
+/ PLINA,    BULK of work moved here from PLINIT
+/***********************************************************************/a047
+
+PLINA,	XX			/ return address
+	TAD I	XPLPFLG		/
+	SZA CLA			/
+	TAD	ANUM1		/ SEND RESET PROPORTIONAL MODE
+	TAD	ANUM2		/ SEND   SET       "       "
+	CIA			/
+	TAD I	XP2PSET		/ Equal to last sent ?
+	SNA			/
+	JMP 	PRPEQ		/ If so no transmit
+	CIA			/ else transmit new value
+	TAD I	XP2PSET		/
+	DCA I	XP2PSET		/
+	JMS I	XPRESCS		/ send escape sequence
+		PCPROP		/ to set/reset the proportional prt
+PRPEQ,	TAD I	XPLPFLG		/ get proportional print flag
+	SNA	CLA		/ skip if not printing proportionally
+	AC0001			/ load mask for shadow print f;ag
+	AND I	XPRQSP		/ AND	WITH SHADOW FLAG
+	SZA CLA			/ SKIP IF NOT SHAODOW PRINTING TOO
+	TAD 	ANUM3		/ set bold to 200 if SP yes and THEME
+	DCA I	XPLBOLD		/ set plbold to 0 otherwise
+	CIFMNU			/ get ready to return to the blaster
+	JMP I	PLINA		/ RETURN
+
+ANUM1,	154-150			/ reset for proportional mode
+ANUM2,	4150			/ set   FOR proportIonal mode
+ANUM3,	200			/ used to set plbold
+XPLBOLD,PLBOLD			/ link to plbold	
+XPRQSP,	PRQSP			/ link to shadom flag
+XP2PSET,P2PSET			/ link TO P@PSET
+XPLPFLG,PLPFLG			/ LINK TO PLPFLG
+XPRESCS,PRESCS			/ LINK TO ESCAPE SENDER	
+
+
+
+	PGFREE= PRTHOL+400-.
+	
+	ZBLOCK PGFREE
+
+	RELOC
+	*1000
+	RELOC	PRTHOL
+
+/***************************************************************************
+/ PSCSTS	Print Screen STatuS
+/
+/	This routine MUST reside here.
+/
+/	The Print screen status routine is used to report the status of the
+/	print screen job.  It uses the value of the print screen flag
+/	(PSFLAG) in WP2CMF to assertain the following conditions:-
+/
+/		PSFLAG		Condition
+/
+/		 0000		Print screen not running or finnished.
+/				Clear the top line.
+/		 0XXX		User has requested Print Screen while
+/				the printer is in use.  Display
+/				"PRINTER ALREADY IN USE" and beep.
+/		 4000		Print screen job running. Display
+/				"PRINT SCREEN BUSY"
+/		 4XXX		User or system has aborted the print screen
+/				job.  Display "PRINT SCREEN STOPPED" and
+/				beep.
+/
+/	This routine is called when print screen is first requested and again
+/	when print screen finnishes, weither this is through normal exit when
+/	the screen has finnised printing, or through the user pressing the
+/	PRINT SCREEN key while the screen is printing, or if the LPTOU buffer
+/	is full for more than 128 tries (a suspected printer error).
+/
+/	The routine also deals with the menu lock on the printer routines.
+/	The lock is provided to stop the user trying to print a document while
+/	the print screen job is running, as the print screen code resides in
+/	the document buffer of the printer driver.
+/
+/***************************************************************************
+
+
+PSCSTS,	XX			/ Start the print screen status routine
+	CDFMNU			/ Switch to the field with PSFLAG
+	CLA			/ Get rid of rubbish
+	TAD I	PSCPFL		/ Get the print screen status flag
+	DCA	PSSTMP		/ Save it in this field
+	TAD	PSSTMP		/ Get it back
+	CIA			/ Take the negative value for later comparison
+	DCA I	PSCPRF		/ Save it in the Print SCreen PRevious Flag
+	TAD I	PSMFLG		/ Get the Non-Print Printer Busy Flag
+	DCA	PSSTM2		/ Save it locally
+	CDFMYF			/ Data field back home
+	TAD	PSSTMP		/ Get it back
+	AND	PT3777		/ Mask off the error bits
+	SNA CLA			/ Are there any errors?
+	JMP	PSCLEAR		/ No, so check running status
+	TAD	PSSTMP		/ Yes, get the flag to find what error
+	AND	PT4000		/ Test to see if print screen was running
+	SZA CLA			/ Did error occur while P.S. in progress?
+	JMP	PSABORT		/ Yes, this error means abort job.
+	AC4000			/ Test for the printer already in use
+	AND	PSSTM2		/ 
+	SNA			/ Is the printer in use by CX?
+	JMP	PSNXT		/ No, job just started, nothing to report
+	CIFMNU			/ Yes, error due to printer already busy
+	JMS I	IOACAL		/ Inform the user he made a booboo.
+		0		/ Use the default output routine
+		PSPJR		/ 'PRINTER ALREADY IN USE'
+		TOPLFT		/ Save cursor, move to top left-of-center
+		BLKREV		/ Inverse video to draw attention
+		BELTXT		/ "Ring my bee-ee-eell..."
+		LED4ON		/ Restore cursor status
+	JMP	PSNXT		/ Clear up and exit
+
+PSABORT,CIFMNU			/ Inform user that he has succesfully
+	JMS I	IOACAL		/ aborted, or that the machine has aborted
+		0		/ probably due to a printer error
+		PSTXT		/ 'PRINT SCREEN .....'
+		TOPLFT		/ Save cursor, move to top left-of-center
+		BLKREV		/ Next bit in reverse video
+		STPTXT		/ '.... STOPPED'
+		BELTXT		/ "Beep, Beep! Beep, Beep! His car went ..."
+		LED4ON		/ Restore cursor status
+	JMP	PSNXT		/ Clear up and exit
+
+PSCLEAR,TAD	PSSTMP		/ Get the flag back
+	AND	PT4000		/ Test for print screen running
+	SNA CLA			/ Running with no errors?
+	JMP	PSRCLR		/ No, realy clear up
+	CIFMNU			/ Inform the user that the print screen job
+	JMS I	IOACAL		/ is running, so don't try to print.
+		0		/ Default output still
+		PSTXT		/ 'PRINT SCREEN .....'
+		TOPLFT		/ At top left-of-center, and preserve cursor
+		NULTXT		/ No fancy stuff
+		BSYTXT		/ '....BUSY   '
+		NULTXT		/ "Silent night, Holy night...."
+		LEDOFF		/ Restore the cursor
+	JMP	PSNXT		/ Clean up
+
+PSRCLR,	CIFMNU			/ Clear the top center area of messages
+	JMS I	IOACAL
+		0		/ Default print routine
+		PSCLR		/ The clearing control string
+		TOPLFT		/ Same place as the others
+		LEDOFF		/ Restore cursor
+PSNXT,	CDIMNU			/ Return to calling field
+	JMP I	PSCSTS		/ And relinquish control
+
+PSSTMP,	0			/ Temporary location to hold the PSFLAG
+PSSTM2,	0			/ Temporary location to hold the MNPULD flag
+PT3777,	3777			/ Local copy of mask
+PT4000,	4000			/ Local copy of mask
+PSMFLG,	MUBUF+MNPULD		/ Position of Print Screen bit in menu vars
+PSCPFL,	PRNTSC			/ Position of print screen status flag
+PSCPRF,	PRNTSC+1		/ Position of print screen previous status flag
+	
+PSPJR,	
+	IFDEF ENGLSH <TEXT '^A^A!&PRINTER !&ALREADY !&IN !&USE^A^A'>
+	IFDEF DUTCH <TEXT '^A^A!&PRINTER !&ALREADY !&IN !&USE^A^A'>
+	IFDEF SPANISH <TEXT '^A^A!&PRINTER !&ALREADY !&IN !&USE^A^A'>
+	IFDEF ITALIAN<TEXT /^A^A!&STAMPATA !&OCCUPATA^A^A/>
+	IFDEF V30NOR<TEXT /^A^A!&SKRIVER ALLEREDE AKTIV^A^A/>
+	IFDEF V30SWE<TEXT /^A^A!&SKRIVARE REDAN UPPTAGEN^A^A/>
+
+PSTXT,	
+	IFDEF ENGLSH <TEXT '^A!&PRINT !&SCREEN ^A^S^A^A'>
+	IFDEF DUTCH <TEXT '^A!&PRINT !&SCREEN ^A^S^A^A'>
+	IFDEF SPANISH <TEXT '^A!&PRINT !&SCREEN ^A^S^A^A'>
+	IFDEF ITALIAN<TEXT /^A!&STAMPA !&SCHERMO ^A^S^A^A/>
+	IFDEF V30NOR<TEXT /^A!&SKRIV SKJERM ^A^S^A^A/>
+	IFDEF V30SWE<TEXT /^A!&SKRIV BILD ^A^S^A^A/>
+
+PSCLR,	TEXT '^A                         ^A'
+
+TOPLFT,	ESC; "7&177			/Store cursor position
+	ESC; "[&177; "?&177; "6&177; "1&177	/Set absolute addressing mode
+	ESC; "[&177; "1&177; ";&177; "3&177; "0&177; "H&177
+					/Move to column 30
+	0
+/****************************************************************************
+/ N.B F7CODE below is assembled into this area following the above code 
+/ to optimise disk block usage
+/*************************************************************************/a055
+
+/------------------
+	PAGE
+
+	RELOC
+	*1400
+	RELOC	PRTHOL+400
+	/ dont move this code 
+	/ unlike other blaster code it is not position independent
+	/ it is assembled in the same position as it runs
+/***************************************************************************
+/****			PRINT SCREEN ROUTINE FOR DECMATE II		****
+/***************************************************************************
+
+	/ IFDEF	CONDOR		/ DECMATE II - PRINT SCREEN
+
+PR0=	6206			/ FIRMWARE "PANEL REQUEST" #0
+PR3=	6236			/ FIRMWARE "PANEL REQUEST" #3
+TSB2=	6333			/ SET PRINTER BAUD RATE WITH AC <4:11>
+
+/	ENTER HERE TO PRINT SCREEN
+
+PSSTRT,	XX								/m041
+	CDFMYF			/ Make sure the data field is here	/a041
+/	CLA			/					/a042
+/	TAD	PSSTRT		/ Set up abort address			/a041
+/	DCA	PSABRT							/a041
+	AC0001			/ Call the printer id routine to	/a041
+	JMS I	XPRTRID		/ determine which printer driver to use	/m053/a041
+	SKP			/ If valid printer, continue		/a042
+	JMP	PSEXIT		/ Otherwise, abort			/m054
+	CDFMNU			/ Change to menu field to get this	/a041
+	TAD I	PSPRTB		/ GET PRINTER BAUD RATE
+	CDFMYF			/ Change back to my field		/a041
+	AND	PSC17		/ MASK OFF BAUD RATE BITS
+	TSB2		/ IOT	/ SET PRINTER BAUD RATE
+
+	JMS I	XSKIPIF		/ Is this an LN03?		/m053	/a054
+		LN03							/a054
+	TAD	XN1CRNL		/ Load the address of string to turn off/a054
+				/ unsolicited reprots			/a054
+	TAD	XN0CRNL		/ Load the address of the string to turn/a054
+	DCA	X5		/ off Carriage Return New Line mode into/a054
+NOCRLP,	TAD I	X5		/ Auto incrament register, and proceed	/a054
+	SNA			/ to output it until a 0 is read	/a054
+	JMP	NOLNO3		/ Exit when 0 read			/a054
+	JMS I	XPSPRT		/ Otherwise print it		/a053	/a054
+	JMP	NOCRLP		/ And get the next character		/a054
+
+NOLNO3,	CLA			/
+	PR3			/ FIRMWARE PANEL REQUEST
+	7110			/ 71{ FIELD OF BUFFER }0
+PSBUFF,	PRLBUF			/ ADDRESS OF 29 DECIMAL WORD BUFFER	/M041
+				/ WORD 1 = COLUMN MODE (0=80, -1=132)
+				/ WORD 2 = ORIGIN MODE (0=ABSOLUTE, -1=RELITIVE)
+				/ WORD 3 = TOP ROW OF SCROLL REGION
+				/ WORD 4 = BOTTOM ROW OF SCROLL REGION
+				/ WORD 5 = CRT CONTROLER WORD
+				/ WORD 6-29 = HIGH WORDS OF ROW ADDRESS TABLE
+	-1			/ PR3 TERMINATOR
+
+/DELETED INITIAL FORM FEED						/A027
+
+	TAD	PSCR		/ "CARRAGE RETURN" ASCII CODE
+	JMS I	XPSPRT		/					/m053
+
+	TAD	PSM30		/ NEGATIVE NUMBER OF ROWS
+	DCA	ROW		/ SET UP FOR ROWS 0-24
+
+	TAD I	PSBUF1		/ PICK UP ORIGIN MODE			/A007
+	SPA CLA			/ IS RELITIVE ADDRESSING MODE IN EFFECT	/A007
+	TAD I	PSBUF2		/ YES, PICK UP TOP ROW OF SCROLL AREA	/A007
+	CIA			/ MAKE IT NEGATIVE			/A007
+	DCA	XROW		/ STORE FOR PANEL REQUEST
+
+LOOP2,	TAD I	PSBUFF		/ (=0 MEANS IS IN 80 COL, =1 MEANS 132)
+	SZA CLA			/
+	TAD	PSM64		/ NEGATIVE OF 52 DECIMAL FOR WIDE SCREEN
+	TAD	PSM120		/ NEGATIVE OF 80 DECIMAL FOR NARROW SCREEN
+	DCA	COLUMN		/ MINUS 80 OR MINUS 132 DECIMAL
+	DCA 	XCOLUMN		/
+
+	TAD	PSBUFF		/ STARTING ADDRESS OF PRINT SCREEN BUFFER
+	IAC			/ Do not overwrite width flag		/a041
+	DCA	X0TEMP		/
+/D015	DCA	T1TEMP	/ 0	/
+
+LOOP1,	IOF			/ SHUT OFF INTERUPTS			/A015
+	PR3			/ FIRMWARE PANEL REQUEST		/A015
+	7			/ "SCREEN BUSY ?" REQUEST		/A015
+	-1			/ PR3 TERMINATOR			/A015
+	SNA CLA			/ SKIP IF SCREEN IS BUSY		/A015
+	JMP	NOTBSY		/ ELSE ITS OK TO READ SCREEN		/A015
+	ION			/ TURN INTERRUPTS BACK ON		/A015
+	CIFSYS								/A015
+	JWAIT			/ & WAIT A BIT				/A015
+	JMP	LOOP1		/ LOOP TO CHECK AGAIN			/A015
+
+NOTBSY,	PR0			/ FIRMWARE PANEL REQUEST		/C015
+XROW,	  0			/ (INCREMENTS 0-23 OR -N TO 24-N DECIMAL)
+XCOLUMN,  0			/ (INCREMENTS 0-79 OR 0-132 DECIMAL)
+
+/\ COME BACK FROM PANEL REQUEST WITH AC = CHAR FROM ROW/COLUMN SCREEN POSITION
+	ION			/ TURN INTERRUPTS BACK ON		/A015
+/D041	AND	P177		/
+/D015	SZA			/
+/D015	ISZ	T1TEMP		/ (SHOULD NEVER OVERFLOW)
+	SNA			/
+	TAD 	PSSP		/ nulls become spaces
+	ISZ	X0TEMP		/
+	DCA I	X0TEMP		/
+
+	ISZ	XCOLUMN		/ (SHOULD NOT OVERFLOW)
+	ISZ	COLUMN		/
+	JMP	LOOP1	/ LOOP	/ UNTIL 132 COLUMNS PRINTED
+
+/D015	TAD	T1TEMP		/
+/D015	SNA CLA			/
+/D015	JMP	LOOP3		/ JMP CAUSE THIS LINE HAS NO PRINTING CHARACTERS
+
+	TAD	X0TEMP		/
+	CIA			/
+	DCA	X0CTEMP		/
+/d043	TAD	PSBUFF		/ PICK UP ADDRESS TO PRINT SCREEN BUFFER
+/d043	DCA	X0TEMP		/
+
+/ LINE LOOK AHEAD
+
+/ IF THE CHARACTERS REMAINING TO BE PRINTED ARE ALL "SPACES"
+/ THEN JUST PRINT A "CR_LF"
+
+BOLDLP,	DCA	PSMSKF		/ Set up the bold bit mask. If there are/a043
+				/ any bold or underlined characters on	/a043
+				/ the line, this loop will be executed a/a043
+				/ second time, and this flag set	/a043
+	DCA	PSBLDF		/ Reset the bold flag. The first time	/a043
+				/ through the loop, this is set if any	/a043
+				/ bold or underlined characters are met	/a043
+	TAD	PSBUFF		/ Reset the pointer to the start of the	/a043
+	IAC			/ buffer, beyond the width flag.	/a043
+	DCA	X0TEMP		/ 					/a043
+
+LOOP4,	TAD	X0CTEMP		/
+	TAD	X0TEMP		/
+	SNA CLA			/
+	JMP I	XLOOP4B		/
+	ISZ	X0TEMP		/
+	TAD I	X0TEMP		/
+	DCA	PSTEMP		/ Stor the character in a non-indirect	/a043
+	TAD	PSTEMP		/ memory location. Get it back		/a043
+	AND	PSMSKF		/ Check if, on the second pass, this was/a043
+	SZA			/ an underlined or bold character	/a043
+	JMP I	XPSPAS2		/ Yes, consider bold and underline/m053	/a043
+
+LOOP4D,	CLA			/					/a043
+	TAD	PSMSKF		/ Is this the second loop		/a043
+	SNA CLA			/ ++++					/a043
+	JMP	LOOP4G		/ No, consider bold state of character	/a043
+	TAD	PSSP		/ Yes, as not special, print space	/a043
+	JMP	PSPRTS		/ Jump to print routine			/a043
+LOOP4G,	TAD	PSTEMP		/ Get the next character in the buffer	/a043
+	AND	BITBU		/ Mask out the bold and underline bits	/a043
+	MQL			/ Save in the MQ register		/a043
+	TAD	PSBLDF		/ Get the current bold flag		/a043
+	MQA			/ OR it with the state of this character/a043
+	DCA	PSBLDF		/ and resave it				/a043
+	TAD	PSTEMP		/ Get the character back to print	/a043
+PSPRTS,	JMS I	XPRXLT		/ Print it or space		/m053	/a043
+	JMP	LOOP4		/ Consider next character		/a043
+
+PSEXIT,	CDIMNU			/ Set field back to blaster	/c048	/a041
+	JMP I	PSSTRT		/ Return				/m041
+
+XN0CRNL,N0CRNL-1
+XN1CRNL,N1CRNL-N0CRNL
+XPSPAS2,PSPAS2								/a053
+XPRXLT,	PRXLT			/ link to print routine			/a053
+XPRTRID,PRTRID			/ link to printer ID			/a053
+XSKIPIF,SKIPIF			/ link to printer test			/a053
+XPSPRT,	PSPRT			/ link to PSPRT				/a053
+XLOOP4B,LOOP4B			/ link to next field			/a053
+
+PSPRTB,	MUBUF+MNPRTB		/ LOCATION IN MENU FOR PRINTER BAUD RATE
+BITBU,	3000			/ Bold and underline bit mask		/a043
+PSLF,	12			/ ASCII CODE FOR A "LINE FEED"
+FRMFED,	14			/ ASCII CODE FOR A "FORM FEED"
+PSCR,	15			/ ASCII CODE FOR A "CARRIAGE RETURN"
+PSANGL,	74			/ ASCII CODE FOR A "<"			/a042
+PSC17,	17			/ MASK FOR PRINTER BAUD RATE
+PSSP,	40			/ ASCII CODE FOR A "SPACE"
+PSM30,	-30			/ NEGATIVE NUMBER OF ROWS
+PSM64,	-64			/ NEGATIVE OF 52 DECIMAL FOR WIDE SCREEN
+PSM120,	-120			/ NEGATIVE OF 80 DECIMAL FOR NARROW SCREEN
+PSBUF1,	PRLBUF+1		/ ORIGIN MODE OF SCREEN ADDRESSING	/A007
+PSBUF2,	PRLBUF+2		/ TOP ROW NUMBER OF SCROLL AREA		/A007
+X0TEMP,	ZBLOCK	1		/ POINTER INTO THE PRINT SCREEN BUFFER
+X0CTEMP,ZBLOCK	1		/
+ROW,	ZBLOCK	1		/
+PSTEMP,				/ Space for temporary character		/a043
+COLUMN,	ZBLOCK	1		/
+PSMSKF, ZBLOCK	1		/ Space for bold and underline mask	/a043
+PSBLDF,	ZBLOCK	1		/ Space for bold and underline flag	/a043
+
+	X=.			/ Indicate first free location on page	/a041
+
+	PAGE
+
+/ Part of the print loop, which considers the second pass characters for/a043
+/ bold and underline attributes.
+
+PSPAS2,	AND	BIT10		/ Yes, test for bold character		/a043
+	SNA CLA			/ Was it bold?				/a043
+	JMP	LOOP4F		/ No, skip bold code			/a043
+	TAD I	XPSTEMP		/ Yes, get the character back	/m053	/a043
+	JMS	PRXLT		/ and reprint it			/a043
+LOOP4F,	TAD	PSTEMP		/ Test for underline character		/a043
+	AND	BIT11		/ ++++					/a043
+	SNA CLA			/ Was it underlined?			/a043
+	JMP I	XXLOOP4		/ No, consider next character	/m053	/a043
+	TAD I	XPSTEMP		/ Test for both underline and bold/m053	/a043
+	AND	BIT10		/ ++++					/a043
+	SNA CLA			/ Was it both?				/a043
+	JMP	LOOP4E		/ No, just do underline			/a043
+	TAD	BKSPC		/ Yes, as has moved carage forward one	/a043
+	JMS	PSPRT		/ character, move back again		/a043
+LOOP4E,	TAD	PSUNDL		/ Get the underline character		/a043
+	JMS	PSPRT		/ and print it				/a043
+	JMP I	XXLOOP4		/ Consider next character	/m053	/a043
+
+LOOP4B,	TAD I	XPSCR						/m053
+	JMS	PSPRT		/ "CARRIAGE RETURN"
+
+	TAD I	XPSBLDF		/ Where there any bold characters/m053	/a043
+	SZA			/ or underlines in the line?		/a043
+	JMP I	XBOLDLP		/ Yes, reconsider line		/m053	/a043
+	CLA			/ No, consider next line		/a043
+	
+LOOP3,	TAD I	XPSLF							/m053
+	JMS	PSPRT		/ "LINE FEED"
+
+	ISZ I	XXROW		/ INCREMENT THE ROW NUMBER/m053
+	NOP			/ NEEDED FOR SCROLLING REGIONS
+	ISZ I	XLROW		/ INCREMENT THE ROW COUN	/m053
+	JMP I	XLOOP2		/ LOOP UNTIL 24 ROWS PRINTED/m053
+
+	TAD I	XFRMFED		/ "FORM FEED"				/m053
+	JMS	PSPRT		/
+	JMP I	XPSEXIT		/ Exit					/m053
+
+XPSEXIT,PSEXIT								/a053
+XPSTEMP,PSTEMP								/a053
+XXLOOP4,LOOP4								/a053
+XPSCR,	PSCR								/a053
+XPSBLDF,PSBLDF								/a053
+XBOLDLP,BOLDLP								/a053
+XPSLF,	PSLF								/a053
+XXROW,	XROW								/a053
+XLROW,	ROW								/a053
+XLOOP2,	LOOP2								/a053
+XFRMFED,FRMFED								/a053
+
+
+
+/ SUBROUTINE TO TRANSFER THE 7-BIT ASCII AT ENTRY TO THE PRINTER
+
+PRXLT,	XX			/					/a041
+	DCA	PSCHR		/ Save the printing character		/a041
+	TAD	PSCHR		/ Recall the printing character		/a041
+	SNA			/ Do not test nulls			/a041
+	JMP I	PRXLT		/ ++++					/a041
+	SMA			/ Is it a tech char? Yes, skip.		/a041
+	JMP	ORDCHR		/ No, deal with 7-bit and N.L. chars	/a041
+
+PSTCHR,	CLA			/					/a041
+	TAD	PSESC		/ Send out ESC O.  This is SS G3 code	/a041
+	JMS	PSPRT		/					/a041
+	TAD	PSO		/					/a041
+	JMS	PSPRT		/					/a041
+	JMP	PS7BIT		/ Print the technical character		/a041
+
+PSLCHR,	TAD	PS0		/ Output SO to get linedrawing set	/a041
+	JMS	PSPRT		/ +++++					/a041
+	TAD	PSCHR		/ Get the character			/a041
+	AND	P377		/ Clear the attributes			/a041
+	TAD	(137)		/ Convert screen code to char code	/a041
+	JMS	PSPRT		/ Print it				/a041
+	TAD	PS1		/ Reset to USASCII			/a041
+	JMP	PS8BIT		/ And exit				/a041
+
+ORDCHR,	AND	P177		/ Get rid of confusing control bits	/a041
+				/ Incidentally, this means it will	/a041
+				/ print dutch characters as well!	/a041
+	TAD	PCM40		/ Is the character in line drawing set	/a041
+	SPA CLA			/ No, skip on				/a041
+	JMP	PSLCHR		/ Yes, deal with it			/a041
+/d054	TAD	PSCHR		/ Get the character back		/a041
+/d054	AND	BIT8		/ Test the 8th bit			/a041
+/d054	SNA CLA			/ Is it set? Yes, is a multinational chr/a041
+/d054	JMP	PS7BIT		/ No, is a 7 bit character		/a041
+/d054	JMS	SKIPIF		/ Is this printer capable of 8 bit print/a041
+/d054		MNMSK		/					/a041
+/d054	JMP	FALBKJ		/ No, so print fall back representation	/a041
+/d054	TAD	PSCHR		/ Yes, so get char,			/a041
+/d054	AND	P377		/ strip off bold & underline bits	/a041
+/d054	JMP	PS8BIT		/ and print it.				/a041
+
+PS7BIT,	TAD	PSCHR		/ Get the character,			/a041
+	AND	P377		/ Strip off bold & underline bits	/a041
+PS8BIT,	JMS	PSPRT		/ and print it.				/a041
+	JMP I	PRXLT		/ Finished with character.		/a041
+
+/d054	FALBKJ,	TAD	PSCHR		/ Get the character to convert		/a041
+/d054	JMS	FALLBK		/ Call the fall back character routine	/a041
+/d054	JMP I	PRXLT		/ and exit				/a041
+
+
+/ Fallback capability deleted as WPSYS now deals with printers not	/a054
+/ capable of printing multi-national characters.			/a054
+
+/d054	/****************************************************************************
+/d054	/
+/d054	/	The fall back character routine takes the character in the AC	/a041
+/d054	/	and translates it into a two character representation.  If the	/a041
+/d054	/	print screen flag is non-zero, a back space character is	/a041
+/d054	/	inserted between the two characters as they are printed.  The	/a041
+/d054	/	characters sent are determined by the fall back table in panel	/a041
+/d054	/	memory.								/a041
+/d054	/
+/d054	/****************************************************************************
+/d054	
+/d054	FALLBK,	XX			/ Routine to print fall back characters	/a041
+/d054		DCA	PSCHR		/ Save the character to be converted	/a041
+/d054		TAD	PSCHR		/ Recover it				/a041
+/d054		TAD	PCM240		/ Subtract the value of the first char	/a041
+/d054		SPA			/ in the fall back table.  If not in,	/a041
+/d054		JMP I	FALLBK		/ return without printing as is illegal /a041
+/d054					/ character				/a041
+/d054		CLL RAL			/ Double the remaining value and	/a041
+/d054		TAD	TABASE		/ add the table base addr to get the	/a041
+/d054					/ address of the fall back characters	/a041
+/d054		JMS	PSGTCH		/ Get the fall back characters		/a041
+/d054		CLA			/					/a041
+/d054		TAD	PSCHR		/ Get the first one			/a041
+/d054		JMS	PSPRT		/ Print it.				/a041
+/d054		TAD	BKSPC		/ Print a backspace.			/a041
+/d054		JMS	PSPRT		/ Print a backspace.			/a041
+/d054		TAD	PSCHR+1		/ Get the next fall back character	/a041
+/d054		JMS	PSPRT		/ Print it.				/a041
+/d054		JMP I	FALLBK		/ Finished printing fallback character	/a041
+/d054	
+
+/d054	PSGTCH,	XX			/ Routine to aquire character from pnel/a041
+/d054					/ memory at address in AC		/a041
+/d054		DCA	ADDR		/ save the AC to the panel req. inst.	/a041
+/d054		PR3			/ Make the panel request		/a041
+/d054		5015			/ Get mem {user field}from{panel field}	/a041
+/d054	ADDR,	XX			/ panel memory address here		/a041
+/d054		PSCHR			/ to user memory address here		/a041
+/d054		-2			/ No. of characters to transfer		/a041
+/d054		-1			/ Panel request terminator		/a041
+/d054		JMP I	PSGTCH		/ return.				/a041
+
+PSCHR,	ZBLOCK 2		/ Temporary character area.		/a041
+PSPRCT,	ZBLOCK	1		/ Print loop count			/a054
+BIT10,				/ Bold CRT characteristic bit		/a043
+/d054	TABASE,	FLBKTB			/ Address of fall back char table	/a041
+PCM40,	-40			/ Negative ASCII value of space		/a041
+PCM240,	-240			/ Negative ASCII value of first MC char	/a041
+BKSPC,	10			/ ASCII value for back space character	/a041
+PSESC,	33			/ ASCII value of ESC character		/a041
+PS0,	16			/ ASCII value of SO			/a041
+PS1,	17			/ ASCII value of SI			/a041
+PSO,	117			/ ASCII value of O character		/a041
+PSUNDL,	137			/ ASCII value of _ character		/a041
+BIT8,	200			/ Value to test for 8th bit set		/a041
+BIT11,	2000			/ Underline characteristic bit		/a043
+PS3777,	3777
+PSEXT1,	PSEXIT
+LPTVAL,	LPTOU			/ Value of LPTOU command jump		/a054
+
+/****************************************************************************
+/
+/	Print routine outputs the character if it can, otherwise it	/a041
+/	executes a JWAIT.  On successful print, it returns with AC=0	/a041
+/
+/****************************************************************************
+
+PSPRT,	XX			/					/m041
+	MQL			/ Save the character			/a054
+	TAD	(-200)		/ Load max no of tries to print char	/a054
+	DCA	PSPRCT		/ Save in the Print Screen PRinter CounT/a054
+	ACL			/ Get it back				/a054
+PRINT1,	CIFSYS
+	LPTOU			/ OUTPUT CONTENTS OF AC TO LPT
+	SKP			/ WOOPS! PRINTER BUFFER FULL
+	JMP I	PSPRT		/
+	MQL			/ SAVE THE CHARACTER			/C015
+	CDFMNU			/ The print screen flag is in 2CMF	/a041
+	ISZ	PSPRCT		/ Incrament the try count		/a054
+	SKP			/ If not zero, check for user abortion	/m053/a054
+	ISZ I	XPRNTSC		/ If zero, abort print screen		/m053/a054
+	TAD I	XPRNTSC		/
+	CDFMYF			/					/a041
+	AND	PS3777		/
+	SZA CLA			/
+	JMP I 	PSEXT1		/ EXIT THE PRINTSCREEN JOB
+	ACL			/ GET BACK THE CHARACTER		/C015
+	CIFSYS								/A015
+	JWAIT			/ DON'T HOG CPU WHILE WAITING		/A015
+	JMP	PRINT1		/ TRY TO PRINT IT AGAIN
+
+XPRNTSC,PRNTSC								/a053
+
+/D015	T2TEMP,	ZBLOCK	1		/ TEMP HOLDS THE 7-BIT CHAR TO THE LPT
+/D015	T1TEMP,	ZBLOCK	1		/
+
+N0CRNL,	ESC; "[&177; "?&177; "4&177; "0&177; "l&177
+					/ Escape sequence to disable	/a054
+					/ Carriage return new line mode	/a054
+					/ of an LNO3			/a054
+N1CRNL,	ESC; "[&177; "?&177; "1&177; "n&177; 0
+					/ Disable unsolicited reports	/a054
+
+	X=.			/ INDICATE FIRST FREE LOCATION ON PAGE
+/--------------------
+	PAGE
+	XLIST
+
+	RELOC
+	*2000
+	RELOC	PRTHOL+400
+
+/***********************************************************************
+/ Additional printer hole for 8 bit fallback chars to LQP02
+/ This code is resident in the SYS field after startup
+/ Any calls to the printer must be cross field calls
+/***********************************************************************/a049
+/ the following 2 routines are BLASTRed in to the normally resident bit	/a051
+
+
+P8BL01,	XX			/ RETURN ADDRESS FROM BLAST		/A049
+	DCA I	XP8ACSV		/ SAVE the acc				/a049
+	TAD	XLQP03		/ get the LQP03 ident			/a049
+	CDFPRT			/ change to the print field		/a049
+	AND I  	XLPONLN		/ get the online prtinter id		/a049
+	CDFSYS			/ back to my field			/a049
+	TAD	XLQP02		/ compare with what the LQP02 id shouldB/a049
+	SZA CLA			/ skip if it realy is an LQP02		/a049
+	JMP 	P8EX01		/ no just return			/a049
+
+/ Here we are sure we have an eight bit char for an lqp02		/a049
+/ Look it up in the fallback table and send the relevant chars		/a049
+
+P8BL11,									/a056
+	TAD I	XP8ACSV		/ get the char				/a049
+	AND 	P177		/ use only the lower 7 bits		/a049
+	TAD	XM40		/ offset into table of first char is -33/a049
+	TAD	XPRTBAD		/ get the address of FB table in PANEL  /a049
+	DCA	P8FB01		/ pu in PRQ3 param list			/a049
+	JMS	P8PANR		/ GO DO PANEL REQUEST			/A049
+				/ gets more than we need but doesnt matter/a049
+	TAD I	XP8FBUA		/ get the passed word			/a049
+	SNA			/ if zero then not recognised		/a049
+	JMP	P8EX01		/ just end anyway dont PANIC		/a049
+	DCA	P8FB01		/ put this address in the parameter list/a049
+	JMS	P8PANR		/ GO DO PANEL REQUEST			/A049
+	TAD	XAP8FBUA	/ get the table address			/a049
+	DCA I	XP8X7		/ save for indirect access		/a049
+
+/ If not in PUM mode then set PUM mode
+
+	CDFPRT			/ look in print field			/A049
+	TAD I	XXPRCHAR	/ get prchars return address		/A049
+	DCA	SSPRCHAR	/ save it				/A049
+	TAD I	XXPLNRCS	/ get the print units per char		/a049
+	DCA	SSPLNRCS	/ save it				/a049
+	TAD I	XXPRPUMM	/ get the PUM flag			/a049
+	DCA	SSPRPUMM	/ SAVE IT			/a049
+	CDFSYS			/ get back to our field			/a049
+	TAD	SSPRCHAR	/ get prchars return address		/A049
+	DCA I	XSPRCHAR	/ save it				/A049
+	TAD	SSPLNRCS	/ get the print units per char		/a049
+	DCA I	XSPLNRCS	/ save it				/a049
+	TAD	SSPRPUMM	/ get the PUM flag			/a049
+	DCA I	XSPRPUMM	/ SAVE IT			/a049
+	TAD	SSPRPUMM	/ get the PUM flag			/a049
+
+	ISZ	P8BL01		/ TAKE A SKIP RETURN		/A049
+	JMP	P8EX11		/ exit					/a056
+
+P8EX01,	TAD I	XP8ACSV		/ get back the char			/a056
+				/ now chech for reqd space(240)LQP03 only/a056
+	TAD	M0240		/ get - (required space code		/a056
+	SNA CLA			/ skip if not				/a056
+	JMP	P8BL11		/ go to join LQP02 code			/a056
+P8EX11,	CIFMNU			/ GO BACK TO MENU FIELD 	/A049
+	JMP I	P8BL01		/ RETURN			/A049
+
+P8PANR,	XX			/ PANEL REQUEST SUB			/A049
+	PRQ3			/ panel request				/a049
+	5005			/ function  50 panel 5 user 0		/a049
+P8FB01,	0			/ panel start address			/a049
+	P8FBUA			/ user table address			/a049
+	-6			/ word(S) to transfer			/a049
+	-1			/ terminator				/a049
+	JMP I P8PANR		/ RETURN				/A049
+
+M0240,	-240			/ required space for LPQP03 code	/a056
+XP8ACSV,P8ACSV			/ link to acc save			/a051
+XLQP02,	-LQP02			/ LQP02 type				/a051
+XLQP03,	LQP03			/ LQP02 type				/a051
+XLPONLN,LPONLN			/ link to on line ID no.		/a051
+XM40,	-40			/ -21					/a051
+XPRTBAD,PRTBAD			/ address of table in panel		/a051
+XP8FBUA,P8FBUA			/ pointer to resident table bit		/a051
+XAP8FBUA,P8FBUA-1		/   "     "     "       "    "  -1	/a051
+XP8X7,	P8X7			/ pointer to buffer pionter		/a051
+XXPRCHAR,PRCHAR			/ link to prchar			/a051
+XXPLNRCS,PLNRCS			/ link to plnrcs			/a051
+XXPRPUMM,PRPUMM			/ LINK TO PUM MODE FLAG			/A049
+
+SSPRCHAR,0			/save prchar address			/a051
+SSPLNRCS,0			/ save  PLNRCS address			/a051
+SSPRPUMM,0			/ save PRPUMM				/a051
+
+XSPRCHAR,SPRCHAR		/ pointer to char save in resident	/a051
+XSPLNRCS,SPLNRCS		/ pointer to PLNRCS save   "   		/a051
+XSPRPUMM,SPRPUMM		/ pointer to PRPUMM save   "		/a051
+	
+	*PRFBHL-70						/c051	/a049
+
+P8BL02,	XX			/ return address			/a051
+
+	ISZ I	XAP8X7		/ increment the pointer			/a049
+	TAD I	XAP8X7		/get the old P8X7			/a051
+	DCA 	NP8X7		/ save it				/a051
+	TAD I	NP8X7		/ get the char				/a049		
+	SNA			/ skip if something to output		/a049
+	JMP 	P8EX12		/ exit					/a049
+	DCA I	XP8CHAR		/ save the char				/a049
+	ISZ I	XAP8X7		/ increment the pointer			/a049
+	ISZ	NP8X7		/ increment the pointer			/a051
+	TAD I   NP8X7		/ get the data 				/a049
+	AND	X4000		/ test for top bit			/a049
+	SZA CLA			/ skip if positive			/a049
+	AC0001			/ add one				/a049
+	TAD	XPCIVPR		/ P for vertical			/a049
+	DCA	P0MQSV		/ put it in page zer0			/a051
+
+	TAD I   NP8X7		/ get the data 				/c051
+	AND	X3700		/ get the top half			/a049
+	BSW			/ swap bytes				/a049
+	SNA			/ skip if not zero			/a049
+	JMP 	NP8FB14		/ no try to do the horizontal bit	/a049
+	R3L			/ mult by 2 (should be 6 but not enough /a049
+				/ room so the table is x3)		/a049
+/d051	MQL			/ put it in the MQ register		/a049
+	SKP
+NP8FB14,DCA	P0MQSV		/ put zero in page zero	P0MQSV		/a051
+NP8FB04,ISZ	P8BL02		/ skip return				/a051
+
+P8EX12,	CIFMNU			/ go back to the menu field		/a049
+	JMP I	P8BL02		/ return				/a051 	
+
+XP8CHAR,P8CHAR			/ link to P8CHAR			/a051
+XAP8X7,	P8X7			/ link to P8X7				/a051
+NP8X7,	0			/ pointer to buffer			/a051
+X3700,	3700			/ 					/a051
+X4000,	4000			/					/a051
+XPCIVPR,PCIVPR			/					/a051
+
+
+
+
+
+/--------------------------
+	PAGE
+
+/**************************************************************************
+/ Additional printer hole for 8 bit fallback chars to LQP02
+/ This code is resident in the SYS field after startup
+/ Any calls to the printer must be cross field calls
+/***********************************************************************/a049
+
+
+PRT8FB,	XX		/ Return address				/a049
+	JMP	PRT80A		/ jump round BHOOK 		 	/a051
+				/ call it from elsewhere in sys		/a051
+
+/********************************************************************
+/ BHOOK      Hook to panel page blaster slightly modified for this field
+/******************************************************************** 	/a051
+
+SBHOOK,	0			/ hook return address			/a051
+	DCA	SBLACSV		/ save accumulator			/a051
+/d051	RDF			/ read the data field 			/a051
+/d051	TAD	CDF0		/ make a cdf instruction		/a051
+/d051	DCA	SBHKEXI		/ save for return			/a051
+/d051	CDFSYS			/ set to hooks field		/m051	/a051
+	TAD I	SBHOOK		/ get the table entry			/a051
+	MQL			/ push into MQ				/a051
+ 	TAD	SBLACSV		/ get the ac				/a051
+	ISZ	SBHOOK		/ increment the return address		/a051
+	CIFMNU			/ blaster is in the menu field		/a051
+	IOF			/ turn the interrupts off before.. 	/a051
+	JMS I	SBLASTH		/ Calling blaster			/a051
+	ISZ	SBHOOK		/ skip return exit			/a051
+SBHKEXI,CDFSYS			/ CDF instruction		/m051	/a051
+	JMP I	SBHOOK		/ return				/a051
+SBLASTH,BLASTR			/ blastr address (get from WPF1)	/a051
+SBLACSV,0			/ ac save				/a051
+
+/********************************************************************** /A051
+
+PRT80A,									/a051
+	JMS	SBHOOK		/ call the BLASTR			/A051
+	P8ENT1			/ entry number				/a041
+
+	JMP	P8EXT1		/ not valid just exit	/normal return	/a051
+	SZA CLA			/ skip if not in PUM	/ skip return	/a049
+	JMP 	P8FBL1		/ continue				/a049
+
+	TAD	XB177		/ set PUM command char			/a049
+	JMS	P8CFPR		/ to PRESCS				/a049
+
+	CDFPRT								/a055
+	TAD I	XPLPS		/ get the extra character space		/a055
+	CDFSYS								/a055
+	CLL RAL			/ MULTIPLY BY TWO AND ADD		/a055
+	TAD	SPLNRCS		/ HALF the char horizontal move		/a049
+	CLL RAL			/ rotate right mult by two		/a049
+	TAD	SPLNRCS		/ add it again				/a049
+	MQL			/ put it in the MQ			/a049	
+	TAD	XPCIHPR		/ get horizontal move directive		/a049
+	JMS	P8CFPR		/ call PRESCS				/a049
+
+/ loop to output each fallback char ends when char is zero		/a049
+P8FBL1,	/DCA	CCOUNT		/ CLEAR THE COUNT			/A055
+
+	TAD	SPRPUMM		/ get the PUMM flag			/a055
+	SZA CLA			/ skip if not in PUM 			/a055
+	JMP	P8FBLP		/ just output the positioning moves	/a055
+	CDFPRT			/ 					/a055
+	TAD I	XUNDERL		/ get the underline flag		/a055
+	CDFSYS
+	SNA CLA			/ skip if underline			/a055
+	JMP	P8FBLP		/ continue				/a055
+	TAD	XUNDOFF		/ get the underline off mode		/a055
+				/ beware this also clears all modes	/a055
+	JMS	P8CFPR		/ send the escape sequence		/a055
+	CDFPRT			/ get the printer field			/a055
+	DCA I 	XUNDERL		/ clear the underlining flag to force	/a055
+				/ a reset				/a055
+	CDFSYS			/ back here				/a055
+	CLA								/a055
+	TAD	XU137		/ GET AN UNDERLINE 			/A055
+	CDIFIO								/a055
+	JMP I	XPRCH7		/ SEND IT				/A055
+
+XPRCH7,	PRCH07			/ PRCH00 called from an addres in F7	/a055	
+
+XPLPS,	PLPS			/ link					/a055
+XUNDOFF,PCRSET		/ RESET MODE FLAGS			/A055
+XU137,	137
+XUNDERL,UNDERL			/ underlining flag pointer		/a055
+
+P8FBLP,	
+	JMS	SBHOOK		/ call the BLASTR			/A051
+	P8ENT2			/ entry number				/a041
+
+	JMP	P8EXT3		/ normal return then EXIT		/a051
+
+	MQL			/ load the MQ with what returns		/a051
+	TAD	P0MQSV		/ load ac with motion required flag	/a051
+	SZA			/ skip if not doing this output		/a049
+
+	JMS	P8CFPR		/ cross field call to PRESCS		/a049
+
+P8FB04,	TAD I	P8X7		/ get the data				/a049		
+	AND	X0037		/ get the bottom half			/a049
+	SNA			/ skip if something to do		/a049
+	JMP 	P85A		/ no carry on				/a049
+	CLL RAL			/ mult by 2 (should be 6 but not enough /a049
+				/ room so the table is x3)		/a049
+	MQL			/ put it in the MQ register		/a049
+	TAD I   P8X7		/ get the data again			/a049
+	AND	X0040		/ test for top bit			/a049
+	SZA CLA			/ skip if positive			/a049
+	AC0001			/ add one				/a049
+	TAD	XPCIHPR		/  for HORIZONTAL			/a049
+	JMS	P8CFPR		/ cross field call to PRESCS		/a049
+
+P85A,
+/d055	TAD	(PCMFV							/A049
+/d055	JMS	P8CFPR							/A049
+
+P8FB05,
+	CIFFIO								/a055
+	JMP I	XF7CODE		/ jump to some resident code in field 7	/a055
+				/ to output the cahr and do shadowing	/a055
+				/ and underline if needed	   	/a055
+
+P85D,									/A055
+
+/d055	TAD	(PCMFV							/a049
+/d055	JMS	P8CFPR		/ cross field call to PRESCS		/a049
+
+P8FB08,	JMP	P8FBLP		/ go do next char			/a049
+
+P8EXT3,
+/ If was not in PUM mode then reset PUM mode
+	TAD	SPRPUMM		/ get the PUM flag			/a049
+	SZA CLA			/ skip if not in PUM			/a049
+	JMP 	P8EXT4		/ continue				/a049
+
+	TAD	SPLNRCS		/ set up 6/2 char horizontal move	/a049
+	CLL RAL			/ rotate right mult by two		/a049
+	TAD	SPLNRCS		/ add it again
+	MQL			/ put it in the MQ			/a049	
+	TAD	XPCIHPR		/ get horizontal move directive		/a049
+	JMS	P8CFPR		/ call PRESCS				/a049
+
+	TAD	XC177		/ set PUM command char			/a049
+	JMS	P8CFPR		/ to PRESCS				/a049
+P8EXT4,	CDFPRT			/ go back to the print field		/A049
+	TAD 	SPRCHAR		/ get prchar				/A049
+	DCA I 	XPRCHAR		/ save it				/A049
+	CDFSYS			/ oK					/A049
+	SKP								/A049
+		
+P8EXT1,	TAD 	P8ACSV		/ get the char back			/a049
+P8EXT2,	JMP I	PRT8FB		/ RETURN				/a049
+
+P8CFPR,	XX			/ return address			/a049
+	CIFPRT			/ do cross field call			/a049
+	JMS I	XCFPRES		/ to PRESCS				/a049
+	JMP I 	P8CFPR		/return					/a049
+
+
+XB177,	"B&177
+XC177,	"C&177
+XPCIHPR,PCIHPR
+X0037,	0037
+X0040,	0040
+XCFPRES,CFPRES
+XF7CODE,F7CODE
+XPRCHAR,PRCHAR
+SPRCHAR,0
+XPLNRCS,PLNRCS
+SPLNRCS,0
+SPRPUMM,0
+P8X7,	0
+P8ACSV,									/a049
+P8CHAR,	0			/ save the char to be output		/a049
+P8FBUA,	ZBLOCK 7		/ user table area			/a049
+
+/--------------------------
+	PAGE
+
+	RELOC								/a055
+	*1210								/a055
+	RELOC	PRTHOL+600						/a055
+	
+/***************************************************************************
+/ F7CODE		/ an overflow page from the above routines
+/			it has to be resident to call PRESCS
+/			so it it housed in the only bit of memory left in
+/			the whole world here in field 7
+/***************************************************************************
+
+F7CODE,			/ jump to here from fallback routines 
+	TAD I 	X7P8CHAR	/ get the char			/m055	/a049
+	AND	P177
+				/ to output the char in AC		/a055
+	DCA	CHSV7		/ save the character			/a055
+	TAD I	X7SPRPUMM	/ get the PUMM flag			/a055
+	SZA CLA			/ skip if not in PUM 			/a055
+	JMP	PRCHE1		/ print char and exit			/a055
+
+/	JMS	F7UNDL		/ TEST For underlining ?			/a055
+/	JMP	F7CON1		/ yes continue				/a055
+	JMS 	F7SHAD		/ test for shadowing ?			/a055
+	JMP 	F7CONT		/ yes continue				/a055
+
+PRCHE1,				/ exit one print char and return	/a055
+	TAD	CHSV7		/get the characyter			/a055
+	JMS	PRCH00		/ output the char			/a055
+F7EXIT,
+	CDFSYS								/a055
+	TAD I	X7AP8X7		/ get the pointer to the data		/a055
+	DCA	X7P8X7		/ store in this page			/a055
+
+	TAD I   X7P8X7		/ get the data 				/a049
+	AND	XA3700		/ get the top half			/a049
+	SNA			/ skip if offsets required		/a049
+	JMP	P7FB06		/ TRY NEXT				/a049
+	BSW			/ swap bytes				/a049
+	R3L			/ mult by 2 (should be 6 but not enough /a049
+				/ room so the table is x3)		/a049
+	MQL			/ put it in the MQ register		/a049
+	TAD I   X7P8X7		/ get the data again			/a049
+	AND	XA4000		/ test for top bit			/a049
+	SNA CLA			/ skip if positive			/a049
+	AC0001			/ add one				/a049
+	TAD	XXPCIVPR		/ P for vertical			/a049
+	JMS	F7CFPR		/ cross field call to PRESCS		/a049
+
+P7FB06,
+	CDFSYS
+	TAD I	X7P8X7		/ get the data				/a049		
+	AND	XA0037		/ get the bottom half			/a049
+	SNA			/ skip if something to do		/a049
+	JMP 	P7FB07		/ no carry on				/a049
+	CLL RAL			/ mult by 2 (should be 6 but not enough /a049
+				/ room so the table is x3)		/a049
+	MQL			/ put it in the MQ register		/a049
+	TAD I   X7P8X7		/ get the data again			/a049
+	AND	XA0040		/ TEST FOR TOP BIT	 LOWER BYTE	/a049
+	SNA CLA			/ skip if positive			/a049
+	AC0001			/ add one				/a049	
+	TAD	XXPCIHPR	/ R for horizontal			/a049
+	JMS	F7CFPR		/ cross field call to PRESCS		/a049
+
+P7FB07,									/a049
+
+
+	CDISYS								/a055
+	JMP I 	XP85D		/ return to the sys field		/a055
+
+F7CON1,									/a055
+
+F7CONT,									/A055	
+	TAD	CHSV7		/get the characyter			/a055
+	JMS	PRCH00		/ output the char			/a055
+
+	JMS 	F7SHAD		/ test for shadowing ?			/a055
+	SKP			/ YES CONTINUE				/A055
+	JMP	F7CON2		/ NO JUMP				/a055
+	TAD	XX6		/ GET THE ONE 120TH MOVE SIZE		/A055
+	MQL			/ PUT IT IN THE MQ			/A055
+	TAD	XXPCIHPR		/ GET THE COMMAND OFFSET		/A055
+	JMS	F7CFPR		/ OUTPUT THE COMMAND STRING		/A055
+	TAD	CHSV7		/ GET THE CHARACTER BACK		/A055
+	JMS	PRCH00		/ OUTPUT IT				/A055
+	TAD 	XX6		/ GET A ONE 120TH MOVE			/A055		
+	MQL			/ PUT IT IN THE MQ			/A055
+	TAD	XPCDHPR		/ GET THE COMMAND OFFSET		/A055
+	JMS	F7CFPR		/ OUTPUT THE COMMAND STRING		/A055
+	
+F7CON2,									/A055
+	JMP	F7EXIT		/ END					/a055
+
+F7CFPR,	XX			/ return address			/a049
+	CDFFIO			/ make sure we can return here		/a055
+	CIFPRT			/ do cross field call			/a049
+	JMS I	XXCFPRES	/ to PRESCS				/a049
+	JMP I 	F7CFPR		/ return				/a049
+
+F7SHAD,	XX			/ tets for shadow			/a055
+	CDFPRT
+	TAD I	XNEWHIT		/ test to see if bolded			/a055
+	TAD I	XPRQOVP		/ only bit 11 of interest		/a055
+	AND I	XXPRQSP		/ and with the menu bit			/a055
+	RAR			/ put in the link			/a055
+	SNL	CLA		/ skip if shadowing this		/a055
+	ISZ	F7SHAD		/ skip return				/a055
+	CDFFIO								/a055
+	JMP I	F7SHAD		/ return				/a055
+
+X7AP8X7,P8X7
+X7P8X7,	0
+XA3700,	3700
+XA4000,	4000
+XA0037,	0037
+XA0040,	0040
+X7P8CHAR,P8CHAR
+XXCFPRES,CFPRES
+XNEWHIT,NEWHIT
+XPRQOVP,PRQOVP
+XXPRQSP,PRQSP
+
+
+PRCH07,	JMS	PRCH00		/output the char in AC			/a055
+	CDISYS			/ go back to the sys field		/a055
+	JMP I	XP8FBLP		/					/a055
+
+XP8FBLP,P8FBLP			/ link to above				/a055
+
+PRCH00,	XX			/ subroutine to output a char		/a055
+	CDIPRT 			/ XFPRCH is in the print field		/a049
+	JMP I	XCFPRCH		/ put it in the output buffer		/a049
+P85C,	CLA								/a055
+	JMP I	PRCH00		/ rerturn from PRCHAR call		/a055
+
+CHSV7,	0			/ LOCATION TO SAVE THE CHAR		/A055
+
+/XCCOUNT, CCOUNT			/ LINK TO CHAR COUNT			/A055
+X7SPRPUMM,SPRPUMM		/ link to PUMM flag			/a055
+XP85D,	P85D			/ address to return to in SYS field	/a055
+XCFPRCH,XFPRCH			/ addrees to call to cross field PRCHAR	/a055
+XPCDHPR,PCDHPR
+XXPCIVPR,PCIVPR
+XXPCIHPR,PCIHPR
+XX6,	6
+	NOPUNCH
+
+
+
+

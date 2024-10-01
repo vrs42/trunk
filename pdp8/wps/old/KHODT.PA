@@ -1,0 +1,3324 @@
+/ KHODT - INTERMEDIATE CPODT - 27 AUG 84
+/ DEBUGGER FOR CONDOR APPLICATIONS
+
+	SHADE3=	0
+	SHADE2=	0
+	SHADES=	0	/ 1 is debug mode true 0 is debug mode false
+
+/			...........................
+/			: ....................... :
+/			: :			: :
+/			: :			: :
+/			: :	   CPODT	: :
+/			: :			: :
+/			: :.....................: :
+/			:.........................:
+
+/	+---------------------------------------------------------------+
+/	|								|
+/	|     DISCLAIMER AND EDIT HISTORY				|
+/	|								|
+/	+---------------------------------------------------------------+
+
+/		This program is produced and maintained by the WPS development
+/ group (CC 3W1) for its own internal use.
+
+/ 036 KAH 27-AUG-84	ADDED MISSING 'CDF ODTFLD' IN SLUSHWARE PATCH
+/ 035 AIB 10-APR-84	moved exec field to 6.  int key to f7
+/ 034 GDC  8-DEC-83	corrected init'n for portability with 2 field firmware
+/ 033 AIB 17-NOV-82	made alfa commands & digits case-insensitive
+/ 032 AIB 14-OCT-82	shortened linkage vector per revised spec
+/ 031 AIB 13-SEP-82	first working portable version
+/ 030 AIB  8-SEP-82	portable version -- adapted to firmware linkage vector
+/ 020 AIB 25-JUL-82	creation of version 2.0
+/ 016 AIB 20-JUL-82	correct implementation of interrupt key
+/ 015 AIB 14-JUL-82	addition of symbol table & definition
+/ 014 AIB 12-JUL-82	commands altered to mnemonic versions
+/ 013 AIB 28-JUN-82	addition of PAL8 mnemonic interpretation
+/ 012 AIB 22-JUN-82	addition of character interpretation on output
+/ 011 AIB 17-JUN-82	addition of text error messages
+/ 010 AIB 17-JUN-82	creation of version 1.0
+
+/	+---------------------------------------------------------------+
+/	|								|
+/	|     DEFINITIONS AND PARAMETERS				|
+/	|								|
+/	+---------------------------------------------------------------+
+
+/ links to firmware
+OS8ENT=	7605	/ restart OS8 ep
+ODTPTR=	0004	/ pointer to linkage vector
+
+/ assembly & location parameters
+HDRFLD=	00	/ main mem field for ODT loader
+MOVFLD=	10	/ main mem field for ODT
+PRQFLD=	00	/ instruction field of panel firmware
+ODTFLD= 60	/ panel mem field for ODT execution
+
+/ assembler extensions
+R3L=	7014	/ rotate acc 3 bits left without link
+PGO=	6003	/ (panel) clear HLT flag
+CPD=	6266	/ (panel) clear panel data (switch indirects to main mem)
+SPD=	6276	/ (panel) set panel data (switch indirects to panel mem)
+XX=	SKP HLT	/ used to mark subroutine heads
+RDSPT=	6207	/ acc = indicated stack pointer
+WRSPT=	6217	/ indicated stack pointer = acc
+PTR1=	6207	/ arg for RDSPT and WRSPT
+PTR2=	6227	/ arg for RDSPT and WRSPT
+SKCFL=	6001	/ if device done flag, then clear device flag and skip
+ORCLF=	6003	/ acc = acc | data and clear flag (used with APU)
+RDSEQ=	6006	/ acc = data, clear device done flag
+WRSEQ=	6006	/ data = acc, clear device done flag, start device
+TTY=	6040	/ console output, seen from application
+MATTX=	6050	/ keyboard transmit, seen from firmware
+FRAME=	6060	/ display frame end flag
+USRIO=	6070	/ flag set by 603N or 604N executed in main mem
+MATIN=	6110	/ keyboard receive, seen from firmware
+APU=	6140	/ Z80 aux processor unit
+PANEL=	6236	/ (main) panel request
+MOVPM=	4000	/ (after PANEL) move block from main mem to panel mem
+JMSPM=	6000	/ (after PANEL) branch to panel mem location
+
+/ some useful mnemonics
+ASCII=	177	/ 7-bit mask to remove parity attached by PAL8
+CARRTN=	15	/ ASCII
+LNFEED=	12	/ ASCII
+ESCAPE=	33	/ ASCII
+LOCKBD=	211	/ MAT COM
+UNLOCK=	213	/ MAT COM
+INTKEY=	145	/ MAT KEY -- F7
+
+/	+---------------------------------------------------------------+
+/	|								|
+/	|     CPODT LOADER     This segment is loaded into main memory	|
+/	| in field MOVFLD and serves to copy the other segment into	|
+/	| panel memory in field  ODTFLD.  It then starts CPODT at the	|
+/	| proper location, panel:ODTFLD:DEBUG.				|
+/	|								|
+/	+---------------------------------------------------------------+
+
+	FIELD	HDRFLD%10
+
+	*	200
+
+	NOP
+	CLA
+	JMS	TXEL
+	JMS	TXTMSG
+		TEXT "KHODT VERSION 4.11, 27-AUG-84"
+	JMS	TXEL
+	JMS	TXTMSG
+		TEXT "INTERRUPT KEY IS F7, PANEL FIELD IS 6"
+	JMS	TXEL
+	JMS	TXTMSG
+		TEXT "RUNS WITH FIRMWARE VERSION >= 214"
+	JMS	TXEL
+	ISZ	(0
+	JMP	.-1
+	NOP
+	PANEL
+	MOVFLD%10+ODTFLD+MOVPM
+		0
+		0
+		0
+		7777
+	ISZ	(0
+	JMP	.-1
+	NOP
+	PANEL
+	ODTFLD+JMSPM
+		DEBUG
+		7777
+	JMP	OS8ENT
+
+TXEL,	XX
+	TAD	(15
+	JMS	TXCH
+	TAD	(12
+	JMS	TXCH
+	JMP I	TXEL
+
+TXTMSG,	XX
+	TAD I	TXTMSG
+	ISZ	TXTMSG
+	MQL
+	MQA
+	BSW
+	JMS	TXMS
+	MQA
+	JMS	TXMS
+	JMP	TXTMSG+1
+TXMS,	XX
+	AND	(77
+	SNA
+	JMP I	TXTMSG
+	TAD	(40
+	AND	(77
+	TAD	(40
+	JMS	TXCH
+	JMP I	TXMS
+
+TXCH,	XX
+	WRSEQ	 TTY
+	SKCFL	 TTY
+	JMP	.-1
+	CLA
+	JMP I	TXCH
+
+/	------------------------
+	PAGE
+
+/	+---------------------------------------------------------------+
+/	|								|
+/	|     DEBUG PROGRAM     This segment executes in panel memory	|
+/	| in its own field (ODTFLD).					|
+/	|								|
+/	+---------------------------------------------------------------+
+
+	FIELD	MOVFLD%10
+
+	*	2
+
+/ patched-out instructions from panel firmware saved here
+PANPSH,	0; 0; 0
+
+/ symbol typed by user, in SIXBIT
+SYMSTR,	0; 0; 0
+
+	*	20
+
+/ linkage vector to firmware locations
+/ the next 22 symbols must be kept in order
+STATUS,	0	/ saved 6120 flags reg
+ACSAV,	0	/ saved 6120 accumulator
+MQSAV,	0	/ saved 6120 mult/quot reg
+PSTAT,	0	/ panel status word at panel interrupt
+PCSAVE,	0	/ saved 6120 program counter
+ATTRIB,	0	/ CRT attributes
+GL,	0	/ CRT char set 0
+GR,	0	/ CRT char set 1
+LOCKED,	0	/ kbd locked flag
+HOLD,	0	/ screen locked flag
+MOD20,	0	/ fw seg re-boot
+EXIT,	0	/ fw seg return to main mem prog
+KBYBRD,	0	/ fw rtn kbd rcv int svc
+KBXMT,	0	/ fw rtn kbd xmt int svc
+EOF,	0	/ fw rtn end of frame int svc
+SLUIN,	0	/ fw rtn process ASCII char from user
+KBXQPT,	0	/ fw rtn queue byte to kbd xmt
+MOD40,	0	/ fw seg emulate HLT
+PUSHSL,	0	/ fw rtn queue char to user
+EXIT3,	0	/ fw seg trap exit here
+CPOUS0,	0	/ 7 wd work area in field 0
+CPOUS1,	0	/ 7 wd work area in field 1
+
+/ parameters which determine current processor
+/ the following 11 symbols must be kept together in order
+PLIST,
+/ these 6 are set only when the processor is selected
+ADRRDX,	ADRRDH	/ output format list for address size
+DATRDX,	DATRDH	/ output format list for data size
+ADRMSK,	0007	/ mask for hi word of address size
+DATMSK,	7777	/ mask for data size
+PROCSW,	0	/ 0 = 6120 selected; 2 = Z80 selected
+PROCTB,	H6120R	/ pointer to saved machine state register list
+/ these 4 are variables, initialized when the processor is selected
+MCHPTR,	H6120R+1 / points to value field of currently opened machine register
+INPRFL,	0	/ input radix flag: 0 = rdx 8; 1 = rdx 10; 2 = rdx 16
+ADRRFL,	0	/ address sized output radix flag: see INPRFL for definition
+DATRFL,	0	/ data sized output radix flag: see INPRFL for definition
+
+/ the next 6 locations must be kept in order
+/ symbol typed by user, in 3/2 packed ASCII
+SYMBOL,	0; 0; 0; 0
+/ double precision variables
+ARG,		/ if an argument was entered for the current command,
+ARGHI,	0	/  it will be stored here and ARGCNT will be 1; if no
+ARGLO,	0	/  argument was entered, ARG and ARGCNT will both be 0
+CURR,		/ if a memory location is open for modification, its
+CURRHI,	0	/  address will be stored here and OPNFLG will be 2
+CURRLO,	0
+LOOK,		/ dbl-pr temp, used in "search" command
+LOOKHI,	0
+LOOKLO,	0
+PSMA,		/ dbl-pr temp, used in subrs
+PSMAHI,	0
+PSMALO,	0
+PSDB,		/ dbl-pr temp, used in subrs
+PSDBHI,	0
+PSDBLO,	0
+DPTR,		/ used by DYPAL etc
+DPTRHI,	0
+DPTRLO,	0
+
+/ single precision variables
+BRKFLG,	0	/ 0 = no break set; 1 = break point set
+OPNFLG,	0	/ 0 = nothing open; 1 = machine reg; 2 = program reg; 3 = mem
+PRGPTR,	DBGCTL+1 / points to value field of currently open program register
+ARGCNT,	0	/ 0 = no arg entered for this command; 1 = arg entered
+TRACE,	0001	/ 0 = no report; 1 = report instr before single-stepping
+SYMFLG,	0001	/ 0 = suppress CHAR & PAL8 reports; 1 = print reports
+CNTCNT,	0	/ continue count for "single-step" and "continue" commands
+TEMP,	0	/ whore
+LATCH,	0	/ holds input from keyboard routine
+CHAR,	0	/ holds input character in 7-bit ASCII, etc.
+RDXLIM,	0	/ neg of radix, used to check input digits
+SBTMP,	0	/ used by subroutines
+SYMEND=	7776	/ end of symbol table
+SYMBGN,	SYMEND	/ current beginning of symbol table
+SYMLOC,	0	/ symbol table entry symbol pointer
+VALLOC,	0	/ symbol table entry value pointer
+SYMCRS,	0	/ temp used by symbol table routines
+SYMCCT,	0	/ temp used by symbol table routines
+
+/ subroutines used by main stem
+/ subr -- add dbl-pr LOOK into dbl-pr ARG
+DPVAL,				/ var shares subr head
+DBLADD,	XX
+	CLL
+	TAD	ARGLO
+	TAD	LOOKLO
+	DCA	ARGLO
+	RAL
+	TAD	ARGHI
+	TAD	LOOKHI
+	DCA	ARGHI
+	JMP I	DBLADD
+/ subr -- shift dbl-pr ARG left one bit
+SYTMP,				/ var shares subr head
+DBLSHL,	XX
+	TAD	ARGLO
+	CLL RAL
+	DCA	ARGLO
+	TAD	ARGHI
+	RAL
+	DCA	ARGHI
+	JMP I	DBLSHL
+
+/	------------------------
+	PAGE
+
+/ main stem -- get optional arg & command char
+/ here for new line & new command
+START,	DCA	OPNFLG		/ signify nothing open
+	JMS I	[CRLF
+/ here for new command on same line
+DISCR,	TAD	PUSHSL		/ switch KBD input to CPODT
+	DCA	10
+	IFZERO	SHADES	<
+FRM019,	CDF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM019,	CDF	0
+	>
+	TAD	ODTPSH
+	DCA I	10
+	TAD	ODTPSH+1
+	DCA I	10
+	TAD	ODTPSH+2
+	DCA I	10
+	CDF	ODTFLD
+	DCA	ARGHI		/ prime arg
+	DCA	ARGLO
+	DCA	ARGCNT		/ signify no arg yet
+NWRDX,	TAD	INPRFL		/ prepare to use input radix as specified
+	CLL RAL			/  by the input radix flag
+	TAD	(RLIST		/ (access parameter list)
+	DCA	TEMP
+	TAD I	TEMP		/ (set digit value limit)
+	DCA	RDXLIM
+	ISZ	TEMP
+	TAD I	TEMP		/ (set switch in main stem)
+	DCA	RDXSW
+NXDGT,	JMS I	[GETNXT		/ get next input char into CHAR
+	TAD	CHAR		/ do range checks on CHAR
+	TAD	(-"F!7600
+	SMA SZA
+	JMP	TXLST		/ :"F<CHAR
+	TAD	("F-"A
+	SMA
+	JMP	GTHALF		/ :"A<=CHAR<="F
+	TAD	("A-"9
+	SMA SZA
+	JMP	TXLST		/ :"9<CHAR<"A
+	TAD	("9-"0
+	SMA
+	JMP	GTHNUM		/ :"0<=CHAR<="9
+TXLST,	CLA			/ :CHAR<"0
+	TAD	(CMNDTB-1	/ look up CHAR in command table
+	DCA	TEMP
+TXLLP,	ISZ	TEMP		/ point to next command name
+	TAD I	TEMP		/ get name (stored as neg)
+	SNA			/ end of list?
+	JMS I	[ERR		/ :yes, not found
+ERUNCO=	.		/ UNRECOGNIZED COMMAND
+	ISZ	TEMP		/ :no -- point to entry data
+	TAD	CHAR		/ match?
+	SZA CLA
+	JMP	TXLLP		/ :no -- try next entry
+	TAD I	TEMP		/ :yes -- use entry data as addr
+	DCA	TEMP
+	JMP I	TEMP		/ go do command
+GTHALF,	TAD	(12		/ 0--5 maps to A--F
+GTHNUM,	DCA	TEMP		/ 0--9 maps to 0--9
+	TAD	TEMP		/ is digit value < current radix?
+	TAD	RDXLIM
+	SMA CLA
+	JMS I	[ERR		/ :no -- abort
+ERDEIR=	.		/ DIGIT EXCEEDS CURRENT INPUT RADIX
+	TAD	ARGLO		/ :yes -- multiply arg by radix (8, 10, or 16)
+	DCA	LOOKLO		/  (first copy arg to temp "LOOK")
+	TAD	ARGHI
+	DCA	LOOKHI
+				/ (for rdx= 8)   (for rdx=10)   (for rdx=16)
+	JMS	DBLSHL		/ (    *2    )   (    *2    )   (    *2    )
+	JMS	DBLSHL		/ (    *4    )   (    *4    )   (    *4    )
+RDXSW,	NOP			/ ( gets overwritten to change input radix )
+				/ (NOP       )   (JMS DBLADD)   (JMS DBLSHL)
+				/ (    *4    )   (    *5    )   (    *8    )
+	JMS	DBLSHL		/ (    *8    )   (   *10    )   (   *16    )
+	TAD	TEMP		/ add value of digit to arg
+	DCA	LOOKLO
+	DCA	LOOKHI
+	JMS	DBLADD
+	CLA CLL IAC		/ signify argument seen
+	DCA	ARGCNT
+	JMP	NXDGT		/ continue input
+
+/ patched into firmware at runtime
+ODTPSH,	CDF CIF	ODTFLD
+	000
+	CATCH
+
+/ command -- select 6120 main memory as current processor
+XAMPER,	TAD	(PLSTH-PLSTZ	/ point to 6120 parameters
+
+/ command -- select 6120 panel memory as current processor
+XASTER,	NOP; NOP		/ not implemented yet
+
+/ command -- select Z80 APU as current processor
+XLFPAR,	TAD	(PLSTZ		/ point to Z80 parameters
+
+/ command -- select T11 APU as current processor
+XRTPAR,	NOP; NOP		/ not implemented yet
+	DCA	TEMP		/ set "from" pointer
+	TAD	(PLIST		/ set "to" pointer
+	DCA	CHAR
+	TAD	(-12		/ set list length counter
+	DCA	CNTCNT
+MVLP,	TAD I	TEMP		/ move a list item
+	ISZ	TEMP
+	DCA I	CHAR
+	ISZ	CHAR
+	ISZ	CNTCNT		/ end of list?
+	JMP	MVLP		/ :no -- move another item
+	JMP	START		/ :yes -- next command
+
+/ command -- select 16 to be the current output radix
+XXNUMB,	IAC
+
+/ command -- select 10 to be the current output radix
+XDOLAR,	IAC
+
+/ command -- select 8 to be the current output radix
+XPRCNT,	DCA	INPRFL
+	JMP	NWRDX		/ continue
+
+/ command -- set address size output radix = current input radix
+XATSGN,	TAD	INPRFL		/ copy radix flag
+	DCA	ADRRFL
+	JMP	NXDGT		/ continue
+
+/ command -- set data size output radix = current input radix
+XEXCLM,	TAD	INPRFL		/ copy radix flag
+	DCA	DATRFL
+	JMP	NXDGT		/ continue
+
+/ command -- echo back arg
+XXECHO,	JMS I	[DYADR
+		ARG
+	JMP	NXDGT		/ continue
+
+/ command -- turn on single-step trace mode
+XLFBRK,	CLA CLL IAC
+
+/ command -- turn off single-step trace mode
+XRTBRK,	DCA	TRACE
+	JMP	NXDGT		/ continue
+
+/ command -- turn on CHAR & PAL8 reporting
+XLFCRL,	CLA CLL IAC
+
+/ command -- turn off CHAR & PAL8 reporting
+XRTCRL,	DCA	SYMFLG
+	JMP	NXDGT		/ continue
+
+/	------------------------
+	PAGE
+
+
+/ command -- open memory location
+XSLASH,	JMS I	[ARGTST		/ any arg?
+	JMP	ODYMEM		/ :no -- don't change CURR
+	TAD	ARGLO		/ :yes -- set CURR (current location)
+	DCA	CURRLO
+	TAD	ARGHI
+	DCA	CURRHI
+	JMP	OPNMEM		/ go open memory
+
+/ command -- open location at current minus arg
+XMINUS,	CLA CLL CMA
+
+/ command -- open location at current plus arg
+XXPLUS,	DCA	TEMP
+
+/ add or subtract arg to/from CURR (current location)
+	JMS I	[ARGTST		/ any arg?
+	ISZ	ARGLO		/ :no -- use 1
+	ISZ	TEMP		/ :yes -- add or sub?
+	JMP	NONEG		/ :add
+	TAD	ARGLO		/ :sub -- negate arg
+	CLL CMA CML IAC
+	DCA	ARGLO
+	RAL
+	TAD	ARGHI
+	CMA IAC
+	DCA	ARGHI
+NONEG,	CLL			/ add arg to CURR
+	TAD	CURRLO
+	TAD	ARGLO
+	DCA	CURRLO
+	RAL
+	TAD	CURRHI
+	TAD	ARGHI
+	DCA	CURRHI
+	JMP	ODYMEM		/ go open memory
+
+/ command -- open location referenced by instruction in current location
+XCARET,	JMS I	[QALTER		/ alter if arg & any open
+	JMS I	[ERR		/ :nothing was open
+ERRFNO=	.		/ CANNOT FIND REFERENCE -- NOTHING IS OPEN
+	JMS I	[ERR		/ :machine register was open
+ERRFMO=	.		/ CANNOT FIND REFERENCE -- REGISTER IS OPEN
+	JMS I	[ERR		/ :program register was open
+ERRFPO=	.		/ CANNOT FIND REFERENCE -- REGISTER IS OPEN
+	JMS I	[PRCTST		/ :memory was open -- which processor?
+	JMS I	[ERR		/ :Z80, can't handle it
+ERRFZA=	.		/ CANNOT FIND REFERENCE -- Z80 SELECTED
+	JMS I	[LOAD		/ :6120 -- get contents
+		CURR
+	DCA	TEMP
+	CLA CLL CML RTR		/ contents>=%6000?
+	TAD	TEMP
+	SZL
+	JMS I	[ERR		/ :yes, IOT or OPR, no memory reference
+ERRFEX=	.		/ CANNOT FIND REFERENCE -- INSTRUCTION IS IOT OR OPR
+	AND	(200		/ :no -- which page referenced?
+	SZA CLA
+	TAD	(7600		/ :current -- use addr<1-5>
+	AND	CURRLO		/ :zero -- use 0
+	DCA	CURRLO
+	TAD	TEMP		/ add displacement = contents<6-11>
+	AND	(177
+	TAD	CURRLO
+	DCA	CURRLO
+	TAD	TEMP		/ indirect?
+	R3L
+	SMA CLA
+	JMP	ODYMEM		/ :no -- go open memory
+	JMS I	[LOAD		/ :yes -- defer
+		CURR
+	DCA	CURRLO
+	TAD	TEMP		/ contents>=%4000?
+	SPA CLA
+	JMP	ODYMEM		/ :yes, JMP or JMS, defer is done
+	TAD I	[SVFL		/ :no -- change to data field
+	AND	(7
+	DCA	CURRHI
+	JMP	ODYMEM		/ go open memory
+
+/ command -- open location pointed to by current location
+XUNDLN,	JMS I	[QALTER		/ alter if arg & any open
+	JMS I	[ERR		/ :nothing was open
+ERINNO=	.		/ CANNOT FIND INDIRECT -- NOTHING IS OPEN
+	JMP	XUND2		/ :machine register was open
+	JMS I	[ERR		/ :program register was open
+ERINPO=	.		/ CANNOT FIND INDIRECT -- PROGRAM REGISTER IS OPEN
+	JMS I	[PRCTST		/ :memory was open -- which processor?
+	JMP	XUND1		/ :Z80
+	JMS I	[LOAD		/ :6120 -- 12b indirect
+		CURR
+	DCA	CURRLO
+	JMP	ODYMEM		/ go open memory
+XUND1,	JMS I	[LOAD		/ 16b indirect
+		CURR
+	DCA	TEMP
+	ISZ	CURRLO
+	SKP
+	ISZ	CURRHI
+	NOP			/ eff nop const
+	JMS I	[LOAD
+		CURR
+	DCA	CURRHI
+	TAD	TEMP
+	DCA	CURRLO
+	JMP	ODYMEM		/ go open memory
+XUND2,	TAD	MCHPTR		/ use register as pointer
+	IAC
+	DCA	TEMP
+	TAD I	TEMP
+	DCA	CURRLO
+	TAD I	MCHPTR
+	DCA	CURRHI
+	JMP	ODYMEM
+
+/ command -- execute in single-step mode
+XLFANG,	JMS I	[PRCTST		/ which processor?
+	JMS I	[ERR		/ :Z80, can't handle it
+ERSTZA=	.		/ CANNOT STEP -- Z80 SELECTED
+	JMS I	[ARGTST		/ :6120 -- any arg?
+	ISZ	ARGLO		/ :no -- use 1
+	TAD	ARGLO		/ :yes -- set continue count
+	CMA IAC
+	DCA	CNTCNT
+	JMS	CHTOMN		/ switch KBD input to prog in main mem
+XLFALP,	TAD	TRACE		/ trace mode on?
+	SZA CLA
+	JMS	REPORT		/ :yes -- print instruction report
+	HLT			/ :no -- restart main prog with halt flag set
+	JMS	EMLATE		/  so cpu will execute only one instr
+	JMP	HLTHIT		/ :HLT executed
+	ISZ	CNTCNT		/ :not a HLT -- continue?
+	JMP	XLFALP		/ :yes
+	TAD	(ASCII&"<	/ :no -- use "step" message
+	JMP	DYSTTH		/ display machine state
+
+/	------------------------
+	PAGE
+
+
+/ command -- open successor to currently open
+XPRIME,	JMS I	[QALTER		/ alter if arg & any open
+	JMS I	[ERR		/ :nothing was open
+ERSCNO=	.		/ CANNOT FIND SUCCESSOR -- NOTHING IS OPEN
+	JMP	XPRI1		/ :machine register was open
+	JMP	XPRI2		/ :program register was open
+	ISZ	CURRLO		/ :memory was open -- bump CURR
+	JMP	ODYMEM
+	ISZ	CURRHI
+	JMP	ODYMEM
+	JMP	ODYMEM		/ go open memory
+XPRI1,	ISZ	MCHPTR		/ bump reg pointer to next name
+	ISZ	MCHPTR
+	TAD I	MCHPTR		/ end of list?
+	ISZ	MCHPTR
+	SZA CLA
+	JMP	ODYMCH		/ :no
+	TAD I	MCHPTR		/ :yes -- wrap to beginning
+	DCA	MCHPTR
+	JMP	ODYMCH
+XPRI2,	ISZ	PRGPTR		/ bump reg pointer to next name
+	ISZ	PRGPTR
+	TAD I	PRGPTR		/ end of list?
+	ISZ	PRGPTR
+	SZA CLA
+	JMP	ODYPRG		/ :no
+	TAD I	PRGPTR		/ :yes -- wrap to beginning
+	DCA	PRGPTR
+	JMP	ODYPRG
+
+/ display current address & open memory location
+ODYMEM,	JMS I	[CRLF		/ get a new line
+	JMS I	[DYADR		/ print CURR in address size
+		CURR
+	TAD	(ASCII&"/	/ signal memory open
+	JMS I	[PRCH
+
+/ open memory location when addr is already displayed
+OPNMEM,	JMS I	[LOAD		/ get contents of current location
+		CURR
+	DCA	TEMP
+	TAD	TEMP		/ print contents in data size
+	JMS I	[DYDAT
+	TAD	TEMP		/ print contents as characters
+	JMS I	[DYCHR
+	CLA CLL			/ print contents as PAL8 mnemonics, in static
+	JMS I	[DYPAL		/  context (DF unknown)
+		CURR
+	CLA CLL CML IAC RAL	/ set open-flag to "memory"
+	DCA	OPNFLG
+	JMP I	[DISCR		/ next command
+
+/ command -- open saved machine register
+XBAKSL,	JMS I	[XALTER		/ alter if arg & any open
+	JMS I	[GETNXT		/ get name of register into CHAR
+	TAD	PROCTB		/ look up name in current processor saved
+	JMS	LOOKUP		/  register list
+	JMP	ODYMCH		/ :it's "/"
+	JMS I	[ERR		/ :not "/" and not found
+ERUNMR=	.		/ UNRECOGNIZED MACHINE REGISTER NAME
+	DCA	MCHPTR		/ :found, acc pts to data entry
+	JMP	OPNMCH
+ODYMCH,	JMS I	[CRLF		/ get a new line
+	CLA CLL CMA		/ back up to name of entry
+	TAD	MCHPTR
+	DCA	TEMP
+	TAD I	TEMP		/ display name of register
+	JMS I	[PRCH
+OPNMCH,	TAD	(ASCII&"\	/ indicate it's machine register
+	JMS I	[PRCH
+	CLA CLL IAC		/ indicate machine register open
+	DCA	OPNFLG
+	JMS I	[PRCTST		/ which processor?
+	JMP	OPMC		/ :Z80
+	TAD	MCHPTR		/ :6120 -- dump data in data size
+	IAC
+	DCA	TEMP
+	TAD I	TEMP
+	JMS I	[DYDAT
+	TAD I	TEMP		/ print data as characters
+	JMS I	[DYCHR
+	JMP I	[DISCR		/ done
+OPMC,	TAD	MCHPTR		/ dump data in address size
+	JMP	OPRG
+
+/ command -- open program control register
+XVRTLN,	JMS I	[XALTER		/ alter if arg & any open
+	JMS I	[GETNXT		/ get name of register into CHAR
+	TAD	(DBGCTL		/ look up name in debug program control
+	JMS	LOOKUP		/  register list
+	JMP	ODYPRG		/ :it's "/"
+	JMS I	[ERR		/ :not "/" and not found
+ERUNPR=	.		/ UNRECOGNIZED PROGRAM REGISTER NAME
+	DCA	PRGPTR		/ :found, acc pts to data entry
+	JMP	OPNPRG
+ODYPRG,	JMS I	[CRLF		/ get a new line
+	CLA CLL CMA		/ back up to name of entry
+	TAD	PRGPTR
+	DCA	TEMP
+	TAD I	TEMP		/ display name of register
+	JMS I	[PRCH
+OPNPRG,	TAD	(ASCII&"|	/ indicate it's program register
+	JMS I	[PRCH
+	CLA CLL IAC RAL		/ indicate program register open
+	DCA	OPNFLG
+	TAD	PRGPTR		/ display label if appropriate
+	JMS I	[DYLBL
+	TAD	PRGPTR		/ dump data in address size
+OPRG,	DCA	.+2
+	JMS I	[DYADR
+		0
+	JMP I	[DISCR		/ done
+
+/ subr -- find register entry in list by name in CHAR
+/ panel addr of register list is in accum
+/ return+0: CHAR is "/" -- acc == 0
+/ return+1: fail, CHAR is not "/" and is not in the list
+/ return+2: succ, acc pts to first word of data field of entry
+LOOKUP,	XX
+	DCA	TEMP		/ set entry pointer
+	TAD	CHAR		/ check for "/"
+	TAD	(-"/!7600
+	SNA CLA
+	JMP I	LOOKUP
+	ISZ	LOOKUP
+LKLP,	TAD I	TEMP		/ get entry name
+	ISZ	TEMP		/ bump to entry value
+	SNA			/ end of list?
+	JMP I	LOOKUP		/ :yes -- take fail return
+	CMA IAC			/ :no -- name==CHAR?
+	TAD	CHAR
+	SNA CLA
+	JMP	LKSC		/ :yes -- take succ return
+	ISZ	TEMP		/ :no -- bump to next entry
+	ISZ	TEMP
+	JMP	LKLP		/ try next entry
+LKSC,	TAD	TEMP		/ succ return
+	ISZ	LOOKUP
+	JMP I	LOOKUP
+
+/	------------------------
+	PAGE
+
+/ command -- set or clear break point
+XRTANG,	JMS I	[ARGTST		/ any arg?
+	JMP	XRTA1		/ :no -- clear break flag
+	TAD	ARGHI		/ :yes -- restrict ARG to memory size
+	AND	ADRMSK
+	RAL			/ insure ARG hi bit is set
+	CLL CML RAR
+	DCA	ARGHI
+XRTA1,	TAD	(BPLIST		/ set up table pointer & length to do entire
+	DCA	TEMP		/  table, in case no BP # identified
+	TAD	(-12
+	DCA	CNTCNT
+	JMS I	[GETNXT		/ get BP # char into CHAR
+	TAD	CHAR		/ do all BPs?
+	TAD	(-"/!7600
+	SNA
+	JMP	XRTA2		/ :yes
+	TAD	("/-"?!7600	/ :no -- dump active BP list?
+	SNA
+	JMP	BPDUMP		/ :yes
+	TAD	("?-"9		/ :no -- do which BP?
+	SMA SZA
+	JMS I	[ERR
+ERUNBH=	.		/ UNRECOGNIZED BREAKPOINT NAME
+	TAD	("9-"0
+	SPA
+	JMS I	[ERR
+ERUNBL=	.		/ UNRECOGNIZED BREAKPOINT NAME
+	CLL RAL			/ set up table pointer & length to do just the
+	TAD	(BPLIST		/  one indicated BP
+	DCA	TEMP
+	CLA CMA
+	DCA	CNTCNT
+XRTA2,	TAD	ARGHI		/ set all indicated BPs to ARG
+	DCA I	TEMP
+	ISZ	TEMP
+	TAD	ARGLO
+	DCA I	TEMP
+	ISZ	TEMP
+	ISZ	CNTCNT		/ end of BP list?
+	JMP	XRTA2		/ :no -- do next BP
+	TAD	(BPLIST		/ :yes -- any BP now set?
+	DCA	TEMP		/ set up table pointer & length
+	TAD	(-12
+	DCA	CNTCNT
+	CLA CLL IAC		/ first, set BRKFLG
+	DCA	BRKFLG
+XRTA3,	TAD I	TEMP		/ then, scan for set BP
+	ISZ	TEMP
+	ISZ	TEMP
+	SPA CLA			/ is it set?
+	JMP I	[START		/ :yes -- leave BRKFLG set
+	ISZ	CNTCNT		/ :no -- end of BP list?
+	JMP	XRTA3		/ :no -- do next BP
+	DCA	BRKFLG		/ :yes, no BP is set -- clear BRKFLG
+	JMP I	[START		/ done
+BPDUMP,	TAD	(BPLIST		/ set up pointers for scan
+	DCA	BPDTMP		/  note -- CNTCNT is already set to -12
+	TAD	(ASCII&"0
+	DCA	CHAR
+BPDLP,	TAD I	BPDTMP		/ is this BP set?
+	SMA CLA
+	JMP	BPDSK		/ :no -- skip to next BP
+	JMS I	[CRLF		/ :yes -- print BP report line
+	TAD	BPDTMP		/ display label if appropriate
+	JMS I	[DYLBL
+	JMS I	[DYADR
+BPDTMP,		0
+	TAD	(ASCII&"T
+	JMS I	[PRCH
+	TAD	CHAR
+	JMS I	[PRCH
+	JMS I	[SPACE
+BPDSK,	ISZ	BPDTMP		/ bump pointers to next BP
+	ISZ	BPDTMP
+	ISZ	CHAR
+	ISZ	CNTCNT		/ end of BP list?
+	JMP	BPDLP		/ :no -- do next BP
+	JMP I	[START		/ :yes -- done
+
+/ command -- begin execution at specified address
+XCOLON,	JMS I	[ARGTST		/ any arg?
+	JMP	.+2		/ :no -- use GSTART
+	JMP	XCOL1		/ :yes -- use arg
+	TAD	GSTART+1
+	DCA	ARGLO
+	TAD	GSTART
+	DCA	ARGHI
+XCOL1,	CLA CLL CMA		/ set continue to count to 1
+	DCA	CNTCNT
+	TAD	PROCTB		/ clear saved machine state
+	DCA	TEMP
+XCOL2,	ISZ	TEMP		/ set entry to 0
+	DCA I	TEMP
+	ISZ	TEMP
+	DCA I	TEMP
+	ISZ	TEMP		/ end of list?
+	TAD I	TEMP
+	SZA CLA
+	JMP	XCOL2		/ :no -- do next entry
+	JMS I	[PRCTST		/ :yes -- which processor?
+	JMP	XCOL3		/ :Z80
+	TAD	ARGHI		/ :6120 -- set PC
+	AND	(7
+	MQL
+	MQA
+	R3L
+	MQA
+	DCA I	[SVFL
+	TAD	ARGLO
+	DCA I	[SVPC
+	JMP	RESTRT		/ start 6120 main program
+XCOL3,	TAD	ARGLO		/ set Z80 PCR
+	DCA	SVPCR+1
+	TAD	ARGHI
+	DCA	SVPCR
+	JMP	RUNZ80		/ start Z80 APU
+
+/	------------------------
+	PAGE
+
+/ command -- close open location
+XCRETN,	JMS I	[XALTER		/ alter if arg & any open
+	JMP I	[START		/ next command
+
+/ command -- continue from point of interrupt
+XSEMIC,	JMS I	[ARGTST		/ any arg?
+	ISZ	ARGLO		/ :no -- use 1
+	TAD	ARGLO		/ :yes -- set continue count
+	CMA IAC
+	DCA	CNTCNT
+	JMS I	[PRCTST		/ which processor?
+	JMP	RUNZ80		/ :Z80 -- start it
+	JMP	RESTRT		/ :6120 -- start main program
+
+/ command -- inject & run bootstrap loader
+XGRAVE,	TAD	(HLTHIT		/ preset debug entry point
+	DCA	EMLATE
+	DCA	DBGINT		/ direct interrupt key to routine return
+	JMS	CHTOMN		/ direct mat dvc input to firmware silo
+	PGO			/ restart RAM firmware from beginning -- it
+	IFZERO	SHADES	<
+FRM007,	CDF CIF	.-.		/  will preset memory and hardware, then
+	>
+	IFNZRO	SHADES	<
+FRM007,	CDF CIF	0		/  will preset memory and hardware, then
+	>
+	JMP I	MOD20		/  inject and run the RX boot loader
+
+/	------------------------
+	PAGE
+
+/ run program in 6120 main memory
+RESTRT,	JMS	CHTOMN		/ switch KBD input to prog in main mem
+	TAD	BRKFLG		/ any breakpoint set?
+	SNA CLA
+	JMP	REST2		/ :no
+	JMS	BATTST		/ :yes -- any break addr == start addr?
+	JMP	REST1		/ :no
+REST0,	HLT			/ :yes -- execute 1 instr
+	JMS	EMLATE
+	JMP	HLTHIT		/ :HLT executed
+REST1,	TAD	(BPLIST		/ :not a HLT -- set traps
+	DCA	RESTA		/ set up table pointers & length
+	TAD	(INSLST
+	DCA	TEMP
+	TAD	(-12
+	DCA	RDXLIM
+REST3,	TAD I	RESTA		/ is this BP set?
+	SMA CLA
+	JMP	REST4		/ :no -- skip to next BP
+	JMS I	[LOAD		/ :yes -- save instr in table
+RESTA,		0
+	DCA I	TEMP
+	TAD	RESTA		/ set trap
+	DCA	RESTB
+	TAD	(HLT
+	JMS I	[STORE
+RESTB,		0
+REST4,	ISZ	RESTA		/ incr table pointers
+	ISZ	RESTA
+	ISZ	TEMP
+	ISZ	RDXLIM		/ end of BP list?
+	JMP	REST3		/ :no -- do next BP
+REST2,	PGO			/ :yes -- restart main program
+	JMS	EMLATE
+	NOP			/ :HLT was first instr -- continue
+	TAD	BRKFLG		/ :HLT other than first -- breakpoint set?
+	SNA CLA
+	JMP	HLTHIT		/ :no, must be coded HLT
+	TAD	(BPLIST+22	/ :yes -- restore instrs under breakpoints
+	DCA	RESTC		/ set up table pointers & length
+	TAD	(INSLST+11
+	DCA	TEMP
+	TAD	(-12
+	DCA	RDXLIM
+REST5,	TAD I	RESTC		/ is this BP set?
+	SMA CLA
+	JMP	REST6		/ :no -- skip to next BP
+	JMS I	[LOAD		/ :yes -- trap set at this location?
+RESTC,		0
+	TAD	(-HLT
+	SZA CLA
+	JMP	REST6		/ :no -- skip to next BP
+	TAD	RESTC		/ :yes -- restore instr from table
+	DCA	RESTD
+	TAD I	TEMP
+	JMS I	[STORE
+RESTD,		0
+REST6,	CLA CLL CMA RAL		/ decr table pointers
+	TAD	RESTC
+	DCA	RESTC
+	CLA CLL CMA
+	TAD	TEMP
+	DCA	TEMP
+	ISZ	RDXLIM		/ end (actually bgn) of BP list?
+	JMP	REST5		/ :no -- do next BP
+	CLA CLL CMA		/ :yes -- this will back up saved PC for test
+	JMS	BATTST		/ any break addr == HLT addr?
+	JMP	HLTHIT		/ :no, must be coded HLT
+	CLA CLL CMA		/ :yes, breakpoint -- back up saved PC
+	TAD I	[SVPC
+	DCA I	[SVPC
+	ISZ	CNTCNT		/ continue?
+	JMP	REST0		/ :yes
+	TAD	CHAR		/ :no -- use "break" message
+	JMP	DYSTTH		/ go display registers
+
+/ subr -- test for (saved PC + accum) == any break point
+/ accum = 0 to test next locn to be executed (restart addr)
+/ accum = -1 to test locn most recently executed (HLT addr)
+/ return+0: fail -- no break point matches
+/ return+1: succ -- CHAR contains name of break point
+BATTST,	XX
+	TAD I	[SVPC		/ set up address comparison
+	CMA IAC
+	DCA	LOOKLO
+	TAD I	[SVFL
+	RTR
+	CLL CML RAR		/ trust me
+	AND	(4007
+	CMA IAC
+	DCA	LOOKHI
+	TAD	(BPLIST-1	/ set up table pointer & length
+	DCA	TEMP
+	TAD	(-12
+	DCA	RDXLIM
+	TAD	(ASCII&"0
+	DCA	CHAR
+BTLP,	ISZ	TEMP		/ does this BP match?
+	TAD I	TEMP		/ test hi words
+	ISZ	TEMP
+	TAD	LOOKHI
+	SZA CLA
+	JMP	BTFL		/ :no -- skip to next BP
+	TAD I	TEMP		/ :maybe -- test lo words
+	TAD	LOOKLO
+	SZA CLA
+	JMP	BTFL		/ :no -- skip to next BP
+	ISZ	BATTST		/ :yes -- take succ return
+	JMP I	BATTST
+BTFL,	ISZ	CHAR		/ incr BP number
+	ISZ	RDXLIM		/ end of BP list?
+	JMP	BTLP		/ :no -- do next BP
+	JMP I	BATTST		/ :yes -- take fail return
+
+/	------------------------
+	PAGE
+
+/ subr -- restart execution in 6120 main mem using saved machine state
+/ if HLT flag is set, the 6120 will execute 1 instruction and then interrupt
+/ if HLT flag is clear, the 6120 will execute until a HLT is encountered
+/ all 6120 main mem HLTs come back to this subr
+/ return+0: HLT was first (or only) instruction executed
+/ return+1: HLT was not the first instruction, or HLTFLG was already set
+EMLATE,	START			/ prepared for primeval HLT
+	JMS	FETCH		/ see if first instruction to be executed
+	AND	(7403		/  includes a HLT -- if not, bump return addr
+	TAD	(-7402
+	SZA CLA
+	ISZ	EMLATE
+	DCA	DBGINT		/ direct interrupt key to routine return
+	IFZERO	SHADES	<
+FRM001,	CDF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM001,	CDF	0
+	>
+	TAD I	PSTAT		/ clear saved HLT flag so firmware can ?M?Mexit
+	AND	(7577
+	DCA I	PSTAT
+	IFZERO	SHADES	<
+FRM002,	CDF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM002,	CDF	0
+	>
+	TAD I	LOCKED		/ was mat dvc (keyboard) locked?
+	CDF	ODTFLD
+	SNA CLA
+	JMP	NOLCK2		/ :no
+	TAD	(LOCKBD		/ :yes -- lock it again
+	MQL
+	TAD	KBXQPT
+	IFZERO SHADE3	<
+RTI001,	CDF CIF	.-.
+	JMS I	.-.
+	> /END IFZERO SHADE3
+	IFNZRO	SHADE3	<
+	CDF CIF	10
+	JMS I	CPOUS1
+	>
+NOLCK2,	JMS I	[XFMOV		/ restore saved machine state & CRT attributes
+MVTAB2,		-7
+	IFZERO	SHADES	<
+	CDF ODTFLD;	SVFL;	CDF .-.;	000	/ 000's filled in by
+	CDF ODTFLD;	SVPC;	CDF .-.;	000	/ initialization
+	CDF ODTFLD;	SVAC;	CDF .-.;	000
+	CDF ODTFLD;	SVMQ;	CDF .-.;	000
+	CDF ODTFLD;	ATRSAV;	CDF .-.;	000
+	CDF ODTFLD;	G0FSAV;	CDF .-.;	000
+	CDF ODTFLD;	G1FSAV;	CDF .-.;	000
+	>
+	IFNZRO	SHADES	<
+	CDF ODTFLD;	SVFL;	CDF PRQFLD;	000	/ 000's filled in by
+	CDF ODTFLD;	SVPC;	CDF PRQFLD;	000	/ initialization
+	CDF ODTFLD;	SVAC;	CDF PRQFLD;	000
+	CDF ODTFLD;	SVMQ;	CDF PRQFLD;	000
+	CDF ODTFLD;	ATRSAV;	CDF PRQFLD;	000
+	CDF ODTFLD;	G0FSAV;	CDF PRQFLD;	000
+	CDF ODTFLD;	G1FSAV;	CDF PRQFLD;	000
+	>
+	TAD	SVS1
+	WRSPT	PTR1
+	TAD	SVS2
+	WRSPT	PTR2
+	IFZERO	SHADES	<
+FRM004,	CDF CIF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM004,	CDF CIF	0
+	>
+	JMP I	EXIT		/ go to panel firmware interrupt return block
+
+DBGINT,				/ interrupt of main memory program comes here
+	000			/ NOP (000) or JMS I [ERR
+EROUTI=	.		/ * OUTPUT ABORTED
+	TAD	("*-"@!7600
+DBGHLT,				/ HLT in main memory program comes here
+	TAD	(ASCII&"@
+	DCA	SYMCRS
+	CDF	ODTFLD
+	JMS I	[XFMOV		/ record saved machine state & CRT attributes
+MVTAB1,		-7
+	IFZERO	SHADES	<
+	CDF .-.;	000;	CDF ODTFLD;	SVFL	/ 000's filled in by
+	CDF .-.;	000;	CDF ODTFLD;	SVPC	/ initialization
+	CDF .-.;	000;	CDF ODTFLD;	SVAC
+	CDF .-.;	000;	CDF ODTFLD;	SVMQ
+	CDF .-.;	000;	CDF ODTFLD;	ATRSAV
+	CDF .-.;	000;	CDF ODTFLD;	G0FSAV
+	CDF .-.;	000;	CDF ODTFLD;	G1FSAV
+	>
+	IFNZRO	SHADES	<
+	CDF PRQFLD;	000;	CDF ODTFLD;	SVFL	/ 000's filled in by
+	CDF PRQFLD;	000;	CDF ODTFLD;	SVPC	/ initialization
+	CDF PRQFLD;	000;	CDF ODTFLD;	SVAC
+	CDF PRQFLD;	000;	CDF ODTFLD;	SVMQ
+	CDF PRQFLD;	000;	CDF ODTFLD;	ATRSAV
+	CDF PRQFLD;	000;	CDF ODTFLD;	G0FSAV
+	CDF PRQFLD;	000;	CDF ODTFLD;	G1FSAV
+	>
+	RDSPT	PTR1
+	DCA	SVS1
+	RDSPT	PTR2
+	DCA	SVS2
+	TAD	(JMS I [ERR	/ direct interrupt key to *ABORT
+	DCA	DBGINT
+	IFZERO	SHADES	<
+FRM005,	CDF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM005,	CDF	0
+	>
+	TAD I	LOCKED		/ is mat dvc locked?
+	CDF	ODTFLD
+	SNA CLA
+	JMP	NOLCK1		/ :no
+	TAD	(UNLOCK		/ :yes -- unlock it (but leave LOCKED as is)
+	MQL
+	TAD	KBXQPT
+	IFZERO	SHADE3	<
+RTI002,	CDF CIF	.-.
+	JMS I	.-.
+	>
+	IFNZRO	SHADE3	<
+	CDF CIF	10
+	JMS I	CPOUS1
+	>
+NOLCK1,	JMS I	[DUMP		/ reset terminal for debug program output
+		ESCAPE
+		ASCII&"[
+		ASCII&"0
+		ASCII&";
+		ASCII&"7 / 1 = bold, 4 = underline, 5 = blink, 7 = reverse
+		ASCII&"m
+		0
+	JMP I	EMLATE		/ start or return to debugger
+
+
+/	------------------------
+	PAGE
+
+/ command -- search memory range under mask
+XQUOTE,	TAD	SCHBGN+1	/ pointer = search begin
+	DCA	LOOKLO
+	TAD	SCHBGN
+	AND	ADRMSK
+	DCA	LOOKHI
+	TAD	ARGLO		/ set up search arg
+	AND	DATMSK
+	AND	SCHMSK
+	CMA IAC
+	DCA	CHAR
+XQUOLP,	TAD	SCHEND		/ pointer > search end?
+	AND	ADRMSK
+	CLL CMA CML IAC
+	TAD	LOOKHI
+	SNL SZA
+	JMP I	[START		/ :yes -- next command
+	SZL CLA
+	JMP	.+6		/ :no
+	TAD	SCHEND+1	/ :maybe...
+	CLL CMA CML IAC
+	TAD	LOOKLO
+	SNL SZA CLA
+	JMP I	[START		/ :yes -- next command
+	JMS I	[LOAD		/ :no -- check location
+		LOOK
+	DCA	TEMP
+	TAD	TEMP		/ ( contents & mask ) == search arg?
+	AND	SCHMSK
+	TAD	CHAR
+	SZA CLA
+	JMP	XQUONM		/ :no
+	JMS I	[CRLF		/ :yes -- display hit, addr & contents
+	JMS I	[DYADR
+		LOOK
+	TAD	(ASCII&"/
+	JMS I	[PRCH
+	TAD	TEMP
+	JMS I	[DYDAT
+	TAD	TEMP		/ print contents as characters
+	JMS I	[DYCHR
+	CLA CLL			/ print contents as PAL8 mnemonics, in static
+	JMS I	[DYPAL		/  context (DF unknown)
+		LOOK
+XQUONM,	ISZ	LOOKLO		/ bump pointer
+	JMP	XQUOLP
+	ISZ	LOOKHI		/ never skips because pointer <= search end
+	JMP	XQUOLP
+
+/ command -- display all machine registers for current processor
+XEQUAL,	JMS I	[PRCTST		/ which processor?
+	JMP	XEQZ		/ :Z80
+	TAD	(ASCII&"=	/ :6120
+	JMP	DYSTTH
+XEQZ,	TAD	(ASCII&"=
+	JMP	DYSTTZ
+
+/ coded HLT instruction encountered in main memory
+HLTHIT,	TAD	SYMCRS		/ use message from EMLATE
+
+/ display saved 6120 machine state
+DYSTTH,	JMS I	[LNHEAD		/ indicate report type
+	TAD	(H6120R		/ point to 6120 reg list
+	DCA	TEMP
+DYSHLP,	TAD I	TEMP		/ get name of reg
+	SNA			/ end of list?
+	JMP I	[START		/ :yes -- next command
+	JMS I	[PRCH		/ :no -- display name
+	TAD	(ASCII&"=
+	JMS I	[PRCH
+	ISZ	TEMP		/ display reg lo wd in data size
+	ISZ	TEMP
+	TAD I	TEMP
+	JMS I	[DYDAT
+	ISZ	TEMP		/ bump to next entry
+	JMP	DYSHLP		/ do next entry
+
+/ run the Z80 APU and monitor it for a halt or failure
+RUNZ80,	TAD	("|		/ not implemented yet
+
+/ display saved Z80 APU machine state
+DYSTTZ,	JMS I	[LNHEAD		/ indicate report type
+	TAD	(Z80APU		/ point to Z80 reg list
+	DCA	TEMP
+	TAD	(-10		/ must begin a new line after 8th reg
+	DCA	CNTCNT
+DYSZLP,	TAD I	TEMP		/ get name of reg
+	SNA			/ end of list?
+	JMP I	[START		/ :yes -- next command
+	JMS I	[PRCH		/ :no -- display name
+	TAD	(ASCII&"=
+	JMS I	[PRCH
+	ISZ	TEMP		/ display reg in addr size
+	TAD	TEMP
+	DCA	.+2
+	JMS I	[DYADR
+		0
+	ISZ	TEMP		/ bump to next entry
+	ISZ	TEMP
+	ISZ	CNTCNT		/ 8th reg?
+	JMP	DYSZLP		/ :no -- do next entry
+	JMS I	[CRLF		/ :yes -- begin new line
+	JMP	DYSZLP		/ do next entry
+
+/ errors and abortions come here
+ERR,	XX
+	CLA
+	TAD	(ERRLST-2
+	DCA	TEMP
+ERLP,	ISZ	TEMP
+	ISZ	TEMP
+	TAD I	TEMP
+	ISZ	TEMP
+	SZA
+	JMP	ERNX
+	TAD	ERR
+	JMS I	[DYDAT
+	JMP	ERFN
+ERNX,	TAD	ERR
+	SZA CLA
+	JMP	ERLP
+ERFN,	TAD I	TEMP
+	JMS I	[TXMSG
+	ISZ	TEMP
+	TAD I	TEMP
+	SZA
+	JMS I	[TXMSG
+	JMP I	[START
+
+/	------------------------
+	PAGE
+
+/ command -- accept and define or delete symbols
+/ first accept optional symbol from user, then check for arg
+/ if no arg and no symbol, then purge symbol table
+/ if no arg but symbol entered, then delete one symbol from table
+/ if arg entered but no symbol, then delete first symbol with that value
+/ if arg and symbol entered, and symbol is not in table, then
+/   add symbol to table with that value
+/ if arg and symbol entered, and symbol is found in table, then
+/   change symbol value to arg
+XDEFSY,	JMS	GETSYM		/ get symbol from user
+	JMP	XDEF3		/ :none, delete or purge
+	JMS I	[ARGTST		/ :ok -- any arg?
+	JMP	XDEF2		/ :no, delete by symbol
+	JMS	LOCSYM		/ :yes -- symbol in table?
+	JMP	.+2		/ :no
+	JMP	XDEF1		/ :yes
+	TAD	SYMLOC		/ add symbol and arg to table
+	CMA
+	TAD	SYMBGN
+	DCA	SYMCCT
+	CLA CMA
+	TAD	SYMBGN
+	DCA	10
+	TAD	(-6
+	TAD	SYMBGN
+	DCA	SYMBGN
+	CLA CMA
+	TAD	SYMBGN
+	DCA	11
+INSYLP,	ISZ	SYMCCT
+	JMP	.+2
+	JMP	INSYDN
+	TAD I	10
+	DCA I	11
+	JMP	INSYLP
+INSYDN,	TAD	(SYMBOL-1
+	DCA	10
+	TAD	(-6
+	DCA	SYMCCT
+INDNLP,	TAD I	10
+	DCA I	11
+	ISZ	SYMCCT
+	JMP	INDNLP
+	JMP I	[START		/ done
+XDEF1,	TAD	ARGHI		/ set value to arg
+	DCA I	VALLOC
+	ISZ	VALLOC
+	TAD	ARGLO
+	DCA I	VALLOC
+	JMP I	[START		/ done
+XDEF2,	JMS	LOCSYM		/ symbol in table?
+	JMS I	[ERR		/ :no
+ERNDNS=	.		/ ? CANNOT DELETE -- SYMBOL NOT DEFINED
+	JMP	XDEF4		/ :yes
+XDEF3,	JMS I	[ARGTST		/ any arg?
+	JMP	XDEF5		/ :no, purge table
+	TAD	SYMBGN		/ :yes -- value in table?
+	JMS	LOCVAL
+		ARG
+	JMS I	[ERR		/ :no
+ERNDNV=	.		/ ? CANNOT DELETE -- VALUE NOT DEFINED
+XDEF4,	JMS	PRENT		/ :yes -- show entry
+	JMS	CONFRM		/ last chance
+	JMS	DLENT		/ delete one table entry
+	JMP I	[START		/ done
+XDEF5,	JMS	CONFRM		/ last chance
+	TAD	(SYMEND		/ purge the table
+	DCA	SYMBGN
+	JMP I	[START		/ done
+
+/	------------------------
+	PAGE
+
+/ command -- accept and use symbol, or display table entries
+/ first accept optional symbol from user, then check for arg
+/ if no arg and no symbol, then display entire symbol table
+/ if arg entered but no symbol, then display symbols with that value
+/ if symbol entered (arg or no), then OR it into arg
+XUSESY,	JMS	GETSYM		/ get symbol from user
+	JMP	XUSE1		/ :none
+	JMS	LOCSYM		/ :ok -- symbol in table?
+	JMP	XUSE4		/ :no -- try permanent symbols
+	TAD I	VALLOC		/ :yes -- OR value into arg
+	MQL
+	TAD	ARGHI
+	MQA
+	DCA	ARGHI
+	ISZ	VALLOC
+	TAD I	VALLOC
+	JMP	XUSE7
+XUSE4,	CLA CLL CMA RAL		/ table is in format 1
+	JMS	SCHSYM
+		MRITBL+1
+	JMP	XUSE5		/ :found
+	CLA CLL CMA RAL		/ :not found -- table is in format 1
+	JMS	SCHSYM
+		IIFTBL+1
+	JMP	XUSE6		/ :found
+	CLA CLL CMA RAL		/ :not found -- table is in format 1
+	JMS	SCHSYM
+		OPRTBL+1
+	JMP	XUSE6		/ :found
+	CLA CLL CMA RTL		/ :not found -- table is in format 2
+	JMS	SCHSYM
+		IOTTBL
+	JMP	XUSE6		/ :found
+	JMS I	[ERR		/ :not found
+ERNUNS=	.		/ ? UNRECOGNIZED -- SYMBOL NOT DEFINED
+XUSE5,	TAD	ARGLO		/ change ARG to address reference
+	AND	(7600
+	SZA CLA
+	TAD	(200
+	MQL
+	TAD	ARGLO
+	AND	(177
+	MQA
+	DCA	ARGLO
+	DCA	ARGHI
+XUSE6,	TAD I	SYMLOC		/ OR neg of value into arg
+	CMA IAC
+XUSE7,	MQL
+	TAD	ARGLO
+	MQA
+	DCA	ARGLO
+	CLA CLL IAC		/ mark arg as entered
+	DCA	ARGCNT
+	JMP	NXDGT		/ back to command processor
+XUSE1,	JMS I	[ARGTST		/ any arg?
+	JMP	XUSE2		/ :no
+	TAD	SYMBGN		/ :yes -- start from beginning
+XUSELP,	JMS	LOCVAL		/ value in table?
+		ARG
+	JMP I	[START		/ :no -- done
+	JMS	PRENT		/ :yes -- print one table entry
+	CLA CLL CML IAC RTL	/ restart search with next entry
+	TAD	SYMLOC
+	JMP	XUSELP
+XUSE2,	TAD	SYMBGN		/ print entire symbol table
+XUSE3,	DCA	SYMLOC
+	TAD	SYMLOC
+	TAD	(-SYMEND
+	SNA CLA
+	JMP I	[START		/ done
+	JMS	PRENT
+	CLA CLL CML IAC RTL
+	TAD	SYMLOC
+	JMP	XUSE3
+
+/	------------------------
+	PAGE
+
+/ subr -- get optional symbol from the user
+/ symbol is terminated by a space
+/ return+0: user did not enter symbol (he just pressed space)
+/ return+1: user entered a symbol -- first 6 chars packed at SYMBOL
+GETSYM,	XX
+	JMS	GTCH		/ get input char into CHAR
+	JMP I	GETSYM		/ :space
+	ISZ	GETSYM		/ :non-space -- bump return
+	DCA	SYMBOL+1	/ clear the text var SYMBOL
+	DCA	SYMBOL+2
+	DCA	SYMBOL+3
+	DCA	SYMSTR		/ clear the text var SYMSTR
+	DCA	SYMSTR+1
+	DCA	SYMSTR+2
+	TAD	(SYMBOL		/ set up pointers & count
+	DCA	SYMCRS
+	DCA	RDXLIM
+	CLA CLL CMA RAL
+	DCA	SYMCCT
+GTSYLP,	JMS	GSPCK		/ chars are packed 3 to 2 words
+	CLL RTL
+	RTL
+	DCA I	SYMCRS
+	JMS	GTCH		/ get input char into CHAR
+	JMP I	GETSYM		/ :space
+	JMS	GSPCK		/ :non-space
+	RTR
+	RTR
+	AND	(17
+	TAD I	SYMCRS
+	DCA I	SYMCRS
+	ISZ	SYMCRS
+	TAD	CHAR
+	AND	(17
+	BSW
+	CLL RTL
+	DCA I	SYMCRS
+	JMS	GTCH		/ get input char into CHAR
+	JMP I	GETSYM		/ :space
+	JMS	GSPCK		/ :non-space
+	TAD I	SYMCRS
+	DCA I	SYMCRS
+	ISZ	SYMCRS
+GTSYEX,	JMS	GTCH		/ get input char into CHAR
+	JMP I	GETSYM		/ :space
+	ISZ	SYMCCT		/ :non-space -- packed 4 words yet?
+	JMP	GTSYLP		/ :no -- go pack 2 more
+	CLA CMA			/ :yes -- ignore chars until space
+	DCA	SYMCCT
+	JMP	GTSYEX
+
+/ subr -- find an entry in the table by its symbol
+/ the target symbol is in the 4-wd string var SYMBOL
+/ return+0: not found -- SYMLOC points to the first entry with symbol greater
+/           than the target symbol
+/ return+1: found -- SYMLOC points to the entry's symbol, and VALLOC points to
+/           the entry's value
+LOCSYM,	XX
+	TAD	SYMBGN		/ set up entry pointer
+LCSYLP,	DCA	SYMLOC
+	TAD	SYMLOC		/ end of table?
+	TAD	(-SYMEND
+	SNA CLA
+	JMP I	LOCSYM		/ :yes -- fail return
+	TAD	SYMLOC		/ :no -- compare symbols
+	DCA	VALLOC		/ set up word pointers & count
+	TAD	(SYMBOL-1
+	DCA	10
+	TAD	(-4
+	DCA	SYMCCT
+LCSYRP,	TAD I	VALLOC		/ compare words
+	CLL CMA CML IAC
+	TAD I	10
+	SNL SZA
+	JMP	LCSYNX		/ :entry < target -- try next symbol
+	SZA CLA
+	JMP I	LOCSYM		/ :entry > target -- fail return
+	ISZ	VALLOC		/ :word matches -- try next word
+	ISZ	SYMCCT		/ all words tried?
+	JMP	LCSYRP		/ :no
+	ISZ	LOCSYM		/ :yes, symbol matches -- succ return
+	JMP I	LOCSYM
+LCSYNX,	CLA CLL CML IAC RTL	/ bump to next entry
+	TAD	SYMLOC
+	JMP	LCSYLP		/ try again
+
+/ subr -- find an entry in the table by its value
+/ the target value is in the 2-wd integer var ARG
+/ accum pts to start of table: SYMBGN to search from beginning,
+/ SYMLOC+6 to continue search with next entry
+/ return+0: arg -- pointer to dbl-wd value
+/ return+1: not found
+/ return+2: found -- SYMLOC points to the entry's symbol, and VALLOC points to
+/           the entry's value
+LOCVAL,	XX
+	DCA	SYMLOC		/ set up entry pointer
+	TAD I	LOCVAL		/ get address pointer
+	ISZ	LOCVAL
+	JMS	GETADR		/ use address pointer
+	CLA			/ ignore CDF result
+LCVLLP,	TAD	SYMLOC		/ end of table?
+	TAD	(-SYMEND
+	SNA CLA
+	JMP I	LOCVAL		/ :yes -- fail return
+	CLA CLL IAC RTL		/ :no -- set up value pointer
+	TAD	SYMLOC
+	DCA	VALLOC
+	TAD	PSMAHI		/ compare hi words
+	RAL			/ 23 bits only, until BPDMP is fixed
+	CLL RAR
+	CMA IAC
+	TAD I	VALLOC
+	SZA CLA
+	JMP	LCVLNX		/ :different -- try next entry
+	TAD	VALLOC		/ :same -- compare lo words
+	DCA	10
+	TAD	PSMALO
+	CMA IAC
+	TAD I	10
+	SZA CLA
+	JMP	LCVLNX		/ :different -- try next entry
+	ISZ	LOCVAL		/ :same -- succ return
+	JMP I	LOCVAL
+LCVLNX,	CLA CLL CML IAC RTL	/ bump to next entry
+	TAD	SYMLOC
+	DCA	SYMLOC
+	JMP	LCVLLP		/ try again
+
+/ subr -- allow user the opportunity to confirm or abort a deletion
+CONFRM,	XX
+	TAD	(CNFMSG
+	JMS I	[TXMSG
+	JMS I	[GETNXT
+	TAD	CHAR
+	TAD	(-"Y!7600
+	SZA CLA
+	JMS I	[ERR
+ERNCFM=	.		/ * DELETION ABORTED
+	JMP I	CONFRM
+
+/	------------------------
+	PAGE
+
+/ subr -- pack a char into the SIXBIT text string
+GSPCK,	XX
+	TAD	RDXLIM
+	CLL RAR
+	TAD	(SYMSTR
+	DCA	SBTMP
+	TAD	CHAR
+	AND	(77
+	MQL
+	TAD I	SBTMP
+	SZL
+	BSW
+	AND	(77
+	BSW
+	MQA
+	SNL
+	BSW
+	DCA I	SBTMP
+	ISZ	RDXLIM
+	TAD	CHAR
+	JMP I	GSPCK
+
+/ subr -- display one symbol table entry
+/ SYMLOC points to entry
+PRENT,	XX
+	JMS I	[CRLF
+	JMS	PRSYM
+	JMS I	[DYADR
+PRENX,		0
+	JMP I	PRENT
+
+/ subr -- display one symbol from table
+/ SYMLOC points to entry
+PRSYM,	XX
+	TAD	SYMLOC
+	DCA	PRENX
+	CLA CLL CMA RAL
+	DCA	SYMCCT
+PRENLP,	TAD I	PRENX
+	RTR
+	RTR
+	JMS	PUTCH
+	TAD I	PRENX
+	AND	(17
+	CLL RTL
+	RTL
+	MQL
+	ISZ	PRENX
+	TAD I	PRENX
+	BSW
+	RTR
+	AND	(17
+	MQA
+	JMS	PUTCH
+	TAD I	PRENX
+	JMS	PUTCH
+	ISZ	PRENX
+	ISZ	SYMCCT
+	JMP	PRENLP
+	JMS I	[SPACE
+	JMP I	PRSYM
+PUTCH,	XX
+	AND	(177
+	SNA
+	TAD	(ASCII&"
+	JMS I	[PRCH
+	JMP I	PUTCH
+
+/ subr -- delete one table entry at SYMLOC
+DLENT,	XX
+	TAD	SYMLOC
+	CMA
+	TAD	SYMBGN
+	DCA	SYMCCT
+	CLA CLL CML IAC RTL
+	TAD	SYMLOC
+	DCA	SYMBGN
+DESYLP,	ISZ	SYMCCT
+	JMP	.+2
+	JMP I	DLENT
+	CLA CMA
+	TAD	SYMLOC
+	DCA	SYMLOC
+	CLA CMA
+	TAD	SYMBGN
+	DCA	SYMBGN
+	TAD I	SYMLOC
+	DCA I	SYMBGN
+	JMP	DESYLP
+
+/ subr -- search a permanent symbol table for symbol in SYMBOL
+/ accum = -2 for format 1, -3 for format 2
+/ return+0: arg -- pointer to table+1 for format 1, table for format 2
+/ return+1: found -- SYMLOC points to value of entry
+/ return+2: not found
+SCHSYM,	XX
+	DCA	SYMCRS
+	TAD I	SCHSYM
+	ISZ	SCHSYM
+	DCA	SYMLOC
+SCSYL1,	TAD	(SYMSTR-1	/ compare symbols
+	DCA	10
+	TAD	SYMLOC
+	DCA	11
+	TAD	SYMCRS
+	DCA	SYMCCT
+SCSYL2,	TAD I	10		/ compare words
+	CMA IAC
+	TAD I	11
+	SZA CLA
+	JMP	SCSYNX		/ no match -- try next entry
+	ISZ	SYMCCT		/ match -- end of symbol?
+	JMP	SCSYL2		/ :no -- try next word
+	JMP I	SCHSYM		/ :yes, symbol matches -- succ exit
+SCSYNX,	CLA CLL IAC RTL		/ bump to next entry
+	TAD	SYMLOC
+	DCA	SYMLOC
+	TAD I	SYMLOC		/ end of table?
+	SZA CLA
+	JMP	SCSYL1		/ :no -- try next entry
+	ISZ	SCHSYM		/ :yes -- fail exit
+	JMP I	SCHSYM
+
+/ subr -- direct mat dvc input to firmware silo
+CHTOMN,	XX
+	TAD	PUSHSL
+	DCA	10
+	IFZERO	SHADES	<
+FRM008,	CDF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM008,	CDF	0
+	>
+	TAD	PANPSH
+	DCA I	10
+	TAD	PANPSH+1
+	DCA I	10
+	TAD	PANPSH+2
+	DCA I	10
+	CDF	ODTFLD
+	JMP I	CHTOMN
+
+/	------------------------
+	PAGE
+
+/ subr -- report next instr to be executed according to flags in SVFL and
+/ program counter in SVPC; print address and contents
+REPORT,	XX
+	TAD	(ASCII&">	/ indicate report type
+	JMS I	[LNHEAD
+	JMS	FETCH		/ also sets LOOK* to address
+	DCA	FETCH
+	JMS I	[DYADR		/ print address
+		LOOK
+	TAD	FETCH		/ print contents
+	JMS I	[DYDAT
+	CLA CLL IAC		/ print contents as PAL8 mnemonics, in dynamic
+	JMS I	[DYPAL		/  context (DF taken from saved flags)
+		LOOK
+	JMP I	REPORT		/ done
+
+/ subr -- fetch next instr to be executed according to flags in SVFL and
+/ program counter in SVPC; leave complete address in LOOK*
+FETCH,	XX
+	TAD I	[SVPC
+	DCA	LOOKLO
+	TAD I	[SVFL
+	RTR
+	RAR
+	AND	(7
+	DCA	LOOKHI
+	JMS I	[LOAD
+		LOOK
+	JMP I	FETCH
+
+/ subr -- cross-field move utility
+/ return+0: arg -- minus the number of words to move
+/ return+1: arg -- source CDF of source first word
+/ return+2: arg -- source address of first word
+/ return+1: arg -- source CDF of target first word
+/ return+4: arg -- target address of first word
+/ return+1: arg -- source CDF of source second word
+/ return+6: arg -- source address of second word
+/ return+1: arg -- source CDF of target second word
+/ return+8: arg -- target address of second word
+/ ...etc source & target address quads for etc words
+CHRTMP,				/ var shares subr head
+XFMOV,	XX
+	CLA
+	TAD I	XFMOV
+	ISZ	XFMOV
+	DCA	RDXLIM
+XFLP,	TAD I	XFMOV
+	ISZ	XFMOV
+	DCA	XFA
+	TAD I	XFMOV
+	ISZ	XFMOV
+	DCA	TEMP
+	TAD I	XFMOV
+	ISZ	XFMOV
+	DCA	XFB
+	TAD I	XFMOV
+	ISZ	XFMOV
+	DCA	CHAR
+XFA,	000
+	TAD I	TEMP
+XFB,	000
+	DCA I	CHAR
+	CDF	ODTFLD
+	ISZ	RDXLIM
+	JMP	XFLP
+	JMP I	XFMOV
+
+/ subr -- if SYMFLG is set (<>0), print ASCII, SIXBIT, and COS-310 character
+/ interpretation of argument in accum
+DYCHR,	XX
+	DCA	CHRTMP		/ save arg
+	TAD	SYMFLG		/ extended reporting?
+	SNA CLA
+	JMP I	DYCHR		/ :off
+	JMS I	[SPACE		/ :on
+	TAD	CHRTMP		/ print it as one ASCII char
+	AND	(177
+	TAD	(-40
+	SPA
+	JMP	NULL1
+	TAD	(40-177
+	SMA
+	JMP	NULL1
+	TAD	(177
+	JMS I	[PRCH
+	JMP	NULL2
+NULL1,	JMS	BLANK
+NULL2,	JMS I	[SPACE
+	TAD	CHRTMP		/ print it as two SIXBIT chars
+	BSW
+	TAD	(40
+	AND	(77
+	TAD	(40
+	JMS I	[PRCH
+	TAD	CHRTMP
+	TAD	(40
+	AND	(77
+	TAD	(40
+	JMS I	[PRCH
+	JMS I	[SPACE
+	TAD	CHRTMP		/ print it as two COS-310 chars
+	BSW
+	JMS	DYCOS
+	TAD	CHRTMP
+	JMS	DYCOS
+	JMS I	[SPACE
+	JMP I	DYCHR		/ done
+
+/ subr -- print one COS-310 character from accum
+DYCOS,	XX
+	AND	(77
+	SNA
+	JMP	NULL3
+	TAD	(37
+	JMS I	[PRCH
+	JMP I	DYCOS
+NULL3,	JMS	BLANK
+	JMP I	DYCOS
+
+/ subr -- print a string to represent a NULL character
+BLANK,	XX
+	JMS I	[DUMP
+		ESCAPE
+		ASCII&"[
+		ASCII&"0
+		ASCII&"m
+		ASCII&"@
+		ESCAPE
+		ASCII&"[
+		ASCII&"7
+		ASCII&"m
+		0
+	JMP I	BLANK
+
+/	------------------------
+	PAGE
+
+/ subr -- if SYMFLG is set (<>0), print the PAL8 mnemonics for the contents
+/ of the indicated location interpreted as an instruction.  The location is
+/ required in order to complete the address calculations.
+DYPAL,	XX
+	DCA	SBTMP		/ save static:dynamic flag
+	TAD I	DYPAL		/ get arg & bump return
+	ISZ	DYPAL
+	DCA	SYTMP
+	TAD	SYMFLG		/ extended reporting?
+	SNA CLA
+	JMP I	DYPAL		/ :off -- exit
+	JMS I	[SPACE		/ :on
+	TAD I	SYTMP		/ make local copy of pointer
+	DCA	DPTRHI
+	ISZ	SYTMP
+	TAD I	SYTMP
+	DCA	DPTRLO
+	TAD	(DPTR		/ display label if appropriate
+	JMS I	[DYLBL
+	JMS I	[LOAD		/ get contents
+		DPTR
+	DCA	DPVAL
+	CLA CLL CML RTR		/ memory reference instruction?
+	TAD	DPVAL
+	SZL
+	JMP	DYNMR		/ :no
+	AND	(200		/ :yes -- make direct address
+	CMA IAC
+	AND	DPTRLO
+	MQL
+	TAD	DPVAL
+	AND	(177
+	MQA
+	DCA	DPTRLO
+	JMS	SYSCH		/ print mnemonics
+		NOP		/ table is format 1
+		MRITBL
+	JMS I	[DYSYM		/ print direct address
+	TAD	DPVAL		/ indirect?
+	AND	(400
+	SZA CLA
+	JMP	DYPL1		/ :yes
+	TAD	DPVAL		/ :no -- instruction type?
+	TAD	(1000
+	SPA CLA
+	JMP I	DYPAL		/ :DCA, JMS, JMP -- exit
+	JMP	DYPL4		/ :AND, TAD, ISZ
+DYPL1,	TAD	(ARROW2
+	JMS I	[TXMSG
+	TAD	DPVAL		/ instruction type?
+	SPA CLA
+	JMP	DYPL2		/ :JMS, JMP
+	TAD	SBTMP		/ :AND, TAD, ISZ, DCA -- call type?
+	SZA CLA
+	JMP	DYPL2		/ :dynamic
+	TAD	(ASCII&"?	/ :static -- unable to determine data field
+	JMS I	[PRCH
+	JMP	DYPL5
+DYPL2,	JMS I	[LOAD		/ make indirect address
+		DPTR
+	DCA	DPTRLO
+	TAD	DPVAL		/ instruction type?
+	SPA CLA
+	JMP	DYPL3		/ :JMS, JMP -- use IF
+	TAD I	[SVFL		/ :AND, TAD, ISZ, DCA -- use DF
+	AND	(7
+	DCA	DPTRHI
+DYPL3,	JMS I	[DYSYM		/ print indirect address
+	TAD	DPVAL		/ instruction type?
+	TAD	(1000
+	SPA CLA
+	JMP I	DYPAL		/ :DCA, JMS, JMP -- exit
+DYPL4,	TAD	(ARROW1		/ :AND, TAD, ISZ
+	JMS I	[TXMSG
+DYPL5,	JMS I	[LOAD		/ print contents of address
+		DPTR
+	JMS I	[DYDAT
+	JMP I	DYPAL		/ exit
+DYNMR,	CLA			/ it's OPR or IOT
+	JMS	SYSCH		/ print mnemonics
+		NOP		/ table is format 1
+		OPRTBL
+	JMS	SYSCH		/ print mnemonics
+		JMP  SYJ1	/ table is format 2
+		IOTTBL
+	JMP I	DYPAL		/ exit
+
+/ subr -- called by DYPAL to search mnemonic tables
+/ tables are of two formats: (1) each entry is 4 wds -- a mask, a neg match,
+/ and a 2 wd text msg; (2) each entry is 4 wds -- a neg match, and a 3 wd text
+/ msg.  Each table is terminated with a single zero wd.  Format (1) requires a
+/ NOP at location SYINS, while format (2) requires a JMP SYJ1.  For each entry
+/ in a format (1) table, the word in DPVAL is anded with the mask and compared
+/ with the match; if the result is equal, the 2 wd text msg is printed.  For
+/ each entry in a format (2) table, the word in DPVAL is compared with the
+/ match; if the result is equal, the 3 wd text msg is printed.
+SYSCH,	XX
+	TAD I	SYSCH		/ get NOP or JMP SYJ1 instruction
+	ISZ	SYSCH
+	DCA	SYINS
+	TAD I	SYSCH		/ get table address
+	ISZ	SYSCH
+SYLP,	DCA	SYTMP
+	TAD I	SYTMP		/ end of table?
+	SNA
+	JMP I	SYSCH		/ :yes, done -- exit
+	ISZ	SYTMP		/ :no
+SYINS,	000			/ NOP for format (1), JMP SYJ1 for format (2)
+	AND	DPVAL		/ mask
+	TAD I	SYTMP		/ compare
+	CLL CML			/ 2 wd msg starts with wd 3 of entry
+	JMP	SYJ2
+SYJ1,	TAD	DPVAL		/ compare
+	CLL			/ 3 wd msg starts with wd 2 of entry
+SYJ2,	SZA CLA			/ comparison result?
+	JMP	SYJ3		/ :not equal -- skip printing
+	RAL			/ :equal -- select wd 3 or wd 2
+	TAD	SYTMP
+	JMS I	[TXMSG		/ print msg
+SYJ3,	CLA CLL CML IAC RAL	/ bump pointer to next entry
+	TAD	SYTMP
+	JMP	SYLP		/ go do next entry
+
+/	------------------------
+	PAGE
+
+/ subr -- if arg was entered & anything was open, alter it
+/ signal what was open by return displacement
+/ return+0: nothing was open
+/ return+1: register was open (program or machine)
+/ return+2: memory location was open
+DDTMP,				/ var shares subr head locn
+QALTER,	XX
+	TAD	QALTER		/ set up return
+	TAD	OPNFLG
+	DCA	XALTER
+	JMP	XALT0		/ alter if arg & any open
+
+/ subr -- if arg was entered & anything was open, alter it
+RDXPTR,				/ var shares subr head locn
+XALTER,	XX
+XALT0,	JMS I	[ARGTST		/ any arg?
+	JMP	XALTX		/ :no
+	TAD	OPNFLG		/ :yes -- what is open?
+	SNA
+	JMS I	[ERR		/ :nothing is open
+ERMDNO=	.		/ CANNOT MODIFY -- NOTHING IS OPEN
+	CLL RAR
+	SNA
+	JMP	XALT1		/ :machine register is open
+	SNL CLA
+	JMP	XALT2		/ :program register is open
+	TAD	ARGLO		/ :memory is open -- change it
+	JMS I	[STORE
+		CURR
+	JMP	XALTX
+XALT1,	TAD	MCHPTR		/ change machine register contents
+	JMP	XALT3
+XALT2,	TAD	PRGPTR		/ change program register contents
+XALT3,	DCA	DDTMP
+	TAD	ARGHI
+	DCA I	DDTMP
+	ISZ	DDTMP
+	TAD	ARGLO
+	DCA I	DDTMP
+XALTX,	DCA	OPNFLG		/ set open flag to "nothing"
+	TAD	ADRRFL		/ set input radix to address output radix
+	DCA	INPRFL
+	JMP I	XALTER		/ exit
+
+/ subr -- display label or 7 spaces
+/ accum pts to dbl-wd value
+/ if value is in symbol table, print corresponding symbol
+/ if not, print 7 spaces
+DYLBL,	XX
+	DCA	DYLBA
+	TAD	SYMBGN
+	JMS	LOCVAL		/ value in table?
+DYLBA,		0
+	JMP	DYLB1		/ :no
+	JMS	PRSYM		/ :yes
+	JMP I	DYLBL
+DYLB1,	TAD	(SP7MSG
+	JMS I	[TXMSG
+	JMP I	DYLBL
+
+/ subr -- display value as symbol or number
+/ value is in dbl-wd var DPTR
+/ if value is in symbol table, print corresponding symbol
+/ if not, print value in address size
+DYSYM,	XX
+	TAD	SYMBGN
+	JMS	LOCVAL		/ value in table?
+		DPTR
+	JMP	DYSY1		/ :no
+	JMS	PRSYM		/ :yes
+	JMP I	DYSYM
+DYSY1,	JMS I	[DYADR
+		DPTR
+	JMP I	DYSYM
+
+/ subr -- print address-sized number (dbl-pr) using current radix
+/ number of digits printed depends on radix & current processor
+/ return+0: arg = panel addr of 2 wd number
+/ return+1: normal return
+GADIG,				/ var shares subr head locn
+DYADR,	XX
+	TAD I	DYADR		/ get number pointer
+	JMS	GETADR		/ use number pointer
+	CLA IAC			/ discard CDF result
+	TAD	DYADR		/ get return addr & bump it over arg
+	DCA	DYDAT		/ set up return from common code
+	TAD	PSMAHI		/ mask number to proper size for current proc
+	AND	ADRMSK
+	DCA	PSMAHI
+	TAD	ADRRFL		/ set input radix to most recent output radix
+	DCA	INPRFL
+	TAD	ADRRDX		/ select format for current processor
+	TAD	ADRRFL
+	JMP	DDAT0		/ join common code
+
+/ subr -- print data-sized number using current radix
+/ number of digits printed depends on radix & current processor
+/ 8 or 12 bit value is in the accum
+/ return+0: normal return
+DYDAT,	XX
+	AND	DATMSK		/ mask number to proper size for current proc
+	DCA	PSMALO
+	DCA	PSMAHI
+	TAD	DATRFL		/ set input radix to most recent output radix
+	DCA	INPRFL
+	TAD	DATRDX		/ select format for current processor
+	TAD	DATRFL
+
+/ code common to DYADR & DYDAT
+DDAT0,	DCA	RDXPTR		/ select format for current radix
+	TAD I	RDXPTR
+	DCA	RDXPTR
+DADR1,	ISZ	RDXPTR		/ get digit weight (stored as negative)
+	TAD I	RDXPTR
+	DCA	PSDBHI
+	ISZ	RDXPTR
+	TAD I	RDXPTR
+	DCA	PSDBLO
+	TAD	(-12		/ prime the gathering digit
+	DCA	GADIG
+DADR2,	CLL			/ number<weight?
+	TAD	PSMALO		/ (subtract lo words)
+	TAD	PSDBLO
+	DCA	DDTMP		/ (this may be new number lo wd)
+	RAL			/ (carry between words)
+	TAD	PSMAHI		/ (subtract hi words)
+	TAD	PSDBHI
+	SPA			/ (new number hi wd is in accum)
+	JMP	DADR3		/ :yes, number<weight
+	DCA	PSMAHI		/ :no -- set new number = number - weight
+	TAD	DDTMP
+	DCA	PSMALO
+	ISZ	GADIG		/ gather
+	NOP			/ eff nop const
+	JMP	DADR2		/ continue working on same digit
+DADR3,	CLA			/ print digit in hex
+	TAD	GADIG
+	SPA
+	TAD	("9+1-"A
+	TAD	(177&"A
+	JMS I	[PRCH
+	TAD	PSDBLO		/ end of display format?
+	CMA
+	SZA CLA
+	JMP	DADR1		/ :no -- do next digit
+	JMS I	[SPACE		/ :yes -- append space
+	JMP I	DYDAT		/ exit
+
+/	------------------------
+	PAGE
+
+/ subr -- get data from current processor memory
+/ return+0: arg = panel addr of 2 wd pointer
+/ return+1: normal return, data is in accum
+LOAD,	XX
+	TAD I	LOAD		/ get addr pointer
+	ISZ	LOAD
+	JMS	GETADR		/ use addr pointer
+	DCA	LODH1		/ set CDF for 6120 main
+	JMS	PRCTST		/ which processor?
+	JMP	LOADZ		/ :Z80
+	CPD			/ :6120 -- sw to main mem
+LODH1,	000			/ sw to field from GETADR
+	TAD I	PSMALO		/ get word
+	SPD			/ sw to panel mem
+	CDF	ODTFLD		/ sw to this field
+	JMP I	LOAD		/ exit
+LOADZ,	JMS	PCKADR		/ format addr into 2 (8 bit) bytes
+	DCA	LODZ2		/ lo 8 bits of addr
+	MQA
+	DCA	LODZ1		/ hi 8 bits of addr
+	JMS	WRZBYT		/ send string to Z80
+		400		/ :addr command
+LODZ1,		0		/ :addr hi byte
+LODZ2,		0		/ :addr lo byte
+		401		/ :count command
+		000		/ :count hi byte
+		001		/ :count lo byte
+		403		/ :read command
+		7777		/ :end of string
+	JMS	RDZBYT		/ get byte from Z80
+	JMP I	LOAD		/ exit
+
+/ subr -- put data into current processor memory
+/ 8 or 12 bit data is in accum
+/ return+0: arg = panel addr of 2 wd pointer
+/ return+1: normal return
+STORE,	XX
+	DCA	STORZ3		/ save data
+	TAD I	STORE		/ get addr pointer
+	ISZ	STORE
+	JMS	GETADR		/ use addr pointer
+	DCA	STORH1		/ set CDF for 6120 main
+	JMS	PRCTST		/ which processor?
+	JMP	STOREZ		/ :Z80
+	TAD	STORZ3		/ :6120 -- restore data to accum
+	CPD			/ sw to main memory
+STORH1,	000			/ sw to field from GETADR
+	DCA I	PSMALO		/ put word
+	SPD			/ sw to panel memory
+	CDF	ODTFLD		/ sw to this field
+	JMP I	STORE		/ exit
+STOREZ,	TAD	STORZ3		/ mask data to 8 bits for WRZBYT subr
+	AND	(377
+	DCA	STORZ3
+	JMS	PCKADR		/ format addr to 2 (8 bit) bytes
+	DCA	STORZ2		/ lo 8 bits of addr
+	MQA
+	DCA	STORZ1		/ hi 8 bits of addr
+	JMS	WRZBYT		/ send string to Z80
+		400		/ :addr command
+STORZ1,		0		/ :addr hi byte
+STORZ2,		0		/ :addr lo byte
+		401		/ :count command
+		000		/ :count hi byte
+		001		/ :count lo byte
+		402		/ :write command
+STORZ3,		0		/ :saved data arg
+		7777		/ :end of string
+	JMP I	STORE		/ exit
+
+/ subr -- fetch dbl-pr value into dbl-pr var PSMA
+/ pointer to value is in accum
+/ return+0: normal return, value is copied into PSMA and a CDF instr
+/	made from the lo 3 bits of the hi word of PSMA is in the accum
+GETADR,	XX
+	DCA	PCKADR
+	TAD I	PCKADR
+	DCA	PSMAHI
+	ISZ	PCKADR
+	TAD I	PCKADR
+	DCA	PSMALO
+	TAD	PSMAHI
+	AND	(7
+	R3L
+	TAD	(CDF
+	JMP I	GETADR
+
+/ subr -- format lo 16 bits of dbl-pr var PSMA into 2 8-bit bytes
+/ return+0: normal return, hi 8 bits is in m/q reg, lo 8 bits is in accum
+PCKADR,	XX
+	TAD	PSMAHI
+	AND	(17
+	CLL RTL
+	RTL
+	MQL
+	TAD	PSMALO
+	BSW
+	CLL RTR
+	AND	(17
+	MQA
+	MQL
+	TAD	PSMALO
+	AND	(377
+	JMP I	PCKADR
+
+/ subr -- test for presence of argument entered by operator for this command
+/ return+0: no arg for this command
+/ return+1: arg entered, value is in dbl-pr var ARG
+ARGTST,	XX
+	TAD	ARGCNT
+	SZA CLA
+	ISZ	ARGTST
+	JMP I	ARGTST
+
+/ subr -- test for which processor selected
+/ return+0: Z80 APU
+/ return+1: 6120 main memory
+TXTMP,				/ var shares subr head
+PRCTST,	XX
+	TAD	PROCSW
+	SNA CLA
+	ISZ	PRCTST
+	JMP I	PRCTST
+
+/ subr -- display a message stored in SIXBIT terminated by a zero (@) char
+/ pointer to message is in acc
+TXMSG,	XX
+	DCA	TXTMP
+TXML,	TAD I	TXTMP
+	BSW
+	JMS	TXSXB
+	TAD I	TXTMP
+	JMS	TXSXB
+	ISZ	TXTMP
+	JMP	TXML
+TXSXB,	XX
+	AND	(77
+	SNA
+	JMP	TXEX
+	TAD	(40
+	AND	(77
+	TAD	(40
+	JMS I	[PRCH
+	JMP I	TXSXB
+TXEX,	JMS I	[SPACE
+	JMP I	TXMSG
+
+/	------------------------
+	PAGE
+
+/ subr -- get next non-space character from the operator
+LNTMP,				/ var shares subr head
+GETNXT,	XX
+	JMS	KBCH		/ get char from operator
+	JMP I	GETNXT		/ :control -- return
+	JMP	.-2		/ :space -- ignore
+	TAD	CHAR		/ :visible -- convert lower case to upper
+	TAD	(-141
+	SPA
+	JMP	GTNX0
+	TAD	(141-173
+	SMA
+	JMP	GTNX0
+	TAD	(173+101-141
+	DCA	CHAR
+GTNX0,	CLA
+	JMP I	GETNXT		/ return
+
+/ subr -- get a character from the operator
+/ return+0: control or space, ASCII code is in CHAR
+/ return+1: visible, ASCII code is in CHAR
+GTCH,	XX
+	JMS	KBCH		/ get char from operator
+	JMP I	GTCH		/ :control -- return+0
+	JMP I	GTCH		/ :space -- return+0
+	ISZ	GTCH		/ :visible -- return+1
+	JMP I	GTCH
+
+/ subr -- get next char from keyboard
+/ return+0: control, ASCII in CHAR
+/ return+1: space, ASCII in CHAR
+/ return+2: visible, ASCII in CHAR
+KBCH,	XX
+	DCA	LATCH		/ clear input latch
+GTNXLP,	JMS	WAITLP		/ call firmware device check subr
+				/   if a key is struck, this subr will see it
+				/   and put the ASCII code into LATCH
+	TAD	LATCH		/ anything in latch?
+	SNA
+	JMP	GTNXLP		/ :no -- keep trying
+	AND	(177		/ :yes -- copy it into CHAR
+	DCA	CHAR
+	TAD	CHAR		/ bump return if not control
+	TAD	(-" !7600
+	SMA
+	ISZ	KBCH
+	SMA SZA			/ bump return if visible char
+	ISZ	KBCH
+	SPA CLA			/ do not echo control characters
+	JMP I	KBCH
+	JMS	DUMP		/ reset terminal for echo of input
+		ESCAPE
+		ASCII&"[
+		ASCII&"0
+		ASCII&";
+		ASCII&"1 / 1 = bold, 4 = undrline, 5 = blink, 7 = reverse
+		ASCII&"m
+		0
+	TAD	CHAR		/ echo the input character
+	JMS	PRCH
+	JMS	DUMP		/ reset terminal for output
+		ESCAPE
+		ASCII&"[
+		ASCII&"0
+		ASCII&";
+		ASCII&"7 / 1 = bold, 4 = undrline, 5 = blink, 7 = reverse
+		ASCII&"m
+		0
+	JMP I	KBCH		/ done
+
+/ subr -- begin new line & indicate report type as given in accum
+LNHEAD,	XX
+	DCA	LNTMP
+	JMS	CRLF
+	TAD	LNTMP
+	JMS	PRCH
+	JMS	SPACE
+	JMP I	LNHEAD
+
+/ subr -- begin new line
+CRLF,	XX
+	JMS	DUMP
+		ESCAPE
+		ASCII&"[
+		ASCII&"2
+		ASCII&"4
+		ASCII&"B
+		CARRTN
+		LNFEED
+		0
+	SKCFL	 FRAME
+	JMP	.-1
+	MQL
+	TAD	EOF
+	IFZERO	SHADE3	<
+RTI003,	CDF CIF	.-.
+	JMS I	.-.
+	>
+	IFNZRO	SHADE3	<
+	CDF CIF	PRQFLD
+	JMS I	CPOUS0
+	>
+	CLA
+	JMS	SPACE
+	JMP I	CRLF
+
+/ subr -- print a space to the console display
+SPACE,	XX
+	TAD	(ASCII&"
+	JMS	PRCH
+	JMP I	SPACE
+
+/ subr -- print a message to the console display
+DUMP,	XX
+	CLA
+DMPLP,	TAD I	DUMP
+	ISZ	DUMP
+	SNA
+	JMP I	DUMP
+	JMS	PRCH
+	JMP	DMPLP
+
+/ subr -- print an ASCII character to the console display
+PRCH,	XX
+	DCA	PRSV
+PRLP,	JMS	WAITLP
+	IFZERO	SHADES	<
+FRM010,	CDF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM010,	CDF	0
+	>
+	TAD I	HOLD
+	SNA CLA
+	JMP	PRLP
+	TAD	PRSV
+	MQL
+	TAD	SLUIN
+	IFZERO	SHADE3	<
+RTI004,	CDF CIF	.-.
+	JMS I	.-.
+	>
+	IFNZRO	SHADE3	<
+	CDF CIF PRQFLD
+	JMS I	CPOUS0
+	>
+	CLA
+	JMP I	PRCH
+
+PRSV,	0
+
+/	------------------------
+	PAGE
+
+/ subr -- send a string of bytes to the Z80 APU
+WRZBYT,	XX
+	CLA CLL CML RTL
+	RAL
+	MQL
+WRZLP,	TAD I	WRZBYT
+	ISZ	WRZBYT
+	SPA
+	JMP I	WRZBYT
+	MQA
+	SKCFL	 APU
+	JMP	.-1
+	WRSEQ	 APU
+	CLA
+	JMP	WRZLP
+
+/ subr -- receive a byte from the Z80 APU
+RDZBYT,	XX
+	CLA
+	SKCFL	 APU
+	JMP	.-1
+	ORCLF	 APU
+	JMP I	RDZBYT
+
+/ SUBR -- used when CPODT waits but panel devices must still be serviced
+/ this routine is not a loop -- it is to be placed into a loop
+WAITLP,	XX
+	SKCFL	 MATIN		/ mat (kbd dvc) input done?
+	JMP	WAIT1		/ :no
+	CLA MQL			/ :yes -- call kbd rcv int svc rtn
+	TAD	KBYBRD
+	IFZERO	SHADE3	<
+RTI005,	CDF CIF	.-.
+	JMS I	.-.
+	>
+	IFNZRO	SHADE3	<
+	CDF CIF	10
+	JMS I	CPOUS1
+	>
+WAIT1,	SKCFL	 MATTX		/ mat (kbd dvc) output done?
+	JMP	WAIT2		/ :no
+	CLA MQL			/ :yes -- call kbd xmt int svc rtn
+	TAD	KBXMT
+	IFZERO	SHADE3	<
+RTI006,	CDF CIF	.-.
+	JMS I	.-.
+	>
+	IFNZRO	SHADE3	<
+	CDF CIF	10
+	JMS I	CPOUS1
+	>
+WAIT2,	SKCFL	 FRAME		/ end of frame flag?
+	JMP	WAIT3		/ :no
+	CLA MQL			/ :yes -- call end frame int svc rtn
+	TAD	EOF
+	IFZERO	SHADE3	<
+RTI007,	CDF CIF	.-.
+	JMS I	.-.
+	>
+	IFNZRO	SHADE3	<
+	CDF CIF	PRQFLD
+	JMS I	CPOUS0
+	>
+WAIT3,	CLA
+	JMP I	WAITLP
+
+/ kbd rcv int svc rtn patched to come here -- this tests for the interrupt key
+KBDINT,	RDSEQ	 MATIN		/ replace patched out code
+	MQL			/ is it interrupt key?
+	MQA
+	AND	(377
+	TAD	(-INTKEY
+	SNA CLA
+	JMP	DBGINT		/ :yes -- re-enter CPODT
+	MQA			/ :no -- return to panel firmware
+	IFZERO	SHADES	<
+FRM020,	CDF CIF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM020,	CDF CIF	10
+	>
+	JMP I	KBDRTN
+KBDRTN,	0
+
+/ queue char to user rtn patched to come here -- chars diverted to CPODT
+/ the patch is inserted and removed by CPODT at run time
+CATCH,	DCA	LATCH		/ grab the char
+	IFZERO	SHADES	<
+FRM015,	CDF CIF	.-.		/ return to the queue char rtn's caller
+	>
+	IFNZRO	SHADES	<
+FRM015,	CDF CIF	0		/ return to the queue char rtn's caller
+	>
+	TAD I	PUSHSL
+	DCA	0
+	JMP I	0
+
+/ fw exit routine patched to come here just before restoring main mem program
+/ this determines if a HLT flag is pending and services it
+/ *** panel firmware does not always service a HLT within one instr time ***
+EXPTCH,	SKCFL	 USRIO		/ replace patched out code
+	NOP
+	IFZERO	SHADES	<
+FRM016,	CDF CIF	.-.		/ did the panel stat wd have a HLT flag?
+	>
+	IFNZRO	SHADES	<
+FRM016,	CDF CIF	0		/ did the panel stat wd have a HLT flag?
+	>
+	TAD I	PSTAT
+	RTL
+	RTL
+	IFZERO	SHADES	<
+FRM018,	CDF CIF	.-.	
+	>
+	IFNZRO	SHADES	<
+FRM018,	CDF CIF	0	
+	>
+	SMA CLA
+	JMP I	EXITX		/ :no -- continue with exit
+	IFZERO	SHADES	<
+FRM017,	CDF CIF	.-.
+	>
+	IFNZRO	SHADES	<
+FRM017,	CDF CIF	0
+	>
+	JMP I	MOD40		/ :yes -- go to emulate HLT rtn
+EXITX,	0
+
+/	------------------------
+	PAGE
+
+/ lists of parameters used to implement input radix
+RLIST,
+/ radix 8 parameters
+	-10		/ digit value limit
+	NOP		/ used for switch in main stem
+/ radix 10 parameters
+	-12		/ digit value limit
+	JMS	DBLADD	/ used for switch in main stem
+/ radix 16 parameters
+	-20		/ digit value limit
+	JMS	DBLSHL	/ used for switch in main stem
+
+/ command dispatch table -- neg char, address
+CMNDTB,	-"&!7600; XAMPER	/ select 6120 main memory
+/	-"*!7600; XASTER	/ select 6120 panel memory
+/	-"(!7600; XLFPAR	/ select Z80 APU
+/	-")&7600; XRTPAR	/ select T11 APU
+	-"#!7600; XXNUMB	/ set input radix = 16
+	-"$!7600; XDOLAR	/ set input radix = 10
+	-"%!7600; XPRCNT	/ set input radix = 8
+	-"@!7600; XATSGN	/ set address size output radix = input radix
+	-"!!7600; XEXCLM	/ set data size output radix = input radix
+	-"[!7600; XLFBRK	/ turn on trace mode
+	-"]!7600; XRTBRK	/ turn off trace mode
+	-"{!7600; XLFCRL	/ turn on CHAR & PAL8 reporting
+	-"}!7600; XRTCRL	/ turn off CHAR & PAL8 reporting
+	-"?!7600; XXECHO	/ echo arg
+	-"/!7600; XSLASH	/ open memory location
+	-"+!7600; XXPLUS	/ open current+arg
+	-"-!7600; XMINUS	/ open current-arg
+	-"^!7600; XCARET	/ open loc referenced by instr
+	-"_!7600; XUNDLN	/ open loc pointed to
+	-12;      XPRIME	/ open successor, mem or reg
+	-"'!7600; XPRIME	/ open successor, mem or reg
+	-15;      XCRETN	/ close
+	-"\!7600; XBAKSL	/ open saved machine register
+	-"|!7600; XVRTLN	/ open program control register
+	-"R!7600; XEQUAL	/ display all machine registers
+	-"W!7600; XQUOTE	/ search range under mask
+	-"T!7600; XRTANG	/ set or clear trap (break point)
+	-"X!7600; XLFANG	/ single-step or finite-step
+	-"G!7600; XCOLON	/ go
+	-"P!7600; XSEMIC	/ proceed (continue)
+	-"=!7600; XDEFSY	/ define symbol
+	-".!7600; XUSESY	/ use symbol
+/	-"~!7600; XTILDE	/ pass interrupt (%144) key to application
+	-"@!7600; XGRAVE	/ boot RX
+	0
+
+/ 6120 parameter list
+PLSTH,	ADRRDH	/ output format list for address size
+	DATRDH	/ output format list for data size
+	0007	/ mask for hi word of address size
+	7777	/ mask for data size
+	0	/ 0 = 6120 selected
+	H6120R	/ pointer to saved machine state register list
+	H6120R+1 / initialize pointer to value of currently opened register
+	0	/ input radix flag: 0 = rdx 8
+	0	/ address sized output radix flag: 0 = rdx 8
+	0	/ data sized output radix flag: 0 = rdx 8
+
+/ Z80 APU parameter list
+PLSTZ,	ADRRDZ	/ output format list for address size
+	DATRDZ	/ output format list for data size
+	0017	/ mask for hi word of address size
+	0377	/ mask for data size
+	2	/ 2 = Z80 selected
+	Z80APU	/ pointer to saved machine state register list
+	Z80APU+1 / initialize pointer to value of currently opened register
+	2	/ input radix flag: 2 = rdx 16
+	2	/ address sized output radix flag: 2 = rdx 16
+	2	/ data sized output radix flag: 2 = rdx 16
+
+/ table of format addresses by type, processor, & radix
+/ 6120 address size -- 15 bits
+ADRRDH,	RDX085-1	/ radix=8   digits=5  ie 0--77777
+	RDX105-1	/ radix=10  digits=5  ie 0--32767
+	RDX164-1	/ radix=16  digits=4  ie 0--7FFF
+/ Z-80 address size -- 16 bits
+ADRRDZ,	RDX086-1	/ radix=8   digits=6  ie 0--177777
+	RDX105-1	/ radix=10  digits=5  ie 0--65535
+	RDX164-1	/ radix=16  digits=4  ie 0--FFFF
+/ 6120 data size -- 12 bits
+DATRDH,	RDX084-1	/ radix=8   digits=4  ie 0--7777
+	RDX104-1	/ radix=10  digits=4  ie 0--4095
+	RDX163-1	/ radix=16  digits=3  ie 0--FFF
+/ Z-80 data size -- 8 bits
+DATRDZ,	RDX083-1	/ radix=8   digits=3  ie 0--377
+	RDX103-1	/ radix=10  digits=3  ie 0--255
+	RDX162-1	/ radix=16  digits=2  ie 0--FF
+
+/ formats -- dbl-pr values for radix**position
+/ radix = 8
+RDX086,	7770; 0000
+RDX085,	7777; 0000
+RDX084,	7777; 7000
+RDX083,	7777; 7700
+	7777; 7770
+	7777; 7777
+/ radix = 10
+RDX105,	7775; 4360
+RDX104,	7777; 6030
+RDX103,	7777; 7634
+	7777; 7766
+	7777; 7777
+/ radix = 16
+RDX164,	7777; 0000
+RDX163,	7777; 7400
+RDX162,	7777; 7760
+	7777; 7777
+
+/ debug program control registers
+DBGCTL,	ASCII&"M
+	 0
+SCHMSK,	 7777	/ mask used in "search" command
+	ASCII&"S
+SCHBGN,	 0	/ beginning of range for a "search" command
+	 0
+	ASCII&"F
+SCHEND,	 7777	/ end of range for a "search" command
+	 7777
+	ASCII&"G
+GSTART,	 0	/ default starting address for a "go" command
+	 200
+	0
+	DBGCTL+1
+
+/ saved 6120 machine state registers
+H6120R,	ASCII&"F
+	 0
+SVFL,	 0	/ flags reg -- LINK/GT/INTREQ/PWRON/IEFF/0/IF/DF
+	ASCII&"P
+	 0
+SVPC,	 0	/ program counter
+	ASCII&"A
+	 0
+SVAC,	 0	/ accumulator
+	ASCII&"M
+	 0
+SVMQ,	 0	/ multiplier/quotient
+	ASCII&"X
+	 0
+SVS1,	 0	/ stack pointer 1
+	ASCII&"Y
+	 0
+SVS2,	 0	/ stack pointer 2
+	0
+	H6120R+1
+
+/ saved Z80 APU machine state registers
+Z80APU,	ASCII&"A
+	 0; 0	/ AF
+	ASCII&"B
+	 0; 0	/ BC
+	ASCII&"D
+	 0; 0	/ DE
+	ASCII&"H
+	 0; 0	/ HL
+	ASCII&"F
+	 0; 0	/ A'F'
+	ASCII&"C
+	 0; 0	/ B'C'
+	ASCII&"E
+	 0; 0	/ D'E'
+	ASCII&"L
+	 0; 0	/ H'L'
+	ASCII&"X
+	 0; 0	/ IX
+	ASCII&"Y
+	 0; 0	/ IY
+	ASCII&"Z
+	 0; 0	/ vector/refresh
+	ASCII&"P
+SVPCR,	 0; 0	/ PC
+	ASCII&"S
+	 0; 0	/ stack pointer
+	0
+	Z80APU+1
+
+/ list of breakpoint addresses -- each double-word stores a 1-bit flag,
+/ followed by 8 unused bits, followed by a 15-bit address.
+/ if the BP is not set, the entire double-word is zero
+/ if the BP is set, the flag bit is one and the address is the trap address
+BPLIST,	0; 0	/ flag & address for BP #0
+	0; 0	/ flag & address for BP #1
+	0; 0	/ flag & address for BP #2
+	0; 0	/ flag & address for BP #3
+	0; 0	/ flag & address for BP #4
+	0; 0	/ flag & address for BP #5
+	0; 0	/ flag & address for BP #6
+	0; 0	/ flag & address for BP #7
+	0; 0	/ flag & address for BP #8
+	0; 0	/ flag & address for BP #9
+
+/ whenever program execution is begun (ie. the G or P command), for each BP
+/ which is set, the instruction at the trap address is saved here and a trap
+/ instruction is put into the program in its place
+INSLST,	0	/ instruction under BP #0
+	0	/ instruction under BP #1
+	0	/ instruction under BP #2
+	0	/ instruction under BP #3
+	0	/ instruction under BP #4
+	0	/ instruction under BP #5
+	0	/ instruction under BP #6
+	0	/ instruction under BP #7
+	0	/ instruction under BP #8
+	0	/ instruction under BP #9
+
+/ the display attributes are saved here when CPODT wants to use the CRT
+ATRSAV,	0
+G0FSAV,	0
+G1FSAV,	0
+
+
+/ mnemonic table for memory reference instructions
+MRITBL,	7000; -0000; TEXT "AND"
+	7000; -1000; TEXT "TAD"
+	7000; -2000; TEXT "ISZ"
+	7000; -3000; TEXT "DCA"
+	7000; -4000; TEXT "JMS"
+	7000; -5000; TEXT "JMP"
+	0400; -0000; TEXT " "; 0
+IIFTBL,	0400; -0400; TEXT "I"; 0
+	 0; 0			/ second 0 is for SCHSYM
+
+/ mnemonic table for microprogrammable OPR and IOT instructions
+OPRTBL,	7777; -7000; TEXT "NOP"
+	7776; -7400; TEXT "NOP"
+	7571; -7410; TEXT "SKP"
+	7511; -7500; TEXT "SMA"
+	7511; -7510; TEXT "SPA"
+	7451; -7440; TEXT "SZA"
+	7451; -7450; TEXT "SNA"
+	7431; -7420; TEXT "SNL"
+	7431; -7430; TEXT "SZL"
+	7200; -7200; TEXT "CLA"
+	7500; -7100; TEXT "CLL"
+	7440; -7040; TEXT "CMA"
+	7420; -7020; TEXT "CML"
+	7401; -7001; TEXT "IAC"
+	7416; -7002; TEXT "BSW"
+	7416; -7004; TEXT "RAL"
+	7416; -7006; TEXT "RTL"
+	7416; -7010; TEXT "RAR"
+	7416; -7012; TEXT "RTR"
+	7416; -7014; TEXT "R3L"
+	7405; -7404; TEXT "OSR"
+	7403; -7402; TEXT "HLT"
+	7521; -7501; TEXT "MQA"
+	7521; -7421; TEXT "MQL"
+	7521; -7521; TEXT "SWP"
+	7705; -6201; TEXT "CDF"
+	7706; -6202; TEXT "CIF"
+	7774; -6200; TEXT "00"
+	7774; -6210; TEXT "10"
+	7774; -6220; TEXT "20"
+	7774; -6230; TEXT "30"
+	7774; -6240; TEXT "40"
+	7774; -6250; TEXT "50"
+	7774; -6260; TEXT "60"
+	7774; -6270; TEXT "70"
+	 0; 0			/ second 0 is for SCHSYM
+
+/ mnemonic table for stand-alone OPR and IOT instructions
+IOTTBL,	-6000; TEXT "SKON"
+	-6001; TEXT "ION"; 0
+	-6002; TEXT "IOF"; 0
+	-6003; TEXT "SRQ"; 0
+	-6004; TEXT "GTF"; 0
+	-6005; TEXT "RTF"; 0
+	-6006; TEXT "SGT"; 0
+	-6007; TEXT "CAF"; 0
+	-6214; TEXT "RDF"; 0
+	-6224; TEXT "RIF"; 0
+	-6234; TEXT "RIB"; 0
+	-6244; TEXT "RMF"; 0
+	-6205; TEXT "PPC1"
+	-6215; TEXT "PAC1"
+	-6225; TEXT "RTN1"
+	-6235; TEXT "POP1"
+	-6245; TEXT "PPC2"
+	-6255; TEXT "PAC2"
+	-6265; TEXT "RTN2"
+	-6275; TEXT "POP2"
+	-6206; TEXT "PRQ0"
+	-6216; TEXT "PRQ1"
+	-6226; TEXT "PRQ2"
+	-6236; TEXT "PRQ3"
+	-6246; TEXT "WSR"; 0
+	-6256; TEXT "GCF"; 0
+	-6207; TEXT "RSP1"
+	-6217; TEXT "LSP1"
+	-6227; TEXT "RSP2"
+	-6237; TEXT "LSP2"
+	-6030; TEXT "KCF"; 0
+	-6031; TEXT "KSF"; 0
+	-6032; TEXT "KCC"; 0
+	-6034; TEXT "KRS"; 0
+	-6035; TEXT "KIE"; 0
+	-6036; TEXT "KRB"; 0
+	-6040; TEXT "TFL"; 0
+	-6041; TEXT "TSF"; 0
+	-6042; TEXT "TCF"; 0
+	-6044; TEXT "TPC"; 0
+	-6045; TEXT "TSK"; 0
+	-6046; TEXT "TLS"; 0
+	-6130; TEXT "CKSET"
+	-6131; TEXT "CKSKP"
+	-6135; TEXT "CKENB"
+	-6300; TEXT "SPRF1"
+	-6301; TEXT "KPRF1"
+	-6302; TEXT "CCPR1"
+	-6304; TEXT "PRS1"
+	-6305; TEXT "PRIE1"
+	-6306; TEXT "PRB1"
+	-6310; TEXT "SPTF1"
+	-6311; TEXT "KPTF1"
+	-6314; TEXT "PTS1"
+	-6315; TEXT "PTIE1"
+	-6316; TEXT "PTB1"
+	-6320; TEXT "KCF2"
+	-6321; TEXT "KSF2"
+	-6322; TEXT "KCC2"
+	-6324; TEXT "KRS2"
+	-6325; TEXT "KIE2"
+	-6326; TEXT "KRB2"
+	-6330; TEXT "SPF2"
+	-6331; TEXT "TSF2"
+	-6333; TEXT "TSB2"
+	-6334; TEXT "TPC2"
+	-6335; TEXT "TIE2"
+	-6336; TEXT "TLS2"
+	-6360; TEXT "SMF"; 0
+	-6361; TEXT "KMF"; 0
+	-6362; TEXT "PCR1"
+	-6363; TEXT "PSR"; 0
+	-6364; TEXT "PMR"; 0
+	-6365; TEXT "MCIE"
+	-6366; TEXT "PCR2"
+	-6367; TEXT "RACD"
+	-6750; TEXT "RXSEL"
+	-6751; TEXT "RXLCD"
+	-6752; TEXT "RXXDR"
+	-6753; TEXT "RXSTR"
+	-6754; TEXT "RXSER"
+	-6755; TEXT "RXSDN"
+	-6756; TEXT "RXENB"
+	-6757; TEXT "RXINI"
+	 0
+
+/ pictures of arrows
+ARROW1,	TEXT "-->"
+ARROW2,	TEXT "==>"
+
+/ spaces to replace label when value not found
+SP7MSG,	TEXT "      "	/ 6 spaces, TXMSG will add 1
+
+/ confirmation prompt message
+CNFMSG,	TEXT / "Y" TO DELETE:/
+
+/ table of error locations and err messages
+ERRLST,	-ERUNCO; MSUNRC; MSCMND
+	-ERDEIR; MSDEIR; 0
+	-ERRFNO; MSCNFR; MSNTIO
+	-ERRFMO; MSCNFR; MSRGIO
+	-ERRFPO; MSCNFR; MSRGIO
+	-ERRFZA; MSCNFR; MSZ80S
+	-ERRFEX; MSCNFR; MSIIIO
+	-ERINNO; MSCNFI; MSNTIO
+	-ERINPO; MSCNFI; MSPRIO
+	-ERSCNO; MSCNFS; MSNTIO
+	-ERUNMR; MSUNRC; MSMRGN
+	-ERUNPR; MSUNRC; MSPRGN
+	-ERSTZA; MSCNST; MSZ80S
+	-ERUNBH; MSUNRC; MSBKPN
+	-ERUNBL; MSUNRC; MSBKPN
+	-ERMDNO; MSCNMD; MSNTIO
+	-ERNDNS; MSCNDL; MSSYND
+	-ERNDNV; MSCNDL; MSVLND
+	-ERNUNS; MSUNRC; MSSYND
+	-EROUTI; MSOUTI; MSABOR
+	-ERNCFM; MSDELI; MSABOR
+	0; MSUNER; 0
+
+/ the messages referred to in the error list
+MSCNFR,	TEXT "? CANNOT FIND REFERENCE"
+MSCNFI,	TEXT "? CANNOT FIND INDIRECT"
+MSCNFS,	TEXT "? CANNOT FIND SUCCESSOR"
+MSCNST,	TEXT "? CANNOT STEP"
+MSCNMD,	TEXT "? CANNOT MODIFY"
+MSCNDL,	TEXT "? CANNOT DELETE"
+MSUNRC,	TEXT "? UNRECOGNIZED"
+MSNTIO,	TEXT "-- NOTHING IS OPEN"
+MSRGIO,	TEXT "-- REGISTER IS OPEN"
+MSPRIO,	TEXT "-- PROGRAM REGISTER IS OPEN"
+MSZ80S,	TEXT "-- Z80 SELECTED"
+MSIIIO,	TEXT "-- INSTRUCTION IS IOT OR OPR"
+MSSYND,	TEXT "-- SYMBOL NOT DEFINED"
+MSVLND,	TEXT "-- VALUE NOT DEFINED"
+MSCMND,	TEXT "COMMAND"
+MSMRGN,	TEXT "MACHINE REGISTER NAME"
+MSPRGN,	TEXT "PROGRAM REGISTER NAME"
+MSBKPN,	TEXT "BREAKPOINT NAME"
+MSDEIR,	TEXT "? DIGIT EXCEEDS CURRENT INPUT RADIX"
+MSOUTI,	TEXT "* OUTPUT"
+MSDELI,	TEXT "* DELETION"
+MSABOR,	TEXT "ABORTED"
+MSUNER,	TEXT "! -- NO ERROR HELP --"
+
+/	------------------------
+	PAGE
+
+/ program initialization -- runs once on installation, links CPODT to panel
+/ firmware using the linkage vector included in panel firmware
+
+DEBUG,				/ loader starts program here
+/ copy linkage vector to CPODT page zero
+	CLA CLL CMA CML
+	CDF	PRQFLD
+	TAD I	(ODTPTR
+	DCA	10
+	TAD I	(ODTPTR+1
+	TAD	(CDF
+	DCA	INILP1
+	TAD	INILP1
+	DCA	INI001
+	TAD	(STATUS-1
+	DCA	11
+	TAD	(FLDPTR-1
+	DCA	12
+	TAD	(-26
+	DCA	TEMP
+INILP1,	000
+	TAD I	10
+	CDF	ODTFLD
+	DCA I	11
+INI001,	000
+	TAD I	10
+	CDF	ODTFLD
+	DCA I	12	
+	ISZ	TEMP
+	JMP	INILP1
+/ write cross-field call routine into CPODT use area
+	TAD	CPOUS0
+	DCA	10
+	TAD	CPOUS0
+	AND	(177
+	MQL
+	CDF	PRQFLD
+	MQA
+	TAD	(DCA .&7600+6
+	DCA I	10
+	TAD	(MQA
+	DCA I	10
+	MQA
+	TAD	(JMS I .&7600+6
+	DCA I	10
+	TAD	(CDF CIF ODTFLD
+	DCA I	10
+	MQA
+	TAD	(JMP I .&7600
+	DCA I	10
+	CDF ODTFLD
+/ write cross-field call routine into CPODT use area
+	TAD	CPOUS1
+	DCA	10
+	TAD	CPOUS1
+	AND	(177
+	MQL
+	CDF	10
+	MQA
+	TAD	(DCA .&7600+6
+	DCA I	10
+	TAD	(MQA
+	DCA I	10
+	MQA
+	TAD	(JMS I .&7600+6
+	DCA I	10
+	TAD	(CDF CIF ODTFLD
+	DCA I	10
+	MQA
+	TAD	(JMP I .&7600
+	DCA I	10
+	CDF ODTFLD
+/ set up interrupt key intercept patch
+	TAD	KBYBRD
+	DCA	10
+	IFZERO	SHADE2	<
+	TAD	LKBYBR			/ get field in which it resides
+	TAD	(CDF			/ and build a cdf instruction to it
+	DCA	.+1
+	CDF	.-.
+	>
+	IFNZRO	SHADE2	<
+	CDF	10
+	>
+	TAD	(CDF CIF ODTFLD
+	DCA I	10
+	TAD	KBYBRD
+	AND	(177
+	TAD	(JMP I .&7600+3
+	DCA I	10
+	TAD	(KBDINT
+	DCA I	10
+	CDF	ODTFLD
+	CLA CLL IAC RTL
+	TAD	KBYBRD
+	DCA	KBDRTN
+/ save instrs from queue chars to user rtn, for run time patching & unpatching
+	TAD	PUSHSL
+	DCA	10
+	IFZERO	SHADE2	<
+	TAD	LPUSHS			/ get field in which it resides
+	TAD	(CDF			/ and build a cdf instruction to it
+	DCA	.+1
+	CDF	.-.
+	>
+	IFNZRO	SHADE2	<
+	CDF	0
+	>
+	TAD I	10
+	DCA	PANPSH
+	TAD I	10
+	DCA	PANPSH+1
+	TAD I	10
+	DCA	PANPSH+2
+	CDF	ODTFLD
+	TAD	PUSHSL
+	AND	(177
+	TAD	(JMP I .&7600+3
+	DCA	ODTPSH+1
+	JMP	INIPG2
+/	------------------------
+	PAGE
+
+/ set up patch to intercept HLT emulation
+INIPG2,	CLA CLL CMA CML
+	TAD	MOD40
+	DCA	10
+	IFZERO	SHADE2	<
+	TAD	LMOD40			/ get field in which it resides
+	TAD	(CDF			/ and build a cdf instruction to it
+	DCA	.+1
+	CDF	.-.
+	>
+	IFNZRO	SHADE2	<
+	CDF	0
+	>
+	TAD	(CDF CIF ODTFLD
+	DCA I	10
+	TAD	MOD40
+	AND	(177
+	TAD	(JMP I .&7600+2
+	DCA I	10
+	TAD	(DBGHLT
+	DCA I	10
+	CDF	ODTFLD			/KAH - 27 AUG 84
+/ set up patch to intercept all panel interrupt exits
+	CLA CLL CMA CML
+	TAD	EXIT3
+	DCA	10
+	IFZERO	SHADE2	<
+	TAD	LEXIT3			/ get field in which it resides
+	TAD	(CDF			/ and build a cdf instruction to it
+	DCA	.+1
+	CDF	.-.
+	>
+	IFNZRO	SHADE2	<
+	CDF	0
+	>
+	TAD	(CDF CIF ODTFLD
+	DCA I	10
+	TAD	EXIT3
+	AND	(177
+	TAD	(JMP I .&7600+2
+	DCA I	10
+	TAD	(EXPTCH
+	DCA I	10
+	CDF	ODTFLD
+	CLA CLL CML IAC RAL
+	TAD	EXIT3
+	DCA	EXITX
+
+/ set up arg lists for XFMOV calls which save & restore 6120 state
+	TAD	(TBLTBL-1
+	DCA	10
+	TAD	(-7
+	DCA	CNTCNT
+INILP2,	TAD I	10
+	DCA	TEMP
+	TAD I	10
+	DCA	CHAR
+	TAD I	TEMP
+	DCA I	CHAR
+	TAD I	10
+	DCA	CHAR
+	TAD I	TEMP
+	DCA I	CHAR
+	ISZ	CNTCNT
+	JMP	INILP2
+
+	IFZERO	SHADES	<
+/ this load loop initializes the cdf, cif, and cdf cif
+/ locations with the appropriate values
+	TAD	(FLDTBL-1
+	DCA	10
+	TAD	(-FLTBLN
+	DCA	11
+INILP3,	TAD I	10
+	DCA	INTMP1
+	TAD I	10
+	DCA	INTMP2
+	TAD I	10
+	TAD I	INTMP2
+	DCA I	INTMP1
+	ISZ	11
+	JMP	INILP3
+	>
+
+	IFZERO	SHADE3	<
+/ loop to set up field 1 and 0 user area users
+	TAD	(RTITBL-1
+	DCA	10
+	TAD	(-RTTBLN
+	DCA	11
+INILP4,	TAD I	10
+	DCA	TEMP
+	TAD I	10
+	DCA	12
+	TAD I	TEMP
+	SNA CLA
+	JMP	INI002
+	TAD	(CDF CIF 10
+	DCA I	12
+	TAD	(JMS I CPOUS1
+	DCA I	12
+	JMP	INI003
+INI002,	TAD	(CDF CIF PRQFLD
+	DCA I	12
+	TAD	(JMS I CPOUS0
+	DCA I	12
+INI003,	ISZ	11
+	JMP	INILP4
+	>
+	JMP	DBGINT
+
+INTMP1,	0
+INTMP2,	0
+
+RTITBL,
+	IFZERO	SHADE3	<
+	LKBXQP;	RTI001-1
+	LKBXQP;	RTI002-1
+	LEOF;	RTI003-1
+	LSLUIN;	RTI004-1
+	LKBYBR;	RTI005-1
+	LKBXMT;	RTI006-1
+	LEOF;	RTI007-1
+	>
+
+RTTBLN=	.-RTITBL%2
+
+/	------------------------
+	PAGE
+
+/ table of addresses for initialization
+TBLTBL,	STATUS;	   MVTAB2+04;	MVTAB1+02
+	PCSAVE;	   MVTAB2+10;	MVTAB1+06
+	ACSAV;	   MVTAB2+14;	MVTAB1+12
+	MQSAV;	   MVTAB2+20;	MVTAB1+16
+	ATTRIB;	   MVTAB2+24;	MVTAB1+22
+	GL;	   MVTAB2+30;	MVTAB1+26
+	GR;	   MVTAB2+34;	MVTAB1+32
+
+/ table of cdf, cif, and cdf cif instruction locations
+/ and variable references.
+FLDTBL,
+	IFZERO	SHADES	<
+	MVTAB2+03;	LSTATU;	CDF	0
+	MVTAB1+01;	LSTATU;	CDF	0
+	MVTAB2+07;	LPCSAV;	CDF	0
+	MVTAB1+05;	LPCSAV;	CDF	0
+	MVTAB2+13;	LACSAV;	CDF	0
+	MVTAB1+11;	LACSAV;	CDF	0
+	MVTAB2+17;	LMQSAV;	CDF	0
+	MVTAB1+15;	LMQSAV;	CDF	0
+	MVTAB2+23;	LATTRI;	CDF	0
+	MVTAB1+21;	LATTRI;	CDF	0
+	MVTAB2+27;	LGL;	CDF	0
+	MVTAB1+25;	LGL;	CDF	0
+	MVTAB2+33;	LGR;	CDF	0
+	MVTAB1+31;	LGR;	CDF	0
+	>
+	IFZERO	SHADES	<
+	FRM001;		LPSTAT;	CDF	0
+	FRM002;		LLOCKE;	CDF	0
+	FRM004;		LEXIT;	CDF CIF	0
+	FRM005;		LLOCKE;	CDF	0
+	FRM007;		LMOD20;	CDF CIF	0
+	FRM008;		LPUSHS;	CDF	0
+	FRM010;		LHOLD;	CDF	0
+	FRM015;		LPUSHS;	CDF CIF	0
+	FRM016;		LPSTAT;	CDF CIF	0
+	FRM017;		LMOD40;	CDF CIF	0
+	FRM018;		LEXIT3;	CDF CIF	0
+	FRM019;		LPUSHS;	CDF	0
+	FRM020;		LKBYBR;	CDF CIF	0
+	>
+
+FLTBLN=	.-FLDTBL%3
+
+/ table of fields for firmware routines
+/ loaded at runtime this is then added to
+/ the proper cdf, cif, and cdf cif values
+/ and deposited into the correct areas
+
+FLDPTR,
+LSTATU,	0	/ saved 6120 flags reg
+LACSAV,	0	/ saved 6120 accumulator
+LMQSAV,	0	/ saved 6120 mult/quot reg
+LPSTAT,	0	/ panel status word at panel interrupt
+LPCSAV,	0	/ saved 6120 program counter
+LATTRI,	0	/ CRT attributes
+LGL,	0	/ CRT char set 0
+LGR,	0	/ CRT char set 1
+LLOCKE,	0	/ kbd locked flag
+LHOLD,	0	/ screen locked flag
+LMOD20,	0	/ fw seg re-boot
+LEXIT,	0	/ fw seg return to main mem prog
+LKBYBR,	0	/ fw rtn kbd rcv int svc
+LKBXMT,	0	/ fw rtn kbd xmt int svc
+LEOF,	0	/ fw rtn end of frame int svc
+LSLUIN,	0	/ fw rtn process ASCII char from user
+LKBXQP,	0	/ fw rtn queue byte to kbd xmt
+LMOD40,	0	/ fw seg emulate HLT
+LPUSHS,	0	/ fw rtn queue char to user
+LEXIT3,	0	/ fw seg trap exit here
+LCPOU0,	0	/ 7 wd work area in field 0
+LCPOU1,	0	/ 7 wd work area in field 1
+
+/	------------------------
+
+MOVEND,
+
+$$
+
+
+

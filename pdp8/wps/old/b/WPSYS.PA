@@ -1,0 +1,5467 @@
+/WPSYS - Standalone WPS operating system & handlers
+/
+/170	EMcD	24-Sep-85	Dutch Keyboard (conditional)
+/169	KMD	13-Sep-85	Spanish KB (conditional)
+/168	EMcD	12-Sep-85	Allow UDK key as single stroke if we
+/				are in SETUP (allows use of DO key)
+/167	EMcD	26_aug-85	Add Insert-Overstrike Key and move UDK key
+/166 	EMcD	19-Aug-85	Swedish/Norwegian Keyboard layout (conditional)
+/165	EMcD	13-Jul-85	FAo keyboard layout (conditional)
+/164	RCME	11-Jul-85	Allow 8 bit GOLD things
+/163	EMcD	25-Jun-85	Mask chars from Panel to 7 bit for Date on
+/				start up
+/162	RCME	31-May-85	Move Print Screen job start
+/161	MART	04-MAY-85	Add fallback for 8 bit chars on LQP02s
+/160	RCME	01-FEB-85	Convert to 8 bit in and out.
+
+/--------------------------- Mods below refer to V2.0 and earlier--------
+
+/159	TCW	05-NOV-84	Add support for EIA pin 23, speed select
+/158	DFB	19-SEP-84	Fix to add drives 8,9 when WPS = strtup vol
+/157	TCW	03-SEP-84	Extend Break Time for Integral Modem (2 sec.)
+/156	TCW	22-AUG-84	Add ck for Integral Modem enabled
+/155	GDH	 2-AUG-84	Added VT52 GOLD:HALT detection.
+/154	TCW	16-JUL-84	Change in position of Break Time bits
+/153	JAC	09-JUL-84	Fix problems left over from /152
+/152	AH	09-JUL-84	Change/add esc def for (hypen & columm)
+/151	TCW	05-JUL-84	Correct modem control bits 10 & 11
+/150	AH	03-JUL-84	Change tech char from F14 to F11 key
+/149	JAC	02-JUL-84	Changes to U1STPT
+/148	JAC	02-JUL-84	100 UDK Integration
+/147	JFS	26-JUN-84	die if not DMII or DMIII
+/146	DFB	22-JUN-84	Set time if boot from hard disk
+/145	JFS	20-JUN-84	limit RXONLN to 2 for DMIII
+/144	WJY	14-MAY-84	Differentiate between XPU and APU.
+/143	AIB	14-MAY-84	ADD PARSING OF EDTC (FOR LABONTE)
+/142	HLP	25-APR-84	Add D2XONF double xon flag for printer
+/141	DFB	18-APR-84	Date/Time fix for WPS boot other winnie systems
+/140	HLP	07-APR-84	Include Joan Silverston's DM III & IV changes
+/139	HLP	05-APR-84	Open a hole for another page of code
+/138	HLP	26-MAR-84	Move PTC7R0 to printer field
+/137	AH	21-MAR-84	Add code for column key
+/136	HLP	20-MAR-84	Fix hang when change comm baud rate while
+/				printing to DD HOST
+/135	HLP	08-MAR-84	Restructure Patch Code to handle small LPOBUF
+/				Moved Printer Handler inline with WPSYS
+/				Deleted SQWAIT from Printer Handler
+/				Moved TSTFUL from WPRINT to WPSYS
+/				Moved PCMWT0 from resident to patch code
+/				Replace SQSV with X0 in SQRES
+/134	HLP	02-MAR-84	Fix Print Buffer Wrap Pointer Clobbered
+/				(Famous Ford / printer drops mucho chrs prblm)
+/133	WJY	29-FEB-84	Fix DMI Hangup function
+/132	DFB	23-FEB-84	Set DSKACP drive table to WINNIE(drv1) RX50(8,9)
+/131	DFB	14-JAN-84	Dismount vol 0 for rx50 (firmware mounts it on boot)
+/130	WJY	16-FEB-84	DECmate I compatability + Discard nulls sent to
+/				the printer.
+/129	DFB	04-JAN-84	Fix to allow Function Key input from Master Menu
+/128	BCR	28-DEC-83	Moved INITONCE to WPCU2
+/127	HLP	15-DEC-83	Call which resets printer handler also sets XON
+/126	DFB	13-DEC-83	Fix bug in command str passed from Master Menu
+/125	DFB	21-NOV-83	Fix date passing from Master Menu
+/124	DFB	21-NOV-83	Fix APU check
+/123	BCR	18-NOV-83	Add H2OU code 7401 = BREAK
+/122	DFB	16-NOV-83	Set date or cmnd if called from Master Menu
+/121	DFB	03-NOV-83	Fix to finnish when no winnie on system
+/120	DFB	28-OCT-83	Fix to set firmware type
+/119	EH	25-OCT-83	Set bit 5 in RXTYPE if APU board present
+/118	DFB	24-OCT-83	Set firmware bit in RXTYPE (40) bit 6
+/117	DFB	28-SEP-83	Fix to acp  device table
+/116	GDH	23-SEP-83	Changed initial delay time for host initialization.
+/115	DFB	15-SEP-83	Initialize dskacp device table for winnie
+/114	HLP	13-SEP-83	Make Serial Printer Handler a fixed part of WPSYS
+/				Delete Separtely loadable Printer Handlers
+/				Add reset capability to printer handler
+/				Move drive sizing routine from null handler
+/				  to buffer area since null handler deleted
+/113	WCE	07-SEP-83	REINSTALLED GOLD-S BECAUSE PRODUCT MANAGEMENT
+/				WANT'S IT ENABLED
+/112	PMM	06-SEP-83	ADD CURSOR KEYS AND NONBREAKING SPACE
+/111	GDH	11-JUL-83	Changed HOST INIT to only check bit 11 of
+/				MNXONF for XON/XOF enable.
+/110	DFB	07-JUL-83	Compressed to set 2 pages for dskhnd
+/109	EPS	09-JUN-83	FIXED GOLD-S WHICH "BROKE" IN 107 (SHOULD
+/				NOT BE ENABLED FOR CONDOR)
+/108	GDH	 9-MAY-83	Large Host Input buffer support.
+/				 also, EZLINK temp & MT host silo code.
+/107	WCE	19-APR-83	Fix CMONLN code to make Communications work
+/106	HLP	13-APR-83	Fix DM-II initialization problem near DM1
+/105	HLP	02-MAR-83	Added JMP H2INPT near TSTHSI for non CONDOR
+/				Restore 8 bit mask in LPOCHR
+/104	HLP	17-FEB-83	Change LPONLN to CMONLN (LPONLN moved to
+/				  printer field)
+/				Deconditionalize clock iot code
+/				  (standardize on what was CONDORized)
+/103	HLP	16-FEB-83	Make code which handles printer input do XON/XOF
+/				  and stuff everything else into a buffer.
+/				State parser moved to printer code
+
+/-------------19-JAN-83-------SUBMITTED TO SDC DECmate-II V1.0.0-----------
+/	THE VERSION SUBMITTED DID NOT CONTAIN EDIT101 BUT DID CONTAIN
+/	EDIT 102
+/---------------------------------------------------------------------------
+
+/102	HLP	14-JAN-83	Make ESC-[?10-anything be a drafter printer
+/				  so will respond to both LA50 and LA100PC
+/101	MJS	23-DEC-82	-only "moved code around" allowing for a
+/				 clean DECmate I or DECmate I assembly
+/				 from the same WPSYS.PA
+/
+/100	HLP	20-DEC-82	Fix LQP02 SE parser--not recognizing
+/				  E[?2xn type reports
+/
+/099	HLP	12-DEC-82	Change error code for LQPSE CANCEL to 25
+/
+/098	HLP	10-DEC-82	Fix state parser for LQP02 status reports:
+/				 to wait until terminator is received
+/				 to check for validity of digits received
+/				 to report no error status only when
+/					E[?20;30n is received
+/
+/097	HLP	03-DEC-82	Change TIMOUT function to be a 12 bit value
+/				  that SYS upcounts once per second.  Now
+/				  anybody can use it!
+/
+/096	MJS	1-DEC-82	-forgot to close a condor conditional
+/
+/095	MJS	24-NOV-82	-fixed "U1TSTLIST" (added esc seq cnt attribute)
+/
+/094	DFB	11-DFB-82	Fixed hangup when system drive = drive 4
+/				Replaced init deleted ver. 77
+/				added sel for drives 6 & 7
+/
+/093	EPS	28-OCT-82	FIXED HALT FLAG NOT BEING CLEARED BUG
+/
+/092	MJS	22-OCT-82	-modified the timing loop for rx sizing
+/				 within "RXPOLL" call from within "PTC7R0"
+/
+/091	MJS	18-OCT-82	-modified "u1inpt"
+/				-and redefined the code for the "SETUP" key
+/				 from "ESC [ 1 4 ~"   to   "ESC [ 1 3 ~"
+/				-and redefined the code for the "BREAK" key
+/				 from "ESC [ 1 3 ~"   to   "ESC [ 1 5 ~"
+/
+/090	MJS	05-OCT-82	-added "PRINT SCREEN" recog to interrupt level
+/				 parsing at "u1inpt" and rewrote "U1INPT" parser
+/				-and deleted "PRINT SCREEN" recog from "SRCHTB"
+/				-and changed mask "P377" to "P177"
+/				 at "lpoch1" cause only 7-bit ascii to the
+/				 printers (else the LA50 would barf)
+/				-and added terminal characteristic init
+/				 at system initialization at "INITONCE"
+/				 (issues RST "ESC c" to terminal)
+/
+/089	MJS	7-OCT-82	-modified hanging up the modem scenerio
+/				 at "H2ORST" so it doesn't issue an "XON"
+/				-and corrected the mask of "P77" to "(17)"
+/				 at "DOBRK" cause break time was incorrect
+/
+/088	MJS	6-OCT-82	-added "EDDO" recognition to "srchtb"
+/
+/087	MJS	28-SEP-82	-added "PRINT SCREEN" recog to "SRCHTB"
+/
+/086	MJS	23-SEP-82	-added "SETUP" recoginition to "SRCHTB",
+/				-and properly clear comm chip after error
+/
+/085	BS/MJS	07-SEP-82	-added la150 recognition in "SQPINP"
+/
+/084	MJS	07-SEP-82	-added "ARROW" keypad functionality
+/
+/083	MJS	25-AUG-82	-fixed host (comm) irq-error handling
+/				-fixed hyphen-push/pull broken this time
+/				 by the firmware...( "pp" redefined to 34)
+/				-changed flavor of "DTR" (negative logic)
+/				 that means 0 sets and 1 clears
+/				-fixed "SRCH" to beep invalid key strokes, and
+/				 ("GOLD..GOLD" treated as 1 "GOLD")
+/				 ("ESC....ESC" treated as 1 "ESC")
+/				-redefined "NODEF" = 4400 (from 4000)
+/				 because "MENU" does an "AND 3777" to make the
+/				 value positive
+/				 (cause a neg # means a menu command)
+/
+/082	MJS	20-AUG-82	added 'find', 'insert here', and 'remove' into
+/				"SRCH" table...added "JMS HANGUP" into "XH2INI"
+/
+/081	MJS	19-AUG-82	fixed 'hyphen-pull' broken by edit '078'
+/
+/080	HLP	18-AUG-82	ALLOW LQP02 TO RECOVER FROM ASF ERRORS
+/
+/079	MJS/HLP	12-aug-82	changed "SQREST" to make cross field callable
+/				AND to clear the printer buffer
+/
+/078	MJS	3-AUG-82	-added code to 'hang-up' the modem
+/				 (drop DTR for approx 2 seconds)...
+/				-and added keys to "SRCH"...
+/				-and broke-up "XH2INI" for space.
+/
+/077	EPS	15-JUL-82	FIXED HANG AT 'NORX78'
+/				(when sizing drives 4,5,6,7)
+/
+/076	EPS	08-JUL-82	CORRECTED CLOCK TEST WITHIN 'CONT' (patches)
+/
+/075	MJS	29-JUN-82	CONDOR communications
+/
+/075T	MJS	20-may-82	Temporary delay for prototype condor at
+/				subroutine 'rxpoll'
+/
+/074	MJS	10-MAY-82	Modified and added DECmate II clock IOT's
+/
+/073	MJS	5-MAY-82	Modified 'WPEDTB' table (cond for CONDOR)
+/				And rewrote 'SRCH' incl cond for CONDOR
+/
+/072	MJS	25-APR-82	Modified RX50/RX02 POLLING within 'PTC7R0'
+/
+/071	MJS	20-APR-82	Programmably slowed UDK execution
+/				(conditionalized on DEMO only)
+/				(UDK0 contains the 'delay' value)
+/
+/ THE ABOVE REVISIONS ARE FOR DECMATE II (CONDOR)
+/ The edit history below is for DECmate I
+
+/070	GDH	29-MAR-82	Fixed secondary port error detect (and port
+/				 hang condition).
+/069	GDH	01-MAR-82	Fixed LP input interrupt handler to handle
+/				 incoming input when handler not loaded.
+/068	GDH	26-FEB-82	Re-ordered interrupt chain to put printer input
+/				'rupts at a higher priority than kb output.
+/067	GDH	25-JAN-82	LA100 "who-are-you" support.
+/066	GDH	20-JAN-82	Eliminate possible race conditions enabling
+/				host interrupts.
+/065	GDH	20-JAN-82	Bug fix for detecting Host line errors.
+/064	GDH	30-DEC-81	H2INIT to clear pending input host buffer.
+/063	GDH	08-DEC-81	Fix LQP02 state logic to cleanly detect asf
+/				 status (30 through 39).
+/062	GDH	03-DEC-81	Fix LQP02 sheet feeder detect logic.
+/061	GDH	03-DEC-81	Ignore sheet-feeded OK status.
+/060	AJF	02-DEC-81	Added explanation of LPONLN values
+/059	GDH	01-DEC-81	Added lqp handler code to do restore at
+/				 interrupt level.
+/058	DFB	25-NOV-81	Clear intermittent transfer flag request
+/				during test for number of RX devices
+/057	GDH	24-NOV-81	Added TIMOUT variable for printer timeout
+/				 requirements.
+/056	GDH	21-NOV-81	Changes to SQEOT to not start FLABUZ.
+/				Other changes (in printer) to start FLABUZ
+/				 upon reciept of error status.
+/055	GDH	20-NOV-81	Changes serial handler to do status request
+/				 when it sees the EOT (4) error code.
+/054	AJF	18-NOV-81	MADE SQRES NOT MONITOR XOFF FLAG AND BUFFER
+/053	GDH	17-NOV-81	RX02 Double Density support in startup.
+/052	GDH	10-NOV-81	Added "warm start" enhancements.
+/051	GDH	10-NOV-81	RX01/RX02 detection & 2drive/4drive cleanup.
+/050	GDH	03-NOV-81	Bug fix to zero out 1st location of LPT buffer.
+/049	GDH	27-OCT-81	Moved RXHAN write-out code loader.
+/048	GDH	26-OCT-81	Removed RXHAN from interrupt chain.
+/047	GDH	26-OCT-81	Made GOLD-S another GOLD-SEARCH.
+/046	GDH	18-OCT-81	Bug fix. don't eat up duplicate udk keys!!!
+/045	GDH	18-OCT-81	Distinguishmentation between function key
+/				escape sequences and user entered escape seqs.
+/				Cleanup of Patch code for 278 clock interrupts.
+/044	GDH	16-OCT-81	Implementation of 3rd TM option (DWORD).
+/043	GDH	 6-Oct-81	Added Host error checking.
+/042	GDH	 2-Oct-81	Moved Host initialization to WPSYS.
+/041	GDH	28-Sep-81	Implemented "Break Key" recognition &
+/				implementation.
+/040	GDH	21-Sep-81	Host line support for primary/secondary port.
+/				Fixed the losing of cursor keypad mode.
+/039	GDH	18-Sep-81	Fine tuning of auto repeat xon/xof support.
+/038	AJF	10-SEP-81	Removed extraneous send restore code from
+/				sqrest and made sqwait cross field callable
+/037	AJF	06-SEP-81	Set com port to data terminal ready and set
+/				to recieve
+/036	AJF/RS	03-SEP-81	Removed le=8 line printer interface, added
+/				multi printer input handler, new entry points
+/				after SQREST
+/035	DIM	 3-SEPT-81	Fix French Gold-Halt
+/034	GDH	29-Aug-81	Eliminated User 2 code.
+/				Added Terminal auto xon/xof support for
+/				 better auto-repeat handling.
+/033	TT	07-JUL-81	Removed superfluous conditionals
+
+/	ABOVE REVISIONS ARE FOR DECMATE I VERSION 2.0
+
+/032	GR	11-MAY-81	Inserted missing ESCAPE seq code from 78,19
+/031	JM	27-MAR-81	Conditionalized power fail stuff for
+/				IFNDEF VT278
+/030	JM	24-MAR-81	Changed SQREST for WS80 to send for status
+/				from the SQPSE as well as send a restore
+/027	DSS	17-MAR-81	ADDED CALL TO NEW POWER FAIL AND RECOVERY
+/				CODE FOR WS80 LOCATED IN PRINTER FIELD.
+/026	JM	20-FEB-81	Changes for WS78
+/025	JM	20-FEB-81	Deleted an extra definition of X0006
+/024	JM	20-FEB-81	Added missing closing bracket for WS102 conditional
+/023	DAO	8-FEB-81	Changed Serial Printer handler to not set the
+/				done flag just because it was XOFFED.
+/022	DAO	16-JAN-81	Deleted Power low check from interupt chain of
+/				VT278 (since hardware does not support it) and
+/				changed order of checking interupts in 278 so
+/				COMM line is checked before keyboard and
+/				screen. This change improved speed of CX
+/				transmission (still limited to 4800 to screen)
+/0021	reg/DAO	7-JAN-81	Modified the way comm option and SQ1 are
+/				detected to get rid of illegal micro instr
+/0020	LDB	16-DEC-80	Disable printer 'rupts at start-up and change
+/				order of U1 trans./receive test
+/0017	LDB	14-DEC-80	Remove U2 from system & change conditionals
+/				to test for no. of floppies correctly.
+/				Also check if comm. is present.
+/016	LDB	5-DEC-80	Turn off vectored 'rupts and other unsupported
+/				devices (modem control & comm port 1)
+/015	DAO	10-DEC-10	Isolated the restore and send for status
+/				routines for the LQPSE
+/014	DAO	9-DEC-80	Fixed SQRES to not conflict with printer
+/				handler when outputing ESCAPE sequences
+/013	DAO	4-DEC-80	NOT USED
+/012	DAO	2-DEC-80	Changed SQREST to be used to send for status
+/				from the SQPSE as well as send a restore
+/011	DAO	21-N0V-80	Added check for EOT as input from LQPSE in the
+/				Case of a VT278. This check will also have to
+/				be added in routine CHKCAN for the WS80
+/0010	LDB	10-Nov-80	Fix problem with RTF instr. not turning on
+/				interrupts
+/009	DA0	6-NOV-80	Add to Match Table for Editor Input definition
+/				for GOLD CMND. (GOLD [)
+/008	JRF	6-NOV-80	Make corrections to Match Table for Editor
+/				Input (SRCHTB) & Editor Command Matcher (SRCH)
+/007	JRF	21-OCT-80	Add call to the routine that checks for
+/				KBD buffer full & misc. additions.
+/006	DAO	17-OCT-80	CONDITIONALIZED ESCAPE SEQUENCES FOR ANSI MODE
+/0005	DAO	5-OCT-80	Deleted disabling of LA180P for 278 during
+/				interupt handling
+/0004	DIM	23-SEPT-80	Merge with x3.5
+/0003	DM,JM	15-SEPT-80	MERGED SCANDI AND EUROPE/ENGLISH
+/0002	DSS	09-JUL-80	MODIFIED FOR ENGLISH/FRENCH-CANADIAN
+/0001	GLT	 9-Apr-80	Fixed bug in German character map table
+/3.4	JLZ	6-MAY-80	FIXED #RX CODE TO SET DONE FLAG
+/3.3	JLZ	18-FEB-80	/FIXED # OF RX INIT CODE FOR RX02
+/3XX	EPS	14-AUG-79	MODIFIED FOR FOREIGN LANGUAGES
+/3X	LDB	3-MAY-78	TRY TO FIX FLOPPY CHECK FOR WT
+/QA3.3	MB	13-APR-78	PUT IN KL8A MADE BY BLT TO WS202 SYSTEM
+/III.C-2 MB	1-APR-78	PUT IN SYSTEM OPTIONS
+/III.C	MB	27-MAR-78	PUT IN THE DP2 HANDLER FOR WS78 ONLY
+/III.1-1	LDB	2/28/78 	CHANGE RXONLN BACK TO 4 (DEFAULT VALUE)
+/2.7A-1	LDB	1/28/78		FIX RXONLN FOR WT78
+/2.7A	KEE	12/6/77 	MAKE XON/XOF A RUNTIME OPTION
+/2.7-1	RLT	11/18/77	DELETE 8E CHECK FOR WS200
+/2.5-2	RLT	11/9/77		CHANGE MISSED INTERRUPT CATCHER
+/2.5-1	RLT	11/7/77		ADD TWIN-TRACK TEST CODE TO PRINTER
+/2.P-3	RLT	9/23/77		ADD RXONLN CHECKING
+/2.P-2	RLT	9/22/77		ELIM U2/H2ONLN, ADD H2 CHECKING
+/2.P-1	RLT	9/21/77		ELIM INTPWR, ADD INT DISABLE INSTS
+/2.N-2	RLT	9/20/77		ADDED PRINTER CONFIG CHECKS
+/2.N-1	RLT	9/14/77		ADDED UDKPRT LOGIC
+/2.K-1	RLT	8/31/77		WS78 CHECKS FOR EPI
+/2.F-1	RLT	8/4/77		COMBINED WPS-8, VT78 SOURCES
+/
+
+THSFLD=	0
+CDFMYF=	CDF THSFLD
+U1DXOF=	1 			/ WANT XON-XOF PROCESSING
+H2DXOF=	1
+/ |---------------|
+/ |PAGE 0 CONTENTS|
+/ |---------------|
+	*1
+	JMP I	.+1 		/ INTERRUPT CATCHER
+	INTRPT
+	0 			/ JOB SCAN FLAG (0=ON)
+	TSTXXX 			/ INTERRUPT CHAIN
+INTPC,
+INTXIT,
+	GOJOB 			/ INTERRUPT EXIT AND PWRFAIL SAVED PC
+	JMP I	.-1 		/ (USED TO SET INTXIT CONTENTS VIA JMS)
+PWRJMP,	POWRUP 			/ PTR TO POWER START LOCN
+
+	*10
+/ |---------------|
+/ |INDEX REGISTERS|
+/ |---------------|
+	*TTYIN&177
+/ |------------|
+/ |SYSTEM CALLS| - common cross field callable
+/ |------------|
+	U1ICHR	/ "TTYIN"	/ get 1 character from the keyboard
+	U1OCHR	/ "TTYOU"	/ output 1 character to the screen
+	U1XLAT	/ "XLTIN"	/ translate 7-bit char into EDITOR values
+	U1HLTF	/ "TAD I HLTFLG"/ (when "U1HLTF" not 0 means GOLD Halt)
+	UD1OPS	/ "UDKOPS"	/
+	H2ICHR	/ "HS2IN"	/ get 1 character from the comm line
+	H2OCHR	/ "HS2OU"	/ put 1 character onto the comm line
+	LPOCHR	/ "LPTOU"	/ output 1 character to the printer
+	XENQUE	/ "ENQUE"	/
+	XDEQUE	/ "DEQUE"	/
+	XJWAIT	/ "JWAIT"	/
+	XJSWAP	/ "JSWAP"	/
+	XJSTRT	/ "JSTRT"	/
+	XJEXIT	/ "JEXIT"	/
+	SYFORK	/ "FRKINT"	/
+	FRKNXT	/ "FRKXIT"	/
+FRKCHN,	0	/ "FRKCHN"	/
+	XH2INI	/ "H2INIT"	/ INIT HOST LINE (communications device)/A042
+	LPICHR	/ "LPTIN"	/ receive a character from the printer	/A103
+
+/ |----------------|
+/ |USEFUL CONSTANTS|
+/ |----------------|
+	*CDF0
+	CDF 0	/ "CDF0"	/
+	CIF CDF 0/ "CIDF0"	/
+	177	/ "P177"	/
+	377	/ "P377"	/
+	77	/ "P77"		/
+	7700	/ "P7700"	/
+	3777	/ "P3777"	/
+	0
+/ |-----|
+/ |CLOCK|
+/ |-----|
+	*CLOCK
+	0 			/ INTERRUPT COUNTER
+				/ (used by "NULJOB" for "CLKSVC")
+	ZBLOCK 4 		/ TENTHS, SECONDS, MINUTES, HOURS
+DAMNTH,	0
+MONTH,	0
+YEAR,	0
+DAYEAR,	0
+DAWEEK,	0
+PAKDAT,	0
+RANDOM,	0 			/ RANDOM (BY NULJOB)
+	XGETRT	/"getrtf"	/
+		/ LPONLN MOVED TO PRINTER FIELD AND REDEFINED		/A104
+CMONLN,	0			/ COMMUNICATIONS HARWARE DETECTED FLAG	/A104
+CMADSX,	0 			/ LOCK WORD FOR COMMUNICATIONS
+				/ THE VALUES ARE: 0 = FREE; 1 = AX; 2 = DX;
+				/ 3 = PRINTER; 4= CX(STANDARD); 5 = DX(MAGCARD)
+RXONLN,	4 			/ #RX UNITS (sized and on-line)
+INTAC,	NULJSB 			/ SAVED AC AT INTERRUPT
+INTLK,	200			/SAVED FIELDS, LINK AT INTERRUPT	/A0010
+				/(START WITH 'RUPTS ENABLED - BIT 4 ON)	/A0010
+INTMP1,	0 			/ TEMP FOR INTERRUPT PROCESSING
+U1HLTF,	0
+RXTYPE,	0			/ RXTYPE = 0 FOR RX01 OR 1 FOR RX02	/A050
+STTYPE,	0			/ STTYPE = 0 FOR COLD START,		/A051
+				/   1 FOR WARM START. SET BY DSKHND.	/A051
+TIMOUT,	0		/A051	/ A VALUE WHICH IS INCREMENTED /SEC	/C097
+EZLNTM,	0			/ SAVED MNCXTM VALUE FOR CX (EZLINK)	/A108
+PRT8FB,	7600		/ address of routine to deal with fallback	/a161
+
+/***********************************************************************
+/****** LOCATIONS ON THIS PAGE AFTER HERE ARE CURRENTLY AVAILABLE FOR	/A050
+/******  USE BUT SHOULD BE USED SPARINGLY. THE ABOVE LOCATIONS ARE	/A050
+/******  DEFINED IN "WPF1" FOR SYSTEM WIDE REFERENCES.			/A050
+/***********************************************************************
+
+INTMP2,	0	/ 0nn,n00,0,0	/ ERROR STATUS FOR HOST LINE SET HERE.	/A043
+BREAKF,	0			/ BREAK FLAG --   = 0 MEANS IDLE	/A041
+				/ < 0 MEANS START BREAK			/A041
+				/ > 0 MEANS DOING BREAK; WAITING FOR BT	/A041
+TACHAR,0	/ save char here while testing for 8 bit LQP02 chr output/a161
+LPTRSV,	0	/ save retun address of LPTOU				/a161
+LPTFSV,	0	/ save the return field of LPTOU			/a161
+SRCHCA,	0 			/ CHARACTER BEING SEARCHED FOR. ALSO
+				/ VALUE TO RETURN TO CALLER IF MATCH WAS
+				/ FOUND FOR COMPLETE INPUT SEQUENCE.
+				/ (for each modifier)
+
+SRCHU1,	0 		/ (modifier built here)
+TSTIMT,	0		/ TEMP STORAGE FOR INTEGRAL MODEM TEST		/A159
+P200,	200		/ a constant					/a161
+
+
+/    Moved here on Edit 163 for space reasons				/M163
+
+
+/    O_R_D_E_R    I_M_P_O_R_T_A_N_T	/ Moved here in edit 155 to make room/M155
+
+RPTON,	ESC;"[&177;"?&177;"8&177;";&177;"1&177;"h&177;0
+RPTOFF,	ESC;"[&177;"?&177;"8&177;"l&177;0				/A040
+/    E_N_D    O_R_D_E_R    I_M_P_O_R_T_A_N_T
+/--------
+
+/
+/	N O T E ......
+/	
+/	The address of STUACF below is known by WPSYS and WPSETU ,so	/A168
+/	if you move it here , CHANGE IT IN WPF1 also !!!!		/A168
+
+STUACF,	0			/ Setup active flag			/A168
+STUCHR,	0			/ Char saved when SETUP active		/A168
+
+
+/ |-----------------------------------------------------------------|
+/ | CLOCK IOT differences between DECmate I and DECmate II (condor) |
+/ |-----------------------------------------------------------------|
+/ |                  D E C m a t e   I				    |
+/ |-----------------------------------------------------------------|
+/
+/	CMOD	6130	(AC) = 0 set interupt mode "vector/ |---------------------------------------------------------	(AC) = 0 disable clock for irq's
+/			(AC) = 1 enable clock for irq's
+/
+/	CLCL	6136	CLEAR CLOCK FLAG
+/
+/	CLSK	6137	SKIP ON CLOCK FLAG (clear if set)
+/
+/ |-----------------------------------------------------------------|
+/ |                  D E C m a t e   II				    |
+/ |-----------------------------------------------------------------|
+/
+/		6130	SET CLOCK FLAG
+/
+/		6131	SKIP ON CLOCK FLAG (clear if set)
+/
+/		6132	NOP
+/		6133	NOP
+/		6134	NOP
+/
+/		6135	SAME AS DECMATE I
+/
+/		6136	NOP
+/		6137	NOP
+/
+/ NOTE: that the "interrupt mode" on DECmate II is always "normal"
+/       because there is NO "vectored" interrupts.
+/ |-----------------------------------------------------------------|
+
+/ INPUT/OUTPUT IOT'S FOR DEVICE "H2"  C O M M U N I C A T I O N S
+/
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A081
+WRTP0=	6362		/ WRITE PORT 0					/A037
+WRTP1=	6366		/ WRITE PORT 1					/A040
+	>	/ END IFNDEF CONDOR -----------------------------------	/A081
+
+RACD=	6367		/ RESET COMMUNICATIONS DEVICE			/A037
+
+/
+/ 'input'
+/
+H2KCF=	IOTH2I		/ SET PORT 0 RECIEVE FLAG
+H2KSF=	H2KCF+1		/ SKIP ON PORT 0 RECIEVE FLAG (AND CLEAR IT)
+H2KCC=	H2KSF+1		/ clear AC
+H2KRS=	H2KCC+2		/
+H2KIE=	H2KRS+1		/ LOAD PORT 0 RECIEVE INTERRUPT ENABLE
+H2KRB=	H2KIE+1		/ READ PORT 0 COMM DEVICE (data in)
+PRB0=	H2KRB		/ READ PORT 0 COMM DEVICE (data in)		/A041
+/
+/ 'output'
+/
+H2TFL=	IOTH2O		/ SET PORT 0 TRANSMIT FLAG
+H2TSF=	H2TFL+1		/ SKIP ON PORT 0 TRANSMIT FLAG (and clear it)
+H2TCF=	H2TSF+1		/ nop
+H2TCP=	H2TCF+2		/
+H2TSK=	H2TCP+1		/ LOAD PORT 0 TRANSMIT INTERRUPT ENABLE
+H2TLS=	H2TSK+1		/ WRITE PORT 0 COMM DEVICE (data out)
+PTB0=	H2TLS		/ WRITE PORT 0 COMM DEVICE (data out)		/A041
+/
+
+	IFNDEF CONDOR < / --------------------------------------------	/A081
+OPKSF=	6341		/ SKIP ON PORT 1 RECIEVE FLAG			/A041
+OPTSF=	6351		/ SKIP ON PORT 1 TRANSMIT FLAG			/A041
+OPRIE=	6345		/ LOAD COMM PORT (1) RECEIVE ENABLE		/A016
+OPSIE=	6355		/ LOAD COMM PORT (1) TRANSMIT ENABLE		/A016
+	>	/ END IFNDEF CONDOR -----------------------------------	/A081
+
+MCIE=	6365		/ MODEM CONTROL IRQ ENABLE (WITH AC11=1)	/A016
+
+/----------------
+	PAGE
+
+THSJOB,	0 			/ CURRENT JOB PTR
+
+/ TO FOLLOW INTERRUPT CHAIN SEE LABEL INTCHAIN,				/A135
+
+DOINTR,		 		/ RETURN ADDR FROM INTERRUPT CHAIN (IF ALL FAIL)
+START,	JMP I	XJSWAP 		/ BOOT-UP SYSTEM
+
+/ DECmate I clock IOT definitions
+
+	CLKENB=	6135 		/ CLOCK ENABLE IOT			/M045
+	CLKCLF=	6136		/ 8A CLOCK CLEAR IOT			/M045
+	CLKSKP=	6137 		/ CLOCK SKIP IOT			/M045
+	CMOD=	6130		/ VECTORED INTERRUPT ENABLE IOT		/A016
+
+/ DECmate II (condor) clock IOT definitions
+	CLKENB=	6135	/ac11:	/ Enable (AC11:1)/disable (AC11:0) clock
+      /\clkclf=			/ none
+	CLKSK2=	6131		/ Skip next if clock flag=1 (then clear it)
+	CLKSET=	6130		/ Set clock flag
+      /\cmod=			/ none
+
+XCLKSKP,CLKSKP /-DECmate I IOT-	/ IS INTERRUPT FOR CLOCK TIC?
+	GOINTR 			/   NO, SO START INTERUPT CHAIN
+	CLKCLF /NOP (DECmate II)/   YES, CLEAR FLAG IF 8A		/M045
+	ISZ	CLKINT 		/ ++++
+	JMP	DISMS1 		/ BUMP TICS/TENTH
+	TAD	CLKINT+1 	/ ++++
+	DCA	CLKINT 		/ RESET FOR A NEW TENTH
+	AC7777 			/ ++++
+	TAD	CLOCK
+	DCA	CLOCK 		/ UPDATE CLOCK COUNTER
+	JMP	DISMIS+1 	/ AND EXIT
+/
+/ *** ---------------------------------------- ***
+/ *** ORDER OF NEXT FEW LOCATIONS IS IMPORTANT ***
+/ *** ---------------------------------------- ***
+/
+	JMP	PWRUP2
+INTMQ,	5252 			/ 2FULL DECKS
+TSTLST,	SRQ			/ HERE ON UNKNOWN INTERRUPT
+	JMP	DISMS1 		/ JUST EXIT IF NO INTERRUPT REQUEST ANY MORE
+	JMP I	DOINTR 		/ ELSE RETURN TO CALLER
+
+GOPOWR,	JMP I	PWRJMP
+/ |-------------------|
+/ |interupt entry here|
+/ |-------------------|
+INTRPT,				/ HERE ON INTERRUPT
+	DCA	INTAC 		/ SAVE AC
+	GTF 			/ ++++
+	DCA	INTLK 		/ AND DF,LINK, ETC.
+	JMS	DOINTR 		/ ENTER INTERRUPT CHAIN
+	JMS	DOINTR 		/ !!MISSED IT, TRY AGAIN!!
+				/ !!!!  TWICE IS ONCE TOO MANY -- CLEAR ALL !!!!
+/ |--------------------------------|
+/ | entry here from an UNKNOWN irq |
+/ |--------------------------------|
+PWRFL1,	TAD	0 		/ ++++
+	DCA	INTPC 		/ SET UP FOR POWER UP JMP TO 0
+	MQA 			/ ++++
+	DCA	INTMQ 		/ SAVE MQ FOR POWER FAIL
+
+/ CODE WAS REMOVED HERE WHICH LOOPED UNTIL THE AC LOW FLAG CLEARED	/D027
+/ BY ITSELF INDICATING THAT AC POWER HAS BEEN RESTORED.			/D027
+	CAF 			/ CLEAR ALL HARDWARE FLAGS
+PWRUP1,
+POWRUP,	TAD	INTPC 		/ ++++
+	DCA	0 		/ RESTORE PC TO LOC 0
+	TAD	INTMQ 		/ ++++
+	MQL 			/ RESTORE MQ
+	IFNZRO INTCHN-4 <?YOUHAVETOCHANGETHENEXTINSTRUCTION>
+	AC0003 			/ ++++
+	DCA	IX0 		/ INIT FOR INTERRUPT CHAIN CHASING
+				/ DISABLE SOME INTERRUPTS...
+/Modem control and comm. port1 are disabled in HOST2 power up code
+/cause we're out of room here - LDB
+/Also serial printer port is disabled in the null printer handler for the
+/same reason - LDB
+	AC0001 			/ ++++
+	CLKENB 			/ START CLOCK (AGAIN)
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A074
+	AC4000			/BIT 0 TO TURN OFF VECTORED INTERRUPTS	/A016
+	CMOD								/A016
+	> /END IFNDEF CONDOR (DECmate II only has 'normal' interrupts) 	/A074
+
+	JMS	INTXIT 		/ POINT INTXIT HERE FOR TIME BEING
+	AC7775 			/ ++++
+	TAD I	IX0 		/ ++++
+	DCA	IX0 		/ GET NEXT IN CHAIN
+	JMP I	IX0 		/ AND EXECUTE HIM
+				/ IF NOT TSTLST, HE'LL COME BACK VIA INTXIT
+				/ OTHERWISE, WE GET A JUMP TO PWRUP2
+PWRUP2,	JMS	INTXIT 		/ TO RESTORE PROPER INTXIT
+				/ AND COMPLETE THE RECOVERY FROM POWER LOW
+/ |----------------------------|
+/ |return from interupt service| - (of a known irq)
+/ |----------------------------|
+DISMIS,	CLA CLL 		/ JUST IN CASE....
+	SIGNAL 			/ SET THE "SOMETHING HAPPENED" FLAG
+DISMS1,	TAD	INTLK 		/ ++++
+	RTF 			/ ++++
+	CLA 			/ RESTORE FIELDS, LINK, ETC.
+	TAD	INTAC 		/ AND AC
+	JMP I	0 		/ RETURN FROM INTERRUPT
+/
+CLKINT,	-1 			/ COUNTS TICS PER TENTH
+	-12 			/ 8A TICS PER .1 SECOND
+
+
+XJSWAP,	PATCHT 			/ CALLED TO AVOID CPU HOGGING
+	DCA	JWAC
+	TAD	XJSWAP
+	DCA	XJWAIT 		/ MAKE BELIEVE HE CALLED JWAIT
+	SIGNAL
+	JMP	XJW1
+/
+XJWAIT,	XX 			/ CALLED TO WAIT FOR EXT. EVENT
+	DCA	JWAC
+XJW1,	JMS	XJSAVE 		/ SAVE JOB STATUS
+	TAD	THSJOB
+	DCA	PRVJOB
+	TAD I	PRVJOB 		/ GET NEXT JOB PTR
+GOJOB,	DCA	THSJOB 		/ MAKE IT CURRENT
+	TAD	THSJOB 		/ THEN RESTORE HIS STUFF
+	DCA	X0
+	TAD I	X0 		/ DF-LINK
+	CLL RAR
+	TAD	CIDF0
+	DCA	JWAC
+	TAD I	X0 		/ ++++
+	MQL 			/ MQ
+	TAD I	X0 		/ ++++
+	DCA	XJWAIT 		/ RETURN ADDR
+	TAD I	X0 		/ AC
+JWAC,	0 			/ (SAVE LOC AND CIF-CDF INST)
+	JMP I	XJWAIT 		/ GO TO IT!!!
+/
+PRVJOB,	0 			/ PREVIOUS JOB
+/
+XJSAVE,	XX 			/ ROUTINE TO SAVE JOB STATUS
+	TAD	THSJOB 		/ FIND JOB STATUS SAVE AREA
+	DCA	X0
+	RDF 			/ ++++
+	RAL 			/ SAVE DATA FIELD AND LINK
+	CDF THSFLD 		/ CHANGE TO OUR FIELD
+	DCA I	X0 		/ SAVE DF-LINK
+	MQA 			/ ++++
+	DCA I	X0 		/ SAVE MQ
+	TAD	XJWAIT 		/ ++++
+	DCA I	X0 		/ SAVE RETURN ADDR
+	TAD	JWAC 		/ ++++
+	DCA I	X0 		/ SAVE AC
+	JMP I	XJSAVE
+
+
+XJEXIT,	XX 			/ CALLED TO DE-COUPLE CURRENT JOB
+	DCA	JWAC 		/ SAVE AC
+	TAD	XJEXIT 		/ ++++
+	DCA	XJWAIT 		/ MAKE LIKE JWAIT
+	JMS	XJSAVE 		/ SAVE JOB STATUS FOR RESTART LATER
+	TAD I	THSJOB 		/ THEN CLIP US OUT OF CHAIN
+	DCA I	PRVJOB
+	DCA I	THSJOB 		/ CLEAR OUR CHAIN PTR, TO SHOW NON-ACTIVE
+	SIGNAL 			/ MAYBE SOMEONE'S WAITING
+	JMP	GOJOB-1 	/ THEN GO DO NEXT JOB
+JKX1=	XJSWAP 		/ TEMP 1
+/
+XJSTRT,	NULJOB 			/ CALLED TO ENTER NEW JOB IN CHAIN
+	DCA	XJS2 		/ SAVE JSB PTR
+	GETRTF 			/ ++++
+	DCA	XJX1 		/ GET RTN FIELD
+	SIGNAL
+	TAD I	XJS2 		/ LOOK AT JSB CHAIN PTR
+	SZA CLA 		/ ++++
+	JMP	XJX1 		/ JUST QUIT IF NON-ZERO
+	TAD I	THSJOB 		/ MOVE OUR CHAIN TO HIS
+	DCA I	XJS2
+	TAD	XJS2 		/ ++++
+	DCA I	THSJOB 		/ AND CHAIN US TO HIM
+XJX1,	CIF CDF .-. 		/ RESTORE USER FIELD
+	JMP I	XJSTRT 		/ THEN RETURN
+XJS2=	JKX1 		/ TEMP 1
+/
+XGETRT,	XX 			/ RTNS CIFCDF INST IN AC
+	DCA	X0 		/ SAVE AC FOR CALLER
+	RDF 			/ GET DATA FIELD
+	TAD	CIDF0 		/ MAKE CIF-CDF INST
+	CDF THSFLD 		/ MAKE EVERYTHING KOSHER
+	JMP I	XGETRT 		/ AND RETURN
+
+/------------------
+	PAGE
+
+/ ------------
+/ | NULL JOB |
+/ ------------
+
+NULJOB,	CLA CMA 		/ ++++
+	DCA	INTFLG 		/ CLEAR SIGNAL FLAG
+	JWAIT 			/ TRY ALL JOBS
+NULLP3,	TAD	CLOCK 		/ ++++
+	SZA CLA 		/ ++++
+	JMS	CLKSRV 		/ UPDATE CLOCK IF NECESSARY
+
+	IFDEF CONDOR < / ----------------------------------------------	/A081
+/D128	ISZ	INITH2FLAG	/					/a078
+/D128	JMP	.+3		/					/a090
+/D128	JMS	INITONCE	/ INITIALIZE ONCE AT POWER-UP		/a090
+/D128	DCA	.-3		/					/a090
+	JMS	TSTPS		/ (TEST FOR "print screen" flag)	/a090
+	>	/ END IFDEF CONDOR ------------------------------------	/A081
+
+	TAD	INTFLG 		/ ++++
+	SNA CLA 		/ ++++
+	JMP	NULJOB 		/ LOOP ON SIGNAL
+	ISZ	RANDOM 		/ ++++
+	JMP	NULLP3 		/ WAIT LOOP TIL COUNT EXHAUSTED
+/d078	CLA MQA 		/ ++++
+/d078	CLL RAL 		/ ++++
+/d078	SZL 			/ ++++
+/d078	IAC 			/ ++++
+/d078	MQL 			/ ROTATE MQ
+	JMP	NULLP3 		/ AND RESTART LOOP
+
+/D128	IFDEF CONDOR < / ----------------------------------------------	/A081
+/D128INITH2FLAG,	5400		/ changed from 7764			/M116
+/D128	>	/ END IFDEF CONDOR ------------------------------------	/A081
+
+
+XENQUE,	XX 			/ CALLED TO QUEUE A FUNCTION
+				/
+				/ CIF 0
+				/ ENQUE;QBLK
+				/ WHERE:
+				/ QBLK,	QNAME;X;X;Z;...DATA...
+				/
+				/ ZIS SET 0 BY ENQUE, NZ WHEN DONE
+				/
+	AC7777 			/ ++++
+	TAD I	XENQUE 		/ GET QBLK-1
+	DCA	X0
+	ISZ	XENQUE 		/ BUMP TO RTN ADDR
+	RDF 			/ ++++
+	TAD	CDF0 		/ GET DATA FIELD
+	DCA	XENCDF
+	TAD	CDF0 		/ ++++
+	DCA	XENCDX 		/ INIT Q SEARCH DF
+	TAD I	X0 		/ GET QHDR PTR
+	DCA	T1
+	TAD	T1
+XENQ1,
+	DCA	X1
+XENCDX,	CDF .-. 		/ QSEARCH DF
+	TAD I	X1 		/ GET NEXT DF
+	SNA 			/ ++++
+	JMP	XENQ2 		/ END OF Q, IF 0
+	DCA	XENCDX 		/ ELSE KEEP CHAINING
+	TAD I	X1
+	JMP	XENQ1
+/
+XENQ2,	AC7777 			/ ++++
+	TAD	X1 		/ ++++
+	DCA	X1 		/ RESTORE INDEX
+	TAD	XENCDF 		/ ++++
+	DCA I	X1 		/ CHAIN NEW ONE TO END OF Q
+	TAD	X0 		/ ++++
+	DCA I	X1
+XENCDF,	CDF .-. 		/ NEW QBLK DF
+	DCA I	X0 		/ CLEAR CHAIN FIELDS OF NEW ONE
+	DCA I	X0
+	DCA I	X0 		/ CLEAR DONE FLAG
+	CDF 0
+	TAD I	T1 		/ ++++
+	JSTRT 			/ START UP SERVER
+	AC0002 			/ ++++
+	TAD	XENCDF 		/ CONSTRUCT CIF INSTRUCTION
+	DCA	.+1
+	.-. 			/ RETURN TO CALLER'S FIELD
+	JMP I	XENQUE
+
+
+XDEQUE,	XX 			/ CALLED BY Q SERVER
+				/
+				/ DEQUE;QNAME
+				/
+				/ RETURNS AC=0 IF NOTHING IN Q
+				/ ELSE, AC=CDF (QBLK FIELD)
+				/ AND	X0=QBLK-1 (I.E., WORD BEFORE DONE FLAG)
+				/
+	CLA 			/ ++++
+	TAD I	XDEQUE 		/ GET QHDR PTR
+	GETRTF 			/ ++++
+	DCA	XDEQX 		/ GET RETURN FIELD
+	ISZ	XDEQUE 		/ BUMP TO RTN ADDR
+	TAD I	X0 		/ GET FIRST CDF
+	SNA 			/ ++++
+	JMP	XDEQX 		/ OUT QUICK IF NOTHING THERE
+	DCA	XDQCDF
+	AC7777 			/ ++++
+	TAD	X0 		/ ++++
+	DCA	X1 		/ SET WRITE PTR
+	TAD I	X0 		/ ++++
+	DCA	X0 		/ AND READ PTR
+	JMS	XDEQLX 		/ ++++
+	JMS	XDEQLX 		/ "UNWIND" ONE ENTRY
+	TAD	XDQCDF 		/ RETURN QBLK CDF IN AC
+	ISZ	XDEQUE 		/ BUMP RTN ADDR FOR SUCCESS
+XDEQX,	CIF CDF .-.
+	JMP I	XDEQUE
+/
+XDEQLX,	XX 			/ SUBROUTINE TO COPY FROM QBLK TO FIELD 0
+XDQCDF,	CDF .-.
+	TAD I	X0
+	CDF THSFLD
+	DCA I	X1
+	JMP I	XDEQLX
+
+/
+/	INPUT/OUTPUT ROUTINES FOR DEVICE "U1"
+/	IOT DEFNS
+/
+	U1KCF=IOTU1I
+	U1KSF=U1KCF+1
+	U1KCC=U1KSF+1
+	U1KRS=U1KCC+2
+	U1KIE=U1KRS+1
+	U1KRB=U1KIE+1
+/
+	U1TFL=IOTU1O
+	U1TSF=U1TFL+1
+	U1TCF=U1TSF+1
+	U1TCP=U1TCF+2
+	U1TSK=U1TCP+1
+	U1TLS=U1TSK+1
+/
+/	IFDEF FRENCH <ESC=031> 	/ ALLOW UPPER-CASE GOLD-HALT IF FRENCH /D035
+	IFDEF FRENCH <ESC=033>  / ALLOW UPPER-CASE GOLT-HALT IF FRENCH /A035
+/
+	IFDEF ENGLSH <HALT=140>
+	IFDEF ITALIAN<HALT=074>
+	IFDEF ITALIAN<HALT1=076> /ALLOW UPPER-CASE GOLD-HALT IF ITALIAN
+	IFDEF ENGCAN <HALT=047>
+	IFDEF FRENCH <HALT=074>
+	IFDEF FRENCH <HALT1=076> /ALLOW UPPER-CASE GOLD-HALT IF FRENCH	/A035
+	IFDEF DUTCH <HALT=140>
+	IFDEF GERMAN <HALT=074>
+	IFDEF V30FAO <HALT=074>					/A165
+	IFDEF V30FAO <HALT1=076>				/A165
+	IFDEF SPANISH <HALT=074>				/A169
+	IFDEF SPANISH <HALT1=076>				/A169
+	IFDEF V30SWE <HALT=074>					/A166
+	IFDEF V30SWE <HALT1=076>				/A166
+	IFDEF V30NOR <HALT=074>
+	IFDEF V30NOR <HALT1=076>
+
+/
+U1ICHR,	XX
+	GETRTF 			/ ++++
+	DCA	U1ICHX 		/ GET RETURN FIELD
+	TAD	U1ICNT 		/ ANYTHING THERE?
+	SNA CLA 		/ ++++
+	JMP	U1ICX 		/ RETURN 0 IF NOTR
+	TAD I	U1IGET 		/ GET CHAR
+	SPA 			/ ++++
+	DCA	U1IGET 		/ WRAP IF NEC.
+	CIF 0
+	AC7777 			/ ++++
+	TAD	U1ICNT 		/ ++++
+	DCA	U1ICNT
+	TAD I	U1IGET
+	ISZ	U1IGET 		/ BUMP PTR
+	ISZ	U1ICHR		/ BUMP RETURN ADDRESS.
+	JMP	U1ICHX		/ EXIT					/A034
+U1ICX,	JMS	U1ARON		/ TURN AUTO-REPEAT BACK ON.		/A034
+U1ICHX,	CIF CDF .-. 		/ MAP CALLER FIELD.
+	JMP I	U1ICHR	 	/ RETURN TOO CALLER
+/
+U1IGET,	U1IBUF
+U1ICNT,	0
+
+/
+/	THIS ROUTINE CHECKS WHETHER ITS ARGUMENT IS AN XON OR XOF.
+/		IF AN XOF, IT MAKES A REGULAR RETURN WITH AC=1.
+/		IF AN XON, IT MAKES A REGULAR RETURN WITH AC=0.
+/		OTHERWISE, IT MAKES A SKIP RETURN WITH AC CLEARED.
+/
+/		AC = INPUT CHARACTER
+/		JMS	CHKXNF
+/		AC=1 (XOF), AC=0 (XON)
+/		AC=0 (CHARACTER WASN'T XOF OR XON)
+/
+	IFNDEF FORIN < / -----------------------------------------------
+CHKXNF,
+	XX
+/
+	TAD	INTMP1 		/ GET THE CHARACTER
+	AND	P377 		/ STRIP ANY MODE BITS			/M160
+/
+	TAD	(-XOF) 		/ IS IT AN XOF?
+	SNA
+	JMP	CHKXN1 		/ YES--JUMP TO HANDLE IT
+	TAD	(XOF-XON) 	/ IS IT AN XON?
+	SZA CLA
+	ISZ	CHKXNF 		/ NO--MAKE A SKIP RETURN
+	JMP I	CHKXNF 		/ YES--MAKE A REGULAR RETURN WITH AC=0
+/
+CHKXN1,
+	AC0001 			/ RETURN ONE TO SIGNAL XOF
+	JMP I	CHKXNF
+	> 	/ END IFNDEF FORIN ----------------------------------
+
+/ U1BREAK moved here to create space for TST8BT to expand.		/a164
+
+U1BREAK,/ B_R_E_A_K		/					/a090
+/d101	JMS	H2OBRK		/				/a090	/d101
+	TAD	BREAKF		/				/A041	/a101
+	SZA CLA			/				/A041	/a101
+	JMP	U1ENDOFLIST	/ (already breaking)			/a101
+	AC7777			/ SET BREAK FLAG!		/A041	/a101
+	DCA	BREAKF		/  ...				/A041	/a101
+	JMS	H2OTFL		/ WAKE UP HOST (IF NOT ALREAD)	/A041	/a101
+	JMP	U1ENDOFLIST	/					/a090
+
+
+/-------------------
+	PAGE
+
+/
+U1OCHR,	XX
+	GETRTF 			/ ++++
+	DCA	U1OCHX 		/ GET RETURN FIELD
+	TAD	X0 		/ RESTORE AC
+	AND	P377
+	DCA I	U1OPUT
+	TAD	U1OCNT 		/ TEST FOR FULL
+	TAD	(-U1OSIZ)
+	SNA CLA 		/ ++++
+	JMP	U1OFUL 		/ JUMP IF SO
+U1OCH1,	CIF 0 			/ DELAY RUPTS
+	ISZ	U1OCNT
+	TAD	U1BFLG 		/ OUTPUT ALREADY RUNNING?
+	SNA CLA 		/ ++++
+	U1TFL 			/ FORCE READY IF NOT
+	ISZ	U1OPUT 		/ BUMP PTR
+	TAD I	U1OPUT 		/ WRAP IF NEC.
+	SPA 			/ ++++
+	DCA	U1OPUT
+	ISZ	U1OCHR 		/ BUMP RTN ADDR FOR SUCCESS
+	SKP CLA 		/ CLEAR AC
+U1OFUL,	TAD I	U1OPUT 		/ RETURN AC=CHAR TO SHOW FULL
+U1OCHX,	CIF CDF .-.
+	JMP I	U1OCHR
+/
+U1OPUT,	U1OBUF
+U1OCNT,	0
+U1BFLG,	0
+
+U1CTLS,	DCA	U1CTQF 		/ clear "STOP" flag here
+U1CTLB,	TAD	U1BFLG		/
+	SNA CLA			/
+	U1TFL			/
+	EXINTR			/ EXIT
+U1CTQF,	0 			/ STOP FLAG
+
+/ ---------------------------------------------------------		/
+/ -------- DEVICE "KB INPUT" INTERRUPT CHAIN ENTRY --------	/M0068	/m090
+/ ---------------------------------------------------------		/
+				/
+/-----(O_R_D_E_R important)-----/
+	JMP	U1PWRF 		/ POWER RESUMED ENTRY
+	TSTUIN 			/ INTERRRUPT CHAIN LINK
+TSTKBI,	U1KSF 			/ TEST THE INPUT FLAG			/M0020
+	JMP I	TSTKBI-1	/ NO INPUT -- CONTINUE CHAIN.		/M0068
+	/\jmp	U1INPT		/ INPUT FLAG IS SET--GO GET CHAR.	/A0020
+/----(E_N_D order important)----/
+				/
+U1INPT,	U1KRB			/
+U1ISTO,	AND P377; DCA INTMP1	/ ISOLATE ONLY 8 BITS		/M160	/A041
+	JMS CHKXNF; JMP U1CTLS	/
+
+/ Compare the 7-bit ascii keyboard (U1) character			/a090
+/  to the list of "ESC" sequences in the "U1ESCLIST"			/a090
+									/a090
+	TAD	INTMP1		/ 8-bit ascii from keyboard	/M160	/a090
+	TAD	(-ESC)		/					/a090
+	SNA CLA			/					/a090
+	JMP	U1ESCSTART	/ "ESC" found (start of sequence)/a090	/m091
+U1TSTLIST,			/					/a090
+	TAD	U1ESCPOINTER	/					/a091
+	SNA CLA			/					/a091
+	JMP	U1NOMATCH	/				/a091	/M093
+	TAD I	U1ESCPOINTER	/					/a090
+	SNA			/					/a090
+	JMP	U1NOMATCH	/ NO MATCHES - END OF "U1ESCLIST"/a090	/m091
+	CMA IAC			/				/a090	/m091
+	TAD	INTMP1		/					/a090
+	TAD	SEQATTRIBUTE	/ N000					/a095
+	SNA CLA			/					/a090
+	JMP	U1ESCMATCH	/ MATCHed 1 char of an "ESC" list	/a090
+/ NO match			/					/a090
+	TAD I	U1ESCPOINTER	/					/a090
+	ISZ	U1ESCPOINTER	/ (ultimately moves over "jmp"		/a095
+	SMA CLA			/					/a090
+	JMP	.-3	/ loop	/ until "JMP" within list found		/a090
+	JMP	U1TSTLIST	/ TRY NEXT "ESC" LIST			/a090
+
+/ M_A_T_C_H_E_D at least 1 character of the "ESC" list			/a090
+				/					/a090
+U1ESCMATCH,			/					/a090
+	ISZ	U1ESCPOINTER	/ move over character that matched...	/a090
+	TAD I	U1ESCPOINTER	/ ...to test the next entry of the list	/a090
+	SPA CLA			/ skip next if more yet to come in	/a090
+	JMP I	U1ESCPOINTER	/ EXECUTE functionality (of ESC)	/a090
+	TAD	(1000)		/					/a095
+	TAD	SEQATTRIBUTE	/					/a095
+	JMP	U1PUT		/ (save the keyboard character)		/a090
+U1HALT,	/ H_A_L_T		/					/a090
+	AC7777			/					/a090
+	JMP	U1ENDOFLIST	/					/a090
+
+	IFDEF CONDOR < / ----------------------------------------------	/A090
+U1PS,		/ P_R_I_N_T  S_C_R_E_E_N/				/a090
+    CDFMNU	/---------------------/					/a090
+	ISZ I	(PRNTSCREEN)	/ FLAG (shouldn't overflow)		/a090
+    CDFMYF	/---------------------/					/a090
+	>	/ END IFDEF CONDOR ------------------------------------	/A090
+
+U1ENDOFLIST,			/					/a090
+				/					/a090
+/ ENTER with the ac=0 or 7777	/					/a090
+/ (to clear or set halt flag)	/					/a090
+				/					/a090
+U1NOMATCH,			/					/a091
+	DCA	U1HLTF		/ (any keyboard char clear the halt flag/a090
+	SKP CLA			/					/a091
+U1ESCSTART,			/					/a091
+	TAD	(U1ESCLIST)	/					/a090
+	DCA	U1ESCPOINTER	/					/a090
+U1PUT,				/
+	DCA	SEQATTRIBUTE	/ 0, 1000, 2000, 3000			/a095
+	TAD	U1ICNT 		/ CHECK FOR FULL
+	JMS	TSTFUL		/ DO TSTFUL ROUTINE			/C135
+	  1 			/ CALLER NUMBER				/A007
+	  JMS	U1STUF		/ STUFF CHAR IN BUFFER. CHECK FOR	/A045
+				/ PANEL MEMORY ESC SEQ. (CHAR WILL BE	/A045
+				/  READY ALREADY.)			/A045
+	  JMP	U1INPT		/ GET NEXT CHAR.			/A045
+	EXINTR 			/ EXIT
+
+U1ESCPOINTER,			/					/a090
+	ZBLOCK	1		/ 0 means not processing ESC sequence	/m091
+SEQATTRIBUTE,
+	ZBLOCK	1		/ 0, 1000, 2000, 3000			/a095
+
+/ U1 out I_N_T_E_R_R_U_P_T level service
+				/
+TSTU1A,	DCA	U1OGET 		/ HERE FOR WRAP
+TSTU1O,	AC0001 			/ ++++
+	DCA	U1BFLG 		/ JUST IN CASE...
+U1OCK1,	TAD I	U1ONOF		/ SETTING AUTO-REPEAT ON/OFF?		/A034
+	SZA; JMP U1OXOF		/  JMP IF YES.				/A034
+	TAD	U1OCNT 		/ ANYTHING MORE TO DO?
+	SNA CLA 		/ ++++
+	JMP	TSTU1C 		/ JUMP IF NOT
+	TAD	U1CTQF 		/ STOP FLAG?
+	SZA CLA 		/ ++++
+	JMP	TSTU1C 		/ JUMP IF SO
+	TAD I	U1OGET 		/ GET CHARACTER
+	SPA 			/ ++++
+	JMP	TSTU1A 		/ WRAP IF NECESSARY
+	JMS	U1OCHK		/ CHECK FOR ESC SEQ OR TERMINATOR, ETC.	/A034
+	U1TLS 			/ PRINT IT
+	AC7777 			/ ++++
+	TAD	U1OCNT 		/ ++++
+	DCA	U1OCNT		/
+	ISZ	U1OGET 		/ AND PTR
+	EXINTR 			/ THEN EXIT
+
+U1OGET,	U1OBUF			/
+U1MASK,
+	IFDEF FRENCH <175>
+	IFNDEF FRENCH <177>
+
+U1OXOF,	U1TLS 			/ PRINT IT				/A034
+	ISZ	U1ONOF		/ BUMP FOR NEXT TIME.			/A034
+	EXINTR			/ RETURN TO CALLER.			/A034
+									/A034
+U1ONOF,	RPTON			/ TURN AUTO-REPEAT ON/OFF.		/A034
+
+	PAGE
+
+/ U1BREAK, moved this edit to ceate space for TST8BT to expand		/a164
+
+U1ESCLIST,/  O_R_D_E_R   I_M_P_O_R_T_A_N_T				/a090
+				/					/a090
+	IFDEF CONDOR < / ----------------------------------------------	/a075
+				/ CONDOR "print screen" is "ESC [ 1 2 ~"/a090
+	133+0			/   [					/a090
+	61+1000			/   1				/a090	/m095
+	62+2000			/   2				/a090	/m095
+	176+3000		/   ~ (tilde)			/a090	/m095
+	JMP	U1PS		/ STOPPER				/a090
+				/ CONDOR "break" is "ESC [ 1 5 ~"	/m091
+	/\133+0			/   [
+	/\61+1000		/   1
+	65+2000			/   5				/m091	/m095
+	176+3000		/   ~ (tilde)				/m095
+	JMP	U1BREAK		/ STOPPER
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+
+				/ HALT defines as "ESC O P halt"
+	117+0			/ O					/m095
+	120+1000		/ P					/m095
+	HALT+2000		/				/M035	/m095
+	JMP	U1HALT		/				/M006	/m090
+
+	120+0			/ VT52 GOLD:HALT defined as ESC P halt	/A155
+	HALT+1000		/  ...					/A155
+	JMP	U1HALT		/					/A155
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+				/ BREAK KEY DEFN IS "ESC O T"		/A041
+	/\117+0			/    O					/M095
+	124+1000		/    T					/M095
+	JMP	U1BREAK		/ STOPPER				/A041
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	0			/ "ESC" list terminator			/a091
+/  E_N_D  O_R_D_E_R  I_M_P_O_R_T_A_N_T
+
+/\/\/\/\/\
+
+	IFDEF FRENCH < / ----------------------------------------------	/A035
+	HALT1								/A035
+	0								/A035
+	1								/A035
+	1								/A035
+	>	/ END IFDEF FRENCH ------------------------------------	/M090
+	
+TM1=	"=&177
+TM2=	    76			/ CLOSE ANGLE BRACKET.
+TMBA=	"A&177
+TMBZ=	"Z&177
+TMLA=	"a&177
+TMLZ=	"z&177
+
+U1OCHK,	XX			/ CHECK FOR ENTERING/TERMINATING ESC SEQ.
+	DCA	U1OTMP		/ SAVE CHARACTER TO OUTPUT.
+	TAD	U1OTMP		/ GET CHARACTER BACK.
+	TAD	(-ESC		/ ARE WE OUTPUTTING AN ESCAPE?
+	SNA CLA;JMP U1ESC1	/ JMP IF YES. LAST ESC SEQ (IF ANY) TERMINATED.
+	TAD	U1ESC		/ ARE WE IN THE MIDDLE OF AN ESC SEQ?
+	SNA CLA;JMP U1ESC2	/ JMP IF NO. LAST ESC IS TERMINATED.
+
+	TAD	U1OTMP		/ GET CHAR TO OUTPUT BACK. WE ARE IN THE MIDDLE
+				/ OF AN ESC SEQ SO CHECK FOR TERMINATORS.
+				/ TERMINATORS INCLUDE =,CLS ANG BRKT,A-Z,a-z.
+	TAD	(-TM1)		/ CHECK FOR TERMINATOR.
+	SNA;JMP U1OTRM		/ JMP IF TERMINATOR.
+	TAD	(-TM2+TM1)
+	SNA;JMP U1OTRM		/ JMP IF TERMINATOR.
+	TAD	(-TMBA+TM2)
+	SPA;JMP U1NTRM		/ JMP IF NOT TERMINATOR.
+	TAD	(-TMBZ+TMBA)
+	SPA SNA;JMP U1OTRM	/ JMP IF TERMINATOR.
+	TAD	(-TMLA+TMBZ)
+	SPA;JMP U1NTRM		/ JMP IF NOT TERMINATOR.
+	TAD	(-TMLZ+TMLA)
+	SMA SZA;JMP U1NTRM	/ JMP IF NOT TERM.
+U1OTRM,	CLA			/ TERMINATOR SEEN. CLEAR "IN-ESC-SEQ" FLG, OUTPUT.
+	DCA	U1ESC		/ CLEAR FLAG.
+U1NTRM,	CLA			/ TERMINATOR NOT SEEN. JUST OUTPUT CHARACTER.
+	TAD	U1OTMP		/  ...
+	JMP I	U1OCHK		/ RETURN TO CALLER.
+
+/
+/ TSTU1C	moved from here this edit to make space for TST8BT	/a164
+
+U1ESC1,	AC0001			/ SAY THAT WE ARE IN THE MIDDLE OF AN ESC SEQ.
+	DCA	U1ESC		/  ...
+U1ESC2,	TAD	U1OFLG		/ ARE WE TO SET AUTO REPEAT ON/OFF?
+	SNA;JMP U1NTRM		/ NO. JUST OUTPUT CHARACTER.
+U1ESC3,	SMA CLA;TAD (RPTON-RPTOFF)	/ + ==]- TURN AUTO-REPEAT ON.
+	TAD	(RPTOFF)		/ - ==]- TURN AUTO-REPEAT OFF.
+	DCA	U1ONOF		/ SET AUTO-REPEAT STRG POINTER.
+	TAD	U1OFLG		/ SAVE FLAG TO SAY WHAT WE JUST SWITCHED TO.
+	DCA	U1OLFG		/ SAVE AS "LAST FLAG".
+	DCA	U1OFLG		/ SAY NO PENDING FLAGS.
+	JMP	U1OCK1		/ START OUTPUTTING STRING.
+
+
+U1OTMP,	0			/ TEMP TO HOLD CHARACTER.
+U1OFLG,	0			/ - ==]- TURN AR OFF. + ==]- TURN AR ON. 0 NADA
+U1OLFG,	1			/ SAVED COPY OF U1OFLG. WILL EITHER BE 1 OR -1.
+U1ESC,	0			/ 0 MEANS NOT IN ESC SEQ. NE 0 MEANS IN ESC SEQ
+
+/ enter with the (AC) = 0
+
+U1ARON,	XX			/ ROUTINE TO TURN SET FLAGS TO CAUSE AR TO
+				/  BE TURNED ON (IF NOT ALREADY).
+	IOF			/ MUST BE CALLED WITH INTERRUPTS ON!!!
+/d101	CLA			/ GET STATE OF LAST ESC SEQ SENT.	/d101
+	TAD	U1OLFG		/  ...
+	SMA CLA			/ IF - THEN LAST SENT WAS OFF.
+	JMP	U1AONX		/ IF + THEN LAST SENT WAS ON AND WE ARE DONE.
+	AC0001			/ SET OFLG TO + TO INDICATE THAT AR IS TO BE
+	DCA	U1OFLG		/     ENABLED.
+	TAD	U1BFLG		/ OUTPUT GOING?
+	SNA CLA			/ SKIP IF YES.
+	U1TFL			/ START OUTPUT GOING.
+U1AONX,	ION			/ RE-ENABLE INTERRUPTS.
+	JMP I	U1ARON		/ RETURN TO CALLER.
+
+/ enter with the (AC) = 0
+
+U1AROF,	XX			/ ROUTINE TO SET FLAGS TO CAUSE AR TO BE TURNED
+				/  OFF (IF NOT ALREADY).
+	IOF			/ MUST BE CALLED WITH INTERRUPTS ON!!!
+/d101	CLA			/ GET STATE OF LAST ESC SEQ.		/d101
+	TAD	U1OLFG		/  ...
+	SPA CLA			/ IF + (WILL NEVER BE 0) THEN LAST SENT WAS ON.
+	JMP	U1AOFX		/ IF - THEN LAST SENT WAS OFF AND WE ARE DONE.
+	AC7777			/ SET OFLG TO - TO INDICATE THAT AR IS TO BE
+	DCA	U1OFLG		/     DISABLED.
+	TAD	U1BFLG		/ OUTPUT GOING?
+	SNA CLA			/ SKIP IF YES.
+	U1TFL			/ START OUTPUT GOING.
+U1AOFX,	ION			/ RE-ENABLE INTERRUPTS.
+	JMP I	U1AROF		/  ...
+
+/Routine to trap 8 bit characters put here as no room in SRCH page.	/a160
+
+TST8BT,	XX			/ Routine to trap non-GOLD & -ESC 8 bits/a160
+	DCA	SRCHCA		/ Save the character to test		/a160
+	TAD	SRCHU1		/ Check to see if GOLD or ESC current	/a160
+	SZA CLA			/ If so, 8-bit search required		/m164
+	JMP	IUTST		/ and check for U-^ and I-"		/a164
+	TAD	SRCHCA		/ Get character to test			/a160
+	AND	(200)		/ Is it 8 bit?				/a160
+	SNA CLA			/ If so return normally			/a160
+TST8OK,	ISZ	TST8BT		/ Else make skip return			/a160
+TST8EX,	TAD	SRCHCA		/ Return with preserved accumulator	/a160
+	JMP I	TST8BT		/ Make return				/a160
+
+IUTST,	TAD	SRCHCA		/ Get the character back		/A164
+	TAD	(-333)		/ Is it a U-circumflex?			/a164
+	SZA			/ ....					/A164
+	TAD	(333-317)	/ Is it an I-umlaut?			/a164
+	SZA CLA			/ ....					/A164
+	JMP	TST8OK		/ No, skip exit				/a164
+	DCA	SRCHU1		/ Yes, therefore can not be modified as	/a164
+				/ will cause confusion with GOLD-ALT KEY/a164
+	JMP	TST8EX							/a164
+
+/------------------
+	PAGE
+
+/ Subroutine to get 1 character from the host input ring buffer
+
+/	CALL:	HS2IN; RETURN (AC)=0 if buffer empty; else RETURN (AC)=char
+
+H2ICHR,	XX
+	GETRTF 			/ ++++
+	DCA	H2ICHX 		/ GET RETURN FIELD
+	TAD	H2ICNT 		/ ANYTHING THERE?
+	SNA CLA 		/ ++++
+	JMP	H2ICHX 		/ RETURN 0 IF NOTR
+CDFBF1,	CDF	THSFLD		/ Map buffer field (patched at run-time)/A108
+	TAD I	H2IGET 		/ GET CHAR
+	CDF	THSFLD		/ Back to this field.			/A108
+	SPA 			/ ++++
+	DCA	H2IGET 		/ WRAP IF NEC.
+	CIF 0 			/ HOLD INTERRUPTS
+	AC7777 			/ ++++
+	TAD	H2ICNT 		/ REDUCE COUNT
+	DCA	H2ICNT
+	AC7775 			/ ++++
+	TAD	H2ICNT 		/ ++++
+	SZA CLA 		/ ++++
+	JMP	CDFBF2 		/ XON NEEDED?				/M108
+	TAD	(XON) 		/ ++++
+	DCA	H2OXOF 		/ DO IT
+	IOF			/ TURN INTERRUPTS OFF.			/A041
+	JMS	H2OTFL 		/ WAKE OUTPUT SIDE
+	ION			/ ENABLE INTERRUPTS AGAIN.		/A041
+CDFBF2,	CDF	THSFLD		/ Map buffer field.			/A108
+	TAD I	H2IGET 		/ GET CHAR
+	ISZ	H2IGET 		/ BUMP PTR
+	ISZ	H2ICHR 		/ BUMP RTN ADDR
+H2ICHX,	CIF CDF .-. 		/ Map return field.
+	JMP I	H2ICHR 		/ RETURN
+/
+H2IGET,	H2IBUF		/pointer/ host input buffer (increments as buffer fills)
+H2ICNT,	0		/counter/ # of char's within buffer (zero means empty)
+/
+
+/ OUTPUT 1 CHARACTER over the communications line
+/   (enter with the contents of the AC to the character to output)
+/ IF the AC is negative then the buffers are reset ("JMP H2ORST")
+/ 7401 = BREAK and 7402 = HANGUP are special cases			/A123
+/
+/ TAD (n); CIFSYS; HS2OU; RETURN WITH AC=CHAR MEANS BUFFER FULL; RETURN AC=0 OK
+/
+H2OCHR,	XX
+	GETRTF 			/ GET THE RETURN FIELD
+	DCA	H2OCHX 		/ AND SAVE IT
+	TAD	DTRTIMER	/ CHECK FOR HANGUP OR			/A123
+	TAD	BREAKF		/ BREAK IN PROGRESS			/A123
+	SZA CLA			/ (CAN'T BE BOTH, SO LINK IGNORED)	/A123
+	JMP	H2OBSY		/ YES, GO RETURN USER'S CODE TO HIM	/A123
+H2INLN,	TAD	X0 		/ RESTORE AC (saved at 'getrtf')
+	SPA 			/ ++++
+	JMP	H2ORST 		/ JUMP IF RESET CALL
+	AND	P377
+	DCA I	H2OPUT
+	TAD	H2OCNT 		/ TEST FOR BUFFER FULL
+	TAD	(-H2OSIZ)
+	SNA CLA 		/ ++++
+	JMP	H2OFUL 		/ JUMP CAUSE BUFFER IS FULL
+	ISZ	H2OCNT 		/ BUMP FILL COUNT
+	ISZ	H2OPUT 		/ BUMP PTR
+H2OOKY,	IOF			/ TURN INTERRUPTS OFF			/A041
+	JMS	H2OTFL		/ (the interrupts must be 'OFF' within "H2OTFL")
+	ION			/ ENABLE INTERRUPTS AGAIN		/A041
+	TAD I	H2OPUT 		/ WRAP IF NEC.
+	SPA 			/ ++++
+	DCA	H2OPUT
+H2OOKX,	ISZ	H2OCHR 		/ BUMP RTN ADDR FOR SUCCESS
+	SKP CLA 		/ CLEAR AC
+H2OFUL,	TAD I	H2OPUT 		/ RETURN AC=CHAR TO SHOW FULL
+H2OCHX,	CIF CDF .-.
+	JMP I	H2OCHR
+H2OBSY,	TAD	X0		/ RETURN FULL AC TO CALLER		/A123
+	JMP	H2OCHX							/A123
+
+/ PART OF H2ORST, ROUTINE TO RESET COMM OUTPUT			/A136
+
+H2RSET,									/A123
+	AC7775 			/ ++++
+	TAD	H2ICNT 		/ SET TO (RE)SEND XON
+	SPA SNA CLA 		/ ++++
+	TAD	(XON)
+	DCA	H2OXOF
+	DCA	H2OXON
+	DCA	H2OCNT 		/ CLEAR FILL COUNT
+	DCA	H2CTQF 		/ CLEAR STOP FLAG
+	TAD	H2OPUT 		/ ++++
+	DCA	H2OGET 		/ REALIGN BUF PTRS
+	JMP	H2OOKY 		/ TAKE OK RETURN
+/
+H2OPUT,	H2OBUF	/pointer/HOST OUTPUT BUFFER (increments as buffer fills)
+H2OCNT,	0	/counter/increments representing # of char's in buffer
+H2BFLG,	0	/flag	/ =1 means 'OUTPUT' going
+
+/ *** ---------------------------- ***
+/ *** INTERRUPT LEVEL CODE FOLLOWS *** - HOST (comm) input
+/ *** ---------------------------- ***
+
+H2INPT,				/ JMP here for comm reciever service
+
+	IFNDEF CONDOR < JMS USIOT > / DECMATE I ROUTINE			/A075
+
+	H2KRB		/ IOT	/ transfer into ac:4-11 char from device
+
+	IFDEF CONDOR < / ----------------------------------------------	/A075
+	AND	P377	/mask	/ (cause ac0-3 is junk when condor)
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+
+	DCA	INTMP1 		/ SAVE THE INPUT CHAR
+	DCA	INTMP2		/ CLEAR ERROR STATUS.			/A043
+	JMS	H2ECHK	/break?	/ BREAK if any errors!!			/A043
+
+	IFDEF CONDOR < / ----------------------------------------------	/A075
+	TAD	(70)		/ DISMISS THE COMM INTERRUPT
+	LDREG		/ CR0A	/
+	CLA			/
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+SWSYS1,	NOP 			/ THIS INSTRUCTION IS ALTERED AT RUN TIME - IT
+				/ IS EITHER A 'NOP' OR A 'JMP SYSLOC', DEPENDING
+				/ WHETHER XON/XOF'S ARE TO BE INTERCEPTED
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	JMS	CHKXNF 		/ ++++
+	JMP	H2CTLS
+SYSLOC,	TAD	H2ICNT 		/ GET COUNTER
+	JMS	TSTFUL		/ DO TSTFUL ROUTINE			/C135
+		0		/ CALLER NUMBER				/A007
+	TAD	INTMP2		/ ADD IN ERROR BITS (3400)		/A065
+CDFBF3,	CDF	THSFLD		/ Map buffer field (patched on the fly)./A108
+	DCA I	H2IPUT 		/ STORE CHAR IN BUF
+	ISZ	H2ICNT 		/ BUMP COUNTER
+	ISZ	H2IPUT 		/ BUMP PTR
+	TAD I	H2IPUT 		/ DO WRAP IF NECESSARY
+	CDF	THSFLD		/ Back to this field.			/A108
+	SPA 			/ ++++
+	DCA	H2IPUT
+	CLA			/ Clean up incase we exit.		/A108
+	ISZ	IX1 		/ set to -1 in "TSTFUL" if almost full
+	JMP	H2IEXIT		/ EXIT
+	TAD	(XOF) 		/ SEND XOF IF ALMOST FULL
+	DCA	H2OXOF
+	JMP	H2CTLB
+H2CTLS,	DCA	H2CTQF 		/ CLEAR STOP FLAG
+H2CTLB,	TAD	H2BFLG 		/ RESTART OUTPUT
+	SNA CLA
+H2OJMS,	JMS	TSTH2O
+	JMP	H2IEXIT		/ Exit interrupt.			/A108
+
+H2CTQF,	0 			/ STOP FLAG
+H2IPUT,	H2IBUF	/pointer/ address increments as characters come in
+H2OXOF,	XON	/	/
+H2OXON,	-XON	/	/
+
+/------------------
+	PAGE
+
+H2OTFL,	XX
+	TAD	H2BFLG
+	SNA CLA			/ SKIP IF ALREADY GOING.		/M041
+	JMS	TSTH2O
+	JMP I	H2OTFL
+
+/ *** ---------------------------- ***
+/ *** INTERRUPT LEVEL CODE FOLLOWS ***
+/ *** ---------------------------- ***
+
+TSTH2A,	DCA	H2OGET 		/ HERE FOR WRAP
+	SKP
+TSTH2O,	XX
+	AC0001 			/ ++++
+	DCA	H2BFLG
+	TAD	BREAKF		/ ARE WE TO DO A BREAK?			/A041
+	SPA CLA			/ SKIP IF NO.				/A041
+	JMP	DOBRK		/ START THE BREAK GOING...		/A041
+	TAD	H2OXOF 		/ ++++
+	TAD	H2OXON
+/ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+/ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+/ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+SWSYS2,	SZA CLA 		/ THIS IS PATCHED AT RUN TIME - IT IS
+				/ EITHER 'SZA CLA' (WHEN XON/XOF IS TO BE SENT)
+				/ OR 'SKP CLA'
+/ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+/ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+/ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+	JMP	H2OXXF
+	TAD	H2OCNT 		/ ANYTHING MORE TO DO?
+	SNA CLA 		/ ++++
+	JMP	TSTH2C 		/ JUMP IF NOT
+	TAD	H2CTQF 		/ STOP FLAG?
+	SZA CLA 		/ ++++
+	JMP	TSTH2C 		/ JUMP IF SO
+	TAD I	H2OGET 		/ GET CHARACTER
+	SPA 			/ ++++
+	JMP	TSTH2A 		/ WRAP IF NECESSARY
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+	TAD	(400)		/ TELL SCD TO WRITE!!!
+	JMS	USIOT
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	H2TLS			/ PRINT IT
+	AC7777 			/ ++++
+	TAD	H2OCNT 		/ ++++
+	DCA	H2OCNT 		/ DECR COUNTER
+	ISZ	H2OGET 		/ AND BUMP PTR
+	JMP I	TSTH2O
+
+H2OXXF,	TAD	H2OXOF
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+	TAD	(400)		/ TELL SCD TO WRITE!!!
+	JMS	USIOT
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	H2TLS			/ SEND XON OR XOF
+	CLA
+	TAD	H2OXOF
+	CIA
+	DCA	H2OXON 		/ SAVE FOR LATER COMPARE
+	JMP I	TSTH2O
+/
+TSTH2C,	DCA	H2BFLG 		/ CLEAR BUSY
+	JMP I	TSTH2O
+
+H2PWRF,	JMS	H2OFF		/ TURN H2 INTERRUPTS OFF.		/M042
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+	JMS	H2ONN		/ ENABLE SELECTED H2 PORT.		/M042
+	JMP	H2OJMS
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	IFDEF CONDOR < EXINTR >						/A075
+
+H2OGET,	H2OBUF
+
+/
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+/
+DOBRK,	AC0001			/ SET "BREAK GOING" FLAG FOR "CLKSRV"	/A041
+	DCA	BREAKF		/  (WAS -1; STORE 1).			/A041
+	TAD	(CLOCK+1)	/ SET UP PTR TO CURRENT TIME.		/A041
+	DCA	CLKPT		/  ...					/A041
+	TAD	(TIMER)		/ SET UP PTR TO TIME TO STOP BREAK.	/A041
+	DCA	TIMEPT		/  ...					/A041
+	TAD	(CLKLIM)	/ SET UP PTR TO TIMER LIMITS.		/A041
+	DCA	LIMPT		/  ...					/A041
+	TAD	(-4)		/ SET UP LOOP COUNTR (10THS,SEC,MIN,HR)	/A041
+	DCA	LOOPCT		/  ...					/A041
+				/					/A041
+	JMS	GETBTM		/ GET THE BREAK TIME			/A157
+DOBRK1,	TAD I	CLKPT		/ ADD IN THE CURRENT TIME.		/A041
+	DCA I	TIMEPT		/ SAVE THE STOP TIME.			/A041
+	DCA	OVFLOW		/ RESET OVERFLOW AMOUNT.		/A041
+DOBRK2,	TAD I	TIMEPT		/ GET IT BACK.				/A041
+	TAD I	LIMPT		/ SEE IF OVER THE INCREMENTAL TIME LIMIT/A041
+	SPA			/ SKIP IF YES. THE XTRA AMNT IS IN AC.	/A041
+	JMP	DOBRK3		/ JMP IF TIME INCR IS OK.		/A041
+	DCA I	TIMEPT		/ SAVE NEW TIME.			/A041
+	ISZ	OVFLOW		/ SAVE OVERFLOW AMNT.			/A041
+	JMP	DOBRK2		/ SEE IF STILL OVER.			/A041
+				/					/A041
+DOBRK3,	CLA			/ GET OVERFLOW AMOUNT (TO ADD IN TO	/A041
+	TAD	OVFLOW		/     THE NEXT THINGIE).		/A041
+	ISZ	TIMEPT		/ INCREMENT POINTERS FOR NEXT THINGIE.	/A041
+	ISZ	CLKPT		/  ...					/A041
+	ISZ	LIMPT		/    .....				/A041
+	ISZ	LOOPCT		/ FINALLY THE LOOP COUNTER.		/A041
+	JMP	DOBRK1		/ PROCESS NEXT TIME PIECE.		/A041
+				/					/A041
+	CLA			/ SET COMMAND REGISTER.			/A041
+	TAD	(10)	/ break	/ SET IT FOR A BREAK.			/A041
+	JMS	DOBIOT		/ DO THE BREAK IOT STUFF.		/A041
+	JMP I	TSTH2O		/ RETURN TO CALLER. BREAK IS GOING!!!	/A041
+
+/ Subroutine to check for errors from the HOST (framing, overrun, parity)
+
+H2ECHK,	XX			/ CHECK FOR ERROR ON INPUT LINE.	/A043
+
+	IFDEF CONDOR < / ----------------------------------------------	/A075
+			/\cdf 0 /---[a] reg select--/
+	AC4000		/ 'READ'/
+	IAC			/ status register #1
+	SELREG		/ IOT	/ SETUP CR0
+	CLA			/
+	RDREG			/ EXECUTE 'read' status register #1
+			/\and	(377)		/
+	CLL RAR			/ (before RAR, bit5: FE, bit6: OVR, bit7: PE)
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+	CLA			/ READ "SCD: INTERNAL STATUS REGISTER"	/M065
+	TAD	(1000)		/  ...					/M065
+	JMS	USIOT; PRB0
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	AND	(70)		/ ISOLATE THE ERROR BITS.		/A043
+	SNA			/ SKIP IF ERROR OCCURED.		/A043
+	JMP I	H2ECHK		/ RETURN (ZERO AC) IF NO ERROR.		/A043
+	CLL RAR; BSW		/ PACK ERROR BITS INTO AC:3400		/A043
+	DCA	INTMP2		/ SAVE.					/A043
+	TAD	BREAKF		/ BREAK IN PROGRESS?			/A065
+	SMA SZA CLA		/ SKIP IF <= 0 (BREAK NOT IN PROGRESS)	/A065
+	TAD	(10)	/ break	/ SET BREAK FLAG IF CURRENTLY BREAKING.	/A065
+	JMS	DOBIOT		/ WRITE COMMAND REGISTER.		/A065
+	JMP I	H2ECHK		/ RETURN TO CALLER.			/A043
+
+CLKPT,	0			/ PTR TO CLOCK+1 TABLE			/A041
+TIMEPT,	0			/ PTR TO TIMER TABLE.			/A041
+LIMPT,	0			/ PTR TO CLKLIM TABLE.			/A041
+LOOPCT,	0			/ LOOP COUNTER (4)			/A041
+OVFLOW,	0			/ COUNTER OF # OF NEXT THINGIES (0-2)	/A041
+
+/THE CONTENTS OF THE AC AT ENTRY INTO "H2OCHR" WAS MINUS...
+/
+/	7777 means reset buffer only
+/	7401 means initiate a BREAK, then reset buffer			/A123
+/	7402 means HANG UP THE MODEM, then reset buffer			/A083
+/
+H2ORST,									/A136
+/ THE FOLLOWING CODE WAS ADDED BECAUSE WE ALLOW THE USER TO CHANGE	/A136
+/ THE BAUD RATE WHILE THE PRINTER IS USING THE HOST PORT (DD HOST)	/A136
+/ WITHOUT THIS CODE THE IOT RESETTING THE BAUD RATE WOULD HALT FURTHER	/A136
+/ HARDWARE INTERRUPTS THAT THE SOFTWARE EXPECTED, AND THE SYSTEM	/A136
+/ WOULD HANG IN THE TIGHT LOOP NEAR H2BWT				/A136
+IFDEF CONDOR <								/A136
+	IAC		/SEE IF AC WAS 7777--RESET BUFFER ONLY		/A136
+	SZA CLA		/						/A136
+	JMP	H2BWT	/NO, GO CHECK FOR HANGUP OR DTR			/A136
+	IOF		/TURN OFF INTERRUPTS WHILE WE DO THIS!		/A136
+	DCA	H2BFLG	/RESET THE INTERRUPT EXPECTED FLAG		/A136
+	>		/END IFDEF CONDOR				/A136
+	JMP	H2RSET	/GO RESET BUFFER, ETC				/A136
+/------------------
+
+/
+/
+/	Moved here on Edit 163 for space reasons			/M163
+/	and later on edit 167						/M167
+/
+/ DISABLE communications (H2) IRQ's
+/
+	
+
+H2OFF,	XX			/ TURN OFF H2 INTERRUPTS.
+	CLA			/ DISABLE all comm interrupts		/M040
+	MCIE			/ MODEM CONTROL IRQ			/A016
+	H2KIE			/ reciever irq
+	H2TSK			/ transmitter irq
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+	OPRIE			/ OTHER PORT (USUALLY 1) RECEIVE	/A016
+	OPSIE			/ OTHER PORT (USUALLY 1) TRANSMIT	/A016
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	JMP I	H2OFF		/ RETURN TO CALLER.			/A042
+
+
+
+	PAGE
+
+/	THIS IS THE SERIAL LINE PRINTER HANDLER FOR THE WS78 AND VT278.  IT HANDLES
+/	DOCUMENT DESTINATIONS DP2, SQ1, AND SQ2.
+/
+/	THE IOTS
+/
+	D2KSF2=6321 		/ SKIP ON INPUT PORT FLAG, CLEAR IF SET
+	D2KIE2=6325 		/ SET/CLEAR INPUT PORT INTERRUPT ENABLE FROM AC11
+	D2KRB2=6326 		/ TRANSFER INPUT PORT TO AC(4:11) AND ENABLE INTERRUPTS
+/
+	D2SPF2=6330 		/ SET PRINTER FLAG
+	D2TSF2=6331 		/ SKIP ON PRINTER FLAG, CLEAR IF SET
+	D2TPC2=6334 		/ TRANSFTER AC(4:11) TO PRINTER; DON'T ENABLE INTERRUPT
+	D2TSK2=6335 		/ SET/CLEAR PRINTER INTERRUPT ENABLE FROM AC11
+	D2TLS2=6336 		/ TRANSFER AC(4:11) TO PRINTER; ENABLE INTERRUPTS	
+/
+////////////////////////////////////////////////////////////////////////////
+////	NOTE!! DO NOT MOVE ANY OF THE SYMBOLS FROM LPTYPE TO SQREST ////////
+////	WITHOUT CHANGING THE DEFINITION IN WPF1.PA!!!		    ////////
+////////////////////////////////////////////////////////////////////////////
+
+/ D2XONF IS ZERO IFF AN XON IS RECEIVED FROM THE PRINTER AND		/A142
+/ IT IS ALREADY X'ED ON							/A142
+D2XONF,	1			/ PRINTER DOUBLE XON FLAG		/A142
+LPDNFG,	1 			/ THE DONE FLAG (POSITIVE MEANS DONE)
+LPPWR,	EXINTR 			/ THE POWER FAILURE LINK
+LPICHN,	TSTLON 			/ THE NEXT ENTRY IN THE INTERRUPT CHAIN
+TSTLPO,	D2TSF2			/ CHECK OUTPUT FLAG.			/M068
+	JMP I	TSTLPO-1	/ NO -- CONTINUE CHAIN.			/M068
+	JMP	D2CK7		/ YES -- JMP TO HANDLE OUTPUT.		/M068
+
+HBCNT,	D2OCNT 			/ THIS IS A POINTER TO THE BUFFER COUNTER USED IN THIS
+				/ HANDLER.  THERE IS A SIMILAR ENTRY IN THE SAME RELATIVE
+				/ POSITION IN ALL THE PRINTER HANDLERS.  IT IS USED TO
+				/ ENABLE CHECKING ON THE PROGRESS OF THE HANDLERS.
+
+LPOCHR,	XX
+	JMP	LPOCH1		/ JUMP TO REAL ROUTINE			/A011
+
+SQREST,	XX			/ ENTRY POINT TO SEND RESTORE TO SERIAL	/A011
+				/ PRINTER
+	JMP	SQRES		/ JUMP TO REAL ROUTINE			/A011
+
+D2CTQF,	0			/ VARIABLE TO XON/OFF PRINTER		/A036
+D2GOIN,	0			/ 0 WHEN NO OUTPUT INTERRUPTS PENDING.	/A055
+				/ 1 WHEN OUTPUT INTERRUPTS PENDING.	/A055
+
+LPOCH1,	GETRTF 			/ GET THE RETURN FIELD			/M011
+	DCA	D2OCHX 		/ AND SAVE IT
+
+	TAD	X0 		/ RECOVER THE CHARACTER
+	SPA			/					/A114
+	JMP	D2ORST		/ IF CHR IS NEGATIVE, RESET HANDLER	/A114
+
+/	THE AC NOW CONTAINS THE CHARACTER WHICH SHOULD BE OUTPUT.
+
+	AND	P377		/					/A105
+	DCA	TACHAR		/ save the character			/a161
+	JMP	TEST8B		/ go test for 8 bits output		/a161
+D2CONT,									/a161
+	SNA			/ IF NOT NULL CONTINUE			/A130
+	JMP	D2OSUC		/ ELSE IGNORE AND TAKE SUCESS RETURN	/A130
+	DCA I	D2OPUT 		/ WRITE INTO THE OUTPUT BUFFER
+	TAD	D2OCNT 		/ COMPARE THE NUMBER OF CHARACTERS NOW STORED
+	TAD	NLPOSZ 		/ WITH THE MAXIMUM SIZE
+
+/	IF THE AC IS NOW ZERO, THE OUTPUTCBEFFER IS FULL.
+
+	SNA CLA
+	JMP	D2OFUL 		/ JUMP TO HANDLE A FULL BUFFER
+	CIF 0 			/ TURN OFF INTERRUPTS BRIEFLY
+	ISZ	D2OCNT 		/ INCREMENT THE BUFFER COUNT
+	ISZ	D2OPUT 		/ INCREMENT THE BUFFER POINTER
+
+/	IF THE OUTPUT HANDLER PART IS NOT ALREADY RUNNING, START IT UP.
+
+	TAD	LPDNFG 		/ CHECK THE DONE FLAG--IS THE HANDLER RUNNING?
+	SNA CLA
+	JMP	D2OCH2 		/ YES--SKIP THE START UP
+	DCA	LPDNFG 		/ CLEAR THE DONE FLAG
+	AC0001			/ SAY THAT SQP IS GOING.		/A055
+	DCA	D2GOIN		/  ...					/A055
+	D2SPF2 			/ FORCE OUTPUT TO BEGIN
+
+/	NOW, IF THE POINTER NOW POINTS TO THE END OF THE BUFFER, RESET THE POINTER
+/	TO THE BEGINNING.  THE END OF THE BUFFER IS MARKED BY THE ADDRESS OF THE
+/	BEGINNING OF THE BUFFER.
+
+D2OCH2,
+	TAD I	D2OPUT 		/ GET THE WORD POINTED TO IN THE BUFFER
+	SPA
+	DCA	D2OPUT 		/ IT WAS THE END OF BUFFER FLAG--USE TO RESET
+				/ THE BUFFER POINTER
+D2OSUC,	ISZ	LPOCHR 		/ MAKE A SKIP RETURN TO SHOW SUCCESS
+	SKP CLA 		/ CLEAR THE AC AND RETURN
+D2OFUL,	TAD I	D2OPUT 		/ THE OUTPUT BUFFER WAS FULL--RETURN THE CHAR
+				/ TO SHOW FAILURE
+D2OCHX,	CIF CDF .-. 		/ CHANGE BACK TO THE FIELD OF THE CALLER
+	JMP I	LPOCHR 		/ AND RETURN
+
+D2ORST,				/ RESET THE HANDLER			/A114
+	AC0001			/ CLEAR AC AND SET TO 1			/A114
+	CIFSYS			/ HOLD INTERRUPTS FOR A MOMENT		/A114
+	DCA	LPDNFG		/ SET DONE FLAG				/A114
+	DCA	D2CTQF		/ INSURE XON STATE			/A127
+
+	DCA	D2OCNT		/ CLEAR COUNT				/A114
+
+/ WE MUST CAREFULLY ASSURE THAT THE PUT AND GET POINTERS ARE MADE EQUAL	/A134
+/ HOWEVER, THE ORDER WE DO THIS IS IMPORTANT.  WE MUST COPY THE PUT	/A134
+/ POINTER TO THE GET POINTER, AND NOT VISA VERSA, ELSE WE CAUSE A BUG	/A134
+/ IF WE TRY TO RESET THE HANDLER AT THE TIME THE PUT POINTER IS POINTING/A134
+/ TO THE BUFFER WRAP POINTER! (WE MADE THIS MISTAKE ONCE.  IT CAUSES	/A134
+/ BURSTS OF CHARACTERS TO BE MISSING AND NOT TRANSMITTED TO THE PRINTER	/A134
+	TAD	D2OPUT		/ GET THE PUT POINTER			/A134
+	DCA	D2OGET		/ MAKE GET POINTER THE SAME		/A134
+
+	JMP	D2OCHX		/ AND EXIT W/O SKIP RTN			/A114
+
+D2CK3,	DCA	D2OGET 		/ WRAP POINTER TO BEGINNING OF BUFFER
+D2CK7,	TAD I	D2STAT		/ ARE WE PROCESSING A STATUS REQUEST?	/A055
+	SZA;JMP D2CK8		/ JMP IF YES. CONTINUE TO OUTPUT IT.	/A055
+	TAD	D2OCNT 		/ CHECK FOR SOMETHING TO OUTPUT
+	SNA CLA 		/ ++++
+	JMP	D2CK2 		/ NO
+	TAD	D2CTQF 		/
+	SZA CLA 		/ AM I XOFFED?
+	JMP	D2CK9		/ DO XOF EXITTING.			/A055
+	TAD I	D2OGET 		/     NO, GET CHARACTER
+	SPA 			/ ++++
+	JMP	D2CK3 		/ IS IS REALLY A POINTER
+	D2TLS2 			/ SEND
+	AC7777 			/ ++++
+	TAD	D2OCNT 		/ ++++
+	DCA	D2OCNT 		/ DECRAMENT COUNTER
+	ISZ	D2OGET 		/ MOVE POINTER
+	EXINTR
+
+D2CK2,	AC0001
+	DCA	LPDNFG 		/ SET TO DONE
+D2CK9,	DCA	D2GOIN		/ SAY NOT GOING NO MORE.		/A055
+	EXINTR
+
+D2CK8,	ISZ	D2STAT		/ POINT TO NEXT STATUS CHAR FOR NXT TIME/A055
+	D2TLS2			/ OUTPUT THIS STATUS CHARACTER.		/A055
+	EXINTR			/ EXIT 'RUPTS.				/A055
+
+/D2CTQF,	0		/DEFINED ABOVE				/D036
+ICHKXN,	CHKXNF
+NLPOSZ,	-LPOSIZ
+D2OGET,	LPOBUF
+D2OPUT,	LPOBUF
+D2OCNT,	0
+
+D2STAT,				/ PTR TO STATUS SEQ TO OUTPUT (IF ANY).	/A055
+	ESCXX+2			/ MUST POINT TO A PERMANENT ZERO	/A103
+
+
+
+/THE PURPOSE OF THIS ROUTINE IS TO TRANSMIT EITHER A RESTORE
+/OR A REQUEST FOR STATUS TO THE SERIAL LQP.  IT DOES NOT USE
+/THE HANDLER, BECAUSE THESE REQUESTS MUST RECEIVE PRIORITY OVER WHATEVER
+/IS WAITING TO BE TRANSMITTED.
+
+/THE FIRST THING IT DOES IS DISABLE PRINTER INTERRUPTS.  THIS ENABLES US
+/TO TELL WHEN THE CHARACTER HAS BEEN TRANSMITTED WITHOUT WORRYING ABOUT
+/THE DONE FLAG BEING CLEARED BY THE HANDLER.
+
+/WHEN TRANSMITTING A RESTORE, THE HANDLER IS FIRST XOFFED.  WHEN THE LQP
+/COMPLETES RESTORATION, IT WILL XON THE HANDLER.  IN THIS WAY, WE CAN BE SURE
+/NO CHARACTERS ARE TRANSMITTED DURING THE RESTORATION.
+
+/	ELIMINATE POSSIBLE CORRUPTION OF D2GOIN BY KEEPING		/A079
+/	INTERRUPTS OFF UNTIL EXIT. 					/A079
+/	ADDED CODE TO CLEAR BUFFER IF A RESTORE				/A079
+
+SQRES,	GETRTF			/ THIS SAVES 1 WORD & DOES SAME JOB	/A130
+	DCA	SQRESX		/ AND SAVE IN EXIT SECTION		/A079
+
+	TAD	X0		/ RECOVER THE SELECTION FLAG		/C135
+	CDISYS			/ HOLD INTERRUPTS & MAP OUR FIELD.	/A059
+	TAD	("0&177)	/ MAKE "0", "6", OR "c".		/A059
+	DCA	ESCXX+1		/ SAVE.					/A059
+	TAD	(ESCXX		/ SET UP FOR A STATUS REQUEST.		/A059
+	DCA	D2STAT		/ SET POINTER...			/A059
+	TAD	X0		/ RESTORE?			/A059	/C135
+	SNA CLA			/ SKIP IF YES.				/A059
+	JMP	SQRES1		/ JMP IF STATUS REQUEST. WE'RE DONE.	/A059
+	AC0001			/ SET XOF FLAG.				/A059
+	DCA	D2CTQF		/  (RESTORE IMPLIES XOF IMPLICITLY)	/A059
+
+	TAD	D2OPUT		/ CLEAR THE PRINT BUFFER		/A079
+	DCA	D2OGET		/ BY RESETTING THE POINTERS		/A079
+	DCA	D2OCNT		/ AND THE COUNT				/A079
+			/ (INTERRUPTS ARE OFF DUE TO CDISYS ABOVE	/A079
+
+SQRES1,	CDISYS			/ STILL HOLD OFF INTERRUPTS		/A079
+	TAD	D2GOIN		/ IS SQP GOING?				/A059
+	SNA CLA;D2SPF2		/ START IT UP IF NOT GOING.		/A059
+	AC0001			/ SAY SQP IS GOING.			/A059
+	DCA	D2GOIN		/  ...					/A059
+SQRESX,	XX			/ CHANGE BACK TO CALLER'S FIELD		/C079
+	JMP I	SQREST 		/ AND RETURN
+
+/D135	SQSV,	0000		/ STORES CHARACTER ON ENTRY	/A036	/C135
+
+ESCXX,	ESC;0;0		/ BUFFER FOR CHARACTERS OUTPUT VIA SQREST
+			/ SEPARATE FROM LPOBUF BECAUSE HANDLER
+			/ MUST BE BYPASSED IN CASE XOF OR FULL BUFFER
+
+BRKOFF,	XX			/				/A041	/a101
+	JMS	DOBIOT		/ SET COMMAND REG WITH NO BREAK./A041	/a101
+	DCA	BREAKF		/ TURN BREAK FLAG OFF.		/A041	/a101
+	DCA	H2BFLG		/ TURN OFF "HOST BUSY" FLAG.	/A041	/a101
+	IOF			/ DISABLE INTERRUPTS.		/A041	/a101
+	JMS	H2OTFL		/ START UP HOST OUTPUT SIDE.	/A041	/a101
+	ION			/ ENABLE INTERRUPTS.		/A041	/a101
+	JMP I	BRKOFF		/ RETURN TO CALLER.		/A041	/a101
+/------------------
+	PAGE
+
+/FUNCTIONAL DESCRIPTION:						
+/	TSTFUL PREVENTS UNWANTED CHARACTERS FROM BEING INSERTED INTO A	
+/	DOCUMENT DUE TO INPUT FROM A KEYBOARD OR HOST AFTER THE INPUT	
+/	BUFFER HAS BECOME OR IS NEAR FULL.  FOR EXAMPLE - IF THE BUFFER	
+/	HAS ONLY TWO EMPTY LOCATIONS AND A THREE CHARACTER ESC SEQ IS	
+/	TYPED BEFORE THE BUFFER HAS EMPTIED ENOUGH TO ACCOMMODATE IT,	
+/	THE ESC SEQ IS IGNORED THUS PREVENTING PARTS OF IT FROM BEING	
+/	INCLUDED IN THE DOCUMENT AS TEXT.				
+/									
+/   TSTFUL PSEUDO-CODE							
+/									
+/	SAVE CURRENT BUFFER COUNT					
+/	GET CALLER NUMBER FROM PARAM AT CALL+1				
+/	IF PARAM <> HOST						
+/	   THEN								
+/	      DEVELOP ADDRESS OF OVERFLOW COUNT BUFFER			
+/	      IF CHARACTER EQ ESC					
+/		 THEN							
+/		    CLEAR KBD'S OVERFLOW COUNT				
+/		    IF WITHIN 2 CHARACTERS FROM END OF BUFFER		
+/		       THEN						
+/			  SETUP AND SAVE 3 CHARACTER DELAY		
+/	      IF EXTENDED OVERFLOW FROM ESC SEQ IN PROGRESS		
+/		 THEN							
+/		    UPDATE OVERFLOW COUNT				
+/		    EXIT ROUTINE					
+/	IF CHARACTER BUFFER FULL					
+/	   THEN								
+/	      EXIT ROUTINE						
+/	SETUP XON/XOF COUNT						
+/	BUFFER CHARACTER FOR RETURN					
+/	UPDATE RETURN ADDRESS						
+/	RETURN WITH CHARACTER TO CALLER					
+/									
+/EXIT ROUTINE								
+/	EXIT INTERRUPT WITHOUT CHARACTER				
+/									
+/CALLING SEQUENCE:	TAD	XXXCNT	/GET BUFFER COUNT		
+/			CIFPRT		/CIF TO PRINTER FIELD		
+/			DTSTFL		/DO TSTFUL ROUTINE		
+/			0,1, OR 2	/CALLER NUMBER			
+/									
+/	TSTFUL IS CALLED FROM WPSYS AS ABOVE.				
+/									
+/INPUT PARAMETER:	AC = BUFFER COUNT				/
+/									/
+/IMPLICIT INPUT:	TSTFUL, P177,  BUFCNT, OVCLST, INTMP1 (FLD. 0)	/
+/			TEMPT						/
+/									/
+/OUTPUT PARAMETERS:	IF EXIT THROUGH TSTO21 (OK, ROOM IN BUFFER), THE/
+/	AC WILL CONTAIN THE CURRENT INPUT CHARACTER.  IF EXIT THROUGH	/
+/	EITHER TSTF15 OR TSTF20 (NO ROOM IN BUFFER), AC WILL EQL 0.	/
+/									/
+/IMPLICIT OUTPUT:	BUFCNT,TEMPT,IX1 (FLD. 0)			/
+/									/
+/COMPLETION CODES:	NONE						/
+/									/
+/SIDE EFFECTS:								/
+/	1) IF LOCATION OF TSTFUL IS CHANGED WPF1.PA'S DEFINITION OF	/
+/	   TSTFUL MUST BE CHANGED ALSO.					/
+/	2) THIS ROUTINE IS RUN WHILE IN THE INTERRUPT SKIP CHAIN.	/
+/	3) IF KBD OR HOST BUFF TOO FULL TO ACCEPT INPUT, CHARACTERS ARE	/
+/	   IGNORED.							/
+/	4) THERE IS NO CHECKING DONE TO DETERMINE WHETHER INCOMING ESC	/
+/	   SEQ IS 2 OR 3 CHARACTERS OR A SEQUENCE OF 4 CHARACTERS	
+/	   (EX: G-HALT, G-RUL ... ETC.). ROUTINE DEFAULTS TO 4.		
+/	   THUS IF BUFFER IS FULL THE NUMBER OF INCOMING CHARACTERS	
+/	   SET IN THE OVERFLOW COUNT WILL BE DISREGARDED UNTIL THAT	
+/	   COUNT EQUALS 0.  EACH TIME AN ESC CHAR. IS DETECTED THE	
+/	   OVERFLOW COUNT IS RESET BEFORE PROCEEDING.  THIS IS NOT A	
+/	   FOOL PROOF METHOD SINCE DIFFERENT COMBINATIONS OF GOLD-???	
+/	   (EX: G-ADV, G-BKP ... ETC.) MAY BE PARTIALLY INSERTED INTO	
+/	   THE BUFFER AND OTHER PARTS REJECTED DUE TO LACK OF SPACE.	
+/	   TO CORRECT THIS WE NEED A SMART TSTFUL.			
+/	5) IN WPSYS.PA A CONDITIONALIZED NOP WAS PLACED IN THE SAME PAGE
+/	   AS SWSYS2 WHICH IS DEFINED IN WPF1.PA.  THIS WAS DONE TO	
+/	   AVOID CONDITIONALIZING SWSYS2 DEFINITION IN WPF1.PA.		
+
+/***********************************************************************/
+/									/
+/	TSTFUL--ROUTINE TO TEST IF WE ARE GETTING CLOSE TO FILLING	/
+/		THE COMMUNICATIONS INPUT BUFFER.  IF SO, WE MIGHT	/
+/		HAVE TO TAKE SPECIAL ACTION				/
+/									/
+/	TSTFUL IS CALLED FROM WPCU3 AND WPSYS				/
+/									/
+/	TWO LOCATIONS IN THIS ROUTINE ARE PATCHED DEPENDING ON THE	/
+/	SIZE AND LOCATION OF THE COMMUNICATIONS BUFFER, WHICH CHANGES	/
+/	WHEN WE ENTER AND LEAVE COMMUNICATIONS.  THESE LOCATIONS ARE	/
+/	DEFINED IN WPF1 AND PATCHED BY WPCU3:				/
+/		H2IMAX AND H2XOFP					/
+/									/
+/***********************************************************************/
+
+ESCSIZ=3			/DEFAULT NUMBER OF CHARS. IN ESC. SEQ.
+
+/Entry point for TSTFUL  is at the top of the page so that the
+/location will not change if the routine is changed. The location is
+/defined in WPF1.PA and if the location changes the definition in WPF1.PA
+/must change also.
+
+TSTFUL,	XX							
+	DCA	BUFCNT		/SAVE BUFFER COUNT TO TEST	
+	TAD I	TSTFUL		/GET CALLER NUMBER PARAM AT CALL+1
+	SNA			/SKP IF PARAM <> HOST		
+	JMP TSTO21						
+	TAD	(OVCLST)	/DEVELOP ADDR OF OVERFLOW COUNT	
+	DCA	TEMPT						
+	TAD I	(INTMP1)	/GET CHARACTER			
+/D135	CDFMYF			/CDF TO MY FIELD		
+	AND	P377		/CHARACTER EQL ESC ?			/M160		
+	TAD	(-ESC)						
+	SZA CLA			/SKP: IF SO			
+	JMP	TSTF10						
+	DCA I	TEMPT		/ reset overflow count		
+	TAD	(-U1ISIZ-1+ESCSIZ)/WITHIN 2 CHARS. FROM BUFFER END ?
+	TAD	BUFCNT						
+	SPA CLA			/SKP: IF SO			
+	JMP	TSTF10						
+	AC0004			/SET UP 4 CHAR DELAY - this may be a
+				/ four char. esc. string. ex: G - HALT
+	DCA I	TEMPT						
+								
+TSTF10,	TAD I	TEMPT		/OVERFLOW FROM ESC SEQ IN PROG?	
+	SZA			/SKP: IF NOT			
+	JMP	TSTF15		/YES				
+	TAD	(-U1ISIZ)	/ See if KB buffer full.	
+	JMP	TSTO22		/  ...				
+								
+TSTO21,	TAD	BUFCNT		/ See if time to send XOF yet.	
+	TAD	H2XOFP		/ If so then set IX1 to "-1" so that
+				/ the host will get xoffed.
+	DCA I	(IX1)		/
+	TAD 	H2IMAX		/IS BUFFER FULL?			
+TSTO22,	TAD	BUFCNT						
+	SNA CLA			/SKP: IF NOT			
+	 JMP	TSTF20		/YES - IGNORE CHAR		
+	ISZ	TSTFUL		/UPDATE RETURN ADDRESS		
+	TAD I	(INTMP1)	/RESTORE OK CHAR TO AC		
+	JMP I	TSTFUL		/RETURN - NOT FULL		
+								
+TSTF15,	TAD	(-1)		/DECREMENT OVERFLOW COUNT	
+	DCA I	TEMPT		/UPDATE OVERFLOW COUNT		
+TSTF20,
+	TAD I	(INTXIT)	/ get interrupt return address	
+	DCA	TEMPT		/ save it for next JMP I	
+	JMP I	TEMPT		/ exit interrupt without character
+
+H2IMAX,	-H2ISIZ			/ Negative of Max Buffer Size.	
+H2XOFP,	-21			/ -21 for sm buffer, -2001 for lg buffe
+BUFCNT,	0			/ HOLDS BUFFER COUNT PASSED BY CALLER
+TEMPT,	0			/POINTER TO KBD BUFFER OVERFLOW COUNT
+				/ and also used as pointer for exit
+				/ interrupt.			
+								
+OVCLST,	ZBLOCK 3		/OVCLST   - HOST OVERFLOW COUNT	
+				/OVCLST+1 - KBD1 OVERFLOW COUNT	
+				/OVCLST+2 - KBD2 OVERFLOW COUNT	
+
+/	AT THIS POINT, WE KNOW THAT THE INTERRUPT THAT WE HAVE		/A069
+/	INTERCEPTED WAS  BECAUSE THE PRINTER WANTED TO SUPPLY AN	/A069
+/	INPUT CHARACTER.						/A069
+/									/A069
+D2CKIO,	D2KRB2 			/ READ INPUT				/A069
+	DCA	INTMP1 		/ SAVE IN A TEMPORARY			/A069
+	JMS	CHKXNF 		/ SEE IF THE INPUT IS AN XON OR XOF	/A069
+	JMP	D2CK1 		/ YES--JUMP TO HANDLE IT		/A069
+	TAD	INTMP1 		/ RECOVER THE CHARACTER			/A069
+	DCA I	LPIPUT		/ AND SAVE IN BUFFER
+
+/ THE SQPINP ROUTINE WAS DELETED AND THE FOLLOWING CODE ADDED REV103
+	ISZ	LPIPUT		/ BUMP BUFFER POINTER
+	TAD I	LPIPUT		/ AND SEE IF NEED WRAP
+	SPA
+	DCA	LPIPUT		/ YES, RESET POINTER
+	CLA			/ NO
+	TAD	LPIPUT		/ SEE IF BUFFER IS FULL
+	CIA
+	TAD	LPIGET		/ IF SO POINTERS WILL MATCH
+	ISZ	LPICNT		/ NOTIFY LPICHR THAT WE HAVE A BOGIE
+	SZA CLA			/ SKIP IF FULL
+	EXINTR			/ ALL OK, DISAPPEAR!
+
+	/ AT THIS POINT THE LPIBUF HAS OVERFLOWED
+
+	DCA	LPICNT		/ RESET THE COUNT
+
+	/ WE WANT TO DETECT IF THE BUFFER IS BIG ENOUGH
+	/ FOR DEVELOPMENT PURPOSES WE WILL INCLUDE A HALT HERE
+	/ SO WE CAN SEE IF WE EVER HIT IT
+
+	/ RESETTING THE COUNT SHOULD EFFECTIVELY CLEAR THE BUFFER
+	/ SINCE THE POINTERS ARE ALREADY KNOWN TO BE EQUAL
+IFDEF DEVEL <HLT>
+	NOP
+	EXINTR			/ NOW WE MAY VANISH
+
+LPICHR,	XX
+	GETRTF 			/ ++++
+	DCA	LPICHX 		/ GET RETURN FIELD
+	TAD	LPICNT 		/ ANYTHING THERE?
+	SNA CLA 		/ ++++
+	JMP	LPICHX 		/ RETURN 0 IF NOTR
+	TAD I	LPIGET 		/ GET CHAR
+	SPA 			/ ++++
+	DCA	LPIGET 		/ WRAP IF NEC.
+	CIF 0
+	AC7777 			/ ++++
+	TAD	LPICNT 		/ ++++
+	DCA	LPICNT
+	TAD I	LPIGET
+	ISZ	LPIGET 		/ BUMP PTR
+	ISZ	LPICHR		/ BUMP RETURN ADDRESS.
+LPICHX,	CIF CDF .-. 		/ MAP CALLER FIELD.
+	JMP I	LPICHR	 	/ RETURN TOO CALLER
+/
+LPIPUT,	LPIBUF
+LPIGET,	LPIBUF
+LPICNT,	0
+
+/	THE INPUT CHARACTER WAS A XOF (AC=1) OR AN XON (AC=0).		/A069
+									/A069
+D2CK1,				/ XON OR XOF FROM PRINTER RECEIVED	/A142
+	SZA			/ SEE WHICH				/A142
+	JMP	D2CK1A		/ XOFF, JUST GO SET IT			/A142
+	TAD	D2CTQF		/ XON, JUST COPY CURRENT XON/OFF FLAG	/A142
+	DCA	D2XONF		/ TO DOUBLE FLAG			/A142
+D2CK1A,									/A142
+	DCA	D2CTQF 		/ SET THE STOP FLAG			/A069
+	TAD	D2GOIN 		/ IS THE HANDLER BUSY?			/A069
+	SNA CLA			/ SKIP IF YES.				/A069
+	D2SPF2			/ START PRINTER GOING.			/A069
+	AC0001			/ SAY PRINTER IS GOING.			/A069
+	DCA	D2GOIN		/  ...					/A069
+	EXINTR 			/ EXIT THE INTERRUPT			/A069
+/
+
+	IFDEF CONDOR < / ----------------------------------------------	/A090
+
+/ test for "print screen"
+
+/ when the contents of "PRNTSCREEN" = 0 then no print screen requested
+/ when the contents of "PRNTSCREEN" = 4xxx then a print screen in process
+/ when the contents of "PRNTSCREEN" = 1 then a print screen is requested
+
+TSTPS,	XX			/
+    CDFMNU/---------------------/
+	TAD I	(PRNTSCREEN)	/ FLAG
+    CDFMYF/---------------------/
+	SPA SNA CLA		/
+	JMP I	TSTPS		/
+	TAD	(PSJOB)		/
+	JSTRT			/ START the "print screen" job
+
+/ NOTE that "prntscreen" job will "dca PRNTSCREEN" and execute a "JEXIT"
+
+	JMP I	TSTPS		/
+
+PSJOB,	0			/ pointer to next "job status block"
+	40			/ field (#2 times two) + link = 0
+	0			/ mq
+	PRNTSCREEN+2		/ the address of the Print Screen job	/m162
+	0			/ ac
+	>	/ END IFDEF CONDOR ------------------------------------	/A090
+
+/	INITONCE CODE FORMERLY AT THIS LOCATION HAS MOVED		/A128
+/	TO WPCU2 TO AVOID A COMM INITIALIZATION RACE CONDITION.		/A128
+/	ITS FUNCTION IS NOW PERFORMED BETWEEN LOCATIONS			/A128
+/	CUDXIT AND CUDLUP IN THAT ROUTINE.				/A128
+/						  (END OF M112)
+/
+/----------------------
+	PAGE
+
+/ *** ------------------------------------- ***
+/ *** WPEDTB - MATCH TABLE FOR EDITOR INPUT ***
+/ *** ------------------------------------- ***
+
+/THIS TABLE IS COMPATIBLE WITH VT-278 GENERATED ANSI ESCAPE SEQUENCES
+
+/THIS TABLE IS USED BY "SRCH" TO MATCH ESCAPE SEQUENCES WITH THEIR MEANINGS.
+/ (THE MEANINGS ARE INTEGER CODES)
+
+/AN ESCAPE SEQUENCE IS VARIABLE LENGTH.  ALL EXCEPT THE LAST
+/CHARACTER OF A SEQUENCE IS CALLED A MODIFIER.  AS MODIFIERS ARE IDENTIFIED
+/IN THIS TABLE BY "SRCH", THE MODIFIER NUMBER IS BUILT UP.
+
+/FOLLOWING ARE THE MODIFIER SEQUENCES:
+
+/	1)  ESC			ESCAPE				200
+/	2)  ESC O		ALTERNATE KEYPAD		400
+/    2b/6)  ESC [ pp ~		(CONDOR) alternate keypad      1400	/a073
+/    2c)    ESC [ p ~							/a078
+/	3)  ESC O P		GOLD KEY			600
+/	4)  ESC O P ESC		GOLD KEY ESCAPE		       1000
+/	5)  ESC O P ESC O	GOLD KEY ALTERNATE KEYPAD      1200
+/    6b/7)  ESC O P ESC [ pp ~	(CONDOR) GOLD key alt keypad   1600	/a073
+/      6c)  ESC O P ESC [ p ~						/A112
+
+/FOR EXAMPLE, PRESSING GOLD MENU TRANSMITS "ESC O P M"
+/GOLD MENU IS ENCODED IN THIS TABLE AS 600 + M (THE VALUE OF GOLD KEY PLUS
+/THE VALUE OF M.  FOUR PASSES THROUGH THIS TABLE WOULD BE MADE BY "SRCH"
+/TO MATCH GOLD MENU--THREE TO BUILD UP THE MODIFIER, AND ONE TO MATCH
+/THE M.
+
+/THE TABLE IS DIVIDED INTO SECTIONS--ONE FOR EACH MODIFIER.
+/200 IS SUBTRACTED FROM THE MODIFIER VALUE BEFORE THE ASCII VALUE
+/IS ADDED IN ASSEMBLING THE TABLE BECAUSE THE ASSEMBLER USES 8-BIT
+/ASCII VALUES WHICH ARE 200 LARGER THAN THE 7-BITS TRANSMITTED BY	/M008
+/THE VT-100.
+
+/THIS TABLE WAS DERIVED FROM THE ORIGINAL VERSION.  IT IS DESIGNED
+/SPECIFICALLY FOR THE VT-100, SO THE CONDITIONAL PARTS WERE ELIMINATED.
+/IN ADDITION, THIS TABLE SUPPORTS VT-100 IN ANSI MODE.			/M008
+
+/NOTE:
+/AS IN THE ORIGINAL VERSION, ALL TABLE ENTRIES MUST BE IN ORDER FROM
+/LOWEST TO HIGHEST, AS "SRCH" DEPENDS ON THIS PROPERTY.  EACH ENTRY IS
+/FOLLOWED BY ITS INTEGER CODE.
+
+/MODIFIERS:
+
+	EDESC1=400	/ (1)	/ESCAPE					/M164
+	EDESC2=600	/ (2)	/ALTERNATE KEYPAD USED			/M164
+	EDESC3=1000	/ (3)	/GOLD KEY				/M164
+	EDESC4=1200	/ (4)	/GOLD KEY, THEN ESCAPE			/M164
+	EDESC5=1400	/ (5)	/GOLD KEY, THEN ALTERATE KEYPAD		/M164
+
+	IFDEF CONDOR < / ----------------------------------------------	/A073
+
+/Entire section below (modifier definitions) superseded by cursor	/A112
+/ keypad stuff -- routine SRCH and the search table rewritten to	/A112
+/ handle sequences of the form "ESC [ p ~" OR "ESC [ pp ~"		/A112
+/
+/ ---------------------------------------------------------------
+/ | Note that if the modifier is '4nnn', the entire sequence is |	/A112
+/ |  in except for the trailing tilde.  To compress the table,  |	/A112
+/ |  the modifier is of the form 4000 + (-translated code)      |	/A112
+/ ---------------------------------------------------------------
+
+	EDESC6=1600		/ CONDOR alt keypad    ESC [		/M164/A112
+	  EDES61=2000		/   ESC [ 1				/M164/A112
+	  EDES62=2200		/   ESC [ 2				/M164/A112
+	  EDES63=2400		/   ESC [ 3				/M164/A112
+	EDESC7=2600		/ GOLD CONDOR alt keypad    ESC [	/M164/A112
+	  EDES71=3000		/   ESC [ 1				/M164/A112
+	  EDES72=3200		/   ESC [ 2				/M164/A112
+	  EDES73=3400		/   ESC [ 3				/M164/A112
+	NOFUNC=3600							/A112
+
+	>	/ END IFDEF CONDOR ------------------------------------	/A073
+
+/THIS SECTION PRODUCES MATCHES WITH NO MODIFIERS.
+
+SRCHTB,
+	1;	EDPWFL		/ POWER-FAIL FLAG FROM TTYIN
+
+    IFNDEF CONDOR < 10;	EDHYPS>	/ HYPHEN PUSH 				/M073
+
+	11;	EDTAB		/ TAB
+
+    IFNDEF CONDOR < 12;	EDRBWD>	/ RUBOUT WORD				/M073
+
+	15;	EDNWLN		/ NEW LINE
+
+    IFDEF CONDOR < 30; EDRBWD>	/ RUB WORD				/A073
+
+	33;	EDESC1	/ (1)	/ ESCAPE
+	177;	EDRBCH		/ RUBOUT CHAR
+
+/THIS SECTION IDENTIFIES SEQUENCES MODIFIED BY ESC.
+/ All these tables have been modified this edit to accept 8 bit		/a164
+/ characters								/a164
+
+SX=EDESC1-200
+
+	SX+233;	EDESC1	/ (1*)	/ ESC ESC (treated as one "ESC")	/m083
+	SX+"O;	EDESC2	/ (2)	/ ALTERNATE KEYPAD
+
+	IFDEF CONDOR < SX+"[;EDESC6 >	/ (6)	/ (CONDOR) alt keypad	/A073
+
+NODEF=	4400								/M101
+
+/THIS SECTION IDENTIFIES SEQUENCES PRODUCED ON THE ALTERNATE KEYPAD.
+/40 IS ADDED SO THE DEFAULT EXPECTATION WILL BE LOWER CASE LETTERS.
+/WHERE UPPER CASE IS EXPECTED, THE 40 IS SUBTRACED OFF.
+
+SX=EDESC2-200+40
+
+
+/ Following section has been updated for real cursor keypad		/A112
+/	functions.  "ARROWS" is no longer needed			/A112
+/
+	SX+"A-40; EDUPAR	/ CURSOR UP				/A112
+	SX+"B-40; EDDNAR	/ CURSOR DOWN				/A112
+	IFDEF CONDOR < / ----------------------------------------------	/A130
+	IFDEF LFTRGT < / --- (RIGHT/LEFT CURSOR DIFFERENT FUNCTION) ---	/A112
+	SX+"C-40; EDRARO	/ CURSOR RIGHT				/A112
+	SX+"D-40; EDLARO	/ CURSOR LEFT				/A112
+	>	/ END IFDEF LFTRGT ------------------------------------	/A112
+
+	IFNDEF LFTRGT < / --- (RIGHT/LEFT CURSOR = ADVANCE/BACKUP) ----	/A112
+	SX+"C-40; EDADVN	/ CURSOR RIGHT (same as ADVANCE)	/A112
+	SX+"D-40; EDBKUP	/ CURSOR LEFT (same as BACKUP)		/A112
+	>	/ END IFNDEF LFTRGT -----------------------------------	/A112
+
+	>	/ END IFDEF CONDOR ------------------------------------	/A078
+
+	IFNDEF CONDOR < SX+"C-40;EDSWAP		/ SWAP (UPPER CASE)	/M130
+			SX+"D-40;EDHELP >	/ HELP 			/A130
+	SX+"M-40;EDENTR		/ NE KEY (UPPER CASE)
+	SX+"P-40;EDESC3	/ (3)	/ GOLD KEY (UPPER CASE)
+	SX+"Q-40;EDPAGE		/ DEFINE PAGE (UPPER CASE)
+	SX+"R-40;EDDLTW		/ DELETE WORD (UPPER CASE)
+	SX+"S-40;EDDLTC		/ DELETE CHAR (UPPER CASE)
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A073
+
+/ the <ESC>OT (break key) ignored here
+/  because it is serviced by the keyboard handler
+
+	SX+"T-40;0		/ <ESC>OT (Break Key)			/A041
+
+	>	/ END IFNDEF CONDOR -----------------------------------	/A073
+
+	SX+"L;	EDPSTE		/ PASTE
+	SX+"M;	EDSCUT		/ CUT
+	SX+"N;	EDSLCT		/ SELECT
+	SX+"P;	EDADVN		/ ADVANCE
+	SX+"Q;	EDBKUP		/ BACKUP
+	SX+"R;	EDLINE		/ LINE
+	SX+"S;	EDUPPR		/ UPPER CASE
+	SX+"T;	EDWORD		/ WORD
+	SX+"U;	EDPARA		/ PARAGRAPH
+	SX+"V;	EDBOLD		/ BOLD
+	SX+"W;	EDSENT		/ SENTENCE
+	SX+"X;	EDTABP		/ TAB POSITION
+	SX+"Y;	EDUNDL		/ UNDERLINE
+
+/THIS SECTION IDENTIFIES SEQUENCES PRECEEDED BY PRESSING GOLD.
+
+SX=EDESC3-200
+
+    IFDEF	ENGLSH	<
+    IFNDEF V30FAO <							/A165
+    IFNDEF	ENGCAN	<
+
+/ ENGLISH DEFINITIONS ARE DEFAULT (if foreign language not defined)
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+"';	EDREPL		/ REPLACE
+	SX+",;	EDFIND		/ FIND
+	SX+"-;	EDHYP1		/ PRINTING BREAK HYPHEN
+	SX+".;	EDSRCH		/ CONTINUE SEARCH
+	SX+"/;	EDCONT		/ CONTINUE SEARCH AND SELECT
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+	SX+"=;	EDDICT		/ DICTIONARY
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+333;	EDPCMD		/ COMMAND (LEFT SQUARE BRACKET - VT100)	/A009
+	SX+334;	EDTIME		/ DATE AND TIME
+	SX+337;	EDHYP2		/ INVISIBLE HYPHEN
+	SX+340;	0		/ HALT (serviced by keyboard handler)
+	SX+373;	EDPCMD		/ COMMAND
+	SX+377;	EDRBLN		/ RUBOUT LINE
+
+	>	/END IFNDEF ENGCAN					/M008
+	>	/END IFNDEF V30FAO					/A165
+	>	/END IFDEF ENGLSH					/M008
+
+/END OF ENGLISH SPECIAL CHARACTERS TRANSLATION
+
+/THESE ARE THE ITALIAN GOLD-KEY CHARACTERS
+
+    IFDEF	ITALIAN	<
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+");	EDHYP1		/ PRINTING BREAK HYPHEN
+	SX+"*;	EDTIME		/ DATE AND TIME
+	SX+"-;	EDDICT		/ DICTIONARY
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+	SX+":;	EDSRCH		/ CONTINUE SEARCH
+	SX+";;	EDFIND		/ FIND
+	SX+274;	0		/ HALT (serviced by keyboard handler)
+	SX+"=;	EDPCMD		/ COMMAND
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+377;	EDRBLN		/ RUBOUT LINE
+
+	>	/END IFDEF ITALIAN					/M008
+
+/ THIS COMPLETES THE ITALIAN GOLD KEY FUNCTIONS
+
+
+/THESE ARE THE FAO GOLD-KEY CHARACTERS
+
+    IFDEF	V30FAO	<
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+"';	EDHYP1		/ PRINTING BREAK HYPHEN
+	SX+"+;	EDDICT		/ ABBREV
+	SX+",;  EDFIND		/ FIND
+	SX+"-;	EDCONT		/ CONTINUE SEARCH AND SELECT
+	SX+".;	EDSRCH		/ CONTINUE SEARCH
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+/	SX+":;	EDSRCH		/ CONTINUE SEARCH
+/	SX+";;	EDFIND		/ FIND
+	SX+274;	0		/ HALT (serviced by keyboard handler)
+	SX+"?;	EDHYP2		/ Invisible Print Hyphen
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+"`;  EDPCMD		/ COMMAND
+	SX+377;	EDRBLN		/ RUBOUT LINE
+
+	>	/END IFDEF FAO					/M008
+
+/THESE ARE THE SPANISH GOLD-KEY CHARACTERS				/A169
+
+    IFDEF	SPANISH	<
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+"';	EDHYP1		/ PRINTING BREAK HYPHEN
+	SX+"+;	EDDICT		/ ABBREV
+	SX+",;  EDFIND		/ FIND
+	SX+"-;	EDCONT		/ CONTINUE SEARCH AND SELECT
+	SX+".;	EDSRCH		/ CONTINUE SEARCH
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+/	SX+":;	EDSRCH		/ CONTINUE SEARCH
+/	SX+";;	EDFIND		/ FIND
+	SX+274;	0		/ HALT (serviced by keyboard handler)
+	SX+"?;	EDHYP2		/ Invisible Print Hyphen
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+"`;  EDPCMD		/ COMMAND
+	SX+377;	EDRBLN		/ RUBOUT LINE
+
+	>	/END IFDEF SPANISH					/A169
+
+
+	IFDEF 	DUTCH <							/A170
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+"';	EDREPL		/ REPLACE
+	SX+",;	EDFIND		/ FIND
+	SX+"-;	EDHYP1		/ PRINTING BREAK HYPHEN
+	SX+".;	EDSRCH		/ CONTINUE SEARCH
+	SX+"/;	EDCONT		/ CONTINUE SEARCH AND SELECT
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+	SX+"=;	EDDICT		/ DICTIONARY
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+333;	EDPCMD		/ COMMAND (LEFT SQUARE BRACKET - VT100)	/A009
+	SX+334;	EDTIME		/ DATE AND TIME
+	SX+337;	EDHYP2		/ INVISIBLE HYPHEN
+	SX+340;	0		/ HALT (serviced by keyboard handler)
+	SX+373;	EDPCMD		/ COMMAND
+	SX+377;	EDRBLN		/ RUBOUT LINE
+
+	>			/END IFDEF DUTCH
+
+	IFDEF V30SWE <							/A166
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+"';	EDTIME		/ DATE & TIME
+	SX+"+;	EDHYP1		/ PRINT HYPHEN
+	SX+",;  EDFIND		/ FIND
+	SX+"-;	EDCONT		/ CONTINUE SEARCH AND SELECT
+	SX+".;	EDSRCH		/ CONTINUE SEARCH
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+/	SX+":;	EDSRCH		/ CONTINUE SEARCH
+/	SX+";;	EDFIND		/ FIND
+	SX+274;	0		/ HALT (serviced by keyboard handler)
+	SX+"?;	EDHYP2		/ Invisible Print Hyphen
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+377;	EDRBLN		/ RUBOUT LINE
+	>
+
+
+	IFDEF V30NOR <							/A166
+
+	IFNDEF CONDOR < SX+210;EDHYPL>	/ HYPHEN PULL			/M073
+
+	SX+211;	EDINTB		/ TAB CENTER
+
+	IFNDEF CONDOR < SX+212;EDRBSE>	/ RUBOUT SENTENCE		/M073
+
+	SX+215;	EDCRET		/ CURSOR RETURN
+
+    IFDEF CONDOR < SX+230;EDRBSE>	/ RUB SENTENCE			/A073
+
+	SX+233;	EDESC4	/ (4)	/ GOLD, THEN ESC
+	SX+" ;  EDRQSP		/ NONBREAKING SPACE			/A112
+	SX+"';	EDTIME		/ DATE & TIME
+	SX+"+;	EDHYP1		/ PRINT HYPHEN
+	SX+",;  EDFIND		/ FIND
+	SX+"-;	EDCONT		/ CONTINUE SEARCH AND SELECT
+	SX+".;	EDSRCH		/ CONTINUE SEARCH
+	SX+"0;	EDUDK0		/ USER DEFINED KEYS:
+	SX+"1;	EDUDK1		/ #1
+	SX+"2;	EDUDK2		/ #2
+	SX+"3;	EDUDK3		/ #3
+	SX+"4;	EDUDK4		/ #4
+	SX+"5;	EDUDK5		/ #5
+	SX+"6;	EDUDK6		/ #6
+	SX+"7;	EDUDK7		/ #7
+	SX+"8;	EDUDK8		/ #8
+	SX+"9;	EDUDK9		/ #9
+/	SX+":;	EDSRCH		/ CONTINUE SEARCH
+/	SX+";;	EDFIND		/ FIND
+	SX+274;	0		/ HALT (serviced by keyboard handler)
+	SX+"?;	EDHYP2		/ Invisible Print Hyphen
+	SX+"A;	EDSUBS		/ SUBSCRIPT
+	SX+"B;	EDBOTM		/ BOTTOM
+	SX+"C;	EDCENT		/ CENTER
+	SX+"D;	EDDEAD		/ DEAD KEY
+	SX+"F;	EDFILE		/ FILE DOCUMENT
+	SX+"G;	EDDCMT		/ GET DOCUMENT
+	SX+"L;	EDGETC		/ GET PARAGRAPH
+	SX+"M;	EDMENU		/ MENU
+	SX+"N;	EDNPAG		/ NEW PAGE
+	SX+"P;	EDPMRK		/ PAGE MARKER
+	SX+"Q;	EDSUPS		/ SUPERSCRIPT
+	SX+"R;	EDRULR		/ RULER
+/D113	IFNDEF	CONDOR	<						/A109
+	SX+"S;	EDFIND		/ GOLD-SEARCH				/A047
+/D113	>								/A109
+	SX+"T;	EDTOP		/ TOP
+	SX+"V;	EDVIEW		/ VIEW
+	SX+377;	EDRBLN		/ RUBOUT LINE
+	>
+
+
+/THIS SECTION IDENTIFIES THE SEQUENCE PRECEDED BY GOLD, ESC.
+/AND GOLD-8 BIT CHARACTERS, WHICH WILL NEVER CLASH WITH GOLD-ESC AS
+/U-CIRCUMFLEX (EQUIV TO GOLD-ESC-[) AND I-UMLAUT (EQUIV TO GOLD-ESC-O)
+/HAVE BEEN TRAPPED OUT IN 'TST8BT' AND CAN NOT BE USED AS GOLD-command
+/KEYS.  (THIS IS OK AS THEY DO NOT OCCUR ON ANY NATIONALITIES KEYBOARD)
+
+SX=EDESC4-200
+
+	IFDEF ITALIAN <
+	SX+260;	EDHYP2		/ INVISIBLE HYPHEN (8-bit degree)
+	>
+	SX+"O;	EDESC5	/ (5)	/ GOLD, THEN ALTERNATE KEYPAD
+
+	IFDEF CONDOR < SX+"[;EDESC7 > / (7) GOLD key alternate key pad	/A073
+	
+	IFDEF	V30FAO <
+	SX+321; EDREPL		/ Replace (8-bit N~)			/A165
+	SX+347; EDTIME		/ Date and time (8 bit c cedilla)	/A165
+	SX+361;	EDREPL		/ Replace (8 bit n~)			/A165
+	>
+
+	IFDEF	SPANISH <
+	SX+321; EDREPL		/ Replace (8-bit N~)			/A169
+	SX+347; EDTIME		/ Date and time (8 bit c cedilla)	/A169
+	SX+361;	EDREPL		/ Replace (8 bit n~)			/A169
+	>
+
+	IFDEF ITALIAN <
+	SX+354;	EDPCMD		/ COMMAND (8-bit i-grave)		/A009
+	SX+362;	EDCONT		/ CONTINUE SEARCH AND SELECT (8-bit o-grave)
+	SX+371;	EDREPL		/ REPLACE (8-bit u-grave)
+	>
+	IFDEF V30SWE <
+	SX+344; EDREPL		/ REPLACE (A UMLAUT)			/A166
+	SX+345; EDPCMD		/ COMMAND (A RING)			/A166
+	SX+374; EDDICT		/ ABBREV  (U UMLAUT)			/A166
+	>
+	IFDEF V30NOR <
+	SX+345; EDPCMD		/ COMMAND (A RING)			/A166
+	SX+346; EDREPL		/ REPLACE (AE Ligature)			/A166
+	SX+370; EDDICT		/ ABBREV  (U UMLAUT)			/A166
+	>
+
+
+
+/THIS SECTION IDENTIFIES SEQUENCES PRECEDED BY GOLD, ALT KEYPAD.
+
+SX=EDESC5-200+40
+
+	IFDEF CONDOR < / ----------------------------------------------	/A082
+	SX+"A-40; EDGBKP	/ GOLD CURSOR UP = GOLD BACKUP		/A112
+	SX+"B-40; EDGADV	/ GOLD CURSOR DOWN = GOLD ADVANCE	/A112
+	SX+"C-40; EDGRAR	/ GOLD CURSOR RIGHT (END OF LINE)	/A112
+	SX+"D-40; EDGLAR	/ GOLD CURSOR LEFT (BEGIN OF LINE)	/A112
+	SX+"M-40;EDSWAP		/ SWAP					/A073
+	SX+"P-40;EDESC3	/ (3*)	/ GOLD...GOLD (treated as one "GOLD")	/M083
+	>	/ END IFDEF CONDOR ------------------------------------	/A082
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A130
+	SX+"A-40; EDPRSC	/ GOLD CURSOR UP = PREVIOUS SCREEN	/A130
+	SX+"B-40; EDNXSC	/ GOLD CURSOR DOWN = NEXT SCREEN	/A130
+	SX+"D-40; EDDO		/ GOLD CURSOR LEFT = DO			/A130
+	>	/ END IFNDEF CONDOR -----------------------------------	/A130
+
+	SX+"Q-40;EDGPGE		/ GOLD DEFINE PAGE (UPPER CASE)
+	SX+"R-40;EDUDLT		/ UNDELETE (UPPER CASE)
+	SX+"S-40;EDUDLT		/ UNDELETE (UPPER CASE)
+	SX+"L;	EDGPST		/ GOLD PASTE
+	SX+"M;	EDGCUT		/ GOLD CUT
+	SX+"P;	EDGADV		/ GOLD ADVANCE
+	SX+"Q;	EDGBKP		/ GOLD BACKUP
+
+/ GOLD LINE IS NOT A LEGAL FUNCTION. IT'S DEFINED HERE TO PREVENT	/A008
+/ THE EDITOR COMMAND MATCHER FROM INTERPRETING "ESC O P  ESC O r"	/A008
+/ AS "ESC O P ESC O R" (UNDELETE). GOLD LINE WILL ADVANCE THE		/A008
+/ CURSOR TO THE BEGINNING OF THE NEXT LINE (SAME AS LINE).		/A008
+
+	SX+"R;	EDLINE	/ GOLD LINE					/A008
+	SX+"S;	EDLOWR	/ LOWER CASE
+	SX+"V;	EDUBLD	/ UNBOLD
+	SX+"X;	EDCOLM	/ NEW KEY FOR COLUMM (GOLD TABPOS)		/A152
+	SX+"Y;	EDUUDL	/ REMOVE UNDERLINE
+
+/ This entire section redone for the cursor keypad application		/A112
+
+	IFDEF	CONDOR  <  / ------------------------------------------	/A112
+
+/THIS SECTION IDENTIFIES SEQUENCES PRODUCED ON CONDOR ALTERNATE KEYPAD	/A112
+
+SX=EDESC6-200			/ESC [ p ~   or   ESC [ pp ~		/A112
+
+	SX+"1; EDES61							/A112
+	SX+"2; EDES62							/A112
+	SX+"3; EDES63							/A112
+	SX+"4; 4000-EDSLCT	/p=4   SELECT				/A112
+	SX+"5; 4000-EDPRSC	/p=5   PREV SCREEN			/A112
+	SX+"6; 4000-EDNXSC	/p=6   NEXT SCREEN			/A112
+	SX+"A; EDUPAR		/CURSOR UP				/A112
+	SX+"B; EDDNAR		/CURSOR DOWN				/A112
+	IFDEF	LFTRGT < / -- (RIGHT/LEFT CURSOR DIFFERENT FUNCTION) --	/A112
+	SX+"C; EDRARO		/CURSOR RIGHT				/A112
+	SX+"D; EDLARO		/CURSOR LEFT				/A112
+	>	/ END IFDEF LFTRGT ------------------------------------	/A112
+	IFNDEF	LFTRGT < / --- (RIGHT/LEFT CURSOR = ADVANCE/BACKUP) ---	/A112
+	SX+"C; EDADVN		/CURSOR RIGHT = ADVANCE			/A112
+	SX+"D; EDBKUP		/CURSOR LEFT = BACKUP			/A112
+	>	/END IFNDEF LFTRGT					/A112
+
+SX=EDES61-200								/A112
+
+	SX+"2; 4000		/pp=12   PRINT SCREEN (ignore)		/A112
+	SX+"3; 4000-EDSETUP	/pp=13   SETUP				/A112
+	SX+"5; 4000		/pp=15   BREAK (ignore)			/A112
+	SX+"~; EDFIND		/p=1     FIND				/A112
+
+SX=EDES62-200								/A112
+
+	IFDEF CONDOR <							/A143
+	SX+"3; 4000-EDTC	/pp=23   TECH CHAR (F11 [ESC])	/C150	/A143
+	SX+"4;	4000-EDHYPS	/pp=24	NEW HYPEN-PUSH (F12)		/A152
+	SX+"5;	4000-EDRBWD	/pp=25	NEW RUB-WORD (F13)		/A152
+	>	/END IFDEF CONDOR					/A143
+	SX+"6; 4000-EDINOV	/pp=26	 UDK KEY (F14)	Now INsert-Overstrike
+				/        key			/M167	/A148
+	SX+"8; 4000-EDHELP	/pp=28   HELP				/A112
+	SX+"9; 4000-EDUDKY	/pp=29   DO- Now UDK key /A167	/A112
+	SX+"~; EDPSTE		/p=2     INSERT = PASTE			/A112
+
+SX=EDES63-200								/A112
+
+/D152	SX+"3; 4000-EDCOLM	/PP=33	 COLUMN KEY			/A137
+	SX+"4; 4000-EDHYPS	/pp=34   HYPHEN PUSH			/A112
+	SX+"~; EDSCUT		/p=3     REMOVE = CUT			/A112
+
+
+
+/THIS SECTION IDENTIFIES SEQUENCES PRODUCED BY GOLD CONDOR ALT KEYPAD	/A112
+
+/ NOTE: NOFUNC modifier is necessary so that the search routine 	/A112
+/	will eat the final tilde and then return an invalid code.	/A112
+/	Without this, the invalid code is detected before the tilde	/A112
+/	comes in and the tilde is then taken as the next (valid)	/A112
+/	character.							/A112
+
+SX=EDESC7-200			/ GOLD ESC [ p ~  or  GOLD ESC [ pp ~	/A112
+
+	SX+"1; NOFUNC		/p=1   GOLD FIND (NO FUNCTION)		/A112
+
+/D153	SX+"2; 4000-EDGPST	/p=2   GOLD INSERT = GOLD PASTE		/A112
+	SX+"2; EDES72		/GET PAST ESC [ 2			/A153
+
+	SX+"3; EDES73							/A112
+	SX+"4; NOFUNC		/p=4   GOLD SELECT (NO FUNCTION)	/A112
+	SX+"5; NOFUNC		/p=5   GOLD PREV SCREEN (NO FUNCTION)	/A112
+	SX+"6; NOFUNC		/p=6   GOLD NEXT SCREEN (NO FUNCTION)	/A112
+	SX+"A; EDGBKP		/GOLD CURSOR UP = GOLD BACKUP		/A112
+	SX+"B; EDGADV		/GOLD CURSOR DOWN = GOLD ADVANCE	/A112
+	SX+"C; EDGRAR		/GOLD CURSOR RIGHT = END OF LINE	/A112
+	SX+"D; EDGLAR		/GOLD CURSOR LEFT = BEGIN OF LINE	/A112
+
+SX=EDES72-200								/A152
+
+	SX+"4;	4000-EDHYPL	/ NEW HYPEN-PULL (GOLD F12) G $ [ 2 4 ~	/C153
+	SX+"5;	4000-EDRBSE	/ NEW RUB-SENTENCE (GOLD F13) G $[25~	/C153
+	SX+"~;	EDGPST		/ ESC [ 2 ~				/A153
+
+SX=EDES73-200								/A112
+
+	SX+"4; 4000-EDHYPL	/pp=34   GOLD HYPHEN PULL		/A112
+	SX+"~; EDGCUT		/p=3     GOLD REMOVE = GOLD CUT		/A112
+
+	>	/ END IFDEF CONDOR ------------------------------------	/A073
+
+	7777			/ **** END OF TABLE TERMINATOR ****
+/----------------
+/	PAGE			/ Allow underflow from next page	/D152
+
+MN1FLD= 20
+
+U1XLAT,	XX
+	GETRTF 			/ ++++
+	DCA	U1XCHX
+
+/"ARROWS" superseded by cursor keypad application
+/
+U1XLA1,	DCA	U1XLT2		/[A0034] INIT TO NO CHAR.
+U1XLA2,	TAD	U1HLTF 		/ GET HALT FLAG
+/D148	CDF MN1FLD 		/ CALL A ROUTINE TO RETURN A CHAR
+	JMS	GETUDK 		/ FROM THE CURRENT UDK IF ONE IS ACTIVE
+	JMP	U1XLA3 		/ NO UDK ACTIVE
+/D148	CDF MN1FLD 		/ CHECK TO SEE IF CHAR
+/D148	JMS	CHKUDK 		/ IS ANOTHER UDK ?
+	CIFMNU								/A148
+	JMS  I	CHKUDX							/A148
+	SKP	 		/ NO, JUST RETURN CHAR. (INHIBIT MAY	/M046
+				/  HAVE BEEN SET)			/M046
+	JMP	U1XLA2 		/ YES, GET CHAR FROM NEW UDK
+	DCA	U1XLT2		/ SAVE CHAR.				/A046
+	JMP	U1XLA8		/ TAKE SUCCESS RETURN.			/A046
+/
+U1XLA3,	CDFSYS 			/ BACK TO HOME FIELD
+U1XLAA,									/A122
+
+PCMRDJ=JMP	PCMDAT			/SET JMP FOR OVERLAY FROM HERE	/A122
+	NOP			/GET DATE FROM PAN MEM IF WINNIE FIRMWARE/A122
+	TTYIN 			/ ++++
+	JMP	U1XLA9 		/ GET NEXT CHAR FROM KEYBOARD
+U1XLAB,							/122
+	AND	P377							/M160
+	JMS	SRCH 		/ ++++
+	SPA 			/ ++++
+	JMP	U1XLA4 		/ CHECK FOR UDK KEY IF SPECIAL
+	TAD	(-40) 		/ ++++
+	SPA 			/ ++++
+	JMP	U1XLA3 		/ IGNORE IF CNTL
+	TAD	(40)
+	JMP	U1XLA5		/ PROCESS GOTTEN CHARACTER BELOW.	/A046
+									/A046
+U1XLA4,									/C148
+/D148	CDF MN1FLD 		/ CHECK TO SEE IF CHAR			/A046
+/D148	JMS	CHKUDK 		/ IS ANOTHER UDK ?			/A046
+/D148	SKP	 		/ NO, JUST RETURN CHAR. (INHIBIT MAY	/A046
+/D148				/  HAVE BEEN SET)			/A046
+/D148	JMP	U1XLA2 		/ YES, GET CHAR FROM NEW UDK		/A046
+	DCA	STUCHR		/ First save the char			/A168
+	TAD	STUACF		/ Is he running SETUP ?			/A168
+	SZA CLA			/					/A168
+	JMP	KYUDST		/ yes ,and he hit UDK so trap it	/A168	
+	TAD	STUCHR		/ No , get char back			/A168
+	CIFMNU								/A148
+	JMS  I	CHKUDY							/A148
+	JMP	U1XLA5							/A148
+	JMP	U1XLA2							/A148
+	JMP	U1XLA3							/A148
+KYUDST,	TAD	STUCHR		/ Allow UDK on its own			/A168
+U1XLA5,
+	CDFSYS			/					/a084
+	DCA	U1XLT2		/[[A034] SAVE CURRENT CHAR TO RETURN.
+	TAD	U1XLT2		/ GET CHAR.
+	SMA;JMP U1XLA7		/ JMP IF AUTO-REPEAT ALLOWABLE.
+	CIA			/
+	TAD	U1XLT1		/ IS IT THE SAME AS THE LAST CHAR?
+	SZA CLA			/ SKIP IF YES.
+	JMP	U1XLA7		/ JMP  TO TURN AR ON  -- CHARS ARE DIFFERENT.
+	TAD	U1XLT2		/ GET CHAR.
+	TAD	(-EDNWLN)	/ IS IT <CR>?
+	SNA CLA;JMP U1XLA7	/ JMP IF YES. DON'T AUTO XOF.
+				/ HERE TO TURN AR OFF -- CHARS ARE THE SAME.
+	TAD	U1DUMP		/[[A039] ARE WE IN DUMP MODE YET?
+	SPA;JMP	U1XLA6		/ JMP IF NOT YET. PASS 1ST REPEATED CHAR.
+	SZA CLA;JMP U1XLA1	/ JMP IF IN DUMP MODE.
+	JMS	U1AROF		/ CALL ROUTINE TO DISABLE AR. (JMS with AC=0)
+	TAD	U1XLT2		/ GET CHAR TO BE RETURNED.
+	TAD	(-EDADVN)	/ IS IT ADV CHAR?
+	SNA CLA;AC7775		/ IF ADV SET COUNT TO -2
+U1XLA6,	IAC;SNA;IAC		/[[A039] IF GOES TO 0 THEN SET TO 1.
+				/ [A039]] PASS THIS 1 TO USER BUT IGNORE NEXT.
+				/ ELSE SET COUNT TO 1 (DUP/DUMP COUNT).
+	JMP	U1XLA8		/ MERGE BELOW TO EXIT.
+U1XLA7,				/
+	CLA			/					/a101
+	JMS	U1ARON		/ CALL ROUTINE TO ENABLE AR. (JMS with AC=0)
+U1XLA8,	ISZ	U1XLAT	 	/ TAKE SUCCESS EXIT.
+U1XLA9,	DCA	U1DUMP		/ SET DUMP MODE FLAG.
+	TAD	U1XLT2		/ GET CHAR TO RETURN.
+	DCA	U1XLT1		/ SAVE FOR NEXT TIME.
+	TAD	U1XLT1		/ [A034]] RETURN CHARACTER.
+
+/"ARROWS" superseded by cursor keypad application
+/
+U1XCHX,	CIF CDF
+	JMP I	U1XLAT
+
+/
+U1XLT1,	0			/A034 TEMP.
+U1XLT2,	0			/A034 ANOTHER TEMP.
+U1DUMP,	0			/A039 -1 = PASS CHAR TO USER & GO TO 1.
+				/A039  1 = IGNORE CHAR UNTIL CHAR CHANGES.
+				/A039  0 = PASS CHAR TO USER.
+CHKUDX,	CHKUXX								/A148
+CHKUDY,	CHKUYY								/A148
+/\/\/\/\/\
+
+U1PWRF,	DCA	U1CTQF 		/ CLEAR STOP FLAG
+	AC0003
+	U1KIE 			/ MUST RE-ENABLE EACH INTERRUPT INDIVIDUALLY
+	U1TSK 			/ FOR VT-278.
+	U1TFL 			/ AND SET OUTPUT FLAG
+	AC0001 			/ ++++
+	JMP	U1ISTO 		/ RETURN SOH FOR POWER UP SIGNAL
+
+/									/A148
+/	XH2PT2 HAS BEEN MOVED FROM HERE TO THE VACUUM CREATED		/A148
+/	BY H.PREBLE IN EDIT #139					/A148
+/									/A148
+/
+/   GET DATE FROM PANEL MEMORY						/122
+/
+PCMDAT,									/122
+	ISZ	PCMRD1		/INC PTR				/122
+	JMS	PCMRD		/READ CHAR FROM P.M.			/122
+	JMP	U1XLAB		/IS A CHAR				/122
+	TAD	(NOP		/BUFFER M.T.				/122
+	DCA	U1XLAA		/OVERLAY TO CONTINUE			/122
+	JMP	U1XLAA		/CONTINUE				/122
+
+/ MOVED HERE ON EDIT  # 151						/A151
+/
+/ lower "DTR" for "n" seconds
+/ ENTER WITH THE (AC) = NEGATIVE NUMBER OF SECONDS
+
+HANGUP,	XX		/	/
+	DCA	DTRTIMER/ -#	/ (of seconds to wait)
+/D151	AC0010			/
+/D156	TAD	(0013)		/ DROP DTR & KEEP 10 & 11 RESET		/A151
+	JMS	TSTIMB		/ CK FOR INTEGRAL MODEM ENABLED		/A156
+	TAD	(0010)		/ THIS BIT WILL DROP DTR		/A156
+	IFNDEF	CONDOR	<	/ DMI HAS THE REVERSE SENSE OF DMII	/A133
+				/ IN SETTING "DTR" (& "RTS")		/A133
+	CLL  RAL		/ AC=XXXXXXX10XXX SETS "RTS" & RESETS "DTR"/A133
+	JMS	WRTCTL		/ GO PREP IOT FOR ACTIVE PORT		/A133
+		>		/ END IFNDEF CONDOR			/A133
+
+	H2DTR		/	/ 'hang-up' the modem
+	JMP I	HANGUP	/ EXIT	/ AC NOT EQUAL ZERO
+
+
+/ TSTU1C	moved here for space reasons this edit			/a164
+
+TSTU1C,	TAD	U1OFLG		/ ARE WE TO CHANGE AR SETTING?		/A034
+	SZA; JMP U1ESC3		/ JMP IF YES. EXIT (& CLEAR BUSY) IF NO./A034
+	DCA	U1BFLG 		/ CLEAR BUSY
+	EXINTR 			/ AND EXIT
+/
+
+
+	X=.
+
+	PAGE
+
+
+UD1OPS,	XX 			/ THIS ROUTINE IS CALLED WITH THE AC= ACTION DESIRED
+				/ CIFSYS
+				/ UDKOPS
+				/ RETURN (AC=0)
+				/ THE ONLY ACTIONS IMPLEMENTED ARE
+				/ AC=0	UDK'S ACTIVE
+				/ AC#0	UDK'S INHIBITED
+/
+	GETRTF 			/ ++++
+	DCA	UD1CHX
+	CDF MN1FLD
+	JMS	UDOPSB
+UD1CHX,	.-.
+	JMP I	UD1OPS
+/
+UDOPSB,	XX
+	DCA I	(UDKPTR) 	/ CLEAR UDK STACK
+	TAD	X0 		/ GET OP WORD
+	SZA 			/ ++++
+	AC7777 			/ DO ENABLE OR DISABLE
+	DCA I	(UDKINH)
+	JMP I	UDOPSB 		/ AND RETURN
+
+CLKSRV,	XX 			/ SERVICE CLOCK TICK
+	CIF 0 			/ INHIBIT INTERRUPTS
+	TAD	LPDNFG 		/ WHILE WE DO PRINTER TIME OUT
+	SMA CLA 		/ ++++
+	JMP	CLKT4 		/ IF NECESSARY
+	ISZ	LPDNFG 		/ ++++
+	JMP	CLKT4
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!! D E F I N E D  WITHIN  W P F 1 . P A !!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CLKOP,	NOP
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!! D E F I N E D  WITHIN  W P F 1 . P A !!!!!!!!!!!!!!!!!
+/ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	AC0001 			/ ++++
+	DCA	LPDNFG
+CLKT4,
+	CDF 20 			/ ++++
+	ISZ I	(CLKCHG) 	/ ++++
+	NOP
+	CDF 50 			/ ++++
+	ISZ I	(CLKCHG) 	/ ++++
+	NOP
+	CDF 0
+	TAD	(CLOCK+1) 	/ ++++
+	DCA	T1
+	TAD	(CLKLIM-1) 	/ ++++
+	DCA	X0
+	ISZ	TENTHS		/ KEEP TRACK OF # OF TENTHS OF SEC GONE BYE/A057
+	JMP	CLKT2		/ JMP IF NOT ANOTHER SECOND.		/A057
+
+	JMS	TSTDTRTIMER	/ (are we in the process of hanging up?)/a078
+	TAD	CLKLIM		/ RESET TO 10 TENTHS (PER SECOND).	/A057
+	DCA	TENTHS		/  ...					/A057
+	ISZ	TIMOUT		/ INCREMENT THE TIME OUT VARIABLE/051/057/097
+	NOP			/ NEEDED WITH ISZ TIMOUT		/A097
+CLKT2,	TAD I	X0
+CLKT1,	ISZ I	T1
+	TAD I	T1
+	SZA CLA 		/ ++++
+	JMP	CLKT0
+	DCA I	T1
+	ISZ	T1
+	TAD I	X0
+	SZA 			/ ++++
+	JMP	CLKT1 		/ UPDATE ALL COUNTERS
+				/ WE GET HERE ON MIDNIGHT.
+	ISZ	DAYEAR 		/ BUMP DAY OF YEAR
+	AC0003 			/ ++++
+	AND	YEAR 		/ CHECK FOR NEW YEAR
+	SNA CLA 		/ ++++
+	CMA
+	TAD	(-D365)
+	TAD	DAYEAR 		/ NEW YEAR?
+	SPA SNA 		/ ++++
+	JMP	YEAROK
+	DCA	DAYEAR 		/ IF SO, UPDATE DAY
+	ISZ	YEAR 		/ AND YEAR
+YEAROK,	JMS	FIXDAT
+	TAD	BREAKF		/ IS BREAK GOING?			/A041
+	SMA SZA CLA		/ SKIP IF NO.				/A041
+	JMS	BRKOFF		/ TURN BREAK OFF.			/A041
+CLKT0,	ISZ	CLOCK 		/ ++++
+	JMP	CLKSRV+1
+	TAD	BREAKF		/ IS BREAK GOING?			/A041
+	SPA SNA	CLA		/ SKIP IF YES. SEE IF TIME TO TURN OFF.	/A041
+	JMP	CLKDON		/ BREAK NOT GOING SO JUST EXIT.		/A041
+
+	TAD	(TIMER+3)	/ PTR TO BREAK "STOP TIME".		/A041
+	DCA	CT1		/					/A041
+	TAD	(CLOCK+1+3)	/ PTR TO CURRENT TIME.			/A041
+	DCA	CT2		/					/A041
+	TAD	(-4)		/ LOOP COUNTER.				/A041
+	DCA	T1		/					/A041
+
+CLKCK1,	TAD I	CT1		/ GET "STOP TIME" TIME PIECE.		/A041
+	CIA			/  COMPUTE -"STOP TIME"			/A041
+	TAD I	CT2		/   COMPUTE "CURRENT TIME"-"STOP TIME"	/A041
+	SZA			/ SKIP IF TIME THE SAME. TRY NEXT THING./A041
+	JMP	CLKCK2		/ SEE IF "BREAK TIME" IS UP.		/A041
+	AC7777			/ MOVE ON TO THE NEXT TIME PIECE.	/A041
+	TAD	CT1		/  STARTING AT THE MOST SIGNIFICANT	/A041
+	DCA	CT1		/   PIECE AND MOVING TO THE LEAST SIGNIF/A041
+	AC7777			/    ICANT PIECE.			/A041
+	TAD	CT2		/					/A041
+	DCA	CT2		/					/A041
+	ISZ	T1		/ LOOP COUNTER.				/A041
+	JMP	CLKCK1		/ TRY NEXT PIECE.			/A041
+	JMP	CLKDON		/ WE ARE DONE. SO EXIT TO CALLEE	/A041
+
+CLKCK2,	SMA CLA			/ SKIP IF "BREAK TIME" NOT UP YET. I.E.	/A041
+			/ SKIP IF "CURRENT TIME"-"STOP TIME" < 0	/A041
+			/ IE SKIP IF "CURRENT TIME" < "STOP TIME"	/A041
+	JMS	BRKOFF		/ TURN BREAK OFF.			/A041
+CLKDON,	JMP I	CLKSRV
+/
+CT1,	0			/ TEMP POINTER.				/A041
+CT2,	0			/ TEMP POINTER.				/A041
+TENTHS,	-1	/ then -12	/ # OF TENTHS LEFT IN CURRENT SECOND.	/A057
+CLKLIM,	-12 			/ ++++
+	-74	/ seconds	/ ++++
+	-74	/ minutes	/ ++++
+	-30	/ hours		/ ++++
+	0 			/ CLOCK COUNTER LIMITS
+
+TIMER,	ZBLOCK	4		/ "BREAK TIME" "STOP TIME" TIME		/A041
+
+/
+/FOLLOWING MOVED HERE VER..122
+/
+/ ----------------------------------------------------------		/
+/ -------- DEVICE "KB OUTPUT" INTERRUPT CHAIN ENTRY --------		/M0068
+/ ----------------------------------------------------------		/
+/									/M0068
+/-----(O_R_D_E_R important)-----/
+	EXINTR			/ POWER RESUME ENTRY			/A0068
+	TSTUON			/ INTERRUPT CHAIN LINK			/A0068
+TSTKBO,	U1TSF 			/ TEST THE OUTPUT FLAG			/M0020
+	JMP I	TSTKBO-1 	/ NO OUTPUT--CONTINUE THE 'RUPT CHAIN	/M0020
+	JMP	TSTU1O 		/ OUTPUT FLAG IS SET--JUMP TO HANDLE IT	/M0020
+/----(E_N_D order important)----/
+/
+/
+	IFDEF FORIN < 		/ THESE SUBS. ARE PUT HERE 'CAUSE OF ROOM
+CHKXNF,	XX 			/ CHECK FOR XON/XOF
+	TAD	INTMP1 		/ ++++
+	AND	P377 		/ STRIP GARBAGE				/M160
+	TAD	(-XOF) 		/ XOF?
+	SNA 			/ ++++
+	JMP	CHKXN1 		/ JUMP IF SO
+	TAD	(XOF-XON) 	/ XON?
+	SZA CLA 		/ ++++
+	ISZ	CHKXNF 		/ SKIP IF SO
+	JMP I	CHKXNF
+CHKXN1,	AC0001 			/ ++++
+	JMP I	CHKXNF
+/
+	> 			/ END IFDEF FORIN
+/------------------
+	PAGE
+
+
+SYFORK,	XX 			/ CALLED BY "FRKINT"
+	CLA
+	TAD I	SYFORK
+	SZA CLA 		/ ++++
+	EXINTR 			/ JUST EXIT IF ALREADY QUEUED
+	TAD	FRKCHN
+	SNA 			/ ++++
+	JMP	DOFORK 		/ JUMP IF THIS IS FIRST IN CHAIN
+	DCA I	SYFORK 		/ ELSE TACK THIS ONE ON THE FRONT
+	TAD	SYFORK
+	DCA	FRKCHN
+	EXINTR 			/ AND EXIT
+FRKNXT,				/ JUMPED TO BY "FRKXIT"
+	IOF 			/ ++++
+	CLA 			/ ENSURE CLEANLINESS
+	TAD	FRKCHN
+	DCA	SYFORK
+	TAD I	SYFORK 		/ GET NEXT IN CHAIN
+	JMP	DOFRK1 		/ AND DO IT
+/
+DOFORK,	TAD	INTAC 		/ ++++
+	DCA	ASTAC 		/ COPY ALL INT'RPT SAVE STUFF
+	TAD	0 		/ ++++
+	DCA	ASTPC
+	TAD	INTLK 		/ ++++
+	DCA	ASTFL
+	MQA 			/ ++++
+	DCA	ASTMQ
+	TAD	(FRKEND) 	/ SET OUR CLEANUP PROCESS
+DOFRK1,
+	DCA	FRKCHN 		/ AS NEXT IN CHAIN
+	DCA I	SYFORK 		/ SHOW THIS ONE NO LONGER IN QUEUE
+	ISZ	SYFORK 		/ BUMP TO ENTRY POINT
+	JMP I	SYFORK 		/ AND ENTER ROUTINE WITH RUPTS OFF
+FRKEND,	0 			/ DUMMY CHAIN LINK FOR CLEANUP ROUTINE
+	TAD	ASTFL 		/ ++++
+	RTF 			/ ++++
+	CLA 			/ RESTORE ALL SAVED STUFF
+	TAD	ASTMQ 		/ ++++
+	MQL
+	SIGNAL 			/ SET WAKEUP FLAG (LIKE DISMIS)
+	TAD	ASTAC
+	JMP I	ASTPC 		/ AND RETURN TO MAIN LINE WITH RUPTS ON
+/
+ASTAC,	.-. 			/ SAVED AC
+ASTMQ,	.-. 			/ SAVED MQ
+ASTFL,	.-. 			/ SAVED FIELDS AND LINK BIT
+ASTPC,	.-. 			/ SAVED PC (RETURN POINT)
+/
+
+
+FIXDAT,	XX
+	AC0003 			/ CHECK FOR LEAP YEAR
+	AND	YEAR
+	SNA CLA 		/ ++++
+	IAC
+	TAD	(D28) 		/ SET LENGTH OF FEB.
+	DCA	FEBDAY
+	DCA	MONTH 		/ COMPUTE MONTH OF YEAR
+	TAD	(DAPERM-1)
+	DCA	T1
+	TAD	DAYEAR
+	CIA
+	ISZ	MONTH
+	ISZ	T1
+	TAD I	T1
+	SPA 			/ ++++
+	JMP	.-4
+	CIA
+	TAD I	T1
+	DCA	DAMNTH 		/ AND DAY OF MONTH
+	AC7777
+	TAD	YEAR 		/ NOW DO DAY OF WEEK
+	CLL RAR
+	CLL RAR
+	TAD	YEAR
+	TAD	DAYEAR
+	TAD	(-7)
+	SMA 			/ ++++
+	JMP	.-2
+	TAD	(10)
+	DCA	DAWEEK 		/ 1=SUNDAY, 7=SATURDAY
+	TAD	DAMNTH
+	BSW 			/ ++++
+	TAD	MONTH
+	DCA	PAKDAT
+	JMP I	FIXDAT
+    DECIMAL
+	D365=365
+	D28=28
+DAPERM,	31 			/ JAN
+FEBDAY,	28	 / 29		/ FEB
+	31 			/ MAR
+	30 			/ APR
+	31 			/ MAY
+	30 			/ JUN
+	31 			/ JUL
+	31 			/ AUG
+	30 			/ SEP
+	31 			/ OCT
+	30 			/ NOV
+	31 			/ DEC
+    OCTAL
+
+
+
+
+
+/ ENABLE communications (H2) IRQ's
+
+H2ONN,	XX			/ ENABLE SELECTED PORT INTERRUPTS.	/A042
+
+	JMS	H2ECHK	/break?	/ issue BREAK if comm errors		/A066
+	AC0003			/ ENABLE SOME 'RUPTS.			/A041
+
+	IFNDEF CONDOR < JMS	USIOT >					/A075
+
+	H2KIE			/ ENABLE RECIEVER INTERRUPTS.		/A066
+
+	IFNDEF CONDOR < JMS	USIOT >					/A075
+
+	H2TSK			/ ENABLE TRANSMITTER INTERRUPTS.	/A066
+	CLA			/ clear the accumulator
+	JMP I	H2ONN	/ exit	/ RETURN TO CALLER (with the ac=0)	/A042
+
+
+	IFDEF	CONDOR	<						/A130
+
+
+/
+/READ CHAR FROM PANEL MEM....
+/....THIS ROUTINE IS SET AT LOAD TIME... IS EXECUTED DURING START UP
+/.....WHEN FIRST END OF BUFFER IS READ(NULL) CALL TO ROUTINE WILL BE NOOPED
+/
+PCMADR=7732			/ADDRESS OF P.M. DATE		/A122
+PCMSTR=7600			/START OF PANEL MEM DATA		/A122
+PCMCMD=PCMSTR+10		/ADDRESS OF P.M.CMND STR	/A122
+PCMRD,	0								/A122
+	CLA								/A129
+	PRQ3								/A122
+	5006	/IOT READ P.M..50XY.. X=OUTPUT FIELD Y=INPUT FIELD	/A122
+PCMRD1,	PCMSTR-1 / LOCATION IN INPUT FIELD TO BE READ	/A122	/C126	/C146
+	PCMRD2	/ LOCATION TO PUT RESULTS				/A122
+	-1	/- NO CHARS TO BE READ					/A122
+	-1	/TERMINATOR						/A122
+	TAD	PCMRD2		/GET CHAR				/A122
+	AND	P177		/ Strip down to 7 bits			/A163
+	SZA			/END OF BUFFER			/A122	/C125
+	JMP I	PCMRD							/A122
+	ISZ	PCMRD		/YES				/A122	/M125
+	TTYIN			/IGNORE POWER FAIL STRTUP		/A125
+	NOP								/A125
+	CLA								/A125
+	JMP I	PCMRD		/RET					/A125
+PCMRD2,	0			/CHAR JUST READ				/A122
+	>	/END IFDEF CONDOR					/A130
+/
+
+/------------------
+	PAGE
+
+/ WPSRCH - EDITOR COMMAND MATCHER --- rewritten for '073' incl CONDOR cond's
+
+SRCH,	XX 			/ CALLED WITH (AC) = 7-BIT CHAR TO MATCH
+
+	JMS	TST8BT		/ Test for 8 bit non-modded character	/a160
+	JMP I	SRCH		/ Return with 8 bit char if non mod	/a160
+				/ Otherwise, if 7 bit or modded then... /a160
+
+	IFDEF CONDOR < / ----------------------------------------------	/A073
+	/This section rewritten for expanded table			/A112
+	ISZ	TILDEFLAG	/LOOKING FOR A TILDE?			/A112
+	JMP	SRCH1		/(NO)					/A112
+	TAD	(-176)		/YES, DO WE HAVE ONE?			/A112
+	SZA CLA								/A112
+	JMP	SRCH3		/(NO, PROCESS A NON-MATCH)		/A112
+	TAD	SRCHU1		/YES, GET THE MODIFIER			/A112
+	TAD	(-4000)		/STRIP THE 4000				/A112
+	CIA			/NEGATE TO FORM XLATED CODE		/A112
+	JMP	SRCH4A		/GO PROCESS A MATCH			/A112
+	>	/ END IFDEF CONDOR ------------------------------------	/A073
+
+SRCH1,									/A112
+	DCA	SRCHCA	/ 7-bit	/ SAVE CHAR
+	IFDEF	CONDOR < 						/A112
+	DCA	TILDEFLAG >	/RESET THE TILDE FLAG			/A112
+	SKP								/A112
+SRCHRE,									/A112
+	DCA	SRCHU1		/ CLEAR FOR NEXT MODIFIER BUILD		/A112
+	AC7777		/ -1	/
+	DCA	SRCHT2	/ t2=0	/ CLEAR FLAG FOR FIRST TIME THROUGH
+SRCH0,			/ drop	/ OR ENTER WITH (AC) = -40		/a083
+	TAD	SRCHCA	/ 7-bit	/ STORE THE CHARACTER RECEIVED IN TEMP
+
+/ IF THERE IS NO MATCH ON THE FIRST PASS THROUGH
+/ THE TABLE THE CHARACTER SRCHCA IS MADE UPPER CASE
+/ AND THE TABLE IS SEARCHED AGAIN.
+
+	DCA	SRCHT1	/ t1	/
+	TAD	SRCHT1	/ t1	/
+	SNA 			/ ++++
+	JMP I	SRCH	/ ac=0	/ IGNORE NULLS
+	TAD	SRCHU1		/
+	CLL CIA	 	/negate	/ SET FOR COMPARE (note link really=0 here)
+	DCA	SRCHT3		/
+	TAD	(SRCHTB-2) 	/ WITH TABLE
+	DCA	SRCHX2	/ X2	/
+SRCH2,	ISZ	SRCHX2	/ +1	/
+	TAD I	SRCHX2 		/ GET NEXT TABLE ENTRY
+	TAD	SRCHT3	/-value	/ COMPARE
+	SNA 			/ ++++
+	JMP	SRCH4	/ match	/ JUMP CAUSE THEY MATCHED
+	SNL CLA 		/ ++++
+	JMP	SRCH2	/ loop	/ CONTINUE binary SEARCHING (still LOW)
+
+/ The entire 'srchtb' has been searched w/o a match
+
+/ IF this is pass I
+/  THEN make the character (within 'srcht1') UPPER case and search again,
+
+/ IF this is pass II
+/  THEN there is no match to make (so exit)
+
+	ISZ	SRCHT2		/
+	JMP	SRCH3		/ PASS 2 (no match)			/m083
+	TAD	SRCHCA 		/ MAKE SEARCH CHARACTER UPPER CASE
+
+/ make character within 'SRCHCA' upper case (or "jmp srch3" if already u/c)
+
+	TAD	(-140)		/
+	SPA SNA CLA		/					/a083
+	JMP	SRCH3	/ jmp	/ (7-BIT CHAR WAS UPPER CASE AT ENTRY)	/a083
+	TAD	(-40)		/					/a083
+	JMP	SRCH0	/ loop	/ pass II
+
+/ SEARCHED THE ENTIRE TABLE WITHOUT A MATCH				/a083
+/									/a083
+/ IF the contents of program location "SRCHU1" = 0			/a083
+/ THEN no modifier was in the process of being built			/a083
+/									/a083
+/ (EXIT-because this is a legal key stroke), but			/a083
+/									/a083
+/ IF the contents of "SRCHU1" are NOT = 0				/a083
+/ THEN a modifier was being built					/a083
+/ when the entire table was searched w/o a match			/a083
+/									/a083
+/ (EXIT-to beep the illegal key stroke)					/a083
+/									/a083
+/	*** BUT BEFORE EXITING... ***					/a083
+/									/a083
+/ NOTE!!!! The following comment did not seem to have anything whatever	/A112
+/	to do with what the code was actually doing.  In fact what we	/A112
+/	want to do is check for an ESC.  If we got no match, but now	/A112
+/	have an ESC, we want to resynch the entire sequence on the ESC	/A112
+/
+SRCH3,	TAD	SRCHU1	/mod	/ get the modifier (or 0)		/a083
+	SNA CLA		/	/ skip next if modifier was being built	/a083
+	JMP	SRCH5	/to EXIT/ o.k. (one key stroke)			/a083
+
+	TAD	SRCHT1		/GET THE CHARACTER			/A112
+	TAD	(-33)		/WAS IT AN ESCAPE?			/A112
+	SNA CLA			/(NO)					/A112
+	JMP	SRCHRE		/YES, GO RESYNCH			/A112
+
+	TAD	(NODEF)	/-value	/ this neg val will cause a "beep"	/a083
+	DCA	SRCHCA	/"nodef"/					/a083
+
+	JMP	SRCH5	/	/(jmp cause not DECmate II "modifier")	/a083
+
+/ MATCHED AN ENTRY IN THE TABLE
+
+SRCH4,	TAD I	SRCHX2 		/ GET MATCHED VALUE
+
+/This section rewritten to provide a new way of knowing when we 	/A112
+/	must look for a trailing tilde as well as handle escape		/A112
+/	sequences of the forms ESC [ p ~  OR  ESC [ pp ~		/A112
+/
+/If the modifier value is negative, it is either the final translated	/A112
+/	code or the end of a condor sequence that merely needs a final	/A112
+/	tilde								/A112
+/If the value is 4xxx, it is a condor sequence and the modifier value	/A112
+/	equals minus the translated code + 4000				/A112
+/NOTE:  This assumes, therefore, that the set of translated codes is	/A112
+/	always at least 6000						/A112
+
+SRCH4A,	DCA	SRCHCA		/STORE MATCHED VALUE			/A112
+	TAD	SRCHCA							/A112
+	IFDEF	CONDOR	<	/ ------------------------------------	/A112
+	SMA								/A112
+	JMP	SRCH5		/+ OR 0 -- GO STORE AS MODIFIER		/A112
+	CLL RAL			/WHICH TYPE NEGATIVE IS IT?		/A112
+	SPA CLA								/A112
+	JMP	SRCH5		/(TRANSLATED CODE)			/A112
+	AC7777			/CONDOR SEQ, SET TILDE FLAG		/A112
+	DCA	TILDEFLAG						/A112
+	TAD	SRCHCA		/GET VALUE TO STORE AS MODIFIER		/A112
+	> /END IFDEF CONDOR >	/ ------------------------------------	/A112
+	IFNDEF	CONDOR	<						/A112
+	SPA								/A112
+	CLA  >								/A112
+
+SRCH5,	DCA	SRCHU1	/0; mod	/ CLEAR for next 'jms srch'; or BUILD mod
+	TAD	SRCHU1		/  xfer vector:: (1), (2), (2b/6), ...
+	SNA CLA 		/ (else = 0 if translated ok)
+	TAD	SRCHCA	/ ??	/ 8-bit char at entry or translated (neg) value/M160
+	JMP I	SRCH	/ exit	/
+
+/ 'SRCHT1' contains the character in 'SRCHCA'
+/   (if first time thru the table)
+/    ELSE it contains the UPPER case of that character
+/      (because it is the 2nd time thru the table)
+
+    SRCHT1=	T1		/ (pass I-same as 'srchca'; pass II-UPPER case)
+    SRCHT2=	T2 		/ 1ST, 2ND TIME THRU SEARCH TABLE FLAG
+    SRCHT3=	T3		/ NEGATIVE value of MODIFIER to match
+    SRCHX2=	X2 		/ POINTER TO SEARCH TABLE
+
+
+	IFDEF CONDOR < / ----------------------------------------------	/A073
+TILDEFLAG, ZBLOCK 1		/ = 1 MEANS WAITING FOR 'tilde'
+	>	/ END IFDEF CONDOR ------------------------------------	/A073
+
+/ HOST #2 (communications initialization)
+
+/ (this routine was divided into 2 parts to get space for edit "078")	/a078
+
+XH2INI,	XX			/ ENTRY POINT.				/A042
+	GETRTF			/ GET RETURN FIELD (and "CDF 0")	/A042
+	DCA	XH2XIT		/ SET RETURN CDI.			/A042
+
+/ Communications (host) is only initialized if (CMONLN) is nonzero	/C104
+/  enabling the execution of DECmate II software on a DECmate I		/a078
+/   FOR DEVELOPMENT PURPOSES						/a078
+
+	TAD	CMONLN		/					/C104
+	SNA CLA			/					/a078
+	JMP	XH2XIT		/ ...SAYS THERE IS NO COMM...		/a078
+	JMS	H2OFF		/ TURN H2 INTERRUPTS OFF.		/A042
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+	CDFMNU			/ DETERMINE WHICH PORT IS SELECTED.	/A042
+	TAD I	(MUBUF+MNPRTB)	/
+	CDFMYF
+	RTR
+	RTR
+	AND	(1)
+	DCA	SWPORT		/ SAVE PORT SELECT.
+	TAD	SWPORT		/ SEE WHICH PORT IS SELECTED.		/A042
+	SNA CLA
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+	TAD	(MNPRIM-MNSECN)	/ IF 0 THEN PRIMARY (MNPRIM)		/A042
+	TAD	(MUBUF+MNSECN)	/ COMPUTE ADDRESS OF PORT CHARACTERISTICS/A042
+	DCA	H2INT1		/  WORD. SAVE IT.			/A042
+	CDFMNU			/ MAP MENU FIELD.			/A042
+	TAD I	H2INT1		/ GET PORT CHARACTERISTICS WORD.	/A042
+	DCA	H2INT1		/ SAVE.					/A042
+	AC0001			/ CHeck XON/XOF bit of MNXONF.		/A111
+	AND I	(MUBUF+MNXONF) 	/ "xon"/"xof"				/M111
+	CDFMYF			/					/A042
+KSZACLA,SZA CLA 		/ ZERO MEANS SET
+	JMP	KSZ1		/					/M111
+	TAD	(NOP)
+	DCA I	(SWSYS1)
+	TAD	KSZACLA		/					/A083
+	JMP	KSZ2							/M111
+KSZ1,	TAD	(SYSLOC&177+JMP+200) 					/M111
+	DCA I	(SWSYS1)
+	TAD	(SKP CLA)
+KSZ2,	DCA I	(SWSYS2) 						/M111
+/ --------------------------------------------------------------------	/a078
+	JMP	XH2PT2		/					/a078
+/ --------------------------------------------------------------------	/a078
+									/m083
+/ + + + + jmp here from within "XH2PT2" + + + +				/m083
+									/m083
+XH2XIT,	XX			/ EXIT CID.
+	JMP I	XH2INI		/ RETURN TO CALLER.
+
+H2INT1,	ZBLOCK	1	/ TEMP	/ DDD DPP SSB BBB
+				/(D)- data,(P)- parity,(S)- stop bits,(B)- baud
+
+/ -------------------------
+/ | null job STATUS BLOCK |
+/ -------------------------
+
+NULJSB,	. 			/ NULJOB STATUS BLOCK
+	0 			/ FIELD 0, LINK 0
+	37 			/ MQ
+	XJSTRT+1 		/ PC
+	PRJOB 			/ AC
+/-----------------------
+	PAGE
+
+/ CUSM - SETS THE VALUES FOR THE MENU TO BE DISPLAYED
+/ THE VALUES FOR THE 278 COMM LINES (HOST LINES) CHARACTERISTICS ARE
+/ PACKED (BY WPCU4) INTO MNPRIM/MNSECN FOR THE PRIMARY/SECONDARY PORT
+/ LINES. THE VALUES ARE PACKED IN SUCH A WAY THAT PACKING AND UNPACKING
+/ CAN BE DONE IN AN EFFICIENT MANNER. MNPRTB CONTAINS INFO PERTAINING
+/ TO THE PRINTER BAUD RATE, BREAK-TIME, PORT SELECTION, AND CX TERMINAL
+/ MODE. A BREAKDONW OF THESE PACKINGS FOLLOWS:
+/
+/ FORMAT FOR "MNPRIM/MNSECN":
+/
+/	BITS		INFORMATION
+/
+/	11 - 8		THE CHARACTER SIZE ONLY COUNTING THE BITS IN THE
+/			CHARACTER NOT PARITY OR STOP BITS
+/
+/	7,6		PARITY
+/
+/	5,4		STOP BITS
+/
+/	3-0		/BAUD
+/
+/ FORMAT FOR "MNPRTB":
+/
+/	0-2		TERMINAL MODE (0=VT52, 1=VT278, 2=DECWORD52)	/A044
+/
+/	3-6		BREAK TIME (.1 TO 1.5 SECS. IN TENTHS OF A SECOND).
+/
+/
+/
+/	  7		PORT SELECT (0=PRIMARY, 1=ALTERNATE)
+/
+/	8-11		PRINTER BAUD RATE.
+/
+/	**********************************************************
+/
+/ LIMITS - VALUES THAT ARE CHECKED FOR IN THE MENU
+/
+/ CHARACTER SIZE - CAN BE FROM 5 - 8
+/
+/ PARITY - 2 = NO PARITY, 1 = ODD, 0 = EVEN
+/
+/ STOP BITS - 1 OR 2 NOTE: IF SET FOR 5 FOR CHARACTER SIZE AND 1 FOR STOP
+/ IT WILL AUTOMATICALLY SET FOR 1.5 STOP BITS
+/
+/ AND BAUD:
+/
+/	VALUE	BAUD
+/	0	50
+/	1	75
+/	2	110
+/	3	134.5	(MAGCARD)
+/	4	150
+/	5	300	(DEFAULT)
+/	6	600
+/	7	1200
+/	10	1800
+/	11	2000
+/	12	2400
+/	13	3600
+/	14	4800
+/	15	7200
+/	16	9600
+/	17	19200
+/
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A075
+
+/.SBTTL USIOT - CREATES THE IOTS FOR USRPTI/O
+/
+/	CALL:	JMS USIOT; IOT
+/
+/ (where 'IOT' is the IOT minus the device code to execute)
+
+
+USIOT,	XX
+	DCA	USIOT1		/ STORE THE AC
+	TAD	SWPORT
+	TAD	(H2IOTB)	/ GET THE DEVICE CODE FOR PORT SPECIFIED
+	DCA	USIOT2
+	TAD I	USIOT
+	AND	(7017)		/ GET IOT
+	TAD I	USIOT2		/ ADD DEVICE CODE
+	DCA I	USIOT
+	TAD	USIOT1		/ RESTORE AC
+	JMP I	USIOT		/ done
+
+USIOT1,	0			/ holds the AC at entry
+USIOT2,	0			/ pointer to 'PORT' 0 or 1 device code
+
+SWPORT,	0			/ PORT select (bit 11:0 - port 0, 11:1 - port 1)
+
+H2IOTB,	IOTH2I&760		/ PORT 0 IOT'S.
+	IOTH2A&760		/ PORT 1 IOT'S.
+
+/ Enter with (AC) = 10 means issue 'BREAK'
+
+DOBIOT,	XX			/					/A041
+	TAD	(3425) 		/ SET COMMAND REGISTER
+				/ 3400 = WRITE COMMAND REGISTER.
+				/   BITS (4-5) = NORMAL OPERATING MODE (0).
+				/   BIT  (6) IS NOT USER & SET TO 0.
+				/   BIT  (7) IS RESET ERROR (SET).
+				/   BIT  (8) IS FORCE BREAK (see AC at entry).
+				/   BIT  (9) IS RECIEVE CONTROL (SET).
+				/   BIT (10) IS NOT USED (AND NOT SET).
+				/   BIT (11) IS TRANSMIT CONTROL (SET).
+	JMS	USIOT;PTB0	/ WRITE THE COMMAND REGISTER.		/A041
+	CLA			/					/A041
+	JMS	USIOT;PRB0	/ PREFORM DUMMY READ.			/A041
+	CLA			/					/A041
+	JMP I	DOBIOT		/					/A041
+	>	/ END IFNDEF CONDOR -----------------------------------	/A130
+
+
+
+/ IF the contents of program location "dtrtimer" is negative
+/ THEN we are in the process of "hanging-up" the modem
+/
+/ (the negative number within "dtrtimer" represents the time
+/  in "seconds" that DTR will be kept low)
+/
+TSTDTRTIMER,
+	XX			/
+	TAD	DTRTIMER	/
+	SNA CLA			/
+	JMP I	TSTDTRTIMER	/ EXIT
+	ISZ	DTRTIMER	/
+	JMP I	TSTDTRTIMER	/ EXIT
+/d083	AC0010		/ 10	/
+
+	IFNDEF	CONDOR	<	/ DMI HAS THE REVERSE SENSE OF DMII	/A133
+	AC0003			/ IN SETTING "DTR" (& "RTS")		/A133
+	R3L			/ AC=XXXXXXX11XXX SETS "RTS" & "DTR"	/A133
+	JMS	WRTCTL		/ GO PREP IOT FOR ACTIVE PORT		/A133
+		>		/ END IFNDEF CONDOR			/A133
+
+	IFDEF	CONDOR	<	/ KEEP BITS 10 & 11 FALSE ON DM II	/A151
+/D156	AC0003			/ 					/A151
+	JMS	TSTIMB		/ CK FOR INTEGRAL MODEM ENABLED		/A156
+		>		/ END IFDEF CONDOR			/A151
+	H2DTR		/	/ set DTR (completes modem 'hang-up')
+	CLA			/
+	JMP I	TSTDTRTIMER	/ EXIT
+
+DTRTIMER,ZBLOCK	1		/
+
+
+	IFNDEF	CONDOR	<						/A133
+
+WRTCTL,	XX			/ SET UP "WRITE CONTROL REG." IOT FOR	/A133
+				/   APPROPRIATE DMI PORT		/A133
+	DCA	USIOT1		/ SAVE AC (USE SAME TEMP AS USIOT)	/A133
+	TAD	SWPORT		/ GET ACTIVE PORT			/A133
+	RTL			/ PUT INTO PROPER POSITION FOR IOT	/A133
+	MQL			/ & SAVE IN MQ				/A133
+	TAD I	WRTCTL		/ GET IOT				/A133
+	AND	(7773)		/ MASK OUT PORT SELECT BIT		/A133
+	MQA			/ & IOR WITH SAVED PORT SELECT		/A133
+	DCA I	WRTCTL		/ PUT IOT BACK				/A133
+	TAD	USIOT1		/ RESTORE AC				/A133
+	JMP I	WRTCTL		/ & RETURN TO EXECUTE IOT		/A133
+
+		>		/ END IFNDEF CONDOR			/A133
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A130
+/ CUSVL - SETS THE COM LINES ON THE 78 FOR THE VALUES SET BY THE USER
+/
+/
+/ THIS ROUTINE SETS THE BAUD, PARITY, DATA, AND STOP BITS FOR THE VT278.
+/ TWO REGISTERS MUST BE WRITTEN:  MODE REGISTER 1 AND MODE REGISTER 2.
+/
+/ THE BIT ASSIGNMENTS FOR MODE 1 ARE:
+/
+/	4-5   STOP BITS (00=INVALID, 01=1, 10=1.5, 11=2)
+/	6-7   PARITY    (00=NONE, 01=ODD, 10=NONE, 11=EVEN)
+/	8-9   DATA BITS (00=5, 01=6, 10=7, 11=8)
+/
+/	10-11 MUST BE "01" TO SPECIFY ASYCHRONOUS TRANSMISSION
+/
+/ THE BIT ASSIGNMENTS FOR MODE 2 ARE:
+/
+/	4-5   NOT USED
+/	6-7   11 TO INDICATE INTERNAL CLOCKING
+/	8-11  BAUD RATE SELECTION (NORMAL PROGRESSION FROM 50 TO 192000)
+/
+/	0-3 MUST BE "0101" IN ORDER TO LOAD THE MODE REGISTERS.  THE
+/	REGISTERS ARE ACCESSED SEQUENTIALLY.
+
+	H2DTR=6362		/(AC)=0 SET DTR, (AC)=10 DROP DTR	/A130
+
+CUSVL,	XX
+/ |----------|
+/ |RESET PORT|
+/ |----------|
+	CLL CLA			/
+	TAD	SWPORT
+	RTR			/ SET AC00 TO SWPORT.
+	RACD			/ PORT initialize
+/ |-----------------|
+/ |COMPUTE STOP BITS| - (00) invalid; (01) is 1 stop bit; (10) is 1.5; (11) is 2
+/ |-----------------|
+	CLA			/ START W/ NOTHING!			/A043
+	TAD	SLUAS 		/ GET THE NUMBER OF STOP BITS
+				/ WANT TO CHANGE 01--01, 10--11
+	CLL RAR 		/ GET RID OF THE LEAST BIT
+	STL RAL 		/ CHANGE IT TO A 1, GET BACK INTO AC
+	RTL 			/ MOVE THE BITS FURTHER INTO THE AC
+/ |-------------------|
+/ |COMPUTE PARITY BITS| - (00) is no parity; (01) is odd; (11) is even
+/ |-------------------|
+	TAD	SLUAP 		/ GET THE ENCODING OF THE PARITY BIT
+				/ THE CONVENTION IS NONE=10, EVEN=01, ODD=00
+				/ FOR THE VT278,    NONE=10, EVEN=11, ODD=01
+	RTR 			/ GET LOW BIT IN AC0
+	SPA
+	STL 			/ IF AC0=1, (EVEN PARITY), SET THE LINK
+	SNL 			/ IF LINK=0 (ODD PARITY) MAKE AC0=1
+	TAD	(4000)
+	RTL 			/ GET BACK INTO THE AC
+	RTL 			/ MOVE THE BITS FURTHER INTO THE AC
+/ |-----------------|
+/ |COMPUTE DATA BITS| - (00) is 5 bit char's; (01) is 6; (10) is 7; (11) is 8
+/ |-----------------|
+	TAD	SLUAD 		/ GET THE DATA BITS (character length)
+	TAD	(-5) 		/ SCALE THEM DOWN
+	CLL RTL 		/ GET INTO AC8-9
+	TAD	(2401) 		/ ADD IN CONSTANT BITS
+				/ 2400 = SCD: MODE REGISTER 1/2 (WRITE).
+				/   AC ALREADY CONTAINS MODE SETTINGS FOR
+				/   STOP BITS (4-5), PARITY (6-7), AND
+				/   DATA BITS (8-9). BITS 10-11 ARE SET TO
+				/   01 FOR ASYN 1 X RATE.
+	JMS USIOT; PTB0		/ SEND THE WORD.
+/ |-----------------|
+/ |COMPUTE BAUD RATE|
+/ |-----------------|
+
+/ 0000 -    50
+/ 0001 -    75
+/ 0010 -   110
+/ 0011 -   134.5
+/ 0100 -   150
+/ 0101 -   300
+/ 0110 -   600
+/ 0111 -  1200
+/ 1000 -  1800
+/ 1001 -  2000
+/ 1010 -  2400
+/ 1011 -  3600
+/ 1100 -  4800
+/ 1101 -  7200
+/ 1110 -  9600
+/ 1111 - 19200
+
+	TAD	SLUAB 		/ GET THE BAUD RATE
+	TAD	(2460) 		/ ADD IN THE CONSTANT BITS
+				/ 2400 = SCD:7; 11 is 8 MODE REGISTER 1/2 (WRITE).
+				/    BITS 4-5 ARE NOT USED. 6-7 (60) IS
+				/    SET FOR INTERNAL TRANSMITTER/RECIEVER
+				/    CLOCK. 8-11 IS THE BAUD RATE SELECTION
+				/    IN THE AC ALREADY.
+	JMS USIOT; PTB0		/ SEND THE WORD.
+	>	/ END IFNDEF CONDOR -----------------------------------	/A075
+
+
+/	** CONDITIONAL REMOVED FROM TSTDTRTIMER AND THE CODE **		/A130
+/	** MOVED TO B4 DMI'S CUSVL ROUTINE TO ALLOW A CLEAN  **		/A130
+/	** FALL THROUGH OF THE DMI CUSVL ROUTINE.	     **		/A130
+
+
+	IFDEF CONDOR < / ----------------------------------------------	/M130
+/ (AC) at entry = 10 means issue break
+
+DOBT1,	ZBLOCK	1	/ temp	/ LOCAL TEMP FOR SUBROUTINE "DOBIOT"	/m083
+
+DOBIOT,	XX			/
+	CLL RAL		/ move	/ to bit 7
+	DCA	DOBT1	/ temp	/ local temporary
+/d086	TAD	(20)		/
+	TAD	(60)		/					/a086
+    /\cdf 0 /----[a] reg sel----/
+	LDREG		/ CR0A	/
+	CLA			/ reset ERROR flags and STATUS registers
+/ ---------------------------------------------------------------
+/ |CR5A| 4  5  6  7  8  9  10  11| TRANSMITTER ENABLE/DISABLE	|
+/ |    | 0              0   0   0|				|
+/ |------------------------------|------------------------------|
+/ |        |0  0|  |  |          |	5 bits (or less)	|
+/ |        |0  1|  |  |          |	7 bits			|
+/ |        |1  0|  |  |          |	6 bits			|
+/ |        |1  1|  |  |          |	8 bits			|
+/ |        |----|--|--|          |				|
+/ |        |    | 1|  |          |	BREAK			|
+/ |        |----|--|--|          |				|
+/ |        |    |  | 1|          |	ENABLE transmitter IRQ	|
+/ ---------------------------------------------------------------
+	TAD	(5)		/
+	SELREG			/
+	CIA		/ -5	/ (SCALE)
+	TAD	SLUAD		/ TRANSMIT DATA BITS (same as reciever)
+	BSW			/
+	CLL RAR			/ (into bits 5 and 6)
+	TAD	(10)		/ ENABLE transmit irq's
+	TAD	DOBT1	/ 20?	/ (BIT 7 = 1 MEANS ISSUE 'BREAK')
+/ |-------------------------|
+/ |WRITE control register #5|
+/ |-------------------------|
+	LDREG			/ WRITE control register #5
+	CLA			/
+	JMP I	DOBIOT	/ exit	/ done
+
+/ COMMUNICATIONS INITIALIZATION
+
+/ ENTER WITH THE CONTENTS OF THE AC = 0; AND
+/ ENTER WITH THE DATA FIELD = FIELD 0
+
+CUSVL,	XX			/ ENTER WITH THE CONTENTS OF THE AC CLEAR
+
+/	      the DECmate II communications chip
+/	 ---- M U S T  B E  s e t u p  T H I S  W A Y-----
+/	      eachtime any parameter is modified
+
+SELREG=	6366		/ (AC) = REGISTER NUMBER TO SELECT
+LDREG=	6366		/ (AC) = VALUE TO LOAD INTO REGISTER
+RDREG=	6366		/ (AC) GETS CONTENTS OF REGISTER
+H2DTR=	6362		/ (AC) = 03 LOWER "DTR"; (AC) = 13 SET "DTR"
+H2BAUD=	6363		/ (AC) IS THE BAUD RATE TO SET
+
+/ first of all at the time this chip was chosen
+/ it was the only one to contain all the 'neet stuff'
+/ (async/sync; modem control, etc) that 'they' wanted
+/ (you know who they are) therefore this chip is in
+/ CT and RAINBOW as well as DECmate II.
+/
+/ secondly it is a JAPanneessee chip which means
+/ that the technical specification was originally written
+/ in that language and somewhere in the translation
+/ new meanings (misinterperations of the translator--probably
+/ one of those "technical" writers) were born
+/ consequently a big fuss was made because the chip didn't
+/ work as the spec documented.
+/
+/ THEREFORE at the time the communications code
+/ was written (late in the project) there was no
+/ time to "experiment" with different register
+/ setup sequences...so that's the way it is.
+/
+/ YOU'LL SEE IT IS A "BEAR" TO PROGRAM
+/
+/ (IOT 6366 does not clear the AC)
+/
+/ (the code "AC0013; 6362" hangs-up the modem)
+
+
+	RACD		/ RESET	/ (this is a chip reset)
+
+/ --------------------------------------------------
+/ |CR0A|   | not used| crc  | command | reg select |
+/ |    | 0 | 1  2  3 | 4  5 | 6  7  8 | 9  10  11  |
+/ --------------------------------------------------
+/\    cdf 0 /--- [A] REG SELECT---/
+	TAD	(30)	/ reset	/
+	LDREG		/channel/ (this is a channel A reset)
+    CDF 10/--- [B] REG SELECT---/
+			/ reset	/ (NOTE that the ac still = 30)
+	LDREG		/channel/ (this is a channel B reset)
+	/\cla			/
+/ ------
+/ |CR2A|
+/ ------
+    CDF 0 /--- [A] REG SELECT---/
+	AC0002		/ CR2A	/
+	SELREG		/ select/
+	/\cla			/
+	/\tad	(20)	/ fixed	/
+	TAD	(16)	/ fixed	/ 2 + 16 = 20
+	LDREG		/ load	/
+/ ------
+/ |CR2B|
+/ ------
+    CDF 10/--- [B] REG SELECT---/
+	AC0002		/ CR2B	/
+	SELREG		/ select/
+	CLA		/ 0	/
+	LDREG		/ load	/
+/ ---------------------------------------------------------------
+/ |CR4A| 4  5  6  7  8  9  10  11|  MODE AND PARITY SELECTIONS	|
+/ |    | 0  1  0  0              |				|
+/ |    |-------------------------|------------------------------|
+/ |    |            |0  0|       |  ILLEGAL stop bit definition |
+/ |    |            |0  1|       |  1   stop bit		|
+/ |    |            |1  0|       |  1.5 stop bits		|
+/ |    |            |1  1|       |  2   stop bits		|
+/ |    |            |----|-------|------------------------------|
+/ |    |                 |  x  0 |  NO parity			|
+/ |    |                 |  0  1 |  ODD parity			|
+/ |    |                 |  1  1 |  EVEN parity			|
+/ ---------------------------------------------------------------
+    CDF 0 /--- [a] REG SELECT---/
+	AC0004		/ CR4A	/
+	SELREG		/ select/
+	AC0002			/
+	AND	SLUAS		/ USER DEFINED STOP BITS
+	IAC			/
+	CLL RTL			/
+	TAD	SLUAP		/ USER DEFINED PARITY
+	TAD	(100)	/ fixed	/
+	LDREG		/ load	/
+/ ------
+/ |CR1A| - interrupt enables/disables
+/ ------
+  /\cdf 0 /--- [A] REG SELECT---/
+	AC0001		/ CR1A	/
+	SELREG		/ select/
+	/\tad	(26)	/fixed	/ MUST NOT CHANGE
+	TAD	(25)	/ fixed	/ 1 + 25 = 26
+	LDREG		/ load	/
+
+/ -----
+/ |CR1B|
+/ -----
+    CDF 10/--- [B] REG SELECT---/
+	AC0001		/ CR1B	/
+	SELREG		/ select/
+	/\tad	(26)	/ fixed	/
+	TAD	(25)	/ fixed	/ 1 + 25 = 26
+	LDREG		/ load	/
+/ ---------------------------------------------------------------
+/ |CR3A| 4  5  6  7  8  9  10  11|  reciever enables/disables	|
+/ |    |       0  0  0  0   0    |				|
+/ |    |-------------------------|------------------------------|
+/ |    | 0  0|                |  |	5 bits (or less)	|
+/ |    | 0  1|                |  |	7 bits			|
+/ |    | 1  0|                |  |	6 bits			|
+/ |    | 1  1|                |  |	8 bits			|
+/ |    |                      | 1|	ENABLE reciever		|
+/ ---------------------------------------------------------------
+    CDF 0 /--- [A] REG SELECT---/
+	AC0003	/ CR3A	/
+	SELREG		/ select/
+	/\tad	(-5)		/ (scale)
+	TAD	(-10)	/ 	/ +3 -10 = -5
+	TAD	SLUAD		/ USER DEFINED DATA BITS
+	BSW			/
+	IAC		/enable	/ reciever irq
+	LDREG		/ load	/
+
+/D151	CLA			/
+/D156	AC0003			/ RESET BITS 10 & 11			/A151
+	JMS	TSTIMB		/ CK FOR INTEGRAL MODEM ENABLED		/A156
+/--\	/ ---------------------------------------------------------------
+/--\	/ |CR5A| 4  5  6  7  8  9  10  11| TRANSMITTER ENABLE/DISABLE	|
+/--\	/ |    | 0              0   0   0|				|
+/--\	/ |------------------------------|------------------------------|
+/--\	/ |        |0  0|  |  |          |	5 bits (or less)	|
+/--\	/ |        |0  1|  |  |          |	7 bits			|
+/--\	/ |        |1  0|  |  |          |	6 bits			|
+/--\	/ |        |1  1|  |  |          |	8 bits			|
+/--\	/ |        |----|--|--|          |				|
+/--\	/ |        |    | 1|  |          |	BREAK			|
+/--\	/ |        |----|--|--|          |				|
+/--\	/ |        |    |  | 1|          |	ENABLE transmitter IRQ	|
+/--\	/ ---------------------------------------------------------------
+/--\	  /\cdf 0 /--- [A] REG SELECT---/
+/--\		TAD	(5)	/ CR5A	/
+/--\		SELREG		/ select/
+/--\		CLA			/
+/--\		TAD	CR5VAL		/
+/--\		LDREG		/ load	/
+/--\		CLA			/
+	H2DTR			/ SELECT INTERNAL CLOCK & ASSERT "DTR"
+	CLA			/
+	TAD	SLUAB		/ USER DEFINED BAUD RATE
+	H2BAUD			/
+/\	cla			/
+
+/ |---------------------------------------------------|
+/ |THE COMM CHIP IS NOW READY FOR TRANSMIT AND RECIEVE|
+/ |---------------------------------------------------|
+
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+
+/ --------------------------------------------------------------------
+/ |  c  a  u  t  i  o  n    d  r  o  p   f  r  o  m   a  b  o  v  e  |
+/ --------------------------------------------------------------------
+
+	CLA; JMS DOBIOT		/ SET COMMAND REGISTER.
+	AC7777			/ clear...
+	  CIFSYS		/ input buffer...
+	  HS2OU			/ of any previous...
+	  NOP			/ garbage...(AND ISSUE XON)
+	CIFSYS			/ clear input buffer			/A064
+	  HS2IN			/ OF PENDING CHARACTERS			/A064
+	SKP CLA			/ SKIP WHEN ALL MT. (that's empty)	/A064
+	JMP	.-3		/ GO GET THE NEXT ONE (& TOSS IT OFF).	/A064
+	JMP I	CUSVL	/ exit	/
+
+SLUAD,	0 / 000 000 00d ddd	/ DATA bits
+SLUAP,	0 / 000 000 000 0pp	/ PARITY
+SLUAS,	0 / 000 000 000 0ss	/ STOP bits
+SLUAB,	0 / 000 000 00b bbb	/ BAUD rate
+
+H2IEXIT,			/					/A108
+IFNDEF	CONDOR	<							/A108
+	JMS	USIOT	>	/ Map following IOT.			/A108
+	H2KSF			/ See if pending input interrupt.	/A108
+	EXINTR			/ Exit if no; end of interrupt service
+	JMP	H2IMRG		/ Merge below to continue MTing input silo/A108
+
+
+
+/ DUE TO SPACE REASONS THAT ONLY DEVELOPERS CAN KNOW, THE FOLLOWING
+/ LOCATIONS FORMERLY LOCATED ON THE SAME PAGE AS THE "H2" INTERRUPT
+/ HANDLER HAS BEEN MOVED TO IT'S NEW LOCATION HERE. DONE AS PART OF (068).
+/
+/*************************************************************************
+/****
+/****
+/****		INTERRUPT CHAIN ENTRY
+/****
+/****
+/****
+/*************************************************************************
+/									/M0068
+/ DEVICE "HOST INPUT" INTERRUPT CHAIN ENTRY.				/M0068
+/									/M0068
+	JMP	H2PWRF 		/ POWER RESUMED ENTRY
+	TSTHIN 			/ INTERRRUPT CHAIN LINK			/M0068
+TSTHSI,				/ TEST INPUT FLAG
+
+	IFNDEF CONDOR < JMS USIOT > / DECMATE-I PROCESSING ROUTINE	/A075
+
+	H2KSF			/ TEST INPUT FLAG
+	JMP I	TSTHSI-1	/ NO INPUT -- CONTINUE CHAIN		/M0068
+
+H2IMRG,			/ Merge point for Host Input Exit.		/A108
+	IFNDEF CONDOR < JMP H2INPT > / DECMATE-I PROCESSING ROUTINE	/A105
+
+	IFDEF CONDOR < / ----------------------------------------------	/A075
+/
+/ the communications chip used for DECmate II has only one IRQ flag
+/ which could either mean: a. HARDWARE ERROR, b. TRANSMITTER INTERRUPT
+/ c. RECIEVER INTERRUPT, d. PARITY, FRAMING, OR OVERRUN ERRORS
+
+
+    CDF 10/--- [B] REG SELECT---/
+	TAD	(4002)	/ SR2B	/ status register 2b
+	SELREG		/ select/
+	CLA			/
+	RDREG			/ GET THE CONTENTS OF STATUS REGISTER 2B
+	AND	(7)		/
+/ the value of the AC is defined as follows:
+/  0 - hardware malfunction
+/  1 - hardware malfunction
+/  2 - hardware malfunction
+/  3 - hardware malfunction
+/  4 - transmitter buffer empty
+/  5 - hardware malfunction
+/  6 - receive data available
+/  7 - hardware malfunction or parity, overrun or framing errors
+    CDF 0 /--- [A] REG SELECT---/
+	/\DCA	H2BSTATUS	/
+	/\TAD	H2BSTATUS	/
+	TAD	(-4)		/ transmitter irq ?			/a083
+	SZA CLA			/ skip means transmitter irq		/a083
+	JMP	H2INPT		/ receiver irq---or hardware malfunction/a083
+	H2TFL		/ 6310	/ SET THE 'DUMMY' TRANSMITTER FLAG
+	JMP I	TSTHSI-1	/ service the xmit irq later in chain
+/\H2BSTATUS,ZBLOCK 1		/
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+	PAGE
+
+/ DEVICE "HOST OUTPUT" INTERRUPT CHAIN ENTRY.				/M068
+/
+	EXINTR			/ POWER RESUME ENTRY POINT.		/M068
+	TSTHON			/ INTERRUPT CHAIN LINK			/M068
+TSTHSO,				/ TEST OUTPUT FLAG (dummy flag if CONDOR)
+	IFNDEF CONDOR < JMS USIOTZ >/ DECMATE-I proc routine		/A075
+	H2TSF			/ TEST OUTPUT FLAG			
+	JMP I	TSTHSO-1	/ No Output -- Continue chain		/M068
+
+
+	IFDEF CONDOR < /------------------------------------------------/A075
+
+/ dismiss the transmitter interrupt, and
+/ issue 'end of interrupt' command
+/
+  /\cdf 0 /---[a] reg select----/
+	TAD	(50)		/
+	LDREG		/ CR0A	/ DISMISS THE TRANSMIT INTERRUPT
+	TAD	(20)	/ (70)	/
+	LDREG		/ CR0A	/ ISSUE THE END OF INTERRUPT COMMAND
+	CLA			/
+	>	/ END IFDEF CONDOR ------------------------------------	/A075
+
+	JMP	H2OJMS 		/ OUTPUT -- JUMP TO HANDLE IT.
+
+/									/A0068
+/	*** DEVICE "LP INPUT" INTERRUPT CHAIN ENTRY.			/A0068
+/									/A0068
+	EXINTR			/ POWER RESUME ENTRY POINT.		/A0068
+	TSTLIN			/ INTERRUPT CHAIN LINK.			/A0068
+TSTLPI,	D2KSF2			/ TEST LP INPUT FLAG.			/A0068
+	JMP I	TSTLPI-1 	/ NO INPUT -- CONTINUE CHAIN		/A0068
+	JMP	D2CKIO		/ GO SERVICE LINE PRINTER INPUT		/A103
+/****
+/****		 END  INTERRUPT CHAIN ENTRY
+/****
+/*************************************************************************
+
+
+/ POINTER AND STACK PUT HERE SO LOACATIONS MAY NOT MOVE.		/A148
+/ THEY ARE REFERENCED IN CHKUDK, CHUDK0 IN WP2CMF			/A148
+/ ADDRESSES ARE IN WPF1							/A148
+									/A148
+U1STPT,	0			/ POINTER TO STACK			/A148
+U1STCK,	ZBLOCK 12		/ STACK					/A148
+									/A148
+CTTYIN,	0			/ USED BY UDK CODE FROM FIELD 2		/A148
+				/ ADDRESS DEFINED IN WPF1		/A148
+	CLA								/A148
+	TTYIN								/A148
+	JMP .-2								/A148
+	AND	P377							/A148
+	JMS	SRCH							/A148
+	CDIMNU								/A148
+	JMP  I	CTTYIN							/A148
+GETUDK,									/A148
+	XX								/A148
+	SZA CLA			/ TEST HALT FLAG			/A148
+/D149	JMS GETUD9		/ FLAG SET, EXIT			/A148
+/D149	JMP I GETUDK		/ EXIT					/A149
+	JMP GETUD6		/ CLEAR STACK POINTER ON GOLD HALT	/A149
+	CDFMNU								/A148
+	TAD I (UDKINH		/ TEST INHIBIT FLAG			/A148
+	CDFSYS								/A148
+	SZA CLA								/A148
+/D149	JMS GETUD9		/ INHIBIT SET, EXIT			/A148
+	JMP I GETUDK							/A149
+GETUD1,									/A148
+/D149	TAD U1STPT		/ GET LOCATION IN STACK TO ACCESS	/A148
+/D149	SNA								/A148
+/D149	JMS GETUD9		/ STACK EMPTY, EXIT			/A148
+/D149	TAD (U1STCK-1							/A148
+/D149	DCA GT1			/ ACTUAL CORE ADDRESS IN STACK		/A148
+	JMS GETUD3		/ COMPUTE ADDRESS			/A149
+GETUD4,				/ HERE AFTER END OF UDK AND READ	/A149
+	ISZ I GT1		/ BUMP ADDRESS OF UDK IN STACK		/A148
+	TAD I GT1		/ GET ADDRESS OF UDK CHARACTER		/A148
+	AND P377		/ SAVE WORD PART			/A148
+	SNA CLA								/A148
+	JMS GETUD5		/ END OF BUFFER, NEED READ		/A148
+	TAD I GT1		/ OK TO GET THIS CHARACTTER		/A148
+	AND P377							/A148
+	TAD (CUDBUF		/ CONSTRUCT ACTUAL CORE ADDRESS		/A148
+	DCA GT2								/A148
+	CDFMNU								/A148
+	TAD I GT2							/A148
+	CDFSYS								/A148
+	SNA								/A148
+	JMP GETUD2		/ FOUND END OF UDK			/A148
+	ISZ GETUDK		/ HAVE CHARACTER, BUMP RETURN		/A148
+/D149	JMS GETUD9							/A148
+	JMP I GETUDK							/A149
+GETUD2,				/ CLEAR POINTER IN STACK		/A148
+				/ DECREMENT POINTER TO STACK, TRY AGAIN	/A148
+	DCA I GT1							/A148
+	CMA								/A148
+	TAD U1STPT							/A148
+	DCA U1STPT							/A148
+/D149	JMP GETUD1							/A148
+	JMS GETUD3		/ SET UP POINTER FOR NEXT ACCESS	/A149
+	JMS GETUD5		/ READ NEW BUFFER			/A149
+	JMP GETUD4		/ GET FROM NEW BUFFER			/A149
+
+									/A148
+GETUD5,				/ READ NEXT BLOCK			/A148
+	0								/A148
+	TAD I GT1		/ GET ADDRESS				/A148
+	AND (7400		/ KEEP BLOCK PART			/A148
+	BSW			/ MOVE TO BITS 8-11			/A148
+	CLL RTR								/A148
+/	IAC			/ BUMP TO NEXT BLOCK			/D148
+/D149	DCA GT2			/ KEEP FOR UPDATE OF STACK		/A148
+/D149	TAD GT2								/A148
+	TAD (DLUDKS+1		/ CONSTRUCT BLOCK TO READ (CHANGE +1)	/C148
+	CIFMNU								/A148
+	JMS I CHRRDX		/ READ THE DISK				/A148
+/D149	TAD GT2			/ UPDATE STACK WITH CURRENT BLOCK	/A148
+/D149	BSW								/A148
+/D149	CLL RTL								/A148
+/D149	DCA I GT1		/ AND PUT IN STACK			/A148
+	JMP I GETUD5							/A148
+
+/D149	GETUD9,			/ ALL PURPOSE EXIT			/A148
+/D149	0								/A148
+/D149	NOP								/A148
+/D149	JMP I GETUDK							/A148
+									/A148
+GT1,	0								/A148
+GT2,	0								/A148
+CHRRDX,	CHRUDX			/ REFERENCE IN WPF1			/A148
+
+/ ************ ADD ADAM ***********
+
+GETUD3,
+	0
+	TAD U1STPT		/ POINTER TO STACK
+	SNA			/ ANYTHING IN STACK?
+	JMP I GETUDK		/ NO, EXIT
+	TAD (U1STCK-1		/ POINTER + ADDRESS OF STACK
+	DCA GT1			/ PLACE IN STACK TO GET FROM
+	JMP I GETUD3
+
+GETUD6,	DCA U1STPT		/ CLEAR STACK POINTER BEFORE EXIT ON HALT
+	JMP I GETUDK
+
+/ ********** END ADD ADAM *******
+
+/	U1STUF - CHECKS THE CHARACTER TO PUT INTO THE TERMINAL INPUT
+/		 RING BUFFER. IF IT IS AN ESCAPE, THEN A CHECK IS MADE FOR
+/		 THE ESISTANCE OF ANOTHER CHARACTER (THE ANSI INTRODUCER).
+/		 IF SUCH A CHARACTER EXISTS THEN THE ESCAPE MUST BE PART OF
+/		 A FUNCTION KEY ESCAPE SEQUENCE. IF IT IS NOT PART OF A
+/		 FUNCTION KEY ESCAPE SEQUENCE, THE ESCAPE IS FLAGGED WITH
+/		 THE 200 BIT SET. IF IT IS THEN A RETURN IS MADE TO ALSO
+/		 GET THE NEXT CHARACTER.
+/
+
+U1STUF,	XX								/A045
+	TAD	(-ESC)		/ IS THIS CHARACTER AN ESC CHAR?	/A045
+	SNA			/ SKIP IF NO.				/A045
+	JMP	U1IST3		/ JMP TO CHECK OUT THE ESCAPE.		/A045
+	SKP			/ DON'T SET 200 BIT IF NOT AN ESC.	/A045
+U1IST1,	TAD	(200)		/ SET 200 FOR ESC THATS USER ENTERED.	/A045
+	TAD	(ESC)		/ GET CHARACTER BACK.			/A045
+	CLL			/ SAY NO CHARACTER FOLLOWS.		/A045
+U1IST2,	DCA I	U1IPUT		/ SAVE CHARACTER IN RING BUFFER.	/A045
+	ISZ	U1ICNT		/ 1 MORE CHARACTER IN BUFFER.		/A045
+	ISZ	U1IPUT		/ INC THE STUFF POINTER.		/A045
+	TAD I	U1IPUT		/ ARE WE AT THE END OF THE BUFFER?	/A045
+	SPA			/ SKIP IF NO.				/A045
+	DCA	U1IPUT		/ RESET PTR TO START OF BUFFER.		/A045
+	SNL CLA			/ SKIP IF FUNCTION ESCAPE.		/A045
+	ISZ	U1STUF		/ FOR NON-FUNCTION ESC WE WANT SKIP RETN/A045
+	JMP I	U1STUF		/ RETURN TO CALLER.			/A045
+									/A045
+U1IST3,	U1KSF			/ IS THERE ANOTHER CHARACTER PENDING?	/A045
+	JMP	U1IST1		/ JMP IF NO. THIS ESCAPE IS USER ENTERED/A045
+	TAD	(ESC)		/ RETURN REGULAR ESCAPE!		/A045
+	STL			/ SET LINK FOR FUNCTION ESCAPE.		/A045
+	JMP	U1IST2		/ STUFF CHAR & GET NEXT ONE.		/A045
+
+U1IPUT,	U1IBUF
+PAGE									/M148
+
+/	THIS CODE IS PART OF H2OCHR.  IT IS HERE FOR			/A123
+/	REASONS OF SPACE.						/A123
+/	THE CALLER SENT THE AC<0. CHECK FOR BREAK OR DTR		/A123
+/	CODES AND START APPROPRIATE ACTION, OR GO BACK TO		/A123
+/	RESET THE BUFFER.						/A123
+
+/D136	H2ORST,	CLA							/A123
+H2BWT,	TAD	H2BFLG	/ WAIT UNTIL LINE IS NOT BUSY			/A123
+	SZA CLA								/A123
+	JMP	H2BWT	/ GO WAIT SOME MORE				/A123
+	TAD	X0	/ OK, LINE FREE. RESTORE AC & TEST FUNCTION	/A123
+	TAD	(-7402	/ HANGUP THE MODEM?				/A123
+	SNA								/A123
+	JMP	H2HANG	/ YES						/A123
+	IAC		/ START A BREAK?				/A123
+	SZA CLA								/A123
+	JMP	H2RSET	/ NO. RESET THE BUFFER				/A123
+	AC7777		/ FLAG TO START BREAK				/A123
+	DCA	BREAKF							/A123
+	JMS	H2OTFL	/ WAKE UP THE HOST				/A123
+	JMP	H2OOKX	/ TAKE SUCCESS RETURN				/A123
+H2HANG,	AC7775		/ 3 SECONDS.					/A123
+	JMS	HANGUP	/ DROP DTR					/A123
+	JMP	H2OOKX	/ TAKE SUCCESS RETURN				/A123
+/
+
+/------------------
+/D148	PAGE 	/MOVED TO ABOVE H2BWT TO MAKE ROOM			
+
+
+/ FOLLOWING IS MOVED HERE TO MAKE ROOM ELSEWHERE	/M148 ~31 LINES
+/ "JMP" to here from within "XH2INI"					/a078
+/ (because of lack of pdp memory)					/a078
+XH2PT2,	TAD	(SLUAD-1)	/ GET ADDRESS OF ENTITIES WORDS		/A042
+	DCA	X0		/ SAVE.					/A042
+	TAD	H2INT1
+	BSW 			/ ++++
+	RTR
+	AND	(17)
+	DCA I	X0	/ SLUAD	/ DATA BITS.
+	TAD	H2INT1
+	BSW
+	AND	(3)
+	DCA I	X0	/ SLUAP	/ PARITY.
+	TAD	H2INT1
+	RTR 			/ ++++
+	RTR
+	AND	(3)
+	DCA I	X0	/ SLUAS	/ STOP BITS.
+	TAD	H2INT1 		/ AND SEPARATE THEM FOR DISPLAY/MODIFY
+	AND	(17)
+	DCA I	X0	/ SLUAB	/ BAUD RATE.
+/ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *	/m083
+	JMS	CUSVL	/ iots	/ SET THE VALUES (into the comm chip)	/m083
+/ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *	/m083
+	IOF			/ (cause "JMS H2ONN" wants it that way)	/m083
+	JMS	H2ONN		/					/m083
+	ION			/					/m083
+									/m083
+/ reutrn from "h2onn" with the accumulator = 0				/m083
+									/m083
+	JMP	XH2XIT		/					/m083
+							/END M148 ~31 LINES
+/
+INTCHAIN,								/A135
+/		|-----------------------|
+/		|FIX UP INTERRUPT CHAINS|
+/		|-----------------------|
+/
+/The following equates determine the order of the interrupt chain. However,
+/power low (which is checked first) and the clock (checked second) are not
+/affected by these equates. So, to change the order of any but power low or
+/clock, simply change the following equates. To change order of power low or
+/the clock, you must go into the code. The power low checking is done (after
+/saving AC, DF, LINK etc.) at location START and is followed by the check for
+/clock interrupt.
+/
+/ --------                            --------
+/ --------(SEE 'TSTHSI' IFDEF CONDOR) --------
+/ --------                            --------
+/
+/The following three equates were changed to put checking of COMM PORT in
+/front of the keyboard and screen. This had the effect of greatly improving
+/CX capabilities on the VT278. There is still a limitation when using the
+/HOST TO SCREEN (HS) option in CX of only going to 4800 baud. 19200 baud
+/is ok otherwise.
+/
+/The equates below were re-arranged as of (068) to put the printer	/A068
+/input at a higher priority than the kb output.				/A068
+
+TSTLPO=TSTLPT		/ THIS RESOLVES THE FORWARD REFERENCE BELOW***	/A068
+
+	TSTXXX=TSTHSI	/ First check host input			/M068
+	TSTHIN=TSTLPI	/ Then check LP input				/M068
+	TSTLIN=TSTKBI	/ Then KB input, then				/M068
+	TSTUIN=TSTHSO	/ check host output (SEE 'TSTHSI' IF-DEF CONDOR)/M075
+	TSTHON=TSTKBO	/ Then check KB output				/M068
+	TSTUON=TSTLPO	/ Then check LP output				/M068
+	TSTLON=TSTLST	/ Then handle unrecognized interrupt
+
+
+GETBTM,	XX			/ RETURNS BREAK TIME			/A157
+	JMS	TSTIM1		/ FIRST TEST FOR INTEGRAL MODEM ENABLED	/A157
+	JMP	SETBT2		/ ENABLED - GO SET TO (2 sec.)		/A157
+				/ DISABLED - CONTINUE			/A157
+	CDFMNU			/ GET BREAK TIME FROM MENU LOCATION.	/A041
+	TAD I	(MUBUF+MNPRTB)	/  BREAK TIME IS BITS 3-6		/M154
+	CDFMYF			/ BACK TO US.				/A041
+	RAL			/ SHIFT OVER 1 POSITION			/A154
+	BSW			/ ISOLATE THE BT.			/A041
+	AND	(17)		/					/a089
+	JMP I	GETBTM		/ RETURN VALUE				/A157
+SETBT2,	TAD	(20)		/ SET BREAK TIME TO (2 sec.)		/A157
+	JMP I	GETBTM		/ RETURN THE 2 sec. VALUE		/A157
+
+TSTIMB,	XX		/ SET INTEGRAL MODEM BIT IF ENABLES & PRESENT	/A156
+			/ CALLED BY - HANGUP, TSTDTR, &  CUSVL		/A156
+	JMS	TSTIM1	/ GO DO THE TEST				/A157
+	AC4000		/ ENABLED - SET BIT 0 TO ENABLE INTEGRAL MODEM	/A157
+	TAD	(0003)	/ ENABLED RET. - KEEP BITS 10 & 11 SET		/A157
+	DCA	TSTIMT	/ SAVE IN TEMP					/A159
+	TAD	SLUAB	/ PICK UP BAUD RATE				/A159
+	TAD	(-7	/ TEST FOR HIGH OR LOW SPEED			/A159
+	SMA CLA		/ SKIP IF LOW SPEED, LESS THAN 1200 BAUD	/A159
+	JMP	TSTIMC	/ JMP IF HIGH SPEED, 1200 OR GREATER		/A159
+	AC0004		/ SET TO LOW SPEED				/A159
+TSTIMC,	TAD	TSTIMT	/ PICK UP BITS FROM TEMP			/A159
+	JMP I	TSTIMB	/ RETURN					/A157
+
+TSTIM1,	XX		/ TEST FOR INTERGAL MODEM ENABLED & PRESENT	/A157
+	CLA		/						/A157
+	CDFMNU		/						/A156
+	TAD I	(MUBUF+MNFMAT)	/ 					/A156
+	CDFMYF		/						/A156
+	AND	(MNFM4X	/						/A156
+	SZA CLA		/ SKIP IF NOT ENABLED				/A156
+	JMP 	TSTIM2	/ ENABLED - CK IF PRESENT			/A157
+	ISZ	TSTIM1	/ SKIP RETURN					/A157
+	JMP I	TSTIM1	/						/A157
+TSTIM2,	TAD	(4003)	/ ISSUE AN ENABLE				/A157
+	H2DTR		/						/A157
+	CLA		/ AC MUST BE CLEARED				/A157
+	LAS		/ READ BITS					/A157
+	AND	(4000)	/ MASK MODEM BIT				/A157
+	SNA CLA		/						/A157
+	JMP I	TSTIM1	/ BIT <0> = 0 - PRESENT, TAKE NON-SKIP RETURN	/A157
+	AC0003		/ BIT <0> = 1 - NOT PRESENT - DISABLE		/A157
+	H2DTR		/						/A157
+	CLA		/ MUST BE CLEARED				/A157
+	ISZ	TSTIM1	/ TAKE SKIP RETURN				/A157
+	JMP I	TSTIM1	/						/A157
+
+
+
+/Routine to trap 8 bit chars on output 					/a161
+/Calls a routine that now resides where the startup code in DSKHND	/a161
+/ used to be to deal with the 8 bit char 				/a161
+/ RETURNS with the ac =0 if the fallback has been sent 			/a161
+/		   ac = char if no fallback required			/a161
+
+TEST8B,	TAD 	TACHAR		/ get the char				/a161
+	AND	P200		/ test the 8bit bit set			/a161
+	SZA CLA			/ skip if we dont have an 8 bit char	/a161
+	JMP	TEST83		/ yes an 8bit				/a161
+TEST81,	TAD	TACHAR		/  get the char back			/a161
+TEST82,	JMP	D2CONT		/ continue LPTOU			/a161
+
+/ The next piece of code calls a test for an LQPO2 if it has one then 	/a161
+/ lots of 7 bit chars cold be sent as fallback for th present 8 bit char/a161
+/ Therefore we have to save the original RETURN address and FIELDS	/a161
+/ in order to replace them and return to the right place		/a161
+/ No 8 bit chars can or will be sent as Fallback chars so this code 	/a161
+/ will only be run once for each 8 bit char				/a161
+
+TEST83, TAD	LPOCHR		/ get LPTOUs return address		/a161
+	DCA	LPTRSV		/ save it				/a161
+	TAD	D2OCHX		/ get the return field			/a161
+	DCA	LPTFSV		/ save it				/a161
+	TAD	TACHAR		/ get the char				/a161
+	JMS I	PRT8FB		/ (7600	call PRT8FB				/a161
+	DCA	TACHAR		/ save the char	returned		/a161
+	TAD	LPTRSV		/ get the old return address		/a161
+	DCA	LPOCHR		/ put it back				/a161
+	TAD	LPTFSV		/ get the return feild			/a161
+	DCA	D2OCHX		/ put it back				/a161
+	JMP	TEST81		/ return				/a161
+		 	
+/-----------------------
+	PAGE
+
+/ NOW FOLLOW THE JOB STATUS BLOCKS 					/A139
+/ FIRST IS THE DSKQUE AND RXJOB BLOCK					/A139
+/ NEXT IS THE PRINTER JOB BLOCK PRJOB					/A139
+/ NEXT ARE OTHER JOB BLOCKS USED BY CX, ETC				/A139
+
+DSKQUE,			/ DEFINED IN WPF1				/A139
+	RXJOB 			/ ++++
+	0 			/ ++++
+	0 			/ DSKQUE HEADER
+/
+	ZBLOCK NJSBS^5 		/ ALLOCATE XTRA JSB'S
+
+/ THE FOLLOWWNG IS THE FINAL CLEANUP CODE WHICH RUNS WHEN THE SYSTEM
+/ IS LOADED.  IT IS DESIGNED TO BE THE MINIMUM AMOUNT OF CODE WHICH ENDS
+/ UP RESIDENT.  MUCH OF THE INITIALIZATION CODE WHICH RUNS AT BOOT TIME
+/ IS RESIDENT IN THE VARIOUS WPSYS BUFFERS.  AFTER THAT CODE IS EXECUTED,
+/ WPSYS MUST CLEAN ITSELF UP.  THIS INVOLVES CLEARING ALL THE BUFFERS
+/ AND INSTALLING THE WRAP POINTERS AT THE END OF EACH BUFFER (THIS IS
+/ DONE BY CODE AT PATCHM.
+
+PATCHN,	DCA I	PATCHA 		/ CLEAR PATCH CODE
+	ISZ	PATCHA
+	ISZ	PATCHA+1 	/ ++++
+	JMP	PATCHN
+	JMP I	PWRJMP 		/ NOW REALLY START UP SYSTEM
+/
+PATCHA,	PATCHT 			/ LOC TO START CLEARING
+
+/ THIS IS WHERE THE BUFFERS BEGIN.  THE FIRST LOCATION OF LPOBUF
+/ DOUBLES AS AN ISZ COUNTER WHICH WILL CLEAR ITSELF AS THE ABOVE CODE
+/ RUNS, AND THEREFOR CAN BECOME PART OF LPOBUF
+
+/ THE BUFFER SIZES ARE DEFINED IN WPF1
+/ THE BUFFERS ARE LOCATED AS FOLLOWS: (X= ARE DEFINED IN WPF1)
+	X=LPOBUF		/PRINTER OUTPUT BUFFER
+	U1IBUF=LPOBUF+LPOSIZ+2
+	U1OBUF=U1IBUF+U1ISIZ+2
+	X=H2IBUF		/HOST INPUT BUFFER
+	H2OBUF=H2IBUF+H2ISIZ+2
+	LPIBUF=H2OBUF+H2OSIZ+2						/A103
+	X=PRFVBF		/PRINTER FIELD VARIABLE SAVE BUFFER	/A139
+	ENDBUF=PRFVBF+PRFVSZ						/C139
+
+
+/ RXHAN OCCUPIES THE SPACE BETWEEN RXDLDP AND 7777			/A110
+	XTRBUF=RXDLDP-ENDBUF-1						/A110
+	IFZERO XTRBUF+4000&4000 <?BUFFERSTOOBIG>			/A110
+
+LPOBUF,	PATCHT-PATCHZ-1		/ LENGTH TO CLEAR
+
+/-----------------------------------------------------------------
+
+/ THIS SECTION OF INITIALIZATION CODE RESIDES IN LPOBUF
+/ IT CLEARS FROM THE END OF ITSELF (THEREFORE IT MAY NOT USE LINKS
+/ OR LITERALS) TO RXDLDP, AND INSTALLS ALL THE BUFFER WRAP POINTERS
+/ THE BUFFER IN WHICH IT RESIDES (LPOBUF) MUST BE LARGER THAN THIS
+/ SECTION OF CODE
+
+PATCHT,	CIFPRT			/ PTC7R0 NOW IN PRINTER FIELD		/A138
+				/ LEAVE DATA FIELD SET TO SYS		/A138
+	JMS I	(PTC7R0		/ DO THE DRIVE SIZING			/A114
+	JMS	COMINI		/ INITIALIZE COMM			/A135
+PATCHU,									/A114
+	DCA I	PATCHB 		/ CLEAR BUFFER CORE AREA ("PATCHZ" THRU RXDLDP)
+	ISZ	PATCHB 		/ ++++
+	ISZ	PATCHD							/A110
+	JMP	PATCHU		/LOOP				/A110	/C114
+	TAD	PATCHS 		/ ++++
+	DCA	X0 		/ SET END PTRS
+	JMS I	XPATCM 		/ DO PATCHES
+	JMP	PATCHN		/ GO CLEAR OUT THIS CODE		/A135
+
+PATCHB, PATCHZ
+PATCHD, PATCHZ-RXDLDP
+XPATCM, PATCHM
+
+PATCHM,	XX			/					/M090
+	TAD I	X0 		/ GET LOC TO BE PATCHED
+	SNA 			/ ++++
+	JMP I	PATCHM 		/ QUIT IF 0
+	DCA	T1
+	TAD I	X0 		/ ++++
+	DCA I	T1 		/ MOVE NEW CONTENTS TO LOC
+	JMP	PATCHM+1 	/ AND LOOP FOR MORE
+/
+PATCHS,	.
+	LPOBUF+LPOSIZ+1 	/ ++++
+	LPOBUF 			/ BUFFER END PTR PATCHS
+	U1IBUF+U1ISIZ+1 	/ ++++
+	U1IBUF
+	U1OBUF+U1OSIZ+1 	/ ++++
+	U1OBUF
+	H2IBUF+H2ISIZ+1 	/ ++++
+	H2IBUF
+	H2OBUF+H2OSIZ+1 	/ ++++
+	H2OBUF
+	LPIBUF+LPISIZ+1		/ ++++					/A103
+	LPIBUF								/A103
+	0 			/ END OF END PTR PATCHS
+/
+/
+	IFZERO .-LPOBUF-LPOSIZ-1&4000 <?PATCHCODETOOBIG>
+/
+PATCHZ,				/ START OF BUFFER AREA TO BE CLEARED
+/-------------------------
+	PAGE
+
+COMINI, XX								/A135
+/ THIS SECTION DETERMINES IF COM IS PRESENT 				/C104
+/ AND SETS UP THE CMONLN FLAG						/C104
+/ IF COM IS PRESENT ON A DECMATE-I THEN					/C104
+/ REQUEST TO SEND AND DATA TERMINAL READY ARE ACTIVATED			/C104
+
+	IFNDEF CONDOR <	/ --------------------------------------------	/A075
+	CLA OSR			/ BIT 11=0 SAYS COMM PRESENT		/M021
+	CMA			/ MAKE POSITIVE				/A036
+	AND X0001		/ MASK OFF ALL BITS EXCEPT COM		/A036
+	DCA CMONLN		/ SET CMONLN				/C104
+	TAD CMONLN		/ GET IT BACK TO TEST			/C104
+	SNA CLA			/ SEE IF COM IS PRESENT			/A037
+	JMP I	COMINI		/ IF NOT RETURN				/C135
+	TAD X0030		/ SET REQUEST TO SEND AND TERMINAL READY/A037
+	WRTP0			/ WRITE PORT ZERO
+	CLA
+	RACD			/ RESET COMMUNICATIONS DEVICE		/A037
+	CLA			/					/A040
+	TAD	X0030		/ SET REQUEST TO SEND AND TERMINAL READY/A040
+	WRTP1			/  FOR PORT 1.				/A040
+	AC4000								/A040
+	RACD			/ RESET COMMUNICATIONS DEVICE FOR PORT 1/A040
+	CLA			/ CLEAR THIS 4000 OUT!			/A107
+	JMP I	COMINI		/ RETURN				/A135
+
+X0001,	1			/
+X0030,	30			/	
+
+	>	/ END IFNDEF CONDOR ---------------------------------	/A075
+	IFDEF CONDOR <	/ -------------------------------------------	/A107
+	AC0001			/ IN DECMATE-II
+	DCA	CMONLN		/ COMMUNICATIONS HARDWARE ALWAYS PRESENT
+
+/	---------------------------------------------
+/	| DEVELOPMENT requirements for DECmate II:: |
+/	---------------------------------------------
+/
+/ IF the hardware system at boot-up time is a DECmate I
+/  THEN the clock IOT within program location 'XCLKSKP' is o.k.
+/   BUT the comm hardware is disabled cause DM-2 has different IOT's
+/
+/ IF the hardware system at boot-up time is a DECmate II
+/  Then set a new clock IOT within program 'XCLKSKP'
+/
+/ (because as of 10-may-82 an RX01 is the only drive on PDP-11/70 'arson')
+/ (available to 'write out' new systems)
+/
+	AC4000			/ (set interupt mode 'NORMAL' if DEcmate I)
+	CLKSET		/ CMOD	/ SET clock flag (or if DECmate I then 'CMOD')
+DM2IOT,	CLKSK2		/ SKIP	/ if DEcmate II clock flag=1 (from 'clkset')
+	JMP	DM1		/ WE ARE RUNNING ON A DECMATE-I
+
+/ WE ARE RUNNING ON THE DECMATE-II FAMILY
+/ FIRST WE PATCH THE CORRECT CLOCK SKIP IOT
+	CLA			/ (cause AC=4000)
+	TAD	DM2IOT	/ iot	/ get the DEcmate II clock 'skip' IOT
+	DCA I	(XCLKSKP	/ and reset program location 'XCLKSKP'	/m076
+
+/ NOW WE DETERMINE IF WE ARE RUNNING ON A DECMATE II OR III		/A147
+/ TO DO THIS WE EXAMINE A LOCATION IN PANEL MEMORY			/A140
+/ 	THEN OR ONE OF THE FOLLOWING CONSTANTS INTO RXTYPE		/A140
+/		0400	DECMATE II					/A140
+/		2000	DECMATE III					/A140
+/		1000	DECMATE IV	(SHOULD NEVER? HAPPEN)		/A147
+/At this point RXONLN must have been set; i.e. CONINI called after PT7CRO /A145	
+
+	PRQ3			/FETCH SYSTEM TYPE (II, IV OR III)	/A140
+	  CDFMYF&10+5001	/PANEL FIELD 1 TO MYFLD			/A140
+	  0021			/FROM PANEL LOC 0021			/A140
+	  T1			/TO T1					/A140
+	  -1			/1 WORD					/A140
+	  -1								/A140
+	CDFSYS								/A147
+	CLA								/A147
+	TAD	T1		/EXAMINE ACTUAL TYPE			/A140
+	SMA 			/SKIP IF LT 0 (NOT DMII)		/A140
+	JMP	DM300		/DONE IF DMII				/A140
+	CLL RTL			/LOOK AT BIT1				/A147
+	SNL			/NO LINK IF DMIII			/A147
+	JMP	DM200							/A147
+	HLT			/!HALT!					/A147
+	JMP	.-1		/NOT DMII OR DMIII			/A147
+DM200,									/A147
+	AC0002			/DMIII ONLY HAS 2 DRIVES		/A145
+	DCA	RXONLN							/A145
+	AC2000			/LOAD CODE FOR DMIII			/A147
+COMIN1,	TAD	RXTYPE		/OR CODE INTO TYPE SETUP WORD		/A140
+	DCA	RXTYPE							/A140
+	JMP I	COMINI		/ RETURN				/A135
+
+DM1,	CLA			/CAUSE AC=4000				/A078
+	DCA	CMONLN		/DM-II SOFTWARE ON A DM-I HAS NO COM	/A107
+DM300,	CLA			/NEEDED IF ENTER FROM ABOVE		/A140
+	TAD	(0400)		/LOAD CODE FOR DECMATE-II		/A140
+	JMP	COMIN1		/GO OR INTO RXTYPE & EXIT		/A140
+	>	/ END IFDEF CONDOR -----------------------------------	/A107
+
+/---------------------
+	PAGE
+
+	PRQ3=6236
+	THSFLD=1
+	CDFMYF=THSFLD^10+CDF
+	CIFMYF=THSFLD^10+CIF
+	FIELD THSFLD		/ PRINTER FIELD				/A138
+	*PRBOTM			/ OVERLAY BUFFER AREA			/A138
+
+	PTC7R0,	XX
+
+/ THIS SUBROUTINE DETERMINES WHAT KINDS OF DISK DEVICES ARE PRESENT
+/ AT BOOT TIME.  IT IS ONCE ONLY CODE.  IT IS CALLED FROM WPSYS
+/ BUT IS HERE BECAUSE OF WPSYS WRITEOUT SPACE PROBLEMS
+/ IN THE MOVE HERE, ALL FORMER DIRECT REFERENCES TO RXONLN AND		/A138
+/ RXTYPE CHANGED TO I (RX---- INDIRECT REFERENCES.  THE ASSUMPTION	/A138
+/ IS MADE THROUGHOUT THIS SUBROUTINE THAT THE DATA FIELD REMAINS AT	/A138
+/ CDFSYS UNLESS THE CODE SPECIFICALLY INDICATES OTHERWISE		/A138
+/ 	T H E R E F O R E . . .						/A138
+/ THERE SHOULD BE NO OFF PAGE REFERENCES TO VARIABLES IN THESE		/A138
+/ ROUTINES * * * * * * * * * * * * * * * * * * * * * * * * * * *	/A138
+
+	IFNDEF CONDOR < / ---------------------------------------------	/A072
+
+/	THIS SUBROUTINE SETS RXONLN TO THE NUMBER OF RX DRIVES WHICH ARE ON
+/	LINE--EITHER 0, 2, OR 4. SINCE WE BOOTED OFF DRIVE 0, THERE	/M050
+/	MUST BE AT LEAST 2 SO WE JUST TEST FOR THE PRESENCE OF 4.	/A050
+
+	CLA;6750		/ SELECT DRIVE 0 (BOOT DRIVE).		/A050
+	6755;NOP		/ CLEAR DRIVE 0 DONE FLAG		/A050
+	6754;NOP		/ CLEAR DRIVE 0 ERROR FLAG		/A050
+	6753;NOP		/ CLEAR DRIVE 0 TRANSFER FLAG		/A050
+	CLA			/					/A050
+PTC7R1,	TAD	(12)		/ READ DEVICE STATUS (12 BIT MODE).	/A050
+	6751			/  ...					/A050
+	6755;JMP .-1		/ WAIT FOR DONE (WE BOOTED SO IT MUST	/A050
+				/  HAPPEN SOONER OR LATER!!!)		/A050
+	6754			/ CHECK ERROR FLAG. SKIP IF ERR FLG SET./A053
+	JMP	PTC7R2		/ NO ERROR. READ STATUS BELOW.		/A053
+	CLA			/ TRY DOUBLE DENSITY READ.		/A053
+	TAD	(400)		/  ...					/A053
+	JMP	PTC7R1		/   ....				/A053
+									/A053
+PTC7R2,	6752			/ READ STATUS REGISTER FROM CONTROLLER.	/A050
+	AND	(10)		/ ISOLATE THE RX01(RX8E)/RX02(RX28) BIT./A050
+	SZA CLA			/ SKIP IF RX01 (RX8E)			/A050
+	IAC			/ SET RXTYPE TO 1 FOR RX02(RX28).	/A050
+	DCA I	(RXTYPE		/  ....					/A050
+				/					/A050
+	AC0001
+	JMS	PTC7R3 		/ SEE IF THE SECOND UNIT IS ON LINE
+				/ DONE FLAG WILL BE SET IF IT IS
+	AC0002 			/ THE FIRST PAIR IS ALWAYS ON LINE
+	6755 			/ SKIP IF THE DONE FLAG WAS SET
+	SKP 			/ THE DONE FLAG WASN'T SET
+	AC0004 			/ THERE ARE TWO PAIRS ON LINE
+	DCA I	(RXONLN 		/ SAVE THE VALUE
+	6755;NOP		/ CLEAR DRIVE 1 DONE FLAG		/A050
+	6754;NOP		/ CLEAR DRIVE 1 ERROR FLAG		/A050
+	6753;NOP		/ CLEAR DRIVE 1 TRANSFER FLAG		/A050
+	CLA			/ SELECT THE FIRST PAIR AGAIN.		/A050
+	JMS	PTC7R3 		/ WILL SET DONE FLAG
+/
+/***********THE FOLLOWING IS TEMPORARY**********(BUT IT WORKS)***
+/	THE FOLLOWING CODE(6757 INITIALIZE) IS HERE BECAUSE IT
+/	APPEARS THAT WHEN THE SELECT CODE IS ISSUED TO A PAIR NOT
+/	CONNECTED SOME UNSPECIFIED RESULTS OCCUR. INIT DOES CLEAR
+/	CLEAR THE PROBLEMS...I AM STILL CHECKING THE WHY'S AND WILL
+/	DELETE THIS CODE WHEN IT IS CLEAR.
+	6755;NOP		/ CLEAR DRIVE 0 DONE FLAG		/A050
+	6754;NOP		/ CLEAR DRIVE 0 ERROR FLAG		/A050
+	6753;NOP		/ CLEAR DRIVE 0 TRANSFER FLAG		/C050
+	6752			/ CLEAR REQUEST				/A058
+	CLA			/SET FOR RETURN				/A058
+	6757			/INIT DISK				/A058
+	6755			/DONE?					/A058
+	JMP 	.-1		/NO.					/A058
+	CDISYS			/ CHANGE TO SYSTEM FIELD		/A138
+	JMP I	PTC7R0 		/ RETURN
+
+/	THIS SUBROUTINE CLEARS THE DONE, ERROR, AND TRANSFER FLAGS OF THE RX
+/	UNIT SPECIFIED IN THE AC UPON CALL.  IT THEN CAUSES THE DONE FLAG TO
+/	BE SET IF THE UNIT IS ON LINE.
+
+PTC7R3,
+	XX
+
+	6750 			/ SELECT THE PROPER UNIT
+
+	6755;NOP		/ CLEAR DONE FLAG
+	6754;NOP		/ CLEAR ERROR FLAG
+	6753;NOP		/ CLEAR TRANSFER FLAG
+
+	TAD	DELAY
+	DCA	T1 		/ SET DELAY LOOP COUNT
+
+/	WE NOW DETERMINE WHETHER THE SELECTED UNIT IS ACTUALLY ON LINE.  TO DO
+/	THIS, WE ISSUE A READ ERROR CODE FUNCTION (16).  IF THE UNIT IS ON
+/	LINE, IT WILL RESPOND BY SETTING THE DONE FLAG.  THIS FLAG IS TESTED
+/	TO DETERMINE IF THE UNIT IS ON LINE.
+
+	TAD	(16)		/ LOAD READ ERROR CODE COMMAND (12 BIT MODE).
+	6751
+
+	ISZ	T1
+	JMP	.-1 		/ WAIT FOR THINGS TO SETTLE DOWN
+				/ CAN'T SIMPLY TEST THE FLAG TO TELL IF THE
+				/ COMMAND IS THROUGH, SINCE WE DON'T KNOW IF
+				/ THERE IS ACTUALLY A UNIT ON LINE.
+
+	JMP I	PTC7R3 		/ RETURN--THE FLAG IS SET IF THE UNIT IS ON LINE
+
+DELAY,	-20 			/ THE DELAY COUNT
+
+	>	/ END IFNDEF CONDOR -----------------------------------	/A072
+
+	IFDEF CONDOR < / ----------------------------------------------	/A072
+
+	/ This subroutine sets the contents of RXONLN
+	/  to the correct number of RX drives which are on line
+	/   (either to 2, 4, 6, or 8)
+
+	/ AND this subroutine sets the contents of RXTYPE
+	/  (specifically bits 10 and 11)
+	/   (bit 11=1 means drive 0 is an 8 inch diskette)
+	/    (bit 10 = 1 means drive 4 is an RX02)
+
+/ The RX SELect IOT 67x0 (previously documented as a NOP)
+	/ AND this subroutine determines the type of APU board
+	/ attached, if any
+
+/  with the contents of the AC (bits 0 and 11)
+/   is used to determine which drive 'pairs' on-line
+/    (NOTE that 'x' means don't care when external RX02 adapter is OUT)
+
+/-------------------------------------------------------------------------------
+/	AC bits:	RX02 adapter		ACTION
+/	(0) (11)				(Select an RX50 or RX02 pair)
+/-------------------------------------------------------------------------------
+/	x     0		out			drive pair #1 (drives 0, 1)
+/	x     1		out			drive pair #2 (drives 2, 3)
+/-------------------------------------------------------------------------------
+/	0     0		in			RX50 drive pair #1 (drives 0, 1)
+/	0     1		in			RX50 drive pair #2 (drives 2, 3)
+/	1     0		in			RX02 drive pair #1 (drives 4, 5)
+/	1     1		in			RX02 drive pair #2 (drives 6, 7)
+/-------------------------------------------------------------------------------
+
+/ NOTE that since this code is being executed
+/  we must have booted from drive 0
+/   therefore there is at least 1 drive pair (2 drives) on-line
+
+/ RX50 or RX02 drive pair #1 (drives 0, 1) must be on-line
+/  (cause we booted up)
+/ THEREFORE issue a 'READ STATUS REGISTER' function code
+/  (to determine the 'size' of the diskette in drive 0)
+   IFDEF  WINNIE	<
+	DCA I	(RXONLN		/CLEAR NUM PAIRS ON LINE		/A132
+
+	JMS	WNINIT		/INIT WINNIE			/A115
+	JMP	PTC7R1		/NOT A WINNIE CONTINUE		/A115
+/D122	TAD	WNOPTN						/A115
+	DCA I	(RXTYPE		/SET IT				/A115
+	AC0004			/SET # DRIVES=8			/A110
+	TAD I	(RXONLN		/    #=10 IF 0=WINNIE		/A132
+	DCA I	(RXONLN						/A110
+	JMP	NORX78
+			>	/END IFDEF WINNIE		/A115
+PTC7R1,
+	ISZ I	(RXONLN	/ Drive pair (drives 0, 1) must be on-line	/C132
+PTC7RA,
+	AC0000; 6750	/ SEL	/ firstly, 'select' drive pair
+	6755;	NOP	/ SDN	/ (remember that 'SEL' sets done for protocol)
+	JMS	P7STAT		/GET STATUS***SPACE WARS***		/A132
+	SZA CLA			/ skip next if drive 0 is RX50
+	AC0001			/
+	DCA I	(RXTYPE		/ (bit 11 - 1 means drive 0 is an RX01 or RX02)
+
+/ POLL RX50 or RX02 drive pair #2 (drives 2, 3)
+
+	AC0001			/
+	  JMS	RXPOLL	/ poll	/ poll the drive pairs defined by AC: 0, 11
+	  SZA CLA		/ Skip next if DONE flag set in "RXPOLL"/a092
+	  JMS	RXINIT	/ INIT	/ issue INIT cause drive pair NOT on-line
+	  ISZ I	(RXONLN 	/ +1	/ RX50 or RX02 Drive pair (drives 2, 3) on-line
+/\	jmp	.+1		/
+
+/ CONTINUE polling for RX02 drive pair #1 (drives 4, 5)
+
+	AC4000		/	/
+	  JMS	RXPOLL	/ poll	/ poll the drive pairs defined by AC: 0, 11
+	  SZA CLA		/ Skip next if DONE flag set in "RXPOLL"/a092
+	  JMP	NORX78	/ exit	/ prepare to exit cause drive pair NOT on-line
+
+/ A drive pair is selected
+/  BUT it could be drives 0, 1 or drives 4, 5
+/   (IF the RX02 adapter is 'IN' then drives 4, 5 are on-line)
+
+	LAS			/ read the hardware register
+	AND	(4)	/bit 9	/
+M140,									/A138
+	SZA CLA			/ skip next if RX02 adapter is 'IN' (bit 9 = 0)
+	JMP	NORX78		/ jump cause RX02 adapter is 'OUT' (bit 9 = 1)
+	AC0003		/	/ (close any holes and make it look like)
+	DCA I	(RXONLN		/ (drives 0, 1, 2, 3, 4, 5 are on-line)
+
+/ READ the status register
+/  to determine if drive 4 is an RX02 or not
+
+	JMS	P7STAT		/GET STATUS***SPACE WARS***		/A132
+	SNA CLA			/ skip next if drive 4 is an RX02
+	JMP	POLL67		/ jump cause drive 4 is an RX50
+	TAD	T1	/ T1	/ get back the status
+	AND	(10)	/bit 8	/
+	CLL RTR		/bit 10	/ BIT 10 = 1 means RX02; 10 = 0 means RX01
+	TAD I	(RXTYPE		/
+	DCA I	(RXTYPE		/
+
+/ POLL for RX02 drive pair #2 (drives 6, 7)
+
+POLL67,	TAD	(4001)		/
+	  JMS	RXPOLL	/ poll	/ poll the drive pairs defined by AC: 0, 11
+	  SNA CLA		/ SKIP BUMP OF DRIVE PAIR IF NOT THERE	/C138
+	  ISZ I	(RXONLN	/ +1	/ RX02 Drive pair #2 (drives 6, 7) is on-line
+
+/ a 'JMP NORX78' means the RX78 controller was OUT, or
+/  RX02 drive pair #1 (drives 4, 5) is NOT on-line
+/   (therefore an RX02 drive pair #2 (drives 6, 7) can't exist)
+
+NORX78,	AC0000; JMS RXPOLL	/ REselect controller of drives 0,1,2,3	/a077
+	CLA			/					/a092
+	JMS RXINIT; NOP	/ INIT	/ issue RX INIT to 'clean up' things	/A094
+	TAD I	(RXONLN		/ get the number of 'drive pairs' on-line
+	CLL RAL		/ x2	/ 'times' 2 gets the number of drives on-line
+	DCA I	(RXONLN		/
+
+	IFDEF	CONDOR	<
+	JMS	FRMCHK		/SET FIRMWARE BIT(40) IN RZTYPE IF WINNIE/A118
+	JMS	APUCHK		/CHECK FOR APU BOARD			/M138
+			>	/END IFDEF CONDOR			/A118
+
+	CDISYS			/ CHANGE TO SYSTEM FIELD		/A138
+	JMP I	PTC7R0	/ exit	/
+/
+P7STAT,	XX			/GET STATUS				/A132
+	TAD (12); 6751	/ LCD	/ 'read status register' function code
+	6755;	JMP .-1	/ SDN	/ (wait for 'done' flag--up to 120ms)
+	6752		/ XDR	/ 'transfer data register' (gets status into AC)
+	DCA	T1	/ temp	/ save the status
+	TAD	T1		/
+	AND	(140)	/ 5; 6	/ BITS 5&6 both = 1 means RX50 drives
+	TAD	M140		/ USE A SZA CLA FOR (-140)		/C138
+	JMP I	P7STAT		/RET WITH ACC=0 IF RX50 DEVICE		/A132
+
+/ This subroutine is called to select a drive pair as defined
+/  with the contents of AC bits 0 and 11
+
+/ IF the drive pair polled is on-line
+/  then the DONE flag will be set
+
+/ E_X_I_T with the contents of the AC = 0  means the DONE flag was set	/a092
+/									/a092
+/ E_X_I_T with the contents of the AC = 7777 means the done flag was NOT/a092
+/
+RXPOLL,	XX			/ Enter with the contents of the AC live
+	6750		/ SEL	/ Issue SELECT DRIVE PAIR iot
+	6750		/ SEL	/	2nd time needed for drvs 6&7	/A094
+
+/ NOTE: that IOT 6750 does set the DONE flag
+/  BUT this is not the 'done' we want
+/   (CAUSE this 'done' only acknowledges the 'SEL' IOT as to protocol)
+
+	6755; NOP	/ SDN	/ Skip next if DONE flag is set (then clear)
+	6754; NOP	/ SER	/ Skip next if ERROR flag is set (then clear)
+	6753; NOP	/ STR	/ Skip next if TRANSFER REQ flag set (clear it)
+	TAD	(12)	/ 1010	/ Execute 'READ STATUS REG' fc (5)	/a092
+	6751		/ LCD	/ (sets DONE flag if selected pair is on-line)
+	TAD	(7600)	/ delay	/					/a092
+	DCA	T1		/ set delay loop count (to wait for done)
+RXLOOP,			/					/a092
+	ISZ T2; JMP RXLOOP	/ wait the specified DELAY for done	/a075t
+	6755		/ SDN	/ SKIP next if done flag set		/a092
+	SKP CLA			/					/a092
+	JMP I	RXPOLL	/ EXIT	/ with the (AC) = 0 means DONE FLAG SET	/a092
+	ISZ T1; JMP RXLOOP	/ wait the specified DELAY for done	/a075t
+	AC7777		/ -1	/					/a092
+	JMP I	RXPOLL	/ exit	/ with (AC) = -1 means NO done flag	/a092
+
+	>	/ END IFDEF CONDOR ------------------------------------	/A072
+
+
+/ RXINIT IS USED FOR BOTH CONDOR AND NONCONDOR
+/ Subroutine to issue the RX INIT iot
+/  because if a drive pair was polled that was not on-line
+/   the DONE flag will never set
+
+RXINIT,	XX			/
+	6757		/ INIT	/ issue the RX INIT iot
+	6755; JMP .-1	/ SDN	/ WAIT for the DONE flag to set
+	ISZ	RXINIT		/ +1 to the EXIT address
+	JMP I	RXINIT	/ exit	/
+
+
+	IFDEF CONDOR <
+PCMWT0,	XX							/A125
+	PRQ3							/A122
+	CDFMYF&70%10+4060	/40XY X=OUTPUT FLD Y=INPUT FLD	/C138
+
+/D146	FRMTYP			/LOC TO GET DATA		/A122
+PCMWT1,								/M146
+	IDSTRT			/LOC TO GET DATA	/A122	/C146
+	PCMSTR			/WRITE LOC IN P.M.	/A122	/C146
+	IDSTRT-IDEND		/-#CHARS TO MOVE	/A122	/C146
+	-1			/TERMINATOR			/A122
+/D146	ISZ	PCMWT1		/SET TO NEXT LOC		/A122
+
+	JMP I	PCMWT0		/RET				/A125
+
+
+
+APUCHK,	XX			/ ROUTINE TO CHECK FOR APU BOARD	/A138
+				/  ASSUMES LINK IS CLEAR ON ENTRY	/A144
+
+	LAS			/ READ SWITCH REGISTER
+	AND	(10)		/ LOOK AT THIS BIT
+	SNA CLA			/ SKIP IF APU/XPU NOT PRESENT		/m144
+	STL IAC			/ SET 1 IN AC TO REQUEST SET OF OUTPUT	/A144
+				/  DATA AVAIL FLAG IN XPU, LINK WILL BE	/A144
+				/  "APU/XPU PRESENT" BIT		/A144
+	6170			/ AC=1 , SET "SODAV" FLAG IN XPU	/A144
+	6171			/ TEST & CLR    "      "  , SKIP IF SET	/A144
+	CLA			/ CLEAR THE "XPU" BIT FROM AC		/A144
+	RAL			/ ROTATE THE "XPU" AND "APU/XPU PRESENT"/A144
+				/  BITS INTO AC10 & AC11		/A144
+	BSW			/ AND BYTE SWAP THEM INTO AC4 & AC5	/A144
+				/		     (MNRX7X & MNRX6X)	/A144
+/d144	TAD	(MNRX6X)	/ APU BOARD PRESENT, SET THIS BIT
+	TAD I	(RXTYPE		/ AND UPDATE WORD IN WPSYS
+	DCA I	(RXTYPE		/
+	JMP I	APUCHK		/ RETURN
+>				/ END IFDEF CONDOR
+/--------------------
+	PAGE
+
+	IFDEF CONDOR	<
+/**********FOLLOWING CODE ADDE FOR WINNIE  VERSION 115****
+/
+/Setup drive table in DSKACP for winchhester devices
+/
+/	4000 = WINNIE DEVICE------4001 = WINNIE DEVICE MOUNTED
+/	RXTYPE----BIT <7> =DRIVE 0 = WINNIE ------------MNRX2X
+/		--BIT <8> =DRIVE 1 = MOUNTED WINNIE-----MNRX3X
+/		--BIT <9> =WINNIE ON LINE --------------MNRX4X
+GTVOL=12
+DMTVOL=10		/DISMOUNT CODE FOR DIRECT CALL	/A131
+
+WNINIT,	0
+	CLA IAC			/CHECK FOR WINNIE
+	RDNOOP			/IF WINNIE CLEAR AC
+	SZA CLA
+	JMP I	WNINIT		/RETURN
+
+
+	JMS	RXPOLL		/SEE IF RX50 ON LINE			/A132
+	SNA CLA			/0=YES					/C158
+	JMP	WNINT2		/RX01,2 ON LINE				/A158
+	JMS	RXINIT		/CLEAR IF NOT				/C158
+	CLA			/SKIPPED				/C132
+	AC4000			/SET TO SEL				/A158
+	JMS	RXPOLL		/ARE THEY THERE?			/A158
+	SZA CLA			/0=YES					/A158
+	JMS	RXINIT		/CLEAR IF NOT				/A132
+WNINT2,								/A158
+	ISZ I	(RXONLN		/INC DRIVE PAIR IF ON LINE(RXINIT SKIPS)/A132
+
+	ISZ	WNINIT		/SET WINNIE RET
+	CDFACP							/A131
+	TAD I	(RXSTRT+1)			/DRIVE 0		/C132
+	CDFSYS							/A131
+	SMA CLA				/0=RX50 H/O BIT =WINNIE		/A131
+	JMS	WININ1			/DISMOUNT 0 FIRST TIME THRU/A131
+WINSTF,	CAM		/IGNORE ERROR CODE(MOUNTED WINNIE CHK 		/C132
+	TAD	(-GTVOL			/GET VOLUME		/A131
+	DCA	WINFNC			/SET CODE		/A131
+	JMP	WINNXT			/NEXT 			/A131
+WINGTV,								/A131
+	JMS	WININ1			/NEXT				/A131
+	SMA CLA				/RETURN...  - = ERROR
+	IAC				/DRIVE IS MOUNTED
+	TAD	(4000			/WINNIE
+	CDFACP				/ACP FIELD
+	DCA I	T1			/SET IT IN TABLE		/C132
+	CDFSYS				/THIS FIELD
+WINNXT,							/A131
+	ISZ	WINCUR			/INC DRIVE #
+	ISZ	WINNUM			/DONE?
+	JMP	WINGTV			/NO--DO NEXT
+/				SET RXTYPE FOR WINNIE
+	CLA CLL IAC			/ BIT 1 SET			/A132
+				/MOUNTED BIT
+	CDFACP				/ACP FIELD
+	AND I	(RXSTRT+1)			/POINTER TO SYS DRIVE		/C132
+	CDFSYS
+	DCA	FRMTYP		/SAVE OPTION BIT FOR DRIVE 0..1=WINNIE	/C122
+	TAD	FRMTYP							/A132
+	SZA			/IS DRIVE 0=WINNIE			/A132
+	JMP	WININ2		/YES...LET DRIVE 1 STAY WINNIE		/A132
+	DCA I	(RXONLN		/CLEAR COUNT FOR RX50 BOOT		/A132
+	ISZ	(RXSTRT+1)			/SET POINTER TO DRIVE 1		/C132
+	CDFACP
+	TAD I	(RXSTRT+1)							/C132
+	RAR				/BIT 1=MOUNTED IF SET
+	SNL CLA				/IS IT MOUNTED?
+	DCA I	(RXSTRT+1)		/NOT MOUNTED CLEAR WINNIE BIT..VER 1.5	/C132
+	CDFSYS
+	TAD	FRMTYP		/GET OPTION			/C122
+WININ2,								/A132
+	RTL			/LINK BIT=DRIVE 1 MOUNTED AS WINNIE
+	IAC			/SET FOR WINNIE ON LINE
+	RTL			/SET INTO BITS <8,9,10>
+/D122	DCA	WNOPTN		/SET IT
+	JMP I	WNINIT		/RETURN
+
+	/USED TO DISMOUNT 0 IF RX50 THEN CHECK DEVICES FOR MOUNT/A131
+
+WININ1,	XX		/DISMOUNT 0 IF RX50 THEN CHECK DEVICES FOR MOUNT/C131
+	TAD	WINCUR		/CURRENT DRIVE #
+	TAD	(RXSTRT+1)	/ADD TO DRIVE 0 PTR			/C132
+	DCA	T1		/POINTER TO CURRENT DRIVE IN TBLE	/C132
+	TAD	(CIFMYF)	/RETURN FIELD				/C138
+	CDFMYF								/A138
+	CIFDSK			/DRIVE FIELD
+	JMS I	(RXDLDP		/DIRECT CALL TO HANDLER
+WINCUR,	WNSTRT			/CURRENT DRIVE #
+	0			/START BLOCK # MUST BE VALID N0
+	CDFMYF			/THIS FIELD
+	WINBUF			/BUFFER TO STORE VOL IF READ(24 DEC WRDS)
+	0			/BLK COUNT
+	0			/TRACK NO
+WINFNC,									/A131
+	-DMTVOL			/READ VOL FNC CODE  IN HNDLER FORMAT
+	CDFSYS								/C138
+	JMP I	WININ1		/RET					/A131
+/
+/THIS ROUTINE CHECKS FOR WINNIE DEVICE.. IF ON LINE CHECKS FIRMWARE TYPE
+/SETS BIT (6)--[40] IF WINNIE FIRMWARE-THIS TO ALLOW RETURN TO MASTER MENU
+/
+FRMCHK,	XX								/A118
+	TAD I	(RXTYPE							/A118
+	RAR			/L/O BIT =RX01/02 =SYSTEM		/A118
+	SZL CLA								/A118
+	JMP I	FRMCHK		/IGNORE					/A118
+SETPRQ,				/BOOT WINNIE OR RX50D			/A118
+	PRQ3			/GET FIRMWARE STATUS WORD		/A118
+	CDFMYF&70+5001		/50XY X=RECEIVING FIELD IN MAIN MEMORY	/C138
+				/     Y=SOURCE FIELD IN PANEL MEMORY	/C138
+	0			/ADDRESS IN P. MEM			/A118
+	FRMTYP			/ADDRESS TO STORE.FIRMWARE TYPE		/A118
+	-1			/# WORDS TO GET				/A118
+	-1			/TERMINATOR				/A118
+
+	CLA IAC			/1				/A118	/C121
+	TAD	FRMTYP		/TYPE 0=RX50 -1=WINNIE			/A118
+	SZA	 CLA		/IS WINNIE FIRMWARE?	     /A118/C0121/C122
+	JMP I	FRMCHK		/NO, RETURN				/C138
+	JMS	FRMCHL		/CHECK IF BOOT FROM MASTER MENU		/A141
+	TAD	(MNRX5X		/SET WINNIE FIRMWARE BIT FOR WINNIE BOOT/A141
+	TAD I	(RXTYPE		/ADD OPTION BITS			/A118
+	DCA I	(RXTYPE		/SET IT					/A118
+/D138	APUCHK MADE SEPARATE ROUTINE AGAIN				/A138
+	JMP I	FRMCHK		/RETURN					/A118
+FRMTYP,	0							/A118	/M130
+
+
+/LOAD PANEL MEMORY TO USER MEMORY
+/
+PCMRD0,	0			/ROUTINE TO GET CHAR FROM P.M.	/A122
+	PRQ3								/A122
+	CDFMYF&70+5006	/50XY X=OUTPUT FIELD Y=INPUT FIELD	/A122	/C138
+PCMRD3,	PCMSTR			/READ DATE LOC IN P.M.			/C141
+	IDSTRT			/LOC TO PUT DATA		/A122	/C146
+	IDSTRT-IDEND		/-#CHARS TO MOVE		/A122	/C146
+	-1			/TERMINATOR				/A122
+/D146	ISZ	PCMRD3		/SET TO NEXT LOC			/A122
+/D146	TAD	FRMTYP							/A122
+	JMP I	PCMRD0							/A122
+WINMAX=10			/MAX NUM DRIVES=8
+WNSTRT=0			/START WINNIE DRIVE NUMBER
+
+WINNUM,	WNSTRT-WINMAX		/NUMBER DEVICES TO CHECK
+		PAGE							/A141
+			>	/END IFDEF CONDOR			/A118
+
+/	****** DECmate I code moved here for space reasons *******	/A130
+/		CONDOR does not have enough space here for		/A130
+/		them both to assemble here				/A130
+
+
+	IFNDEF	CONDOR	<						/A130
+
+/READ CHAR FROM PANEL MEM....
+/....THIS ROUTINE IS SET AT LOAD TIME... IS EXECUTED DURING START UP
+/.....WHEN FIRST END OF BUFFER IS READ(NULL) CALL TO ROUTINE WILL BE NOOPED
+/
+PCMADR=7732			/ADDRESS OF P.M. DATE		/A122
+PCMSTR=7600			/START OF PANEL MEM DATA		/A122
+PCMCMD=PCMSTR+10		/ADDRESS OF P.M.CMND STR	/A122
+PCMRD,	0								/A122
+	CLA								/A129
+	PRQ3								/A122
+	CDFMYF&70+5006	/50XY X=OUTPUT FIELD Y=INPUT FIELD	/A122	/C138
+PCMRD1,	PCMSTR	/ LOCATION IN INPUT FIELD TO BE READ		/A122	/C126
+	PCMRD2	/ LOCATION TO PUT RESULTS				/A122
+	-1	/- NO CHARS TO BE READ					/A122
+	-1	/TERMINATOR						/A122
+	TAD	PCMRD2		/GET CHAR				/A122
+	SZA			/END OF BUFFER			/A122	/C125
+	JMP I	PCMRD							/A122
+	ISZ	PCMRD		/YES				/A122	/M125
+	CDFMYF								/A138
+	CIFSYS								/A138
+	TTYIN			/IGNORE POWER FAIL STRTUP		/A125
+	NOP								/A125
+	CLA								/A125
+	CDFSYS								/A138
+	JMP I	PCMRD		/RET					/A125
+PCMRD2,	0			/CHAR JUST READ				/A122
+
+	>	/END IFNDEF CONDOR					/A130
+
+/	******* End of MOVE of non-CONDOR code edit 130	********	/A130
+
+
+
+	IFDEF CONDOR <							/A138
+/D146 PCMSET,	XX							/A122
+/D146 	CLA IAC		/SET UP BUFFER FOR POWER FAIL CHK(USED TO INIT SYSTEM	/A125
+/D146 	CDFMYF			/					/A141
+/D146 	DCA	FRMTYP							/A125
+/D146 	CDFSYS			/					/A141
+/D146 PCMSTA,	JMS	PCMRD0		/READ 1 CHAR FROM P.M.		/A122
+/D146 	SNA CLA			/END OF DATE?				/A122
+/D146 	JMP I	PCMSET		/YES				/A122	/C126
+/D146 	JMS	PCMWT0		/MOVE TO P.M.				/A125
+/D146 	JMP	PCMSTA		/NEXT					/A122
+
+
+FRMCHL,	0								/A141
+	JMS	PCMRD0							/M146
+FRMCHM,				/NEXT				/A141	/M146
+	CDFMYF			/					/A141
+	TAD  I	CMDPTR		/POINTER TO COMMAND LIST		/A141
+	TAD  I	IDPNTR		/TO START OF STRING			/A146
+	CDFSYS			/					/A141
+	SZA CLA			/IS IN STRING?				/A141
+	JMP	FRMCHX		/NOT CALLED FROM MASTER MENU(WPS-cmd)	/A141
+				/.......DO NOT GET DATE/COMMAND STRING	/A141
+	ISZ	IDPNTR		/INC PNTR				/A146
+	ISZ	CMDPTR		/NEXT LETTER				/A141
+	ISZ	CMDCNT		/COMMAND LENGTH COUNTER(-7 IF WHOLE CMND)/A141
+	JMP	FRMCHM		/LOOP-NEXT CHAR				/A141
+/D146 	TAD	(PCMADR		/LOAD DATE ADDRESS			/A141
+/D146 	CDFMYF			/				/A141
+/D146 	DCA	PCMRD3		/SET IT					/A141
+/D146 	CDFSYS			/					/A141
+	TAD	(PCMRDJ)	/JMS TO PCMREAD				/A122
+	DCA	U1XLAA		/SET IT UP				/A122
+/D146 	JMS	PCMSET		/MOVE DATE IN P.M. 			/A122
+	JMS	SETDAT		/MOVE AND SET DATE AND TIME		/A146
+FRMCHX,	JMP I	FRMCHL		/RETURN					/A141
+
+/
+SETDAT,	0	/MOVE TIME AND DATE INTO STRING AND WRITE TO P.M.	/A146
+	CDFMYF								/A146
+	TAD	(-7531		/SIGNATURE=VER 2 MENU			/A146
+	TAD	IDSIGN		/GET SIGNATURE THIS SYSTEM		/A146
+	SZA CLA			/IS THIS OLDER VERSION MASTER MENU	/A146
+	JMP	SETD0		/NO--					/A146
+	TAD	(PRESTR		/SET WRITE OUT ADDRESS			/A146
+	DCA	PCMWT1							/A146
+	TAD	(PRESTR-IDSTRT	/NO SET UP TO STORE DATE AND TIME	/A146
+SETD0,								/A146
+	TAD	(IDSTRT-1	/OR SET TO MOVE DATE ONLY		/A146
+	DCA	X4							/A146
+	TAD	(IDDATE-1		/TIME ADDRESS			/A146
+	DCA	X3							/A146
+SETD1,	TAD I	X3							/A146
+	SNA			/END DATE STRING			/A146
+	JMP	SETD2		/YES					/A146
+	DCA I	X4		/SET IT					/A146
+	JMP	SETD1		/NEXT					/A146
+SETD2,
+	TAD	(" &377		/SPACE					/A146
+	DCA I	X4							/A146
+	TAD	(-7531		/IS TIME IN HTIS VERSION		/A146
+	TAD	IDSIGN		/GET SIGNATURE				/A146
+	SZA CLA			/IS TIME AVAILABLE			/A146
+	JMP	SETD4		/NO					/A146
+	TAD	(IDTOFD-1	/TIME OF DAY				/A146
+	DCA 	X3		/INPUT POINTER				/A146
+SETD3,
+	TAD I	X3		/MOVE TIME				/A146
+	DCA I	X4							/A146
+	ISZ	IDCNT		/DONE MOVING HH:MM			/A146
+	JMP	SETD3		/NO					/A146
+	TAD	(15		/C.R. FORCE DATE TIME			/A146
+	DCA I	X4		/SET IT					/A146
+SETD4,								/A146
+	JMS	PCMWT0		/WRITE IT BACK TO PANEL MEMORY		/A146
+	CDFSYS								/A146
+	JMP I	SETDAT							/A146
+/
+
+IDCNT,	-5		/COUNT HH:DD				/A146
+CMDCNT,	CMDLST-CMDLSE		/-7 WOULD CHECK (WPS-cmd) -3 CHECKS(WPS)/A141
+IDPNTR,	IDSTRT		/START OF STRING			/A146
+
+CMDPTR,	CMDLST			/PTR TO COMMAND LIST			/A141
+CMDLST,	-"W+200		/					/A141
+	-"P+200							/A141
+	-"S+200							/A141
+	-"_+200							/A141
+	-"c+200							/A141
+	-"m+200							/A141
+	-"d+200							/A141
+CMDLSE=.			/END LIST ENTRY				/A141
+/-----------------------
+	PAGE
+
+
+	*PTC7R0-200		/ADDRESS OF BUFFER IN THIS FIELD	/C146
+WINBUF,				/ OF 24 DECIMAL LOCS FOR VOLUME DATA	/C146
+PRESTR,	ZBLOCK	6	/NEW START LOC					/A146
+IDSTRT,	ZBLOCK 7	/LOC 0-6	/WPS-CMD   			/A146
+NULL1,	0		/LOC 7		/TERMINATOR			/A146
+BINLEN,	0		/LOC 8		/LENGTH OF COMMAND SRTING	/A146
+CMNDTXT,ZBLOCK	120	/LOC 9-88	/COMMAND STRING			/A146
+NULL2,	0		/LOC 88		/CMND STRING TERMINATOR		/A146
+IDDATE,	ZBLOCK	10	/LOC 90-97	/DATE MM/DD/YY(ALWAYS)		/A146
+NULL3,	0		/LOC 98		/DATE TERMINATOR		/A146
+IDSIGN,		0	/LOC 99		/SIGNATURE			/A146
+IDVERS,	0		/LOC 100		/MASTER MENU VERSION NUM/A146
+IDDOFW,	ZBLOCK	11	/LOC 101-109	/DAY OF WEEK(SUNDAY-SATURDAY)	/A146
+NULL4,	0		/LOC 110	/TERMINATOR			/A146
+IDTOFD,	ZBLOCK	10	/LOC 111-118	/TIME OF DAY HH:MM:SS		/A146
+IDLWCLK,	0	/LOC 119	/CLOCK LOW			/A146
+IDHICLK,	0	/LOC 120	/CLOCK HIGH			/A146
+IDDFMT,	0		/LOC 121	/DATE FORMAT 0=INVALID		/A146
+					/	     1=MM/DD/YY		/A146
+					/	     2=YY/MM/DD		/A146
+					/	     3=DD/MM/YY		/A146
+IDEND=.			/END OF STRING					/A146
+	>		/ END IFDEF CONDOR				/A138
+
+
+

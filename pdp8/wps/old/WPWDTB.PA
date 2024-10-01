@@ -1,0 +1,832 @@
+/************* LQPSE PROPORTIONAL WIDTH TABLE *************************
+
+
+/ module load instructions for RXHAN
+ 
+	FIELD 0		/ field where RXHAN is loaded
+	*200		/ start address used by OS8 go command
+	JMP I	.+3	/ loacation to start RXHAN
+	JMP I 	.+1	/ location to restart Os8
+	7605		/ address of 8 monitor
+	RXLOAD		/ address of start location for RXHAN
+
+	*RXLDLS		/ address within rxhan to overlay
+	RXEWT		/ write function
+	0		/ ????
+	RXQBLK		/ address of Q block to use
+	.
+	
+	DLWDTB	; 1000	; CDF 60 ; -DSWDTB	/ table area
+	0					/ terminator
+
+
+/This table contains the amount of horizontal space each character on the
+/print wheel occupies when printed.  This information is, however, coded
+/with each word containing information about four characters.
+
+/If the ascii value of a character is 4n+k (k=0,1,2,3), then the information
+/for that charcter is at location PSTBL+n-10.  The information is coded into
+/three bits according to the following scheme:
+
+/k=0	bits 0,1,2
+/k=1	bits 3,4,5
+/k=2	bits 6,7,8
+/k=3	bits 9,10,11
+
+/The three bit code represents the number or horizontal space units each
+/character occupies.  The code mapping is:
+
+/0	2 units
+/1	4 units
+/2	6 units
+/3	10 units
+/4	12 units
+/5	14 units
+/6	16 units
+/7	20 units
+
+/That is, if we take the code, add one, and double the result, we have the
+/desired character width.  This coding is performed, of course, to save space.
+
+/In the table, the four comment lines which follow each encoding identify the
+/four charcters which map to the word, with the highest order characters
+/listed first.
+
+	*400
+	
+	FIELD 6
+	*1000
+
+
+	4444	/34							/A218
+		/35							/A218
+		/36							/A218
+		/R1							/A218
+
+	4344	/SPACE
+		/!
+		/"
+		/#
+
+	4662	/$
+		/%
+		/&
+	 	/'
+
+	3344	/(
+		/)
+		/*
+		/+
+
+	2423	/,
+		/-
+		/.
+		//
+
+	4444	/0
+		/1
+		/2
+		/3
+
+	4444	/4
+		/5
+		/6
+		/7
+
+	4432	/8
+		/9
+		/:
+	 	/;
+
+	4444	/LESS THAN
+		/=
+		/GREATER THAN
+		/?
+
+	6655	/@
+		/A
+		/B
+		/C
+
+	6556	/D
+		/E
+		/F
+		/G
+
+	6336	/H
+		/I
+		/J
+		/K
+
+	5666	/L
+		/M
+		/N
+		/O
+
+	4664	/P
+		/Q
+		/R
+		/S
+
+	5667	/T
+		/U
+		/V
+		/W
+
+	6654	/X
+		/Y
+		/Z
+		/[
+
+	6465	/\
+		/]
+		/^
+		/_
+
+	4444	/'
+		/a
+		/b
+		/c
+
+	4434	/d
+		/e
+		/f
+		/g
+
+	4224	/h
+	 	/i
+		/j
+		/k
+
+	2744	/l
+		/m
+		/n
+		/o
+
+	4433	/p
+		/q
+		/r
+		/s
+
+	3446	/t
+		/u
+		/v
+		/w
+
+	4444	/x
+		/y
+		/z
+		/{
+
+	6461	/|
+		/}
+		/~
+		/R2							/C218
+
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+
+	0435	/ 240
+		/ 241
+		/ 242
+		/ 243
+
+	0504	/ 244
+		/ 245
+		/ 246
+		/ 247
+
+	7747	/ 250
+		/ 251
+		/ 252
+		/ 253
+	
+	0	/ dummy no chars here
+
+	4444	/ 260
+		/ 261
+		/ 262
+		/ 263
+
+	0534	/ 264
+		/ 265
+		/ 266
+		/ 267
+
+	0447	/ 270
+		/ 271
+		/ 272
+		/ 273
+
+	4402	/ 274
+		/ 275
+		/ 276
+		/ 277
+
+	6666	/ 300
+		/ 301
+		/ 302
+		/ 303
+
+	6666	/ 304
+		/ 305
+		/ 306
+		/ 307
+
+	5555	/ 310
+		/ 311
+		/ 312
+		/ 313
+
+	3334	/ 314
+		/ 315
+		/ 316
+		/ 317
+
+	0666	/ 320
+		/ 321
+		/ 322
+		/ 323
+	
+	6666	/ 324
+		/ 325
+		/ 326
+		/ 327
+
+	6666	/ 330
+		/ 331
+		/ 332
+		/ 333
+	
+	6605	/ 334
+		/ 335
+		/ 336
+		/ 337
+
+	4444	/ 340
+		/ 341
+		/ 342
+		/ 343
+
+	4464	/ 344
+		/ 345
+		/ 346
+		/ 347
+
+	4444	/ 350
+		/ 351
+		/ 352
+		/ 353
+
+	4444	/ 354
+		/ 355
+		/ 356
+		/ 357
+
+	0544	/ 360
+		/ 361
+		/ 362
+		/ 363
+	
+	4446	/ 364
+		/ 365
+		/ 366
+		/ 367
+
+	4555	/ 370
+		/ 371
+		/ 372
+		/ 373
+
+	5500	/ 374
+		/ 375
+		/ 376
+		/ 377	
+
+	PGFREE=1000+100-.
+	ZBLOCK PGFREE
+
+
+/************* LQP02 PROPORTIONAL WIDTH TABLE *************************
+
+	4444	/34
+		/35
+		/36
+		/R1							/A218
+
+	4444	/SPACE
+		/!
+		/"
+		/#
+
+	4451	/$
+		/%
+		/&
+	 	/'
+
+	4444	/(
+		/)
+		/*
+		/+
+
+	4444	/,
+		/-
+		/.
+		//
+
+	4444	/0
+		/1
+		/2
+		/3
+
+	4444	/4
+		/5
+		/6
+		/7
+
+	4444	/8
+		/9
+		/:
+	 	/;
+
+	5454	/LESS THAN
+		/=
+		/GREATER THAN
+		/?
+
+	4666	/@
+		/A
+		/B
+		/C
+
+	6556	/D
+		/E
+		/F
+		/G
+
+	6346	/H
+		/I
+		/J
+		/K
+
+	5666	/L
+		/M
+		/N
+		/O
+
+	5665	/P
+		/Q
+		/R
+		/S
+
+	6666	/T
+		/U
+		/V
+		/W
+
+	6654	/X
+		/Y
+		/Z
+		/[
+
+	4475	/\
+		/]
+		/^
+		/_
+
+	4454	/'
+		/a
+		/b
+		/c
+
+	5435	/d
+		/e
+		/f
+		/g
+
+	5225	/h
+	 	/i
+		/j
+		/k
+
+	2654	/l
+		/m
+		/n
+		/o
+
+	5544	/p
+		/q
+		/r
+		/s
+
+	3556	/t
+		/u
+		/v
+		/w
+
+	5544	/x
+		/y
+		/z
+		/{
+
+	4344	/|
+		/}
+		/~
+		/R2 (HAS WRONG WIDTH (5) IN LQP02 SPEC			/C218
+
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+
+	0435	/ 240
+		/ 241
+		/ 242
+		/ 243
+
+	0504	/ 244
+		/ 245
+		/ 246
+		/ 247
+
+	7747	/ 250
+		/ 251
+		/ 252
+		/ 253
+	
+	0	/ dummy no chars here
+
+	4444	/ 260
+		/ 261
+		/ 262
+		/ 263
+
+	0534	/ 264
+		/ 265
+		/ 266
+		/ 267
+
+	0447	/ 270
+		/ 271
+		/ 272
+		/ 273
+
+	4402	/ 274
+		/ 275
+		/ 276
+		/ 277
+
+	6666	/ 300
+		/ 301
+		/ 302
+		/ 303
+
+	6666	/ 304
+		/ 305
+		/ 306
+		/ 307
+
+	5555	/ 310
+		/ 311
+		/ 312
+		/ 313
+
+	3334	/ 314
+		/ 315
+		/ 316
+		/ 317
+
+	0666	/ 320
+		/ 321
+		/ 322
+		/ 323
+	
+	6666	/ 324
+		/ 325
+		/ 326
+		/ 327
+
+	6666	/ 330
+		/ 331
+		/ 332
+		/ 333
+	
+	6605	/ 334
+		/ 335
+		/ 336
+		/ 337
+
+	4444	/ 340
+		/ 341
+		/ 342
+		/ 343
+
+	4464	/ 344
+		/ 345
+		/ 346
+		/ 347
+
+	4444	/ 350
+		/ 351
+		/ 352
+		/ 353
+
+	4444	/ 354
+		/ 355
+		/ 356
+		/ 357
+
+	0544	/ 360
+		/ 361
+		/ 362
+		/ 363
+	
+	4446	/ 364
+		/ 365
+		/ 366
+		/ 367
+
+	4555	/ 370
+		/ 371
+		/ 372
+		/ 373
+
+	5500	/ 374
+		/ 375
+		/ 376
+		/ 377	
+
+	PGFREE=1000+200-.
+
+	ZBLOCK PGFREE
+
+
+/************* LQP03 PROPORTIONAL WIDTH TABLE *************************
+
+	4444	/34
+		/35
+		/36
+		/R1							/A218
+
+	4444	/SPACE
+		/!
+		/"
+		/#
+
+	4451	/$
+		/%
+		/&
+	 	/'
+
+	4444	/(
+		/)
+		/*
+		/+
+
+	4444	/,
+		/-
+		/.
+		//
+
+	4444	/0
+		/1
+		/2
+		/3
+
+	4444	/4
+		/5
+		/6
+		/7
+
+	4444	/8
+		/9
+		/:
+	 	/;
+
+	5454	/LESS THAN
+		/=
+		/GREATER THAN
+		/?
+
+	4666	/@
+		/A
+		/B
+		/C
+
+	6556	/D
+		/E
+		/F
+		/G
+
+	6346	/H
+		/I
+		/J
+		/K
+
+	5666	/L
+		/M
+		/N
+		/O
+
+	5665	/P
+		/Q
+		/R
+		/S
+
+	6666	/T
+		/U
+		/V
+		/W
+
+	6654	/X
+		/Y
+		/Z
+		/[
+
+	4445	/\
+		/]
+		/^
+		/_
+
+	4454	/'
+		/a
+		/b
+		/c
+
+	5435	/d
+		/e
+		/f
+		/g
+
+	5225	/h
+	 	/i
+		/j
+		/k
+
+	2654	/l
+		/m
+		/n
+		/o
+
+	5544	/p
+		/q
+		/r
+		/s
+
+	3556	/t
+		/u
+		/v
+		/w
+
+	5544	/x
+		/y
+		/z
+		/{
+
+	2444	/|
+		/}
+		/~
+		/R2 (HAS WRONG WIDTH (5) IN LQP02 SPEC			/C218
+
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+	0	/ dummy no chars here
+
+	0435	/ 240
+		/ 241
+		/ 242
+		/ 243
+
+	0504	/ 244
+		/ 245
+		/ 246
+		/ 247
+
+	7747	/ 250
+		/ 251
+		/ 252
+		/ 253
+	
+	0	/ dummy no chars here
+
+	4444	/ 260
+		/ 261
+		/ 262
+		/ 263
+
+	0534	/ 264
+		/ 265
+		/ 266
+		/ 267
+
+	0447	/ 270
+		/ 271
+		/ 272
+		/ 273
+
+	4402	/ 274
+		/ 275
+		/ 276
+		/ 277
+
+	6666	/ 300
+		/ 301
+		/ 302
+		/ 303
+
+	6666	/ 304
+		/ 305
+		/ 306
+		/ 307
+
+	5555	/ 310
+		/ 311
+		/ 312
+		/ 313
+
+	3334	/ 314
+		/ 315
+		/ 316
+		/ 317
+
+	0666	/ 320
+		/ 321
+		/ 322
+		/ 323
+	
+	6666	/ 324
+		/ 325
+		/ 326
+		/ 327
+
+	6666	/ 330
+		/ 331
+		/ 332
+		/ 333
+	
+	6605	/ 334
+		/ 335
+		/ 336
+		/ 337
+
+	4444	/ 340
+		/ 341
+		/ 342
+		/ 343
+
+	4464	/ 344
+		/ 345
+		/ 346
+		/ 347
+
+	4444	/ 350
+		/ 351
+		/ 352
+		/ 353
+
+	4444	/ 354
+		/ 355
+		/ 356
+		/ 357
+
+	0544	/ 360
+		/ 361
+		/ 362
+		/ 363
+	
+	4446	/ 364
+		/ 365
+		/ 366
+		/ 367
+
+	4555	/ 370
+		/ 371
+		/ 372
+		/ 373
+
+	5500	/ 374
+		/ 375
+		/ 376
+		/ 377	
+
+	PGFREE=1000+300-.
+
+	ZBLOCK PGFREE
+
+
+

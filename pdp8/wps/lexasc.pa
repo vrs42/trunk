@@ -1,0 +1,3453 @@
+/  LEXASC
+/ LEXASC is comprised of the LEXICAL ANALYZER (LEXIC), ASCII to BCD CONVERSION
+/  (ASCBCD), and READ LINE BUFFER routines (RDLNBF).
+/
+/EDIT HISTORY:
+/
+
+/021  KMD  23-Sep-85  Add Dutch ifdefs
+/020  KMD  13-Sep-85  Norway & Sweeden specific changes incl ifdef CS3CHRs
+/019  KMD  05-Sep-85  Spanish specific mods. INCL moving PELINE to WPMTHL
+/                       and ifdef PRECUR AND PSTCURs
+/018  KMD  05-Aug-85  a math routine moved in for more math space.
+/017  RCME  24-Jun-85  Allow multinational currency symbols
+/016  RCME  18-APR-85  Allow tech and multinational characters in
+/        field names for list processing
+/
+/----------------- All below refer to V2.0 and earlier ----------------------
+/
+/015  JFS  8-JUN-84  Mods for Am-Brit currency
+/014  WCE  17-AUG-83  CHANGED NUMBER LABEL TO NUMTOK FOR PREFIX
+/013  WCE  01-JUN-83  Expanded Symbol Table by eliminating MTHTBL
+/012  JRF  17-MAR-82  Change the way undef math results are handled
+/         during the equate process for editor math.
+/         Equate will not take place for undef results.
+/JRF  JRF  13-NOV-81  TEMPORARY!! Add call to RTRN1 to init. Line
+/         buffer pointer after reporting an error.
+/         This can be eliminated after WPSMATH backup
+/         code is funtioning for EDITOR Math.  Please
+/         see me if you have any questions.
+/010  GR  06-NOV-81  Added routine to set the result bit in control
+/        block
+/009  DAO  26-OCT-81  ADDED EMATH.PA TO END OF THIS FILE. IT ALWAYS
+/        ASSEMBLED THERE BUT THERE WAS NO ROOM IN
+/        MASTER.INF TO LIST IT ANYMORE
+/008  AIB  22-OCT-81  changed PELINE to print on any line with
+/        cursor position passed in AC
+/007  DAO  25-SEP-81  MINOR NON-FUNCTIONAL CHANGE TO PELINE
+/006  JRF  17-SEP-81  FIX ERROR REPORTING BUG IN PELINE
+/003  DAO  19-AUG-81  Got rid of 'page' psuedo-op at bottom of file
+/        so EMATH.PA can use part of last page
+/002  JRF  28-JUL-81  Added routine to print WPSMATH control block
+/         lines to screen for error reporting
+/001  GR  28-JUL-81  Improved error calls
+/CREATE  JRF  1-JUL-81
+/
+/
+/
+
+/
+/++
+/      LEXIC
+/
+/FUNTIONAL DESCRIPTION:  LEXIC
+/
+/    LEXIC will look at each component of an ASCII string WPS MATH formula,
+/    put it into a format that the caller will recognize, and pass back to
+/    the caller a token that represents what that component was (ex. field
+/    name, number, operator, format information, error).
+/
+/   PSEUDO CODE:  LEXIC
+/
+/Constants:
+/  NuMber_SET_Terminator = 0
+/  Lex_Character_Set_Table_Term = -1
+/  MAXimum_Field_Name_Length = 30
+/
+/     Tokens:
+/  ERROR    = 0
+/  FORMAT   = 1
+/  OPERATor = 2
+/  OPERANd  = 3
+/  NUMTOK   = 4              /M014
+/
+/     Error messages:
+/       ERRor_NFN     "Nonnumeric field name specified in formula."
+/       ERRor_UB      "Unmatched angle brackets"
+/       ERRor_LOF     "Length of field name is greater than 30 characters."
+/       ERRor_FTW     "Formula terminated within a field name."
+/       ERRor_INI     "Illegal number in math expression."
+/       ERRor_ICI     "Illegal character in math expression."
+/  ERRor_MTS     "More than six numeric field specifiers to the right of the
+/      radix point in format statement."
+/  ERRor_MTT     "More than thirteen numeric field specifiers in format
+/      statement."
+/  ERRor_FSD     "Format statement does not contain numeric field specification."
+/  ERRor_EP      "Empty parenthesis."
+/  ERRor_TCI     "This character illegal in this postion in format statement."
+/  ERRor_ICF     "Illegal character in format statement."
+/  ERRor_LPI     "Left parenthesis in format statement not closed with right
+/      parenthesis."
+/
+/LEXICal_analyzer:
+/begin
+/  initialization
+/     set ToKen_VaLue_Buffer_Pointer = TOKen_VALue
+/     set FoRMula_Character_Case_Value = 0
+/     set TOKEN = 0
+/
+/     set AC = 1 (skip all special characters except <lf>)
+/     call LEXical_ReaD_CHARacter
+/
+/  set AC = -(Lex_Character_Set_Table_Term)
+/  call Character_Set_Table_Matcher
+/
+/  case of [FoRMula_Character_Case_Value]
+/     0) Others:  call OTHER_CHARacterS
+/     1) " :  call GET_FORmat
+/     2) OPerator_SET:
+/      call RETurn_OPeRator
+/     3) < :  call GET_FieLd_Name
+/     4) NUMber_SET :
+/      call GET_NUMber_set
+/  end_case
+/
+/  set AC = TOKEN
+/
+/  return
+/end
+/
+/CALLING SEQUENCE:  JMS  LEXIC
+/
+/INPUT PARAMETERS:  AC = 0
+/
+/IMPLICIT INPUT:  FRMCHR, T1, TOKEN
+/
+/OUTPUT PARAMETERS:  AC = TOKEN
+/
+/IMPLICIT OUTPUT:  TKVLBP, FRMCCV, TOKEN, T1
+/
+/COMPLETION CODE:  none
+/
+/SIDE EFFECTS:    FRMCHR is initialized in RTRN1A routine.
+/
+/--
+/
+
+/LEXIC Constants:
+NMSETT=0    / NuMber_SET_Terminator
+LCSTT=-1    / Lex_Character_Set_Table_Terminator
+MAXFNL=36    / MAXimum_Field_Name_Length ( 30(10) characters)
+
+/FoRMula_Character_Case_constants:
+FRMCC1=400    / case 1 - format_set
+FRMCC2=1000    / case 2 - operator_set
+FRMCC3=1400    / case 3 - operand_set
+FRMCC4=2000    / case 4 - number_set
+
+/Tokens:
+ERROR=0      / ERROR
+FORMAT=1    / FORMAT
+OPERAT=2    / OPERATor
+OPERAN=3    / OPERANd
+NUMTOK=4    / NUMBER          /M014
+
+
+/
+LEXIC,  XX      / initialization
+  TAD  (TOKVAL)  / set TKVLBP = TOKVAL
+  DCA  TKVLBP
+  DCA  FRMCCV    / clear FRMCCV
+  DCA  TOKEN    / clear TOKEN
+/
+  AC0001      / flag for LEXRDCHR (skip all special characters
+        / except <lf>
+  JMS  SVNTO8    / go read a character      /m017
+/
+LEXIC1,  TAD  (-LCSTT)  / load minus table terminator
+  JMS  CSTM    / see if theres a match in table LCST table
+        / for this character
+  LCST      / point to Lex_Character_Set_Table
+/
+  CLA
+  TAD  (FCCVSPL)  / get Formula_Character_Case_Value_Subroutine_Pointer_List
+  TAD  FRMCCV    / add case_value to obtain offset into list
+  DCA  T1
+  TAD I  T1    / get address of subroutine
+  DCA  T1    / save it for JMS I
+  JMS I  T1    / JMS to proper routine
+/
+  TAD  TOKEN    / return with TOKEN of this operation
+  JMP I  LEXIC    / return
+/
+/Formula_Character_Case_Value_Subroutine_Pointer_List
+FCCVSPL,OTHERCHARS    / no match in table
+  GETFOR      / GET_FORmat
+  RETOPR      / RETurn_OPeRator
+  GETFLN      / GET_FieLd_Name
+  GETNUM      / GET_NUMber_set
+/
+/
+/
+
+/Character_Set_Table_Matcher:
+/    This routine is called with AC = - table terminator and
+/    caller + 1 = start of table address.
+/    Upon exit the AC = 1 if match or 0 if no match
+/begin
+/  set table_terminator_flag
+/  set character_set_table_pointer
+/C:  while [table character neq table_terminator_flag]
+/     if [character in table = FoRMula_CHaRacter]
+/        set FoRMula_Character_Case_Value
+/        set AC = 1 (match)
+/        escape - C
+/     increment  character_set_table_pointer
+/  end_while
+/
+/  return
+/end
+/
+CSTM,  XX      / Character_Set_Table_Matcher
+  DCA  T1    / save table_terminator_flag
+  TAD I  CSTM    / get start address of table
+  DCA  T2    / save it
+/
+CSTM1,  TAD I  T2    / get character from table
+  TAD  T1    / have we reached the end of the table?
+  SNA CLA      / skip if: we have not reached end of table
+  JMP  CSTM3    / we've reached end of table and theres been no match!
+
+  TAD I  T2    / get character from table
+  AND  P377    / strip case bits
+  CIA
+  TAD  FRMCHR    / get character just read from document
+  SZA CLA      / skip if: characters are same
+  JMP  CSTM2    / characters were different.
+  TAD I  T2    / set FoRMula_Character_Case_Value
+  AND  (3400)
+  CLL RTR;BSW
+  DCA  FRMCCV
+  AC0001      / set AC = 1 (match)
+  JMP  CSTM3
+
+CSTM2,  ISZ  T2    / increment character_set_table_pointer
+  JMP  CSTM1    / try next character in table
+/
+CSTM3,  ISZ  CSTM    / bump return
+  JMP I  CSTM    / return
+/
+FRMCCV,  0      / FoRMula_Character_Case_Value
+/
+/
+
+/***************************************************************************
+/
+/  The following routine has been moved to BCDASC in field 5  /a016
+/  and has been replaced here with the cross field calls to it and  /a016
+/  from it to the RDLNBF routine.          /a016
+/
+/****************************************************************************
+
+/LEXic_ReaD_CHARacter:
+/begin
+/  set Special_CHaRacter_Skip_Flag
+/  repeat
+/  |  read character
+/  |  set FoRMula_CHaRacter = character in AC
+/  |  if [FoRMula_CHaRacter = 0 (buffer terminater for error reporting]
+/  |     escape until
+/  |  if [FoRMula_CHaRacter&177(8) = special_character (ASCII < 41)]
+/  |     posit
+/  |     |  if [FoRMula_CHaRacter&177(8) = "new_line"]
+/  |     |  |  if [FoRMula_CHaRacter = "special_new_line character"]
+/  |     |  |     quit posit
+/  |     |  |
+/  |     |  orif [Special_CHaRacter_Skip_Flag = don't skip spaces or tabs]
+/  |     |  |  if [FoRMula_CHaRacter&177(8) = "space"]
+/  |     |  |  |  if [FoRMula_CHaRacter = "special_space"]
+/  |     |  |  |     quit posit
+/  |     |  |  else
+/  |     |  |     if [FoRMula_CHaRacter&177(8) <> "tab"]
+/  |     |  |        quit posit
+/  |     |  else
+/  |     |     set FoRMula_CHaRacter = 0
+/  |     end_posit
+/  |
+/  until [FoRMula_CHaRacter neq 0 (valid character)]
+/
+/  set FoRMula_CHaRacter = FoRMula_CHaRacter&177(8) (strip mode bits)
+/
+/  return
+/
+/!!!!!!!!!!!! special text format codes (in text buffer) !!!!!!!!!!!!!!!!!!!!!
+/!! ECMDFL  =   7    /"line_modified_flag"
+/!! ECRMFL  = 207    /"ruler_modified_flag"
+/!! ECSTOV  =  10    /"start_dead_key_sequence"
+/!! ECTAB  =  11    /"tab"
+/!! ECNWLN  =  12    /"new_line"
+/!! ECWWLN  =2012    /"wrapped_line"
+/!! ECHYLN  =2412    /"wrapped_line_with_hyphen"
+/!! ECSLPT  =3412    /"select_point"
+/!! ECPGRF  =1012    /"end_paragraph"
+/!! ECENLN  =1412    /"centered_line"
+/!! ECNWPG  =  14    /"new_page"
+/!! ECPMRK  =2014    /"page_marker"
+/!! ECNDOV  =  15    /"end_dead_key_sequence"
+/!! ECSPC  =  40    /"space"
+/!! ECJSPC  =2040    /"justifing_space"
+/!! ECTMRK  =3040    /"position_marker"
+/!! ECCMRK  =3440    /"rejustification_positon_marker"
+/!! ECPHYP  =2055    /"printing_break_hyphen"
+/!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/d016  LEXRDCHAR,
+/d016    XX
+/d016    DCA  SCHRSF    / set Special_CHaRacter_Skip_Flag
+/d016          / if SCHRSF = 1 skip all spec. chars. except <lf>
+/d016          / If SCHRSF = 0 skip all spec. chars. except <lf>,
+/d016          /                space, and tab.
+/d016  /
+/d016  /
+/d016  /LEXRD1,  JMS  RDLNBF    / ReaD_LiNe_BuFfer character
+/d016  /  DCA  FRMCHR    / save character
+/d016  /
+/d016  /  TAD  FRMCHR
+/d016  /  SNA      / skip if: character <> 0
+/d016  /  JMP  LEXRD7    / buf. term. (0) for error reporting detected
+/d016  /  AND  P177    / ignore attribute bits for now
+/d016  /  TAD  (-41    / see if special character
+/d016  /  SMA
+/d016  /  JMP  LEXRD6    / not special char. - so hold onto it in FRMCHR
+/d016  /
+/d016  /  TAD  (-ECNWLN+41)  / is character = "new_line"?
+/d016  /  SZA CLA      / skip if: so
+/d016  /  JMP  LEXRD2    / nope. go check for other special characters
+/d016  /  JMP  LEXRD3    / check for = "wrapped_line", "wrapped_line_with_-
+/d016  /        /  hyphen", "select_point", "end_paragraph", or
+/d016  /        /   "centered_line"?  (whew!!)
+/d016  /
+/d016  /LEXRD2,  TAD  SCHRSF    / ignore spaces and tabs?
+/d016  /  SZA CLA      / skip if: don't ignore
+/d016  /  JMP  LEXRD5    / ignore
+/d016  /  TAD  FRMCHR
+/d016  /  AND  P177
+/d016  /  TAD  (-ECSPC)  / is character a "space"?
+/d016  /  SZA      / skip if: so
+/d016  /  JMP  LEXRD4    / no - go check for "tab"?
+/d016  /LEXRD3,  TAD  FRMCHR    / is character a "wrapped_line", "wrapped_line_with_-
+/d016  /        /  hyphen", "select_point", "end_paragraph", "center-
+/d016  /        /   ed_line", "justify_space", "position_marker", or
+/d016  /        /    "rejustification_positon_marker"?
+/d016  /  AND  (3000)
+/d016  /  SZA CLA      / skip if: not
+/d016  /  JMP  LEXRD5    / it's one of the above so ignore
+/d016  /        / this character!
+/d016  /  JMP  LEXRD6    / hold onto character in FRMCHR
+/d016  /LEXRD4,  TAD  (-ECTAB+ECSPC)  / is character a "tab"?
+/d016  /  SZA CLA      / skip if: so
+/d016  /
+/d016  /LEXRD5,  DCA  FRMCHR    / set FRMCHR = 0
+/d016  /
+/d016  /LEXRD6,  CLA
+/d016  /  TAD  FRMCHR    / do we have a valid char.?
+/d016  /  SNA      / skip if: so
+/d016  /  JMP  LEXRD1    / no - well go get one!!!
+/d016  //
+/d016  /LEXRD7,  AND  P177    / get rid of mode bits
+/d016  /  DCA  FRMCHR    / restore character less mode bits.
+/d016  //
+/d016  /  JMP I  LEXRDCHAR  / return
+/d016  //
+/d016  /SCHRSF,  0      / Special_CHaRacter_Skip_Flag
+/
+/*************************** End of deleted code ********************  /a016
+/
+/  The next section of code replaces the calls to the above, and  /a016
+/  deals with the cross field call to the RDLNBF routine from  /a016
+/  LEXRDCHAR              /a016
+/
+/****************************************************************************
+
+LEXRDCHAR,
+  XX
+  CDFMYF      / Make sure the data field is this field/a016
+        / so that the routine knows which field  /a016
+  CIFLP      / to return to.  Change to BCDASC field  /a016
+  JMS  LXRDCH    / Make the cross field call.    /a016
+  DCA  FRMCHR    / Save the FoRMula_CHaRacter passed back/a016
+  JMP I  LEXRDCHAR  / And return with results    /a016
+
+LXRDLNB,XX      / Cross field callable version of RDLNBF/a016
+  RDF      / Get the field it came from    /a016
+  TAD  CIDF0    / Make up the CIDF instruction    /a016
+  DCA  LXRDRT    / Save it for the return    /a016
+  CDFMYF      / Reset data field here      /a016
+  JMS  RDLNBF    / Make the actual call      /a016
+LXRDRT,  XX      / Room for CIDF instruction back to call/a016
+  JMP I  LXRDLNB    / Return        /a016
+
+
+/****************************************************************************
+/
+/  This routine has been moved here to make room in the    /a016
+/  GET_Field_Name routine to handle dead key sequences as single  /a016
+/  printable charcaters without overflowing the buffer area  /a016
+/
+/****************************************************************************
+/
+/ GET_FORmat
+/ FORMAt_Word bit assignments:
+ASTBIT=4000    / ASTerisk_BIT in FORMAt_Word
+CURBIT=2000    / CURrency_BIT in FORMAt_Word
+SEPBIT=1000    / SEParator_BIT in FORMAt_Word
+PARESN=60    / PAREnthetical_minus_SigN
+TRAISN=40    / TRAIling_minus_SigN
+LEADSN=20    / LEADing_minus_SigN
+/
+FORMAW,  0    / FORMAt_Word: * $ , T T T S S H H H H
+      /  T = tail count (no. of digits after radix point + 1)
+      /  S = sign bits  0 or 1 = leading minus
+      /           2 = trailing minus
+      /           3 = parenthetical minus
+      /  H = head count (no. of digits before radix point)
+/
+/
+GETFOR,  XX      / GET_FORmat subroutine
+/ Initialization
+  TAD  (-KWHOLE-1)  / init. for left of radix character digit count
+  DCA  FDCLTR
+  TAD  (-KWHOLE-1)  / init. left + right of radix character digit count
+        /  to left of radix character count
+  DCA  FDCLRT
+  DCA  LSTCHR    / init. LaST_CHaracter_Read
+  DCA  SUMCHR    / init. SUMmary_of_CHaRacters_read
+  DCA  FORMAW    / init. FORMAt_Word
+/
+/ init. NUMFLG - enable read of all legal number field characters except ')'
+  TAD  (MINUSF+LPMSF+QUOTEF+ASTERF+SEPARF+DIGITF+CSYMF+RSYMF)
+  DCA  NUMFLG    / init. NUMber_FLaGs
+
+/
+/ Analyze format statement by looking for a:
+/  - radix character
+/   - minus sign
+/    - left parenthesis (implied minus)
+/     - right parenthesis
+/      - plus sign
+/       - currency symbol
+/        - separator
+/         - asterisk
+/
+/ NOTE - PORTIONS OF AFCHAR ROUTINE RESIDE ON NEXT PAGE.    /A002
+AFCHAR,  JMS  SVNTO8    / read next character
+/ BELOW IS THE RE-ENTRY POINT FOR BAD CURRENCY CHARCTERS. THEY WILL
+/ BE RE-PARSED AND THE CORRECT ERROR MESSAGE GENERATED. WHEN ENTRY
+/ IS VIA THIS LABLE ALL FLAGS WILL BE DISABLED.
+FAPARS,  TAD  (FCLST-3)  / init. pointer for Format_Character_LiST table
+  DCA  X1    /  save it
+
+AFCHA1,  ISZ  X1    / increment the pointer by 2
+  ISZ  X1
+  TAD I  X1    / read table entry
+  SNA      / skip if: neq 0 (table terminater)
+  JMP  RERICF    / error - "Illegal character in format statement."
+
+  TAD  FRMCHR    / match character to table entry.
+  SZA CLA      / skip if: match
+  JMP  AFCHA1
+  TAD I  X1    / ok for this character here?    /A015
+  JMP  AFCHA4    / check char. and goto proper handler  /A002
+AFCHA3,  JMP I  GETFOR    / return to caller
+
+/*************************** End of moved code area ******************  /a016
+
+/
+/OTHER_CHARacterS:
+/
+
+/begin
+/  set TOKen_VALue = ERRor_ICI ("Illegal character in math expression.")
+/  set TOKEN = ERROR
+/
+/  return
+/end
+/
+OTHERCHARS,
+  XX
+  TAD  (ERRICI)  / error - "Illegal character in math expression."
+  DCA  TOKVAL
+  DCA  TOKEN
+/
+  JMP I  OTHERCHARS  / RETURN
+/
+/
+/
+/RETurn_OPeRator:
+/
+/begin
+/  set TOKen_VALue = FoRMula_CHaRacter
+/  set TOKEN = OPERATor
+/
+/  return
+/end
+RETOPR,  XX
+  TAD  FRMCHR  / Get the character that is the operator
+  DCA  TOKVAL
+  TAD  (OPERAT)  /show this character was an operator
+  DCA  TOKEN
+/
+/
+/
+/
+/OTMP  INARW    / NO - DO RUBOUT AGAIN
+/  JMS  INAROR    / Got a space so rub it out    /A058
+/  JMP  INALOP    / YES - DONE, GO GET NEXT CHARACTER
+/
+/INACR,  ISZ  INA    / NORMAL SKIP RETURN
+/INAOVR,  DCA  INACHR    / ZERO CHARACTER FOR CLEAR AC RETURN TO CALLER
+/INASPC,  JMS  INAST1    / CHANGE TO USER FIELD, SET RESULT POINTER
+/  DCA I  T1    / CLEAR LAST LOCATION IN USER'S BUFFER AREA
+/  TAD  INANUM    / GET THE rator
+/
+/
+/
+/
+/
+/  DCA  TOKEN
+/
+  JMP I  RETOPR    / return
+
+/  THE FOLLOWING ROUTINES MOVED HERE TO MAKE ROOM ON EDIT 013
+
+/  Separators are to be ignored as per functional spec.
+/  "," - English, "." - some natural languages
+ASEPARATOR,
+IFDEF PRECUR < /IF PRE-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+ASTERF+CSYMF)/ disable: '(', '%', '*', '$'
+        >
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+ASTERF)/ disable: '(', '%', '*'
+        >
+
+  JMP  AFLAG    / GO HANDLE FLAG BITS      /A013
+/D013  JMS  FLGCTL
+/D013  JMP  NOTDI2    / return
+
+/  The character is an ASTERISK
+AASTERISK,
+IFDEF PRECUR < /IF PRE-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+CSYMF)  / disable: '(', '%', '$'
+        >
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF)  / disable: '(', '%'
+        >
+
+  JMP  AFLAG    / GO HANDLE FLAG BITS      /A013
+/D013  JMS  FLGCTL
+/D013  JMP  NOTDI2    / return
+
+/  The character is a PERCENT symbol
+APERCENT,
+  TAD  (PERCEF)  / disable: '%'
+AFLAG,  JMS  FLGCTL
+  JMP  NOTDI2    / return
+
+/****************************************************************************
+/
+/  FLaG_ConTroL moved with this edit for space reasons    /a016
+/
+/****************************************************************************
+/
+/  FLaG_ConTroL
+/  Enter with AC bits set to NUMFLG bits you want disabled.
+/d016  FLGCTL,  XX
+/d016    CMA
+/d016    AND  NUMFLG    / AND NUMFLG with complemented bits in AC
+/d016    DCA  NUMFLG    / update NUMFLG
+/d016    JMP I  FLGCTL
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/****************************************************************************
+/
+/  W  A  R  N  I  N  G    /arcm
+/                  /arcm
+/  THIS ROUTINE MUST NOT BE MOVED WITHOUT CHANGING WPF1    /arcm
+/  Called as cross field routine from List Processing    /arcm
+/
+/****************************************************************************
+
+
+/ Blaster hook.  This code is used to link to the routine in 2CMF and  /a017
+/    allow pages of panel memory to be blased into user  /a017
+/    memory.              /a017
+
+MBHOOK,  XX    / Start of blast hook routine      /a017
+  DCA  BLACS1  / Save accumulator        /a017
+  RDF    / Read the data field to preserve it    /a017
+  TAD  CDF0  / Make the data return instruction(used by BLST)/a017
+  DCA  BHKEXI  / Save for return        /a017
+  AC0002    / Make the instruction field instr(For LP Xcall)/a017
+  TAD  BHKEXI  /            /a017
+  DCA  BHKEXI+1 /Save for return        /a017
+/  The next two lines swaped to allow LP to use this hook. KMD  /a017
+  TAD I  MBHOOK  / Get the table entry number      /a017
+  CDFMYF    / Data field to here        /a017
+  MQL    / Push it into MQ        /a017
+  TAD  BLACS1  / Get the AC back        /a017
+  ISZ  MBHOOK  / Increment return over arg.      /a017
+  CIFMNU    / Blaster is in Menu field      /a017
+  IOF    / Disable interups over blaster call    /a017
+  JMS  BLASTR  / Call the blaster        /a017
+  ISZ  MBHOOK  / Allow skip returns (wrong way on purpose)  /a017
+BHKEXI,  XX    / Make a CDF here        /a017
+  XX    / Make a CIF here        /a017
+  JMP I  MBHOOK  / Return          /a017
+
+BLACS1,  0    / Accumulator save        /a017
+
+
+/ These locations are shared by the routines specified in order to conserve space.
+/ The first three have been moved to zero page        /m017
+/d017  FDCLTR,    / Digit_Count_Left_Then_Right of radix character
+/d017      /  first -KWHOLE-1 then -KFRACTON-1 (used by GETFOR)
+/d017  FNCHRC,  0  / Field_Name_CHaRacter_Count (used by GETFLN)
+/
+/d017  FDCLRT,    / Digit_Count_Left_Right_Total of radix character (used by GETFOR)
+/d017  TKVLBP,  0  / ToKen_VaLue_Buffer_Pointer (used by GETFLN and GETNUM)
+/
+/d017  NUMCC,    / NUMeric_Character_Count (used by GETNUM)
+/d017  FNCHCD,    / Field_Nax character
+/d017      /  first -KWHOLE-1 then -KFRACTON-1 (used by GETFOR)
+/d017  FNCHRC,  0  / Field_Name_CHaRacter_Count (used by GETFLN)
+/
+/d017  FDCLRT,    / Digit_Count_Left_Right_Total of radix character (used by GETFOR)
+/d017  TKVLBP,  0  / ToKen_VaLue_Buffer_Pointer (used by GETFLN and GETNUM)
+/
+/d017  NUMCC,    / NUMeric_Character_Count (used by GETNUM)
+/d017  FNCHCD,    / Field_Na017
+/ handling of multinational character currency symbols      /a017
+
+GETFLN,  XX    / Blast hook to GET_FieLd_Name routine    /a017
+  JMS  MBHOOK  / Call the hook          /a017
+  GETFLH    / for the field name get routine.    /a017
+  JMP I  GETFLN  / Return with results        /a017
+
+/GET_FieLd_Name:
+/begin
+/  initialization
+/     set Field_Name_CHaRacter_Count = - (MAXimum_Field_Name_Length + 1)
+/     set Field_Name_CHaracter_Count_with_Deads = - (MAXFNL +1)
+/
+/  posit
+/  |  call LEXic_ReaD_CHARacter
+/  |  if [FoRMula_CHaRacter neq ":"]
+/  |     ERRor_NFN ("Nonnumeric field name in formula.")
+/  |     quit posit
+/  |  repeat
+/  |  |  incrament Field_Name_CHar_Count_with_Deads
+/  |  |  if [Field_Name_CHar_Count_with_Deads < MAXimum_Field_Name_Length]
+/  |  |     increment ToKen_VaLue_Buffer_Pointer
+/  |  |     install character in TOKen_VaLue_Buffer
+/  |  |  if [DEAD_KEY_sequence_flag = 0]
+/  |  |     increment Field_Name_CHaRacter_Count
+/  |  |     if [Field_Name_CHaRacter_Count > MAXimum_Field_Name_Length]
+/  |  |        ERRor_LOF ("Length of field name is greater than 30 characters.")
+/  |  |        quit posit
+/  |  |  set AC = 0 (skip all special characters except space, tab, and <lf>)
+/  |  |  call LEXic_ReaD_CHARacter
+/  |  |  if [FoRMula_CHaRacter = "new_line"]
+/  |  |     ERRor_FTW ("Formula terminated within a field name.")
+/  |  |     quit posit
+/  |  |  if [FoRMula_CHaRacter = "<"]
+/  |  |     ERRor_UB ("Unmatched angle brackets")
+/  |  |     quit posit
+/  |  until [FoRMula_CHaRacter = ">"]
+/  |
+/  |  set TOKen_VALue = number of characters in field name
+/  |  terminate buffer (set bit0 in addr. of last word in ToKen_VaLue_Buffer)
+/  |  set AC = OPERANd
+/  |
+/  else (posit)
+/     set TOKen_VALue = error
+/     set AC = ERROR
+/  end_posit
+/
+/  set TOKEN = AC
+/
+/  return
+/end
+/
+/d017  GETFLN,  XX
+/d017    TAD  (-MAXFNL-1)  / set FNCHRC
+/d017    DCA  FNCHRC
+/d017  /d017  DCA  DEADKEY    / Zero dead key flag just in case  /a016
+/d017    TAD  FNCHRC    / Copy this to the other counter  /a016
+/d017    DCA  FNCHCD    / Field_Name_CHar_Count_with_Deadkeys  /a016
+/d017  /
+/d017    JMS  LEXRDCHAR  / read character following "<" of field name.
+/d017    TAD  FRMCHR    / get character just read
+/d017    TAD  (-":+200)  / is character = ":"?
+/d017    SZA CLA      / skip if: character = ":"
+/d017    JMP  RERNFN    / error - "Nonnumeric field name in formula."
+/d017  /
+/d017  GETFL1,  ISZ  FNCHCD    / inc Field_Name_CHar_Count_with_Deads  /a016
+/d017    TAD  FNCHCD    / test the result for positive or zero  /a016
+/d017    SMA CLA      / Is the field name (inc deads) 30 long?/a016
+/d017    JMP  GETFL2    / Yes, skip to test printable char length/a016
+/d017    ISZ  TKVLBP    / No, increment ToKen_VaLue_Buffer_Pointer
+/d017    TAD  FRMCHR    / Get the character to save    /m016
+/d017    DCA I  TKVLBP    / Install it in TOKen_VaLue_Buffer  /m016
+/d017  GETFL2,  TAD  DEADKEY    / Test the dead key sequence status  /a016
+/d017    SNA CLA      / Are we currently processing a dead key?/a016
+/d017    ISZ  FNCHRC    / No, increment Field_Name_CHaRacter_Count
+/d017    SKP      / still less than 30 characters in name./m016
+/d017    JMP  RERLOF    / error - "Length of field name is greater
+/d017          /          than 30 characters."
+/d017
+/d017    JMS  LEXRDCHAR  / get another character.
+/d017
+/d017    TAD  FRMCHR    / get character just read
+/d017    TAD  (-ECNWLN)  / is it a "new_line"? (line_feed)
+/d017    SNA      / skip if: not
+/d017    JMP  RERFTW    / error - "Formula terminated within a field name."
+/d017
+/d017  GETFL3,  TAD  (ECNWLN-"<+200)  / is character a "<"?
+/d017    SNA      / skip if: not
+/d017    JMP  RERUB    / error - "Unmatched angle brackets."
+/d017
+/d017  GETFL4,  TAD  ("<-">)    / is FRMCHR = ">"?
+/d017    SZA CLA      / skip if: so
+/d017    JMP  GETFL1    / save this character and get another.
+/d017
+/d017    TAD  FNCHCD    /          /m016
+/d017    SMA      / Are there more than 30 chars inc deads?/a016
+/d017    AC7777      / Yes, there are only a max of 30 in buf/a016
+/d017    TAD  (MAXFNL+1)  / set TOKen_VALue = number of characters in field name
+/d017    DCA  TOKVAL
+/d017    AC4000      / set terminator bit in last word of ToKen_VaLue_Buffer
+/d017    TAD I  TKVLBP
+/d017    DCA I  TKVLBP    / terminate buffer
+/d017    TAD  (OPERAN)  / set AC = OPERANd
+/d017    JMP  GETFL7    / leave GETFLN - no errors encounted.  everthing a.o.k!
+/d017  /
+/d017  RERFTW,  TAD  (ERRFTW-ERRLOF)  / error - "Formula terminated within a field name."
+/d017  RERLOF,  TAD  (ERRLOF-ERRUB)  / error - "Length of field name is greater
+/d017          /          than 30 characters."
+/d017  RERUB,  TAD  (ERRUB-ERRNFN)  / error - "Unmatched angle brackets."
+/d017  RERNFN,  TAD  (ERRNFN)  / error - "Nonnumeric field name in formula."
+/d017    DCA  TOKVAL    / set TOKen_VALue = error number
+/d017  /
+/d017  GETFL7,  DCA  TOKEN    / set TOKEN
+/d017  /
+/d017  /
+/d017    JMP I  GETFLN
+
+
+
+/
+/GET_NUMber_set:
+/  The GET_NUMber_set routine reads numeric characters from an input buffer
+/  and loads them into the TOKen_VALue buffer.  It then calls an ASCII to
+/  BCD number conversion routine that reads the ASCII number in the TOKVAL
+/  buffer, converts it to BCD form, and returns it to the TOKVAL buffer as
+/  a BCD number.
+/
+/  Natural language examples:  Dutch  - f1.742,60
+/                                   French - 1.742,60F
+/                                   U.K.   - #1,742.6 (currency sym. -  English pound)
+/begin
+/
+/  posit
+/  |  set NUMeric_Character_Count = -MAXimum_Field_Name_Length - 1
+/  |
+/  |  repeat
+/  |  |  increment NUMeric_Character_Count
+/  |  |  if [NUMeric_Character_Count = 0]
+/  |  |     error - quit posit
+/  |  |  install FoRMula_CHaRacter in ToKen_VaLue_Buffer
+/  |  |  increment ToKen_VaLue_Buffer_Pointer
+/  |  |
+/  |  |  call LEXical_ReaD_CHARacter
+/  |  |  call Character_Set_Table_Matcher
+/  |  until [no match condition]
+/  |
+/  |  terminate ToKen_VaLue_Buffer
+/  |
+/  |  call ASCii_BCD routine
+/  |  if [error]
+/  |  |  set TOKen_VALue = error_number
+/  |  |  adjust offset in LiNE_BUFfer for error display
+/  |  else
+/  |     reset buffer pointer -1 character
+/  |     get NUMBER token
+/  |
+/  else
+/     set TOKen_VALue = error_number
+/     get ERROR token
+/  end_posit
+/
+/  set TOKEN
+/
+/  return
+/end
+/
+GETNUM,  XX
+  TAD  (-MAXFNL-1)  / set NUMeric_Character_Count = -MAXimum_Field_Name_Length - 1
+  DCA  NUMCC
+/
+GETNU1,  ISZ  NUMCC    / increment NUMeric_Character_Count
+  JMP  GETNU2    / count ok.  keep on truckin!!
+  TAD  (ERRINI)  / error - "Illegal number in math expression."  /A015
+  DCA  TOKVAL    / set TOKVAL, AC now equals 0, now set TOKEN for error  /A015
+GETNU4,  DCA  TOKEN    / set TOKEN          /A015
+  JMP I  GETNUM    / return          /A015
+GETNU2,  TAD  FRMCHR    / install FoRMula_CHaRacter in ToKen_VaLue_Buffer
+  DCA I  TKVLBP
+  ISZ  TKVLBP    / increment ToKen_VaLue_Buffer_Pointer
+
+  JMS  SVNTO8    / read the next character    /m017
+
+  JMS  CSTM    / see if there's a match for the char. just read
+  NUMSET      / address of table to match char. with
+  SZA CLA      / skip if: no match found
+  JMP  GETNU1    / save the character and get the next one
+/
+  DCA I  TKVLBP    / terminate ToKen_VaLue_Buffer
+/
+  JMS  ASCBCD    / convert number to BCD format
+  TOKVAL      / address of ASCII numeric string - 1
+  TOKVAL      / place result in this buffer
+  JMP  GETNU6    / error return - error # in AC.    /M002
+/
+  AC7777      / reset buffer pointer back 1 character
+  JMS  RDLNBF
+/
+  TAD  (NUMTOK)  / get NUMBER token      /M014
+  JMP  GETNU4
+/
+/
+/
+/ THE PURPOSE OF THIS ROUTINE IS TO OFFSET LNEBUF POINTER USED BY  /A002
+/  THE RDLNBF ROUTINE FOR THE PURPOSE OF BEING ABLE TO POINT TO THE  /A002
+/   CHARACTER AT ERROR WITHIN A NUMERIC STRING FOR DISPLAY ON SCREEN.  /A002
+GETNU6,  DCA  TOKVAL    / PLACE ERROR NUMBER IN TOKVAL    /A002
+  TAD  (MAXFNL+1)  / COMPUTE REVERSE OFFSET OF POINTER IN  /A002
+        /  RDLNBF        /A002
+  TAD  NUMCC              /A002
+  CMA      / MINUS # OF CHARACTERS READ BY GETNUM  /A002
+  TAD  CCFMEH    / GET NUMBER OF CHARS. READ UPTO ERROR  /A002
+  DCA  NUMCC    / HOLD RESULT        /A002
+GETNU7,  AC7777      / BACK RDLNBF POINTER BACK 1 CHAR.  /A002
+  JMS  RDLNBF              /A002
+  ISZ  NUMCC    / INC. AND SKIP IF FINISHED    /A002
+  JMP  GETNU7    / DO AGAIN        /A002
+  JMP  GETNU4    / FINISHED        /A002
+
+/****************************************************************************
+/
+/  The following code has been moved back one page to make room  /a016
+/  for the changes in GET_Field_Name to handle dead key sequences  /a016
+/  as single printable characters without overflowing the buffers  /a016
+/
+/****************************************************************************
+/
+/d016  / GET_FORmat
+/d016  / FORMAt_Word bit assignments:
+/d016  ASTBIT=4000    / ASTerisk_BIT in FORMAt_Word
+/d016  CURBIT=2000    / CURrency_BIT in FORMAt_Word
+/d016  SEPBIT=1000    / SEParator_BIT in FORMAt_Word
+/d016  PARESN=60    / PAREnthetical_minus_SigN
+/d016  TRAISN=40    / TRAIling_minus_SigN
+/d016  LEADSN=20    / LEADing_minus_SigN
+/d016  /
+/d016  FORMAW,  0    / FORMAt_Word: * $ , T T T S S H H H H
+/d016        /  T = tail count (no. of digits after radix point + 1)
+/d016        /  S = sign bits  0 or 1 = leading minus
+/d016        /           2 = trailing minus
+/d016        /           3 = parenthetical minus
+/d016        /  H = head count (no. of digits before radix point)
+/d016  /
+/d016  /
+/d016  GETFOR,  XX      / GET_FORmat subroutine
+/d016  / Initialization
+/d016    TAD  (-KWHOLE-1)  / init. for left of radix character digit count
+/d016    DCA  FDCLTR
+/d016    TAD  (-KWHOLE-1)  / init. left + right of radix character digit count
+/d016          /  to left of radix character count
+/d016    DCA  FDCLRT
+/d016    DCA  LSTCHR    / init. LaST_CHaracter_Read
+/d016    DCA  SUMCHR    / init. SUMmary_of_CHaRacters_read
+/d016    DCA  FORMAW    / init. FORMAt_Word
+/d016  /
+/d016  / init. NUMFLG - enable read of all legal number field characters except ')'
+/d016    TAD  (MINUSF+LPMSF+QUOTEF+ASTERF+SEPARF+DIGITF+CSYMF+RSYMF)
+/d016    DCA  NUMFLG    / init. NUMber_FLaGs
+/d016
+/d016  /
+/d016  / Analyze format statement by looking for a:
+/d016  /  - radix character
+/d016  /   - minus sign
+/d016  /    - left parenthesis (implied minus)
+/d016  /     - right parenthesis
+/d016  /      - plus sign
+/d016  /       - currency symbol
+/d016  /        - separator
+/d016  /         - asterisk
+/d016  /
+/d016  / NOTE - PORTIONS OF AFCHAR ROUTINE RESIDE ON NEXT PAGE.    /A002
+/d016  AFCHAR,  JMS  LEXRDCHAR  / read next character
+/d016    TAD  (FCLST-3)  / init. pointer for Format_Character_LiST table
+/d016    DCA  X1    /  save it
+/d016
+/d016  AFCHA1,  ISZ  X1    / increment the pointer by 2
+/d016    ISZ  X1
+/d016    TAD I  X1    / read table entry
+/d016    SNA      / skip if: neq 0 (table terminater)
+/d016    JMP  RERICF    / error - "Illegal character in format statement."
+/d016
+/d016    TAD  FRMCHR    / match character to table entry.
+/d016    SZA CLA      / skip if: match
+/d016    JMP  AFCHA1
+/d016    TAD I  X1    / ok for this character here?    /A015
+/d016    JMP  AFCHA4    / check char. and goto proper handler  /A002
+/d016  AFCHA3,  JMP I  GETFOR    / return to caller
+
+/************************ End of moved code *************************  /a016
+
+/****************************************************************************
+/ SVNTO8  Routine to read a character using LEXRDCHAR and, if it  /a017
+/    is a dead key sequence, to convert it back to an 8 bit  /a017
+/    character.  This is used only when processing numeric  /a017
+/    fields, to enable use of MCS currency symbols, but is  /a017
+/    not used by field name interpreting routines to retain  /a017
+/    compatibility with other modules.      /a017
+/****************************************************************************
+
+SVNTO8,  XX      / Seven to eight bit routine    /a017
+  JMS  LEXRDCHR  / Read a character      /a017
+  TAD  DEADKEY    / Test for dead key sequence    /a017
+  SNA CLA      / Are we in a dead key sequence?  /a017
+  JMP  NO8    / No, just exit.      /a017
+
+  JMS  LEXRDCHAR  / Read the first character in sequence  /a017
+  TAD  FRMCHR    / Get the next character    /a017
+  TAD  (-ECSPC)  / Test for 8 bit introducer    /a017
+  SZA CLA      / Is this a space?      /a017
+  JMP  NO8NXC    / No, so skip rest of sequence
+
+  JMS  LEXRDCHAR  / Skip the character set identifier  /a017
+  JMS  LEXRDCHAR  / Get the 7 bit representation of char  /a017
+  TAD  FRMCHR    / Get the character      /a017
+  TAD  (200)    / Make it 8 bit        /a017
+  DCA  FRMCHR    / Save the new 8 bit representation  /a017
+
+NO8NXC,  JMS  RDLNBF    / Get the next character without  /a017
+  TAD  (-ECNDOV)  / changing FRMCHR.      /a017
+  SZA CLA      / Is this an End Dead Sequence char?  /a017
+  JMP  NO8NXC    / No, keep looking till it is    /a017
+
+NO8,  DCA  DEADKEY    / Exited dead key sequence, so zero flag/a017
+  JMP I  SVNTO8    / Return with 8 bit in FRMCHR    /a017
+
+DEADKEY,0
+
+/THIS ROUTINE MOVED HERE FROM TMATH ON EDIT 018 TO MAKE MORE ROOM ON  /A018
+/THE PAGE FOR TRANSLATED TABLES.          /A018
+
+POPSTK,  XX    /"POP OFF THE STACK" ROUTINE      /A018
+  CLA    /CLEAR AC          /A018
+  TAD I  POSTSP  /GET THE VALUE ON TOP OF THE STACK    /A018
+  SWP    /PUT IT IN THE MQ REG        /A018
+  AC7777    /AC = -1          /A018
+  TAD  POSTSP  /DECREMENT THE STACK POINTER      /A018
+  DCA  POSTSP  /SAVE IT          /A018
+  SWP    /GET POPPED VALUE BACK TO AC FROM MQ    /A018
+  JMP I  POPSTK  /RETURN TO CALLER WITH THE VALUE IN THE AC  /A018
+
+/ ******* END OF MOVED ROUTINE *******          /A018
+/ ******* THIS ROUTINE MOVED HERE FROM NEXT PAGE *******        /A019
+/ The character is a RADIX POINT
+IFDEF PRECUR < /IF PRE-DIGIT CURRENCY SYMBOL
+FARADI,  TAD  (LPMSF+ASTERF+RSYMF+SEPARF+CSYMF)
+        / disable: '(', '*', '.', ',', '$'
+        >
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL
+FARADI,  TAD  (LPMSF+ASTERF+RSYMF+SEPARF)
+        / disable: '(', '*', '.', ','
+        >
+
+  JMS  FLGCTL    / JMS to FLaG_ConTrol
+  TAD  FDCLTR    / set HEADER count in FORMA_Word
+  TAD  (KWHOLE+1
+  JMS  SFWORD
+  TAD  (-KFRACTION-1)  / set FDCLTR for right of radix character
+  DCA  FDCLTR
+  JMP  AFCHA2    / return
+/ ******* END OF MOVED ROUTINE *******          /A018
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/****************************************************************************
+/*    W  A  R  N  I  N  G        *
+/*                      *
+/*         THIS AREA BLASTED BY GET_FIELD_NAME ROUTINE        *
+/****************************************************************************
+/ The following label is defined in WPF1, and should not be moved from here
+
+MATHOL=.
+
+/ AFCHA4 is part of the AFCHAR routine on the preceding page.  It      /A002
+/  resides here due to lack of space on preceding page.                /A002
+AFCHA4,      /AC HAS SUBJECT CHAR        /A015
+  AND  NUMFLG
+  SNA      / skip if: ok
+  JMP  RERTCI    / error - "This character is not legal in this
+        /          position in format statement."
+  DCA  FUSLCT    / set FUSLCT for update of SUMCHR and LSTCHR
+
+  TAD I  X1    / get the address of proper handler
+  DCA  T1    /  save it for JMP I coming up
+  JMP I  T1    / do routine selected from table.
+
+AFCHA2,  TAD  FUSLCT    / set flags in LSTCHR and SUMCHR
+  JMS  USALCF    / USALCF is in ASCBCD routine
+  JMP  AFCHAR    / next character please!
+/
+/
+/
+
+/
+/Format_Character_LiSt_Table:
+/  -char.    flag     character
+/         handler
+/
+FCLST,
+IFDEF ENGLSH <
+  -".+200;  RSYMF;    FARADI;    / radix character
+    >
+IFDEF ITALIAN <
+  -",+200;  RSYMF;    FARADI;    / radix character
+    >
+IFDEF SPANISH <                /A019
+  -",+200;  RSYMF;    FARADI;    / radix character  /A019
+    >              /A019
+IFDEF DUTCH <                /A019
+  -",+200;  RSYMF;    FARADI;    / radix character  /A019
+    >              /A019
+IFDEF V30NOR <                /A020
+  -",+200;  RSYMF;    FARADI;    / radix character  /A020
+    >              /A020
+IFDEF V30SWE <                /A020
+  -",+200;  RSYMF;    FARADI;    / radix character  /A020
+    >              /A020
+  -"-+200;  MINUSF;   FASIGN;    / minus sign
+  -"(+200;  LPMSF;    FALPAR;    / left paren.
+  -")+200;  RPAREF;   FARPAR;    / right paren.
+IFDEF ENGLSH <
+  -"$+200;  CSYMF;    FACURR;    / currency symbol, Am.
+  -"#+200;  CSYMF;    FACURR;    / currency symbol, Br.
+  -",+200;  SEPARF;   FASEPA;    / seperator
+    >
+IFDEF ITALIAN <
+  -"$+200;  CSYMF;    FACURR;    / currency symbol, Am.
+  -"#    ;  CSYMF;    FACURR;    / currency symbol, Italian
+  -".+200;  SEPARF;   FASEPA;    / separator
+    >
+IFDEF SPANISH <                /A019
+  -"P+200;  CSYMF;    FACURR;    / currency symbol, Spanish /A019
+  -".+200;  SEPARF;   FASEPA;    / separator    /A019
+    >              /A019
+IFDEF DUTCH <                /A021
+  -"F+200;  CSYMF;    FACURR;    / currency symbol, DUTCH /A021
+  -".+200;  SEPARF;   FASEPA;    / separator    /A019
+    >              /A019
+IFDEF V30NOR <                /A020
+  -"N+200;  CSYMF;    FACURR;    / currency symbol, NORWAY /A020
+  -".+200;  SEPARF;   FASEPA;    / separator    /A020
+    >              /A020
+IFDEF V30SWE <                /A020
+  -"S+200;  CSYMF;    FACURR;    / currency symbol, SVEEDEN /A020
+  -".+200;  SEPARF;   FASEPA;    / separator    /A020
+    >              /A020
+  -"*+200;  ASTERF;   FAASTE;    / asterisk
+  -""+200;  QUOTEF;   FAQUOT;    / format quote character
+  -"9+200;  DIGITF;   FAFRM9;    / format "9" character
+  -ECNWLN;  -1;       FANWLN;    / <lf> character
+  0          / table terminator
+/
+/
+/
+
+/
+/ Each of these errors are equated to the same error value for display
+/  purposes.
+RERMTS,    / "More than six numeric field specifiers to the right of the
+    /   radix point in format statement."
+RERMTT,    / "More than thirteen numeric field specifiers in format statement."
+RERFSD,    / "Format statement does not contain numeric field specification."
+RERCAF,    / "Currency or asterick followed by sign."
+RERTCI,    / "This character illegal in this postion in format statement."
+RERICF,    / "Illegal character in format statement."
+
+RERLPI,  TAD  (ERRLPI)  / "Left parenthesis in format statement not closed
+        /   with right parenthesis."
+  DCA  TOKVAL    / set TOKVAL to error number
+  DCA  TOKEN    / set TOKEN = ERROR
+  JMP  AFCHA3    / leave GETFOR via common exit point
+/
+/
+
+/
+/
+/
+/
+/ The character is a SIGN ("+" or "-")
+FASIGN,
+IFDEF PRECUR < / IF PRE-DIGIT CURRENCY SYMBOL
+  TAD  (ASTERF+CSYMF)  / was the last character read a '$' or '*'?
+  AND  LSTCHR
+  SZA CLA      / skip if: not
+  JMP  RERCAF    / error - "Currency or asterick followed by sign."
+        >
+
+IFDEF PSTCUR < / IF POST-DIGIT CURRENCY SYMBOL
+  TAD  (ASTERF)  / was the last character read a '*'?
+  AND  LSTCHR
+  SZA CLA      / skip if: not
+  JMP  RERCAF    / error - "Asterick followed by sign."
+        >
+
+  TAD  (RSYMF+CSYMF+DIGITF+SEPARF+ASTERF)
+        / Is this a trailing sign?  In otherwords has the
+        /  sign occured after we've read a radix,
+        /   currency, digit, separator, or asterisk character?
+  AND  SUMCHR
+  SNA CLA      / skip if: so
+  JMP  FASIG1    / leading sign
+  TAD  (MINUSF+LPMSF+ASTERF+SEPARF+DIGITF+CSYMF+RSYMF)
+        / disable: '-', '(', '*', ',', '9', '$', '.'
+  JMS  FLGCTL
+  TAD  (TRAISN)  / set TRAIling_SigN in FORMAt_Word
+  JMP  FASIG2
+
+FASIG1,  TAD  (MINUSF+LPMSF)  / disable: '-', '(' since this was a leading sign
+  JMS  FLGCTL
+  TAD  (LEADSN)  / if skipped here then set leading sign in FORMAt_Word
+FASIG2,  JMS  SFWORD    / go set the FORMAt_Word
+/
+  JMP  AFCHA2    / return
+/
+/
+/
+/ The character is a LEFT PAREN '('
+FALPAR,  TAD  (MINUSF+LPMSF)  / disable flags for the following: '-',  '('
+  JMS  FLGCTL
+  TAD  (RPAREF)  / enable ')' flag.
+  TAD  NUMFLG
+  DCA  NUMFLG
+  JMP  AFCHA2    / return
+/
+/
+/
+/ The character is a RIGHT PAREN ')'
+FARPAR,  TAD  (MINUSF+LPMSF+ASTERF+SEPARF+DIGITF+RPAREF+CSYMF+RSYMF)
+        / since number is enclosed in parenthesis there
+        /  should not be any characters following the
+        /   right parenthesis except for the ending quote
+        /    character ('"') or <lf>.  Set flags so any
+        /     char. read, except a '"' or <lf> will error!
+  JMS  FLGCTL
+  TAD  (PARESN)  / set FORMAt_Word for PAREnthetical_minus_SigN
+  JMP  FASIG2    / and exit        /A015
+/
+/
+/
+/ The character is a CURRENCY symbol.
+/ Check for redundancy and proper positioning.
+
+FACURR,
+
+IFDEF CS3CHR < /IF 3 CHARACTER CURRENCY SYMBOL				/A020
+IFDEF SPANISH <								/A019
+FACSC2="T-200           /SECOND CURRENCY SYMBOL CHARACTER
+FACSC3="S-200           /THIRD CURRENCY SYMBOL CHARACTER
+        >
+IFDEF V30NOR <								/A020
+FACSC2="O-200		/SECOND CURRENCY SYMBOL CHARACTER
+FACSC3="K-200           /THIRD CURRENCY SYMBOL CHARACTER
+	>
+IFDEF V30SWE <								/A020
+FACSC2="E-200		/SECOND CURRENCY SYMBOL CHARACTER
+FACSC3="K-200           /THIRD CURRENCY SYMBOL CHARACTER
+	>
+
+  JMS  SVNTO8    /READ A CHARACTER FROM THE BUFFER			/A019
+  TAD  FRMCHR           /GET THE CHARACTER				/ "
+  TAD  (-FACSC2)        /CHECK FOR SECOND CURRENCY CHARACTER		/ "
+  SZA CLA               /SKIP IF OK					/ "
+  JMP  FADUFC           /ERROR ! DUFF CHARACTER				/ "
+  JMS  SVNTO8           /READ NEXT CHARACTER				/ "
+  TAD  FRMCHR           /GET IT						/ "
+  TAD  (-FACSC3)        /CHECK FOR THIRD CURRENCY CHARACTER		/ "
+  SZA CLA               /SKIP IF OK					/ "
+  JMP FADUFC            /ERROR ! DUFF CHARACTER				/A019
+	> /END IFDEF CS3CHR						/A020
+
+IFDEF PRECUR < /IF PRE-DIGIT CURRENCY SYMBOL				/A019
+  TAD  (LPMSF+CSYMF)  / disable: '(', '$'
+  JMS  FLGCTL
+  TAD  (CURBIT)  / set FORMAt_Word currency bit
+  JMP  FASIG2    / and exit        /A015
+        > /END IFDEF PRE-DIGIT CS					/A019
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL				/A019
+  TAD  (DIGITF+SEPARF+CSYMF+RSYMF)  / disable: '9', ',', '$', '.'	/A019
+  JMS  FLGCTL								/ "
+  TAD  (CURBIT)  / set FORMAt_Word currency bit				/ "
+  JMP  FASIG2    / and exit        /A015				/ "
+	> /END IFDEF POST-DIGIT CS					/A019
+
+IFDEF CS3CHR < /IF 3 CHARACTER CURRENCY SYMBOL				/A020
+FADUFC,  CLA            /DUFF CHARACTER ENCOUNTERED. RE-PARSE IT	/A019
+                        /TO YIELD CORRECT ERROR MESSAGE			/ "
+  DCA NUMFLG            /NOTHING LEGAL					/ "
+  TAD  FRMCHR		/GET CHARACTER BACK AGAIN			/A020
+  JMP  FAPARS		/AND PARSE					/A019
+        > /END IFDEF 3 CHARACTER CURRENCY SYMBOL			/A020
+
+/
+/
+/
+/ Separators are to be ignored as per functional spec.
+/ "," - English, "." - some natural languages
+FASEPA,
+IFDEF PRECUR < /IF PRE-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+CSYMF)  / disable: '(', '$'
+        >
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF)  / disable: '('
+        >
+
+  JMS  FLGCTL
+  TAD  (SEPBIT)  / set separator bit in FORMAt_Word
+  JMP  FASIG2    / and exit        /A015
+/
+/
+/
+/ The character is an ASTERISK
+FAASTE,
+IFDEF PRECUR < / IF PRE-CURSOR CURRENCY SYMBOL
+  TAD  (LPMSF+CSYMF+ASTERF)  / disable: '(', '$', '*'
+        >
+
+IFDEF PSTCUR < / IF POST-CURSOR CURRENCY SYMBOL
+  TAD  (LPMSF+ASTERF)  / disable: '(', '*'
+        >
+
+  JMS  FLGCTL
+  TAD  (ASTBIT)  / set ASTerisk_BIT in FORMAt_Word
+  JMP  FASIG2    / and exit        /A015
+/
+/
+/
+/ The character is a '9'
+FAFRM9,
+IFDEF PRECUR < / IF PRE-CURSOR CURRENCY SYMBOL
+  TAD  (LPMSF+CSYMF+ASTERF)  / disable: '(', '$', '*'
+        >
+
+IFDEF PSTCUR < / IF POST-CURSOR CURRENCY SYMBOL
+  TAD  (LPMSF+ASTERF)  / disable: '(', '*'
+        >
+
+  JMS  FLGCTL
+  JMS  BMPCNT    / bump filler count
+  JMP  AFCHA2    / return
+
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/
+/ The character is a '"'
+FANWLN,  AC7777      / treat <lf> in same manner as a closing '"', except
+  JMS  RDLNBF    /  reset line buffer pointer so next call to
+        /   LEXIC will use <lf> as math expression terminator.
+FAQUOT,  TAD  (RPAREF)  / if we've read a '(' have we closed with a ')'?
+  AND  NUMFLG
+  SZA CLA      / skip if: ok
+  JMP  RERLPI    / error - "Left parenthesis in format statement not
+        /     closed with right parenthesis."
+  TAD  (RSYMF)    / should we set header or trailer count?
+  AND  SUMCHR
+  SZA CLA      / skip if: set header
+  JMP  FAQUO1    / set trailer count
+  TAD  FDCLTR    / get current count to set header
+  TAD  (KWHOLE+1
+  JMP  FAQUO2
+FAQUO1,  AC0001      / add 1 to count since we had a radix character
+  TAD  FDCLTR    / get current count to set trailer
+  TAD  (KFRACTION+1
+  BSW
+FAQUO2,  JMS  SFWORD    / set into format word
+  TAD  (ASTERF+RSYMF+MINUSF)  / did we read an '*', '.', '-'?
+  AND  SUMCHR
+  SNA CLA      / skip if: so
+  JMP  FAQUO3    / shes a mini format statement
+
+  TAD  (DIGITF)  / check to make sure format statement contained
+        /  numeric field information ('9').
+  AND  SUMCHR
+  SNA CLA      / skip if: no error
+  JMP  RERFSD    / error - "Format statement does not contain numeric
+        /          field information."
+FAQUO3,  AC0001      / set TOKEN = FORMAT
+  DCA  TOKEN
+  TAD  FORMAW    / set TOKVAL = FORMAt_Word
+  DCA  TOKVAL
+  JMP  AFCHA3
+
+/ Set_Format_WORD
+SFWORD,  XX
+  MQL      / load MQ with contents of AC
+  TAD  FORMAW    / get current FORMAt_Word
+  MQA      / inclusive OR the MQ with AC
+  DCA  FORMAW    / bravo!! new FORMAt_Word
+  JMP I  SFWORD    / return to caller
+
+
+/RDLNBF  - ReaD_LiNe_BuFfer routine
+/++
+/    RDLNBF  ReaD_LiNe_BuFfer
+/
+/FUNCTIONAL DESCRIPTION :  RDLNBF
+/
+/  Initialize and read characters from the LiNE_BUFfer for WPS MATH.
+/  When the count is exhausted (floating end of buffer) then return
+/  a <lf> as the character.  There are 3 selectable functions as
+/  described in CALLING SEQUENCE below.
+/
+/   RDLNBF PSEUDO CODE:
+/
+/begin
+/  if [key = 0]
+/     increment LiNE_buffer_PoinTeR
+/     read character from buffer
+/     increment LiNE_BuFfer_Count
+/     if [LiNE_BuFfer_Count = 0]
+/        return 0 (buffer terminating character)
+/  else
+/     if [key = -1]
+/        reset LiNE_BuFfer_Count and LiNE_buffer_Pointer -1 char.
+/     else
+/        if [key = 2]
+/     get -LiNE_BuFfer_Count - 1
+/        get LiNE_Buffer_Initialization_Count
+/        init. LiNE_BuFfer_Count
+/        initialize LiNE_buffer_PoinTeR = LiNE_BUFfer - 1
+/
+/  return
+/end
+/
+/CALLING SEQUENCE:  set AC = key no.
+/      JMS  RDLNBF
+/
+/        keys: -1 - Set pointer and counter back 1 character from current position.
+/    0 - Read next character in buffer.  Return -1 when end of buffer.
+/    1 - Initialize pointer and counter for read starting at top of buffer
+/    2 - Initialize for a read from the top of buffer to the position of
+/        the last character read.  Key 2 can be used as the initial call
+/        to this routine for error reporting purposes.  Thus all characters
+/        previous to and inclusive of the one flagged as an error can now
+/        be read by using key 0 for each succeeding call to RDLNBF.  We'll
+/        be flagged for end of buffer when we attempt to read the character
+/        following the error character.
+/
+/INPUT PARAMETERS:  AC = key (as described above)
+/
+/IMPLICIT INPUTS:  LNEBUF, LNEBFC
+/
+/OUTPUT PARAMETERS:  AC contains character or 0 if end of buffer (currently
+/       for error reporting purposes only)
+/
+/IMPLICIT OUTPUT:  LNEPTR, LNEBFC
+/
+/COMPLETEION CODE:  none
+/
+/SIDE EFFECTS:    If an incorrect key is specified on call then default
+/       to key 1.
+/
+/--
+/
+RDLNBF,  XX
+  SZA      / skip if: key 0 -  read next character
+  JMP  RDLNB2
+
+RDLNB1,  ISZ  LNEPTR    / increment LiNE_buffer_Pointer
+  TAD I  LNEPTR    / get a character
+  ISZ  LNEBFC    / inc. LiNE_BuFfer_Count and skip if: count exhausted
+  JMP I  RDLNBF    / character is in AC. return with it.  /A002
+  AC0000      / return buffer error terminator char.  /A002
+  JMP I  RDLNBF
+/
+RDLNB2,  IAC      / is it key -1?
+  SZA      / skip if so
+  JMP  RDLNB6
+  AC7777      / reset counter and pointer back 1 character
+  TAD  LNEBFC    / counter
+  DCA  LNEBFC
+  AC7777      / pointer
+  TAD  LNEPTR
+  JMP  RDLNB5
+/
+RDLNB6,  TAD  (-3)    / is it key 2?
+  SZA CLA      / skip if: so
+  JMP  RDLNB3    / set up for key 1
+  TAD  LNEBFC    / set up new LiNE_BuFfer_Count to read from the top
+        / of the buffer to the last character read.
+  CMA
+
+RDLNB3,  TAD  (LNEBIC)
+  DCA  LNEBFC
+
+  TAD  (LNEBUF-1)  / set up LiNE_buffer_PoinTeR
+RDLNB5,  DCA  LNEPTR
+  JMP I  RDLNBF    / return
+/
+LNEBFC,  0      / LiNE_BuFfer_Count
+/
+/
+
+/
+/Lex_Character_Set_Table:
+/
+/  field_name_left_angle_bracket:    "< + FoRMula_Character_Case_3
+/
+/  operator_set:
+/  formula_terminator:               <lf> + FoRMula_Character_Case_2
+/            "( + FoRMula_Character_Case_2
+/            ") + FoRMula_Character_Case_2
+/            "* + FoRMula_Character_Case_2
+/            "+ + FoRMula_Character_Case_2
+/            "- + FoRMula_Character_Case_2
+/            "/ + FoRMula_Character_Case_2
+/            "= + FoRMula_Character_Case_2
+/
+/  NUMber_SET:
+/  currency_symbol, Am:              "$ + FoRMula_Character_Case_4
+/  currency_symbol, Br:              "# + FoRMula_Character_Case_4  /A015
+/  radix_separator:                  ". + FoRMula_Character_Case_4
+/            "0 + FoRMula_Character_Case_4
+/            "1 + FoRMula_Character_Case_4
+/            "2 + FoRMula_Character_Case_4
+/            "3 + FoRMula_Character_Case_4
+/            "4 + FoRMula_Character_Case_4
+/            "5 + FoRMula_Character_Case_4
+/            "6 + FoRMula_Character_Case_4
+/            "7 + FoRMula_Character_Case_4
+/            "8 + FoRMula_Character_Case_4
+/            "9 + FoRMula_Character_Case_4
+/  thousands_seperator:      ",
+/             NuMber_SET_Terminator
+/
+/  format_quote_character:           "" + FoRMula_Character_Case_1
+/
+/  Lex_Character_Set_Table_Term:    -1
+/
+/end_Lex_Character_Set_Table
+/
+/ Characters in this table are assembled as "char.-200 since PAL8 assembles
+/ using 8-bit ASCII. Characters in this table must be in 7-bit code.
+/
+LCST,        / Lex_Character_Set_Table
+
+/field_name_left_angle_bracket
+  "<-200+FRMCC3
+
+/ operator_set
+  ECNWLN+FRMCC2    / formula_terminator (lf)
+  "(-200+FRMCC2
+  ")-200+FRMCC2
+  "*-200+FRMCC2
+  "+-200+FRMCC2
+  "--200+FRMCC2
+  "/-200+FRMCC2
+  "=-200+FRMCC2
+NUMSET,        / NUMber_SET
+IFDEF ENGLSH <
+  "$-200+FRMCC4
+  "#-200+FRMCC4              /A015
+  ".-200+FRMCC4
+    >
+IFDEF ITALIAN <
+  "$-200+FRMCC4
+  "#+FRMCC4              /A015
+  ",-200+FRMCC4
+    >
+IFDEF SPANISH <                /A019
+  "P-200+FRMCC4    /START OF SPANISH CURRENCY SYMB.   /A019
+  ",-200+FRMCC4              /A019
+    >              /A019
+IFDEF DUTCH <                /A019
+  "F-200+FRMCC4    /DUTCH CURRENCY SYMB.   /A021
+  ",-200+FRMCC4              /A019
+    >              /A019
+IFDEF V30NOR <                /A020
+  "N-200+FRMCC4    /START OF CURRENCY SYMB.   /A020
+  ",-200+FRMCC4              /A020
+    >              /A020
+IFDEF V30SWE <                /A020
+  "S-200+FRMCC4    /START OF CURRENCY SYMB.   /A020
+  ",-200+FRMCC4              /A020
+    >              /A020
+  "0-200+FRMCC4
+  "1-200+FRMCC4
+  "2-200+FRMCC4
+  "3-200+FRMCC4
+  "4-200+FRMCC4
+  "5-200+FRMCC4
+  "6-200+FRMCC4
+  "7-200+FRMCC4
+  "8-200+FRMCC4
+  "9-200+FRMCC4
+IFDEF ENGLSH <
+  ",-200
+    >
+IFDEF ITALIAN <
+  ".-200
+    >
+IFDEF SPANISH <                /A019
+  ".-200      / SEPERATOR        /A019
+    >
+IFDEF DUTCH <                /A021
+  ".-200      / SEPERATOR        /A021
+    >
+IFDEF V30NOR <                /A020
+  ".-200      / SEPERATOR        /A020
+    >
+IFDEF V30SWE <                /A020
+  ".-200      / SEPERATOR        /A020
+    >
+  NMSETT      / terminator for number set
+
+  ""-200+FRMCC1    / format_quote_character
+
+  LCSTT      / terminator for lex. char. set table
+
+/end_Lex_Character_Set_Table
+
+/  THE FOLLOWING ROUTINES MOVED HERE TO MAKE SPACE ON EDIT 013
+
+  /ADDITION STEP
+ADS,  TAD I  A2  /ADD C DIGIT.
+  TAD  (-12  /CARRY?
+  SMA                /M013
+  JMP  ADSB5  /YES: STORE LOW ORDER DIGIT.      /M013
+  TAD  (12  /NO CARRY: RESTORE DIGIT.      /M013
+ADSB4,  DCA I  A2  /STORE DIGIT.          /M013
+  JMP I  (ADSB1  /LOOP FOR NEXT DIGIT.
+
+
+  /SUBTRACTION STEP
+SBS,  CIA    /NEGATE B+BORROW OR BORROW.
+  TAD I  A2  /SUBTRACT FROM C DIGIT.
+  SMA    /BORROW?          /M013
+  JMP  ADSB4  /NO: STORE DIGIT.        /M013
+  TAD  (12  /YES: STORE 10'S COMPLEMENT OF DIGIT.    /M013
+ADSB5,  DCA I  A2              /M013
+  IAC    /SET BORROW.
+  JMP I  (ADSB1  /LOOP FOR NEXT DIGIT.
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/ ASCII TO BCD CONVERSION ROUTINE
+/ ASCII to Numeric Internal Format Conversion routine
+/  Subroutine to convert a numeric string of ASCII characters into a BCD
+/  internal format for use in both List Processing and Editor Math.  The
+/  routine will read a string of ASCII numeric characters from a buffer
+/  specified at caller+1, convert them to BCD format and return the BCD
+/  number to a buffer specified at caller+2.  Although ASCBCD is cross
+/  field callable both the input and output buffers specified must be
+/  located in the math field.
+/
+/
+/
+/
+/ CALLING SEQUENCE:
+/  CALLER,    JMS  ASCBCD
+/  CALLER+1,  address of input buffer containing ASCII numeric string
+/  CALLER+2,  address of output buffer for ASCII to BCD converted number
+/       (output buffer must be in MATH field)
+/
+/ EXIT PARAMETERS:              /A002
+/  skip return if no error            /A002
+/  AC = 0 if no error, error number if error      /A002
+/
+/  CCFMEH contains number of characters read upto point of exiting  /A002
+ASCBCD,  XX      / ASCii_to_BCD_processor
+/ Initialization
+  TAD  CIDF0    / create cifcdf instruction for exit
+  RDF
+  DCA  ASCBC3    / deposit cifcdf instruction in ASCBC3
+  TAD I  ASCBCD    / init. INput_BUFfer_Pointer
+  DCA  INBUFP
+  ISZ  ASCBCD    / bump return for pointer to output buffer
+  TAD I  ASCBCD    / init. OUtput_BUFfer_Pointer
+  DCA  OUBUFP
+  ISZ  ASCBCD    / bump return
+  CDFMTH      / change data field to this field (math field)
+  AC7776      / init. BCD_Buffer_Byte_Counter = -2
+  DCA  BCDBBC
+  TAD  (BCDBUF)  / init. BCD_BuFfer_Pointer
+  DCA  BCDBFP
+  TAD  (-KWHOLE-1)  / init. left + right of radix character digit count
+        /  to left of radix character count
+  DCA  DCLRT
+  DCA  LSTCHR    / init. LaST_CHaracter_Read
+  DCA  SUMCHR    / init. SUMmary_of_CHaRacters_read
+  DCA  SIGN    / init. SIGN
+  DCA  CCFMEH    / init. Character_Count_For_Math_Error_  /A002
+        /  Handler
+/
+/ Init. each location in the BCD_BUFfer by clearing it out.
+  TAD  (-VALSIZ)  / get VALue_SIZe (number of loc. in BCD buffer)
+  DCA  X0    / save it
+  TAD  (BCDBUF-1)  / get start of BCD_BUFfer - 1
+  DCA  X1    / save it
+ASCBC1,  DCA I  X1    / clear location in BCD_BUFfer
+  ISZ  X0    / skip if: done
+  JMP  ASCBC1    / go clear out next location
+/
+/ init. NUMFLG - enable read of all legal number field characters except ')'
+  TAD  (MINUSF+PLUSF+LPMSF+PERCEF+ASTERF+SEPARF+DIGITF+CSYMF+RSYMF)
+  DCA  NUMFLG    / init. NUMber_FLaGs
+
+  JMS  RDNXTC    / start parsing and conversion process
+/
+/ Transfer the BCD number to the output buffer
+  TAD  (-VALSIZ)  / get VALue_SIZe (number of loc. in BCD buffer)
+  DCA  X0    / save it
+  TAD  (BCDBUF-1)  / get start of BCD_BUFfer - 1
+  DCA  X1    / save it
+  AC7777      / point to output buffer - 1
+  TAD  OUBUFP
+  DCA  X2
+ASCBC2,  TAD I  X1    / xfer from BCD_BUFfer to output buffer.
+  DCA I  X2
+  ISZ  X0    / finished?
+  JMP  ASCBC2    / no - go again
+  ISZ  ASCBCD    / bump return
+  JMP  ASCBC3
+/
+REREPE,  TAD (ERREPE-ERRTCP)  / "Empty parenthesis."
+RERTCP,  TAD (ERRTCP-ERRTCT)  / "This character is illegal in this postition of
+        /   the number."
+RERTCT,  TAD (ERRTCT-ERRMTD)  / "This character illegal in a number."
+RERMTD,  TAD (ERRMTD-ERRID)  / "More than thirteen digits to the left of the
+        /   radix point."
+RERID,  TAD (ERRID-ERRLPN)  / "Illegal digit."
+RERLPN,  TAD (ERRLPN-ERRNSD)  / "Left parenthesis not closed with right parenthesis."
+RERNSD,  TAD (ERRNSD)    / "Numeric string did not contain digits."
+
+
+ASCBC3,  .-.      / this location get's set at initialization time
+        /  with a cifcdf instruction to caller's field
+  JMP I  ASCBCD    /     EXIT
+/
+/
+/
+/  Convert 7 bit ASCII numeric string into BCD form.
+
+RDNXTC, XX      / ReaD_NeXT_Character
+RDNXT1,  TAD I  INBUFP    / ReaD_A_Character from the input buffer.
+  ISZ  INBUFP
+  SNA      / if character = 0 then end of input buffer
+  JMP  RDNXT5
+
+  DCA  THRONE    /  temporarily save the 7-bit character
+  ISZ  CCFMEH    / increment Character_Counter_For_Math_  /A002
+        /  Error_Handler      /A002
+/ THE LBLE BELOW IS THE ENTRY POINT FOR RE-PARSING A CHARACTER
+/ WHEN IT COMES IN THE MIDDLE OF A MULTI-CHARACTER CURRENCY SYMBOL
+/ THE CHARACTER IS RE-PARSED AND YIELDS THE CORRECT ERROR REPORT.
+ACSPAR,  TAD  THRONE    / is char. between ASCII 0 - 9 inclusive?
+  TAD  (-71)    /   minus ASCII numeric 9
+  SMA SZA      /   skip if: char. less than ASCII 9
+  JMP  RDNXT2    /   character > ascii 9
+  TAD  (11)    /   is char. greater or equal to ASCII 0?
+  SMA      /   skip if: no (it's not a number character!)
+  JMP  RDNXT3    / character is between '0 - 9'
+/
+RDNXT2,  JMS  NOTDIG    / character is NOT a digit! (60-71)
+  JMP  RDNXT4
+/
+RDNXT3,  JMS  ADIGIT    / process this digit.
+/
+RDNXT4,  TAD  USALCT    / set flags in LSTCHR and SUMCHR
+  JMS  USALCF
+
+  JMP  RDNXT1    / do another character.
+/
+RDNXT5,  TAD  (DIGITF)  / make sure we read some digits in the string.
+  AND  SUMCHR
+  SNA CLA      / skip if: so
+  JMP  RERNSD    / error - "Numeric string did not contain digits."
+
+  TAD  (RPAREF)  / if we read a '(' have we read a ')' before ending?
+  AND  NUMFLG
+  SZA CLA      / skip if: ok
+  JMP  RERLPN    / error - "Left parenthesis not closed with right
+        /      parenthesis."
+/
+/ Clean up BCD_BUFfer
+  TAD  (RSYMF)    / did we read a radix char. in the number?
+  AND  SUMCHR
+  SZA CLA      / skip if: not - insert radix char. into BCD_BUFfer
+  JMP  RDNXT6
+  TAD  (BCDRAD)  / get the BCD representation of a radix char.
+  DCA  THRONE    / save it
+  JMS  SAVBCD    / put it into the BCD_BUFfer
+/
+RDNXT6,  TAD  SIGN    / set sign bit in BCD_BUFfer
+  TAD  BCDBUF
+  DCA  BCDBUF
+
+  JMP I  RDNXTC    / return
+/
+/
+/
+THRONE,  0    / Temporary_Holding_Register_ONE
+INBUFP,  0    / INput_BUFfer_Pointer
+OUBUFP,  0    / OUtput_BUFfer_Pointer
+SIGN,  0    / SIGN  0 = '+', 4000 = '-'
+DCLRT,  0    / Digit_Count_Left_Right_Total of radix character
+USALCT,  0    / Update_Summary_And_Last_Character_Temp (value in this location
+      /  is used by USALCF routine to set flags in LSTCHR & SUMCHR.)
+CCFMEH,  0    / Character_Count_For_Math_Error_Handler
+
+/  THE FOLLOWING RUTINE MOVED HERE TO MAKE SPACE ON EDIT 013
+
+/  BuMP_CouNT
+BMPCNT,  XX
+  ISZ  FDCLRT    / increment total numeric count
+  SKP      / we haven't exceed total numeric field count
+  JMP  RERMTT    / error - "More than thirteen numeric field specifiers
+        /          in format statement."
+  ISZ  FDCLTR    / increment the left and right of radix count
+  JMP I  BMPCNT    / return
+  JMP  RERMTS    / error - "More than six numeric field specifiers
+        /     to the right of the radix point in format
+        /          statement."
+/
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/
+/ ADIGIT
+ADIGIT,  XX
+  DCA  THRONE    / save character in BCD form
+
+  TAD  (DIGITF)  / ok for a digit here?
+  AND  NUMFLG
+  SNA CLA      / skip if: ok
+  JMP  RERID    / error - "Illegal digit."
+
+  ISZ  DCLRT    / to many digits TOTAL to the left AND right of radix?
+  JMP  ADIGI1    / no - go save this digit
+  TAD  (RSYMF)    / are we to the right of the radix?
+  AND  SUMCHR
+  SNA CLA      / skip if: so
+  JMP  RERMTD    / error - "More than thirteen digits to the left of
+        /      the radix point."
+  AC7777      / reset DCLRT incase more digits follow this one
+  DCA  DCLRT
+  JMP  ADIGI2    / since we're to the right of the radix just ignore
+        /  this digit.
+
+ADIGI1,  JMS  SAVBCD    / save BCD character in buffer.
+
+IFDEF PRECUR < /IF PRE-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+ASTERF+CSYMF)/ disable flags: '(', '%', '*', '$'
+        >
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+ASTERF)/ disable flags: '(', '%', '*'
+        >
+
+  JMS  FLGCTL
+
+ADIGI2,  TAD  (DIGITF)  / set USALCT for update of SUMCHR and LSTCHR later
+  DCA  USALCT
+
+  JMP I  ADIGIT    / return
+/
+/
+/
+/
+/ This particular character is NOT between the ASCII codes 60-71 (0-9) inclusive
+/   therefore test for imbedded Natural language characters such as a:
+/  - radix character
+/   - minus sign
+/    - left parenthesis (implied minus)
+/     - right parenthesis
+/      - plus sign
+/       - currency symbol
+/        - separator
+/         - format character
+NOTDIG,  XX
+  CLA CLL
+  TAD  (NONDIG-3)  / set up pointer for NONDIG table
+  DCA  X1
+/
+NOTDI1,  ISZ  X1    / increment the pointer by 2
+  ISZ  X1
+  TAD I  X1    / read table entry
+  SNA      / skip if: neq 0 (table terminater)
+  JMP  RERTCT    / error - "This character illegal in a number."
+  TAD  THRONE    / match character to table entry.
+  SZA CLA      / skip if: match
+  JMP  NOTDI1
+
+  TAD I  X1    / ok for this character here?
+  AND  NUMFLG
+  SNA      / skip if: not - go report error
+  JMP  RERTCP    / error - "This character is illegal in this
+        /      postition of the number."
+
+  DCA  USALCT    / set USALCT for update of SUMCHR and LSTCHR
+
+  TAD I  X1    / get the address of proper handler
+  DCA  T1    /  save it for JMP I coming up
+
+  JMP I  T1    / do routine selected from table. if jumping
+        /  to char. handler routine we return to NOTDI2
+NOTDI2,  JMP I  NOTDIG    / return
+/
+/  -char.    flag     character
+/         handler
+/
+NONDIG,
+IFDEF ENGLSH <
+  -".+200;  RSYMF;    ARADIX;    / radix character
+    >
+IFDEF ITALIAN <
+  -",+200;  RSYMF;    ARADIX;    / radix character
+    >
+IFDEF SPANISH <                /A019
+  -",+200;  RSYMF;    ARADIX;    / radix character  /A019
+    >              /A019
+IFDEF DUTCH <                /A021
+  -",+200;  RSYMF;    ARADIX;    / radix character  /A021
+    >              /A021
+IFDEF V30NOR <                						/A020
+  -",+200;  RSYMF;    ARADIX;    / radix character  			/A020
+    >              							/A020
+IFDEF V30SWE <                						/A020
+  -",+200;  RSYMF;    ARADIX;    / radix character  			/A020
+    >              							/A020
+  -"-+200;  MINUSF;   ASIGN;    / minus sign
+  -"(+200;  LPMSF;    ALPAREN;    / left paren
+  -")+200;  RPAREF;   ARPAREN;    / right paren
+  -"++200;  PLUSF;    ASIGN;    / plus sign
+IFDEF ENGLSH <
+  -"$+200;  CSYMF;    ACURRENCY;    / currency symbol
+  -"#+200;  CSYMF;    ACURRENCY;    / currency symbol  /A015
+  -",+200;  SEPARF;   ASEPARATOR;    / separator
+    >
+IFDEF ITALIAN <
+  -"$+200;  CSYMF;    ACURRENCY;    / currency symbol
+  -"#    ;  CSYMF;    ACURRENCY;    / currency symbol  /A015
+  -".+200;  SEPARF;   ASEPARATOR;    / separator
+    >
+IFDEF SPANISH <                /A019
+  -"P+200;  CSYMF;    ACURRENCY;    / start of currency symbol  /A019
+  -".+200;  SEPARF;   ASEPARATOR;    / separator    /A019
+    >              /A019
+IFDEF DUTCH <                /A021
+  -"F+200;  CSYMF;    ACURRENCY;    / start of currency symbol  /A021
+  -".+200;  SEPARF;   ASEPARATOR;    / separator    /A021
+    >              /A021
+IFDEF V30NOR <                						/A020
+  -"N+200;  CSYMF;    ACURRENCY;    / start of currency symbol  	/A020
+  -".+200;  SEPARF;   ASEPARATOR;    / separator    			/A020
+    >              							/A020
+IFDEF V30SWE <                						/A020
+  -"S+200;  CSYMF;    ACURRENCY;    / start of currency symbol  	/A020
+  -".+200;  SEPARF;   ASEPARATOR;    / separator    			/A020
+    >              							/A020
+  -"*+200;  ASTERF;   AASTERISK;    / asterisk
+  -"%+200;  PERCEF;   APERCENT;           / percent symbol
+  0          / table terminator
+/
+/
+/
+
+/
+/ The character is a RADIX POINT
+ARADIX,  TAD  (BCDRAD)  / save radix character in BDC_BUFfer
+  DCA  THRONE
+  JMS  SAVBCD
+
+IFDEF PRECUR <          /IF PRE-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+ASTERF+CSYMF+RSYMF)/ disable: '(', '%', '*', '$', '.'
+        >
+
+IFDEF PSTCUR <          /IF POST-DIGIT CURRENCY SYMBOL
+  TAD  (LPMSF+PERCEF+ASTERF+RSYMF)/ disable: '(', '%', '*', '.'
+        >
+
+  JMS  FLGCTL    / JMS to FLaG_ConTrol
+
+  JMP  NOTDI2    / return
+/
+/
+/
+/ The character is a SIGN ("+" or "-")
+ASIGN,  TAD  (RSYMF+CSYMF+DIGITF+SEPARF+ASTERF)  / is this a trailing sign?
+        /  In otherwords has the sign occured after we've
+        /    read a radix, currency, digit, separator, or
+        /     asterisk character?
+  AND  SUMCHR
+  SZA CLA      / skip if: no
+  DCA  NUMFLG    / Since this is a trailing sign then there should not
+        /  be anymore characters following it.  Set flags so
+        /   that any characters now read will error.
+/
+  TAD  (MINUSF+PLUSF+LPMSF+PERCEF)/ disable: '-','+','(' if this was a leading
+          /  sign.  If trailing sign we'll JMS FLGCTL
+          /   but '-', '+', and '(' have already been
+          /    disabled from the DCA NUMFLG above.
+  JMS  FLGCTL
+/
+  TAD  USALCT    / check if "+" or "-" sign.
+  AND  (MINUSF)
+  DCA  SIGN    / set SIGN
+
+  JMP  NOTDI2    / return
+/
+/
+/
+/ The character is a LEFT PAREN '('
+ALPAREN,TAD  (MINUSF+PLUSF+LPMSF+PERCEF)/ disable flags for the following: '-', '+', '(', '%'
+  JMS  FLGCTL
+
+  TAD  (RPAREF)  / enable ')' flag.
+  TAD  NUMFLG
+  DCA  NUMFLG
+
+  JMP  NOTDI2    / return
+/
+/
+/
+
+/
+/ The character is a RIGHT PAREN ')'
+ARPAREN,TAD  (LPMSF)    / was the last character read a '('?
+  AND  LSTCHR
+  SZA CLA      / skip if: not
+  JMP  REREPE    / error - "Empty parenthesis."
+/
+  DCA  NUMFLG    / if a number is enclosed in parenthesis there should not be
+        / anymore characters following the right parenthesis. Set
+        / flags so any character now read will error!
+
+  TAD  (MINUSF)  / set SIGN to minus
+  DCA  SIGN
+
+  JMP  NOTDI2    / return
+/
+/
+/
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/ SAVe_BCD character in BCD_BUFfer.
+SAVBCD,  XX
+  AC0001      / set up for rotate into proper byte position
+  TAD  BCDBBC    / get count in BCD_Buffer_Byte_Counter
+  SMA      / skip if: we have to do some shifting
+  JMP  SAVBC2    / no shifting
+  DCA  X0    / save count
+  TAD  THRONE    / get the BCD character
+SAVBC1,  CLL RTL; RTL    / shift it four left into the next byte
+  ISZ  X0    / skip if: don't shift anymore
+  JMP  SAVBC1
+  DCA  THRONE
+/
+SAVBC2,  TAD  THRONE    / place character into BCD_BUFfer
+  TAD I  BCDBFP
+  DCA I  BCDBFP
+
+  ISZ  BCDBBC    / increment BCD_Buffer_Byte_Counter
+
+  JMP  SAVBC3
+
+  ISZ  BCDBFP    / increment BCD_BuFfer_Pointer
+  AC7775      / set BCD_Buffer_Byte_Counter = -3
+  DCA  BCDBBC
+
+SAVBC3,  JMP I  SAVBCD    / return
+/
+BCDBBC,  ZBLOCK  1    / BCD_Buffer_Byte_Counter
+BCDBFP,  ZBLOCK  1    / BCD_BuFfer_Pointer
+
+/  THE FOLLOWING TABLE WAS MOVED HERE TO MAKE SPACE ON EDIT 013
+
+/  MULTIPLY TABLE
+
+/  THIS TABLE IS USED TO MULTIPLY TWO DIGITS
+/  TOGETHER, AS FOLLOWS:
+/  PRODUCT = TABLE ENTRY (DIGIT1 + (12 * DIGIT2) )
+/  THIS METHOD IS FASTER THAN BITWISE MULTIPLICATION
+/  OF THE TWO DIGITS.
+
+/  PRODUCT FORMAT:    000 0HH HHL LLL
+/  H = HIGH ORDER PRODUCT BCD DIGIT
+/  L = LOW ORDER PRODUCT BCD DIGIT
+
+/  CREATED WITH FOLLOWING TECO MACRO:
+/  ^O0U212<0U112<Q1*Q2U3Q3/12U4Q4*20+Q3-(12*Q4)\I;$%1U1>-DI
+/  $%2U2>^D
+
+MTAB,  0;0;0;0;0;0;0;0;0;0
+  0;1;2;3;4;5;6;7;10;11
+  0;2;4;6;10;20;22;24;26;30
+  0;3;6;11;22;25;30;41;44;47
+  0;4;10;22;26;40;44;50;62;66
+  0;5;20;25;40;45;60;65;100;105
+  0;6;22;30;44;60;66;102;110;124
+  0;7;24;41;50;65;102;111;126;143
+  0;10;26;44;62;100;110;126;144;162
+  0;11;30;47;66;105;124;143;162;201
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/ This code will place on the screen a line of a WPSMATH control block
+/  for the purpose of reporting errors to the user.  It is called from WPSELC.
+/
+/ NOTE:  THIS ROUTINE MUST RESIDE AT LOCATION 3600 AS IT IS
+/  REFERENCED FROM WPSELC.  IT'S DEFINED IN WPF1 FOR THAT
+/  PURPOSE.
+/
+/ PELINE PSEUDO CODE:
+/  INITIALIZATION
+/  REPEAT
+/  |  READ CHARACTER IN LINE_BUFFER
+/  |  IF [CHARACTER <> 0]
+/  |     IF [CHAR = <LF>]
+/  |     ORIF [CHAR = <TAB>]
+/  |      CONVERT IT TO <SP>
+/  |     INCREMENT CHARACTER_POSITION_COUNTER
+/  |     IF [CHARACTER_POSITION_COUNTER = 0]
+/  |     SET LINE AND CHARACTER_POSITION_COUNTER FOR NEXT LINE
+/  |     INCREMENT CHARACTER_POSITION_COUNTER
+/  |     PRINT CHARACTER
+/  UNTIL [CHAR = 0]
+/
+/  COMPUTE LINE AND COLUMN POSITION FOR "^"
+/  POSTITION CURSOR
+/  TYPE "^"
+/
+/  RETURN
+/
+/
+SWIDTH=77      / SCREEN WIDTH (63 DECIMAL)
+LMARGN=05      / LEFT MARGIN
+PELINE,  XX      / PRINT ERROR LINE
+/d019  JMP  PELINX    / JUMP TO REAL ROUTINE      /A007
+  JMP  PELINS		/JUMP TO BLAST LOADING ROUTINE		/A019
+
+/ENTRY POINT FOR ROUTINE TO COMPARE TWO BCD NUMBERS FOR EQUALITY  /A007
+BCDCOM,  XX                /A007
+  JMP  BCDCO1    / JMP TO REAL ROUTINE      /A007
+
+/ THE ROUTINE STARTS HERE TO AVOID CHANGING THE ADDRESS OF BCDCOM
+PELINS,
+/ INITIALISE THE LINE COUNTER FROM AC ARG		/A019
+  TAD  LMARGN						/A019
+  DCA  PELINP		/AND STORE FOR BLASTED ROUTINE	/A019
+/ GET CDI AND STORE FOR RETURN				/A019
+  JMS  GETFLD                                           /A019
+  DCA  PELINR                                           /A019
+
+/ real routine now in blaster. so call hook             /A019
+  JMS  MBHOOK           / JUMP TO HOOK (ADDR IN WPF1)   /A019
+       PELNHL           / TO DO REAL PELINE ROUTINE     /A019
+/ NO SKIP RETURN                                        /A019
+PELINR,  XX             / CDF CIF INSTRUCTION PUT HERE  /A019
+  JMP I  PELINE                                         /A019
+
+PELINP, 0		/ LINE COUNTER STORED HERE FOR	/A019
+			/ BLASTED ROUTINE TO READ	/A019
+/ THIS SPACE CREATED BY MOVING THE REAL PELINE ROUTINE OUT AS A BLAST   /A019
+/ ROUTINE BELOW INSERTED ON EDIT 019					/A019
+
+/ The character is a CURRENCY symbol.					/M020
+/ Check for redundancy and proper positioning.				/M020
+ACURRENCY,								/M020
+
+IFDEF CS3CHR <          /IF 3 CHARACTER CURRENCY SYMBOL			/A020
+IFDEF SPANISH <								/A019
+ACSCH2="T-200           /SECOND SPANISH CURRENCY CHARACTER
+ACSCH3="S-200           /THIRD SPANISH CURRENCY CHARACTER
+        > /END IFDEF SPANISH
+IFDEF V30NOR <								/A020
+ACSCH2="O-200           /SECOND CURRENCY CHARACTER
+ACSCH3="K-200           /THIRD CURRENCY CHARACTER
+        > /END IFDEF V30NOR
+IFDEF V30SWE <								/A020
+ACSCH2="E-200           /SECOND CURRENCY CHARACTER
+ACSCH3="K-200           /THIRD CURRENCY CHARACTER
+        > /END IFDEF V30SWE
+
+  TAD I  INBUFA         /GET ADDRESS OF INPUT BUFFER (ON ANOTHER PAGE)	/A019
+  DCA  INBUFB           /AND STORE					/ "
+  TAD I  INBUFB         /GET A CHARACTER				/ "
+  ISZ  INBUFB           /AND INCREMENT BUFFER POINTER			/ "
+  ISZ  CCFMEH           /Inc Character Count For Math Error Handler	/ "
+  DCA  THRONE           /STORE CHAR					/ "
+  TAD  THRONE           /FOR LATER PARSING IF IT'S INVALID		/ "
+  TAD  (-ACSCH2)        /CHECK FOR SECOND CURRENCY CHARACTER		/ "
+  SZA                   /SKIP IF OK					/ "
+  JMP  ACSDUF           /ERROR ! NOT A CORRECT CHARACTER		/ "
+  TAD I  INBUFB         /READ ANOTHER CHARACTER				/ "
+  ISZ  INBUFB								/ "
+  ISZ  CCFMEH								/ "
+  DCA  THRONE           /STORE FOR LATER AS ABOVE			/ "
+  TAD  THRONE								/ "
+  TAD  (-ACSCH3)        /CHECK FOR THIRD CURRENCY CHARACTER		/ "
+  SZA                   /SKIP IF OK					/ "
+  JMP  ACSDUF           /ERROR ! NOT CORRECT CHARACTER			/ "
+							
+  TAD INBUFB            /GET CURRENT POINTER VALUE			/ "
+  DCA I  INBUFA         /AND RESTORE ON THE OTHER PAGE			/A019
+	> /END IFDEF CS3CHR						/A020
+
+IFDEF PSTCUR < /IF POST-DIGIT CURRENCY SYMBOL				/A020
+/DISABLE DIGITS, SEPS, MORE CURRENCYS AND RADIXS
+  TAD  (DIGITF+SEPARF+CSYMF+RSYMF)
+  JMS  FLGCTL
+  JMP  NOTDI2           /RETURN
+	> /END IFDEF PSTCUR						/A020
+
+IFDEF PRECUR <        /IF PRE-DIGIT CURENCY SYMBOL
+
+  TAD  (LPMSF+PERCEF+CSYMF)/ disable: '(', '%', '$'
+  JMS  FLGCTL
+  JMP  NOTDI2    / return
+
+        > / END IFDEF PRECUR
+
+IFDEF CS3CHR < /IF 3 CHARACTER CURRENCY SYMBOL				/A020
+
+ACSDUF,                 /A DUFF CHARACTER FOLLOWED THE 'P' OR 'T' IN 'PTS'/A019
+                        /PARSE AGAIN BUT WITH NOTHING LEGAL TO CAUSE CORRECT/A019
+                        /MESSAGE TO BE DISPLAYED. (EITHER 'NOT ALLOWED	/A019
+                        /HERE' OR 'ILEGAL CHAR'.			/A019
+  TAD INBUFB            /GET CURRENT POINTER VALUE			/A019
+  DCA I  INBUFA         /AND RESTORE ON THE OTHER PAGE			/A019
+					
+  DCA  NUMFLG           /NOTHING LEGAL !				/A019
+  JMP  ACSPAR           /GO RE-PARSE					/A019
+
+INBUFA,  INBUFP         /ADDRESS OF INPUT BUFFER POINTER ON ANOTHER PAGE
+INBUFB,  0              /LOCATION FOR POINTER ON THIS PAGE
+
+        >               / END IFDEF CS3CHR
+
+
+/THIS EMATH.PA FILE APPENDED HERE WHERE IS ALWAYS ASSEMBLED ANYWAY  /A009
+/EMATH.PA   FORMULA EXECUTIONS ROUTINES (+,-,*,/)
+
+
+/EDIT HISTORY:
+/012  JRF  19-OCT-81  Deleted MAXTOK equate since its in WPF1
+/011  DAO  25-SEP-81  SQUISHED BCDCOM
+/009  DAO  24-SEP-81  Changed COMPAR to BCDCOM to fix LP math bug
+/        which caused the system to halt
+/008  DAO  21-AUG-81  Changed the way buffers are defined
+/007  DAO  19-AUG-81  Added BCDCOM, a routine to compar two numbers
+/        for less than, greater than or equal to.
+/        Used by Wpselc (LP) in selection process but
+/        could be used in future for MIN/MAX functions
+/        Also change the way the buffers are defined
+/006  DAO  11-AUG-81  Added rouding for default format
+/005  DAO  19-JUL-81  Added rounding code
+/004  DAO  19-JUL-81  DOULBLE MAX SIZE OF OUTPUT LIST
+/003  DAO  14-JUL-81  ADDED CHANGES TO HANDLE UNINITIALIZED AND
+/        OVERFLOWED CONDITIONS
+/002  DAO  14-JUN-81  MODIFED TO COMBINE WITH OTHER MATH FILES
+/001  DAO  13-MAY-81  MODIFIED FOR 278 V2.0
+/  JR  7-MAR-78  CLEAN LISTING UP, FIX BUG IN PRINT USING
+/  DAVID SPECTOR: 28-DEC-77 CREATION FOR OS8
+
+/PROVIDES STRING ADDITION, SUBTRACTION, MULTIPLICATION AND DIVISION
+
+
+/INPUT:
+
+
+/OUTPUT:
+
+
+/ PSUEDO-STACK MACHINE
+
+/ These are the math routines which may occur in the output list
+/ generated by the formula translator, XLTFRM
+
+/ Possibilities are:
+
+/ INIT    / Initialize the psuedo-stack machine
+
+/ PUSH; ADDR  / Push the packed BCD value found at ADDR onto the stack
+
+/ ADD    / Add the top two values on the stack and put the results
+    /    back on the stack
+
+/ SUB    / Subtract the second stack value from the top stack value
+    /    and put the results on the top of the stack
+
+/ DIV    / Divide the second stack value by the top stack value
+    /    and put the results on the top of the stack
+
+/ MUL    / Multiply the top two stack values
+    /    and put the results on the top of the stack
+
+/ MINUS    / Negate the top stack value
+
+/ EQUATE; ADDR  / Pop the top stack value into ADDR
+
+/ JMP I  OUTEXT  / Exit
+
+////////////////////////////////////////////////////////////////////
+
+/ SAMPLE OUTPUT LIST AS PRODUCE BY THE 'XLTFRM' ROUTINE
+
+
+/OUTLST,INIT    / JMS TO INIT ROUTINE
+/  PUSH;  AA  / PUSH AA ONTO STACK
+/  PUSH;  BB  / PUSH BB ONTO STACK
+/  MUL    / TOP OF STACK = AA * BB
+/  EQUATE;PUSH;CC  / CC = TOP OF STACK
+/  JMP I   OUTEXT  / EXIT
+
+
+/ VALUE OF AA IN PACKED BCD FORM
+/  XXXX  / FORMAT OF AA
+/AA,  0000  / +00
+/  0000  / 000
+/  0000  / 000
+/  1361  / 2.1 (0010 1111 0001)
+/  0000  / 000
+/  0000  / 000
+/
+/ VALUE OF BB IN PACKED BCD FORM
+/  XXXX  / FORMAT OF BB
+/BB,  4000  / -00
+/  0001  / 001
+/  7400  / .00
+/  0000  / 000
+/  0000  / 000
+/  0000  / 000
+/
+/ VALUE OF CC IN PACKED BCD FORM
+/  XXXX  / FORMAT OF CC
+/CC,  2000  / 2000 INDICATES VALUE UNINITIALIZED
+/  0000
+/  0000
+/  0000
+/  0000
+/  0000
+/
+
+/This is a numeric compare routine used by WPSELC.PA (list processing)
+/ in the record selection process to decide which of two numbers is greater
+/ or if they are equal.
+
+/CIFMTH
+/JMS  BCDCOM
+/  A
+/  B
+/ON RETURN AC=
+/     0:   A=B
+/     +:   A>B
+/     -:   A<B
+
+    / A0000000000B
+    / A= SIGN OF A-B
+    / B= SIGN OB B-A
+
+/REAL ENTRY POINT IS AT TOP OF PAGE (IN LEXASC.PA)      /A011
+BCDCO1,  TAD I  BCDCOM  / GET A              /A007/M009/M011
+  DCA  COM1  /            /A007
+                  /D011
+  ISZ  BCDCOM               /A007/M009
+
+  TAD I  BCDCOM  / GET B             /A007/M009
+  DCA  COM2              /A007
+                  /D011
+  ISZ  BCDCOM               /A007/M009
+
+  CDFMYF    / SET TO MY DATA FIELD        /A007
+  INIT    / INITIALIZE MATH EXECUTION ROUTINES    /A007
+  PUSH                /A007
+COM1,  XX    / PUSH A           /A007
+  PUSH                /A007
+COM2,  XX    / PUSH B          /A007
+  SUB    / SUBTRACT B FROM A        /A007
+  EQUATE                /A007
+  PUSH                /A007
+  COMTMP    / COMTMP = A-B          /A007
+  AC4000    /            /A007
+  AND  COMTMP  / GET SIGN OF RESULT        /A007
+  DCA  COMRES  / STORE IN COMRES        /A007
+
+  PUSH    / PUSH A-B (COMTMP)        /A011
+  COMTMP    /            /A011
+  MINUS    / CHANGE TO B-A          /A011
+  EQUATE    / COMTMP = B-A          /A007
+  PUSH    /            /A007
+  COMTMP    /            /A007
+  TAD  COMTMP  / GET SIGN OF B-A        /A007
+  RTL    / PUT SIGN BIT INTO RIGHT BIT OF AC    /A007
+  AND  (0001  / ISOLATE          /A007
+  TAD  COMRES  / ADD TO SIGN OF A-B         /A007
+  CDILP    / CHANGE INSTRUCTION AND DATA FIELDS    /A007
+  JMP I  BCDCOM  / RETURN TO WPSELC         /A007/M009
+
+COMRES,  0    / SIGN OF RESULTS        /A007
+
+
+  0    / FORMAT WORD FOR COMTMP  (0 = DEFAULT FORMAT)  /A007
+COMTMP,  ZBLOCK  VALSIZ  / RESULT OF A-B  OR B-A GO HERE      /A007
+
+BCDBUF,  ZBLOCK VALSIZ    / BCD_BUFfer
+/ Layout of buffer:  byte #:     -3    -2    -1    (BCD_Buffer_Byte_Counter reflects
+/         ------------------   which byte is selected)
+/        | SIGN |  1  |  2  |
+/         ------------------
+/        |  3   |  4  |  5  |
+/         ------------------
+/        |  6   |  7  |  8  |
+/         ------------------
+/        |  9   | 10  | 11  |
+/         ------------------
+/        | 12   | 13  | 14  |
+/         ------------------
+/        | 15   | 16  | 17  |
+/         ------------------
+/ The buffer is 6 words long.  Each word is divided into 3 bytes, each a length of 4 bits.
+/ The contents of the buffer includes a sign, 16 digits, and a decimal point.
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE                /A007
+
+/ This is the cross field callable routine which must be called to execute
+/ the compiled formulas
+
+EXECUT,  XX
+  JMS  GETFLD  / GET CDI INSTRUCTION TO CALLERS FIELD
+  DCA  EXEOUT  / PUT IN PLACE
+  JMP I  OUTENT  / EXECUTE COMPILED FORMULA (OUTLST WILL RETURN HERE)
+EXEOUT,  0    / THIS GETS A CIF CDF INSTRUCTION
+  JMP I  EXECUT  / RETURN TO CALLER
+
+PINIT,  XX
+  TAD  (BOTTOM    / GET BOTTOM OF STACK AREA
+  DCA  TOP    / INITIALIZE STACK POINTER
+  JMP I  PINIT    / RETURN
+
+
+
+/ VALUE TO PUSH FOLLOWS CALL TO THIS ROUTINE
+/ STACK GROWS UP IN MEMORY AND EACH ENTRY TAKES VALSIZ WORDS OF MEMORY
+PPUSH,  XX
+  TAD  (-VALSIZ  / GET SIZE OF NUMBER
+  TAD  TOP    / MAKE TOP = TOP - VALSIZ
+  DCA  TOP    / NOW WE HAVE ALLOCATED SPACE FOR NEW TOP
+
+/ NOW CHECK FOR STACK OVERFLOW, TOPMAX IS UPPER LIMIT
+  TAD  (-TOPMAX
+  TAD  TOP
+  SPA CLA      / STACK OVERFLOW?
+  JMP  PERR1    /   YES,  GO TO ERROR ROUTINE
+
+        /   NO,  SO COPY NUMBER TO STACK
+  TAD   TOP    /       GET DESTINATION ADDRESS
+  DCA  PPUSH1    /       AND PUT INTO PLACE
+
+  TAD I  PPUSH    /  PUT SOURCE ADDRESS INTO AC
+  JMS  PCOPY    / AC = SOURCE, JMS COPY; DESTINATION ADDRESS
+PPUSH1,  0      /  DESTINATION ADDRESS
+
+  ISZ  PPUSH    / INCREMENT RETURN ADDRESS
+  JMP I  PPUSH    / RETURN
+
+
+
+/ THIS ROUTINE WILL PUT THE VALUE AT THE TOP OF THE STACK INTO THE NUMBER
+/ POINTED TO BY THE WORD FOLLOWING THE CALL
+PEQUAT,  XX
+  ISZ  PEQUAT    / SKIP PAST FIRST ARGUMENT WHICH WE DON'T NEED
+  AC7777      / GET FORMAT WORD      /A005
+  TAD I  PEQUAT              /A005
+  DCA   T1    / T1= ADDRESS OF FORMAT WORD    /A005
+  TAD   T1    / AC= ADDRESS OF FORMAT WORD    /A005
+  DCA  PEQUA5    /  SAVE FOR LATER USE BY TRUNCATION CODE/A005
+
+/DO THE ROUNDING IF ROUNDING SWITCH IS ON        /A005
+  TAD  TRUNC    / IS ROUNDING IN AFFECT?    /A005
+  SZA CLA                /A005
+  JMP  PEQUA2    /   NO, SO SKIP ROUNDING    /A005
+
+  TAD I  T1    / AC=FORMAT WORD      /A005
+  AND  (0717    /    MASK OUT ALL BUT NUMBER OF DIGITS  /A006
+        /    REQUESTED TO SEE IF DEFAUL FORMAT  /A006
+  SNA      / IF DEFAULT FORMAT      /A005
+  TAD  (0700    /    THEN USE .0000005 FOR ROUNDING  /M006
+  AND  (0700    / ISOLATE BITS WHICH TELL # OF DIGITS  /A005
+        / USER WANTS TO SEE TO RIGHT OF RADIX  /A005
+  BSW      / PUT IN RIGHT HALF OF AC    /A005
+  TAD  (DPTABL    / USE AS OFFSET INTO TABLE OF CONSTANTS  /A005
+  DCA  PEQUA3    / PEQUA3 = POINTER TO ADDRESS    /A005
+  TAD I  PEQUA3    / AC=ADDRESS        /A005
+  DCA  PEQUA3    / PEQUA3= ADDRESS      /A005
+
+/NOW WE MUST DECIDE TO EITHER ADD THE CONSTANT OR TO SUBTRACT IT  /A005
+/IF THE VALUE TO BE ROUNDED IS NEGATIVE WE SUBTRACT, ELSE WE ADD  /A005
+  TAD I  TOP    / GET FIRST WORD OF VALUE    /A005
+  SPA CLA      / IS VALUE NEGATIVE?      /A005
+  TAD  (SUB-ADD  /    YES, SO GET SUBTRACT INSTRUCTION  /A005
+  TAD  (ADD    /    NO, SO GET ADD INSTRUCTION    /A005
+  DCA  PEQUA4    / PUT INSTRUCTION IN PLACE    /A005
+
+  PUSH      /PUSH CONSTANT ONTO STACK    /A005
+PEQUA3,  0      /SET UP WITH ADDRESS OF CONSTANT  /A005
+PEQUA4,  0      /GETS EITHER ADD OR SUBTRACT INSTRUCTION/A005
+
+/CONTINUE HERE AFTER ROUNDING            /A005
+PEQUA2,  AC2000      / CHECK IF RESULT UNDEF      /A012
+  AND I  TOP              /A012
+  SNA CLA      / SKIP IF: UNDEF      /A012
+  JMP  PEQUA8              /A012
+  TAD  MTHTYP    / ARE WE IN EDITOR OR LP MATH?    /A012
+  SNA CLA      / SKIP IF: EDITOR      /A012
+  JMP  PEQUA8              /A012
+  JMS  POP    / ADJUST STACK        /A012
+  JMP  PEQUA9    / UNDEF IN EDITOR MATH.  DO NOT EQUATE!  /A012
+
+PEQUA8,  TAD I  PEQUAT    / GET DESTINATION ADDRESS    /M012
+  DCA  PEQUA1    / SET UP CALL TO COPY ROUTINE
+
+  TAD   TOP    / PUT SOURCE ADDRESS INTO THE AC
+  JMS  PCOPY    / AC=SOURCE, JMS PCOPY; DESTINATION ADDRESS
+PEQUA1,  0      / SET UP TO CONTAIN ADDRESS OF DESTINATION
+
+  JMS  POP    / POP TOP ELEMENT OFF STACK
+
+/TIME NOW TO TRUNCATE BY ONLY STORING WHAT THE USER WILL SEE    /A005
+/BUT ONLY TRUNCATE IF NO OVERFLOW OR UNDEFINED ERROR
+  TAD I  PEQUA1    / GET FIRST WORD OF VALUE
+  RTL      / LINK=UNDEF BIT; SIGN=OVERFLOW BIT
+  SPA CLA      / IS THERE AN OVERFLOW?
+  JMP  PEQUA7    /     YES, SO SKIP TRUNCATE
+  SZL      /     NO, IS IT UNDEFINED?
+  JMP  PEQUA7    /          YES, SO SKIP TRUNCATE
+
+  CIFLP      /CHANGE TO LIST PROCESSING FIELD  /A005
+  JMS  BCDASC    / CALL BCD TO ASCII CONVERSION ROUTINE  /A005
+PEQUA5,  0      / THIS IS STUFFED WITH ADDRESS OF BCD  /A005
+  TOKVAL      / WANT TO PUT IN TOKVAL BUFFER    /A005
+     CDFMYF    /    LOCATED IN THIS FIELD    /A005
+
+  DCA   T1    /RETURNS WITH POINTER TO END OF ASCII  /A005
+  DCA I  T1    /PUT IN TERMINATING NULL WHICH     /A005
+        /ASCBCD EXPECTS        /A005
+
+  TAD I  PEQUAT    /GET ADDRESS OF DESTINATION AGAIN  /A005
+  DCA  PEQUA6    /SET UP CALL TO ASCBCD CONVERTER  /A005
+  JMS  ASCBCD    /CALL ASC TO BCD ROUTINE    /A005
+    TOKVAL    /ADDRESS OF INPUT (OUTPUT OF BCDASC)  /A005
+PEQUA6,  0      /ADDRESS OF OUTPUT (INPUT OF BCDASC)  /A005
+  CLA      /ERROR RETURN (SHOULD NEVER!! HAPPEN)  /A005
+        /BUT IF IT DOES, LOOK AT TOKVAL TO
+        /SEE WHAT BCDASC PUT OUT FOR INVALID
+        /NUMBERS
+
+PEQUA7,  TAD (400    / SET RESULT BIT      /A010
+  TAD I  PEQUA1    / ADD DESTINATION ADDRESS    /A010
+  DCA I  PEQUA1    / PUT BACK WITH RESULT BIT SET    /A010
+PEQUA9,  ISZ  PEQUAT    / BUMP RETURN ADDRESS      /M012
+  JMP I  PEQUAT    / RETURN
+
+
+PADD,  XX
+  TAD  PADD    / SET UP RETURN ADDRESS ON PAGE ZERO
+  DCA  GOBACK
+
+  JMS  MATH    / 2ND ON STACK = TOP OF STACK + 2ND ON STACK
+  0      / OPERATION CODE
+  / RETURNED TO CALLER BY A 'JMP I GOBACK' FROM 'FINISH' ROUTINE
+
+PMINUS,  XX
+  TAD I  TOP    / GET FIRST WORD OF VALUE TO BE NEGATED
+  RAL      / PUT SIGN BIT IN LINK
+  CML RAR      / COMPLIMENT SIGN BIT AND ROTATE BACK
+  DCA I  TOP    / AND PUT BACK IN PLACE
+  JMP I  PMINUS    / RETURN
+
+/  THE FOLLOWING ROUTINE MOVED HERE TO MAKE SPACE ON EDIT 013
+
+/  Update_Summary_And_Last_Character_Flags as per USALCT.
+USALCF,  XX
+  MQL      / hold onto bit from USALCT
+  TAD  SUMCHR    / get current SUMmary_of_CHaRacters_read
+  MQA      / set the bit we want
+  DCA  SUMCHR    / update SUMmary_of_CHaRacters_read
+  SWP      / update LaST_CHaRacter_Read
+  DCA  LSTCHR
+  JMP I  USALCF    / return
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/INITIALIZATION CODE:
+/CLEAR VARIABLES AND INTERMEDIATE REGISTER (C,
+/COMPRESS DIGITS IN BOTH A AND B, TEST DIGITS,
+/CONVERT DIGITS TO BCD, GET SIGNS, COUNT DIGITS
+/TO LEFT AND TO RIGHT OF DECIMAL POINT,
+/SAVE SIGN OF RESULT, DISPATCH TO PROPER ROUTINE.
+
+MATH,  0
+/  TAD  (A  / INITIALIZE PAGE 0 POINTERS TO  B
+/  DCA  PA  / A NEVER GETS DESTROYED SO NO NEED TO INIT
+  TAD  (B
+  DCA  PB
+
+/ IF (A OR B) ARE UNINITIALIZED            /A003
+/   THEN SET RESULT TO UNINITIALIZED          /A003
+/   ELSE IF (A OR B) ARE OVERFLOWED          /A003
+/      THEN SET RESULT TO OVERLFLOWED        /A003
+
+  TAD  TOP  /TOP = LOCATION OF TOP OF STACK (TOS)    /A003
+  TAD  (VALSIZ              /A003
+  DCA  T1  /T1 = LOCATION OF SECOND ON STACK (SOS)    /A003
+
+  TAD I  T1  /GET FIRST WORD OF SOS
+  MQL    /PUT IN MQ
+  TAD I  TOP  /GET FIRST WORD OF TOS
+  MQA    / AC = (AC OR MQ)   PERFORM INCLUSIVE OR
+  RTL    / LINK = UNDIFINED BIT;  SIGN = OVERFLOW BIT
+  SZL    / IS EITHER UNDEFINED?
+  JMP  PERR4  /    YES, HANDLE ERROR
+  SPA CLA    /    NO, IS EITHER OVERFLOWED?
+  JMP  PERR2  /          YES, HANDLE ERROR
+
+/ NEITHER VARIABLE IS UNDEFINED OR OVERFLOWED SO PERFORM MATH
+  JMS  CLEAR  /CLEAR VARIABLES.
+  SA    /  LOCATION OF 1ST VARIABLE.
+  -6    /  -NUMBER TO CLEAR.
+  JMS  CLEAR  /CLEAR INTERNAL RESULT ARRAY
+  C    /  LOCATION OF ARRAY.
+  -MAX-MAX  /  -LENGTH.
+
+  TAD  T1
+  JMS  SCAN  /SCAN AND COMPRESS TOP
+  A;SA
+
+  TAD  TOP  /POINT TO SOS          /M003
+  JMS  SCAN  /SCAN AND COMPRESS SECOND ELEMENT
+  B;SB
+
+  TAD  SA  /ADD SIGNS TOGETHER IN ORDER TO XOR THEM
+  TAD  SB
+  TAD I  MATH  /ADD IN OPERATION TYPE.
+  SMA    /IS OPERATION MUL/DIV?
+  JMP  MA3  /NO, MUST BE ADD/SUB.
+  DCA  SA  /YES, XOR OF SA AND SB IS SIGN OF RESULT.
+  TAD I  MATH  /GET OPERATION TYPE.
+      /DISPATCH ON OPERATION, MUL OR DIV.
+  RAL
+  SMA CLA
+  JMP I  (MULOP
+  JMP I  (DIVOP
+MA3,  RAR    /XOR OF SA AND SB TO LINK TO SELECT
+      /ACTUAL ADDITION OR SUBTRACTION
+      /(LINK=1 FOR SUBTRACTION.
+      /(NOTE: INITIAL SIGN OF RESULT
+      /IS ALREADY IN SA.
+  SZL CLA    /AC=ARGUMENT FOR "JMS  ADSB".
+  TAD  (SBS-ADS  /SBS: SUBTRACTION.
+  TAD  (ADS  /ADS: ADDITION.
+  JMP I  (ADDSUB
+
+
+  /SUBROUTINE TO CLEAR AN ARRAY
+
+CLEAR,  0
+  TAD I  CLEAR  /ADDRESS.
+  ISZ  CLEAR
+  DCA  TMP1
+  TAD I  CLEAR  /-LENGTH.
+  ISZ  CLEAR
+  DCA  TMP2
+CL1,  DCA I  TMP1
+  ISZ  TMP1
+  ISZ  TMP2
+  JMP  CL1
+  JMP I  CLEAR
+
+  /SUBROUTINE TO SCAN AND  COMPRESS INPUT ARRAYS
+/AC=SOURCE
+/JMS  SCAN
+/DESTINATION ADDRESS
+
+SCAN,  XX
+  DCA  TMP1  / SET UP POINTER TO PACKED BCD VALUE
+
+  TAD  (-VALSIZ/ GET NUMBER OF WORDS IN VALUE
+  DCA  TMP5  / SET UP COUNTER
+
+  TAD I  SCAN  / GET ADDRESS OF OUTPUT
+  ISZ  SCAN  / BUMP RETURN ADDRESS
+  DCA  TMP2  / TMP2 = START OF ARRAY (OUTPUT)
+
+  TAD I  SCAN
+  ISZ  SCAN  / BUMP RETURN ADDRESS
+  DCA  TMP3  / TMP3=ADDR OF (SIGN;LEFT;RIGHT)
+
+
+/SET UP SIGN WORD (SA, OR SB)
+  TAD I  TMP1  / GET FIRST WORD OF VALUE
+  SPA CLA    / IS VALUE NEGATIVE?
+  ISZ I  TMP3  /    YES, SO SET SIGN TO 1
+  ISZ  TMP3  / POINT TO LA OR LB
+
+  JMP  MIDDLE  / PROCESS MIDDLE BCD VALUE OF FIRST WORD
+
+LEFT,  TAD I  TMP1  / GET PACKED BCD VALUE
+  BSW; RTR  / PUT LEFT VALUE ON RIGHT SIDE
+  JMS  LOAD  / LOAD THE DIGIT OR RADIX POINT
+
+MIDDLE,  TAD I  TMP1  / GET PACKED BCD VALUE
+  RTR; RTR  / PUT MIDDLE VALUE ON RIGHT SIDE
+  JMS  LOAD  / LOAD THE DIGIT OR RADIX POINT
+
+RIGHT,  TAD I  TMP1  / GET PACKED BCD VALUE
+        / RIGHT BCD VALUE IS ON RIGHT SIDE
+  JMS  LOAD  / LOAD THE DIGIT OR RADIX POINT
+
+  ISZ  TMP1  / BUMP THE PACKED BCD POINTER
+  ISZ  TMP5  / ARE WE DONE ALL OF THE WORDS IN THE VALUE?
+  JMP  LEFT  /    NO, DO LEFT BCD OF NEXT WORD
+  JMP I  SCAN  /    YES, RETURN
+
+
+LOAD,  XX
+  AND  (0017    / MASK OUT ALL BUT THIS BCD VALUE
+  DCA  TMP6    / STORE IN A TEMP
+  TAD  TMP6    / RETRIEVE AGAIN
+  TAD  (-BCDRAD  / COMPARE WITH RADIX POINT
+  SNA CLA      / IS IT RADIX?
+  JMP  SC1    /    YES, GO TO HANDLE
+  ISZ I  TMP3    /    NO, COUNT LA,LB,RA,RB.
+  TAD   TMP6    / ACCEPT AND  COMPRESS THE CHAR.
+  DCA I  TMP2    / PUT INTO OUTPUT
+  ISZ  TMP2    / BUMP OUTPUT POINTER
+  JMP I  LOAD    / RETURN
+
+
+/HANDLE DECIMAL POINT
+SC1,  ISZ  TMP3  / POINT TO RA OR RB.
+  JMP I  LOAD  / RETURN
+
+
+/THIS ROUTINES MOVED HERE TO SAVE SPACE ABOVE
+PSUB,  XX
+  TAD  PSUB    / SET UP RETURN ADDRESS ON PAGE ZERO
+  DCA  GOBACK
+
+  JMS  MATH    / 2ND ON STACK = TOP OF STACK - 2ND ON STACK
+  1      /   OPERACTION CODE
+  / RETURNED TO CALLER BY A 'JMP I GOBACK' FROM 'FINISH' ROUTINE
+
+PMUL,  XX
+  TAD  PMUL    / SET UP RETURN ADDRESS ON PAGE ZERO
+  DCA  GOBACK
+
+  JMS  MATH
+  4000      / 2ND ON STACK = TOP OF STACK * 2ND ON STACK
+  / RETURNED TO CALLER BY A 'JMP I GOBACK' FROM 'FINISH' ROUTINE
+
+PDIV,  XX
+  TAD  PDIV    / SET UP RETURN ADDRESS ON PAGE ZERO
+  DCA  GOBACK
+
+  JMS  MATH
+  6000      / 2ND ON STACK = TOP OF STACK / 2ND ON STACK
+  / RETURNED TO CALLER BY A 'JMP I GOBACK' FROM 'FINISH' ROUTINE
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/TABLE OF CONSTANTS (NOT A TABLE OF CONTENTS)        /A005
+/CONTAINS ADDRESSES OF CONSTANTS TO BE USED IN THE ROUNDING OPERATION  /A005
+
+DPTABL,  DP0  / ADDRESS OF .5            /A005
+  DP1  / ADDRESS OF .5            /A005
+  DP2  / ADDRESS OF .05          /A005
+  DP3  / ADDRESS OF .005          /A005
+  DP4  / ADDRESS OF .0005          /A005
+  DP5  / ADDRESS OF .00005          /A005
+  DP6  / ADDRESS OF .000005          /A005
+  DP7  / ADDRESS 0F .0000005          /A005
+
+/CONSTANTS USED IN ROUNDING            /A005
+
+/IF A FORMAT WORD IS SPECIFIED AND ROUNDING IS IN AFFECT, THAN OF OF   /A005
+/THE FOLLOWING CONSTANTS WILL BE ADDED TO THE RESULT OF A FORMULA  /A005
+/DURING THE EQUAT FUNCTION            /A005
+/
+/
+DP0,                  /A005
+DP1,  0365  /+.5              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+DP2,  0360  /+.0              /A005
+  2400  /500              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+DP3,  0360  /+.0              /A005
+  0120  /050              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+DP4,  0360  /+.0              /A005
+  0005  /005              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+DP5,  0360  /+.0              /A005
+  0000  /000              /A005
+  2400  /500              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+DP6,  0360  /+.0              /A005
+  0000  /000              /A005
+  0120  /050              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+DP7,  0360  /+.0              /A005
+  0000  /000              /A005
+  0005  /005              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+  0000  /000              /A005
+
+
+
+/ADDITION/SUBTRACTION OPERATION
+
+/NOTE: C THROUGH C+MAX-1 WILL CONTAIN THE INTEGER PORTION,
+/C+MAX THROUGH C+MAX+MAX-1 WILL CONTAIN THE DECIMAL PORTION.
+
+ADDSUB,  DCA  AD11  /INITIALIZE ADD OR SUB OPERATION.
+  TAD  PA  /TRANSFER A TO C.
+  DCA  TMP1
+  TAD  LA  /SHIFT TO PROPER PLACE IN C.
+  CIA
+  TAD  (C+MAX)
+  DCA  TMP2
+  TAD  LA  /TMP3=LENGTH OF A.
+  TAD  RA
+  CMA
+  DCA  TMP3
+AD1,  ISZ  TMP3  /END OF A YET?
+  SKP
+  JMP  AD2  /YES: ADD B TO C.
+  TAD I  TMP1  /NO: TRANSFER THE CHAR.
+  ISZ  TMP1
+  DCA I  TMP2
+  ISZ  TMP2
+  JMP  AD1
+
+
+/ADD B TO C OR SUBTRACT B FROM C
+
+AD2,  TAD  LB  /CALCULATE LENGTH OF B.
+  TAD  RB
+  CMA
+  DCA  B3  /B3=B WIDTH.
+  TAD  B3
+  CMA
+  TAD  PB
+  DCA  B2  /B2=B POINTER.
+  TAD  RB  /ADD/SUB INTO PROPER PLACE IN C.
+  TAD  (C+MAX
+  DCA  B1  /B1=C POINTER.
+  TAD  B1
+  CIA
+  TAD  (C-1
+  DCA  B4  /B4=C WIDTH.
+  JMS I  (ADSB  /ADD OR SUBTRACT.
+AD11,    0    /  ADS OR SBS FOR ADD OR SUBTRACT.
+  TAD  CARRY  /ANY FINAL CARRY OR BORROW?
+  SNA CLA
+  JMP I  (ADTRAN  /NO: TRANSFER C TO SAC.
+  TAD  AD11  /OVERFLOW FROM LEFT-MOST DIGIT: MEANING
+      /DEPENDS ON OPERATION.
+  TAD  (-ADS  /IS IT ADDITION?
+  SZA CLA
+  JMP  TENCMP  /SUBTRACTION: OVERFLOW INDICATES
+      /LARGER FROM SMALLER. DO 10'S COM-
+      /PLEMENT OF RESULT.
+  JMP  PERR2  / OVERFLOW ERROR ON ADD MULT OR DIV
+
+/ATTEMPTED SUBTRACTION OF A LARGER NUMBER FROM A
+/SMALLER: DO 10'S COMPLEMENT OF RESULT
+
+TENCMP,  ISZ  SA  /COMPLEMENT SIGN OF RESULT.
+  TAD  (-MAX-MAX
+  DCA  TMP1  /TMP1=LENGTH OF C.
+  STA
+  DCA  TMP2  /TMP2=ONCE-ONLY SWITCH.
+  TAD  (C+MAX+MAX /START AT RIGHT END OF C.
+  DCA  TMP3  /TMP3=POINTER INTO C.
+TC1,  STA    /GET PREVIOUS DIGIT OF C.
+  TAD  TMP3
+  DCA  TMP3
+  TAD I  TMP3
+  SZA    /IS DIGIT 0?
+  JMP  TC2
+  AC0001    /YES: HAS A NON-ZERO DIGIT BEEN SEEN?
+  TAD  TMP2
+  SNA CLA
+  JMP  TC3  /NO: IGNORE DIGIT.
+      /YES: FALL THROUGH TO CMPL. IT.
+TC2,  ISZ  TMP2  /IS THIS FIRST NON-ZERO DIGIT?
+  IAC    /NO: 9'S COMPLEMENT IT.
+  CIA    /YES: 10'S COMPLEMENT IT.
+  TAD  (12
+  DCA I  TMP3
+TC3,  ISZ  TMP1  /MORE DIGITS IN C TO COMPLEMENT?
+  JMP  TC1    /YES: COMPLEMENT NEXT DIGIT.
+  JMP I  (ADTRAN  /NO: TRANSFER C TO SAC.
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+  /TRANSFER C TO SAC (ADDITION AND SUBTRACTION)
+
+ADTRAN,  TAD  (-MAX-1
+  DCA  TMP5  /TMP5=LOCATION OF DECIMAL POINT.
+MLTRAN,      /ENTRY POINT TO TRANSFER C TO SAC
+      /FOR MULTIPLICATION AND  DIVISION.
+  JMS  BCDINI  / DROP STACK POINTERS DOWN
+  TAD  TOP  / GET POINTER TO TOP OF STACK
+  DCA  TMP2  /    TO INITIALIZE OUTPUT POINTER
+  TAD  (C
+  DCA  TMP1  /TMP1=POINTER INTO C.
+  DCA  TMP3  /TMP3=ZERO SUPPRESSION SWITCH.
+  TAD  (-KWHOLE  / NUMBER DIGITS ALLOWED TO LEFT OF POINT
+  DCA  TMP4  /TMP4=OUTPUT SIGNIFICANCE LIMIT.
+  TAD  (-MAX-MAX
+  DCA  TMP6  /TMP6=INPUT SIGNIFICANCE LIMIT.
+
+  TAD  (BCDMID  / SET UP BCDOUT ROUTINE TO OUTPUT TO MIDDLE 4 BITS
+  DCA  BCDOUT  / HOLDS ADDRESS OF ONE OF THREE BCD OUTPUT ROUTINES,
+      / BCDLFT, BCDMID OR BCDRGT
+
+  JMS  SGNOUT  /STORE SIGN.
+
+ADOUT,  ISZ  TMP5  /SCAN NEXT DIGIT OF C.
+      /IS DECIMAL POINT DUE?
+  JMP  AD5  /NOT YET.
+  TAD  (BCDRAD  /YES, OUTPUT 4 BIT REPRESENTATION OF RADIX POINT.
+  JMS I  BCDOUT
+  ISZ  TMP3  /TURN OFF ZERO SUPPRESSION FOLLOWING
+      /DECIMAL POINT.
+AD5,  TAD I  TMP1  /GET THE DIGIT OF C.
+  ISZ  TMP1
+  SZA    /DO ZERO SUPPRESSION:
+      /IS THE DIGIT ZERO?
+  JMP  AD4  /NO: TURN OFF ZERO SUPPRESSION AND
+      /OUTPUT THE DIGIT.
+  TAD  TMP3  /IS ZERO SUPPRESSION ENABLED?
+  SNA CLA
+  JMP  AD3  /YES: IGNORE THIS LEADING ZERO.
+      /NO: FALL THROUGH TO OUTPUT THE
+      /ZERO DIGIT.
+AD4,  ISZ  TMP3  /NON-ZERO DIGIT DETECTED: DISABLE
+      /ZERO SUPPRESSION.
+  JMS I  BCDOUT  /OUTPUT BCD IN PACKED FORM (3 TO A WORD)
+  ISZ  TMP4  /HAVE "MAX" DIGITS BEEN OUTPUT YET?
+  JMP  AD3    /NOT YET.
+  AC0001    /YES: TEST FOR OVERFLOW.
+  TAD  TMP5
+  SPA CLA
+  JMP   PERR5  /DECIMAL POINT STILL TO THE RIGHT.
+      /SAME OVERFLOW ERROR AS IN ADDITION.
+      /(EXCEPT WE HAVE ALREADY DONE A 'POP'
+  ISZ  TMP5  /NO OVERFLOW, DECIMAL POINT DUE?
+  JMP I  GOBACK  / NO, JUST EXIT
+  TAD  (BCDRAD  / YES, OUTPUT RADIX THEN EXIT
+  JMS I  BCDOUT
+  JMP I  GOBACK  /
+
+
+BCDOUT,  0    /  HOLDS ADDRESS OF ONE OF THREE BCD OUTPUT ROUTINES,
+      /  BCDLFT, BCDMID OR BCDRGT
+
+/ BCDOUT=BCDLFT
+/ AC= 0000 0000 BBBB
+/ JMS I  NXTOUT
+
+BCDLFT,  XX    / THIS ROUTINE PUTS BCD CHARACTER WHICH IS IN AC INTO
+      / THE LEFT FOUR BITS OF THE WORD POINTED TO BY TMP2
+      / AC= 0000 0000 BBBB
+  BSW; RTL CLL  / AC= BBBB 0000 0000
+  DCA I  TMP2  / VALUE WORD ON STACK = BBBB 0000 0000
+
+  TAD  (BCDMID  / GET ADDRESS OF ROUTINE TO BE USED NEXT TIME
+      / WHICH WILL OUTPUT NEXT BCD VALUE INTO MIDDLE 4 BITS
+  DCA  BCDOUT  / AND STORE TO INDIRECT THROUGH
+
+  JMP I  BCDLFT
+
+/ BCDOUT=BCDMID
+/ AC= 0000 0000 BBBB
+/ JMS I NXTOUT
+
+BCDMID,  XX    / THIS ROUTINE PUTS BCD CHARACTER IN AC INTO THE FOUR
+      / MIDDLE BITS OF WORD POINTED TO BY TMP2
+      / AC= 0000 0000 BBBB
+  RTL CLL; RTL  / AC= 0000 BBBB 0000
+  TAD I  TMP2  / AC= BBBB BBBB 0000
+  DCA I  TMP2  / VALUE WORD ON STACK = BBBB BBBB 0000
+
+  TAD  (BCDRGT  / GET ADDRESS OF ROUTINE TO BE USED NEXT TIME
+      / WHICH WILL OUTPUT NEXT BCD VALUE INTO RIGHT 4 BITS
+  DCA  BCDOUT  / AND STORE TO INDIRECT THROUGH
+
+  JMP I  BCDMID
+
+
+/ BCDOUT=BCDRGT
+/ AC= 0000 0000 BBBB
+/ JMS I NXTOUT
+
+BCDRGT,  XX    / THIS ROUTINE PUTS BCD CHARACTER IN AC INTO THE FOUR
+      / RIGHT BITS OF WORD POINTED TO BY TMP2
+      / AC= 0000 0000 BBBB
+  TAD I  TMP2  / AC= BBBB BBBB BBBB
+  DCA I  TMP2  / VALUE WORD ON STACK = BBBB BBBB BBBB
+
+  ISZ  TMP2  / POINT TO NEXT VALUE WORD
+  TAD  (BCDLFT  / AND GET ADDRESS OF ROUTINE TO BE USED NEXT TIME
+      / WHICH WILL OUTPUT NEXT BCD VALUE INTO LEFT 4 BITS
+  DCA  BCDOUT  / AND STORE TO INDIRECT THROUGH
+  JMP I  BCDRGT
+
+
+
+
+
+AD3,  ISZ  TMP6  /MORE CHARS REMAINING IN C?
+  JMP  ADOUT  /YES: PROCESS NEXT CHAR.
+      /NO MORE CHARS IN C OR "MAX" CHARS OUTPUT:
+  JMP I  GOBACK  / SO EXIT
+
+
+/STORE SIGN IN LEFT BIT OF FIRST WORD OF VALUE ON STACK
+
+SGNOUT,  XX
+  TAD  SA  / RIGHTMOST BIT = SIGN OF RESULT
+  RAR    / LINK= SIGN OF RESULT
+  SZL CLA    / NEGATIVE?
+  AC4000    /     YES, SO SET SIGN BIT
+  DCA I  TMP2  / PUT INTO FIRST WORD OF BCD VALUE
+  JMP I  SGNOUT  /RETURN.
+
+
+/  COPY ROUTINE USED TO MOVE A VALUE (VALSIZ WORDS IN LENGTH) FROM ONE
+/   PLACE TO ANOTHER.
+/
+/AC=ADDRESS OF VALUE TO BE MOVED
+/JMS  PCOPY
+/DESTINATION ADDRESS
+/
+PCOPY,  XX
+  TAD  (-1  / SOURCE = SOURCE - 1
+  DCA  X1  / FIRST AUTO INCREMENT REGISTER POINTS TO SOURCE-1
+
+  AC7777    / AC = -1
+  TAD I  PCOPY  / GET POINTER TO DESTINATION
+  DCA  X2  / 2ND AUTO INCREMENT REGISTER POINTS TO DESTINATION-1
+
+  TAD  (-VALSIZ  / GET NUMBER OF WORDS TO MOVE
+  DCA  TMP1    / AND SET UP COUNTER
+
+PLOOP,  TAD I  X1  / GET WORD FROM SOURCE
+  DCA I  X2  / AND MOVE IT TO DESTINATION
+  ISZ  TMP1  / ARE WE DONE?
+  JMP  PLOOP  /    NO, DO ANOTHER ONE
+
+  ISZ  PCOPY  /    YES, BUMP RETURN ADDRESS
+  JMP I  PCOPY  /          AND RETURN
+
+
+PERR3,  TAD   (ERRDB0-ERROVF  / ERROR, DIVIDE BY ZERO
+PERR1,  TAD  (ERROVF    / ERROR, STACK OVERFLOW
+  JMP I  OUTEXT    / RETURN TO CALLER      /A002
+
+/ ERROR, NUMERIC OVERFLOW (ADDITION OR SUBTRACTION)      /A003
+PERR2,  JMS  POP  / POP TOP ELEMENT OF STACK      /A003
+PERR5,  TAD I  TOP  / PUT IN FIRST WORD OF RESULTS      /A010
+  MQL    / SAVE AC IN THE MQ        /A010
+  TAD (1000  / SET BIT          /A010
+  MQA    / 'OR' THE AC WITH RESULT BIT      /A010
+  DCA I  TOP  / PUT IN FIRST WORD OF RESULTS      /A010
+  JMP I  GOBACK  / RETURN          /A003
+
+/ ERROR, UNINITIALIZED VALUE FOUND ON STACK        /A003
+PERR4,  CLA    / CLEAR AC          /A003
+  JMS  POP  / POP IT OFF STACK        /A003
+  TAD (2400  / SET UNINIT BIT        /A010
+  DCA I  TOP  / PUT IN FIRST WORD OF RESULTS      /A010
+  JMP I  GOBACK
+
+/  THE FOLLOWING ROUTINE WAS MOVED HERE TO MAKE SPACE ON EDIT 013
+
+BCDINI,  0
+  JMS  POP  / POP TOP VALUE OFF STACK
+
+/ NOW CLEAR THE BCD VALUE ON TOP OF THE STACK TO SHOW ALL ZEROES
+
+  TAD  TOP  / GET ADDRESS TO CLEAR IN AC
+  DCA  BCDTOP  / AND PUT IN PLACE
+
+  JMS  CLEAR  / CALL ROUTINE TO CLEAR AN ARRAY
+BCDTOP,  0    / INITIALIZED TO POINT TO TOP OF STACK
+  -VALSIZ    / NUMBER OF VALUES TO CLEAR
+
+  JMP I  BCDINI  / DONE, SO RETURN
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/  THE FOLLOWING TABLES WERE MOVED HERE TO MAKE SPACE ON EDIT 013
+/  C A U T I O N    THESE LOCATIONS ARE DEFINED IN M.PA
+
+BCDAR1,  ZBLOCK VALSIZ    / USED TO PASS ARGUMENTS TO BCDCOM  /A007
+BCDAR2,  ZBLOCK VALSIZ    / FROM WPSELC RECORD SELECTION LOGIC  /A007
+
+
+/MULTIPLICATION OPERATION
+
+/DO ENTIRE MULTIPLICATION IN DOUBLE PRECISION INTO
+/RESULT REGISTER C THEN TRANSFER C TO SAC.
+
+MULOP,      /INITIALIZE POINTERS.
+  TAD  PA  /LOCATE RIGHT END OF A.
+  TAD  LA
+  TAD  RA
+  DCA  TMP1  /TMP1=MAJOR POINTER INTO A.
+  TAD  (C+MAX+MAX
+  DCA  TMP2  /TMP2=MAJOR POINTER INTO C.
+  TAD  PB  /LOCATE RIGHT END OF B.
+  TAD  LB
+  TAD  RB
+  DCA  TMP3  /TMP3=RIGHT END OF B.
+  TAD  LB
+  TAD  RB
+  CMA
+  DCA  TMP4  /TMP4=LENGTH LIMIT OF B.
+  TAD  LA
+  TAD  RA
+  CMA
+  DCA  TMP5  /TMP5=LENGTH LIMIT OF A.
+MLLOOP,  ISZ  TMP5  /FINISHED MULTIPLYING BY A?
+  JMP I  (MUL1  /NO.
+  TAD  RA  /YES: TRANSFER RESULT WITH DECIMAL
+      /POINT AT RA+RB FROM RIGHT
+      /(2*MAX-RA-RB FROM LEFT).
+  TAD  RB
+  TAD  (-MAX-MAX-1
+  DCA  TMP5  /TMP5=LOCATION OF DECIMAL POINT.
+  JMP  MLTRAN  /TRANSFER C TO SAC, SAME AS FOR
+      /ADDITION/SUBTRACTION.
+
+
+/ THIS ROUTINE SIMPLY INCEMENTS THE POINTERS TO THE PSUEDO-STACK
+/ TO HAVE THE EFFECT OF POPPING THE TOP VALUE OFF.
+POP,  0
+  TAD  (VALSIZ
+  TAD  TOP  / MAKE TOP OF STACK POINT TO SECOND ON STACK
+  DCA  TOP
+  JMP I  POP
+
+
+/MULTIPLY B BY NEXT DIGIT OF A.
+MUL1,  STA
+  TAD  TMP1
+  DCA  TMP1
+  TAD I  TMP1  /GET CURRENT DIGIT IN A.
+  CLL RTL    /MULTIPLY BY 12 TO GET ROW IN TABLE.
+  TAD I  TMP1
+  CLL RAL
+  TAD  (MTAB
+  DCA  TMP6  /TMP6=ADDRESS OF ROW IN TABLE.
+  TAD  TMP2
+  DCA  TMP7  /TMP7=POINTER TO OFFSET IN C.
+  TAD  TMP3
+  DCA  TMP8  /TMP8=POINTER INTO B.
+  TAD  TMP4
+  DCA  TMP9  /TMP9=LENGTH LIMIT OF B.
+  DCA  CARRY  /NO INITIAL CARRY.
+MLSTEP,  ISZ  TMP9  /DONE MULTIPLYING ALL OF B?
+  JMP  MUL4  /NO.
+MUL7,  STA    /YES: PROPAGATE ANY FINAL CARRY.
+      /GET NEXT C DIGIT.
+  TAD  TMP7
+  DCA  TMP7
+  TAD  CARRY
+  SNA
+  JMP  MUL5  /NO MORE CARRY.
+  TAD I  TMP7  /ADD CARRY INTO NEXT C DIGIT.
+  TAD  (-12  /CHECK FOR DIGIT OVERFLOW.
+  SPA
+  JMP  MUL6  /NO OVERFLOW.
+  DCA I  TMP7  /OVERFLOW: STORE LOW ORDER DIGIT.
+  AC0001    /CARRY=1.
+  DCA  CARRY
+  JMP  MUL7
+MUL6,  TAD  (12  /RESTORE DIGIT
+  DCA I  TMP7  /STORE DIGIT IN C.
+MUL5,  STA    /OFFSET C BY 1.
+  TAD  TMP2
+  DCA  TMP2
+  JMP I  (MLLOOP  /CONTINUE WITH NEXT DIGIT OF A.
+
+/INNER MULTIPLICATION LOOP: MULTIPLY TWO DIGITS,
+/ADD TO PARTIAL PRODUCT IN C
+
+MUL4,  STA    /GET NEXT B DIGIT.
+  TAD  TMP8
+  DCA  TMP8
+  STA    /LOCATE C DIGIT.
+  TAD  TMP7
+  DCA  TMP7
+  TAD  TMP6  /ROW ADDRESS FOR A DIGIT.
+  TAD I  TMP8  /ADD IN B DIGIT TO SELECT TABLE ENTRY
+      /FOR A*B.
+  DCA  TMP10
+  TAD I  TMP10  /GET PRODUCT DIGITS.
+  AND  (17  /GET LOW ORDER DIGIT.
+  TAD I  TMP7  /ADD INTO C.
+  TAD  CARRY  /ADD CARRY FROM LAST PRODUCT.
+  TAD  (-24  /CHECK FOR DIGIT OVERFLOW.
+      /NOTE: GREATEST VALUE OF THE SUM
+      /IS 26 DECIMAL (32 OCTAL).
+  SPA
+  JMP  MUL8  /SUM IS < 20 DECIMAL.
+  DCA I  TMP7  /20 OR OVER: STORE LOW ORDER DIGIT.
+  TAD  (40  /=2 IN THE HIGH ORDER POSITION,
+      /REPRESENTING THE CARRY.
+  JMP  MUL3
+MUL8,  TAD  (12  /TEST FOR 10 TO 19.
+  SPA
+  JMP  MUL2
+  DCA I  TMP7  /10 TO 19: STORE LOW ORDER DIGIT.
+  TAD  (20  /=1 IN THE HIGH ORDER POSITION.
+  JMP  MUL3
+MUL2,  TAD  (12  /DIGIT IS 0-9: RESTORE DIGIT.
+  DCA I  TMP7  /STORE IT IN C.
+MUL3,  TAD I  TMP10  /GET PRODUCT DIGITS AGAIN,
+      /ADDING IN ANY CURRENT CARRY.
+  RTR    /GET HIGH ORDER DIGIT.
+  RTR
+  AND  (17
+  DCA  CARRY  /SAVE AS NEXT CARRY.
+  JMP  MLSTEP  /MULTIPLY BY NEXT DIGIT IN B.
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+/DIVISION OPERATION
+
+DIVOP,  JMS I  (CLEAR  /CLEAR REMAINDER (IN SAC).
+  SAC    /  ADDRESS.
+  -MAX-MAX  /  -LENGTH.
+DV1,  TAD  LB  /TEST FOR NULL DIVISOR. GET NUM DIGITS TO LEFT OF "."
+  TAD  RB  / ADD IN NUM DIGITS TO RIGHT OF "."
+  SNA CLA
+  JMP  PERR3  / ERROR: ATTEMPTED DIVISION BY ZERO.
+
+  TAD I  PB  /DELETE LEADING ZEROS FROM DIVISOR
+      /IN ORDER TO AVOID LENGTHY DIVIDE LOOPS.
+  SZA CLA
+  JMP  DV2  /NO (MORE) LEADING ZERO DIGITS.
+  STA    /DELETE LEADING ZERO.
+  TAD  LB
+  DCA  LB
+  ISZ  PB  /POINT PAST THE DELETED DIGIT.
+  JMP  DV1
+
+DV2,  TAD  PA    /TRANSFER A TO SAC.
+  DCA  TMP1
+  TAD  (SAC
+  DCA  TMP2
+  TAD  LA
+  TAD  RA
+  CMA
+  DCA  TMP3
+  JMP  DV6
+DV7,  TAD I  TMP1
+  ISZ  TMP1
+  DCA I  TMP2
+  ISZ  TMP2
+DV6,  ISZ  TMP3
+  JMP  DV7
+  TAD  LB  /CALCULATE DEC PT POSITION IN QUOTIENT.
+  CIA
+  TAD  LA
+  IAC    /LC = LA - LB + 1
+  DCA  LC
+  TAD  LC  /IF LC<0, DECREASE REQUIRED DIVISION
+      /STEPS (LOSS OF PRECISION).
+  SMA
+  JMP  DV4
+  CIA    /DECREASE LOOP COUNT.
+  JMP  DV5
+DV4,  TAD (-KWHOLE-1  /IF LC >= 0, TEST FOR OVERFLOW.
+      /(IS LC > KWHOLE?)
+  SMA CLA
+  JMP   PERR2  /OVERFLOW: DECLARE ERROR
+DV5,  TAD  (-MAX-2  /NO OVERFLOW: SET UP DIVIDE LOOP COUNT.
+  DCA  TMP1  /TMP1=DIVIDE LOOP COUNT.
+  TAD  TMP1  /CALCULATE OFFSET INTO C FOR FIRST
+      /QUOTIENT DIGIT.
+  TAD  (C+MAX+2
+  DCA  TMP2  /TMP2=OFFSET INTO C.
+  TAD  LB  /CALCULATE RIGHT END OF B.
+  TAD  RB
+  TAD  PB
+  DCA  B2  /B2=ADDR OF RIGHT END OF B.
+  TAD  B2
+  CMA
+  TAD  PB
+  DCA  B3  /B3=B WIDTH.
+  TAD  B3
+  CMA
+  TAD  (SAC
+  DCA  B1  /B1=RIGHT END OF SAC.
+  TAD  B3  /INITIAL SAC WIDTH SAME AS B.
+  DCA  B4
+
+  /MAIN DIVISION LOOP: DO TRIAL SUBTRACTION
+
+DVLOOP,  ISZ  TMP1  /HAVE "MAX" DIGITS BEEN DIVIDED OUT?
+  JMP  DVSTEP  /NOT YET.
+  TAD  LC    /YES: TRANSFER RESULT WITH DECIMAL
+      /POINT AT LC FROM LEFT (0 IF LC<0).
+  SPA
+  CLA
+  CMA
+  DCA  TMP5
+  JMP I  (MLTRAN  /TRANSFER C TO SAC, SAME AS FOR
+      /MULTIPLICATION.
+
+  /TRIAL SUBTRACTION
+
+DVSTEP,  JMS  ADSB  /SAC = SAC - B.
+  SBS    /  SUBTRACT.
+  TAD  CARRY  /ANY FINAL BORROW?
+  SZA CLA
+  JMP  DV12  /YES.
+  ISZ I  TMP2  /NO FINAL BORROW: TRIAL SUBTRACTION
+      /SUCCEEDED. INCREMENT QUOTIENT (C) DIGIT.
+  JMP  DVSTEP  /DO NEXT TRIAL SUBTRACTION.
+
+  /FINAL BORROW: TRIAL SUBTRACTION FAILED.
+
+DV12,  JMS  ADSB  /RESTORE SAC: SAC = SAC + B.
+  ADS    /  ADDITION.
+  ISZ  TMP2  /POINT TO NEXT DIGIT IN
+      /QUOTIENT (C).
+  ISZ  B1  /POINT TO NEXT DIGIT IN REMAINDER
+      /(SAC) FOR TRIAL SUBTRACTIONS.
+  STA    /INCREASE LENGTH OF REMAINDER.
+  TAD  B4
+  DCA  B4
+  JMP  DVLOOP  /DONE THIS DIVISION STEP.  MORE TO GO?
+
+/SUBROUTINE TO ADD/SUBTRACT STRINGS
+
+/INPUT:
+/  B1 = 1+ADDR OF RIGHT END OF C
+/  B2 = 1+ADDR OF RIGHT END OF B
+/  B3 = -(1+LENGTH OF B)
+/  B4 = -(1+LENGTH OF C)
+
+/CALL:
+/  JMS  ADSB  /C=C+B OR C=C-B
+/      ADS OR SBS  /ADD OR SUBTRACT
+
+/OUTPUT:
+/  CARRY = FINAL CARRY OR BORROW
+
+ADSB,  0
+  TAD I  ADSB  /GET ARGUMENT.
+  ISZ  ADSB
+  DCA  A1    /A1=ADS OR SBS.
+  TAD  B1
+  DCA  A2    /A2=POINTER TO C.
+  TAD  B2
+  DCA  A3    /A3=POINTER TO B.
+  TAD  B3
+  DCA  A4    /A4=COUNTER FOR B.
+  TAD  B4
+  DCA  A5    /A5=COUNTER FOR C.
+ADSB1,  DCA  CARRY  /OR BORROW.
+  ISZ  A5    /MORE DIGITS IN SUM REGISTER (C)?
+  SKP
+  JMP I  ADSB  /NO; RETURN. NOTE: CARRY=FINAL CARRY.
+  STA    /YES: POINT TO NEXT DIGIT OF C.
+  TAD  A2
+  DCA  A2
+  ISZ  A4    /IN CARRY/BORROW ZONE (AFTER ALL B
+      /DIGITS HAVE BEEN ADDED/SUBTRACTED)?
+  JMP I  (ADSB2  /NOT YET.
+  TAD  CARRY  /YES: ANY CARRY/BORROW?
+  SNA CLA
+  JMP I  ADSB  /NONE; RETURN.
+  STA    /RIPPLE A CARRY OR BORROW.
+      /STAY IN CARRY/BORROW ZONE.
+  DCA  A4
+  JMP I  (ADSB3  /SKIP ADDING IN B.
+
+ADSB2,  STA    /GET NEXT DIGIT OF B.
+  TAD  A3
+  DCA  A3
+  TAD I  A3
+ADSB3,  TAD  CARRY  /ADD IN PREVIOUS CARRY OR BORROW.
+  JMP I  A1  /GO TO "ADS" TO ADD, "SBS" TO SUBTRACT.
+
+  X=.      / INDICATE FIRST FREE LOCATION    /A013
+/ --------------------
+  PAGE
+
+                  /D008
+/THE WAY THESE BUFFERS ARE DEFINE HAS BEEN CHANGED TO CAUSE AN ASSEMBLY  /A008
+/ ERROR IF A VALUE IS DEFINED IN WPF1.PA AND HAS THE WRONG VALUE  /A008
+/ BECAUSE SOMETHING MOVED            /A008
+
+/ALLOCATE BUFFER SPACE AND SET UPPER LIMITS OF OPERATOR HANDLING STACK,
+/SYMBOL POINTER TABLE, SYMBOL TABLE, OUTPUT LIST, AND TOKVAL BUFFER.
+
+  MAXOPR=100      /MAX SIZE OF OPERATOR HANDLING STACK
+          / IF THIS CHANGES, THEN SO  /A008
+          / SHOULD STKLEN      /A008
+
+  STKLEN=MAXOPR-2%2^6+6    / LENGTH OF STACK AREA    /M008
+  / = ((MAXOPR-2)/2)*6+6    / THE LENGTH OF THIS STACK AREA /A008
+          / RELATED TO THE LENGTH OF  /A008
+          / MAXOPR SO IF ONE CHANGES, SO   /A008
+          / SHOULD THE OTHER    /A008
+
+/D013  MAXMTH=102      /MAX SIZE OF SYMBOL POINTER TABLE
+  MXSMTB=400+102+105+123+12  /MAX SIZE OF SYMBOL TABLE  /M013
+  MXOPLT=200+100      /MAX SIZE OF OUTPUT LIST  /M013
+  MAXRES=20+20      /MAX SIZE OF RESULT PTR TABLE  /M013
+  MAXLNE=311      /MAX SIZE OF CTRL BLK INPUT LNE BUFFER
+  MAXWRK=12      /MAX SIZE OF CTRL WORD WORK BUFFER
+
+POSTFX,  ZBLOCK MAXOPR      /STARTING ADDRESS OF OPR HANDLING STK
+  UPOPSK=.      /UPPER OPERATOR STACK LIMIT
+
+/D013 MTHTBL,  ZBLOCK MAXMTH    /STARTING ADDR OF SYM PTR TBLE
+/D013 UPMTH,        /UPPER SYMBOL POINTER TABLE LIMIT
+
+SYMTBL,  ZBLOCK MXSMTB      /STARTING ADDR OF SYMBOL TABLE
+  UPSMTB=.      /UPPER SYMBL TABLE LIMIT
+OUTLST,  ZBLOCK MXOPLT      /STARTING ADDR OF OUTPUT LIST
+  UPOPLT=.      /UPPER OUTPUT LIST LIMIT
+TOKVAL,  ZBLOCK MAXTOK      /STARTING ADDR OF TOKVAL BUFFER
+  UPTOK=.        /UPPER TOKVAL BUFFER LIMIT
+RESULT,  ZBLOCK MAXRES      /STARTING ADDR OF RESULT PTR TBL /A001
+  UPRES=.        /UPPER RESULT PTR TABLE LIMIT    /A001
+
+/*** WARNING *** LNEBUF ALSO USED BY THE MATH EXECUTION ROUTINES  /A011
+LNEBUF,  ZBLOCK MAXLNE      /START ADDR OF INPUT LINE BUFFER
+  UPLNE=.        /UPPER LIMIT OF"        "    "    "
+
+/WRKBUF, MOVED TO TMATH.PA TO MAKE ROOM FOR SYMBOL TABLE    /D013
+/D013  WRKBUF,  ZBLOCK MAXWRK    /START ADDR OF CONTROL WORD WORK BUFFER
+/D013  UPWRK=.        /UPPER LIMIT OF "   "   "     "
+
+/ BUFFER SPACE FOR FORMULA EXECUTION ROUTINES
+
+
+  /STRING NUMBER BUFFERS            /A002
+
+A,  ZBLOCK MAX+3              /A002
+
+/ THE FOLLOWING BUFFERS OF 123 LOCATIONS WERE MOVED TO TMATH FOR SPACE  /D013
+/D013  B,  ZBLOCK MAX+3            /A002
+/D013  C,  ZBLOCK MAX+MAX            /A002
+/D013  SAC,  ZBLOCK MAX+MAX            /A002
+
+/D013 BCDAR1,  ZBLOCK VALSIZ  / USED TO PASS ARGUMENTS TO BCDCOM  /A007
+/D013 BCDAR2,  ZBLOCK VALSIZ  / FROM WPSELC SELECT LOGIC    /A007
+
+  ENDBUF=.      /END OF BUFFER AREA    /A002
+
+  *LNEBUF  / PUT MATH EXECUTION STACK IN SAME PLACE AS CONTROL  /A011
+    / BLOCK INPUT LINE BUFFER        /A011
+TOPMAX,  ZBLOCK STKLEN      / TOP OF STACK AREA
+BOTTOM,  0        / BOTTOM OF STACK AREA
+
+
+
+
+
+
+

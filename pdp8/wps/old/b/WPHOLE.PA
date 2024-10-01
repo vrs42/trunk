@@ -1,0 +1,964 @@
+/WPEDHL V1.0
+/
+/
+/	WPEDHL V1.0 CREATED 8TH MARCH 1985
+/
+/	WPEDHL is a file containing all the routines to be blasted into the editor
+/	overlay for WPS V2.5 NL from panel memory.
+/
+/	Edit history:-
+/
+
+/	012	KMD	23-Sep-85	Add Dutch 8-bit table (empty)
+/	011	KMD	15-Sep-85	Move in 8-bit tech character key check
+/	010	RCME	07-Aug-85	Allow MNC's in field names(I think - KMD)
+/	009	EMcD	07-Jun-85	Load out from field 6 not 4 
+/					caused bug on load out of EDOV overlays
+/	008	EMcD	23-May-85	Put PGECHO as a blast
+/	007	EMcD	16-May-85	Allow hyphenation for 8 bit chars 
+/	006	EMcD	14-May-85	Upper/Lower case chars 7 and 8 bit
+/	005	EMcD	06-May-85	Allow swap with Dead sequences
+/	004	EMcD	29-Apr-85	Add routine for 8 bit chars in
+/					Abbrev Doc.
+/	003	RCME	22-Apr-1985	Move MFNIFD here from edit overlays
+/					to make room for multinational and
+/					tech character handling
+/	002	Mart	19-mar-1985	Move CMPRUL and CLRULR here from edit
+/	001	RCME	08-mar-1985	Creation of editor hole blaster and
+/					insertion of BLRULE routine (whose
+/					origional code position was used for the hole
+/					blaster hook in WPEDIT) and NLC dead
+/					key buffer insertion routine.
+/
+/
+/	***********************************************************************
+/	*								      *
+/	*	Any routine entered in this file should have its field value  *
+/	*	in the hole blaster routine table set to 3 and the relocation *
+/	*	address used (probably in page 2400) entered there also.      *
+/	*	Also reset the instruction field to MENU before EXIT from	*
+/	*	the subroutine.							*
+/	*	Watch what you call from these subroutines ; make sure they   *
+/	*	are not overlayed ; make sure they always return to the 	*
+/	*	calling routine .						*
+/	*	Subroutines here must always return cleanly (a one skip return	*
+/	*	is also alowed) with a CDFMNU;JMP I SUBROUTINESTART		*
+/	*	See the hole blaster code for more details.		      *
+/	*								      *
+/	***********************************************************************
+/
+
+
+	FIELD 6
+
+	ENPUNCH
+	*HOLEPG
+
+/	***********************************************************************
+/
+/		First routine is BLRULE, moved into hole blaster to make
+/		room for the hole blaster hook in the editor.
+/
+/	***********************************************************************
+/	NB. There are no comments in this code because it was copied directly
+/	from the original in WPEDIT and there were no comments there either
+/	The comment at the start of the code this belongs to reads
+/		COPY NWRUL BUFFER TO CURUL BUFFER
+
+BLRULE,	XX			/ subroutines return address
+	AC7777
+	TAD I	NWLMR0
+	DCA	LFTMAR
+	AC7777
+	TAD I	NWRMR0
+	DCA	RGTMAR
+	AC7777
+	TAD I	NWWMR0
+	SPA
+	TAD I	NWLMR0
+	DCA	WRPMAR
+	AC7777
+	TAD I	NWPMR0
+	SPA
+	TAD I	NWLMR0
+	DCA	PGFMAR
+	AC7777
+	TAD I	NWCMR0
+	CLL RAL
+	SMA
+	JMP	.+4
+	AC0001
+	TAD	LFTMAR
+	TAD	RGTMAR
+	DCA	CENMAR
+	CIFMNU			/ now return to the blaster in menu field
+	JMP I	BLRULE		/ RETURN
+
+/ here follow the links to stop PAL creating its own
+
+NWLMR0,	NWLMAR
+NWRMR0,	NWRMAR
+NWWMR0,	NWWMAR
+NWPMR0,	NWPMAR
+NWCMR0,	NWCMAR
+
+/a002	a002	a002	a002	a002	a002	a002	a002	a002	a002
+
+
+	*HOLEPG+100
+
+/ CMPRLH copied from WPEDIT to make space and renamed CMPRLH from CMPRUL
+/	NB. There are no comments in this code because it was copied directly
+/	from the original in WPEDIT and there were no comments there either
+/	The comment at the start of the code this belongs to reads
+/
+/ SUBR CMPRUL --
+/ COMPARES CURRENT RULER (CURUL) TO NEW RULER (NWRUL).
+/ CHECKS FOR RULER CHANGES.
+/
+/ CALL:
+/	CLA			/ AC MUST = 0
+/				/ DF DOESN'T MATTER
+/	JMS	CMPRUL		/ COMPARE NWRUL TO CURUL
+/	JMP	RULSAM		/ RULERS ARE THE SAME, AC=0
+/	JMP	RULDIF		/ RULERS ARE DIFFERENT, AC=0
+/
+
+CMPRLH,	XX
+	TAD	RLNWM1		/ GET PNTR TO NEW RULER
+	DCA	X0
+	TAD	CURULM1		/ GET PNTR TO OLD RULER
+	DCA	X1
+	TAD	MRULSIZ
+	DCA	T1
+CMPRL1,	CDFMNU			/ A219
+	TAD I	X0
+	CIA			/ COMPARE NEW TO OLD
+	CDFMYF			/ A219
+	TAD I	X1
+	SZA CLA
+	JMP	CMPRL2
+	ISZ	T1
+	JMP	CMPRL1		/ NOT SIGNIFICANT, DO NEXT
+	SKP
+CMPRL2,	ISZ	CMPRLH
+	CIFMNU			/ instruction field for BLASTR return/a002		
+	JMP I	CMPRLH
+
+RLNWM1,	NWRUL-1								/a002
+CURULM1,CURUL-1								/a002
+MRULSIZ,-RULSIZ								/a002
+
+/a002	a002	a002	a002	a002	a002	a002	a002	a002	a002
+
+/a002	a002	a002	a002	a002	a002	a002	a002	a002	a002
+
+
+
+	*HOLEPG+140
+
+/ CLRLH Copied here from WPEDIT to make space and renamed for CLRULR 
+/	NB. There are no comments in this code because it was copied directly
+/	from the original in WPEDIT and there were no comments there either
+
+CLRLRH,	XX			/ CLEAR RULER
+	CDFMNU
+	TAD	NWRLM1
+	DCA	X0
+	TAD	MHAFRUL
+	DCA	T1
+	TAD	C101
+	DCA I	X0
+	ISZ	T1
+	JMP	.-3
+	TAD	CM10
+	DCA	T1
+	DCA I	X0
+	ISZ	T1
+	JMP	.-2
+/d002	CDFMYF			/ not required because BLASTR resets CDF
+	CIFMNU			/ set instruction field for BLASTR return/a002
+	JMP I	CLRLRH
+
+CM10,	-10
+C101,	101
+MHAFRUL,-HAFRUL
+NWRLM1,	NWRUL-1
+
+/a002	a002	a002	a002	a002	a002	a002	a002	a002	a002
+
+
+/a003	a003	a003	a003	a003	a003	a003	a003	a003	a003
+/
+/***************************************************************************
+/
+/	This routine has been moved here from the merge overlay to enable
+/	it to expand to include mods to deal with multinational and tech
+/	characters in maths field names of more than about ten characters.
+/	The problem was that as tech and MNC's are stored as 5 character
+/	sequences, to avoid having to increase the size of the maths buffers
+/	five fold, field names were allowed to be up to 30 VISIBLE chars
+/	long, which could be up to 150 stored characters. However, in
+/	maths only the first 30 STORED characters are now significant.
+/	The impact on this routine is that the result field name will
+/	only be 30 STORED characters long, whereas the field name in the
+/	form document will be longer, up to 150 STORED characters, while
+/	still being the same field name (maths only storing the first 30
+/	significant characters).  Therefore, if 30 characters have been
+/	compared by this routine and found to be equal, it may be assumed
+/	that the field names are the same, and the end ">" can be ignored,
+/	even if it does not match.
+/		The insertions into this routine assure that this occurs.
+/
+/	To call, use the following sequence:-
+/
+/	Set MRGPT1=Address of buffer to be searched
+/	Set TADIM1=CDF instruction for field of buffer
+/	JMS BLHOOK
+/	  MFNBLC
+/	Returns here if field name not found
+/	Returns here if field name search successful or EOF on form
+/		AC=0  if EOF
+/		AC<>0 if successful
+/
+/*************************************************************************
+
+	*HOLEPG+200
+
+	RELOC
+	RELOC 5600
+
+MFNRTN,	XX 			/ MATCH FIELD NAME IN FORM DOCUMENT
+	CDFMYF			/ CHANGE DF TO MY FIELD
+MRGFS1,	TAD	MRGPT2 		/ POINT TO TEXT BRACKET IN FORM
+	DCA	CURPTR 		/ RESET POINTER
+	DCA	NUMFLG		/ Zero the number field flag		/a010
+MRGFS2,	JMS I	TADHLA	 	/ GET NEXT CHAR FROM RECORD
+	ISZ	MRGPT1 		/ BUMP RECORD PTR
+	SNA 			/ SKIP IF: NOT END OF RECORD
+	JMP	MRGFS7 		/ FIELD NOT FOUND, END OF RECORD
+				/  RETURN TO CALLER
+	TAD	LABHLA	 	/ IS CHARACTER = "<"?
+	SZA CLA 		/ SKIP IF: SO
+	JMP	MRGFS2 		/ LOOP TIL FIELD START
+	TAD	GBSHLA		/ Field found, so init max siz counter	
+	DCA	T2		/ to ignore end comparison if max siz	
+				/ for significant field name reached	
+	ADVPTR			/ Get the first character in the field	/a010
+	JMP	MRGFS6		/ name.  Here if EOT			/a010
+	AND	MRG177		/ Strip the attributes			/a010
+	DCA	T1		/ Save it				/a010
+	TAD	T1		/ Get it back again			/a010
+	TAD	NUMHLA		/ Test for a numeric field name(has :)	/a010
+	DCA	NUMFLG		/ Save the result as a flag for later	/a010
+	TAD	T1		/ Get the original back			/a010
+	JMP	MRGFS9		/ Jump to the proper entry point	/a010
+
+MRGFS3,	ADVPTR 			/ GET NEXT FIELD VALUE CHAR. FROM TEXT
+	JMP	MRGFS6 		/ WE HIT THE END OF TEXT
+	AND	MRG177 		/ STRIP MODE BITS
+MRGFS9,	XLTUPR 			/ XLAT CHAR TO UPPER CASE
+	CIA 			/ SET UP FOR COMPARE WITH RECORD'S
+	DCA	T1 		/  FIELD NAME VALUE
+	JMS I	TADHLA	 	/ GET NEXT CHAR FROM RECORD
+	XLTUPR 			/ XLAT TO UPPER CASE
+	TAD	T1 		/ COMPARE WITH CHARACTER FROM TEXT
+	ISZ	T2		/ Has the max length of FN been reached?/a003
+	SNA CLA 		/ NO, SKIP IF: CHARACTERS DON'T MATCH
+	SKP CLA			/ Yes, or match, skip on.		/a003
+	JMP	MRGFS1 		/ LOOP IF NOT EQUAL
+	JMS I	TADHLA	 	/ GET NEXT RECORD CHARACTER
+	ISZ	MRGPT1 		/ BUMP POINTER INTO RECORD
+	TAD	RABHLA	 	/ IS CHARACTER = ">"?
+	SZA CLA 		/ SKIP IF:SO
+	JMP	MRGFS3 		/ CHECK FOR END OF NAME
+	TAD	MRGPT2 		/ RESET TEXT BUFFER POINTER TO START OF
+	DCA	CURPTR 		/  FIELD NAME WE JUST MATCHED.
+	JMS I	MDLHLA 		/ DELETE THAT FIELD NAME FROM TEXT
+MRGFS4,	DCA	MRGPT2 		/ SET LOOKAHEAD
+	JMS I	TADHLA	 	/ CHECK FOR END OF FIELD IN RECORD
+	TAD	LABHLA	 	/ IS CHARACTER = "<"?
+	SNA CLA 		/ SKIP IF: NOT
+	JMP	MRGFS5 		/ JUMP IF END OF FIELD VALUE
+	TAD	MRGPT2 		/ GET LOOK AHEAD CHARACTER
+	SZA CLA			/ SKIP IF: 0
+	JMS	MRGINS		/ Output lookahead char			/m010
+MRGF10,	JMS I	TADHLA	 	/ LOAD NEW LOOKAHEAD
+	CLA SWP			/ ATTRIBUTED CHAR. COMES BACK IN THE MQ
+				/ NOW RESTORE IT TO THE AC
+	ISZ	MRGPT1 		/ BUMP POINTER INTO FIELD VALUE
+	JMP	MRGFS4 		/ LOOP TO OUTPUT NEXT FIELD VALUE CHAR.
+				/  INTO RESULT DOCUMENT
+
+MRGFS5,	TAD	MRGPT2 		/ OUTPUT LAST CHAR AT END OF FIELD
+	TAD	M40HLA 		/ WAS THIS A SPECIAL CHAR.?
+	SPA SNA CLA 		/ SKIP IF: NOT
+	JMP	MRGF5A 		/ SPECIAL CHARACTER. DO NOT INSERT
+/d010	TAD	MRGPT2 		/ REGULAR CHARACTER. INSERT INTO TEXT
+	JMS	MRGINS		/					/m010
+MRGF5A,	AC0001
+MRGFS6,	ISZ	MFNRTN		/ BUMP RETURN FOR SUCCESS (AC=1) OR EOF (AC=0)
+MRGFS7,	CIFMNU			/ CHANGE BACK TO HOLE BLASTER FIELD
+	JMP I	MFNRTN
+
+NUMFLG,	0			/ Location to hold number field flag	/a010
+
+MRGINS,	XX			/ Routine to insert char to buffer	/a010
+	TAD	NUMFLG		/ Test for outputing a numeric field	/a010
+	SZA CLA			/ Are we outputing a numeric field?	/a010
+	JMP	MRGIN1		/ No, insert with attributes		/a010
+	TAD	MRGPT2		/ Yes, get the character to output	/a010
+	JMS I	XESIMCH		/ Output using MCS routine as no	/a010
+				/ attribute bits can be set.		/a010
+	JMP I	MRGINS		/ Exit routine after insertion		/a010
+
+MRGIN1,	TAD	MRGPT2		/ Get the character to output		/a010
+	INSCHR			/ Consider attributes, as MCS characters/a010
+				/ are already dead key sequences	/a010
+	JMP I	MRGINS		/ Return				/a010
+
+/ LINKS ALL LISTED HERE TO PREVENT PAL GENERATING THEM OUTSIDE THE HOLE AREA /
+
+TADHLA,	TADIMRGPT1
+LABHLA,	-"<+200
+RABHLA,	-">+200
+GBSHLA,	-37
+MDLHLA,	MRGDLF
+M40HLA,	-40
+XESIMCH,ESIMCH
+NUMHLA,	-":+200
+MRG177,	177
+
+
+	RELOC
+
+/	A004 A004 A004 A004 A004 A004 A004 A004 A004 A004 A004 A004
+/
+/	This routine is called from Abbrev doc name handling in EDOV
+/
+/	All it does it take an 8 bit char (passed in Ac) and expand it
+/
+/	to a version 2 dead thing in a buffer pointed 
+/
+/	A004 A004 A004 A004 A004 A004 A004 A004 A004 A004 A004 A004
+/
+
+
+	*HOLEPG+340
+	
+
+INS8AB,	XX
+	AND	ABR177		/ Strip 8th bit
+	DCA	ABRVTM		/ Save char			
+	TAD	ABSADR		/ Get address of string		
+	DCA	ABSPTR		/ And get pointer
+IN8NXT,	TAD I	ABSPTR		/ Get next char	
+	SNA			/ Is it zero terminator
+	JMP 	INEXIT		/ Return
+	DCA I	X2		/ save it into buffer
+	ISZ	ABSPTR		/ Bump to next
+	JMP	IN8NXT		/ And go again
+INEXIT,	CIFMNU			/ To get back to blaster
+	JMP I	INS8AB		/ return
+
+
+ABSPTR,	0			/ temp for pointer into string
+ABSTR,	10;40;62		/ Precedence stuff for MNC
+ABRVTM,	0			/ Actual char , modified in code
+	15;0			/ End of dead and terminator
+ABSADR,	ABSTR			/ Address of AB string
+ABR177,	177
+
+
+
+
+/ A005	A005	A005	A005	A005	A005	A005	A005	A005	A005
+
+	FIELD 5			/ All the required edits wouldn't fit into 
+				/ one block so this is the second block of 
+				/ Blasts (mainly for WPEDOV rather than WPEDIT)
+				/ The sources have been assembled in this field
+				/ for write out purposes but still run in 3 
+				/ as with the other "Blasts"
+	
+	RELOC
+
+/ 	***********************************************************
+/	*** N.B.						***
+/	***							***
+/	***	This routine runs at HOLEOV (5400) rather than	***
+/	***	HOELPG (2400) because it calls a routine that 	***
+/	*** 	resides in that swap area			***
+/	***							***
+/	***********************************************************
+
+
+	
+	*HOLEOV			/ Assemble (and run) at this address
+
+
+DEDSWP,	XX
+	JMS I	XEISWPA		/ Call EISWPA
+	JMP	BADSWP		/ This char won't swap
+	DCA	DEDKLD		/ Clear dead killed flag
+	AC0001			/ Move one 
+	CURMOV			/ To required char
+	JMP	BADSWP		/ ETX etc ! bad boy
+	JMS I	XLODCHR		/ Get next character
+	JMP	BADSWP		/ Bad load
+	DCA	EISWPT		/ Ok so save char
+	JMS I	XEISWPA		/ Check out second char
+	JMP	BADSWP		/ This guy won't swap
+	TAD 	EISWPT		/ Its OK so get first one back
+	TAD	MECSTOV		/ Was it a dead thing ?
+	SNA CLA			/
+	JMP	SWPDK		/ Yes , save then kill it
+	DCA I	CURPTR		/ No , so just kill it
+SWPBK,	SLNMOD			/ Set line modified
+	AC7777			/ Backup one
+	CURMOV			/ Cursor position
+	JMP	BADSWP		/ Shouldn't happen ..
+	CLA			/
+	TAD	DEDKLD		/ Did we just kill a dead
+	SZA			/
+	JMP	SWPDIN		/ Yes so insert it 
+	TAD	EISWPT		/ No , it was an ordinary char so insert it
+	JMS I	XCHKSPC		/ Check space
+	CDFBUF			/ Set to Buffer field
+	INSCHR			/ Insert character
+SWPEXT,	ISZ	DEDSWP		/ Do skip return
+BADSWP,	CIFMNU			/ Drop off at the Blaster first
+	JMP I	DEDSWP		/ Exit from Blaster 
+
+/
+/	Save and then kill a dead thing for swapping
+/
+
+SWPDK,	TAD	PDEDBUF		/ Get address of buffer
+	DCA	DBFPTR		/ And store in pointer
+				/ Now scan forward saving chars until 
+				/ we either get an end of dead or run
+				/ out of buffer space
+SWPNXT,	ADVPTR			/ Move pointer
+	JMP	BADSWP		/
+	TAD	MECNDOV		/ Was it an End Dead ?
+	SNA CLA			/
+	JMP	SWPKILL		/ Yes .. Now go kill it
+	TAD I	CURPTR		/ No , just get it
+	CDFMYF			/
+	DCA I	DBFPTR		/ And save it
+	ISZ	DBFPTR		/ Bump pointer
+	CDFBUF			
+	TAD	DBFPTR		/ Get pointer
+	CIA			/ Negate it
+	TAD	DBFEND		/ Check for buff full
+	SPA CLA			/
+	JMP	TOOBIG		/ Yes , beep at him
+	JMP	SWPNXT		/ No go get next
+
+/
+/	We now have the dead thing in our buffer so kill it
+/
+
+SWPKILL,AC0001			/ Set Kill dead flag
+	DCA	DEDKLD		/ to active
+	DCA I	CURPTR		/ Kill char in user buffer
+KILNXT,	BKPPTR			/ Move one back	
+	JMP	BADSWP		/ Shouldn't happen
+	TAD	MECSTOV		/ Is it a start overstrike
+	SNA CLA			/ 
+	JMP	KILLST		/ Yes .. kill it and finish
+	DCA I	CURPTR		/ No then just kill it
+	JMP	KILNXT
+KILLST,	DCA I	CURPTR		/ First kill start of Dead seq
+	CDFMYF			/ change to my field
+	DCA I	DBFPTR		/ Store zero terminator into buffer
+	CDFBUF			/ And back again
+	JMP 	SWPBK		/ Finished , rejoin code
+
+/
+/	We now have the dead in our buffer so we want to put it back
+/	here
+/
+
+SWPDIN,	CLA			/
+	TAD	PDEDBUF		/ Get start address of buffer
+	DCA	DBFPTR		/ And save it in a pointer
+	TAD	KECSTOV		/ Get a start of dead
+	INSCHR			/ And insert it
+
+SWPINX,	CDFMYF			/ Point to this field
+	TAD I	DBFPTR		/ Get next in dead
+	SNA			/ Is it zero terminator ?
+	JMP	SWPINF		/ Yes.. we are finished
+	CDFBUF			/
+	INSCHR			/ Insert it
+	ISZ 	DBFPTR		/ Bump pointer to my field
+	JMP	SWPINX		/
+SWPINF,	TAD	KECNDOV		/ Get End of dead
+	INSCHR			/ And insert it
+	JMP	SWPEXT		/ Bye bye
+
+
+TOOBIG,	BKPPTR			/ Can't move a dead thing this size so
+	JMP	BADSWP		/ Back up pointer
+	TAD	MECSTOV		/ Check for start of dead
+	SZA CLA			/ 
+	JMP	TOOBIG		/ Not there yet so keep trying
+	JMP	BADSWP		/ Finished so go back now
+
+
+
+/
+/	All the links here are to stop PAL generating some at the end of 
+/	page , beyond where the Blaster will load this routine
+/
+KECNDOV, 15			/ End of Overstrike char
+KECSTOV, 10			/ Start of Overstrike (dead) 
+MECNDOV, -15			/ -ve of END of dead
+MECSTOV, -10			/ -ve of Start of dead
+XINSRL1, INSRL1			/ Pointer to INSRL1 routine
+XLODCHR, LODCHR			/ Pointer to LODCHR routine
+XEISWPA, EISWPA			/ Pointer to EISWAP routine
+XCHKSPC, CHKSPC			/ Pointer to CHKSPC routine
+PDEDBUF, DEDBUF			/ Pointer to DEDBUF 
+EISWPT,	0			/ temp to hold swap char
+DEDKLD,	0			/ Dead Killed flag
+DBFPTR,	0			/ Pointer to Dead Buffer
+DEDBUF,	ZBLOCK 5		/ Dead key buffer
+DBFEND,	.-1			/ Address of end of Buffer
+
+
+
+
+	*HOLEOV+200
+
+/	A006	A006	A006	A006	A006	A006	A006	A006
+/
+/	This routine either upper or lower cases a "unit" including 
+/	any Multi National Characters in there.
+/
+/	The routine skip returns if it "cased" a char correctly .
+/	It returns to Caller + 1 if it "cases" a dead thing. For
+/	an MCS char it cases it and then backs off to the start of dead so 
+/	that it can rejoin the normal code at GETUNY
+/
+/	A006	A006	A006	A006	A006	A006	A006	A006
+
+
+
+CASMNC,	XX
+	TAD	UMSTOV			/ Start Dead ?
+	SNA				/
+	JMP	MCSTST			/ Yes , test for MCS
+	TAD	UCSTOV			/ Restore char
+	MQL				/ Save in MQ reg
+	MQA				/ Get it back
+	JMS I	XCHKALP			/ Check if its alpha
+	JMP	UCSFIN			/ No 
+	CLA				/ Yes
+	TAD	ASTLIM			/ Load ASCII top lim
+	DCA	TLIM			/
+	TAD	ASBLIM			/ Load Ascii Bot lim
+	DCA	BLIM			/
+	MQA				/
+	JMS	UCASIT			/ Now case it
+	JMP	UCSRET			/ Return
+
+MCSTST,	ADVPTR				/ Move to space
+	JMP	BDMNC			/ Bad dead thing
+	AND	P177			/ Strip off attributes
+	TAD	MSPACE			/ Is it really a space
+	SZA				/
+	JMP	BDMNC			/ No .. get out
+	ADVPTR				/ Move to precedence
+	JMP	BDMNC			/ Bad MCS
+	AND	P177			/ Strip off attributes
+	TAD	M62			/ Is it MCS precedence char
+	SZA				/
+	JMP	BDMNC			/ No .. get out
+	ADVPTR				/ Move onto real char
+	JMP	BDMNC			/ Bad move
+	MQL				/ Put it into MQ
+	CLA				/ 
+	TAD	MNTLIM			/ Get MCS High lim
+	DCA	TLIM			/ and set it for sub.
+	TAD	MNBLIM			/ Get MCS Bot lim
+	DCA	BLIM			/ Set it for sub
+	MQA				/ Get char back	
+	JMS	UCASIT			/ Go case it
+	DCA I	CURPTR			/ Update "Cased" MNC into buffer
+	JMP	BDMNC			/ Pretend it was bad
+UCSRET,	ISZ	CASMNC			/ Skip routine
+UCSFIN,	CIFMNU				/ Back to Blaster
+	JMP I	CASMNC			/ Return
+/
+/
+BDMNC,	BKPPTR				/ Move back
+	NOP
+	TAD	UMSTOV			/ Is it start of dead ?
+	SZA				/
+	JMP	BDMNC			/ No , keep backing up
+	JMP	UCSFIN			/ Yes , get out
+
+/
+/	This routine attempts to "case a char according to the top 
+/	limit TLIM and bottom limit BLIM. Anything outside this range
+/	is considered not to be "caseable"
+/
+
+UCASIT,	XX				
+	AND	K137			/ Mask off bits
+	TAD	TLIM			/ Above Top Limit
+	SMA				/ 
+	JMP	UCAS1			/ Yes - get out
+	TAD	BLIM			/ Bellow bottom limit ?
+	SPA				/ 
+	JMP	UCAS1			/ Yes - get out too
+	CLA MQA				/
+	AND	K7737			/ Strip case bit
+	CDFMYF				/ 
+	TAD I	XCSBIT			/ Get case bit
+	CDFBUF				/ 
+	MQL				/
+UCAS1,	CLA MQA				/ Store "cased" char
+	JMP I	UCASIT			/ 
+/
+/
+/	These ponters and constants are here to stop PAL generating them at
+/	the end of the page and so causing the Blaster not to load them
+/
+K137,	137
+TLIM,	0				/ Top Alpha limit used by CASIT
+BLIM,	0				/ Bottom Alpha limit used by CASIT
+K7737,	7737				/ Mask to strip out U/C bit
+XCSBIT,	CASBIT				/ Pointer to CASBIT in Editor field
+UMSTOV,-10				/ -ve Start dead
+UCSTOV, 10				/ +ve start dead
+XCHKALP, CHKALP				/ Pointer to CHKALP routine
+ASTLIM,	-133				/ Top alpha limit 
+ASBLIM,	133-101				/ Bot alpha limit 
+MSPACE,	-ECSPC				/ -ve of Space
+M62,	-62				/ MCS precedence
+MNTLIM,	-136				/ Top alpha lim for MCS
+MNBLIM,	136-100				/ Bot alpha lim for MCS
+
+
+
+
+/	A007	A007	A007	A007	A007	A007	A007	A007
+/
+/	This routine allows Hyphenation on MCS as requested by Spain
+/
+/	We have already found the End dead (we are backing up ) so
+/	back up 2 more and check for a precedence char of 2.
+/	Since user cannot enter a dead key containing a 2 it must be
+/	an MCS char
+/
+/	A007	A007	A007	A007	A007	A007	A007	A007
+
+	*HOLEOV+340
+
+HYPMNC,	XX			/ Hyphenate 8 bit char
+	BKPPTR			/ Move on to actual char
+	NOP
+	BKPPTR			/ Move on to precedence
+	NOP
+	AND	P177		/ Strip off attributes
+	TAD	HYM62		/ Is it a 2 ?
+	SZA			/
+	JMP	HYPNMC		/ No - exit
+	ADVPTR			/ Move back on to char
+	NOP
+	AND	K777		/ Stip off attributes except bold and
+				/ underline (there shouldn't be any)
+	TAD	K2000		/ Show breaking on this char
+	DCA I	CURPTR		/ Update char
+	ADVPTR			/ Go on to End dead
+	NOP
+	JMP	HYPEXT
+HYPNMC,	ADVPTR			/ Skip over precedence
+	NOP
+	ADVPTR			/ Skip over char
+	NOP
+HYPEXT,	CIFMNU			/ And back home
+	JMP I	HYPMNC
+
+
+/
+/	Pointers and literals here to avoid PAL links at the end of the page
+/	not getting loaded out by the Blaster
+/
+
+HYM62,	-62			/ MCS precedence char
+K777,	777			/ Char mask
+K2000,	2000			/
+
+
+
+
+
+
+/	A007	A007	A007	A007	A007	A007	A007	A007
+/
+/	HYMCS	Routine that checks the next char for 8 bit .
+/	
+/	Returns to
+/		Caller  if "funny" dead thing or char which can't be hyphenated
+/		Caller + 1 if 8 bit , pointer is on actual char
+/
+/	Ac contains char stripped of hyphenation bit
+/
+	FIELD 6			/ Yet another block gone !!
+
+				/ The field statemant above was 4 but it caused 
+				/ problems with the overlays loaded out from 
+				/ field 4 .Its better to keep all Blasts 
+				/ assembled in field s 5 and 6 
+				/ M009
+
+
+
+	*HOLEOV
+
+HYMCS,	XX
+	CLA			/ Get rid off rubbish
+	TAD I	CURPTR		/ Get the char
+	TAD	HKSTOV		/ Start of Dead
+	SZA CLA			/ ?
+	JMP 	HYRET		/ No .. 
+	CIFMNU			/ Change to MENU
+	JMS I	HTCCHX		/ Call TCCHX
+	  JMP 	HYRET		/ Normal dead	
+	  JMP 	HYRET		/ Req space
+	ADVPTR			/ Move to space
+	NOP			/ Bug .. shouldn't happen
+	ADVPTR			/ Move to precedence
+	NOP
+	ADVPTR			/ Move to char
+	NOP
+	ISZ	HYMCS		/ Bump return address
+	AND 	HK5777		/ Mask off 2000 bit
+HYRET,	CIFMNU			/ Back to Blaster
+	JMP I	HYMCS		/ Return
+
+/
+/
+/	Literals and pointers to avoid auto links from PAL 
+/
+/
+
+HKSTOV,	-10			/ Start of dead thing
+HTCCHX,	TCCHX			/ Pointer to TCCHX , basically the same routine
+				/ as TCCHK was , without the display
+HK5777,	5777			/ Mask to remove Hyphenation bit
+
+
+
+/	A008	A008	A008	A008	A008	A008	A008	A008
+/
+/	PGECHO - Routine that prints the dashed lines for NEW PAGE
+/	etc. moved from Edit resident in the vain hopes that it may help
+/	make enough room for INSERT/OVERSTRIKE mode
+/
+/	A008	A008	A008	A008	A008	A008	A008	A008
+
+	*HOLEOV+40
+ECHOPG,	XX			/ Print Message
+	AND	P7700		/ Isolate Hi Byte
+	BSW			/ Move to Lo Byte
+	CLL RTR			/ Map to 0,2,3,4
+	SNA			/
+	IAC			/ Map to 1,2,3,4
+	TAD	KPGMTM1		/ Index into Table of text pointers
+	DCA 	PGTEMP		/ Save PTR of Text pointers
+	CDFMYF			/ Map our field	
+	TAD I	PGTEMP		/ Get text pointer
+	CIFMNU			/ Back to Blaster
+	JMP I	ECHOPG		/ And back
+	
+	PGTEMP=T3
+
+KPGMTM1,PGMTBL-1		/ Pointer to PGMTBL-1
+PGMTBL,	PGMSG1			/ "NEW PAGE"
+	PGMSG3			/ "START CONTROL"
+	PGMSG4			/ "END CONTROL"
+	PGMSG2			/ "PAGE MARKER"
+
+
+/A011011011011011011011011011011011011011011011011011011011011011011011011011
+/A011	The following code handles 8 bit characters typed after the ALT	/A011
+/A011	key as the table for TECVAR would be sparse and too large if it	/A011
+/A011	was just extended to cope with 8 bits. So a table search 	/A011
+/A011	algorithm is used here for the few keys returning 8 bit chars	/A011
+/A011	on multinational keyboards					/A011
+/A011	Return convention :	Skip return if 8 bit character was I/P	/A011
+/A011				AC = 0 if char not in table		/A011
+/A011				AC = Rep. TEC char if one was found	/A011
+/A011				Normal return if a 7 bit char was I/P	/A011
+/A011011011011011011011011011011011011011011011011011011011011011011011011011
+
+	*HOLEOV+100
+
+TEC8ENT,XX
+	DCA I	ATECTMP		/SAVE TEMPORARILY
+	TAD I	ATECTMP		/GET IT BACK
+	AND	T8200		/IS IT A MNC
+	SNA CLA			/
+	JMP	TEC7EXT		/EXIT VIA SKIP RETURN
+	TAD I	ATECTMP		/RE-GET CHARACTER TO BE TRANSLATED
+	AND	P377		/MASK ALL BUT BOTTOM 8 BITS
+	CIA			/MAKE IT NEG TO SUB FROM
+	DCA I	ATECTMP		/TABLE ENTRIES. STORE FOR LATER
+	TAD	TEC8TA		/GET ADDRESS OF 8 BIT TABLE
+	DCA	X0		/X0 PROBABLY FREE AS ITS RESET LATER
+
+TEC8LP,	ISZ	X0		/SKIP OVER TEC CHAR
+	TAD I	X0		/GET 8 BIT CHAR
+	TAD I	ATECTMP		/COMPARE WITH TABLE ENTRY
+	SMA SZA			/IS I/P CHAR LESS THAN TABLE ENTRY
+	JMP	TEC8EXT		/NO SO ITS NOT IN THE TABLE
+				/THEREFOR EXIT WITH AC CLEAR
+	SZA CLA			/HAVE WE FOUND THE LITTLE TINKER
+	JMP	TEC8LP		/NO, ROUND WE GO AGAIN
+	TAD I	X0		/GET THE TEC CHARACTER
+/	DCA I	ATECTMP		/STORE IT IN THE TEMPORARY AREA
+/	TAD I	ATECTMP		/BUILD GRAPHIC SET SELECTION
+/				/G1 = 61 ; G2 = 62 ; G3 = 63
+/	R3L			/SELECTION CONTAINED IN AC 0 - 2
+	JMP	TEC8FEX		/EXIT VIA NON-SKIP RETURN. AC=TEC CHAR
+
+TEC8EXT,CLA			/CLEAR AC IF CHAR NOT FOUND
+	JMP	TEC8FEX		/AND EXIT VIA NON-SKIP RETURN
+
+/ THE NEXT THREE LINES PINCHED FROM THE CALLING ROUTINE TO MAKE
+/ IT MORE SPACED OUT MAN
+TEC7EXT,TAD I	ATECTMP		/GET CHAR FOR 7 BIT TRANSLATION
+	AND	P177		/MASK FOR A 7 BIT CHAR
+	TAD	M41		/SUB OFF UNUSED CODES
+
+	ISZ	TEC8ENT		/SKIP RETURN IF CHAR I/P WAS 7 BIT
+TEC8FEX,CIFMNU			/RETURN VIA BLASTER IN MENU FIELD
+	JMP I	TEC8ENT
+
+/THIS IS THE 8 BIT TABLE FOR CONVERSION OF 8 BITS TO TECS
+/IT MAST BE IN ASCENDING ORDER OF 8 BIT CHARACTERS
+
+TEC8TB,	IFDEF ENGLSH <
+	IFDEF V30FAO <
+
+/	v-- 8 Bit character
+/	v	v-- Representative TEC char
+/	v	v		  v-- 8 Bit description
+/	v	v		  v			  v-- TEC description
+	0241;	3063		/ Upside down shriek	= Top Vert Summ Connect
+	0243;	3065		/ Pound sterling	= Top Right Summ
+	0252;	3051		/ a ordinal		= Top Right Sq Bracket
+	0272;	3052		/ o ordinal		= Bot Right Sq Bracket
+	0277;	3064		/ Upsidedown ?		= Bot Vert Summ Connect
+	0321;	3136		/ N tilde		= Logical AND
+	0347;	3075		/ c cedilla		= Not Equal
+	0361;	3137		/ n tilde		= Logical OR
+	>
+	7777
+	>
+
+
+	IFDEF ITALIAN <
+/	v-- 8 Bit character
+/	v	v-- Representative TEC char
+/	v	v		  v-- 8 Bit description
+/	v	v		  v			  v-- TEC description
+	0243;	3041		/ Lira symbol		= Radical
+	0247;	3077		/ Section Symbol	= Integral
+	0260;	3047		/ Degree Symbol		= Top Left Sq Bracket
+	0340;	3056		/ a-grave		= Bott Right Paren
+	0347;	3054		/ c-cidilla		= Bott Right Pren
+	0350;	3045		/ e-grave		= Bott Integral
+	0351;	3126		/ e-accute		= Radical
+	0354;	3160		/ i-grave		= Small PI
+	0362;	3133		/ o-grave		= Includes
+	0371;	3103		/ u-grave		= Divide
+	7777
+	>
+
+	IFDEF V30NOR <
+/	v-- 8 Bit character
+/	v	v-- Representative TEC char
+/	v	v		  v-- 8 Bit description
+/	v	v		  v			  v-- TEC description
+	0260;	3063		/ Degree symbol		= TOP VERT SUMM CON
+	0305;	3120		/ A-Ring		= Cap Pi
+	0306;	2067		/ AE lig		= Middle Dot
+	0330;	3136		/ O Slash		= Logical And
+	0345;	3160		/ a-Ring		= Small Pi
+	0346;	3103		/ ae lig		= divided by
+	0370;	3137		/ o slashe		= logical OR
+	7777
+	>
+
+	IFDEF V30SWE <
+/	v-- 8 Bit character
+/	v	v-- Representative TEC char
+/	v	v		  v-- 8 Bit description
+/	v	v		  v			  v-- TEC description
+	0304;	2067		/ A-Umlaut		= Middle Dot
+	0305;	3120		/ A-Ring		= Cap Pi
+	0311;	3051		/ E-Accute		= Top right sq bracket
+	0326;	3136		/ O-Umlaut		= Logical AND
+	0334;	3115		/ U-Umlaut		= Iff
+	0344;	3103		/ a-Umlaut		= Divided by
+	0345;	3160		/ a-ring		= Small Pi
+	0351;	3052		/ e-accute		= Bott Right Sq Bracket
+	0366;	3137		/ o-umlaut		= Logical OR
+	0374;	3116		/ u-umlaut		= Implies
+	7777
+	>
+
+
+	IFDEF SPANISH <
+
+/	v-- 8 Bit character
+/	v	v-- Representative TEC char
+/	v	v		  v-- 8 Bit description
+/	v	v		  v			  v-- TEC description
+	0241;	3063		/ Upside down shriek	= Top Vert Summ Connect
+	0243;	3065		/ Pound sterling	= Top Right Summ
+	0252;	3051		/ a ordinal		= Top Right Sq Bracket
+	0272;	3052		/ o ordinal		= Bot Right Sq Bracket
+	0277;	3064		/ Upsidedown ?		= Bot Vert Summ Connect
+	0321;	3136		/ N tilde		= Logical AND
+	0347;	3075		/ c cedilla		= Not Equal
+	0361;	3137		/ n tilde		= Logical OR
+	7777
+	>
+
+
+	IFDEF DUTCH <							/A012
+
+/	v-- 8 Bit character
+/	v	v-- Representative TEC char
+/	v	v		  v-- 8 Bit description
+/	v	v		  v			  v-- TEC description
+/	NONE
+	7777
+	>
+
+/------------------- End of order important table --------------------------/
+
+
+/ LINKS GENERATED BY HAND TO STOP PAL PROCUCING THEM IN THE WRONG PLACE
+ATECTMP,TECTMP		/TEMP STORAGE FOR INPUT CHARACTER
+T8200,	200		/TEST FOR 8 BIT
+TEC8TA,	TEC8TB-2	/JUST BEFORE START OF TABLE
+M41,	-41		/UNUSED CHARACTERS IN 7 BIT TABLE
+
+/A011					END				/A011
+/A011011011011011011011011011011011011011011011011011011011011011011011011011
+	
+
+	NOPUNCH			/TURN OFF BINARY OUTPUT
+
+
+
+

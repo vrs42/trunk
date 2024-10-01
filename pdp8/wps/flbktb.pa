@@ -1,0 +1,151 @@
+/  FLBKTB - Fallback representation table for multinational characters
+/
+/	Edit history :-
+/
+/ 001	RCME	19-MAR-85	Creation of table
+/
+/******************************************************************************
+/*									      *
+/*	This table is used by PRINT SCREEN, PRINT, CX, DX, and others	      *
+/*	to translate multinational characters to a fallback representation    *
+/*	using one or two overstruck characters when transmitting over links   *
+/*	that accept only 7 bit comms.  The table resides in panel memory      *
+/*	at location 1000 in field 5.  The table starts with a representation  *
+/*	of character 160 DECIMAL [240 OCTAL].  Each character then has two    *
+/*	entries associated with it.  The corresponding entry therefore	      *
+/*	resides at field 5, location (1000+(char#-240)*2), and consists of    *
+/*	two words.							      *
+/*									      *
+/******************************************************************************
+/ Module load instructions for RXHAN
+
+	FIELD	0		/ field where RXHAN is located
+	*200			/ start address used by OS8 GO command
+	JMP I	.+3		/ location used to startup RXHAN
+	JMP I	.+1		/ location used to return to OS8 from RXHAN
+	7605			/ address of OS8 monitor
+	RXLOAD			/ address of start location for RXHAN
+	
+	*RXLDLS			/ address within RXHAN to overlay
+	RXEWT			/ write function code
+	0			/ ?????? me neither
+	RXQBLK			/ address of queue block to use
+	.			/ address of table of disk commands
+
+	DLFBTB	; 1000; CDF 60; -DSFBTB	/table area
+
+	0			/ list terminator
+
+	*400
+
+	FIELD 6
+
+
+
+	*1000
+
+FLBKTB,	" &177;" &177			/240	Space
+	"!&177;"!&177			/241	Up-side-down !
+	"c&177;"/&177			/242	Cent
+	"L&177;"-&177			/243	English pound sign
+	" &177;" &177			/244	Space
+	"Y&177;"-&177			/245	Yen sign
+	" &177;" &177			/246	Reserved
+	"S&177;"O&177			/247	Section sign
+	"O&177;"X&177			/250	General currency symbol
+	"C&177;"O&177			/251	Copyright sign
+	"a&177;"_&177			/252	Feminine ordinal indicator
+	"<&177;"<&177			/253	Angle quotation mark left
+	" &177;" &177			/254	Reserved
+	" &177;" &177			/255	Reserved
+	" &177;" &177			/256	Reserved
+	" &177;" &177			/257	Reserved
+	"o&177;" &177			/260	Degree sign
+	"+&177;"_&177			/261	Plus/minus sign
+	"2&177;" &177			/262	Superscript 2
+	"3&177;" &177			/263	Superscript 3
+	" &177;" &177			/264	Reserved
+	"u&177;"/&177			/265	Micro sign
+	"P&177;"!&177			/266	Pilcrow
+	".&177;" &177			/267	Middle dot
+	" &177;" &177			/270	Reserved
+	"1&177;" &177			/271	Superscript 1
+	"o&177;"_&177			/272	Masculine ordinal indicator
+	">&177;">&177			/273	Angle quotation mark right
+	"1&177;"4&177			/274	Fraction one quarter
+	"1&177;"2&177			/275	Fraction one half
+	" &177;" &177			/276	Reserved
+	"?&177;"?&177			/277	Inverted question mark
+
+	"A&177;"`&177			/300	Capital A with grave accent
+	"A&177;"'&177			/301	Capital A with accute accent
+	"A&177;"^&177			/302	Capital A with circumflex accent
+	"A&177;"~&177			/303	Capital A with tilde
+	"A&177;""&177			/304	Capital A with umlaut
+	"A&177;"*&177			/305	Capital A with ring
+	"A&177;"E&177			/306	Capital AE ligature
+	"C&177;",&177			/307	Capital C with cedilla
+	"E&177;"`&177			/310	Capital E with grave accent
+	"E&177;"'&177			/311	Capital E with accute accent
+	"E&177;"^&177			/312	Capital E with circumflex
+	"E&177;""&177			/313	Capital E with umlaut
+	"I&177;"`&177			/314	Capital I with grave accent
+	"I&177;"'&177			/315	Capital I with accute accent
+	"I&177;"^&177			/316	Capital I with circumflex
+	"I&177;""&177			/317	Capital I with umlaut
+	" &177;" &177			/320	Reserved
+	"N&177;"~&177			/321	Capital N with tilde
+	"O&177;"`&177			/322	Capital O with grave accent
+	"O&177;"'&177			/323	Capital O with accute accent
+	"O&177;"^&177			/324	Capital O with circumflex
+	"O&177;"~&177			/325	Capital O with tilde
+	"O&177;""&177			/326	Capital O with umlaut
+	"O&177;"E&177			/327	Capital OE ligature
+	"O&177;"/&177			/330	Capital O with slash
+	"U&177;"`&177			/331	Capital U with grave accent
+	"U&177;"'&177			/332	Capital U with accute accent
+	"U&177;"^&177			/333	Capital U with circumflex
+	"U&177;""&177			/334	Capital U with umlaut
+	"Y&177;""&177			/335	Capital Y with umlaut
+	" &177;" &177			/336	Reserved
+	"B&177;",&177			/337	German small sharp s
+
+	"a&177;"`&177			/340	Small a with grave accent
+	"a&177;"'&177			/341	Small a with accute accent
+	"a&177;"^&177			/342	Small a with circumflex
+	"a&177;"~&177			/343	Small a with tilde
+	"a&177;""&177			/344	Small a with umlaut
+	"a&177;"*&177			/345	Small a with ring
+	"a&177;"e&177			/346	Small ae ligature
+	"c&177;",&177			/347	Small c with cedilla
+	"e&177;"`&177			/350	Small e with grave accent
+	"e&177;"'&177			/351	Small e with accute accent
+	"e&177;"^&177			/352	Small e with circumflex
+	"e&177;""&177			/353	Small e with umlaut
+	"i&177;"`&177			/354	Small i with grave accent
+	"i&177;"'&177			/355	Small i with accute accent
+	"i&177;"^&177			/356	Small i with circumflex
+	"i&177;""&177			/357	Small i with umlaut
+	" &177;" &177			/360	Reserved
+	"n&177;"~&177			/361	Small n with tilde
+	"o&177;"`&177			/362	Small o with grave accent
+	"o&177;"'&177			/363	Small o with accute accent
+	"o&177;"^&177			/364	Small o with circumflex
+	"o&177;"~&177			/365	Small o with tilde
+	"o&177;""&177			/366	Small o with umlaut
+	"o&177;"e&177			/367	Small oe ligature
+	"o&177;"/&177			/370	Small o with slash
+	"u&177;"`&177			/371	Small u with grave accent
+	"u&177;"'&177			/372	Small u with accute accent
+	"u&177;"^&177			/373	Small u with circumflex
+	"u&177;""&177			/374	Small u with umlaut
+	"y&177;"~&177			/375	Small y with tilde
+	" &177;" &177			/376	Reserved
+	" &177;" &177			/377	Reserved
+
+	PGFREE=	FLBKTB+400-.	/ define spare in this block
+
+	ZBLOCK PGFREE
+
+
+

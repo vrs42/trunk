@@ -1,0 +1,1744 @@
+/ WPF1 - PREFIX FOR WPS-8 SYSTEM ASSEMBLIES
+/
+/		 COPYRIGHT (C) 1983 BY
+/	 DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS.
+/
+/ THIS SOFTWARE IS FURNISHED UNDER A LICENSE AND MAY BE USED AND COPIED
+/ ONLY  IN  ACCORDANCE  WITH  THE  TERMS  OF  SUCH LICENSE AND WITH THE
+/ INCLUSION OF THE ABOVE COPYRIGHT NOTICE.  THIS SOFTWARE OR ANY  OTHER
+/ COPIES THEREOF MAY NOT BE PROVIDED OR OTHERWISE MADE AVAILABLE TO ANY
+/ OTHER PERSON.  NO TITLE TO AND OWNERSHIP TO  THE  SOFTWARE  IS HEREBY
+/ TRANSFERRED.
+/
+/ THE INFORMATION IN THIS SOFTWARE IS SUBJECT TO CHANGE WITHOUT
+/ NOTICE AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL
+/ EQUIPMENT CORPORATION.
+/
+/ DIGITAL ASSUMES NO  RESPONSIBILITY FOR THE USE OR  RELIABILITY
+/ OF ITS SOFTWARE ON EQUIPMENT WHICH IS NOT SUPPLIED BY DIGITAL.
+/
+XLIST
+
+/ WPF1 - PREFIX FOR WPS-8 SYSTEM ASSEMBLIES
+/
+/		 COPYRIGHT (C) 1983 BY
+/	 DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS.
+/
+/ THIS SOFTWARE IS FURNISHED UNDER A LICENSE AND MAY BE USED AND COPIED
+/ ONLY  IN  ACCORDANCE  WITH  THE  TERMS  OF  SUCH LICENSE AND WITH THE
+/ INCLUSION OF THE ABOVE COPYRIGHT NOTICE.  THIS SOFTWARE OR ANY  OTHER
+/ COPIES THEREOF MAY NOT BE PROVIDED OR OTHERWISE MADE AVAILABLE TO ANY
+/ OTHER PERSON.  NO TITLE TO AND OWNERSHIP TO  THE  SOFTWARE  IS HEREBY
+/ TRANSFERRED.
+/
+/ THE INFORMATION IN THIS SOFTWARE IS SUBJECT TO CHANGE WITHOUT
+/ NOTICE AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL
+/ EQUIPMENT CORPORATION.
+/
+/ DIGITAL ASSUMES NO  RESPONSIBILITY FOR THE USE OR  RELIABILITY
+/ OF ITS SOFTWARE ON EQUIPMENT WHICH IS NOT SUPPLIED BY DIGITAL.
+
+/
+/	EDIT HISTORY
+
+/ 054	KMD	15-Sep-85	Add blast no. for TEC8VAL routine
+/ 053	EMcD	14-sep-85	Add system wide address of STUACF flag
+/				(UDK key while in SETUP)
+/ 052   KMD	13-Sep-85	Add CS3CHR defs for relevent countrys
+/ 051   KMD     09-Sep-85	Add blast number for PELINE moved from lexasc
+/				And insert PRE/PST CUR defs into country
+/				specific defs. 
+/!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NB.If CS3CHR defined also alter country
+/				specific currency characters in lexasc at
+/				lables 'ACURRENCY,' and 'FACURRENCY,'.
+/ 050	EMcD	26-Aug-85	3rd attempt to add Insert/Overstrike
+/ 049	MART	16-AUG-85	ADD DUTCH
+/ 048	MART	07-AUG-85	ADD CONVERT STARTUP ADDRESS
+/ 047	RCME	23-Jul-85	Global for cross field callable MATH blaster
+/ 046	mart	09-jul-85	glogal for GRESEN graphics restart table entry
+/				AND Add MVSWEN global for blastr table		
+/ 045	EMcD	28-Jun-85	Global for CXKBIN blast for CX
+/ 044	RCME	25-Jun-85	Add global address of sort seq. tbl SORTBL
+/ 043	EMcD	11-Jun-85	Change PRPUMM address, (Martins change
+/				lost in crossed sources)
+/ 042	rcme	07-Jun-85	Global for PGSWPH blast for 2CMF
+/ 041	rcme	04-Jun-85	Global for HCVDBN blast for 2CMF
+/ 040	rcme	24-May-85	Global for PSCRST blast for print screen
+/ 039	EMcD	23-May-85	Global for PGECHO blast in EDIT
+/ 038	mart	23-may-85	Global for printer and SYS
+/ 037	EMcD	20-May-85	Global for 8 bit Hyphen Push-Pull
+/ 036	Mart	20-may-85	More BLASTR table entries for 8 bit fallback
+/ 035	EMcD	16-May-85	Global for XVMNPH, view tech char attributes 
+/ 034	EMcD	14-May-85	Global for MNCUCS blast for casing chars
+/ 033   Mart	07-may-85	Global for fallback routine and table address
+/ 032	EMcD	06-May-85	Global entry for SWPDED , 8 bit gold swap
+/ 031	MART	02-MAY-85	GLOBAL FOR CFPRES CROSS FIELD CALL TO PRESCS
+/ 030	rcme	01-May-85	Global for BLODAP, the spelling hole
+/ 029	Mart	30-apr-85	Address of BHOOK in field 7 for cross call
+/ 				and Global for FALBEN 8 bit fallback part II
+/ 028	EMcD	29-Apr-85	Global entry for AB8INS 8 bit in abbrev doc
+/ 027	Mart	24-apr-85	Global entry for V25STB and FALBKE 8bit fallback
+/ 026	rcme	22-Apr-85	Global entry for merge field name search rtn
+/ 025	rcme	18-Apr-85	Global entry for Print Screen (PRTSHL) routine
+/ 024	Mart	18-Apr-85	Global entry for Blasted proportional tables
+/ 023	EMcD	10-Apr-85	Global for blaster entries INCHKR and INCSZR
+/ 022	Mart	03-apr-85	Global for blastr table entry MCLQPE
+/ 021	EMcD	02-Apr-85	Global for table entry no for CX hole
+/ 020   Mart	26-mar-85	PRGTCH table entry for Blastr
+/ 019	EMcD	26-Mar-85	Fall Back Table address
+/ 018	Mart	25-MAR-85	Add ruler table entry to blaster
+/ 017	rcme	18-mar-85	add print screen hole definitions
+/ 016	mdh	15-mar-85	add blaster table entry definitions section
+/				first is the (replaced)ruler copy subroutine.
+/ 015	mdh	12-mar-85	add hole users swap page address for ed blaster
+/ 014	EMcD	08-mar-85	V25st address 
+/ 013	mdh	08-mar-85	added BLASTR address link to blaster & tables
+/
+/------------mods below are V2.0 and earlier
+/
+/ 012	AIB	 5-SEP-84	added SVFVFY to locate word for
+/				  communication between handler and verify
+/ 011	WCE	20-AUG-84	ADDED TELEPHONE DIRECTORY WORD IN SYSTEM AREA
+/ 010	JAC	20-JUN-84	100 UDK Integration
+/ 009	AIB	14-MAY-84	ADD EDTC DEFINITION FOR TECH CHAR
+/ 008	HLP	25-APR-84	Delete LPTYPE, replace with D2XONF
+/ 007	AIB	23-APR-84	Add CMDBLK defining queue blk in cmnd field
+/ 006	HLP	12-APR-84	Redefine PRQPNT, PRQPSZ, PRBOTM, and DSKQUE
+/ 005	AH	21-MAR-84	Add column key definition
+/ 004	HLP	07-MAR-84	MAKE LPOSIZ=046, DELETE SQWAIT, MOVE D2CTQF
+/ 003	WCE	05-MAR-84	MODIFIED SYMBOLS FOR DECMATE VERSION 1.6
+/ 002	WJY	02-FEB-84	CHANGES FOR DECMATE I COMPATABILITY.
+/ 001	WCE	05-JAN-84	MODIFIED SYMBOLS FOR DECMATE VERSION 1.5
+/	WCE	28-JUN-83	CHANGES TO SPLIT WP2CMF INTO TWO PARTS
+/				THIS PREFIX FILE WAS REWRITTEN AND
+/				PREVIOUS EDIT HISTORIES DELETED.  PARTS
+/				OF OTHER MODULES ARE INCLUDED HERE
+/				BECAUSE THEY WERE NORMALY XLISTED.
+/
+
+	NOPUNCH		/ DO NOT GENERATE ANY CODE FOR THESE DEFINITIONS
+
+/***************************************************************************
+/****			STANDARD SYSTEM DEFINITIONS:			****
+/***************************************************************************
+
+DECIMAL
+IFZERO SYSTYP-378 <
+	CONDOR=	1	/ DEFINE FUNCTIONS UNIQUE TO DECMATE II (NOT DECMATE I)
+	FMWARE=	1	/ DEFINE FUNCTIONS UNIQUE TO HAVING FIRMWARE ON THE
+			/ SYSTEM DISKETTE ON CONDOR (DECMATE II SYSTEM)
+	WINNIE=	1	/ ENABLE CONDOR WINCHESTER HARD DISK SUPPORT	/A001
+	VT125R= 1	/ ENABLE CONDOR REGIS GRAPHICS COMM SUPPORT	/A001
+		>	/ END IFZERO SYSTYP-378
+
+
+	WPSTYP=	278	/ DEFINE SYSTEM HARDWARE TYPE
+OCTAL
+
+IFDEF ENGLSH <
+	PERDEC=	1	/ DEFINE PERIOD FOR DECIMAL POINT
+	MDYDAT=	1	/ DEFINE MONTH-DAY-YEAR DATE FORMAT
+	PRECUR= 1	/ DEFINE PRE-DIGIT CURRENCY SYMBOL
+		>	/ END IFDEF ENGLSH
+IFDEF ITALIAN <
+	COMDEC=	1	/ DEFINE COMMA FOR DECIMAL POINT
+	DMYDAT=	1	/ DEFINE DAY-MONTH-YEAR DATE FORMAT
+	PRECUR= 1	/ DEFINE PRE-DIGIT CURRENCY SYMBOL
+		>	/ END IFDEF ITALIAN
+IFDEF DUTCH <
+	COMDEC=	1	/ DEFINE COMMA FOR DECIMAL POINT
+	DMYDAT=	1	/ DEFINE DAY-MONTH-YEAR DATE FORMAT
+	PRECUR= 1	/ DEFINE PRE-DIGIT CURRENCY SYMBOL
+		>	/ EDND IFDEF DUTCH
+IFDEF SPANISH <
+	COMDEC=	1	/ DEFINE COMMA FOR DECIMAL POINT
+	DMYDAT=	1	/ DEFINE DAY-MONTH-YEAR DATE FORMAT
+	PSTCUR= 1	/ DEFINE POST-DIGIT CURRENCY SYMBOL
+	CS3CHR= 1	/ DEFINE 3 CHARACTER CURRENCY SYMBOL
+		>	/ EDND IFDEF DUTCH
+IFDEF V30NOR <
+	COMDEC=	1	/ DEFINE COMMA FOR DECIMAL POINT
+	MDYDAT=	1	/ DEFINE MONTH-DAY-YEAR DATE FORMAT
+	PRECUR= 1	/ DEFINE PRE-DIGIT CURRENCY SYMBOL
+	CS3CHR= 1	/ DEFINE 3 CHARACTER CURRENCY SYMBOL
+		>	/ EDND IFDEF V30NOR
+IFDEF V30SWE <
+	COMDEC=	1	/ DEFINE COMMA FOR DECIMAL POINT
+	YMDDAT=	1	/ DEFINE YEAR-MONTH-DAY DATE FORMAT
+	PRECUR= 1	/ DEFINE PRE-DIGIT CURRENCY SYMBOL
+	CS3CHR= 1	/ DEFINE 3 CHARACTER CURRENCY SYMBOL
+		>	/ EDND IFDEF V30SWE
+
+
+/***************************************************************************
+/****			STANDARD SYMBOL DEFINATIONS:			****
+/***************************************************************************
+
+* HLT			; XX,	  0	/ USED FOR SUBROUTINE ENTRY POINT
+* 7014			; R3L,	  0	/ ROTATE AC 3 LEFT (LINK IS NOT USED)
+* 7621			; CAM,	  0	/ CLEAR AC AND MQ
+* 7701			; ACL,	  0	/ LOAD MQ INTO AC
+* CLA			; AC0000, 0	/ SET ACCUMULATOR TO 0
+* CLA CLL CML RAL	; AC0001, 0	/ SET ACCUMULATOR TO 1    (-7777)
+* CLA CLL IAC RAL	; AC0002, 0	/ SET ACCUMULATOR TO 2    (-7776)
+* CLA CLL CML IAC RAL	; AC0003, 0	/ SET ACCUMULATOR TO 3    (-7775)
+* CLA CLL IAC RTL	; AC0004, 0	/ SET ACCUMULATOR TO 4    (-7774)
+* CLA CLL CML IAC RTL	; AC0006, 0	/ SET ACCUMULATOR TO 6    (-7772)
+* CLA CLL IAC R3L	; AC0010, 0	/ SET ACCUMULATOR TO 10   (-7770)
+* CLA IAC BSW		; AC0100, 0	/ SET ACCUMULATOR TO 100  (-7700)
+* CLA CLL CML RTR	; AC2000, 0	/ SET ACCUMULATOR TO 2000 (-6000)
+* CLA CLL CMA RAR	; AC3777, 0	/ SET ACCUMULATOR TO 3777 (-4001)
+* CLA CLL IAC RTR	; AC4000, 0	/ SET ACCUMULATOR TO 4000 (-4000)
+* CLA CLL CMA RTR	; AC5777, 0	/ SET ACCUMULATOR TO 5777 (-2001)
+* CLA CLL CML IAC RTR	; AC6000, 0	/ SET ACCUMULATOR TO 6000 (-2000)
+* CLA CLL CMA RTL	; AC7775, 0	/ SET ACCUMULATOR TO 7775 (-3)
+* CLA CLL CMA RAL	; AC7776, 0	/ SET ACCUMULATOR TO 7776 (-2)
+* CLA CMA		; AC7777, 0	/ SET ACCUMULATOR TO 7777 (-1)
+
+
+/***************************************************************************
+/****			STANDARD CHANGE FIELD INSTRUCTIONS		****
+/***************************************************************************
+
+* 0		 ; SYSFLD, 0	/ SET UP SYSTEM FIELD
+* CDF SYSFLD	 ; CDFSYS, 0
+* CDFSYS	 ; CDFDSK, 0						/A001
+* CIF SYSFLD	 ; CIFSYS, 0
+* CIFSYS	 ; CIFDSK, 0						/A001
+* CDF CIF SYSFLD ; CDISYS, 0
+
+* 10		 ; PRFLD,  0	/ SET UP PRINTER FIELD
+* CDF PRFLD	 ; CDFPRT, 0
+* CIF PRFLD	 ; CIFPRT, 0
+* CIF CDF PRFLD	 ; CDIPRT, 0
+
+* 20		 ; MNUFLD, 0	/ SET UP MENU FIELD
+* CDF MNUFLD	 ; CDFMNU, 0
+* CDFMNU	 ; MNCDU0, 0	/ FOR WPCMND,IOA,MENU,FILE PROCESSOR
+* CIF MNUFLD	 ; CIFMNU, 0
+* CDF CIF MNUFLD ; CDIMNU, 0
+
+* 30		 ; EDTFLD, 0	/ SET UP EDITOR FIELD
+* CDF EDTFLD	 ; CDFEDT, 0
+* CIF EDTFLD	 ; CIFEDT, 0
+* CDF CIF EDTFLD ; CDIEDT, 0
+
+* 40		 ; BUFFLD, 0	/ SET UP BUFFER FIELD
+* CDF BUFFLD	 ; CDFBUF, 0	/ ADDED FOR WPCX
+* CDFBUF	 ; MNCDU2, 0	/ FOR EDIT BUFFER overlayed by SORT
+* CIF BUFFLD	 ; CIFBUF, 0
+* CDF CIF BUFFLD ; CDIBUF, 0
+
+
+* 50		 ; LPFLD,  0	/ SET UP LIST PROCESSING FIELD
+* CDF LPFLD	 ; CDFLP,  0
+* CIF LPFLD	 ; CIFLP,  0
+* CDF CIF LPFLD	 ; CDILP,  0
+
+* 60		 ; MTHFLD, 0	/ SET UP MATH FIELD
+* CDF MTHFLD	 ; CDFMTH, 0
+* CIF MTHFLD	 ; CIFMTH, 0
+* CDF CIF MTHFLD ; CDIMTH, 0
+
+* 70		 ; FIOFLD, 0	/ SET UP FILE IO FIELD
+* CDF FIOFLD	 ; CDFFIO, 0
+* CIF FIOFLD	 ; CIFFIO, 0
+* CDF CIF FIOFLD ; CDIFIO, 0
+* CDFFIO	 ; CDFACP, 0						/A001
+
+/***************************************************************************
+/****		INPUT - OUTPUT (IOT) INSTRUCTION DEFINITIONS		****
+/***************************************************************************
+
+* 6030	    ; IOTU1I, 0		/ TERMINAL INPUT
+* 6040	    ; IOTU1O, 0		/ TERMINAL OUTPUT
+
+* 6102	    ; SPL,    0		/ SKIP ON POWER LOW
+
+* 6236	    ; PRQ3,   0		/ PANEL REQUEST NUMBER THREE		/A011
+
+* 6300	    ; IOTH2I, 0		/ HOST INPUT
+* 6310	    ; IOTH2O, 0		/ HOST OUTPUT
+* 6340	    ; IOTH2A, 0		/ PORT 1
+
+* 6500	    ; IOTLPT, 0		/ PRINTER PORT
+
+* 6700	    ; IOTWIN, 0		/ IOT INSTRUCTIONS FOR WINCHESTER DISK	/A001
+* IOTWIN    ; RDNOP,  0		/ RESERVED, EFFECT NOP			/A001
+* IOTWIN+1  ; RDSR,   0		/ SKIP ON DATA REQUEST FLAG		/A001
+* IOTWIN+2  ; RDSC,   0		/ SEND CMND (IN AC) TO CONTROLLER	/A001
+* IOTWIN+3  ; RDSD,   0		/ SKIP ON DONE FLAG; CLEAR FLAG		/A001
+* IOTWIN+4  ; RDTD,   0		/ TRANSFER DATA TO/FROM AC(0:11)	/A001
+* IOTWIN+5  ; RDWE,   0		/ WRITE INTERRUPT-ENABLE MASK FROM AC(11)/A001
+* IOTWIN+6  ; RDSE,   0		/ SKIP ON ERROR FLAG; CLEAR FLAG	/A001
+* IOTWIN+7  ; RDNOOP, 0	 	/ RESERVED, EFFECT NOP			/A001
+
+* 6750	    ; IOTDSK, 0		/ DEFINE IOT INSTRUCTIONS FOR FLOPPY DISKS
+* IOTDSK    ; RXINOP, 0		/ NOP
+* IOTDSK    ; RXISEL, 0		/ SELECT DRIVE PAIR INDICATED IN AC11
+* IOTDSK+1  ; RXILCD, 0		/ LOAD COMMAND, CLEAR AC
+* IOTDSK+2  ; RXIXDR, 0		/ TRANSFER DATA REGISTER
+* IOTDSK+3  ; RXISTR, 0		/ SKIP ON TR FLAG, CLEAR FLAG
+* IOTDSK+4  ; RXISER, 0		/ SKIP ON ERROR FLAG, CLEAR FLAG
+* IOTDSK+5  ; RXISDN, 0		/ SKIP ON DONE FLAG, CLEAR FLAG
+* IOTDSK+6  ; RXIINT, 0		/ ENABLE OR DISABLE RX INTERRUPTS
+* IOTDSK+7  ; RXIINI, 0		/ INIT CONTROLLER AND INTERFACE
+
+/***************************************************************************
+/****			ASCII CHARACTER CODE DEFINITIONS		****
+/***************************************************************************
+
+* 7	    ; BELL,   0		/ ASCII BELL CODE
+* 12	    ; LF,     0		/ ASCII FOR LINE FEED (SEE "ECNWLN" BELOW)
+* 15	    ; CR,     0		/ ASCII FOR CARRIAGE RETURN
+* 21	    ; XON,    0		/ ASCII CODE TO BEGIN COMMUNICATION TRANSFER
+* 23	    ; XOF,    0		/ ASCII CODE TO STOP COMMUNICATION TRANSFER
+* 33	    ; ESC,    0		/ ASCII ESCAPE CODE
+
+
+/***************************************************************************
+/****		EXTENDED GRAPHICS USED ON THE VT100:			****
+/***************************************************************************
+
+* 140	    ; EXGSLC, 0		/ SELECT POINT (SOLID DIAMOND)
+* 141	    ; EXGOVS, 0		/ OVERSTRUCK CHARACTER (CHECKER BOARD)
+* 142	    ; EXGTAB, 0		/ TAB (HT)
+* 144	    ; EXGNLN, 0		/ NEW LINE (CR)
+* 146	    ; EXGWLN, 0		/ WRAPPED LINE (DEGREE SYMBOL)
+* 156	    ; EXGCEN, 0		/ CENTERED LINE (+)
+* 165	    ; EXGPGF, 0		/ PARAGRAPH (RIGHT T)
+* 176	    ; EXGJSP, 0		/ JUSTIFYING SPACE (CENTERED DOT)
+* 174	    ; EXGETX, 0		/ END OF TEXT (NOT EQUAL)
+* "-&177    ; EXGHLN, 0		/ HYPHENATED LINE
+
+
+/***************************************************************************
+/****		SPECIAL TEXT FORMAT CODES (IN EDITOR TEXT BUFFER)	****
+/***************************************************************************
+
+*  -1	    ; ECBFBG, 0		/ CODE FOR PHYSICAL START OF TEXT BUFFER
+* .-2	    ; ECBFND, 0		/ CODE FOR PHYSICAL END OF TEXT BUFFER
+* .-2	    ; ECSTX,  0		/ CODE FOR START OF TEXT IN BUFFER
+* ECSTX	    ; ECETX,  0		/ CODE FOR END OF TEXT IN BUFFER
+
+* 0007	    ; ECMDFL, 0		/ 'LINE MODIFIED' FLAG
+* 0207	    ; ECRMFL, 0		/ 'RULER MODIFIED' FLAG
+
+* 0010	    ; ECSTOV, 0		/ START DEAD KEY CODE
+
+* 0011	    ; ECTAB,  0		/ TAB
+
+* 0012	    ; ECNWLN, 0		/ NEW LINE
+* 1012	    ; ECPGRF, 0		/ END PARAGRAPH
+* 1412	    ; ECENLN, 0		/ CENTERED LINE
+* 2012	    ; ECWWLN, 0		/ WRAPPED LINE (NO HYPHEN)
+* 2412	    ; ECHYLN, 0		/ WRAPPED LINE (WITH HYPHEN)
+* 3412	    ; ECSLPT, 0		/ SELECT POINT
+
+* 0014	    ; ECNWPG, 0		/ NEW PAGE
+* 1014	    ; ECPCT1, 0		/ START CONTROL
+* 1414	    ; ECPCT2, 0		/ END CONTROL
+* 2014	    ; ECPMRK, 0		/ PAGE MARKER
+
+* 0015	    ; ECNDOV, 0		/ END DEAD KEY CODE
+
+* 0016	    ; ECSTRL, 0		/ RULER START
+
+* 0017	    ; ECNDRL, 0		/ RULER END
+
+* 0040	    ; ECSPC,  0		/ SPACE
+* 2040	    ; ECJSPC, 0		/ JUSTIFYING SPACE
+* 3040	    ; ECTMRK, 0		/ POSITION MARKER
+* 3440	    ; ECCMRK, 0		/ MARKS POSITION DURING REJUSTIFICATION
+
+* 2055	    ; ECPHYP, 0		/ PRINTING BREAK HYPHEN
+
+* 0100	    ; ECMDRL, 0		/ RULER MIDDLE
+
+
+/***************************************************************************
+/****		WPKBDA - WPS KEYBOARD DEFINITIONS			****
+/****		DEFINE ALL SPECIAL KEYBOARD CHARACTER VALUES		****
+/***************************************************************************
+
+*  -1	    ; EDPWFL, 0		/	POWER FAIL DETECTED
+* .-2	    ; EDRBCH, 0		/	RUB CHARACTER	
+* .-2	    ; EDRBWD, 0		/	RUB WORD
+* .-2	    ; EDNWLN, 0		/	RETURN
+* .-2	    ; EDPCMD, 0		/ GOLD:	COMMAND
+* .-2	    ; EDCRET, 0		/ GOLD:	PARAGRAPH MARKER
+* .-2	    ; EDTAB,  0		/	TAB
+* .-2	    ; EDINTB, 0		/ GOLD:	INDENT TAB
+* .-2	    ; EDFILE, 0		/ GOLD:	FILE
+* .-2	    ; EDMENU, 0		/ GOLD:	MENU
+* .-2	    ; EDCONT, 0		/ GOLD:	CONTINUE SEARCH & SELECT
+* .-2	    ; EDRBLN, 0		/ GOLD:	RUB LINE
+* .-2	    ; EDRBSE, 0		/ GOLD:	RUB SENTENCE
+* .-2	    ; EDDLTC, 0		/	DELETE CHARACTER
+* .-2	    ; EDDLTW, 0		/	DELETE WORD
+* .-2	    ; EDWORD, 0		/	WORD
+* .-2	    ; EDSENT, 0		/	SENTENCE
+* .-2	    ; EDLINE, 0		/	LINE
+* .-2	    ; EDTABP, 0		/	TAB POSITION
+* .-2	    ; EDENTR, 0		/	< > (ENTER)
+* .-2	    ; EDPAGE, 0		/	PAGE
+* .-2	    ; EDPARA, 0		/	PARAGRAPH
+* .-2	    ; EDADVN, 0		/	ADVANCE
+* .-2	    ; EDBKUP, 0		/	BACKUP
+* .-2	    ; EDGADV, 0		/ GOLD:	ADVANCE
+* .-2	    ; EDGBKP, 0		/ GOLD:	BACKUP
+* .-2	    ; EDBOLD, 0		/	BOLD
+* .-2	    ; EDSLCT, 0		/	SELECT
+* .-2	    ; EDUPPR, 0		/	UPPER CASE
+* .-2	    ; EDUNDL, 0		/	UNDERLINE
+* .-2	    ; EDSCUT, 0		/	CUT
+* .-2	    ; EDSWAP, 0		/	SWAP
+* .-2	    ; EDPSTE, 0		/	PASTE
+* .-2	    ; EDUDLT, 0		/ GOLD:	DELETE
+* .-2	    ; EDUBLD, 0		/ GOLD:	BOLD
+* .-2	    ; EDLOWR, 0		/ GOLD:	UPPERCASE
+* .-2	    ; EDUUDL, 0		/ GOLD:	UNDERLINE
+* .-2	    ; EDHYPS, 0		/	HYPHEN PUSH
+* .-2	    ; EDHYPL, 0		/ GOLD:	HYPHEN PULL
+* .-2	    ; EDHYP1, 0		/ GOLD:	PRINTING BREAK HYPHEN
+* .-2	    ; EDHYP2, 0		/ GOLD:	INVISIBLE HYPHEN (SHIFT PRINT HYPHEN)
+* .-2	    ; EDDEAD, 0		/ GOLD:	DEAD KEY
+* .-2	    ; EDDICT, 0		/ GOLD:	ABBREVIATION
+* .-2	    ; EDGETC, 0		/ GOLD:	LIBRARY
+* .-2	    ; EDDCMT, 0		/ GOLD:	GET
+* .-2	    ; EDTOP,  0		/ GOLD:	TOP
+* .-2	    ; EDBOTM, 0		/ GOLD:	BOTTOM
+* .-2	    ; EDFIND, 0		/ GOLD:	SEARCH
+* .-2	    ; EDSRCH, 0		/ GOLD:	CONTINUE SEARCH
+* .-2	    ; EDNPAG, 0		/ GOLD:	NEW PAGE
+* .-2	    ; EDPMRK, 0		/ GOLD:	PAGE MARKER
+* .-2	    ; EDRULR, 0		/ GOLD:	RULER
+* .-2	    ; EDCENT, 0		/ GOLD:	CENTER
+* .-2	    ; EDGCUT, 0		/ GOLD:	CUT
+* .-2	    ; EDGPST, 0		/ GOLD:	PASTE
+* .-2	    ; EDGPGE, 0		/ GOLD:	PAGE
+* .-2	    ; EDREPL, 0		/ GOLD:	REPLACE
+* .-2	    ; EDSUBS, 0		/ GOLD:	SUBSCRIPT
+* .-2	    ; EDSUPS, 0		/ GOLD:	SUPERSCRIPT
+* .-2	    ; EDVIEW, 0		/ GOLD:	VIEW
+* .-2	    ; EDTIME, 0		/ GOLD:	DATE & TIME
+
+* .-2       ; EDTC, 0		/ TECH CHAR PREFIX KEY			/A009
+* .-2	    ; EDHELP, 0		/	HELP KEY
+* .-2	    ; EDPRSC, 0		/ 	PREVIOUS SCREEN			/A001
+* .-2	    ; EDNXSC, 0		/ 	NEXT SCREEN			/A001
+* .-2	    ; EDUPAR, 0		/ 	CURSOR UP			/A001
+* .-2	    ; EDDNAR, 0		/ 	CURSOR DOWN			/A001
+IFDEF	CONDOR	<							/A002
+* .-2	    ; EDRARO, 0		/ 	CURSOR RIGHT			/A001
+* .-2	    ; EDLARO, 0		/ 	CURSOR LEFT			/A001
+* .-2	    ; EDGRAR, 0		/ GOLD:	CURSOR RIGHT			/A001
+* .-2	    ; EDGLAR, 0		/ GOLD:	CURSOR LEFT			/A001
+		>		/ END IFDEF CONDOR
+
+* .-2	    ; EDRQSP, 0		/ GOLD:	SPACE (REQUIRED SPACE)		/A001
+
+* .-2	    ; EDCOLM, 0		/ COLUMN KEY				/A005
+
+* .-2	    ; EDINOV, 0		/ INSERT-OVERSTRIKE KEY			/M050
+
+/***************************************************************************
+/****			END OF TABLE FOR WPS EDITOR			****
+/****	SYMBOLS BELOW ARE USED FOR WPUDKS AS ARE THE SYMBOLS ABOVE.	****
+/****									****
+/****	IMPORTANT NOTE **** IF SYMBOLS ARE ADDED ABOVE EDXXXX		****
+/****		WPUDKS MUST BE MODIFIED TO UNDERSTAND THEM		****
+/***************************************************************************
+
+/***************************************************************************
+/****		ORDER IMPORTANT IN THE FOLLOWING SECTION		****
+/***************************************************************************
+
+* .-2	    ; EDU99,  0							/A010
+* .-144+13			/ SAVE NUMBERS FOR UDK'S		/A010
+* .-2	    ; EDUDK9, 0		/ DEFINE UDK KEY NUMBER 9
+* .-2	    ; EDUDK8, 0		/ DEFINE UDK KEY NUMBER 8
+* .-2	    ; EDUDK7, 0		/ DEFINE UDK KEY NUMBER 7
+* .-2	    ; EDUDK6, 0		/ DEFINE UDK KEY NUMBER 6
+* .-2	    ; EDUDK5, 0		/ DEFINE UDK KEY NUMBER 5
+* .-2	    ; EDUDK4, 0		/ DEFINE UDK KEY NUMBER 4
+* .-2	    ; EDUDK3, 0		/ DEFINE UDK KEY NUMBER 3
+* .-2	    ; EDUDK2, 0		/ DEFINE UDK KEY NUMBER 2
+* .-2	    ; EDUDK1, 0		/ DEFINE UDK KEY NUMBER 1
+* .-2	    ; EDUDK0, 0		/ DEFINE UDK KEY NUMBER 0
+* EDUDK0    ; EDUKND, 0		/ DEFINE END OF UDK SYMBOLS
+
+/***************************************************************************
+/****		IF IT IS NECESSARY TO ADD SYMBOLS NOT TO BE		****
+/****		INPUT INTO UDKS, ADD THEM BEYOND THIS POINT		****
+/***************************************************************************
+
+* .-2	    ; EDUDKY,	0	/ F14 FOR UDK KEY			/A010
+
+* .-2	    ; EDSETUP, 0	/ SET UP KEY
+* .-2	    ; EDDO,   0		/ DO KEY	
+
+
+
+/***************************************************************************
+/****		RXDCL - DECLARATIONS FOR USING RX HANDLER		****
+/***************************************************************************
+
+* 0	    ; RXCMYF, 0	/ MY FIELD
+* 0	    ; RXFFB,  0	/ FILL BUFFER
+* 1	    ; RXCOK,  0	/ NORMAL COMPLETION CODE
+* 2	    ; RXFEB,  0	/ EMPTY BUFFER
+* 2	    ; RXBDIR, 0	/ BLOCK NUMBER OF DIRECTORY INFO ON DISK
+* 4	    ; RXFWSC, 0	/ WRITE SECTOR
+* 6	    ; RXFRSC, 0	/ READ SECTOR
+* 10	    ; RXFNU,  0	/ NOT USED
+* 11	    ; RXPDRI, 0	/ DIR INFO IN DIR BLOCK
+* 12	    ; RXFRST, 0	/ READ STATUS
+* 14	    ; RXFWDS, 0	/ WRITE DELETED SECTOR
+* 16	    ; RXFMN,  0	/ MAINTENANCE
+* 100	    ; RXF8BM, 0	/ SET FOR 8-BIT MODE
+* 160	    ; RXFLD,  0	/ FIELD #7 TIMES 10 SHIFTED LEFT FOR RXJOB.
+* 364	    ; RX02M,  0	/ RX02M=0 IF RX01 IS IN USE; =1 IF RX02 IS IN USE.
+* 377	    ; RXBALC, 0	/ BLOCK NUMBER OF ALLOC INFO
+* -377	    ; COSCNT, 0	/ COS COUNT VALUE
+* 5600	    ; RXSTRT, 0	/ JOB START LOCATION. DSKACP START ADDRESS
+* 6400	    ; RXLOAD, 0	/ START LOCATION FOR WPS LOADER
+* 6500	    ; RXLDLS, 0	/ ORIGIN OF LOAD LIST
+
+/***************************************************************************
+/****			OFFSETS INTO QUEUE BLOCK			****
+/***************************************************************************
+
+* 0	    ; RXQCOD, 0	/ COMPLETION CODE
+	      RXQFNC, 0	/ FUNCTION TO BE PERFORMED
+	      RXQDN1, 0	/ DRIVE NAME, WORD 1
+	      RXQDN2, 0	/ DRIVE NAME, WORD 2
+	      RXQFNO, 0	/ FILE NUMBER
+	      RXQID1, 0	/ PLASTIC ID
+	      RXQSPC, 0	/ # FREE BLOCKS ON DISKETTE
+	      RXQCTL, 0	/ CONTROLLER BITS FOR PATCHING COMMANDS
+	      RXQDRV, 0	/ DRIVE NUMBER AND MODE BITS FOR LCD
+	      RXQBLK, 0	/ BLOCK NUMBER
+	      RXQRS1, 0	/ RESERVED
+	      RXQBAD, 0	/ ADDRESS OF BUFFER
+	      RXQBFD, 0	/ CDF BUFFER FIELD
+	      RXQTRK, 0	/ TRACK NUMBER
+	      RXQSEC, 0	/ SECTOR NUMBER
+
+/***************************************************************************
+/****			HANDLER COMMANDS				****
+/***************************************************************************
+
+* 0	    ; RXERT,  0	/ RESET DIR AND ALLOC BLOCK MEMORY
+	      RXEPR,  0	/ PHYSICAL READ
+	      RXEPW,  0	/ PHYSICAL WRITE
+	      RXERD,  0	/ LOGICAL READ
+	      RXEWT,  0	/ LOGICAL WRITE
+	      RXEAL,  0	/ ALLOCATE A BLOCK
+	      RXEFR,  0	/ FREE A BLOCK
+	      RXEGF,  0	/ GET BLOCKNO OF FIRST BLOCK (HDR) OF FILENO
+	      RXESF,  0	/ SET BLOCKNO OF FIRST BLOCK
+	      RXESP,  0	/ GET # FREE BLOCKS ON DISKETTE
+	      RXEDN,  0	/ GET DENSITY
+	      RXER12, 0	/ READ PHYSIO 12 BIT
+	      RXEW12, 0	/ WRITE PHYSIO  12 BIT
+	      RXEFMS, 0	/ FORMAT SINGLE DENSITY
+	      RXEFMD, 0	/ FORMAT DOUBLE DENSITY
+	      RDEMNT, 0	/ WINCHESTER MOUNT VOLUME COMMAND		/A001
+	      RDEDIS, 0	/ WINCHESTER DISMOUNT VOLUME			/A001
+	      RDEGTV, 0	/ WINCHESTER GET VOLUME DATA			/A001
+	      RDEGTD, 0	/ WINCHESTER GET DATA DIRECTORY			/A001
+	      RDEMTS, 0	/ WINCHESTER MOUNT VOLUME START-UP COMMAND	/A001
+	      RDEUPD, 0	/ WINCHESTER UPDATE VOLUME DIRECTORY		/A003
+	      RDESTA, 0	/ WINCHESTER GET DEVICE STATUS			/A003
+
+/***************************************************************************
+/****			MISCELLANIOUS CONSTANTS				****
+/***************************************************************************
+
+* 0	    ; RONLY,  0	/ READ ONLY - ASSUMED ZERO IN 'LCKFIL'
+* 1	    ; ALTER,  0	/ READ/WRITE LOCK
+* 1	    ; NQHDRS, 0	/ NUMBER OF QUEUE HEADERS
+* 2	    ; GLOBAL, 0	/ GLOBAL FILE LOCK
+* 3	    ; PRTNUM, 0	/ PRINTER JOB NO. FOR LOCKS
+* 3	    ; QHDRSZ, 0	/ SIZE OF QUEUE HEADER BLOCK
+* 5	    ; JSBSZ,  0	/ SIZE OF JOB STATUS BLOCK
+* 10	    ; PQSZ,   0	/ SIZE OF PRINT QUEUE
+* 12	    ; RXDPGS, 0	/ SIZE OF THE "RX02" DRIVER IN PAGES		/A001
+* 14	    ; NJSBS,  0	/ MAXIMUM NUMBER OF JOBS
+* 14	    ; CXSETZ, 0	/ NUMBER OF WORDS TRANSFERED FOR S.O. MENU DISPLAY
+* 27	    ; PRSETZ, 0	/ SIZE OF PRINTER SETTINGS
+* 111	    ; STRLEN, 0	/ LENGTH OF ARG BUFFER USED BY MENU AND IOA
+* 311	    ; MAXDOC, 0	/ NUMBER OF FILES ALLOWED ON A FLOPPY + 1
+
+
+/***************************************************************************
+/****			MISCELLANIOUS LOCATIONS				****
+/***************************************************************************
+
+* 200	    ; SELCT,  0	/ ROUTINE IN LP CALLED BY EDITOR
+* 206	    ; PWRRET, 0	/ LOCATION OF RETURN FROM POWER FAIL CODE.
+* 373	    ; LDSTRT, 0	/ LOCATION IN BOOTSTRAP USED BY THE SYSTEM	/A001
+
+* 3000	    ; POWER,  0	/ LOCATION OF WS80 POWER FAIL AND RECOVERY CODE.
+
+* 3400	    ; FLABUZ, 0	/ LOCATION OF ROUTINE TO FLASH LIGHTS ON TERNINAL
+			/ WHEN PRINTER HAS AN ERROR
+
+* 4000	    ; CURATR, 0	/ LOCATION OF BLKBOX ROUTINE FOR VIDEO COSMETICS
+* CURATR+1  ; BLKBOX, 0	/ ... THESE TWO LOCATIONS ARE IN WPRINT
+
+* 6600	    ; SVFVFY, 0	/ WORD IN HANDLER USED BY VERIFY TO PASS INFO
+
+* 200	    ; CONVERT,0	/ CONVERT UTILITY STARTUP ADDRESS		/A048
+
+* 1000	    ; V25ST,  0	/ V2.5 Startup address				/a014
+
+* 1000	    ; FLBKTB, 0 / Fall back table start address in PANEL	/A019
+
+* 2000	    ; BLASTR, 0 / Location of panel hole blaster routine	/a013
+
+* 4000	    ; FBHOOK, 0	/ location of BHOOK in field 7 WPFILS		/a029
+
+* 2600	    ; MBHOOK, 0 / Location of BHOOK in field 6 MATH		/a047
+
+* 6000	    ; CFPRES, 0 / LOCATION OF CROSS field call to PRESCS	/a029
+
+* 0050	    ; PRPUMM, 0 / location of PUM mode flag in printer	/M043	/a031
+
+* 7600	    ; PRFBHL, 0 / location of 8 bit fallback routine		/a033
+
+* 3000	    ; PRTBAD, 0 / location of fallback table in panel		/a033
+
+* 7676	    ; V25STB, 0	/ Location of initialisation block for V25ST	/a027
+
+* 2400	    ; HOLEPG, 0	/ Definition of users blaster swap address (editor)
+
+* 5400 	    ; HOLEOV, 0  / Second user blast swap address in Editor	/A032
+
+* 7000	    ; PRTHOL, 0 / Definition of users blaster swap address (printer)/a017
+
+* 7400	    ; PRTSHL, 0	/ Location of blasted print screen routine	/a024
+
+* 4600	    ; SPHOLE, 0 / Location of users blaster swap address (spell)/a030
+
+* 2600	    ; CVDHOL, 0 / Location of users blaster swap address (2CMF)	/a041
+
+* 3000	    ; MATHOL, 0 / Location of users blaster swap address (MATH) /a043
+
+* 7600	    ; SORTBL, 0 / Location of MCS sort sequence table (WPBLTB)	/a044
+
+* 7000	    ; BLSTBL, 0 / Location of BLASTR table	      (WPBLTB)	/a046
+
+* 0600	    ; SSRBRD, 0 / Location of SSRBRD read char from field in LP	/a047
+
+* 1000	    ; LPHOLE, 0 / Location of the List Processing hole (WPSELC)	/a047
+
+/D004 * 4200  ; TSTFUL, 0 / TSTFUL ROUTINE IS USED TO CORRECT SPURIOUS
+/D004			  / CHARACTERS BEING INSERTED INTO DOCUMENT DUE TO
+/D004			  / REPETITIVE ESCAPE SEQUENCES.  ALSO IN PRINTER
+
+/D006 * 4200  ; SYBUFS,	/ BUFFER/QUE AREA IN FIELD 0		/M001
+
+* 4400			; DSKQUE, 0	/ DISK HANDLER			/M006
+* NQHDRS^QHDRSZ+DSKQUE	; RXJOB,  0	/ FLOPPY JOB			/M006
+* RXJOB+JSBSZ		; PRJOB,  0	/ PRINTER JOB
+* PRJOB+JSBSZ		; U1JOB,  0	/ USER JOB
+* U1JOB+JSBSZ		; XBJOBS, 0	/ EXTRA JOB BLOCKS USED BY CX, AX, & DX
+* XBJOBS    		; JSBX0,  0	
+
+* 4600	    ; RESBUF, 0	/ LP FIELD math result buffer. Used by WPEDOV & WPSELC
+
+* 5200	    ; RXDLDP, 0	/ LOAD POINT IN WPSYS FOR THE "RX02" DRIVER	/A001
+
+/ RDOSWP IS THE LOCATION TO PATCH IN DSKHND IN FIELD 0 TO PUT A JSWAP INTO
+/ HANDLER TO ALLOW THE SYSTEM TO RUN FASTER WHEN  DOING FLOPPY I/O. THIS
+/ LOCATION IS PATCHED BY THE START-UP CODE IN THE DATE AND TIME OVERLAY IN
+/ WPCU2 AFTER THE SYSTEM VALUES HAVE BEEN READ IN OFF OF THE SYSTEM DISKETTE.
+
+* 202	    ; XCLKSKP, 0 / LOCATION OF CLOCK SKP IOT			/A001
+* 6412	    ; RDOSWP, 0	/ DSKHND PATCH LOCATION BY WPCU2 WITH JSWAP	/M001
+* 7212	    ; RDOSWQ, 0	/ WINNI  PATCH LOCATION BY WPCU2 WITH JSWAP	/A001
+
+* 7400	    ; DCSTRT, 0	/ ENTRY POINT FOR START DOCUMENT DISK MESSAGE	/A001
+* 7600	    ; RXDRIN, 0	/ ENTRY POINT TO START SYSTEM AFTER BOOTSTRAP	/A001
+* 200       ; CU4DBT, 0 / Redefine DBTDOC for stand-alone assembly of CU4/a030
+* 160	    ; STUACF, 0 / Address of SETUP active flag fro udk in WPsys /A053
+
+IFDEF FORIN <
+		* 2600	    ; TABLE2, 0	/ LOCATION OF TABLE2 IN PRINTER
+
+IFDEF FRENCH <	* TABLE2+31 ; TABLE1, 0	>
+IFDEF ENGCAN <	* TABLE2+41 ; TABLE1, 0	>
+IFDEF CANADA <	* TABLE2+41 ; TABLE1, 0	>
+IFDEF DUTCH  <	* TABLE2+53 ; TABLE1, 0	>
+IFDEF GERMAN <	* TABLE2+31 ; TABLE1, 0	>
+IFDEF NORWAY <	* TABLE2+53 ; TABLE1, 0	>
+IFDEF SWEDSH <	* TABLE2+45 ; TABLE1, 0	>
+IFDEF DANISH <	* TABLE2+53 ; TABLE1, 0	>
+
+		* TABLE1+2  ; TABLE3, 0	>	/ END IFDEF FORIN
+
+
+/***************************************************************************
+/****           BLASTER table definitions
+/************************************************************************ / a013
+
+
+* 0	;	BLRUL0,	0	/ BLRULR Blasted ruler copy routine entry  /a013
+* 1	;	CMPRLE,	1	/ CMPRLH compare ruler table entry point   /a018
+* 2	;	PRTSCN,	2	/ PRTSCN print screen routine entry	  / a017
+* 3	;	CLRLRE,	3	/ CLRLRH clear ruler table entry	/a018	
+* 4	;	SPECEN,	4	/ PRGTCH put tech/MN/line chars in prt bufF/A020
+* 5 	;	CXHLTB, 5	/ CXTST CX test job table entry		/A021
+* 6	;	MCLQPE,	6	/ MCLQPS multinational 8 bit flag set	/a022
+* 7	;	PLINIE,	7	/ PLINIE blasted PLINIT routine		/a024
+
+* 10 	;	INCHKR, 10	/ INSCHK table entry			/A023
+* 11	;	INCSZR, 11	/ INCHWD table entry			/A023
+* 12	;	NXTDED, 12	/ NXTDED allow start/end dead in NXTARG	/A024
+* 13	;	LQPTBE,	13	/ LQP proportional width tables		/a024
+* 14	;	LQPTBF,	14	/		"			/a024
+* 15	;	LQPTBG,	15	/		"			/a024
+* 16	;	MFNHLR, 16	/ MFNRTN Merge field name search rtn	/a026
+* 17	;	FALBKE,	17	/ Fallback code entry code		/a027
+
+* 20	;	AB8INS, 20	/ 8 bit buffer insert for Abbrev doc	/A028
+* 21	;	FALBEN,	21	/ Fallback code entry code part II	/a029
+* 22	;	BLODAP,	22	/ Spelling holes for 8 bit spell check	/a030
+* 23	;	SWPDED, 23	/ Hole for WPEDOV for 8 bit Gold Swap	/A032
+* 24	;	MNCUCS, 24	/ Casing In WPEDOV blast		/A034
+* 25	;	XVMNPH,	25	/ View attributes of tech char 		/A035
+* 26	;	P8ENT1,	26	/ Initialize 8 bit fallback variable	/a036
+* 27	;	P8ENT2,	27	/ Get a fallback char and data value	/a036
+
+* 30	;	MCSTHY, 30	/ Hyphenate 8 bit chars			/A037
+* 31	;	BPGECO, 31	/ PGECHO blast for editor		/A039
+* 32	;	PSCRST, 32	/ Print screen status routine		/a040
+* 33	;	CVBLST,	33	/ Convert ASCIZ stirng to binary no.	/a041
+* 34	;	PGSWPH,	34	/ Page swap routine from WP2CMF		/a042
+* 35	;	GETFLH,	35	/ Read field name routine from MATH	/a043
+* 36	; 	CXKBIN, 36	/ Read user option input in CX		/A045
+* 37	;	GRESEN,	37	/ restore startup page after graphics	/a046
+
+* 40	;	MVSWEN,	40	/ move the GRAPHICS tables before VT125	/a046
+				/ blast					/a046
+* 41	;	SQUISH,	41	/ Squish MCS in numeric LP field to 8 bit/a047
+* 42    ;	PELNHL, 42	/ Print Error LiNe HoLe moved from lexasc/a051
+* 43    ;	TEC8VAL,43	/ Check for 8 bit character after ALT key/A054
+
+
+/***************************************************************************
+/****		USER DEFINED KEY (UDK) DEFINITIONS			****
+/***************************************************************************
+
+* 7000		  ; UDKSTR, 0	/ STARTING ADDRESS OF UDK BUFFERS IN FIELD 2
+
+* 12		  ; UDKDEP, 0	/ DEPTH OF UDK STACK
+* 12		  ; UDKNUM, 0	/ NUMBER OF UDK'S
+* UDKSTR	  ; UDKPTR, 0	/ UDK STACK POINTER
+* UDKPTR+1	  ; UDKSTK, 0	/ UDK STACK STARTING LOCATION
+* UDKSTK+UDKDEP	  ; UDKDEF, 0	/ FIRST LOCATION FOR UDK DEF'S IN CMND FIELD
+* UDKSTR+400-UDKDEF-UDKNUM-1 ; UDKLEN, 0 / AMOUNT OF WORDS FOR UDK DEFINITIONS
+
+/ FOR 100 UDK'S							/A010 ~26 LINES
+
+* UDKSTR	; CUDBUF,  0	/ BUFFER LOCATION
+* 400		; CUBFSZ,  0	/ BUFFER SIZE
+* CUDBUF+CUBFSZ	; CUDXBF,  0	/ SECOND BUFFER FOR WPUDKS
+* 144		; CUUDNM,  0	/ NUMBER OF UDK'S (100 BASE 10)
+* 2001		; CUUDID,  0	/ MASK FOR UDK IDENTIFIER
+* 2000		; CUUDI2,  0	/ ANOTHER MASK RELATED TO ID
+* 7400		; CUBKMS,  0	/ MASK FOR BLOCK NUMBER IN DIRECTORY
+* 377		; CUWDMS,  0	/ MASK FOR WORD IN DIRECTORY
+* 20		; CUNBLK,  0	/ NUMBER OF BLOCKS FOR UDK'S (16 BASE 10)
+				/ DOES NOT INCLUDE DIRECTORY BLOCK
+
+* 4017		; U1STPT,  0	/ ADDRESS OF STACK POINTER IN WPSYS
+* 4020		; U1STCK,  0	/ ADDRESS OF STACK
+* 4032		; CTTYIN,  0	/ ADDRESS OF FIELD 0 ROUTINE		/C010
+				/ USED BY UDK CODE RUNNING IN FIELD 2
+
+* 40		; SDBIT,   0	/ SYMBOL FOR MN1 (MAY NOT BE NECESSARY)
+
+				/ THE FOLLOWING ROUTINES RESIDE IN WP2CMF
+* 2400		; CHRUDX,  0	/ ADDRESS OF UDK DISK ACCESS IN WP2CMF	/C010
+* 2402		; CHKUXX,  0	/ CHECK INPUT FROM UDK			/C010
+* 2404		; CHKUYY,  0	/ CHECK KEYBOARD INPUT			/C010
+
+							  /END A010 ~26 LINES
+
+
+/***************************************************************************
+/****			EASYLINK DEFINITIONS				****
+/***************************************************************************
+
+/ The following locations are defined in WPSYS and referenced by WPCU3
+
+* 127	  ; EZLNTM, 0	/ Saved CX terminal mode flag (used by CX).	/M006
+* 1206	  ; CDFBF1, 0	/ Location of CDF to active buffer field.
+* 1230	  ; CDFBF2, 0	/ Location of Second CDF to active buffer field.
+* 1236	  ; H2IGET, 0	/ Host Input buffer ptr for H2ICHR routine.
+* 1237	  ; H2ICNT, 0	/ Host Input buffer character count.
+
+/ CDFBF3, H2IPUT CHANGED WHEN TSTFUL MOVED FROM WPRINT TO WPSYS		/A004
+IFNDEF CONDOR < * 1331 ; CDFBF3, 0 > / Loc of final CDF to active buffer fld.
+IFDEF  CONDOR < * 1334 ; CDFBF3, 0 > / Loc of final CDF to active buffer fld.
+IFNDEF CONDOR < * 1355 ; H2IPUT, 0 > / Host Input buffer ptr for input 'rupt handler
+IFDEF  CONDOR < * 1360 ; H2IPUT, 0 > / Host Input buffer ptr for input 'rupt handler
+
+* 46	  ; LPOSIZ, 0	/ SIZE OF PRINTER OUTPUT INTERRUPT CHAR BUFFER	/M004
+* 40	  ; U1ISIZ, 0	/ SIZE OF USER INPUT INTERRUPT CHARACTER BUFFER
+* 100	  ; U1OSIZ, 0	/ SIZE OF USER OUTPUT INTERRUPT CHARACTER BUFFER
+* 40	  ; H2ISIZ, 0	/ SIZE OF HOST INPUT INTERRUPT CHARACTER BUFFER
+* 20	  ; H2OSIZ, 0	/ SIZE OF HOST OUTPUT INTERRUPT CHARACTER BUFFER
+* 60	  ; LPISIZ, 0	/ SIZE OF PRINTER INPUT INTERRUPT CHARACTER BUFFER
+* 10	  ; PRFVSZ, 0	/ SIZE OF PRINTER FIELD VARIABLE SAVE AREA	/A006
+* 4505	  ; LPOBUF, 0	/ Start of LPOBUF				/M006
+
+* LPOBUF+LPOSIZ+2+U1ISIZ+2+U1OSIZ+2 ; H2IBUF, / Start of SYS COMM buffer.
+* H2IBUF+H2ISIZ+H2OSIZ+LPISIZ ; PRFVBF,	/PRINTER VARIABLE SAVE BUFFER	/A006
+
+/ The following location is in WPSYS (TSTFUL) and referenced by WPCU3
+
+* 2000		; TSTFUL, 0	/ THE TSTFUL ROUTINE IN WPSYS IS USED TO
+				/ CORRECT SPURIOUS CHARACTERS BEING INSERTED
+				/ INTO DOCUMENT DUE TO REPETITIVE ESCAPE
+				/ SEQUENCES.
+* TSTFUL+47	; H2IMAX, 0	/ Location of negative host input buffer size.
+* H2IMAX+1	; H2XOFP, 0	/ Location of XOF point within buffer.
+
+/ The following is the definition of the alternate HOST INPUT buffer
+/ which resides in the MATH field (field 6) during AX/CX/DX transmittion.
+
+* 4000	  	; COMXIT, 0	/ Address of COMM clean-up code.
+
+
+/***************************************************************************
+/****		BEGINNING LOCATIONS OF THE PRINTER HANDLERS.		****
+/***************************************************************************
+
+* 131	    ; P0MQSV, 0 / USED BY PRINTER AND WPSYS			/a38
+* 1600	    ; LPHAND, 0	/ USED BY PRINTER AND WPSYS
+* 3025	    ; CLKOP,  0	/ USED BY PRINTER AND WPSYS			/M001
+
+* LPHAND    ; D2XONF, 0	/ DOUBLE XON FLAG FOR PRINTER			/M008
+* LPHAND+1  ; LPDNFG, 0	/ DONE FLAG:  0=BUSY, 1=DONE
+* LPHAND+2  ; LPPWR,  0	/ POWER FAILURE LINK
+* LPHAND+3  ; LPICHN, 0	/ NEXT LINK IN THE INTERRUPT CHAIN
+* LPHAND+4  ; TSTLPT, 0	/ TEST OF WHETHER AN INTERRUPT APPLIES TO HANDLER
+* LPHAND+7  ; HBCNT,  0	/ POINTER TO THE HANDLER'S BUFFER COUNTER
+* LPHAND+10 ; LPOCHR, 0	/ OUTPUT ENTRY OF THE HANDLER
+* LPHAND+12 ; SQREST, 0	/ SERIAL PRINTER RESTORE ROUTINE WHICH ALSO
+			/ XOF'S THE PRINTER
+/D004 * LPHAND+14 ; SQWAIT, 0	/ SENDS CHARACTERS TO PRINTER
+* LPHAND+14 ; D2CTQF, 0	/ HANDLER XOFF/ON VARIABLE
+
+/***************************************************************************
+/****		DOCUMENT DESTINATIONS FOR THE RL BASED SYSTEMS		****
+/****		WHICH WE MUST MAINTAIN COMPATABILITY WITH		****
+/***************************************************************************
+
+* 0	  ; DLQP1,  0	/ PARALLEL LETTER QUALITY PRINTERS
+* 4	  ; DLQP2,  0
+* 5	  ; DLQP3,  0
+* 6	  ; DLQP4,  0
+* 13	  ; DLQP5,  0	/ SERIAL LETTER QUALITY PRINTERS
+* 14	  ; DLQP6,  0
+* 15	  ; DLQP7,  0
+* 16	  ; DLQP8,  0
+* 1	  ; DDP1,   0	/ DRAFT PRINTERS
+* 3	  ; DDP2,   0
+* 2	  ; DHOST1, 0	/ SERIAL COMMUNITCATIONS
+* 7	  ; DHOST2, 0
+* 10	  ; DHOST3, 0
+* 11	  ; DHOST4, 0
+* 12	  ; DNULL,  0	/ This is the null device
+
+/***************************************************************************
+/****	POSSIBLE DOCUMENT DESTINATIONS FOR THE STANDALONE SYSTEMS	****
+/***************************************************************************
+
+* DLQP1	  ; DLQP,   0	/ PARALLEL LETTER QUALITY PRINTER
+* DDP1	  ; DDP,    0	/ PARALLEL DRAFT PRINTER
+* DHOST1  ; DHOST,  0	/ HOST PRINTER
+* DDP2	  ; DDP2,   0	/ SERIAL DRAFT PRINTER
+* DLQP5	  ; DSQ1,   0	/ SERIAL LETTER QUALITY PRINTER
+* DLQP6	  ; DSQ2,   0	/ TWO-HEADED SERIAL LETTER QUALITY PRINTER
+
+/***************************************************************************
+/****		DEFINITIONS FOR LOW MEMORY LOCATIONS (0-77)		****
+/***************************************************************************
+
+* 3	  ; INTFLG, 0	/ SIGNIFICANT EVNET FLAG (JUST IN SYS FIELD)
+* DCA INTFLG ; SIGNAL, 0 / SIGNAL SIGNIFICANT EVENT (JUST IN SYS FIELD)
+
+* 4	  ; INTCHN, 0	/ POINTER TO FIRST INTERRUPT HANDLER
+* JMP I INTCHN ; GOINTR, 0 / INSTRUCTION TO GO PROCESS INTERRUPT
+
+* 5	  ; INTXIT, 0	/ POINTER TO INTERRUPT EXIT ROUTINE
+* JMP I INTXIT ; EXINTR, 0 / INSTRUCTION TO EXIT CURRENT INTERRUPT PROCESSING
+
+* 10	  ; X0,     0	/ AUTO INDEX REGISTER NUMBER 10
+	    X1,     0	/ AUTO INDEX REGISTER NUMBER 11
+	    X2,     0	/ AUTO INDEX REGISTER NUMBER 12
+	    X3,     0	/ AUTO INDEX REGISTER NUMBER 13
+	    X4,     0	/ AUTO INDEX REGISTER NUMBER 14
+	    X5,     0	/ AUTO INDEX REGISTER NUMBER 15
+	    IX0,    0	/ AUTO INDEX REGISTER NUMBER 16
+	    IX1,    0	/ AUTO INDEX REGISTER NUMBER 17
+
+/***************************************************************************
+/****		START OF SYSTEM TRANSFER VECTOR	ADDRESSES		****
+/****	   THESE LOCATIONS ARE MOVED TO ALL FIELDS UPON REQUEST		****
+/***************************************************************************
+
+			 X=.	/ SAVE CURRENT LOCATION COUNT
+* JMS I X   ; TTYIN,  0	;X=X+1	/ INSTRUCTION TO INPUT A CHARACTER FROM KEYBOARD
+* JMS I X   ; TTYOU,  0	;X=X+1	/ INSTRUCTION TO OUTPUT A CHARACTER TO THE SCREEN
+* JMS I X   ; XLTIN,  0	;X=X+1	/ INSTRUCTION TO TRANSLATE A SEVEN BIT CHARACTER
+* X	    ; HLTFLG, 0	;X=X+1	/ LOCATION TO STORE THE HALT FLAG
+* JMS I X   ; UDKOPS, 0	;X=X+1	/ INSTRUCTION TO TURN ON/OFF USER DEFINED KEYS
+
+* JMS I X   ; HS2IN,  0	;X=X+1	/ INSTRUCTION TO INPUT A CHARACTER FROM COMM LINE
+* JMS I X   ; HS2OU,  0	;X=X+1	/ INSTRUCTION TO OUTPUT A CHARACTER TO COMM LINE
+* JMS I X   ; LPTOU,  0	;X=X+1	/ INSTRUCTION TO OUTPUT A CHARACTER TO THE PRINTER
+* JMS I X   ; ENQUE,  0	;X=X+1	/ INSTRUCTION TO ENQUEUE A JOB
+* JMS I X   ; DEQUE,  0	;X=X+1	/ INSTRUCTION TO DEQUEUE A JOB
+* JMS I X   ; JWAIT,  0	;X=X+1	/ INSTRUCTION TO WAIT FOR A SIGNIFICANT EVENT
+* JMS I X   ; JSWAP,  0	;X=X+1	/ INSTRUCTION TO SWAP JOBS UNTIL NEXT EVENT
+* JMS I X   ; JSTRT,  0	;X=X+1	/ INSTRUCTION TO START A JOB
+* JMS I X   ; JEXIT,  0	;X=X+1	/ INSTRUCTION TO EXIT A JOB
+* JMS I X   ; FRKINT, 0	;X=X+1	/ INSTRUCTION TO CAUSE A FORK INTERRUPT
+* JMP I X   ; FRKXIT, 0	;X=X+1	/ INSTRUCTION TO CAUSE A FORK EXIT
+* X	    ; FRKCHN, 0	;X=X+1	/ LOCATION THAT POINTS TO THE FORK CHAIN
+* JMS I X   ; H2INIT, 0	;X=X+1	/ INSTRUCTION TO INITIALIZE HOST LINE
+* JMS I X   ; LPTIN,  0	;X=X+1	/ INSTRUCTION TO INPUT A CHARACTER FROM THE PRINTER
+
+/***************************************************************************
+/****		USEFUL CONSTANTS LOCATED IN EACH FIELD			****
+/***************************************************************************
+
+* 51	  ; CDF0,   0	/ CONSTANT FOR CHANGE DATA FIELD
+	    CIDF0,  0	/ CONSTANT FOR CHANGE INSTRUCTION & DATA FIELD
+	    P177,   0	/ CONSTANT FOR POSITIVE 177 VALUE
+	    P377,   0	/ CONSTANT FOR POSITIVE 377 VALUE
+	    P77,    0	/ CONSTANT FOR POSITIVE 77 VALUE
+	    P7700,  0	/ CONSTANT FOR NEGATIVE 100 VALUE
+	    P3777,  0	/ CONSTANT FOR POSITIVE 3777 VALUE
+	    	    0	/ LOCATION TO BE ASSIGNED BY SYSTEM ARCHITECT
+
+/***************************************************************************
+/****			MENU FIELD ROUTINES				****
+/***************************************************************************
+
+	    MNUCAL, 0	/ POINTER TO CALL MENU ROUTINE
+	    MUBASE, 0	/ POINTER TO MENU BUFFER LOCATION
+	    TIMCAL, 0	/ POINTER TO CALL TIME OF DAY ROUTINE
+	    OLAYCL, 0	/ POINTER TO CALL OVERLAY PROCESSOR
+X=.			/ SAVE CURRENT LOCATION COUNT
+* JMS I X ; FILEIO, 0	/ SUBROUTINE CALL TO FILE SYSTEM
+* X+1	  ; IOACAL, 0	/ POINTER TO CALL SCREEN OUTPUT ROUTINE
+	    INACAL, 0	/ POINTER TO CALL KEYBOARD INPUT ROUTINE
+	    NXACAL, 0	/ POINTER TO CALL NEXT ARG ROUTINE
+	    STCCAL, 0	/ POINTER TO CALL STRING COMPARE ROUTINE
+	    CVDCAL, 0	/ POINTER TO CALL DECIMAL STRING CONVERSION ROUTINE
+	    DIGCAL, 0	/ POINTER TO CALL DECIMAL STRING OUTPUT ROUTINE
+X=.			/ SAVE CURRENT LOCATION COUNT
+* JMS I X ; PGSWAP, 0	/ SUBROUTINE CALL TO PAGE SWAP ROUTINE
+
+/***************************************************************************
+/****			TEMPORARY REGISTER DEFINITIONS			****
+/***************************************************************************
+
+* X+1	  ; T3,     0	/ TEMPORARY REGISTER NUMBER THREE
+	    T2,     0	/ TEMPORARY REGISTER NUMBER TWO
+	    T1,     0	/ TEMPORARY REGISTER NUMBER ONE
+
+
+/***************************************************************************
+/****			SYSTEM FIELD VALUES				****
+/***************************************************************************
+
+* 100	  ; CLOCK,  0	/ CLOCK INTERUPT COUNTER
+		    0	/ CLOCK TIME COUNTER FOR TENTHS
+		    0	/ CLOCK TIME COUNTER FOR SECONDS
+		    0	/ CLOCK TIME COUNTER FOR MINUTES
+		    0	/ CLOCK TIME COUNTER FOR HOURS
+	    DAMNTH, 0	/ DAY OF MONTH (1-31)
+	    MONTH,  0	/ MONTH OF YEAR (1-12)
+	    YEAR,   0	/ YEAR MOD 100. (0-99)
+	    DAYEAR, 0	/ DAY OF YEAR (1-366)
+	    DAWEEK, 0	/ DAY OF WEEK (1-7) (SUN-SAT)
+	    PAKDAT, 0	/ PACKED DATE (MONTH/DAY)
+	    RANDOM, 0	/ CONSTANTLY CHANGING RANDOM NUMBER
+X=.			/ SAVE CURRENT LOCATION COUNT
+* JMS I X ; GETRTF, 0	/ GET RETURN FIELD
+* X+1	  ; CMONLN, 0	/ COMMUNICATION HARDWARE PRESENT FLAG
+	    CMADSX, 0	/ SWITCH FOR COMMUNICATION LINE OWNERSHIP
+	    RXONLN, 0	/ NUMBER OF DRIVES ON THE SYSTEM
+	    INTAC,  0	/ SAVED AC DURING AN INTERRUPT
+	    INTLK,  0	/ SAVED LINK DURING AN INTERRUPT
+	    INTMP1, 0	/ TEMP BETWEEN INTERRUPT HANDLERS AND TSTFUL ROUTINE
+	    U1HLTF, 0	/ HALT FLAG STORAGE LOCATION
+	    RXTYPE, 0	/ CONTAINS SYSTEM DISKETTE TYPE (RX01/RX02)
+	    STTYPE, 0	/ BOOT TYPE (0-COLD,1-WARM)
+	    TIMOUT, 0	/ TIME-OUT COUNTER FOR PRINTER.
+
+
+/***************************************************************************
+/****			PRINTER FIELD VALUES				****
+/***************************************************************************
+
+* 600	  ; PRBOTM, 0	/ FIRST LOCATION TO WRITEOUT/LOAD		/M006
+/D004 * 1600  ; PRTOPP, 0 / FIRST LOCATION TO WRITEOUT/LOAD		/A001
+* 6405	  ; PRQPSZ, 0	/ LOCATION OF PAGE SIZE IN PRINTER		/M006
+* 6422	  ; PRQPNT, 0	/ POINTER TO PRINTER DOC DEST IN DOC HEADER	/M006
+
+* 100	  ; PRSTOP, 0	/ FLAG SET BY USER JOB TO STOP THE PRINTER
+	    PRACTN, 0	/ ACTION CODE IN RESPONSE TO PRINTER STOP
+	    PRACTV, 0	/ VALUE USED WITH ABOVE ACTION CODE
+	    PRSTTS, 0	/ PRINTER STATUS (IDLE, BUSY, OR STOP CODE)
+	    PRSTT2, 0	/ PUSH DOWN PRINTER STATUS
+	    PRFNO,  0	/ FILE NUMBER OF PRINTER JOB
+	    PRIRFD, 0	/ FIELD TO READ FROM IN LIST PROCESSING JOB
+	    PRIRAD, 0	/ ADDRESS OF READ ROUTINE TO USE FOR L.P. JOB
+	    PABORT, 0	/ PRINTER ABORT FLAG
+	    LPONLN, 0	/ PRINTER ON LINE FLAG WORD
+	    PRTID,  0	/ ADDRESS OF PRINTER I.D. ROUTINE
+
+
+/***************************************************************************
+/****			LPONLN BIT DEFINITIONS				****
+/***************************************************************************
+
+/D001  * 40 ; TWHMSK, 0	/ BIT FOR TWO HEADED PRINTERS
+* 40	    ; MNMSK,  0 / BIT for MultiNational character capability	/a017
+* 100	    ; XRPMSK, 0	/ BIT FOR EXTENDED REPORT CAPABILITY
+* 200	    ; MCMSK,  0	/ BIT FOR MULTICOLUMN CAPABILITY
+* 1400	    ; ASFMSK, 0	/ 2 BITS FOR ASF MODEL
+* 2000	    ; DPMSK,  0	/ BIT FOR ALL DPS
+* 4000	    ; LQPMSK, 0	/ BIT FOR ALL LQPS
+
+* LQPMSK+XRPMSK+MCMSK+01  ; LQPSE, 0	/ A UNIQUE CODE FOR LQPSE
+* LQPMSK+XRPMSK+MCMSK+02  ; LQP02, 0	/ A UNIQUE CODE FOR LQP02
+* ASFMSK%3		  ; ASF01, 0	
+* ASF01^2		  ; ASF02, 0	
+
+
+
+/***************************************************************************
+/****			MENU FIELD VALUES				****
+/***************************************************************************
+
+* 0	  ; CLKCHG, 0	/ INCREMENTED BY SECONDS IN FIELDS 2 AND 5
+* 1	  ; UDKINH, 0	/ TURNS OFF UDK'S WHEN NON-ZERO
+
+* 100	  ; CMNNOP, 0	/ DUMMY SUBROUTINE USED BY MENU
+		    0	/ JMP I CMNNOP - RETURN TO CALLER
+	    DATESP, 0	/ POINTER TO ASCII STRING CONTAINING DATE
+	    FNAMSP, 0	/ POINTER TO NAME OF LAST FILE ACCESSED
+	    FNUMS,  0	/ POINTER TO PACKED DRIVE NUMBER AND DOCUMENT NUMBER
+	    DRVNOP, 0	/ POINTER TO DRIVE NUMBER
+	    PQADDR, 0	/ POINTER USED BY PRINT QUEUE ROUTINE - LOCATION
+		    0
+	    PQFRST, 0	/ POINTER USED BY PRINT QUEUE ROUTINE - FIRST ENTRY
+	    PQLAST, 0	/ POINTER USED BY PRINT QUEUE ROUTINE - LAST ENTRY
+		    0	/ UNDEFINED LOCATION (** MAYBE IT'S UNUSED **)
+	    CMDQUX, 0	/ QURX LOCATION IN CMND FIELD
+* CMDQUX+26 ; CMDBLK, 0	/ QURX QUEUE BLOCK IN CMND FIELD
+
+* 173	  ; LINPGL, 0	/ LOCATION FOR LOW PAGE NUMBERS
+* 174	  ; LINPGH, 0	/ LOCATION FOR HIGH PAGE NUMBERS
+* 175	  ; LINNUM, 0	/ LOCATION FOR LINE NUMBER
+* 176	  ; LINUSD, 0	/ LOCATION FOR NUMBER OF BLOCKS USED
+* 177	  ; LINFRE, 0	/ LOCATION FOR NUMBER OF BLOCKS FREE
+
+* 400	  ; OUTDIG, 0	/ IOA CROSS FIELD DECIMAL CONVERSION ROUTINE
+* 1000	  ; TIMDSP, 0	/ CROSS FIELD TIME, DATE, & PRINTER DISPLAY
+* TIMDSP+3 ; TIMDS3, 0	/ per request by Don Bradanese
+* 1400	  ; INAIN,  0	/ GET CHARACTER, UPDATE TIME & PRINTER STATUS
+* 1600	  ; PRNTSCREEN, 0 / ROUTINE TO PRINT THE SCREEN ON DECMATE II
+* 3000	  ; SWPBEG, 0	/ LOCATION WHERE SWAP AREA BEGINS IN FIELD 2
+
+/ LOCK WORDS FOR THE OVERLAY ROUTINE - THERE IS ONE LOCK WORD FOR EACH REGION
+/ OF MEMORY. THE VALUE OF A LOCKWORD WILL BE EITHER A 0, MEANING NOTHING IS
+/ CURRENTLY LOADED INTO THAT REGION, OR A DISK BLOCK NUMBER, THAT NUMBER BEING
+/ THE FIRST BLOCK (OF THE SYSTEM FLOPPY) OF THE MODULE CURRENTLY IN THAT REGION
+/ OF MEMORY. OLAY WILL LOOK AT THE LOCK WORD FOR THE MODULE BEING REQUESTED
+/ TO SEE IF IT IS ALREADY LOADED.
+
+* 6657	  ; OLL110, 0	/ FIELD 3 (USER FIELD 1) VERIFY, EDITOR, CX, MAGCARD,
+			/ COPY, DX,SORT, LP (WPPARS)
+* 6660	  ; OLL220, 0	/ FIELD 4 (USER FIELD 2) WPCU2, WPCU3, WPCU4, UDK, CX,
+			/ INDEX, VERIFY (BUFFER SPACE), WPCUT, MAGCARD, SORT
+* 6661	  ; OLL301, 0	/ FIELD 5 (USER FIELD 3) LP (WPSELC), SORT
+* 6662	  ; OLL302, 0	/ FIELD 5 (USER FIELD 3) LP (OVERLAYS)
+* 6663	  ; OLL400, 0	/ FIELD 6 (USER FIELD 4) MATH,SORT
+
+/***************************************************************************
+/****		MENU CONSTANT OFFSETS - THE TWO MENU AREAS		****
+/***************************************************************************
+
+/ MUBUF IS THE BASE ADDRESS USED BY ROUTINES TRYING TO OBTAIN MENU VALUES.
+/ FOR EXAMPLE TO OBTAIN MNTMP1 USE: MUBUF+MNTMP1 FOR THE ADDRESS.
+
+* 6000	  ; MUBUF,  0	/ MENU BUFFER BASE ADDRESS
+
+* 0	  ; MNBUFA, 0	/ BUFFER AREA (RELITIVE TO MUBUF)
+* MNBUFA+400 ; MNUSRA, 0 / USER AREA (RELITIVE TO MUBUF)
+
+/***************************************************************************
+/****			USER AREA CONSTANTS				****
+/***************************************************************************
+
+* MNUSRA  ; MNFNO,  0	/ FILE NUMBER, WITH DRIVE NUMBER IN BITS 0-3
+	    MNFNO0, 0	/ "ZERO" FILE NUMBER
+	    MNFNAM, 0	/ ADDR OF NAME OF FILE
+	    MNWRDT, 0	/ WHERE DATE/TIME IS DISPLAYED OR ZERO
+	    MNONUM, 0	/ OVERLAY NUMBER
+	    MNOADR, 0	/ ADDRESS TO START AT
+	    MNOFLD, 0	/ CIDF FIELD NUMBER
+	    MNDTYR, 0	/ YEAR
+	    MNDTMO, 0	/ MONTH
+	    MNDTDY, 0	/ DAY
+	    MNDTHR, 0	/ HOUR
+	    MNDTMN, 0	/ MINUTE
+	    MNMMSW, 0	/ SWITCH TELLING WHICH MAIN MENU TO RETURN TO
+
+	    MNTMP1, 0	/ MENU TEMPORARY REGISTER NUMBER 1
+	    MNTMP2, 0	/ MENU TEMPORARY REGISTER NUMBER 2
+	    MNTMP3, 0	/ MENU TEMPORARY REGISTER NUMBER 3
+	    MNTMP4, 0	/ MENU TEMPORARY REGISTER NUMBER 4
+	    MNTMP5, 0	/ MENU TEMPORARY REGISTER NUMBER 5
+	    MNTMP6, 0	/ MENU TEMPORARY REGISTER NUMBER 6
+	    MNTMP7, 0	/ MENU TEMPORARY REGISTER NUMBER 7
+	    MNTMP8, 0	/ MENU TEMPORARY REGISTER NUMBER 8
+	    MNTMP9, 0	/ MENU TEMPORARY REGISTER NUMBER 9
+
+	    MNMXDR, 0	/ MAX NUMBER OF FLOPPYS ON THE SYSTEM - 1
+/D011	    MNUSER, 0	/ USER NUMBER, 0 OR 1
+/D011	    MNUSR2, 0	/ 0 OR 2, DEPENDING ON WHICH USER
+	    MNDRV,  0	/ DRIVE NUMBER, WITHOUT DOCUMENT NUMBER
+	    MNDOCN, 0	/ DOCUMENT NUMBER, WITHOUT DRIVE NUMBER
+	    MNMATH, 0	/ 1 MEANS MATH IS ACTIVE
+	    MNLOCK, 0	/ AX log doc doc #.
+			/ only valid when AX/DX is running
+	    MNOPTN, 0	/ ANOTHER OPTIONS WORD
+	    MNPROP, 0	/ PRINTER OPTIONS AND SCRATCH AREA ALSO USED
+			/ BY THE COMMUNICATIONS SETTINGS MENU OF CX
+
+IFNZRO MNSYSA-MNPROP-PRSETZ-1&4000 <??SYSTEMAREATOOSMALL>
+
+/***************************************************************************
+/****		MNOPTN BIT DEFINITIONS.					****
+/***************************************************************************
+
+*    1	  ; MNRX0X, 0	/ SET IF SYSTEM DISKETTE IS 8-IN FLOPPY
+*    2	  ; MNRX1X, 0	/ SET IF THERE ARE RX02'S ON SYSTEM,
+			/ CLEAR IF RX01'S OR NONE
+*    4	  ; MNRX2X, 0	/ SET IF WINCHESTER IS ON LINE			/A001
+*   10	  ; MNRX3X, 0	/ SET IF WINCHESTER ASSIGNED DRIVE ONE		/A001
+*   20	  ; MNRX4X, 0	/ SET IF WINCHESTER ASSIGNED DRIVE ZERO		/A001
+*   40	  ; MNRX5X, 0	/ SET IF WINNIE FIRMWARE IN PANEL MEMORY	/A001
+*  100	  ; MNRX6X, 0	/ SET IF APU/XPU HARDWARE IS PRESENT		/A001
+*  200	  ; MNRX7X, 0	/ SET IF APU/XPU HARDWARE IS AN XPU		/A001
+*  400	  ; MNRX8X, 0	/ SET IF SYSTEM RUNNING ON DM-II  HARDWARE	/A003
+* 1000	  ; MNRX9X, 0	/ SET IF 					/A003
+* 2000	  ; MNRXAX, 0	/ SET IF SYSTEM RUNNING ON DM-III HARDWARE	/A003
+
+/***************************************************************************
+/****		MNFMAT BIT DEFINITIONS.					****
+/***************************************************************************
+
+*    1	  ; MNFM0X, 0	/ DATE FORMAT USED WITH MNFM1X - 0 UNINITIALIAZED
+*    2	  ; MNFM1X, 0	/ 1 DAY/MONTH/YEAR, 2 MONTH/DAY/YEAR, 3 YEAR/MONTH/DAY
+*    4	  ; MNFM2X, 0	/ CURRENCY SYMBOL IN USE, SET FOR BRITISH POUND SIGN
+*   10	  ; MNFM3X, 0	/ DICTIONARY IN USE, SET FOR BRITISH DICTIONARY
+*   20	  ; MNFM4X, 0	/ INTEGRAL MODEM, SET IF ACTIVE
+*   40	  ; MNFM5X, 0	/ SET IF
+*  100	  ; MNFM6X, 0	/ SET IF
+*  200	  ; MNFM7X, 0	/ SET IF
+*  400	  ; MNFM8X, 0	/ SET IF
+
+/***************************************************************************
+/****		THE PRINTER OPTIONS AND SCRATCH AREA			****
+/***************************************************************************
+
+* MNPROP  ; MNQINI, 0	/ SETTINGS NOT INITIALIZED
+	    MNQCPY, 0	/ NUMBER OF COPIES TO BE PRINTED
+	    MNQIND, 0	/ NUMBER OF SPACES IN LEFT PRINTER MARGIN
+	    MNQLSZ, 0	/ EXTRA HALF LINE SPACING
+	    MNQTMG, 0	/ NUMBER OF LINES IN TOP MARGIN
+	    MNQBMG, 0	/ NUMBER OF LINES IN BOTTOM MARGIN
+	    MNQPSZ, 0	/ NUMBER OF LINES FOR PAGE SIZE
+	    MNQPIT, 0	/ PITCH WITH WHICH TO PRINT DOCUMENT
+	    MNQFRP, 0	/ FROM - NUMBER OF FIRST PAGE TO PRINT
+	    MNQTOP, 0	/ TO - NUMBER OF LAST PAGE TO PRINT
+	    MNQPGO, 0	/ INITIAL PAGE - FIRST PAGE NUMBER TO USE
+	    MNQSP,  0	/ SHADOW PRINT IF BIT 11 IS SET
+	    MNQAPG, 0	/ AUTOMATIC PAGINATION
+	    MNQJUS, 0	/ RESERVED - USED IN WPRINT FOR PRINTER HANDLER
+	    MNQDBL, 0	/ RESERVED - USED FOR PAGE SIZE OF LAST DOC
+	    MNQSSM, 0	/ STOP FLAG FOR FIRST/EVERY PAGE
+	    MNQSTX, 0	/ RESERVED - USED BY MENU CODE AND IN WPRINT
+	    MNQOVP, 0	/ DARKNESS - BIT 11 MEANS PRINT EXTRA DARK
+	    MNQTW,  0	/ TWO WHEEL - NON-ZERO IF TWO PASSES REQUIRED
+	    MNQPNT, 0	/ PRINTER TYPE - ALSO USED BY LIST PROCESSING
+	    MNQCM,  0	/ NUMBER OF EXTRA SPACES BETWEEN COLUMNS
+	    MNQSB1, 0	/ REPLACEMENT CHARACTER 1 - LP USES THIS VALUE
+	    MNQSB2, 0	/ REPLACEMTNE CHARACTER 2 - LP USES THIS VALUE
+	    MNQUSD, 0	/ LAST PRINTER SETTING USED
+
+
+/***************************************************************************
+/****	THE FOLLOWING SETTINGS USE THE PRINTER SCRATCH AREA.		****
+/****	THESE LOCATIONS ARE INITIALIZED BY WPCU3/WPCU4 PRIOR TO		****
+/****	CALLING THE SO MENU OR CX.					****
+/***************************************************************************
+
+* MNPROP  ; CX0DBT, 0	/ PRIMARY PORT DATA BITS.
+	    CX0PAR, 0	/   ""     ""  PARITY.
+	    CX0SBT, 0	/   ""     ""  STOP BITS.
+	    CX0BAU, 0	/   ""     ""  BAUD RATE.
+	    CX1DBT, 0	/ SECONDARY PORT DATA BITS.
+	    CX1PAR, 0	/     ""     ""  PARITY.
+	    CX1SBT, 0	/     ""     ""  STOP BITS.
+	    CX1BAU, 0	/     ""     ""  BAUD RATE.
+	    CXPORT, 0	/ PORT SELECT
+	    CXBRTM, 0	/ BREAK TIME.
+	    CXTMOD, 0	/ TERMINAL MODE.
+	    CXPBAU, 0	/ PRINTER BAUD RATE.
+
+IFNZRO CXPBAU-MNPROP-CXSETZ+1 <?CXSETZISWRONG>
+
+
+/***************************************************************************
+/****				THE SYSTEM AREA 			****
+/***************************************************************************
+
+* MNUSRA+64 ; MNSYSA, 0	/ CHAR THAT ENDED READ (0 MEANS TOO MANY CHARS)
+	    MNOFF,  0	/ OFFSET IN INPUT STRING TO START READ
+	    MNPC,   0	/ MENU PC OFFSET
+	    MNPOS,  0	/ POINTER TO FIRST CHARACTER OF NEXT SYMBOL
+			/ IN THE INPUT STRING (USED BY NXTARG)
+	    MNSP,   0	/ ADDRESS OF STACK POINTER, RETURN LABEL OR ZERO
+			/ ADDRESS OF TOP OF STACK AREA (USED BY
+			/ MAIN MENU TO RE-INITALIZE THE STACK POINTER)
+	    MNSPTP, 0	/ RETURN BLOCK NUMBER
+	    MNILEN, 0	/ -STRLEN (NEG MAX CHARS IN INPUT BUFFER)
+	    MNIBUF, 0	/ START OF SCREEN INPUT BUFFER AREA
+* .+STRLEN+1 ; MNALEN, 0 / -NUMBER OF CHARACTERS IN ARGUMENT AREA
+	    MNARG,  0	/ ARGUMENT RETURN AREA
+* .+17
+/D011	    MNBLK,  0	/ BLOCK NUMBER
+	    MNPULD, 0	/ TYPE OF SOFTWARE LOADED INTO EXTERNAL PROCESSOR
+			/ BIT 11 MEANS THAT AMERICAN SPELLING IS LOADED
+			/ BIT 10 MEANS THAT BRITISH SPELLING IS LOADED
+			/ BIT  9 RESERVED FOR POST PROCESSING
+			/ BITS 0-8 ARE UNUSED AT THIS TIME
+	    MNLANG, 0	/ LANGUAGE SET IDENTIFIER IN TEXT MODE FORMAT
+	    MNMUTM, 0	/ ACCUMULATOR USED FOR CLRV, INCV, AND STOV INST.
+	    MNUTFN, 0	/ DRIVE AND FILE NUMBER FOR UTILITY PROGRAMS	/A011
+	    MNFREE, 0	/ ** UNUSED LOCATION IN MENU AREA **
+
+/***************************************************************************
+/**** THESE ARE VALUES THAT ARE SET IN THE SYSTEM AND SAVED ACROSS BOOTS ***
+/***************************************************************************
+
+X=.			/ SAVE CURRENT LOCATION COUNT
+* X+MUBUF ; MUSYSV, 0	/ START OF THE SYSTEMS OPTION AREA
+
+
+/***************************************************************************
+/****		THE FOLLOWING ARE INITIALIZED IN 'WPUDKD.PA'		****
+/****		THESE ARE THE VALUES SAVED IN THE SYSTEM AREA		****
+/****			AS DEFINED WITH MUSYSV				****
+/***************************************************************************
+
+* X	  ; MNABRV, 0	/ FILENO OF ABBREVIATION DOCUMENT
+	    MNLBRY, 0	/ FILENO OF LIBRARY DOCUMENT
+	    MNPGSZ, 0	/ DEFAULT PAGE SIZE FOR EDITOR
+	    MNSTAT, 0	/ SWITCH FOR STATUS LINE SELECTION
+	    MNFMAT, 0	/ FORMAT WORD FOR DATE, CURRANCY, DICTIONARY
+	    MNSDRV, 0	/ USER DRIVE SELECTION FOR SPELLING
+			/ BITS 0-3 INDICATE DRIVE FOR SPELLING DICTIONARY
+			/ BITS 4-7 ARE NOT USED AT THIS TIME
+			/ BITS 8-11 INDICATE DRIVE FOR UTILITY SOFTWARE
+	    MNPDFN, 0	/ SPELLING PERSONAL DICTIONARY DRIVE AND FILE NUMBER
+	    MNLGFN, 0	/ LOGON EASY COMM DRIVE AND FILE NUMBER
+	    MNADFN, 0	/ AUTODIAL DIRECTORY DRIVE AND FILE NUMBER	/A011
+	    MNDSEP, 0	/ DATE SEPARATOR TYPED IN BY USER
+	    MNXTRA, 0	/ EXTRA WORD AVAILABLE TO BE SAVED ACROSS BOOTS	/A011
+
+/***************************************************************************
+/****		THE COMMUNICATIONS PART OF THE SYSTEM OPTIONS AREA	****
+/***************************************************************************
+
+	    MNCMTP, 0	/ WHAT THE COMMUNICATIONS IS SET FOR
+			/	0 = NORMAL CX
+			/	1 = MAGCARD
+
+	    MNXONF, 0	/ 0 = ENABLE XON/XOF PROCESSING
+			/ 1 = DISABLE THE XON/XOF PROCESSING IN HANDLER
+	    MNPRIM, 0	/ STATUS WORD FOR PORT 0; CONTAINS CHAR SIZE,
+			/ PARITY, ETC. ALSO BAUD RATE TO FIND OUT
+			/ WHAT THE VALUES ARE SEE WPCU3/WPCU4
+			/ WHERE IT IS DISPLAYED IN CU3OPT/CU4OPT
+	    MNSECN, 0	/ BAUD RATE FOR PORT 1; FOR DETAILS
+			/ ALSO LOOK AT WPCU3/WPCU4
+	    MNPRTB, 0	/ CONTAINS PRINTER BAUD INFO. ALSO CONTAINS
+			/ PORT SELECT & BREAK TIME INFO. FOR DETAILS
+			/ SEE WPCU3/WPCU4
+	    MNCXP,  0	/ THIS IS THE DOCUMENT THAT CONTAINS
+			/ THE PROTOCOL - FORMAT FOR CX TO USE
+			/ WHEN TRANSFERRING DOCUMENTS
+	    MNOPTC, 0	/ UNBUNBLING OPTIONS WORD
+			/ LOADED BY RD MENU
+	    MNXDLY, 0	/ VARIABLE TIMEOUT DELAY FOR DX
+
+* .-MNABRV ; MUSYSL, 0	/ LENGTH OF SYSVAL AREA
+
+
+/***************************************************************************
+/****		MNOPTC BIT DEFINITIONS.					****
+/***************************************************************************
+
+* 1	  ; HWDBIT, 0	/ DEFINE BIT POSITION FOR COMMUNICATIONS HARDWARE
+* 2	  ; COMBIT, 0	/ DEFINE BIT POSITION FOR COMMUNICATIONS OPTION
+* 4	  ; LPBIT,  0	/ DEFINE BIT POSITION FOR LIST PROCESSING OPTION
+* 10	  ; SRBIT,  0	/ DEFINE BIT POSITION FOR SORT OPTION
+* 20	  ; MABIT,  0	/ DEFINE BIT POSITION FOR MATH OPTION
+* 40	  ; SEDBIT, 0	/ DEFINE BIT POSITION FOR SPELLING ERROR DETECTION
+* 2000	  ; DEVBIT, 0	/ DEFINE BIT POSITION FOR SOFTWARE DEVELOPMENT MENU
+* 4000	  ; NEXBIT, 0	/ DEFINE BIT POSITION FOR OPTION CONTINUATION WORD
+
+
+/***************************************************************************
+/****			MENU INTERPRETER DEFINITIONS			****
+/***************************************************************************
+
+			/ THE MAIN MENU CALL IS:
+			/	JMS	MENU
+			/	DISK BLOCK TO READ FOR FIRST MENU
+			/	RETURN POINT
+
+			/ ALL MENU BLOCKS MUST START WITH:
+			/	RELOC
+			/	ADMxxx=.
+			/	RELOC 0
+
+			/ THE MENU PROGRAM STARTS INTERPRETING INSTRUCTIONS
+			/ AT RELATIVE LOCATION 0.  ALL MENU COMMAND TRANSFER
+			/ LABELS CAN HAVE THE FORM:
+			/       -1-ROUTINE LABEL ; ROUTINE BLOCK NUMBER
+
+			/ COMMANDS ALLOWED:
+
+* 0	  ; NOOPER, 0	/ ZERO VALUE IS A NO-OPERATION COMMAND
+* .-2	  ; READ,   0	/ READ; DESTINATION OF RESULT ADDRESS; ERROR LABEL
+* .-2	  ; RETURN, 0	/ RETURN
+* .-2	  ; CALL,   0	/ CALL; ROUTINE LABEL; ROUTINE BLOCK NUMBER
+* .-2	  ; GOTO,   0	/ GOTO; LABEL
+* .-2	  ; NUMBER, 0	/ NUMBER; DESTINATION;  ERROR LABEL
+* .-2	  ; KEYWRD, 0	/ KEYWRD; TEXT; LABEL; ...
+* .-2	  ; DISP,   0	/ DISP; POSITION; IOA CONTROL STRING; ARGP1; ARGP2; ...
+* .-2	  ; SET,    0	/ SET; VALUE; DESTINATION
+* .-2	  ; ARG,    0	/ ARG; NO ARGUEMENT LABEL; DEST OF WHERE STORED
+* .-2	  ; RANGE,  0	/ RANGE; SOURCE; MINIMUM; MAXIMUM; ERROR LABEL
+* .-2	  ; CASE,   0	/ CASE; SOURCE; VALUE; LABEL; VALUE; LABEL; ...
+* .-2	  ; PQUEUE, 0	/ PQUEUE; IN-QUEUE-LABEL; EMPTY-QUEUE-LABEL
+* .-2	  ; TRNSFR, 0	/ TRNSFR; LABEL; BLOCK NUMBER
+* .-2	  ; COPY,   0	/ COPY; FROM; TO
+* .-2	  ; FILNAM, 0	/ FILNAM; NONAME LABEL; NOT DEFINED LABEL
+* .-2	  ; CMND,   0	/ CMND; OVERLAY NUMBER; ADDRESS; CDIF FIELD
+* .-2	  ; PREAD,  0	/ PREAD; FLAG; RESULT ADDRESS; ERROR LABEL
+* .-2	  ; MXDISP, 0	/ MXDISP; POSITION; TEXT STRING LABEL; BLOCK NUMBER
+* .-2	  ; MNHALT, 0	/ MNHALT - HALT INSTRUCTION, PROGRAMMING DIAGNOSTIC AID
+* .-2	  ; FBREAK, 0	/ FBREAK; ADDRESS OF FILE NUMBER
+* .-2	  ; TSTBIT, 0	/ TSTBIT; SOURCE; MASK; ZERO RESULT LABEL
+* .-2	  ; CLRV,   0	/ CLRV;
+* .-2	  ; INCV,   0	/ INCV;
+* .-2	  ; STOV,   0	/ STOV;	DESTINATION
+* .-2	  ; CLRRTN, 0	/ CLRRTN
+* .-2	  ; CLRBIT, 0	/ CLRBIT; BIT MASK VALUE; DESTINATION
+* .-2	  ; SETBIT, 0	/ SETBIT; BIT SET  VALUE; DESTINATION
+* .-2	  ; SHFBIT, 0	/ SHFBIT; SHIFT VALUE (+ RIGHT, - LEFT); DESTINATION
+
+
+/***************************************************************************
+/****			WPFILS CALLS AND VALUES				****
+/***************************************************************************
+
+* 7400	  ; RPPGDS, 0	/ GOTO PAGE BUFFER AREA IN FIELD 2
+* 6000 	  ; HDRBUF, 0	/ DOCUMENT HEADER BUFFER IN FIELD 4
+* 6400 	  ; ETXBUF, 0	/ END OF TEXT BUFFER IN FIELD 4
+* 7000 	  ; STXBUF, 0	/ START OF TEXT BUFFER IN FIELD 4
+	  		/ BUFFER ALSO USED FOR L.P. HEADERS/FOOTERS
+* 7400 	  ; PSTBUF, 0	/ PASTE BUFFER AREA IN FIELD 4
+
+/ THE CALLING SEQUENCE TO WPFILS HEREAFTER IS:
+/
+/	CDFMYF		(UNNECCESSARY IF ALREADY MAPPED)
+/	CIFFIO		/ MAP FILE FIELD
+/	FILEIO		/ CALL "FILE IO ROUTINE"
+/	xxxxxx		/ NAME OF ROUTINE TO CALL
+/			/ (NOTE THAT xxxxxx IS MERELY AN INDEX
+/			/ INTO THE WPFILS ROUTINE TABLE (0 BASED)
+
+/********************************************************************
+/********************************************************************
+/*****								*****
+/*****								*****
+/*****		ANY CHANGES BELOW MUST BE CO-ORDINATED		*****
+/*****			WITH WPFILS & VICE VERSE.		*****
+/*****								*****
+/*****								*****
+/********************************************************************
+/********************************************************************
+
+* 100	  ; SCFSPC, 0	/ SPACE LEFT ON SCROLL DISKETTE
+* 101	  ; RDFSIZ, 0	/ SIZE OF RDFIL FILE
+
+* 0	  ; DISKIO, 0	/ OPEN DOCUMENT FOR READ OR WRITE
+* 0	  ; XDSKIN, 0	/ INITIALIZE DOCUMENT FOR READ OR WRITE
+	    XDSKCL, 0	/ CLOSE DOCUMENT OPENED FOR READ OR WRITE
+	    XGETST, 0	/ GET CHARACTER TOWARD START OF TEXT BUFFER
+	    XPUTST, 0	/ PUT CHARACTER TOWARD START OF TEXT BUFFER
+	    XGETET, 0	/ GET CHARACTER TOWARD END OF TEXT BUFFER
+	    XPUTET, 0	/ PUT CHARACTER TOWARD END OF TEXT BUFFER
+	    XRDFIN, 0	/ INITIALIZE FILE (EDIT READER) READ ONLY
+	    XRDFNC, 0	/ READ NEXT CHARACTER (EDIT READER) READ ONLY
+	    XRDFNB, 0	/ READ NEXT BYTE (EDIT READER) READ ONLY
+	    XGETSB, 0	/ GET NEXT SIX BIT BYTE FROM START OF TEXT BUFFER
+	    XPUTSB, 0	/ PUT NEXT SIX BIT BYTE TO START OF TEXT BUFFER
+	    XGETSE, 0	/ GET NEXT SIX BIT BYTE FROM END OF TEXT BUFFER
+	    XPUTSE, 0	/ PUT NEXT SIX BIT BYTE TO END OF TEXT BUFFER
+	    XHDRGT, 0	/ GET CURRENT DOCUMENT HEADER
+	    XHDRPT, 0	/ PUT CURRENT DOCUMENT HEADER
+	    XRPRD,  0	/ RAPID PAGINATION FUNCTION CALL
+	    XRSCTP, 0	/ SET UP TO ACCESS GO-TO-PAGE DESCRIPTOR WORDS	/A001
+
+/***************************************************************************
+/****		LIST PROCESSING AND MATH ERROR EQUATES			****
+/****	THESE ERRORS ARE EQUATED HERE SINCE THEY ARE SHARED BY		****
+/****		LIST PROCESSING, MATH, AND MN1.				****
+/***************************************************************************
+
+* 10	  ; SLPERB, 0	/ STANDARD LIST PROCESSING ERROR BASE NUMBER
+* 100	  ; MSEBN,  0	/ MATH SYNTAX ERROR BASE NUMBER
+* 200	  ; DSOBEN, 0	/ DATA STRUCTURE OVERFLOW BASE ERROR NUMBER
+* 300	  ; MLABEN, 0	/ MATH'S LEXIC AND ASCII BASE ERROR NUMBER
+* 400	  ; FSEBEN, 0	/ MATH FORMAT STATEMENT BASE ERROR NUMBER
+* 500	  ; NSEBEN, 0	/ CONTROL BLOCK NUMERIC SYNTAX ERROR BASE ERROR NUMBER
+* 600	  ; NSEBE1, 0	/ NUMERIC SYNTAX ERROR BASE ERROR NUMBER
+* 700	  ; MEEBEN, 0	/ MATH EXECUTION ERROR BASE ERROR NUMBER
+
+/***************************************************************************
+/****	STANDARD LIST PROCESSING ERRORS ASSIGNED 10 THRU 77		****
+/***************************************************************************
+
+* SLPERB  ; EVLGRC, 0	/ "RECORD EXCEEDS 2500 CHARACTERS"
+	    EVPEOF, 0	/ END OF FILE ERROR - "RECORD NOT TERMINATED WITH '<>'"
+	    EVCRBR, 0	/ "TEXT BETWEEN RECORDS"
+	    EVLBFN, 0	/ "'<' WITHIN A FIELD NAME"
+	    EVLGFN, 0	/ LONG FIELD NAME - "FIELD NAME EXCEEDS 30 CHARACTERS"
+	    EVRBFD, 0	/ "'>' WITHIN A FIELD VALUE"
+	    EVFULL, 0	/ "RESULT DOCUMENT DISKETTE FULL"
+	    EVLGNM, 0	/ LONG NUMBER - "FIELD VALUE NUMBER EXCEEDS 30 CHARACTERS"
+
+/***************************************************************************
+/****	CONTROL BLOCK, COMMAND PARSER, & TRANSLATOR ERROR MESSAGES	****
+/****	NOTE:	MATH ERROR NUMBERS BEGIN AT 100 TO ALLOW SPACE FOR	****
+/****		NORMAL L.P ERROR REPORTING WHICH USED 0 THRU 77		****
+/***************************************************************************
+
+/***************************************************************************
+/****		MATH SYNTAX ERRORS ASSIGNED 100 - 177			****
+/***************************************************************************
+
+* MSEBN   ; EVFLW1, 0	/ STACK OVERFLOW ERROR - "FORMULA CONTAINS TOO MANY OPERATIONS"
+	    EVFLW2, 0	/ SYMBOL POINTER TABLE OVERFLOW ERROR
+			/ 	"TOO MANY FIELD NAMES SPECIFIED"
+			/ NOTE - DUE TO A REWORK OF THE MATH MODULE, EVFLW2 IS NO
+			/	 LONGER MEANINGFULL AND CAN NOT BE GENERATED.
+	    EVFLW3, 0	/ SYMBOL TABLE OVERFLOW ERROR
+			/ 	"NO ROOM LEFT TO STORE THIS FIELD NAME"
+	    EVFLW4, 0	/ OUTPUT LIST (POLISH STRING) OVERFLOW ERROR
+			/ 	"CONTROL BLOCK EQUATIONS CONTAIN TOO MANY TERMS"
+	    EVFLW5, 0	/ RESULT POINTER TABLE OVERFLOW ERROR
+			/	"TOO MANY FORMULAS SPECIFIED"
+	    EVFLW6, 0	/ CONTROL BLOCK INPUT LINE BUFFER OVERFLOW
+			/	"THIS LINE HAS EXCEEDED 200 CHARACTERS"
+	    EVFLW7, 0	/ CONTROL BLOCK WORK BUFFER OVERFLOW OR CONTROL BLOCK
+			/ CONTROL WORD FORMAT/SYNTAX ERROR
+			/	"UNDEFINED COMMAND AT THIS POSITION"
+
+/***************************************************************************
+/****	MATH DATA STRUCTURE OVERFLOW ERRORS ASSIGNED 200-277		****
+/****	ALL D.S.O. ERRORS ARE "FORMULA IN ERROR AT THIS POSITION"	****
+/***************************************************************************
+
+* DSOBEN  ; EYNER1, 0	/ OPERAND EXPECTED NEXT BUT NOT RECEIVED
+* DSOBEN  ; EYNER2, 0	/ OPERATOR EXPECTED NEXT BUT NOT RECEIVED
+* DSOBEN  ; EYNER3, 0	/ TOO MANY LEFT PARENTHESIS
+* DSOBEN  ; EYNER4, 0	/ TOO MANY RIGHT PARENTHESIS
+* DSOBEN  ; EYNER5, 0	/ FORMAT OR END OF FORMULA EXPECTED BUT NOT REC'D
+* DSOBEN  ; EYNER6, 0	/ OPERAND VARIABLE EXPECTED NEXT BUT NOT REC'D
+
+* DSOBEN  ; EYNR10, 0	/ CONTROL WORD LINE SYNTAX ERROR
+	    EYNR11, 0	/ FORMULA FORMAT SYNTAX ERROR
+			/ "FORMULA IN ERROR AT THIS POSITION (UNEXPECTED RETURN)"
+
+/***************************************************************************
+/****	MATH'S LEXIC AND ASCBCD ROUTINE ERRORS ASSIGNED 300-377		****
+/***************************************************************************
+
+* MLABEN  ; ERRNFN, 0	/ NONNUMERIC FIELD NAME SPECIFIED IN FORMULA
+			/	"FORMULA IN ERROR AT THIS POSITION"
+	    ERRFTW, 0	/ FORMULA TERMINATED WITHIN A FIELD NAME
+			/	"FORMULA IN ERROR AT THIS POSITION (UNEXPECTED RETURN)"
+	    ERRINI, 0	/ ILLEGAL NUMBER IN MATH EXPRESSION
+			/ (LENGTH EXCEEDS 30 CHARACTERS)
+			/	"FORMULA IN ERROR AT THIS POSITION"
+* ERRINI  ; ERRICI, 0	/ ILLEGAL CHARACTER IN MATH EXPRESSION
+			/	"FORMULA IN ERROR AT THIS POSITION"
+	    ERRUB,  0	/ 	"UNMATCHED ANGLE BRACKETS"
+	    ERRLOF, 0	/ LENGTH OF FIELD NAME IS GREATER THAN 30 CHARACTERS
+			/	"FIELD NAME TOO LONG"
+
+/***************************************************************************
+/****		FORMAT STATEMENT ERRORS ASSIGNED 400-477		****
+/****		ALL FORMAT STATEMENT ERRORS DISPLAYED AS		****
+/****		"FORMAT IN ERROR AT THIS POSITION"			****
+/***************************************************************************
+
+* FSEBEN  ; ERRMTS, 0	/ MORE THAN SIX NUMERIC FIELD SPECIFIERS TO THE RIGHT OF
+			/  THE RADIX POINT IN FORMAT STATEMENT
+* FSEBEN  ; ERRMTT, 0	/ MORE THAN THIRTEEN NUMERIC FIELD SPECIFIERS IN FORMAT
+			/  STATEMENT
+* FSEBEN  ; ERRFSD, 0	/ FORMAT STATEMENT DOES NOT CONTAIN NUMERIC FIELD
+			/  SPECIFICATION
+* FSEBEN  ; ERRCAE, 0	/ CURRENCY OR ASTERISK IMMEDIATELY FOLLOWED BY SIGN
+* FSEBEN  ; ERRTCI, 0	/ THIS CHARACTER ILLEGAL IN THIS POSTION IN FORMAT
+			/  STATEMENT
+* FSEBEN  ; ERRICF, 0	/ ILLEGAL CHARACTER IN FORMAT STATEMENT
+* FSEBEN  ; ERRLPI, 0	/ LEFT PARENTHESIS IN FORMAT STATEMENT NOT CLOSED WITH
+			/  RIGHT PARENTHESIS
+
+/***************************************************************************
+/****	CONTROL BLOCK NUMERIC SYNTAX ERRORS ASSIGNED 500-577		****
+/****	DETECTED BY MATH'S ASCBD ROUTINE - ALL SUCH ERRORS REPORT	****
+/****		"NUMBER IN ERROR AT THIS POSITION"			****
+/***************************************************************************
+
+* NSEBEN  ; ERRTCP, 0	/ THIS CHARACTER IS ILLEGAL IN THIS POSTITION OF THE NUMBER
+* NSEBEN  ; ERRMTD, 0	/ MORE THAN THIRTEEN DIGITS TO THE LEFT OF THE RADIX POINT
+* NSEBEN  ; ERRNSD, 0	/ NUMERIC STRING DID NOT CONTAIN DIGITS
+
+/***************************************************************************
+/****	THE FOLLOWING FOUR ERRORS WILL ONLY OCCUR FOR NUMBERS OUTSIDE	****
+/****	A CONTROL BLOCK.  THEIR VALUE BECOMES ERR???+(NSEBE1-NSEBEN)	****
+/***************************************************************************
+
+* NSEBEN  ; ERRTCT, 0	/ THIS CHARACTER ILLEGAL IN A NUMBER
+* NSEBEN  ; ERREPE, 0	/ EMPTY PARENTHESIS
+* NSEBEN  ; ERRID,  0	/ ILLEGAL DIGIT
+* NSEBEN  ; ERRLPN, 0	/ LEFT PARENTHESIS NOT CLOSED WITH RIGHT PARENTHESIS
+
+/***************************************************************************
+/****	L.P. NUMERIC SYNTAX ERRORS DETECTED OUTSIDE OF A CONTROL BLOCK	****
+/****		REPORTED AS "NUMBER WITHIN RECORD IS IN ERROR"		****
+/****	THESE ARE THE SAME NUMERIC SYNTAX ERRORS AS DESCRIBED ABOVE AND	****
+/****	ARE ASSIGNED A DIFFERENT BASE ERROR NUMBER SO WE'LL NOT PRINT A	****
+/****	CONTROL BLOCK LINE WHEN ERROR REPORTING.			****
+/***************************************************************************
+
+	* NSEBE1
+
+/***************************************************************************
+/****		MATH EXECUTION ROUTINE ERROR CODES			****
+/***************************************************************************
+
+* MEEBEN  ; ERROVF, 0	/ "FORMULA CONTAINS TOO MANY OPERATIONS"
+	    ERRDB0, 0	/ "DIVIDED BY ZERO"
+	    ERNOSP, 0	/ "NO ROOM FOR THIS RESULT:"
+	    ERNSP2, 0	/ "NO ROOM FOR THESE RESULTS:"
+	    EVSYN3, 0	/ "MATH AREA ALREADY BEGUN"
+	    EVSYN4, 0	/ "'BEGIN' NOT SECOND WORD IN CONTROL BLOCK"
+	    EVSYN5, 0	/ "'END' NOT SECOND WORD IN CONTROL BLOCK"
+	    EVSYN6, 0	/ "TEXT IN CONTROL BLOCK FOLLOWING 'END'"
+	    EREXTR, 0	/ "NUMBER IN LINE IS IN ERROR"
+
+
+/***************************************************************************
+/****		COMMON MATH SYMBOLS AND ROUTINE LOCATIONS		****
+/***************************************************************************
+
+* 40	  ; MAXTOK, 0	/ SIZE OF THE TOKEN BUFFER
+* 1400	  ; SYMCHK, 0	/ LOOKS UP NAMES IN THE SYMBLE TABLE
+* 3400	  ; ASCBCD, 0	/ ROUTINE TO CONVERT ASCII TO PACKED BCD
+* 3404	  ; CHKNME, 0	/ CALLED FROM MATH FOR EDITOR MATH
+* 4200	  ; PELINE, 0	/ ROUTINE TO PRINT CONTROL BLOCK LINE TO
+			/ SCREEN FOR ERROR REPORTING PURPOSES
+* 4400	  ; EXECUT, 0	/ EXECUTES THE COMPILED FORMULAS
+* 4202	  ; BCDCOM, 0	/ ROUTINE TO COMPARE TWO BCD NUMBERS
+* 5400	  ; BCDASC, 0	/ ROUTINE TO CONVERT PACKED BCD TO ASCII
+			/ USING USER SPECIFIED FORMAT
+* 5400	  ; BCDAR1, 0	/ FIRST ARGUMENT TO BCDCOM - USED BY WPSELC
+* 5406	  ; BCDAR2, 0	/ SECOND ARGUMENT TO BCDCOM - USED BY WPSELC
+* 6201	  ; UDTEXT, 0	/ ADDRESS OF *Un.def* TEXT STRING
+* 6213	  ; OFTEXT, 0	/ ADDRESS OF *Ovr.flo* TEXT STRING
+* 7200	  ; MTHCTL, 0	/ ADDRESS OF "IN MATH CTRL BLOCK" FLAG
+* 7201	  ; RTNMTH, 0	/ ADDERSS OF ENTRY BACK TO EDITOR FROM MATH
+* 7344	  ; TOKVAL, 0	/ TOKEN BUFFER IN MATH FIELD
+			/ USED BY VARIOUS ROUTINES
+* 7404	  ; RESULT, 0	/ ADDRESS OF TABLE OF POINTERS TO THE
+			/ RESULTANTS IN THE MATH SYMBLE TABLE
+
+/***************************************************************************
+/****				CAUTION					****
+/**** THE VALUE ASSIGNMENTS TO THE FOLLOWING FIVE EQUATES MUST NOT BE	****
+/**** ALTERED UNLESS A CORRESPONDING CHANGE IS MADE IN THE MATH FIELD	****
+/**** TO THE STARTING ADDRESS OF THE LOCATION OF THE ROUTINE WHICH EACH	****
+/**** IS REFERENCING. THEY ARE USED AS ENTRY POINTS INTO STRATEGICALLY	****
+/**** LOCATED ROUTINES IN THE MATH FIELD.				****
+/***************************************************************************
+
+* 200	  ; FSTLNE, 0	/ "CTRL BLOCK FIRST LINE" FLG IN MATH FIELD
+* 201	  ; RTRN1,  0	/ INPUT LNE BUF PTR INITIALIZE RTN IN MATH FIELD
+* 203	  ; RTRN2,  0	/ PUT LP INPUT CHAR IN MATH INPUT LNE BUF
+* 205	  ; RTRN3,  0	/ RTN IN MATH FIELD TO PROCESS LINE OF CTRL BLK
+* 207	  ; RTRN4,  0	/ RTN IN MTH FLD TO INITIALIZE MTH CTRL BLK VALUES
+
+/***************************************************************************
+/****			EDIT MATH ENTRY POINTS 				****
+/***************************************************************************
+
+/ VALUES USED IN EDITOR MATH CONTROL BLOCK EVALUATION CODE
+
+* 46	  ; DCHARL, 0	/ LENGTH OF DCHAR TABLE 38(10)
+* DCHARL  ; TCHARL, 0	/ LENGTH OF TCHAR TABLE (SAME AS DCHARL ABOVE)
+* 174	  ; MTHTYP, 0	/ FLAG INDICATING TYPE OF MATH BEING USED
+* 175	  ; MTHTOT, 0	/ "EDIT MATH TOTAL" FLAG
+* 176	  ; MTHWRK, 0	/ "EDIT MATH WORK AREA" FLAG
+* 177	  ; MTHSND, 0	/ "EDIT MATH CTRL BLK 2ND LINE" FLAG
+* 200	  ; DCHAR,  0	/ LOC OF DCHAR TABLE IN LP FIELD
+* 246	  ; TCHAR,  0	/ LOC OF TCHAR TABLE IN LP FIELD
+* 7000	  ; INCTLB, 0	/ "IN CONTROL BLOCK" FLAG USED IN EDITOR MATH
+* 7001	  ; CKCTRL, 0	/ RTN TO PROCESS EDITOR MATH CTRL BLKS
+* 7205	  ; ZROTBL, 0	/ "DCHAR" & "TCHAR" TABLE SETUP ROUTINE
+
+/***************************************************************************
+/****			EDIT MATH INSDEL ROUTINE EQUATES 		****
+/***************************************************************************
+
+* 0	  ; OLDCON, 0	/ PARAMETER IN CALL FOR FIELD DATA
+			/ 0=OLD CONTENTS
+* 1	  ; NEWCON, 0	/ PARAMETER IN CALL FOR FIELD DATA
+			/ 1=NEW CONTENTS
+DECIMAL			/ EXPRESS MAX TAB POSITIONS IN DECIMAL
+* 38	  ; MXTABS, 0	/ MAX. NO. OF DTABN POSITIONS ON A LINE OF TEXT
+* 31	  ; MXASCII, 0	/ MAX. LENGTH OF A NUMBER CONVERTED BY BCDASC
+OCTAL			/ GO BACK TO OCTAL
+* 1600	  ; MASKATTR, 0	/ MASK TO GET ATTRIBUTES
+
+/***************************************************************************
+/****			EDIT MATH FIELD 5, PAGE 0 EQUATES 		****
+/***************************************************************************
+
+* 100	  ; MF5P0ET, 0	/ MATH_FIELD_5_PAGE_0_EQUATE_TABLE
+* 100	  ; TCCNTR, 0	/ TEMPORARY_CHARACTER_COUNTER (EXTRACTNUMBER)
+* 100	  ; TABFLAGS, 0	/ TAB_FLAGS: (EXTRACTNUMBER ROUTINE)
+			/  BIT11 = 0: NOT A DECIMAL TAB
+			/	   1: DECIMAL TAB
+			/  BIT1  = 0: LINE POSITION NEQ. POSITION
+			/		OF DECIMAL TAB IN RULER
+			/	   1: LINE POSTION EQ. POSITION
+			/		OF DECIMAL TAB IN RULER
+
+	    SAVCP, 0	/ SAVED_CURPTR (CKCTRL, EXTRACTNUMBER, INSDEL)
+	    TABPOSITION, 0  / TAB_POSITION IN RULER - 1 (EXTRACTNUMBER)
+	    LTABPOSITION, 0 / HOLDS -TABPOSITION SETTING AT TIME OF LAST
+			  / INCREMENT OF DTABCOUNT. (EXTRACTNUMBER)
+	    LNEPC, 0	/ LINE_POSITION_COUNTER (EXTRACTNUMBER)
+	    CRWMB, 0	/ CHARACTER_READ_WITH_MODE_BITS (EXTRACTNUMBER)
+	    CRLMB, 0	/ CHARACTER_READ_LESS_MODE_BITS (EXTRACTNUMBER)
+
+/***************************************************************************
+/****			INSDEL ROUTINE PAGE 0 EQUATES			****
+/***************************************************************************
+
+	    REG1,   0	/ TEMPORARY LOCATIONS USED IN ALL PHASES
+	    REG2,   0
+	    REG3,   0
+	    REG4,   0
+	    TABPCP, 0	/ CURRENT TAB POSITION, FROM RULER
+	    FLAGS,  0	/ DTAB RESULT FIELD IF AC0=1; PLUS DTAB NUMBER
+	    DTABPR, 0	/ POINTER TO DCHAR OR TCHAR; CALL PARAMETER
+	    FLDCNT, 0	/ CURRENT FIELD NUMBER
+	    CHARCNT, 0	/ NO. OF CHARACTERS (ALPHANUMERIC) IN FIELD
+	    BEGFLD, 0	/ POSITION OF BEGINNING OF CURRENT FIELD
+	    ENDFLD, 0	/ POSITION OF END OF CURRENT FIELD
+	    RIGHTM, 0	/ POSITION OF RIGHT MARGIN
+	    PCP,    0	/ CURRENT POSITION
+	    XPCP,   0	/ EXTRA SPACES OR SOFT SPACES BETWEEN FIELDS
+	    ABSOLM, 0	/ DELETE PHASE FLAG TO SIGNAL PREVIOUS RESULTS
+	    DTABN,  0	/ NUMBER OF DTAB POSITION
+
+/***************************************************************************
+/****			BCDASC ROUTINE PAGE 0 EQUATES			****
+/***************************************************************************
+
+	    FRMMAT, 0	/ FORMAt_Word: * $ , T T T S S H H H H
+			/  T = tail count (no. of digits after radix point + 1)
+			/  S = sign bits  0 OR 1=leading minus,
+			/	2=trailing minus, 3=()
+			/  H = head count (no. of digits before radix point)
+
+	    LFTFOR, 0	/ HEAD COUNT FROM FORMAT WORD
+	    RGTFOR, 0	/ TAIL COUNT FROM FORMAT WORD
+			/    IF DEFAULT SPECIFIED
+			/	= MAXRGT+1
+			/    IF DEFAULT FORCED BECAUSE OF "%" ERROR
+			/	= 13 - LFTFOR + 1
+			/    ELSE
+			/	= RGTFOR (FROM FORMAT WORD AS SPECIFIED BY USER)
+	    LFTNUM, 0	/ # OF DIGITS TO LEFT OF RADIX WITH LEADING ZERO SUPPRESSION
+	    RGTNUM, 0	/ # OF DIGITS TO RIGHT OF RADIX WITH TRAILING ZERO SUPPRESSION
+	    ASCPNT, 0	/ POINTER TO RESULTS BUFFER
+	    BCDPNT, 0	/ POINTER TO BCD VALUE
+	    BCDCNT, 0	/ - NUMBER OF BCD WORDS IN VALUE (-VALSIZ)
+	    SGN,    0	/ SIGN OF THIS WORD IS SIGN OF VALUE
+	    NEXTC,  0	/ - NUMBER OF DIGITS TO OUTPUT BEFORE NEXT COMMA DUE
+	    NUMCOM, 0	/ SEE ASTOUT
+	    NUMAST, 0	/ SEE ASTOUT
+	    DIGNUM, 0	/ NUMBER OF DIGITS OUTPUT TO SIMPLE ASCII BUFFER
+	    RGTTOT, 0	/ NUMBER OF DIGITS OUTPUT TO RIGHT OF RADIX
+			/ INCLUDING TRAILING ZEROES
+	    DEFAUL, 0	/ DEFAULT FLAG 0= NOT DEFAULT CASE
+			/ GREATER THAN ZERO = DEFAULT
+	    NONZR0, 0	/ 0=ONLY ZERO DIGITS FOUND
+			/ OTHERWISE AT LEAST ONE NON_ZERO DIGIT FOUND
+			/ THIS IS USED TO AVOID PUTTING OUT A MINUS SIGN IF THE
+			/ VALUE IS ZERO
+	    CHRCNT, 0	/ CHARACTER_COUNT - POINTS TO CHRRGT OR CHRLFT
+	    CHRLFT, 0	/ NUMBER OF ASCII CHARACTER OUTPUT TO LEFT OF RADIX
+	    CHRRGT, 0	/ NUMBER OF ASCII CHARACTERS OUTPUT TO RIGHT OF RADIX
+	    MRKIMA, 0	/ MARKER_IN_MATH_AREA (ECTMRK IS IN THE TEXT OF THIS
+			/ MATH AREA BEING USED AS A POSITION MARKER)
+			/ IF MRKIMA =	0000 - NO ECTMRK IN MATH AREA
+			/		0001 - ECTMRK IN MATH AREA.
+	    CURPTX, 0	/ TEMP. POINTER INTO EDIT BUFFER FOR EDIT MATH CODE
+
+
+* .-MF5P0ET ;	LMF5P0ET, 0 / LENGTH OF MF5P0ET
+
+* 200			/ RESET LOCATION COUNT TO NORMAL POSITION
+	ENPUNCH		/ TURN ON THE BINARY PUNCH FOR OUTPUT
+
+XLIST
+
+
+
+

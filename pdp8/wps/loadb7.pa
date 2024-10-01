@@ -1,0 +1,906 @@
+/ FILE: LOAD01.PA
+/
+/	** -0- ** BOOTSTRAP WRITE-OUT ROUTINE. ****
+/
+/	********* EDIT HISTORY ********
+/
+/008	WJY	06-FEB-84	DECmate I compatability
+/007	WCE	05-SEP-83	Added WINNIE conditional to correct load
+/				problem with new WPSYSA module.
+/006	WCE	03-SEP-83	Change RZ IOT's to standard RX IOT's
+/005	WCE	20-JUL-83	Remove occurances of RETURN as an instruction
+/004	DFB	01-FEB-82	Reset interleave for dd to 3
+/003	DFB	28-JAN-82	Set interleave for dd to 2
+/002	DFB	14-DEC-81	Comment only for LDSTRT address
+/				AFTER ANY ASSEMBLY--PLEASE NOTE FOLLOWING
+/				LDSTRT should be equal to wpaddr
+/				else change labels in RXPRDF.
+/001	DFB	10-NOV-81	INSTALL.
+
+/	** -0- ** LOCAL SYMBOLIC DEFINITIONS ****
+/---------------------------------------------------------------------
+/
+/************************ LOCAL SYMBOLIC DEFINITIONS *****************
+/
+/---------------------------------------------------------------------
+LOADPT=	200				/ EFFECTIVE LOADER ADDRESS.
+
+				EJECT
+/	** -1- **  BOOTSTRAP WRITE-OUT ROUTINE ****
+/---------------------------------------------------------------------
+/
+/************************ BOOTSTRAP WRITE ROUTINE ********************
+/
+/---------------------------------------------------------------------
+				FIELD	0
+				PAGE	0
+				*200
+	JMP	LOADBT
+/				*LOADPT
+				PAGE 10
+/---------------------------------------------------------------------
+/
+/************************ BUILD CORRECT "FILL SILO" COMMAND **********
+/
+/---------------------------------------------------------------------
+LOADBT,	CLA
+	RXIINI			/INIT DISK			/M006
+	RXISDN			/DONE?				/M006
+	JMP 	.-1		/NO
+	TAD	LDCON		/LOAD 1 CONSTANT
+	RXILCD			/LOAD COMMAND READ STATUS UNIT #1/M006
+	RXISDN			/DONE?				/M006
+	JMP 	.-1		/NO
+	RXIXDR			/READ STATUS			/M006
+	RXISER			/CLEAR ERROR IF SET		/M006
+	NOP
+	DCA	L1STAT		/SAVE STATUS
+	TAD	L1STAT
+	RTL;RAL			/MOVE DENSITY TO BIT AC3
+	AND	LDMASK		/MASK DENSITY BIT
+	DCA	LDCMND			/ ......"FILL SILO",...
+	TAD	LDCMND
+	TAD	L2CON			/SET COMMAND WITH UNIT#1
+	DCA	L2CMND
+	TAD	L1ADDR			/ SET/RESET,...
+	DCA	LDBFFR			/ ...START ADDRESS.
+	JMS	LDFILL			/FILL SILO
+	CLA IAC
+	DCA LDSECT			/SET SECTOR = 1
+	JMS	LDWRIT			/WRITE 1ST SECT 1ST TRACK
+	JMP	LOAD02			/NORMAL RETURN
+	JMP	LOADBT			/ERROR RETURN
+
+/	THIS PROCESS IS VALID ONLY FOR CONTROLLER 0, UNIT 1.
+/
+/---------------------------------------------------------------------
+LOAD02,	CLA CLL IAC		/ INITIALIZE SECTOR #,...
+	DCA	LDSECT		/ ...TO UNITY.
+	TAD	L2ADDR		/SET BOOT WRITE ADDRESS
+	DCA	LDBFFR
+			SIZE=	.-LOAD02
+/---------------------------------------------------------------------
+/
+/************************ DETERMINE NO. SECTORS TO WRITE *************
+/
+/---------------------------------------------------------------------
+	AC7776			/ SET INITIAL COUNT,...
+	DCA	LDSCTR		/ ...TO -2 (SD) -1 (DD).
+	TAD	LDCMND		/ ADJUST,...
+	SZA CLA			/ ...FOR,...
+	CLA CLL IAC		/ ......A DOUBLE,...
+	TAD	LDSCTR		/ .........DENSITY DISKETTE,...
+	DCA	LDSCTR		/ ............AND SAVE.
+/---------------------------------------------------------------------
+/
+/************************ CALCULATE PHYSICAL SECTOR ******************
+/
+/---------------------------------------------------------------------
+LDINIT,	AC0003			/ INITIALISE SECTOR,...
+	TAD	LDSECT		/ ...COUNT,...
+	DCA	LDSECT		/ ......TO 4 (I.E. SD DEFAULT ).
+	TAD	LDCMND		/ ADJUST,...
+	SZA CLA			/ ...FOR DOUBLE,...
+	CLA CLL CMA CML		/ ......DENSITY,...
+	TAD	LDSECT		/ .........DISKETTE,...
+	DCA	LDSECT		/ ............OPERATIONS.
+	JMS	LDFILL		/FILL SILO
+	JMS	LDWRIT		/WRITE
+	JMP	LDNXT		/NORMAL RETURN
+	JMP	LOAD02		/ERROR RETURN
+/---------------------------------------------------------------------
+/
+/************************ COMPLETION PROCESSOR ***********************
+/
+/---------------------------------------------------------------------
+LDNXT,	ISZ	LDSCTR		/ YES - ALL SECTORS WRITTEN ?
+	JMP	LDINIT		/ NO - CONTINUE WITH SUBSEQUENT SECTORS.
+	RXIINI								/M006
+	JMP I	LDEXIT		/ YES - EXIT LOAD PROCESSOR TO OS8.
+
+/---------------------------------------------------------------------
+/
+/************************ SILO LOAD ROUTINE **************************
+/
+/---------------------------------------------------------------------
+LDFILL,	0
+	CLA
+	TAD	L2CMND			/LOAD COMMAND
+	RXILCD				/EXECUTE			/M006
+L1MORE,	CLA CLL				/ ENSURE REGISTER CLEAR.
+	CDFPRT				/ SECONDARY BOOT GOES TO FIELD 1/M006
+	TAD I	LDBFFR			/ LOAD A DATUM,...
+	CDFSYS				/ ...RESTORE THIS DATA FIELD,.../M006
+	ISZ	LDBFFR			/ ......UPDATE ADDRESS IN SECOND BOOT.
+	JMS	LDXFER			/ .........TRANSFER THE DATUM,...
+	JMP	L1MORE			/.......TRANSFER RETURN
+	JMP   	LDFLXT			/DONE EXIT
+	JMP	LOADBT			/ERROR EXIT
+LDFLXT,	CLA CMA
+	TAD	LDBFFR
+	DCA	LDBFFR			/RESET -1 FOR NEXT SECTOR
+	JMP I	LDFILL			/EXIT
+/-------------------------------------------------------------------
+/
+/************************PHYSICAL I/O PRIMITIVE************************
+/
+/----------------------------------------------------------------------
+LDWRIT,	0
+	CLA CLL IAC RTL			/ BUILD A "WRITE SECTOR",...
+	TAD	L2CMND			/ COMMAND,...
+	RXILCD				/ AND TRANSMIT TO CONTROLLER.	/M006
+	TAD	LDSECT			/LOAD SECTOR
+	JMS	LDXFER			/ ..."SECTOR 1",...
+	JMP	LDWRT1			/...TR RETURN
+	JMP	LDWRTE			/DONE = ERROR RETURN
+	JMP	LDWRTE			/ERROR RETURN
+LDWRT1,	CLA CLL IAC
+	JMS	LDXFER			/ ......"TRACK 1.
+	JMP	LDWRT2			/TR DONE
+	JMP	LDWRTE			/DONE SET=ERROR
+	JMP	LDWRTE			/ERROR RET
+LDWRT2,	JMS	LDXFER			/CHECK DONE
+	JMP	LDWRTE			/TR = ERROR
+	JMP I   LDWRIT			/DONE = NORMAL RETURN
+	JMP	LDWRTE			/ERROR RETURN
+LDWRTE,	ISZ	LDWRIT		/SET ERROR RETURN
+	JMP I	LDWRIT							/M005
+/---------------------------------------------------------------------
+/
+/************************ DATA TRANSFER PRIMITIVE ********************
+/
+/---------------------------------------------------------------------
+LDXFER,	0			/ ENTRY POINT TO "LDXFER".
+LDXRDY,	RXISTR			/ CONTROLLER READY ?			/M006
+	JMP	LDCKDN		/NO CHECK DONE
+	RXIXDR			/ YES - TRANSFER A DATUM,...		/M006
+	JMP I	LDXFER		/ ...THEN RETURN TO CALLER.		/M005
+LDCKDN,	RXISDN			/OP COMPLETE?				/M006
+	JMP	LDXRDY		/NO-CHECK AGAIN
+	ISZ	LDXFER		/YES SET RETURN
+	RXISER			/ANY ERRORS				/M006
+	JMP I	LDXFER		/NO RETURN DONE				/M005
+	CLA			/YES TRY AGAIN
+	TAD	L1ADDR		/RESET START ADDRESS
+	DCA	LDBFFR
+	ISZ	LDXFER	/SET ERROR RETURN
+	JMP I	LDXFER		/ERROR RETURN				/M005
+/---------------------------------------------------------------------
+/
+/************************ LOCAL DATA AREA ****************************
+/
+/---------------------------------------------------------------------
+L1EXIT,	7605				/ ...VIA THE RE-ENTRY ADDRESS.
+LDCMND,	0				/ LOCAL STORAGE FOR COMMAND WORD.
+L2CMND,	0			/STORAGE FOR COMMAND WORD WITH UNIT #1
+LDBFFR,	2			/ LOAD ADDRESS OF SECONDARY BOOTSTRAP./M006
+L1ADDR,	2				/ BACKUP ADDRESS OF START ADDRESS.
+L2ADDR,	W2BOOT			/ADDRESS OF 2ND BOOT AREA
+L1STAT,	0		/STATUS READ
+LDCON,	12		/READ STATUS UNIT 0
+L2CON,	0		/UNIT 1 CONSTANT
+
+LDMASK,	400			/ MASK FOR COMMAND.
+LDSECT,	1			/ INITIAL VALUE FOR PHYSICAL SECTOR #.
+LDSCTR,	0			/ SECTOR COUNT.
+LDTIMR,	0			/ SECONDARY TIMER WORD.
+LDEXIT,	7605			/ RE-ENTRY ADDRESS FOR OS8.
+			SIZE=	.-LDCMND
+
+/ FILE: BOOT01.PA
+	XLIST
+/	** -0- ** DOCUMENTATION ****
+/*********************************************************************
+/
+/
+/	THIS BOOTSTRAP CODE IS THE PRIMARY BOOT WHICH IS BROUGHT INTO
+/	MEMORY BY THE INITIAL HARDWARE BOOT FUNCTION. THE SEQUENCE OF
+/	BOOTING A WPS SYSTEM IS GENERALLY AS FOLLOWS:
+/
+/		1. THE HARDWARE BOOT PROCESS IS INITIATED BY PUSHING
+/		   THE START BUTTON OR BY DEPRESSING A CTRL-SETUP-2.
+/
+/		2. THAT PROCESS BRINGS INTO MEMORY A ROM-BASED BOOT
+/		   WHICH IS LOADED INTO LOCATIONS 0016 THRU 0061 OF
+/		FIELD ZERO, AND INITIATED AT LOCN 0016.
+/
+/		3. THIS HARDWARE BOOT WILL BRING INTO MEMORY TRACK-1,
+/		   SECTOR-1 OF THE RX DEVICE DISKETTE WHETHER THAT
+/		DISKETTE IS DOUBLE DENSITY OR SINGLE DENSITY. IN THE
+/		CASE OF SINGLE DENSITY, THIS CONSTITUTES A 64(DECIMAL)
+/		WORD TRANSFER; DOUBLE DENSITY = 128(DECIMAL) WORDS.
+/
+/		4. THIS TRACK1, SECTOR1 DATA IS READ INTO MEMORY
+/		   BEGINNING AT LOCATION 0002. OBVIOUSLY, THIS WILL
+/		FORCE THE READ-IN PROCESS TO -OVERLAY- THE BOOTSTRAP
+/		WHICH IS READING THE DATA IN. THIS PRESENTS SOME
+/		INTERESTING CHALLENGES. THERE ARE TWO -CRITICAL
+/		OVERLAY AREAS- IN THE THEN RUNNING BOOTSTRAP WHICH
+/		MUST BE OVERLAID WITH COPIES OF THEMSELVES WITH
+/		CERTAIN VERY LIMITED EXCEPTIONS. LOCN 0035, THE
+/		LAST WORD OF THE 1ST CRITICAL OVERLAY AREA, IS THE
+/		ENTRY POINT TO THE SECONDARY BOOT PROCEDURE. THUS,
+/		WHEN THE TRACK1, SECTOR1 READ-IN IS COMPLETE, CONTROL
+/		ENDS AT LOCN 0035 WHICH MAY HAVE BEEN OVERLAID BY A
+/		JUMP TO THE START OF THE NEXT LEVEL BOOT, OR MAY BE
+/		AN INSTRUCTION OF THE NEXT LEVEL BOOT.
+/
+/		5. IN THE CASE OF THE WPS-278 V2.0 SECOND LEVEL BOOT,
+/		   THERE IS A NECESSITY TO BE ABLE TO BOOT FROM EITHER
+/		A SINGLE DENSITY OR A DOUBLE DENSITY DEVICE. SINCE THE
+/		INITIAL HARDWARE BOOT HAS MADE THE DETERMINATION OF THE
+/		DENSITY OF THE BOOT-DEVICE AND LEFT IT ENCODED AT LOCN
+/		0060, THE WPS BOOTSTRAP DOES NOT WISH TO DESTROY THAT
+/		PIECE OF DATA.
+/
+/		*** IMPORTANT PIECE OF UNDERSTANDING ***
+/
+/		TO ALLOW PRESERVATION OF THIS VALUE, A TECHNIQUE IS
+/		USED WHICH OPENS A HOLE IN THE DATA BEING BROUGHT IN
+/		AND LAID INTO MEMORY. AS WE SAID, THE BOOT PROCESS IS
+/		OVERLAYING ITSELF AS IT GOES. NOTICE THAT THE INSTRUCTION
+/		AT LOCN 0050 IN THE HARDWARE BOOT IS THE ONE WHICH PUTS
+/		THE INCOMING DATA INTO MEMORY. AT SOME POINT IN TIME, THIS
+/
+/*********************************************************************
+	XLIST
+
+	XLIST
+				EJECT
+/	** -0- ** DOCUMENTATION, CON'T. ****
+/*********************************************************************
+/
+/		'DCA' WILL ACTUALLY LAY AN INSTRUCTION ON TOP OF ITSELF.
+/		THE INSTRUCTION THAT COMES IN AT THAT TIME IS A 'DCA 0061'.
+/		AS SOON AS THIS INSTR IS LAID DOWN, IT IS INCREMENTED BY THE
+/		INSTRUCTION 'ISZ 0050' WHICH APPEARS IN LOCN 0051 SO THAT
+/		THE FINAL 'DCA' FOR THE NEXT WORD TO COME FROM THE DISKETTE
+/		WILL BE DEPOSITED IN LOCN 0062, THUS BYPASSING THE VARIABLE
+/		WE WISH TO SAVE.
+/
+/		6. FOR THE ABOVE REASON, THE SECOND HALF OF THE PRIMARY BOOT
+/		   IS ASSEMBLED AS THOUGH IT WERE TO BE LOADED AT LOCN 0062
+/		RATHER THAN A STRAIGHT CONTINUATION AT LOCN 0051 AS ONE MIGHT
+/		OTHERWISE EXPECT.
+/
+/			D.E.C. STANDARD BOOTSTRAPS FOR FLEXIBLE DISKETTES
+/		MUST RESIDE ON THE DISKETTE STARTING
+/		WITH TRACK #1, SECTOR #1.
+/			ALL BOOTSTRAPS MUST BE WRITTEN TO THE SYSTEM DISKETTE
+/		IN "12 BIT MODE", I.E. ONE PDP8 12 BIT WORD
+/		WILL OCCUPY TWO SEQUENTIAL EIGHT(8) BIT BYTES
+/		ON THE DISKETTE, THE FIRST CONSISITING OF THE
+/		LOW ORDER EIGHT BITS OF THE WORD (BITS 4-11)
+/		AND THE SECOND CONSISTING OF BITS 0-3 OF THE
+/		WORD PRECEEDED BY FOUR LEADING ZERO BITS.
+/			WHEN USING A SINGLE DENSITY DISKETTE, ONE SECTOR WILL
+/		CONTAIN 64(10), 100(8) PDP8 12 BIT WORDS.
+/			WHEN USING A DOUBLE DENSITY DISKETTE, ONE SECTOR WILL
+/		CONTAIN 128(10), 200(8) PDP8 12 BIT WORDS.
+/
+/			THUS, IN ORDER TO BE ABLE TO BOOT BOTH TYPES OF DISKETTE,
+/		TWO EFFECTIVE BOOTSTRAPS MUST BE EMPLOYED.
+/
+/		1.) THE PRIMARY BOOTSTRAP IS READ INTO CORE
+/			BY THE HARDWARE BOOTSTRAP,
+/
+/		2.) WHEN THE PRIMARY BOOTSTRAP EXECUTES, IT
+/			READS IN THE SECONDARY BOOTSTRAP,
+/
+/		3.) WHEN THE SECONDARY BOOTSTRAP EXECUTES, IT
+/			READS IN THE SYSTEM BOOTSTRAP, WHICH
+/			LOADS THE CRITICAL PARTS OF THE SYSTEM,
+/			AND STARTS IT.
+/
+/	THE FOLLOWING CHART SHOWS WHERE THE THE VARIOUS PIECES
+/		OF THE VARIOUS BOOTSTRAPS RESIDE ON THE
+/				DISKETTE.
+/
+/				CONTINUED
+/
+/*********************************************************************
+	XLIST
+
+	XLIST
+				EJECT
+/	** -0- ** DOCUMENTATION, CON'T. ****
+/*********************************************************************
+/
+/				CONTINUED
+/
+/
+/	BOOTSTRAP TYPE		TRACK		SECTOR(S)
+/	__________________________________________________	
+/
+/	HARDWARE (PROM)		NONE		NONE
+/
+/	PRIMARY		(SD)	1		1   (FULL)
+/			(DD)	1		1   (FIRST HALF ONLY)
+/
+/	SECONDARY	(SD)	1		4,7 (BOTH FULL)
+/			(DD)	1		3   (FULL)
+/
+/	SYSTEM		----	-		-
+/
+/		
+/*********************************************************************
+	XLIST
+
+	XLIST
+				EJECT
+/	** -0- ** MODEL PRIMARY BOOTSTRAP ****
+/-----------------------------------------------------------------------------------
+/
+/		THE FOLLOWING IS A LISTING OF THE PRIMARY HARDWARE BOOTSTRAP
+/		FOR THE RX01/RX02. NOTA BENE - THIS BOOTSTRAP WILL ATTEMPT TO
+/				BOOT EITHER DRIVE 0 OR DRIVE 1.
+/
+/
+/       0002                                  *SCNDBT	/ START ADDRESS OF SECONDARY BOOT.
+/             /---------------------------------------------------------------------
+/             /
+/             /************************ SECONDARY BOOTSTRAP ENTRY POINT ************
+/             /
+/             /---------------------------------------------------------------------
+/       0016                                  *BOOT1	/ START ADDRESS OF PRIMARY BOOT.
+/             /---------------------------------------------------------------------
+/             /
+/             /************************ PRIMARY BOOTSTRAP **************************
+/             /
+/             /---------------------------------------------------------------------
+/00016  6007  RZBOOT, CAF                     / INIT. BUS.-CPU.
+/00017  5033          JMP     RZBOO3          / INITIATE THE BOOT PROCESS.
+/00020  1061  RZBOO1, TAD     RZBOO0          / BUILD COMMAND.
+/00021  1046          TAD     RZBOO4          / SET,...
+/00022  0060          AND     RZBOO9          / ...UNIT AND,...
+/00023  3061          DCA     RZBOO0          / ......DENSITY.
+/00024  7327          CLA CLL CML IAC RTL     / BUILD A "READ SECTOR",...
+/00025  1061          TAD     RZBOO0          / ...COMMAND.
+/00026  6751          RXILCD                  / SEND COMMAND TO CONTROLLER.
+/00027  7301          CLA CLL IAC             / SET TO,...
+/00030  4053          JMS     RZBOO7          / ...READ SECTOR 1,...
+/00031  4053          JMS     RZBOO7          / ......TRACK 1.
+/00032  7004  RZBOO2, RAL                     / BUILD AN "EMPTY SILO" COMMAND.
+/             /---------------------------------------------------------------------
+/             /
+/             /************************ CRITICAL OVERLAY AREA 1 ********************
+/             /
+/             /---------------------------------------------------------------------
+/             /*********************************************************************
+/00033  6755  RZBOO3, RXISDN                  / DONE ?			/M006
+/00034  5054          JMP     RZBOO8          /  NO - WAIT FOR READY FIRST.
+/00035  6754          RXISER                  / YES - CORRECT DENSITY CHOSEN ?
+/             /*********************************************************************
+/             /---------------------------------------------------------------------
+/             /
+/             /************************ END CRITICAL OVERLAY AREA 1 ****************
+/             /
+/             /---------------------------------------------------------------------
+/
+/				CONTINUED NEXT PAGE
+/
+/------------------------------------------------------------------------------------
+	XLIST
+
+	XLIST
+/------------------------------------------------------------------------------------
+/
+/				CONTINUED
+/
+/
+/00036  7450          SNA                     / NO - TRY ALTERNATIVE DRIVE/DENSITY.
+/00037  5020          JMP     RZBOO1          / YES - TRANSFER A DATUM.
+/00040  1061          TAD     RZBOO0          / ISSUE THE,...
+/00041  6751          RXILCD                  / ...EMPTY SILO COMMAND.	/M006
+/00042  1061          TAD     RZBOO0          / ESTABLISH,...
+/00043  0046          AND     RZBOO4          / ...LINKAGE TO,...
+/00044  1032          TAD     RZBOO2          / ......THE SECONDARY,...
+/00045  3060          DCA     RZBOO9          / .........BOOT.
+/00046  0360  RZBOO4, 0360                    / - "MAGIC" CONSTANT -
+/             /---------------------------------------------------------------------
+/             /
+/             /************************ CRITICAL OVERLAY AREA 2 ********************
+/             /
+/             /---------------------------------------------------------------------
+/             /*********************************************************************
+/00047  4053  RZBOO5, JMS     RZBOO7          / TRANSFER A DATUM,...
+/00050  3002  RZBOO6, DCA     SCNDBT          / ...AND INSERT IT IN-LINE.
+/00051  2050          ISZ     RZBOO6          / INCREMENT THE "BUFFER" POINTER.
+/00052  5047          JMP     RZBOO5          / ...AND CONTINUE READING IN SECONDARY BOOT.
+/00053  0000  RZBOO7, 0                       / ### ENTRY POINT TO "READ" SUBROUTINE. ###
+/00054  6753  RZBOO8, RXISTR                  / CONTROLLER READY ?	/M006
+/00055  5033          JMP     RZBOO3          / NO - CHECK FOR DONE/CORRECT DENSITY.
+/00056  6752          RXIXDR                  / YES - LOAD A DATUM,...	/M006
+/00057  5453          JMP I   RZBOO7          / ...AND RETURN TO CALLER.  /M005
+/00060  0420  RZBOO9, 0420                    / LINKAGE WITH SECONDARY BOOT.
+/00061  0020  RZBOO0, 0020                    / LINKAGE WITH ALTERNATE SECONDARY BOOT.
+/	      /*********************************************************************
+/             /---------------------------------------------------------------------
+/             /
+/             /************************ END CRITICAL OVERLAY AREA 2 ****************
+/             /
+/             /---------------------------------------------------------------------
+/
+/
+/			END OF PRIMARY BOOTSTRAP
+/
+/-----------------------------------------------------------------------------------
+	XLIST
+
+				EJECT
+/	** -0- ** SYMBOLIC DEFINITIONS ****
+/---------------------------------------------------------------------
+/
+/************************ SPECIAL SYMBOLIC DEFINITIONS ***************
+/
+/---------------------------------------------------------------------
+HACK=	" -1			/ DEFINITION OF THE "[H]ALF [A]SCII" [C]HARACTER [K]ONSTANT.
+PRBOOT=	2			/ LOAD POINT FOR THE PRIMARY BOOTSTRAP.
+BOOT02=	PRBOOT+60		/ LOAD POINT FOR THE REMAINING PRIMARY BOOT.
+
+				EJECT
+/	** -1- ** PRIMARY "WPS" BOOTSTRAP ****
+				FIELD	1	/ PRIMARY BOOTSTRAP IS ASSEMBLED IN FIELD 1.
+				PAGE	0
+				*PRBOOT		/ LOAD ADDRESS FOR PRIMARY BOOT.
+/---------------------------------------------------------------------
+/
+/************************ PRIMARY BOOTSTRAP HEADER *******************
+/
+/---------------------------------------------------------------------
+	HLT			/STRT ADDR OVERLAYED IN DD MODE
+BTRXID,	"#-HACK^100+" -HACK	/ ...PRIMARY
+BTTRAK,	"W-HACK^100+"P-HACK	/ ......BOOTSTRAP
+BTLSEC,	"D-HACK^100+"I-HACK	/ .........HEADER
+BTSECT,	"S-HACK^100+"K-HACK	/ ............PRECEEDS
+BTSCTR,	"/-HACK^100+"[-HACK	/ ...............ACTUAL
+	" -HACK^100+" -HACK	/ ..................BOOTSTRAP.
+	0
+	0
+/---------------------------------------------------------------------
+/
+/************************ SPARE AUTO-INDEX AREA **********************
+/
+/---------------------------------------------------------------------
+
+/D008	IFDEF	WINNIE	.lt.						/A007
+BTTBUF,	RXDLDP-201							/M007
+BTBFRA,	RXDLDP-201							/M007
+BTBFRB,	RXDLDP-201							/M007
+/D008			.gt.	/ END IFDEF WINNIE			/A007
+/D008	IFNDEF	WINNIE	.lt.						/A007
+/D008BTTBUF,	RXDLDP-1
+/D008BTBFRA,	RXDLDP-1
+/D008BTBFRB,	RXDLDP-1
+/D008			.gt.	/ END IFNDEF WINNIE			/A007
+
+BTBFFR,	377							/C003
+MSK422,	422		/MASK FOR DENSITY,UNIT#,READ CODE	/M003
+/--------------------------------------------------------------------
+/
+/************************ SPARE MEMORY AREA **************************
+/
+/---------------------------------------------------------------------
+BTCMND,	22		/BITS=DD,UNIT#,READ
+MSK24,	2400		/ADD TO BTCMND TO ALTERNATELY SET UNIT & DENSITY
+BTINC,	JMP	BTPTCH		/ONE TIME JMP.  ON SUCCESFUL READ
+	ISZ	BTXFER			/SET DONE RETURN
+	JMP I	BTXFER			/RETURN
+/---------------------------------------------------------------------
+/
+/************************ "EMPTY SILO" OPERATION *********************
+/
+/---------------------------------------------------------------------
+BTMORE,	DCA I	BTBFFR		/ DEPOSIT DATUM IN CORE.
+BTEMPT,	JMS	BTXFER		/ TRANSFER A DATUM FROM SILO.
+	JMP	BTMORE		/ NOT DONE - REPEAT FOR ENTIRE SECTOR.
+/---------------------------------------------------------------------
+/
+/************************ OPERATION COMPLETION PROCESSOR *************
+/
+/---------------------------------------------------------------------
+BTDONE,	ISZ	BTSCTR		/ DONE - ALL SECTORS READ ?
+	JMP	BTNEXT		/ NO - READ NEXT.
+	JMP I	BTSCND		/ YES - ENTER SYSTEM BOOTSTRAP CODE.
+/---------------------------------------------------------------------
+/
+/************************ CRITICAL OVERLAY AREA 1 ********************
+/
+/---------------------------------------------------------------------
+BTBOO3, RXISDN			/ DONE ?				/M006
+	JMP	BTBOO8		/ NO - WAIT FOR READY FIRST.
+/---------------------------------------------------------------------
+/
+/************************ TRANSFER PRIMITIVE PART 2 - DONE ***********
+/
+/---------------------------------------------------------------------
+	CLA CLL			/ INSURE AC CLEAR FOR DONE RETURN
+	RXISER			/ERROR?					/M006
+	JMP	BTINC		/NO INC RET
+	SKP			/IS ERROR
+BTPTCH,	DCA	BTINC		/CLEAR JMP ON SUCCESSFUL DONE
+/D002	TAD	MSK360
+	TAD	MSK24		/ALTERNATE 24 & 2400			/A002
+	BSW								/A002
+	DCA	MSK24							/A002
+	TAD	MSK24		/GET IT					/A002
+	JMP	BTREAD		/ JUMP OVER CRITICAL AREA 2
+/---------------------------------------------------------------------
+/
+/************************ CRITICAL OVERLAY AREA 2 ********************
+/
+/---------------------------------------------------------------------
+BTBOO5, JMS	 BTBOO7		/ TRANSFER A DATUM
+BTBOO6, DCA	 BOOT02-1	/ ...AND INSERT IT IN-LINE.
+				BTOVLY=.
+/---------------------------------------------------------------------
+/
+/************************ DATA TRANSFER PRIMITIVE ********************
+/
+/---------------------------------------------------------------------
+		*BOOT02-7
+BTXFER,				/ ENTRY POINT TO "BTXFER".
+BTBOO7, 			/ ### ENTRY POINT TO "READ" SUBROUTINE. ###
+		*BOOT02-6
+BTBOO8, 			/ CONTROLLER READY ?
+/	RXISTR			/ CONTROLLER READY TO TRANSFER DATA ?	/M006
+/	JMP	BTBOO3		/ NO - WAIT FOR IT.
+/	RXIXDR			/ YES - TRANSFER A DATUM.		/M006
+/	JMP I	BTXFER		/ RETURN TO CALLER.			/M005
+/---------------------------------------------------------------------
+		*BOOT02-2
+BTUNIT,				/ HARDWARE BOOTSTRAP COMMAND WORD.
+BTBOO9, 			/ LINKAGE WITH SECONDARY BOOT.
+		*BOOT02-1
+BTBOO0, 			/ LINKAGE WITH ALTERNATE SECONDARY BOOT.
+/---------------------------------------------------------------------
+/
+/************************ END CRITICAL OVERLAY AREA 2 ****************
+/
+/---------------------------------------------------------------------
+				EJECT
+				*BTOVLY
+				RELOC	BOOT02
+/---------------------------------------------------------------------
+/
+/************************ SET THE CORRECT SECTOR COUNT ***************
+/
+/---------------------------------------------------------------------
+BTREAD,	
+	TAD	BTCMND
+	AND	MSK422		/KEEP DENSITY,UNIT# AND READ CODE
+	DCA	BTCMND		/ ......DENSITY BIT IN COMMAND WORD
+	TAD	BTCMND		/ LOAD THE COMMAND
+	RTL			/ ...AND ISOLATE
+	RTL			/ ......DENSITY BIT IN THE LINK
+	CLA CMA RAL		/ .........THEN BUILD
+	DCA	BTSCTR		/ ............THE CORRECT SECTOR COUNT.
+/---------------------------------------------------------------------
+/
+/************************ CALCULATE CORRECT BASE SECTOR **************
+/
+/---------------------------------------------------------------------
+	IAC			/ CALCULATE THE PROPER (SD OR DD)/D003/C004
+/D004	TAD	BTSCTR		/SET FOR INTERLEAVE		/A003
+/D004	CMA			/0 FOR DD 1 FOR SD		/A003
+	DCA	BTSECT		/ ......PHYSICAL SECTOR NUMBER.
+/---------------------------------------------------------------------
+/
+/************************ PHYSICAL "READ" OPERATION ******************
+/
+/---------------------------------------------------------------------
+BTNEXT,	AC0004			/ SET THE PHYSICAL I/O BIT
+	TAD	BTCMND		/ ...AND SUBMIT COMMAND TO CONTROLLER.
+	RXILCD								/M006
+	AC0003			/ LOAD SECTOR # TO READ
+	TAD	BTSECT		/ ...INCREMENT IT BY INTERLEAVE
+	JMS	BTXFER		/ ......SUBMIT IT TO CONTROLLER
+	DCA	BTSECT		/ .........AND SAVE IT AGAIN
+	CLA CLL IAC		/ LOAD "BOOT" TRACK NUMBER,...
+	JMS	BTXFER		/ ...AND SUBMIT IT TO CONTROLLER ALSO.
+	JMS	BTXFER		/ WAIT FOR CONTROLLER "DONE"
+BTSCND,			/LOC 400 = DD BIT USED TO SAVE SPACE/A003
+BTDENS,	400
+/D003	BTSCND,	200			/ (SPARE) ADDRESS OF SECONDARY BOOT
+/---------------------------------------------------------------------
+/
+/************************ LOGICAL "READ" OPERATION *******************
+/
+/---------------------------------------------------------------------
+	TAD	BTCMND		/ GET "EMPTY SILO" COMMAND
+	RXILCD			/ ...AND SUBMIT IT TO CONTROLLER.	/M006
+	JMP	BTEMPT		/ GO EMPTY THE SILO
+				/
+
+			SPARE=	100-.+BTREAD-BTOVLY+PRBOOT
+			RELOC	/ BACK TO ORIGINAL ORIGIN.
+
+				EJECT
+/	** -0- ** SYMBOLIC DEFINITIONS ****
+/---------------------------------------------------------------------
+/
+/************************ SPECIAL SYMBOLIC DEFINITIONS ***************
+/
+/---------------------------------------------------------------------
+				EJECT
+/	** -1- ** SECONDARY BOOTSTRAP ****
+			FIELD	1	/ BOOT IS ASSEMBLED IN FIELD 1.
+				PAGE	2	/ USE SCND PAGE OF FIELD.
+/---------------------------------------------------------------------
+/
+/************************ PATCH TRANSFER ROUTINE FOR SECONDARY *******
+/
+/---------------------------------------------------------------------
+W2BOOT,	AC0001			/
+	JMS	TTY		/TYPE A=GOT IN THIS FAR
+	TAD	BTHALT		/ PUT A HALT INSTRUCTION AT THE END
+	DCA	BTPTCH		/ ...OF THE ERROR BRANCH
+	AC0002			/
+	JMS	TTY		/B=UNIT 0 OK
+/---------------------------------------------------------------------
+/
+/************************ DETERMINE DISKETTE DENSITY *****************
+/
+/---------------------------------------------------------------------
+	TAD	BTCMND		/ LOAD COMMAND FROM PRIMARY BOOT.
+	RTL			/ ISOLATE "SD"/"DD"
+	RTL			/ ...IN REGISTER AS "0" OR "1"
+	CLA RAL			/ ......AND SAVE IT.
+	DCA	BTRXID
+/---------------------------------------------------------------------
+/
+/**************** DETERMINE WHETHER RX01/RX02 DRIVE ******************
+/
+/---------------------------------------------------------------------
+	TAD	PRX02		/DO A REQUEST FOR STATUS
+	TAD	BTCMND		/ADD DENSITY
+	RXILCD			/  ...					/M006
+	RXISDN								/M006
+	JMP .-1			/ WAIT FOR DONE.
+	RXIXDR			/ GET STATUS RESPONSE.			/M006
+	AND	PRX02		/ ISOLATE THE RX02 BIT.
+	SNA CLA			/ SKIP IF RX02 (RX28 DRIVE).
+	DCA	BTLCM2		/ ZAP THE RX02 LCD 2ND XFR COMMAND.
+/---------------------------------------------------------------------
+/
+/************************ ADJUST MODE (8B/12B) TO DENSITY ************
+/
+/---------------------------------------------------------------------
+/D003	TAD	BTCMND		/ GET COMPLEMENT OF DENSITY BIT
+/D003	TAD	BTDENS		/ ...FROM COMMAND WORD.
+/D003	AND	BTDENS
+/D003	CLL RTR			/ ROTATE IT INTO 8/12 BIT OF
+	TAD	BTRXID		/0=DD 1=SD			/A003
+	SNA CLA			/IS DD?				/A003
+	IAC BSW			/NO SET 8 BIT MODE		/A003
+	TAD	BTCMND		/ ...COMMAND WORD.
+	DCA	BTCMND
+/---------------------------------------------------------------------
+/
+/************************ CALCULATE LOGICAL SECTOR NUMBER ************
+/
+/---------------------------------------------------------------------
+	TAD	BTRXID		/ LOAD THE DENSITY PARAMETER
+	SNA CLA			/ ......DOUBLE DENSITY ?
+	TAD	BTBLKN		/ NO - MAKE IT 3*BLOCK NUM
+	TAD	BTBLKN		/ YES - MAKE IT 2*BLOCK NUM
+	TAD	BTBLKN
+	DCA	BTLSEC		/ ......AND SAVE IT.
+///	CDF	DRVFLD
+
+				EJECT
+/	** -1- ** RX01/RX02 SECTOR READ PROCESSOR ****
+/---------------------------------------------------------------------
+/
+/************************ RX01/RX02 PROCESS DISPATCHER ***************
+/
+/---------------------------------------------------------------------
+NXTBLK,	TAD	BTRXID		/ "DD" OPERATION ?
+	SZA CLA
+	JMP	BTDBLD		/ YES - SKIP THE "UNPACK" PROCESS
+/---------------------------------------------------------------------
+/
+/************************ SD - UNPACK FIRST SECTOR OF BLOCK **********
+/
+/---------------------------------------------------------------------
+	JMS	BTPHYS		/ EFFECT A "READ SECTOR" OPERATION.
+	JMP	BTUNPK		/ ENTER UNPACKING LOOP
+DXUNPK,	MQL			/ SAVE DATA BYTE
+	MQA			/ UNPACK FIRST NYBBLE
+	RTR			/ ...ALIGN TO HO END
+	BSW
+	AND	DXNMSK		/ ......ISOLATE HIGH 4 BITS
+	DCA I	BTTBUF		/ .........AND PUT IT AWAY
+	MQA			/ UNPACK SECOND NYBBLE
+	RTL			/ ...ALIGN TO HO END
+	BSW
+	AND	DXNMSK		/ ......ISOLATE HIGH 4 BITS
+	DCA I	BTTBUF		/ .........AND PUT IT AWAY
+BTUNPK,	JMS	BTXFER		/ GET DATA BYTE FROM SECTOR
+	JMP	DXUNPK		/ (TR) ...AND GO UNPACK IT
+/---------------------------------------------------------------------
+/
+/************************ READ 2 SECTORS, SD OR DD *******************
+/
+/---------------------------------------------------------------------
+BTDBLD,	AC7776			/ (DN) SET SECTOR COUNT
+	DCA	BTSCTR
+DYNEXT,	JMS	BTPHYS		/ EFFECT A "READ SECTOR" OPERATION.
+	SKP			/ ENTER THE "MERGE" LOOP
+DYREAD,	DCA I	BTBFRB		/ SAVE WORD IN BUFFER.
+	TAD I	BTBFRA		/ LOAD CURRENT CONTENTS OF BUFFER.
+	JMS	BTXFER		/ LOAD A DATUM.
+				/#(8 BIT MODE => INCLUSIVE OR INTO BITS 4-11)
+				/#(12 BIT MODE => JAM XFER BITS 0-11)
+	JMP	DYREAD		/ (TR) CONTINUE FETCHING DATA
+	CLA  CMA			/-1
+	TAD	BTBFRA		/RESET PTR TO LAST CHAR
+	DCA	BTBFRA		/RESTORE
+	ISZ	BTSCTR		/ (DN) ALL SECTORS PROCESSED ?
+	JMP	DYNEXT		/ NO - PROCESS NEXT.
+/---------------------------------------------------------------------
+/
+/************************ COMPLETION PROCESSOR ***********************
+/
+/---------------------------------------------------------------------
+	ISZ	BTBCTR		/ YES - ALL BLOCKS PROCESSED ?
+	JMP	NXTBLK		/ NO - DO ANOTHER BLOCK.
+	AC0003			/
+	JMS	TTY		/C=LOADER GOT IN OK
+/--------------------------------------------------------------------
+/
+/***************** CHECK DEVICE NO ************************************
+/
+/----------------------------------------------------------------------
+	TAD	BTCMND
+	AND	MSK20		/MASK OUT UNIT NO
+	SZA CLA			/0=UNIT 0
+	DOCSKP=.		/RXPRDF LDNOP SHOULD BE EQUAL THIS ADDRESS/A018
+	JMP I	PRTMSG			/NOT UNIT 0
+///	CIF	DRVFLD
+	JMP I	WPSTRT		/ YES - START SYSTEM.
+/--------------------------------------------------------------------
+/
+/*********** OUTPUT 1 CHAR   ******************************************
+/
+/-----------------------------------------------------------------------
+TTY,	0
+	TAD	P100		/ MAKE ASCII.
+	TLS
+	TSF			/WAIT TILL DONE
+	JMP .-1
+	CLA
+	JMP I	TTY		/RETURN
+/--------------------------------------------------------------------
+/
+/****************** WRONG UNIT***************************************
+/		PRINT ERROR MSG
+/----------------------------------------------------------------------
+PRTMSG,	DCSTRT		/START ADDRESS OF MESSAGE		/A002
+/D002DRIVE1,	TAD	AY
+/D002	JMS	TTY
+///	CMA			/-1 IN AC
+/D002	JMP	.
+				EJECT
+/	** -1- ** PHYSICAL I/O AND "EMPTY" COMMAND ROUTINE ****
+/---------------------------------------------------------------------
+/
+/**************** ROUTINE TO EFFECT A "READ SECTOR" OPERATION ********
+/
+/---------------------------------------------------------------------
+BTPHYS,	0
+/---------------------------------------------------------------------
+/
+/************************* CALCULATE PHYSICAL & TRACK SECTOR *********
+/
+/---------------------------------------------------------------------
+	DCA	BTTRAK		/ INITIALISE TRACK #.
+	TAD	BTLSEC		/ LOAD THE LOGICAL SECTOR #.
+BTDIV1,	ISZ	BTTRAK		/ INCREMENT THE TRACK #.
+	DCA	BTSECT		/ SAVE THE SECTOR #,...
+	TAD	BTSECT		/ ...THEN RETREIVE IT.
+	TAD	BTDVSR		/ "SUBTRACT" THE # OF SECTORS/TRACK.
+	SMA			/ OVERFLOW ?
+	JMP	BTDIV1		/ NO - CONTINUE.
+	CLA CLL			/ YES - ENSURE REGISTER CLEAR
+/---------------------------------------------------------------------
+/
+/************************ INTERLEAVE SECTORS *************************
+/
+/---------------------------------------------------------------------
+/D004	TAD	BTRXID		/DD?				/A003
+/D004	SNA CLA			/YES 2*MQ			/A003
+	TAD	BTSECT		/ BUILD 3*Q.
+	TAD	BTSECT		/
+	TAD	BTSECT
+BTDIV2,	DCA	BTSECT		/ SAVE "PHYSICAL" SECTOR #.
+	TAD	BTSECT		/ RETREIVE "PHYSICAL" SECTOR #.
+/D004	TAD	BTRXID		/ ADJUST MODULUS FOR DENSITY TYPE.
+	TAD	BTDVSR		/ "SUBTRACT" # SECTORS/TRACK.
+P100,	SMA			/ OVERFLOW ?
+	JMP	BTDIV2		/ NO - REPEAT UNTIL OVERFLOW.
+	ISZ	BTSECT		/ YES - INCR TO BUILD CORRECT PHYSICAL SECTOR.
+/---------------------------------------------------------------------
+/
+/************************ EMIT PHYSICAL I/O COMMANDS *****************
+/
+/---------------------------------------------------------------------
+	AC0004			/ SET "PHYSICAL" BIT
+	JMS	BTLCMD
+	TAD	BTSECT		/ () GET PHYSICAL SECTOR
+	JMS	BTXFER		/ () ...AND SEND IT
+	CLA			/ (TR) "RXIXDR" DOESN'T CLEAR AC
+	TAD	BTTRAK		/ (DN) GET PHYSICAL TRACK
+	JMS	BTXFER		/ ...AND SEND IT
+	JMS	BTXFER		/ (TR) WAIT FOR CONTROLLER DONE
+DXNMSK,	7400			/ (DN) (TR) (SPARE)
+/---------------------------------------------------------------------
+/
+/************************ EMIT LOGICAL I/O COMMAND *******************
+/
+/---------------------------------------------------------------------
+	JMS	BTLCMD
+/---------------------------------------------------------------------
+	ISZ	BTLSEC		/ BUMP LOGICAL SECTOR FOR NEXT TIME
+	JMP I	BTPHYS		/ EXIT FROM PHYSICAL I/O ROUTINE
+/--------------------------------------------------------------------
+/
+/********************EMIT COMMAND PRIMITIVE***************************
+/
+/----------------------------------------------------------------------
+BTLCMD,	0
+	TAD	BTCMND
+	RXILCD								/M006
+	TAD	BTRXID
+	SNA CLA
+BTLCM2,	JMS	BTXFER
+	CLA
+	JMP I	BTLCMD
+
+/---------------------------------------------------------------------
+/
+/************************ LOCAL STORAGE DECLARATIONS *****************
+/
+/---------------------------------------------------------------------
+BTDVSR,	-32			/ LOCAL STORAGE FOR THE TRACK/SECTOR CONSTANT.
+BTBLKN,	3
+BTBCTR,	-DSRXLD			/ LOCAL STORAGE FOR THE BLOCK COUNTER.
+MSK20,	20			/UNIT MASK
+/D002AY,	"Y&77
+BTHALT,	HLT			/ THIS WILL PATCH BTPTCH	/M002
+	WPADDR=.-200		/THIS ADDRESS SHOULD BE = LDSTRT IN RXPRDF/M004
+WPSTRT,	RXDRIN			/ ENTRY POINT TODRIVER SYSTEM INIT LOAD   /M004
+/D002P12,	12				/REQUEST FOR STATUS
+PRX02,	10			/RX02 BIT IN STATUS RESPONSE	/M002
+				PAGE
+
+/---------------------------------------------------------------------
+/
+/************************ END-OF-FILE ********************************
+/
+/---------------------------------------------------------------------
+$				/ END-OF-FILE.
+
+
+                                                                                                            
+

@@ -1,0 +1,454 @@
+/WPFBTB V1.0
+/
+/
+/	WPFBTB V1.0 CREATED 21st MAY 1985
+/
+/	WPFBTB is a file containing all the the 8 bit fallback entries
+/
+/	Edit history:-
+/	
+/	002	Mart 	20-aug-1985	PWITFR italian French 2 printwheel
+/					PWDECM multinational printwheel
+/	001	Mart	21-may-1985	Creation 
+/
+
+/
+/	************************************************************************
+/	*									*
+/	************************************************************************
+/
+
+/ This table consists of two sections
+/
+/       The 1st is a list of one word pointers to the second section
+/               each entry defines a character in the DEC supplemental
+/               character set characters 41 to 177
+//
+/       The 2nd section contains a list of:
+/               3  word pairs
+/           or  2  word pairs and a zero terminator
+/           or  1  word pair  and a zero terminator
+//
+/       each word pair contains:
+/               a word that defines one of the seven bit fallback chars
+/                eg. "x&177   defines the seven bit char x
+//
+/               a word that defines the vertical and horizontal offsets
+/               of its character.
+/                eg mmnn  where mm represents the relative vertical motion in
+/               48ths of an inch (in octal) from its usual print
+/               position.
+/                       nn represents the relative horizontal motion
+/               in 120ths in.
+//
+/               If the top bit of these 6bit bytes are set the the
+/               motion will be in the negative (decreasing) direction.
+//
+//
+/               To get the decimal value to send to the printer in
+/               positioning unit mode (PUM) units (see the LQP02 manual)
+/               the unsigned vertical motion is multiplied by 15
+/               converted to ASCII and sent to the printer in the following
+/               escape sequence.
+//
+/               ESC [ Pn e      to increment the line by Pn
+/               ESC [ Pn k      to decrement the line by Pn
+//
+/               the unsigned horizontal motion is multiplied by 6
+/               converted to ASCII and sent to the printer in the following
+/               escape sequence.
+//
+/               ESC [ Pn a      to increment the line by Pn
+/               ESC [ Pn j      to decrement the line by Pn
+//
+/       After any one of the possible 3 characters has been printed the
+/       print head is repositioned to its character zero position with
+/       the opposite of the above commands.
+//
+/       The ESC # 9 (Perform pending motion) has been added to ensure
+/       the print head is in the correct position befor printing the
+/       character.
+//
+/EXAMPLE
+/       The escape sequence to send 1/2
+//
+/               if the printer is not in PUM mode then set PUM and
+/               move to the centre of the character
+/
+/       ESC [ 1 1 h                     / go into PUM
+/       ESC [ 3 6 a                     / move half a character width
+/
+/
+/       ESC [ 4 5 k                     / decrement vertical position 3/48ths
+/       ESC [ 1 8 j                     / dec. horizontal 3/120ths
+/       ESC # 9                         / perform pending motion
+/       1                               / the character 1
+/       ESC [ 4 5 e                     / inc vertical 3/48ths
+/       ESC [ 1 8 a                     / inc horizontal 3/120ths
+/       ESC # 9                         /
+/       /                               / the character /
+/       ESC [ 4 5 e                     / inc vertical 3/48ths
+/       ESC [ 1 2 a                     / inc horizontal 2/120ths
+/       ESC # 9                         /
+/       2                               / the character 2
+/       ESC [ 4 5 k                     / dec vertical 3/48ths
+/       ESC [ 1 2 j                     / dec horizontal 2/120ths
+/       ESC # 9
+/
+/               if required move to start of the next character
+/               position and reset PUM
+/
+/       ESC [ 3 6 a                     / move half a character space
+/       ESC [ 1 1 l                     / reset PUM
+
+/****************  N. B. *****************
+/ Unfortunately the table had to be modified to make the code shorter
+/ The vertical definition is now coded so that table definition is
+/ twice the motion required (i.e it is multiplied by 3 before output)
+/ And the horizontal component is 3 times the required motion (It has to 
+/ be multiplied by 2 to output in PUM mode).
+/****************  N. B. *****************
+
+
+/ Module load instructions for RXHAN
+
+	FIELD	0		/ field where RXHAN is located
+	*200			/ start address used by OS8 GO command
+	JMP I	.+3		/ location used to startup RXHAN
+	JMP I	.+1		/ location used to return to OS8 from RXHAN
+	7605			/ address of OS8 monitor
+	RXLOAD			/ address of start location for RXHAN
+	
+	*RXLDLS			/ address within RXHAN to overlay
+	RXEWT			/ write function code
+	0			/ ?????? me neither
+	RXQBLK			/ address of queue block to use
+	.			/ address of table of disk commands
+
+	DLFTHL	; 3000; CDF 70; -DSFTHL	/table area
+
+	0			/ list terminator
+
+
+	*400
+
+	FIELD 7
+
+	*3000			/ put the table at loc 3000
+				/ it will be moved to panel at this address
+
+FBTBL,
+
+	SPACE8			/ eight bit space
+	UDBANG			/ upside down bang
+	CENT			/
+	POUND			/ pound sterling
+	0			/ not used
+	YEN			/ 
+	0			/
+	SECTION			/
+	CURRENCY		/ universal currency
+	COPYRIGHT		/
+	FEMININE		/ feminine ordinal
+	LEFTANGLE		/ double left angle quotation mark
+	0
+	0
+	0
+	0
+	DEGREE			/
+	PLUSMINUS		/
+	SUPER2			/ superscript 2
+	SUPER3			/ superscript 3
+	0
+	MICRO			/ micro , mu
+	PILCROW			/ pilcrow,paragraph
+	MIDDLEDOT		/
+	0
+	SUPER1			/ superscript 1
+	MASCULINE		/ masculine ordinal
+	RIGHTANGLE		/ double right angle quotation mark
+	QUARTER			/ 1/4
+	HALF			/ 1/2
+	0
+	INVQUESTION		/ inverted question mark
+	AGRAVE			/ A-grave
+	AACUTE			/ A-acute
+	ACIRCU			/ A-circumflex
+	ATILDE			/ A-tilde
+	AUMLAUT			/ A-umlaut
+	ARING			/ A-ring
+	AEDIPTH			/ AE dipthong
+	CCIDILLA		/ C cidilla
+	EGRAVE			/ E-grave
+	EACUTE			/ E-acute
+	ECIRCU			/ E-circumflex
+	EUMLAUT			/ E-umlaut
+	IGRAVE			/ I-grave
+	IACUTE			/ I-acute
+	ICIRCU			/ I-circumflex
+	IUMLAUT			/ I-umlaut
+	0
+	NTILDE			/ N-tilde
+	OGRAVE			/ O-grave
+	OACUTE			/ O-acute
+	OCIRCU			/ O-circumflex
+	OTILDE			/ O-tilde
+	OUMLAUT			/ O-umlaut
+	OELIGATURE		/ OE ligature
+	OSLASH			/ O slash
+	UGRAVE			/ U-grave
+	UACUTE			/ U-acute
+	UCIRCU			/ U-circumflex
+	UUMLAUT			/ U-umlaut
+	YUMLAUT			/ Y-umlaut
+	0
+	SHARPS			/ german sharp s
+	LAGRAVE			/ a-grave
+	LAACUTE			/ a-acute
+	LACIRCU			/ a-circumflex
+	LATILDE			/ a-tilde
+	LAUMLAUT		/ a-umlaut
+	LARING			/ a-ring
+	LAEDIPTH		/ ae dipthong
+	LCCIDILLA		/ c cidilla
+	LEGRAVE			/ e-grave
+	LEACUTE			/ e-acute
+	LECIRCU			/ e-circumflex
+	LEUMLAUT		/ e-umlaut
+	LIGRAVE			/ i-grave
+	LIACUTE			/ i-acute
+	LICIRCU			/ i-circumflex
+	LIUMLAUT		/ i-umlaut
+	0
+	LNTILDE			/ n-tilde
+	LOGRAVE			/ o-grave
+	LOACUTE			/ o-acute
+	LOCIRCU			/ o-circumflex
+	LOTILDE			/ o-tilde
+	LOUMLAUT		/ o-umlaut
+	LOELIGATURE		/ oe ligature
+	LOSLASH			/ o slash
+	LUGRAVE			/ u-grave
+	LUACUTE			/ u-acute
+	LUCIRCU			/ u-circumflex
+	LUUMLAUT		/ u-umlaut
+	LYUMLAUT		/ y-umlaut
+	0
+	0
+ 
+/***************************************************************************
+
+SPACE8,		0					/dummy char gives space
+IFDEF PWDECM <
+UDBANG,		".&177;0;"|&177;0300;".&177;5500	/ upside down bang
+CENT,		"c&177;0;"|&177;0;0		/
+		>
+IFDEF PWITFR <
+UDBANG,		"!&177;0;0	/ upside down bang not available
+CENT,		"c&177;0;0		/ cent n.a
+		>
+IFDEF PWDECM <
+POUND,		"f&177;0;"_&177;4400;0			/ pound sterling
+>
+IFDEF PWITFR <
+POUND,		"#&177;0;0			/ pound sterling
+>
+YEN,		"Y&177;0;"-&177;0200;0		/ 
+IFDEF PWDECM <
+SECTION,	"s&177;0000;"s&177;0400;0		/
+>
+IFDEF PWITFR <
+SECTION,	"@&177;0;0		/
+>
+CURRENCY,	"O&177;0;"X&177;0;0		/ universal currency
+COPYRIGHT,	"(&177;0057;"c&177;4100;")&177;0017		/
+FEMININE,	"a&177;4400;"-&177;0300;0		/ feminine ordinal
+LEFTANGLE,	"<&177;0046;"<&177;0006;0		/ double left angle quotation mark
+
+IFDEF PWDECM <
+DEGREE,		"o&177;5100;0			/
+	>
+IFDEF PWITFR <
+DEGREE,		"[&177;4600;0			/ exist on PWITFR pw
+	>
+PLUSMINUS,	"+&177;4300;"_&177;4400;0		/
+SUPER2,		"2&177;5100;0			/ superscript 2
+SUPER3,		"3&177;5100;0			/ superscript 3
+MICRO,		"u&177;0;",&177;0051;0		/ micro , mu
+IFDEF PWDECM <
+PILCROW,	"q&177;4300;"|&177;0;0		/ pilcrow,paragraph
+	>
+IFDEF PWITFR <
+PILCROW,	"q&177;4300;0		/ no vert bar anvailable  for pilcrow,paragraph
+	>
+MIDDLEDOT,	".&177;4400;0			/
+SUPER1,		"1&177;5100;0			/ superscript 1
+MASCULINE,	"o&177;4400;"-&177;0300;0		/ masculine ordinal
+RIGHTANGLE,	">&177;0046;">&177;0006;0		/ double right angle quotation mark
+QUARTER,	"/&177;0;"1&177;4651;"4&177;0611	/ 1/4
+HALF,		"/&177;0;"1&177;4651;"2&177;0611	/ 1/2
+INVQUESTION,	"c&177;0346;";&177;4606;0		/ inverted question mark
+
+IFDEF PWDECM <
+AGRAVE,		"A&177;0;"`&177;4300;0		/ A-grave
+>
+IFDEF PWITFR <
+AGRAVE,		"A&177;0;0		/ A-  no grave
+>
+AACUTE,		"A&177;0;"'&177;4400;0		/ A-acute
+ACIRCU,		"A&177;0;"^&177;4300;0		/ A-circumflex
+IFDEF PWDECM <
+ATILDE,		"A&177;0;"~&177;4300;0		/ A-tilde
+	>
+IFDEF PWITFR <
+ATILDE,		"A&177;0;0		/ A- no tilde
+	>
+AUMLAUT,	"A&177;0;".&177;5251;".&177;5211	/ A-umlaut
+IFDEF PWDECM <
+ARING,		"A&177;0;"o&177;5100;0		/ A-ring
+	>
+IFDEF PWITFR <
+ARING,		"A&177;0;"[&177;4300;0		/ A-ring
+	>
+AEDIPTH,	"A&177;0046;"E&177;0006;0		/ AE dipthong
+CCIDILLA,	"C&177;0;",&177;0203;0		/ C cidilla
+IFDEF PWDECM <
+EGRAVE,		"E&177;0;"`&177;4300;0		/ E-grave
+>
+IFDEF PWITFR <
+EGRAVE,		"E&177;0;0		/ E-  no grave
+>
+EACUTE,		"E&177;0;"'&177;4400;0		/ E-acute
+ECIRCU,		"E&177;0;"^&177;4300;0		/ E-circumflex
+EUMLAUT,	"E&177;0;".&177;5251;".&177;5211	/ E-umlaut
+IFDEF PWDECM <
+IGRAVE,		"I&177;0;"`&177;4300;0		/ I-grave
+>
+IFDEF PWITFR <
+IGRAVE,		"I&177;0;0		/ I-grave
+>
+IACUTE,		"I&177;0;"'&177;4400;0		/ I-acute
+ICIRCU,		"I&177;0;"^&177;4300;0		/ I-circumflex
+IUMLAUT,	"I&177;0;".&177;5251;".&177;5211	/ I-umlaut
+
+IFDEF PWDECM <
+NTILDE,		"N&177;0;"~&177;4300;0		/ N-tilde
+OGRAVE,		"O&177;0;"`&177;4300;0		/ O-grave
+	>
+IFDEF PWITFR <
+NTILDE,		"N&177;0;0		/ N-  no tilde
+OGRAVE,		"O&177;0;0		/ O-  no grave
+	>
+OACUTE,		"O&177;0;"'&177;4400;0		/ O-acute
+OCIRCU,		"O&177;0;"^&177;4300;0		/ O-circumflex
+IFDEF PWDECM <
+OTILDE,		"O&177;0;"~&177;4300;0		/ O-tilde
+	>
+IFDEF PWITFR <
+OTILDE,		"O&177;0;0		/ O-  no tilde
+	>
+OUMLAUT,	"O&177;0;".&177;5251;".&177;5211	/ O-umlaut
+OELIGATURE,	"O&177;0051;"E&177;0011;0		/ OE ligature
+OSLASH,		"O&177;0;"/&177;0;0		/ O slash
+IFDEF PWDECM <
+UGRAVE,		"U&177;0;"`&177;4300;0		/ U-grave
+>
+IFDEF PWITFR <
+UGRAVE,		"U&177;0;0		/ U-  no grave
+>
+UACUTE,		"U&177;0;"'&177;4400;0		/ U-acute
+UCIRCU,		"U&177;0;"^&177;4300;0		/ U-circumflex
+UUMLAUT,	"U&177;0;".&177;5251;".&177;5211	/ U-umlaut
+YUMLAUT,	"Y&177;0;".&177;5251;".&177;5211	/ Y-umlaut
+
+SHARPS,		"B&177;0;",&177;0053;0		/ german sharp s
+IFDEF PWDECM <
+LAGRAVE,	"a&177;0;"`&177;0;0		/ a-grave
+>
+IFDEF PWITFR <
+LAGRAVE,	"{&177;0;0		/ a-grave
+>
+LAACUTE,	"a&177;0;"'&177;4300;0		/ a-acute
+LACIRCU,	"a&177;0;"^&177;0;0		/ a-circumflex
+IFDEF PWDECM <
+LATILDE,	"a&177;0;"~&177;0;0		/ a-tilde
+	>
+IFDEF PWITFR <
+LATILDE,	"a&177;0;0		/ a-  no tilde
+	>
+LAUMLAUT,	"a&177;0;".&177;5051;".&177;5011	/ a-umlaut
+IFDEF PWDECM <
+LARING,		"a&177;0;"o&177;4600;0		/ a-ring
+	>
+IFDEF PWITFR <
+LARING,		"a&177;0;"[&177;4300;0		/ a-ring
+	>
+LAEDIPTH,	"a&177;0051;"e&177;0011;0		/ ae dipthong
+IFDEF PWDECM <
+LCCIDILLA,	"c&177;0;",&177;0200;0		/ c cidilla
+	>
+IFDEF PWITFR <
+LCCIDILLA,	"\&177;0;0		/ c cidilla
+	>
+IFDEF PWDECM <
+LEGRAVE,	"e&177;0;"`&177;0;0		/ e-grave
+>
+IFDEF PWITFR <
+LEGRAVE,	"}&177;0;0		/ e-grave
+>
+IFDEF PWDECM <
+LEACUTE,	"e&177;0;"'&177;4300;0		/ e-acute
+>
+IFDEF PWITFR <
+LEACUTE,	"]&177;0;0		/ e-acute
+>
+LECIRCU,	"e&177;0;"^&177;0;0		/ e-circumflex
+LEUMLAUT,	"e&177;0;".&177;5051;".&177;5011	/ e-umlaut
+IFDEF PWDECM <
+LIGRAVE,	"i&177;0;"`&177;0;0		/ i-grave
+>
+IFDEF PWITFR <
+LIGRAVE,	"~&177;0;0		/ i-grave
+>
+LIACUTE,	"i&177;0;"'&177;4300;0		/ i-acute
+LICIRCU,	"i&177;0;"^&177;0;0		/ i-circumflex
+LIUMLAUT,	"i&177;0;".&177;5051;".&177;5011	/ i-umlaut
+
+IFDEF PWDECM <
+LNTILDE,	"n&177;0;"~&177;0;0		/ n-tilde
+LOGRAVE,	"o&177;0;"`&177;0;0		/ o-grave
+>
+IFDEF PWITFR <
+LNTILDE,	"n&177;0;0		/ n-  no tilde
+LOGRAVE,	"|&177;0;0		/ o-  no grave
+>
+LOACUTE,	"o&177;0;"'&177;4300;0		/ o-acute
+LOCIRCU,	"o&177;0;"^&177;0;0		/ o-circumflex
+IFDEF PWDECM <
+LOTILDE,	"o&177;0;"~&177;0;0		/ o-tilde
+>
+IFDEF PWITFR <
+LOTILDE,	"o&177;0;0		/ o-  no tilde
+>
+LOUMLAUT,	"o&177;0;".&177;5051;".&177;5011	/ o-umlaut
+LOELIGATURE,	"o&177;0051;"e&177;0011;0		/ oe ligature
+LOSLASH,	"o&177;0;"/&177;0200;0		/ o slash
+IFDEF PWDECM <
+LUGRAVE,	"u&177;0;"`&177;0;0		/ u-grave
+>
+IFDEF PWITFR <
+LUGRAVE,	"`&177;0;0		/ u-grave
+>
+LUACUTE,	"u&177;0;"'&177;4300;0		/ u-acute
+LUCIRCU,	"u&177;0;"^&177;0;0		/ u-circumflex
+LUUMLAUT,	"u&177;0;".&177;5051;".&177;5011	/ u-umlaut
+LYUMLAUT,	"y&177;0;".&177;5051;".&177;5011	/ y-umlaut
+
+
+/	PGFREE=	FBTBL+400-.	/ define spare in this block		/M015
+
+/	ZBLOCK PGFREE
+
+
+
+

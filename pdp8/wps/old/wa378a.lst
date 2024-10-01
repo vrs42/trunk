@@ -1,0 +1,512 @@
+   1               /MATH PREFIX FILE
+   2               
+   3               /       MODIFIED BY:
+   4               /
+   5               
+   6               /       024     KMD     23-Sep-85       Dutch Xlations
+   7               /       023     KMD     13-Sep-85       V30 Swedish & norwegen defs
+   8               /       022     KMD     06-Sep-85       Spanish specific changes
+   9               /       021     RCME    07-Aug-85       Add LEXASC locations (pp. KMD)
+  10               /       020     KMD     01-Aug-85       CHANGE RADIX SYMBOL FOR ITALS
+  11               /       019     RCME    11-Jun-85       Add loadout for MATH hole block
+  12               /
+  13               /------------------ All below refer to V2.0 and earlier ---------------------
+  14               /
+  15               /       018     WCE     01-JUN-83       EXPANDED SYMBOL TABLE BY REMOVING MTBL
+  16               /       017     DAO     25-OCT-81       ADDED RADIX CONSTANT (=".-200)
+  17               /                                       ADDED CURENCY CONSTANT (="$-200)
+  18               /       016     DAO     16-OCT-81       Changed write out code for BCDASC
+  19               /       015     DRH     15-OCT-81       LOCKED "MTHWRK" IN AT LOC 176,"MTHTOT"
+  20               /                                       AT 175, & "MTHTYP" AT 174
+  21               /       014     DRH     30-SEP-81       LOCKED "MTHSND" IN AT LOC 177
+  22               /       013     DRH     23-SEP-81       ADDED EDIT BEGIN/END WORK AREA FLAG
+  23               /                                       MATH CTRL BLOCK SECOND LINE FLAGS
+  24               /       012     DA0     14-SEP-81       CHANGED NUMBER DEFAULT DESIGNATION
+  25               /       011     DRH     14-SEP-81       ADDED EDITOR VS LP MATH MODE FLAG
+  26               /       010     GDH      2-Sep-81       Changed write-out code to component pieces.
+  27               /       009     JRF     11-AUG-81       Added LNEBIC definition
+  28               /       008     JRF     04-AUG-81       Added symbol definition for percent character.
+  29               /       007     JRF     28-JUL-81       Added CIFMNU equate
+  30               /       006     DAO/DRH 23-JUL-81       ADDED ERROR FOR FORMAT ALREADY GIVEN
+  31               /                                       TO RESULT VAR. IN CTRL BLOCK    
+  32               /       005     JRF     23-JUL-81       Moved error equates to WPF1.PA
+  33               /       004     DRH     17-JUL-81       ADDED ERROR - FORMULA FORMAT WRONG
+  34               /       003     DAO     14-JUL-81       /CHANGED WRITE-OUT CODE TO WRITE OUT
+  35               /                                       /BCDASC FROM FIELD 3
+  36               /       002     DAO     14-JUN-81       /MERGED BUFFER STUFF FROM EMATH.PA
+  37               /       001     DAO     14-JUN-81       /MERGED IN JOES PAGE 0 LOCATIONS FOR
+  38               /                                       /LEXIC,ASCBCD,AND RDLNBF
+  39               
+  40               
+  41               
+  42                       IFNDEF  DECDEV <
+  43               FIELD 2                 / ASSEMBLE IN FIELD 2 BECAUSE EMULATOR CAN'T
+  44               >                       / HANDLE MORE THAN 20K
+  45               
+  46                       IFDEF   DECDEV <
+  47               FIELD 5                 / ASSEMBLE IN FIELD 2 BECAUSE EMULATOR CAN'T
+  48               >                       / HANDLE MORE THAN 20K
+  49               
+  50               *100
+  51               
+  52               /VALUES USED IN CONTROL BLOCK EVALUATION CODE
+  53               
+  54 020100  0000  LNEPTR, 0               /POINTER TO INPUT LINE BUFFER
+  55 020101  0000  TRUNC,  0               /"TRUNCATE" FLAG
+  56               
+  57               /VALUES USED IN TRANSLATOR CODE
+  58               
+  59 020102  0000  OPDNXT, 0     /"OPERAND EXPECTED NEXT" FLG, IF TRUE THAN = 0,IF FALSE THAN = -
+  60 020103  0000  NXTPRS, 0     /"NEXT INPUT PROCESSED" FLAG, IF TRUE THAN = 0,IF FALSE THAN = -
+  61 020104  0000  NMEPTR, 0       /POINTER TO START OF INPUT OPERAND VARIABLE NAME /A001
+  62               /VLEPTR,0       /   "     "    "   "    "      "       "   VALUE /A001
+  63               /D018 MTHPTR,   0               /   "     " SYMBOL POINTER TABLE
+  64 020105  0000  OUTPTR, 0               /   "     " OUTPUT LIST
+  65 020106  0000  SYMPTR, 0               /   "     " SYMBOL TABLE
+  66 020107  0000  RESPTR, 0               /   "     " RESULTS POINTER TABLE                /A001
+  67 020110  0000  POSTSP, 0               /   "     " OPERATOR HANDLING STACK
+  68 020111  0000  SYMVAR, 0               /   "     " "OVRAGN" FOR VARIABLE NAME IN SYM TBL
+  69               TMPTR1=T3               /  "   " HOLD TEMPORARY POINTER
+undefined               ^
+  70               TMPTR2=T2               /  "   " HOLD A SECOND TEMPORARY POINTER
+undefined               ^
+  71               FDCLRT,                 / For usage, see LEXASC                         /a021
+  72 020112  0000  TKVLBP, 0               / For usage, see LEXASC                         /a021
+  73               NUMCC,                  / For usage, see LEXASC                         /a021
+  74               FNCHCD,                 / For usage, see LEXASC                         /a021
+  75 020113  0000  FUSLCT, 0               / For usage, see LEXASC                         /a021
+  76 020114  0000  TMPCTR, 0               /  "   " HOLD A TEMPORARY COUNTER
+  77 020115  0000  TOKEN,  0               /USED TO STORE TOKEN PASSED FROM LEXIC RTN (SCANNER)
+  78               
+  79               / VALUES USED IN MATH FORMULA EXECUTION
+  80               
+  81               OUTEXT, EXEOUT          /HOLDS THE RETURN ADDRESS OF 'OUTLST' MUST BE ON PAGE
+undefined              	     ^
+     020116  0000  
+  82                                       /ZERO BECAUSE THE RETURN FROM 'OUTLST' MAY BE ON A
+  83                                       /DIFFERENT PAGE THAN THE ENTRY POINT.
+  84               
+  85 020117  0000  OUTENT, 0               /ENTRY POINT USED TO INDIRECT THRU WHEN INVOKING
+  86                                       /FORMULA EXECUTION CODE. CONTAINS EITHER START OF
+  87                                       /OUTPUT LIST IF CONTROL WORD = "FORMULA" OR STARTING
+  88                                       /LOC IN OUTPUT LIST FROM WHICH TO EXECUTE FORMULA IN
+  89                                       /A "SET" CONTROL WORD LINE. NOTE - ONCE SET LINE
+  90                                       /FORMULA HAS BEEN EXECUTED, "OUTENT" IS DYNAMICALLY
+  91                                       /REINITIALIZED TO CONTAIN THE START OF THE OUTPUT
+  92                                       /LIST AGAIN.
+  93               
+  94               
+  95 020120  0000  TMP1,   0
+  96 020121  0000  TMP2,   0
+  97 020122  0000  TMP3,   0       / POINTER TO SA, LA, RA, SB, LB OR RB
+  98 020123  0000  TMP4,   0
+  99 020124  0000  TMP5,   0
+ 100 020125  0000  TMP6,   0
+ 101 020126  0000  TMP7,   0
+ 102 020127  0000  TMP8,   0
+ 103               FDCLTR,         /For usage, see LEXASC                                  /a021
+ 104               FNCHRC,         /For usage, see LEXASC                                  /a021
+ 105 020130  0000  TMP9,   0
+ 106 020131  0000  TMP10,  0
+ 107               PA,     A       / POINTER TO INPUT OPERAND
+undefined          	^
+     020132  0000  
+ 108               PB,     B       / POINTER TO OTHER INPUT OPERAND
+undefined          	^
+     020133  0000  
+ 109 020134  0000  LC,     0       / CALCULATED NUMBER OF DIGITS TO LEFT OF RESULT IF DIVISION
+ 110 020135  0000  CARRY,  0
+ 111 020136  0000  B1,     0       / RIGHT END OF SAC
+ 112 020137  0000  B2,     0       / ADDRESS OF RIGHT END OF B
+ 113 020140  0000  B3,     0       / WIDTH OF B
+ 114 020141  0000  B4,     0       / WIDTH OF C
+ 115               
+ 116 020142  0000  A1,     0       / ADS (ADD DIGIT ROUTINE) OR SBS (SUBTRACT DIGIT ROUTINE)
+ 117 020143  0000  A2,     0       / POINTER TO C
+ 118 020144  0000  A3,     0       / POINTER TO B
+ 119 020145  0000  A4,     0       / COUNTER FOR B
+ 120 020146  0000  A5,     0       / COUNTER FOR C
+ 121               
+ 122               /NOTE: THE FOLLOWING 6 WORDS
+ 123               /MUST BE CONTIGUOUS.
+ 124 020147  0000  SA,     0       / SIGN OF A (1=NEGATIVE, 0=POSITIVE)
+ 125 020150  0000  LA,     0       / NUMBER OF DIGITS TO LEFT OF DECIMAL POINT FOR A
+ 126 020151  0000  RA,     0       / NUMBER OF DIGITS TO RIGHT OF DECIMAL POINT FOR A
+ 127               
+ 128 020152  0000  SB,     0       / SIGN OF B (1=NEGATIVE, 0=POSITIVE)
+ 129 020153  0000  LB,     0       / NUMBER OF DIGITS TO LEFT OF DECIMAL POINT FOR B
+ 130 020154  0000  RB,     0       / NUMBER OF DIGITS TO RIGHT OF DECIMAL POINT FOR B
+ 131               
+ 132 020155  0000  GOBACK, 0       / RETURN ADDRESS FOR THE MATH ROUTINES
+ 133 020156  0000  TOP,    0       / POINTER TO TOP STACK ELEMENT
+ 134               
+ 135               INIT=JMS I .    / INSTRUCTION TO INITIALIZE PSUEDO-STACK MACHINE
+ 136                       PINIT   / ADDRESS OF INIT ROUTINE
+undefined       	    ^
+     020157  0000  
+ 137               
+ 138               ADD=JMS I .     / INSTRUCTION TO JMS TO ADD ROUTINE
+ 139                       PADD    / ADDRESS OF ADD ROUTINE
+undefined       	   ^
+     020160  0000  
+ 140               
+ 141               SUB=JMS I .     / INSTRUCTION TO JMS TO SUBTRACT ROUTINE
+ 142                       PSUB    / ADDRESS OF SUBTRACT ROUTINE
+undefined       	   ^
+     020161  0000  
+ 143               
+ 144               DIV=JMS I .     / INSTRUCTION TO JMS TO DIVIDE ROUTINE
+ 145                       PDIV    / ADDRESS OF DIVIDE ROUTINE
+undefined       	   ^
+     020162  0000  
+ 146               
+ 147               MUL=JMS I .     / INSTRUCTION TO JMS TO MULTIPLY ROUTINE
+ 148                       PMUL    / ADDRESS OF MULTIPLY ROUTINE
+undefined       	   ^
+     020163  0000  
+ 149               
+ 150               MINUS=JMS I .   / INSTRUCTION TO JMS TO MINUS ROUTINE
+ 151                       PMINUS  / ADDRESS OF ROUTINE TO NEGATE TOP STACKE ELEMENT
+undefined       	     ^
+     020164  0000  
+ 152               
+ 153               EQUATE=JMS I .  / INSTRUCTION TO JMS TO EQUATE ROUTINE
+ 154                       PEQUAT  / ADDRESS OF ROUTINE TO EQUATE TOP OF STACK TO
+undefined       	     ^
+     020165  0000  
+ 155               
+ 156               PUSH=JMS I .    / INSTRUCTION TO PUSH A VALUE ONTO THE STACK
+ 157                       PPUSH   / ADDRESS OF ROUTINE TO PUSH A VALUE ONTO THE STACK
+undefined       	    ^
+     020166  0000  
+ 158               
+ 159               
+ 160               /THE FOLLOWING PSEUDO-OP WOULD BE NICE HERE IF COULD FIND THE SPACE ON PAGE 0
+ 161               /RIGHT NOW IT IS PACKED.
+ 162               /
+ 163               GOTFLD=JMS I .  / INSTRUCTION TO RTN TO MAKE CROSS FIELD CALLS          /A018
+ 164                       GETFLD  / ADDRESS OF RTN TO SAVE CALLING FIELD FOR RETURN TO CALLER
+undefined       	     ^
+     020167  0000  
+ 165               
+ 166               
+ 167               /
+ 168               / SYMBOL DEFINITIONS FOR LEXIC AND ASCBCD ROUTINE
+ 169               KWHOLE=         15              / max # of char expected LEFT of radix point
+ 170               KFRACTION=      06              / max # of char expected RIGHT of radix point
+ 171               /
+ 172               MINUSF= 4000            / MINUS_Flag '-'
+ 173               PLUSF=  2000            / PLUS_Flag '+'
+ 174               LPMSF=  1000            / Left_Parenthesis_Minus_Sign_Flag '('
+ 175               PERCEF=  200            / PERCEnt_Flag '%'                              /A008
+ 176               QUOTEF=  100            / QUOTE_Flag '"'
+ 177               ASTERF=   40            / ASTERisk_Flag '*'
+ 178               SEPARF=   20            / SEPARator_Flag ','
+ 179               DIGITF=   10            / DIGIT_Flag '#'
+ 180               RPAREF=    4            / Right_PAREn_Flag ')'
+ 181               CSYMF=     2            / Currency_SYMbol_Flag '$'
+ 182               RSYMF=     1            / Radix_SYMbol_Flag '.'
+ 183               /
+ 184               /FOR LEXIC AND ASCBCD routines
+ 185 020170  0000  FRMCHR, 0               / FoRMula_CHaRacter read during LEXIC routine   /A001
+ 186 020171  0000  NUMFLG, ZBLOCK  1 / - + ( X X " * , D ) $ .  / NUMber_FLaGs
+ 187                                                            / 1='ok to read', 0='not ok to read'
+ 188               /
+ 189 020172  0000  LSTCHR, ZBLOCK  1 / - + ( X X " * , D ) $ .  / LaST_CHaracter_Read
+ 190                                                            / 1 = 'last character type read'
+ 191               /
+ 192 020173  0000  SUMCHR, ZBLOCK  1 / - + ( X X " * , D ) $ .  / SUMmary_of_CHARacters_read
+ 193                                                            / 1 = 'this char. type has been read'
+ 194               /
+ 195                                                                                       /D005
+ 196               /
+ 197               / SYMBOL DEFINITIONS FOR THE FORMULA EXECUTION ROUTINES
+ 198               /
+ 199               LNEBIC=-MAXLNE-1        / LiNE_Buffer_Initialization_Count = -MAX_size_- /A009
+undefined                    ^
+ 200                                       /  of_control_block_input_LiNE_buffer - 1        /A009
+ 201               MAX=20                  / NUMBER OF SIGNIFICANT DIGITS
+ 202               BCDRAD=17               / BCD_RADix character representation
+ 203               
+ 204               VALSIZ=6                / NUMBER OF WORDS NEEDED TO STORE A BCD NUMBER VALUE,
+ 205                                       / AT 3 BCD DIGITS TO A WORD. (see ASCBCD routine)
+ 206               EQUAL="=-200            /VALUE USED AS DELIMITER OF OPERATOR HANDLING STACK
+ 207               DFAULT=0000             /DEFAULT VALUE OF FORMAT STATEMENT OF OPERAND VARIABLE
+ 208                                       / LEADING ZERO, 11 WHOLE, 2 DECIMAL
+ 209               NMDFLT=0017             /DEFAULT BIT SETTING FOR OPERAND VAR NUM VALUE../M012
+ 210                                       /..PLACED IN SYMBOL TABLE - GOES IN 1ST LOC OF NUMBER
+ 211                                       /UNINITIALIZED BIT SET
+ 212                                       /NOTE - THIS INITIALIZES THE NUMBER TO 0.0      /A012
+ 213               MAXASC=23               /MAX # CHAR GENERATED BY BCD TO ASCII CONVERTOR + 2
+ 214                                       /FOR FIELD NAME ANGLE BRACKETS
+ 215               
+ 216                       IFDEF ENGLSH <
+ 217               RADIX=".-200            /RADIX CHARACTER, CAN BE CHANGED FOR DIFFERENT  /A017
+ 218                                       /LANGUAGES                                      /A017
+ 219                       >
+ 220                       IFDEF DUTCH <
+ 221               RADIX=",-200            /RADIX CHARACTER, CAN BE CHANGED FOR DIFFERENT  /A024
+ 222                                       /LANGUAGES                                      /A024
+ 223                       >
+ 224                       IFDEF ITALIAN <
+ 225               RADIX=",-200            /RADIX CHARACTER, CAN BE CHANGED FOR DIFFERENT  /A020
+ 226                                       /LANGUAGES                                      /A020
+ 227                       >
+ 228                       IFDEF SPANISH <
+ 229               RADIX=",-200            /RADIX CHARACTER, CAN BE CHANGED FOR DIFFERENT  /A022
+ 230                                       /LANGUAGES                                      /A022
+ 231                       >
+ 232                       IFDEF V30NOR <
+ 233               RADIX=",-200            /RADIX CHARACTER, CAN BE CHANGED FOR DIFFERENT  /A023
+ 234                                       /LANGUAGES                                      /A023
+ 235                       >
+ 236                       IFDEF V30SWE <
+ 237               RADIX=",-200            /RADIX CHARACTER, CAN BE CHANGED FOR DIFFERENT  /A023
+ 238                                       /LANGUAGES                                      /A023
+ 239                       >
+ 240               
+ 241                       IFDEF ENGLSH <
+ 242               CURENC="$-200           /CURENCY SYMBOL, CAN BE CHANGED FOR DIFFERENT   /A017
+ 243                                       /LANGUAGES                                      /A017
+ 244                       >
+ 245                       IFDEF DUTCH <
+ 246               CURENC="F-200           /CURENCY SYMBOL, CAN BE CHANGED FOR DIFFERENT   /A024
+ 247                                       /LANGUAGES                                      /A024
+ 248                       >
+ 249                       IFDEF ITALIAN <
+ 250               CURENC="#               /CURENCY SYMBOL, CAN BE CHANGED FOR DIFFERENT   /A017
+ 251                                       /LANGUAGES                                      /A017
+ 252                       >
+ 253                       IFDEF SPANISH <
+ 254               CURENC="P-200           /START OF CURENCY SYMBOL, CHANGED FOR DIFFERENT /A022
+ 255                                       /LANGUAGE                                       /A022
+ 256               CUREN2="T-200           /REST OF CURRENCY SYMBOL USED IN BCDASC         /A022
+ 257               CUREN3="S-200           /               "                               /A022
+ 258                       >
+ 259                       IFDEF V30NOR <
+ 260               CURENC="N-200           /START OF CURENCY SYMBOL, CHANGED FOR DIFFERENT /A023
+ 261                                       /LANGUAGE                                       /A023
+ 262               CUREN2="O-200           /REST OF CURRENCY SYMBOL USED IN BCDASC         /A023
+ 263               CUREN3="K-200           /               "                               /A023
+ 264                       >
+ 265                       IFDEF V30SWE <
+ 266               CURENC="S-200           /START OF CURENCY SYMBOL, CHANGED FOR DIFFERENT /A023
+ 267                                       /LANGUAGE                                       /A023
+ 268               CUREN2="E-200           /REST OF CURRENCY SYMBOL USED IN BCDASC         /A023
+ 269               CUREN3="K-200           /               "                               /A023
+ 270                       >
+ 271               
+ 272                       *174    /***** WARNING ***** DO NOT MOVE "MTHTYP" WITHOUT       /A015
+ 273                               /CHANGING "WPF1.PA" ALSO - NEEDED FOR EDITOR MATH CODE  /A015
+ 274               
+ 275 020174  0000  MTHTYP, 0       /THIS FLAG HAS BEEN ADDED TO SERVE AS AN INDICATOR OF   /A011
+ 276                               /TYPE OF MATH THAT IS BEING USED AT ANY PARTICULAR TIME /A011
+ 277                               /IF IN LP MATH THEN "MTHTYP" = 0, IF IN EDITOR MATH = 1 /A011
+ 278                               /THIS FLAG MUST STAY ON PAGE ZERO, IF THERE ARE ANY     /A011
+ 279                               /QUESTIONS ABOUT IT SEE THE "TMATH" MODULE UNDER "A017" /A011
+ 280               
+ 281                       *175    /***** WARNING ***** DO NOT MOVE "MTHTOT" WITHOUT       /A015
+ 282                               /CHANGING "WPF1.PA" ALSO - NEEDED FOR EDITOR MATH CODE  /A015
+ 283               
+ 284 020175  0000  MTHTOT, 0       /THE "EDITOR MATH TOTAL" FLAG. = 0 IF TOTAL NOT REQUIRED/A013
+ 285                               /AND = 1  IF TOTAL REQUIRED.                            /A013
+ 286               
+ 287                       *176    /***** WARNING ***** DO NOT MOVE "MTHWRK" WITHOUT       /A015
+ 288                               /CHANGING "WPF1.PA" ALSO - NEEDED FOR "GO-TO-PAGE" CODE /A015
+ 289               
+ 290 020176  0000  MTHWRK, 0       /"NOT IN EDIT MATH WORK AREA" FLAG,= 1 IF TRUE,= 0 IF IN/A013
+ 291                               /EDIT MATH WORK AREA, IT IS SET TO 0 WHEN "BEGIN"       /A013
+ 292                               /CTRL WORD IS ENCOUNTERED, AND 1 WHEN "END" CTRL IS     /A013
+ 293                               /FOUND, IT IS INIT TO 1 BEFORE USING MATH               /A013
+ 294               
+ 295               
+ 296                       *177    /***** WARNING ***** DO NOT MOVE "MTHSND" WITHOUT       /A014
+ 297                               /CHANGING "WPF1.PA" ALSO - NEEDED FOR EDITOR MATH CODE  /A014
+ 298               
+ 299 020177  0000  MTHSND, 0       /"NOT EDITOR MATH SECOND LINE" FLAG: THIS IS SET UP AS A/A013
+ 300                               /TRI-STATE FLAG. THIS FLAG = 1 IF NOT PROCESSING SECOND /A013
+ 301                               /LINE OF MATH CTRL BLOCK; IT = -1 IF HAVE JUST FINISHED /A013
+ 302                               /PROCESSING "END" CTRL WORD, AND IT  = 0 IF ARE         /A013
+ 303                               /PROCESSING SECOND LINE OF CONTROL BLOCK. IT IS USED IN /A013
+ 304                               /CONJUNCTION WITH THE "BEGIN" & "END" CONTROL WORDS TO  /A013
+ 305                               /BE SURE THEY ARE IN THE RIGHT PLACE IN THE BLOCK       /A013
+ 306                               /THE -1 SETTING IS TO CHECK THAT THERE ARE NO MORE LINES/A013
+ 307                               /IN THE EDITOR MATH CTRL BLOCK AFTER THE "END" CTRL WORD/A013
+ 308                               /IS FOUND. THEREFORE IT MUST BE SET FROM THE EDITOR MATH/A014
+ 309                               /WHEN THE END OF THE MATH CTRL BLOCK IS FOUND AND IS    /A014
+ 310                               /ACCORDINGLY DEFINED IN WPF1.PA AS AT LOC 177           /A014
+ 311               
+ 312               
+ 313               CDFMYF=CDFMTH   
+undefined                   ^
+ 314               
+ 315               MNUFLD=20                                                               /A007
+ 316               CIFMNU=CIF MNUFLD                                                       /A007
+ 317               /
+ 318               /
+ 319               /
+ 320               
+ 321               
+ 322               
+ 323               FIELD 0
+ 324               *200                    / START WRITE OUT CODE AT 200 IN FIELD 0
+ 325 000200  5602  JMP I .+2
+ 326 000201  5603  JMP I .+2
+ 327               RXLOAD
+undefined            ^
+     000202  0000  
+ 328 000203  7600  7600
+ 329               
+ 330               *RXLDLS
+undefined             ^
+ 331               RXEWT;0;RXQBLK
+undefined           ^
+     000000  0000  
+     000001  0000  
+undefined                    ^
+     000002  0000  
+ 332 000003  0003  .
+ 333               IFNDEF DECDEV <
+ 334               DLMATH;100;CDF 20;-DSMATH/WRITE OUT MATH ROUTINES                       /M003
+undefined            ^
+     000004  0000  
+     000005  0100  
+     000006  6221  
+undefined                               ^
+     000007  0000  
+ 335               >
+ 336               IFDEF DECDEV <
+ 337               DLMATH;100;CDF 50;-DSMATH/WRITE OUT MATH ROUTINES                       /M003
+ 338               >
+ 339               
+ 340               DLMBCD                  /WRITE OUT BCDASC START AT THIS DISK BLOCK      /A003
+undefined            ^
+     000010  0000  
+ 341                       BCDASC          /   BCDASC STARTING ADDRESS                /A003/M016
+undefined       	     ^
+     000011  0000  
+ 342 000012  6231          CDF 30          /   BCDASC ASSEMBLES IN THIS FIELD (RUNS IN 5)  /A003
+ 343                       -DSMBCD         /   NUMBER OF BLOCKS TO WRITE OUT               /A003
+undefined       	      ^
+     000013  0000  
+ 344               DLMTHL                  / Write out MATH holes. Start at this block     /a019
+undefined            ^
+     000014  0000  
+ 345 000015  0200          200             /   MATH hole starting address                  /a019
+ 346 000016  6261          CDF 60          /   MATH holes assemble in this field           /a019
+ 347                       -DSMTHL         /   Number of blocks to write out               /a019
+undefined       	      ^
+     000017  0000  
+ 348 000020  0000  0
+ 349               
+ 350               
+ 351               /FIELD MTHFLD%10                / ASSEMBLE IN MATH FIELD
+ 352               IFNDEF DECDEV <
+ 353               FIELD 2                 / ASSEMBLE IN FIELD 2 BECAULE EMULATOR CAN'T
+ 354               >                       / HANDLE MORE THAN 20K
+ 355               IFDEF DECDEV <
+ 356               FIELD 5                 / ASSEMBLE IN FIELD 2 BECAULE EMULATOR CAN'T
+ 357               >                       / HANDLE MORE THAN 20K
+ 358               
+ 359               *100                    
+ 360                       PAGE            / AT LOCATION 200
+ 361               /
+ 362               /
+ 363               
+ 364               
+ 365               
+A1      0142 unreferenced
+A2      0143 unreferenced
+A3      0144 unreferenced
+A4      0145 unreferenced
+A5      0146 unreferenced
+ADD     4560 unreferenced
+ASTERF  0040 unreferenced
+B1      0136 unreferenced
+B2      0137 unreferenced
+B3      0140 unreferenced
+B4      0141 unreferenced
+BCDRAD  0017 unreferenced
+CARRY   0135 unreferenced
+CDFMYF  0000 unreferenced
+CIFMNU  6222 unreferenced
+CSYMF   0002 unreferenced
+DFAULT  0000 unreferenced
+DIGITF  0010 unreferenced
+DIV     4562 unreferenced
+EQUAL   0075 unreferenced
+EQUATE  4565 unreferenced
+FDCLRT  0112 unreferenced
+FDCLTR  0130 unreferenced
+FNCHCD  0113 unreferenced
+FNCHRC  0130 unreferenced
+FRMCHR  0170 unreferenced
+FUSLCT  0113 unreferenced
+GOBACK  0155 unreferenced
+GOTFLD  4567 unreferenced
+INIT    4557 unreferenced
+KFRACT  0006 unreferenced
+KWHOLE  0015 unreferenced
+LA      0150 unreferenced
+LB      0153 unreferenced
+LC      0134 unreferenced
+LNEBIC  7777 unreferenced
+LNEPTR  0100 unreferenced
+LPMSF   1000 unreferenced
+LSTCHR  0172 unreferenced
+MAX     0020 unreferenced
+MAXASC  0023 unreferenced
+MINUS   4564 unreferenced
+MINUSF  4000 unreferenced
+MNUFLD  0020
+MTHSND  0177 unreferenced
+MTHTOT  0175 unreferenced
+MTHTYP  0174 unreferenced
+MTHWRK  0176 unreferenced
+MUL     4563 unreferenced
+NMDFLT  0017 unreferenced
+NMEPTR  0104 unreferenced
+NUMCC   0113 unreferenced
+NUMFLG  0171 unreferenced
+NXTPRS  0103 unreferenced
+OPDNXT  0102 unreferenced
+OUTENT  0117 unreferenced
+OUTEXT  0116 unreferenced
+OUTPTR  0105 unreferenced
+PA      0132 unreferenced
+PB      0133 unreferenced
+PERCEF  0200 unreferenced
+PLUSF   2000 unreferenced
+POSTSP  0110 unreferenced
+PUSH    4566 unreferenced
+QUOTEF  0100 unreferenced
+RA      0151 unreferenced
+RB      0154 unreferenced
+RESPTR  0107 unreferenced
+RPAREF  0004 unreferenced
+RSYMF   0001 unreferenced
+SA      0147 unreferenced
+SB      0152 unreferenced
+SEPARF  0020 unreferenced
+SUB     4561 unreferenced
+SUMCHR  0173 unreferenced
+SYMPTR  0106 unreferenced
+SYMVAR  0111 unreferenced
+TKVLBP  0112 unreferenced
+TMP1    0120 unreferenced
+TMP10   0131 unreferenced
+TMP2    0121 unreferenced
+TMP3    0122 unreferenced
+TMP4    0123 unreferenced
+TMP5    0124 unreferenced
+TMP6    0125 unreferenced
+TMP7    0126 unreferenced
+TMP8    0127 unreferenced
+TMP9    0130 unreferenced
+TMPCTR  0114 unreferenced
+TMPTR1  0000 unreferenced
+TMPTR2  0000 unreferenced
+TOKEN   0115 unreferenced
+TOP     0156 unreferenced
+TRUNC   0101 unreferenced
+VALSIZ  0006 unreferenced

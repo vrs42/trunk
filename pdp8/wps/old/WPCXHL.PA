@@ -1,0 +1,194 @@
+/
+/	This code blasted here to save space in WPCOM field on edit
+/	055 for 8 bit coms.					
+/
+/
+/
+/
+/	002	EMcD		Move out some of the read user response stuff
+/				from Resident CX to save space
+/
+/	001	EMcD		File created to blast Test job in from Panel
+/				so saving room for resident CX stuff.
+
+
+	RELOC 
+	FIELD 6			/Assemble into field 6 for write-out
+	
+	*CXHOLE			/Address that hole will be "blasted" into
+
+/THE TEST JOB FOLLOWS
+
+
+BLTST,	XX			/Dummy label for Blaster
+	TAD	K15
+	JMS	TSTOUT
+	TAD	K12
+	JMS	TSTOUT
+	TAD	M141
+	DCA	TSTTM3
+TSTJLP,	TAD	TSTTM1
+	JMS	TSTOUT
+	ISZ	TSTTM1
+	ISZ	TSTTM2
+	JMP	TSTJL1
+	TAD	K40
+	DCA	TSTTM1
+	TAD	M140
+	DCA	TSTTM2
+TSTJL1,	ISZ	TSTTM3
+	JMP	TSTJLP
+	JMP 	BLTSEXT
+
+TSTTM1,	40
+TSTTM2,	-140
+TSTTM3,	-137
+TSTCHR,	0
+TSTFLX,	0
+TSTOXL,	0
+
+K15,	15			/Constant to avoid auto link  
+K12,	12			/Constant to avoid auto link
+M141,	-141			/ as above
+K40,	40			/ ditto
+M140,	-140			/ ditto
+
+TSTOUT,	XX
+	DCA	TSTCHR
+	TAD	KODLM1							/M055
+	DCA	TSTOXL
+	TAD	TSTFLG
+TSTLP1,	SNA
+	JMP I	TSTOUT
+TSTLP2,	ISZ	TSTOXL
+	CLL RAR
+	SNL
+	JMP	TSTLP2
+	DCA	TSTFLX
+	TAD I	TSTOXL
+	DCA	TSTXXX
+	JMP	TSTPUT
+
+TSTWAT,	CIFSYS
+	JWAIT
+	CLA			/SEE IF WE ARE STILL TO RUN!		/A007
+	TAD	TSTFLG							/A007
+	SNA CLA			/SKIP IF YES.				/A007
+	JMP	BLEXIT		/JMP IF NO.				/A007
+TSTPUT,	TAD	TSTCHR
+	CIFSYS
+TSTXXX,	XX
+	JMP	TSTWAT
+	TAD	TSTFLX
+	JMP	TSTLP1
+
+BLEXIT,	ISZ	BLTST		/Do skip return to			/A055
+BLTSEXT,CIFMNU			/Back to Menu field for Blaster 	/A055
+	JMP I	BLTST		/TSTXIT					/A055
+
+KODLM1,	ODLIST-1		/Constant to avoid auto link		/A055
+
+
+
+	/
+
+	/ A002	A002	A002	A002	A002	A002	A002	A002
+	/
+	/	This code is some of the handling of the user response
+	/	at the KH HS level , moved out from WPCX to give some
+	/	room in resident CX.
+	/
+	/ A002	A002	A002	A002	A002	A002	A002	A002
+
+
+
+	*CXHOLE+200
+
+			/ By the time the user has got here we have taken a
+			/ char in and its NOT a Gold Menu .
+			/ Now handle reply jumping to 
+			/
+			/	Return if CR
+			/ 	Return+1 if more to read
+			/ 
+
+
+CXRPY,	XX
+	TAD	KEDRC		/ Check for Rub Char
+	SNA			/
+	JMP	CONRO		/ Yes , go rub it out
+	TAD	KEDRW		/ Check for Rub Word
+	SNA			/
+	JMP	CONROL		/ Yes so set flag and then rub out
+	TAD	KEDNWL		/ Is it a CR ?
+	SNA			/
+	JMP	CXREX		/ Yes , go reset field and exit
+	TAD	KNWL		/ Add new line code back
+	TAD	CXM140		/ Add -140
+	SPA			/ Is it L.Case ?
+	TAD	CXK40		/ Yes , convert it
+	TAD	M10SPC		/ Add back 100 then test for 
+	SPA			/ less than space
+	JMP	CXRFIN		/ Finish and try for more
+	TAD	KSPC		/ Add back space value
+	MQL			/ Save in MQ
+	TAD	X2		/ 
+	TAD	MCLEND		/ Add -CLEND
+	SNA CLA
+	JMP	CXRFIN		/ Go try for more
+	AC7777			/ Ac to -1
+	TAD 	X2		/
+	DCA	X2		/
+	MQA			/ get char back
+	DCA I	X2		/ Store it 
+	DCA I	X2		/ Clear next
+	MQA			/ Now get it back again
+	JMS I	XKBTOCH		/ And display it
+	JMP	CXRFIN		/ Go out and try for more
+
+CONROL,	AC0001			/ Flag we want to delete all
+CONRO,	MQL			/
+	TAD 	X2		/ Get pointer to buffer
+	TAD	MCLINE		/
+	SNA CLA
+	JMP 	CXRFIN		/ Go try for more
+	AC7776
+	TAD	X2
+	DCA	X2
+	DCA I	X2
+	TAD	KBKSPC		/ Load up a back space
+	JMS I	XKBTOCH		/ And print
+	TAD	KSPC		/ Load space
+	JMS I	XKBTOCH		/ And print
+	TAD	KBKSPC		/ Now another backspace
+	JMS I	XKBTOCH		/ Print it
+	MQA
+	SZA
+	JMP	CONRO
+	JMP	CXRFIN
+
+
+CXRFIN,	ISZ	CXRPY		/ Bump return
+CXREX,	CIFMNU			/ Return back to Blaster first
+	JMP I	CXRPY		/ Bi Bi
+
+/
+/	The literals etc below are to stop PAL generating Auto links
+/	at the bottom of the page.. the Blaster wouldn't load them
+/	
+
+KEDRC,	EDMENU-EDRBCH		/ The values tested for are in a "chain"
+KEDRW,	EDRBCH-EDRBWD		/ and so are expressed as a difference
+KEDNWL,	EDRBWD-EDNWLN		/ of + the previous , - the present
+KNWL,	EDNWLN
+CXM140,	-140
+CXK40,	40
+M10SPC,	40
+KSPC,	40
+MCLEND,	-CNLEND			/ Pointer to end of line
+MCLINE,	-CNLINE			/ Pointer to Line input buffer
+XKBTOCH,KBTOCH			/ Link to the display routine
+KBKSPC,	BKSPAC			/ Value for a Backspace
+
+
+

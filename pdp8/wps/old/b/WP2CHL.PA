@@ -1,0 +1,357 @@
+/
+/	This contains the holes to be blasted for WP2CMF.
+/
+/	The holes are to allow 8 bit char support for filenames.
+/
+/
+/	Edit History:-
+/
+/ 003	Kmd 	21-Aug-85	Fix edit 002 bug
+/ 002	Mart	17-jul-85	FIX BLASTR INTERACTION BUG
+/ 001	RCME	05-Jun-85	Add IOA table to panel area as no room
+/				outside 2CMF swap area.  Blast out CVDBN to
+/				give room for the table access routine
+
+	FIELD 6
+
+	RELOC
+	*MUXBUF			/ Blaster will run this at 5400		/A044
+	RELOC	MUXBUF
+
+INSCHK,	XX
+	CLA			/					/A044
+	CDFMYF			/ Change to here			/A044
+	TAD I	XINACHR		/ Get character input			/A044
+	JMS	INCHWD		/ Find char width			/A044
+	TAD I	XINABAD		/ Get buffer allowable			/A044
+	DCA	XINABDV		/ Re-save it				/A044
+	JMS I	XINAST1		/ Change to buffer field		/A044
+	TAD I	XINABDV		/ Get value				/A044
+	CDFMYF			/ Now back to my field			/A044
+	TAD I	XINANUM		/ Add count so far			/A044
+	TAD I	XINCHSZ		/ Get char size				/A044
+	SMA CLA			/ Any room ?				/A044
+	JMP I	INSCHK		/ No , get out				/A044
+	ISZ	INSCHK		/ Yes so insert char			/A044
+	AC7777			/ Set Ac to -1				/A044
+	TAD I	XINCHSZ		/ Add char size				/A044
+	SZA CLA			/ Only 1 to insert ?			/A044
+	JMP 	INS8BT		/ No , insert the 5 chars		/A044
+	TAD I	XINACHR		/ Get Char				/A044
+	DCA	XCHAR		/ Save it				/A044
+	JMS I	XINAST1		/ Change data field to Buffer field	/A044
+	TAD	XCHAR		/ 
+	AND 	P177		/ Strip off attributes etc		/A044
+	DCA I	T1		/ And store it				/A044
+	CDFMYF			/ Return to this field			/A044
+	JMP I	INSCHK		/ Exit					/A044
+INS8BT,	TAD I	XINACHR		/ Get character				/A044
+	AND	P177		/ Mask off attributes etc		/A044
+	DCA	MNCHR		/ And save it				/A044
+	TAD	XMNSTR		/ Start address of Multi national string/A044
+	DCA	MNPTR		/ Save it				/A044
+	JMS I	XINAST1		/ Dummy call to INAST1 to set up INACDF	/A044
+	CDFMYF			/					/A044
+	TAD I	XINACDF		/ get the CDF instruction		/A044
+	DCA	BUFCDF		/ save it inline for execution		/A044
+INSLOP,	TAD I	MNPTR		/ Get next char in string		/A044
+	SNA 			/ Is it zero terminator			/A044
+	JMP	INSFIN		/ Yes , finished			/A044
+BUFCDF,	XX			/ Modified in line 			/A044
+	DCA I	T1		/ And put it into user buffer		/A044
+	CDFMYF			/ Change field back to mine		/A044
+	ISZ	T1		/ Bump buffer pointer			/A044
+	ISZ	MNPTR		/ Bump string pointer			/A044
+	JMP 	INSLOP		/ Keep putting chars into buffer	/A044
+
+
+INSFIN,	TAD I 	XINANUM		/ Get count entered			/A044
+	TAD	K4		/ increment by 4 			/A044
+	DCA I	XINANUM		/ and put it back			/A044
+	JMP I	INSCHK		/ return				/A044
+
+
+MNPTR,	0			/ Temp for pointer into MNstrng		/A044
+MNSTR,	10;40;62		/ Intro for multi nat char		/A044
+MNCHR,	0			/ 7 bit Ascii code of Multi nat Char	/A044
+	15;0			/ End of dead and zero terminator	/A044
+
+
+/
+/	The following variables are to avoid Auto generated links	/A044
+/	which won't get loaded out with the "hole" for the blaster	/A044
+/
+/	
+
+XMNSTR,	 MNSTR			/ Address of MNSTR			/A044
+XINAST1, INAST1			/ Address of INAST1 routine		/A044
+XINACDF, INACDF			/ Address of CDF at INACDF		/A044
+XINACHR, INACHR			/ Address of INACHR			/A044
+XINABAD, INABAD			/ Address of INABAD			/A044
+XINANUM, INANUM			/ Address of INANUM			/A044
+XINABDV, 0			/ Contents of INABAD			/A044
+K4,	 4			/ 					/A044
+XCHAR,	 0			/ Temp for character			/A044
+
+
+/
+/	The following code is a routine used by both INSCHK above and	 /A044
+/	also by the main code at INARW.					 /A044
+/
+/	For that reason it is loaded out with INSCHK by the appropriate	 /A044
+/	table load							 /A044
+
+	RELOC
+	*MUXBUF+100
+	RELOC	MUXBUF+100
+
+INCHWD,	XX
+	DCA	INCHSV		/ Save the char				/A044
+	TAD	INCHSV		/ Get it back				/A044
+	AND	K200		/ Mask off 8t bit			/A044
+	SZA CLA			/ Is there anything there ?		/A044
+	JMP 	IN8BIT		/ Yes , must be 8 bit			/A044
+	TAD	INCHSV		/ 7 bit , get char back			/A044
+	TAD	ENDOV		/ Is it and end dead ?			/A044
+	SNA CLA			/ 					/A044
+	JMP 	IN8BIT		/ Yes , must be from 8 bit char		/A044
+	AC0001			/ No must be 7 bit , char size is 1	/A044
+	DCA I	XINCHSZ		/ So set it up				/A044
+	AC7777			/ Also set up minus width		/A044
+	DCA I	XMINCHSZ	/ as -1 				/A044
+	JMP I	INCHWD		/ And exit				/A044
+IN8BIT,	TAD	K5		/ Char size is 5 <StD><Spc><2><x><EndD>	/A044
+	DCA I	XINCHSZ		/ And save it				/A044
+	TAD I	XINCHSZ		/ Get it back				/A044
+	CIA			/ negate it				/A044
+	DCA I	XMINCHSZ	/ and save for later use		/A044
+	JMP I	INCHWD		/ Return				/A044
+
+/
+/	Locations below are to avoid auto generated links for blaster	/A044
+/
+INCHSV,	0			/ Temp for storing char			/A044
+ENDOV,	-15			/ End of dead 				/A044
+XINCHSZ,INCHSZ			/ pointer to INCHSZ			/A044
+K5,	5			/ 					/A044
+XMINCHSZ,MINCHSZ		/ pointer to MINCHSZ			/A044
+K200,	200			/					/A044
+
+
+	RELOC
+	*MUXBUF+140							/A044
+	RELOC	MUXBUF+140
+
+PASDED,	XX								/A044
+	TAD	K50		/ add back 60 subtract 10 !!		/A044
+				/ see in line code at NXTARG		/A044
+	SNA			/ Is it a start of dead			/A044
+	JMP 	STDED		/ Yes exit and set flag			/A044
+	TAD	M5		/ Add back 10 subtract 15		/A044
+	SNA CLA			/ Is it an end dead			/A044
+	JMP 	ENDED		/ Exit and clear flag			/A044
+	RDF			/ Find Data field			/A044
+	TAD	CDF0		/ Add Cdf to it				/A044
+	DCA	RTCDF		/ Store it				/A044
+	CDFMNU			/ Point to menu field			/A044
+	TAD I	XNXDINP		/ Are we in a dead thing?		/A044
+	SNA			/ 					/A044
+	ISZ	PASDED		/ Not either so do skip return		/A044
+	JMP	RTCDF		/ Return				/A044
+STDED,	AC0001			/ Set dead in Progress flag		/A044
+ENDED,	DCA 	DEDINP		/ And put it in mainline		/A044				
+	RDF			/ Find out which field we are running in/A044
+	TAD 	CDF0		/ make it into a CDF			/A044
+	DCA	RTCDF		/ Store it in line			/A044
+	CDFMYF			/ Point to this field			/A044
+	TAD	DEDINP		/ Get flag				/A044
+	DCA I	XNXDINP		/ And store it				/A044
+RTCDF,	XX			/ Exit CDF back to data field		/A044
+	JMP I	PASDED		/ Exit					/A044
+/
+/	The constants below are to avoid auto links for Blaster		/A044
+/
+/	They are held as the diff of two numbers because NXTARG handles	/A044
+/	the tests that way						/A044
+/
+K50,	50			/ 60 - 10				/A044
+M5,	-5			/ 15 - 10				/A044
+
+DEDINP,	0			/ Dead in progress flag			/A044
+XNXDINP,NXDINP			/ Dead in progess flag			/A044
+
+
+	RELOC
+	*MUXBUF+200
+	RELOC	CVDHOL
+ 
+/ CVDBN - CONVERT ASCIZ DECIMAL STRING TO BINARY
+
+/
+/	JMS	CVDBN
+/		ADDR OF ASCIZ STRING
+/	ERROR RETURN  - CLEAR AC
+/	NORMAL RETURN - VALUE IN AC
+/
+
+HCVDBN,	XX
+	DCA	X0		/ SAVE AS STRING ADDRESS
+
+CVDBL1,	DCA	T2		/ SAVE ACCUMULATED VALUE
+	TAD I	X0		/ GET NEXT CHAR
+	SNA
+	JMP	CVDBDN		/ ZERO - END OF STRING - DONE
+	AND	PV177		/ ASCII PART ONLY
+	TAD	PVM72		/ NUMBER?
+	SMA
+	JMP	CVDBER		/ NO - ERROR
+	TAD	PV12		/ MAKE 0-9
+	SPA
+	JMP	CVDBER		/ ERROR
+
+	DCA	T3		/ SAVE IN TEMP
+
+	TAD	T2		/ GET ACCUMULATED VALUE
+	CLL RAL			/ MULTIPLY TIMES 2
+	SZL SPA			/ CHECK FOR TOO LARGE A NUMBER
+	JMP	CVDBER		/ GO TO ERROR RETURN
+	RAL			/ MULTIPLY TIMES 2 FOR EFFECTIVE TIMES 4
+	TAD	T2		/ ADD VALUE TO TOTAL FOR EFFECTIVE TIMES 5
+	SZL SPA			/ CHECK FOR TOO LARGE A NUMBER
+	JMP	CVDBER		/ GO TO ERROR RETURN
+	RAL			/ MULTIPLY TIMES 2 FOR EFFECTIVE TIMES 10
+	TAD	T3		/ ADD NEXT DIGIT
+	SNL			/ CHECK FOR TOO LARGE A NUMBER
+	JMP	CVDBL1		/ GO SAVE RESULT AND DO NEXT CHAR
+CVDBER,	CLA CLL			/ NOT VALID NUMBER,
+	DCA	T2		/ RETURN WITH CLEAR AC & LINK
+	SKP			/ GO TO ERROR RETURN
+
+CVDBDN,	ISZ	HCVDBN		/ SKIP RETURN IS NORMAL
+CVDBEX,	CDIMNU			/ CIF-CDF
+	JMP I	HCVDBN		/ AND RETURN TO CALLER
+
+PV177,	177			/ Constants placed here to prevent automatic
+PVM72,	-72			/ link generation outside blasted area
+PV12,	12
+
+
+	RELOC
+	*MUXBUF+300
+	RELOC	CVDHOL
+
+/***************************************************************************
+/****			   PAGE SWAPING ROUTINE				****
+/***************************************************************************
+
+/ THIS ROUTINE WILL SELECTIVLY SAVE AND LOAD MEMORY LOCATIONS FROM SWAP AREA
+/ IN FIELD TWO ON DISK DRIVE ZERO.  THE FUNCTION PERFORMED DEPENDS UPON THE
+/ VALUE CONTAINED IN THE AC.  UPON ENTRY IF:
+
+/ AC = 0	THEN SAVE MEMORY LOCATIONS IN THE DISK SWAP SAVE AREA
+/		     LOAD MEMORY LOCATIONS WITH THE MENU INTERPRETER
+
+/ AC = +N	THEN SAVE MEMORY LOCATIONS IN THE DISK SWAP SAVE AREA
+/		     LOAD MEMORY LOCATIONS WITH DISK BLOCK NUMBER (N)
+
+/ AC = -1	THEN LOAD MEMORY LOCATIONS FROM DISK SWAP SAVE AREA
+
+/ AC = -N	THEN LOAD MEMORY LOCATIONS FROM DISK BLOCK NUMBER (N)
+
+
+PAGSPH,	XX			/ ENTRY POINT FOR PAGE SWAPING ROUTINE
+	SMA			/ CHECK FOR A NEGARIVE NUMBER INPUT
+	JMP	PGPLUS		/ NO, IT WAS POSITIVE, GO SAVE THE AREA
+
+	CMA			/ YES, IT WAS NEGATIVE, MAKE IT POSITIVE
+	SZA			/ SKIP IF VALUE WAS A MINUS ONE
+	IAC			/ COMPLETE THE NEGATION PROCESS
+	SNA			/ CHECK FOR A DISK BLOCK NUMBER IN AC
+	TAD	PGDLSW		/ NOTHING, SO PICK UP SAVE AREA NUMBER
+	DCA	PAGBLK		/ SAVE THE STARTING DISK BLOCK NUMBER
+	JMP	PAGRED		/ SKIP SAVE OPERATION, JUST DO READ OPERATION
+
+/ Check for disk block number in ac moved from line below to PGPLU1	/A003
+PGPLUS,									/M003
+	JMP	PGRES		/ RESUMING PAGSWP AFTER QURX?		/A002
+PGPLU1,				/ JUMP HERE IF NOT			/A002
+	SNA			/ CHECK FOR A DISK BLOCK NUMBER IN AC	/M003
+	TAD	XDLFD3		/ NOTHING, SO PICK UP MENU INTERPRETER NUMBER
+	DCA	PAGBLK		/ SAVE THE STARTING DISK BLOCK NUMBER
+/D037	DCA	MUBUF+MNBLK	/ CLEAR MENU BLOCK IN MEMORY INDICATOR
+
+	JMS	PAGDSK		/ WRITE OUT THE MEMORY SWAP AREA
+	RXEWT			/ DISKETTE WRITE FUNCTION CODE
+PGDLSW,	DLSWAP			/ BLOCK NUMBER TO START WRITTING FROM
+
+PAGRED,	JMS	PAGDSK		/ GO PERFORM DISK READ FUNCTION
+	RXERD			/ DISKETTE READ FUNCTION CODE
+PAGBLK,	0			/ BLOCK NUMBER TO START READING FROM
+	DCA I	XPAGQRX		/ CLEAR THE QURX FLAG
+	CDIMNU
+	ISZ	PAGSPH		/ INCREMENT THE RETURN ADDRESS		/A002
+	JMP I	PAGSPH		/ RETURN TO CALLER
+
+PGRES,	ISZ I	XPAGQRX		/ IS RTHE QURX FLAG SET ?		/A002
+	JMP	PGPLU1		/ NO					/A002
+	JMP	PAGRES		/ YES RESUME				/A002
+
+XPAGQRX,PAGQRX			/ link					/A002
+
+/***************************************************************************
+/****			PAGE SWAPING DISK I/O ROUTINE			****
+/***************************************************************************
+
+/ THIS ROUTINE WILL PERFORM THE READ/WRITE FUNCTION FOR THE SWAP AREA
+/ UPON ENTRY, THE AC MUST BE CLEAR.  THE CALL IS MADE AS FOLLOWS:
+/
+/	JMS	PAGDSK		/ ROUTINE TO DO I/O TO THE DISK
+/		FUNCTION CODE	/ READ OR WRITE RX FUNCTION CODE
+/		DISK BLOCK	/ BLOCK NUMBER TO START READING OR WRITTING
+/	NORMAL RETURN		/ RETURN POINT, DISK ERRORS ARE NOT HANDLED
+
+PAGDSK,	XX			/ ENTRY POINT FOR PAGE SWAPING ROUTINE
+	TAD I	PAGDSK		/ PICK UP THE FUNCTION CODE TO BE USED
+	DCA	QUQBLK+RXQFNC	/ STORE FUNCTION CODE IN QUEUE BLOCK
+
+	ISZ	PAGDSK		/ INCREMENT POINTER TO NEXT ITEM IN LIST
+	TAD I	PAGDSK		/ PICK UP STARTING DISK BLOCK NUMBER
+	DCA	QUQBLK+RXQBLK	/ STORE BLOCK NUMBER IN QUEUE BLOCK
+
+	ISZ	PAGDSK		/ INCREMENT POINTER TO RETURN ADDRESS
+	DCA	QUQBLK+RXQDRV	/ SELECT THE SYSTEM DRIVE, NUMBER ZERO
+	TAD	XNDSSWAP	/ NEGATIVE OF NUMBER OF BLOCKS TO DO	/M016
+	DCA	X1		/ STORE IN COUNTER REGISTER
+	TAD	GETMYF		/ PICK UP THE INSTRUCTION "CDFMYF"
+	DCA	QUQBLK+RXQBFD	/ STORE CHANGE FIELD INSTRUCTION IN QUEUE BLOCK
+
+	TAD	XSWPBEG		/ PICK UP STARTING MEMORY ADDRESS	/M016
+	DCA	QUQBLK+RXQBAD	/ STORE MEMORY ADDRESS IN QUEUE BLOCK
+
+PAGLOP,
+/D002	JMS	QURX		/ GO DO A DISK BLOCK TRANSFER
+/D002	CLA			/ IGNORE ANY ERROR INDICATION
+	JMP I	PAGSPH		/ RETURN TO DO THE QURX IN RESIDENT CODE/A002
+				/ EVENTUALLY COMES BACK TO PAGRES	/A002
+PAGRES,									/A002
+	TAD	XP400		/ OFFSET TO NEXT MEMORY BLOCK ADDRESS
+	TAD	QUQBLK+RXQBAD	/ COMBINE WITH CURRENT MENORY ADDRESS
+	DCA	QUQBLK+RXQBAD	/ STORE MEMORY ADDRESS IN QUEUE BLOCK
+
+	ISZ	QUQBLK+RXQBLK	/ INCREMENT THE QUEUE BLOCK DISK BLOCK COUNTER
+	ISZ	X1		/ INCREMENT THE COUNTER, CHECK FOR DONE
+	JMP	PAGLOP		/ NOT DONE, GO DO IT AGAIN
+	JMP I	PAGDSK		/ ALL DONE, RETURN TO CALLER WITH AC=0
+
+XDLFD3,		DLFD3
+XNDSSWAP,	-DSSWAP
+XSWPBEG,	SWPBEG
+XP400,		400
+
+
+/------------------------
+	PAGE
+	RELOC
+	NOPUNCH
+
+

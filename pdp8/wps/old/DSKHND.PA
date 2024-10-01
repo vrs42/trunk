@@ -1,0 +1,2597 @@
+/DSKHND     DATE = 03/23/84 CURRENT EDIT
+/
+/
+
+/ 052   KMD	26-Sep-85	Add Dutch & Spanish Xlations
+/ 051	Mart	20-aug-85	fix ITALIAN edit bugs
+/ 050	MART	24-APR-85	change dskhnd to call v25st on warm boot
+/ 049	EMcD	04-Mar-85	Add read in/kick start V2.5 into life
+/ 048	EMcD	27-Feb-85	Add DECDEV switch
+/ 047	DFB	20-DEC-84	Fix to display date/time after error(dev 0=HD)
+/ 046	DFB	31-AUG-84	Fix to pass unit number to verify on restart
+/ 045	DFB	18-AUG-84	Fix to error retry for multiblock load
+/ 044	DFB	08-AUG-84	Fix to read verify 12 bit logical
+/ 043	HLP	23-MAR-84	Change load table for new system init
+/ 042	DFB	21-FEB-84	Add get status code
+/ 041	WJY	06-FEB-84	Addl. fix for DEC I compatability
+/ 040	DFB	17-JAN-84	DEF fix for DEC I compatability
+/ 039	DFB	12-JAN-84	Fix for load4
+/ 038	HLP	20-DEC-83	Change read-in address for printer
+/ 037	DFB	02-DEC-83	Add update to winnie function
+/ 036	DFB	29-NOV-83	Fix to read multiple blks on winnie
+/ 035	DFB	01-NOV-83	Set to handle mount system vol
+/ 034	DFB	16-SEPT-83	Set to return error if winnie not mounted
+
+/VERSION 033  ********************
+/
+/ 033	WCE	3-SEP-83	Changed RZ IOT's to RX IOT's and changed
+/				FIELD instructions to standard instructions
+/ 032	DFB	07-19-83	/WINNIE ADDITIONS
+/				Jswap for winnie defined as RDOSWQ in WPF1
+/				FROM DSKHND VER31
+/ 031	DFB	04-08-83	/Update defs for DI,DII functionality
+/ 030	DFB	12-DEC-82	/Update condor defs for DI,DII assy
+/ 029	DFB	02-DEC-82	Stop Gold Halt exit during getdns
+/ 028	DFB	16-NOV-82	Fix to allow JSWAP chnge externally
+/				RDOSWP defined in WPF1.. overlayed by jswap in
+/				WPCU2.after proper initialization of system
+/				Jswap must overlay RDOSWP
+/
+/ 027	DFB	10-NOV-82	Set drive 0 to 4 for load
+/				conditional load4=1
+/ 026	DFB	22-OCT-82	Return after 1st write if RX50 write protect.
+/				And do JSWAP if done not set on read/write
+/				AND error return if Gold halt pressed during
+/				error process
+/ 025	DFB	15-AUG-82	Fix bug in physio 12 bit verify
+/ 024	DFB	23-AUG-82	Set up to handle RX01 and RX02
+/ 023	DFB	03-AUG-82	Seek trk 0 instead of init(err. retry)
+/ 				Delete skew code (determined not necessary)
+/ 022	DFB	19-JUL-82	Set GET DEN to time out(ret err5)
+/				Add seek tr 79 rx50 error logic
+/				Add offset 2 code (skew=1 to install)
+/ 021	DFB	15-JUL-82	Delete sel error return
+/ 020	DFB	12-JUL-82	FIX TO SEL DEVICE ON ERR RETRY
+/ 019	DFB	10-MAY-82	Verify Rx50  and rx50 startup fixes
+/ 018	DFB	16-APR-82	Verify Rx50  and rx50 startup fixes
+/
+/*****COPIED FROM DSKHND.PA VERSION 17  28-FEB-82***************
+/ 017	GDH	28-FEB-82	Modified startup "read in" code.
+/ 016	DFB	23-FEB-82	Set hndlr to rewrite then read when error
+/				is detected during verify
+/ 015	DFB	16-FEB-82	Add verify read after write
+/ 014	DFB	04-FEB-82	Set error retry to init heads
+/ 013	DFB	01-FEB-82	Double density interleave of 3
+/ 012	DFB	27-JAN-82	Double density interleave of 2
+/ 011	DFB	13-JAN-82	Allow 8bit phys i/o for dd
+/ 010	DFB	06-JAN-82	Fix to return status in ret code
+/ 009	DFB	28-DEC-81	Fix blk 6 1st loc=7401 for DOC diskette
+/ 008	DFB	14-DEC-81	Add doc disk message
+/
+/	*******if DMESS changes location other than 6400
+/	*******DCSTRT in RXPRDF MUST CHANGE ACCORDINGLY
+/ 007	DFB	02-DEC-81	Fix to error hndler
+/ 006	DFB	25-NOV-81	Fix to handle 2 RX02's
+/ 005	DFB	18-NOV-81	Fix error hndler init on retry
+/ 004	DFB	17-NOV-81	Fix to handle errs during boot
+/ 003	GDH	13-NOV-81	Bug fix for Get Density on
+/ 002	GDH	11-09-81	FIXED FOR RX01.
+/ 001	DFB	10-29-81
+
+/*****************************************************************
+/		 COPYRIGHT (C) 1977 BY
+/	 DIGITAL EQUIPMENT CORPORATION, MAYNARD, MASS.
+/
+/ THIS SOFTWARE IS FURNISHED UNDER A LICENSE AND MAY BE USED AND COPIED
+/ ONLY  IN  ACCORDANCE  WITH  THE  TERMS  OF  SUCH LICENSE AND WITH THE
+/ INCLUSION OF THE ABOVE COPYRIGHT NOTICE.  THIS SOFTWARE OR ANY  OTHER
+/ COPIES THEREOF MAY NOT BE PROVIDED OR OTHERWISE MADE AVAILABLE TO ANY
+/ OTHER PERSON.  NO TITLE TO AND OWNERSHIP TO  THE  SOFTWARE  IS HEREBY
+/ TRANSFERRED.
+/
+/ THE INFORMATION IN THIS SOFTWARE IS SUBJECT TO CHANGE WITHOUT
+/ NOTICE AND SHOULD NOT BE CONSTRUED AS A COMMITMENT BY DIGITAL
+/ EQUIPMENT CORPORATION.
+/
+/ DIGITAL ASSUMES NO  RESPONSIBILITY FOR THE USE OR  RELIABILITY
+/ OF ITS SOFTWARE ON EQUIPMENT WHICH IS NOT SUPPLIED BY DIGITAL.
+/
+/
+/*******************************************************************
+/
+/
+/ THE FOLLOWING CODE IS USED TO WRITE THE RX02 HANDLER TO
+/  DISC.  IT IS REPEATED IN BOTH MODULES TO ALLOW FOR A SEPARATION
+/  OF THESE MODULES AT A LATER DATE.  OBVIOUSLY WHEN DOING SO
+/  THE PARAMETERS (DLRXLD, LFRXLD AND STRT ADDR.) WOULD HAVE TO BE REPLACED
+/  WITH THE CORRECT BLOCK NUMBERS,LENGTH AND STARTING ADDRESS.
+/
+/
+/*********************************************************************
+
+				EJECT
+			FIELD 0
+			*200
+	JMP I	.+3		/WRITE BLOCK
+	JMP I	.+1
+	7600
+	RXLOAD
+
+			*RXLDLS
+	RXEWT				/WRITE CODE
+	0				/DEVICE NUM
+	RXQBLK				/#BLOCKS
+	.				/LIST PNTR-1
+	DLRXLD				/BLOCK NUM
+	RXDLDP-200			/START ADDRESS(COMP FOR 1/2 BLK)/XXXDFB
+	IFNDEF DECDEV <
+	CDFMNU				/FIELD NO		/M048	/M033
+	>
+	IFDEF DECDEV <
+	CDF 50							/A048
+	>
+	-DSRXLD				/BLOCK COUNT
+	0				/END BLOCK
+/*********************************************************************
+/*******************************************************************
+/*******************************************************************
+/*******************************************************************
+/
+/
+/----------------    THE COMMENTS IN THIS PROGRAM ARE NOT-------------
+/-----------------                AS ACCURATE AS ONE WOULD------------
+/-----------------    LIKE.  WHEN THE COMMENTS ARE UPDATED------------
+/------------------- THIS PARAGRAPH WILL BE DELETED      -------------
+/
+/*********************************************************************
+/*********************************************************************
+/*********************************************************************
+/*********************************************************************
+/
+/		THE DIVISOR FOR THE INTERLEAVE ALGORITHM MUST BE
+/	MODIFIED TO "25" FOR A DOUBLE DENSITY INTERLEAVE OPERATION,
+/	BUT MUST REMAIN "26" FOR A SINGLE DENSITY OPERATION. THE
+/	REASON BEHIND THIS LIES IN THE THEORY OF NUMBERS.
+/		THE INTERLEAVE FACTOR AND THE NUMBER OF TRACKS PER
+/	SECTOR MUST BE RELATIVELY PRIME, WHICH "2" AND "26" ARE NOT.
+/	HOWEVER, FOR FOR A SINGLE DENSITY OPERATION THEY ARE RELATIVELY
+/	PRIME, AS "3" AND "26" ALWAYS ARE.
+/		HENCE, THE "DIVISOR" FOR THE INTERLEAVE OPERATION, AND
+/	ONLY FOR THAT PARTICULAR OPERATION MUST BE MODIFIED TO "25"
+/	DOUBLE DENSITY OPERATIONS, AND MUST REMAIN "26" FOR ALL SINGLE
+/	DENSITY OPERATIONS. THIS IS ACCOMPLISHED, BY THE FOLLOWING
+/	MECHANISM.
+/
+/		-26 + ( +1 ) = -25, FOR DOUBLE DENSITY OPERATIONS.
+/		-26 + ( 0  ) = -26, FOR SINGLE DENSITY OPERATIONS.
+/
+/	THE FACTOR OF "0" OR "1" IS THE DISKETTE DENSITY PARAMETER
+/	"RZDENS", OR "BTRXID" IN THE BOOTSTRAPS, WHICH IS RETURNED
+/	AS A "0" FOR A SINGLE DENSITY DISKETTE, AND AS A "1" FOR A
+/	DOUBLE DENSITY DISKETTE.
+/		SCHEMATICALLY, THE ALGORITHM PROCEEDS AS FOLLOWS.
+/
+/	SINGLE DENSITY			DOUBLE DENSITY
+/			0>=N>=25
+/
+/	3N		   (A.)		2N
+/	Q(1)=3N(MOD 26.)   (B.)		Q(2)=2N(MOD 25.)
+/	S(1)=Q(1) + 1	   (C.)		S(2)=Q(2) + 1
+/
+/	(A.) CALCULATE 2*SECTOR NUMBER WITHIN THE TRACK
+/		I.E. THE RESIDUE FROM THE DIVIDE.
+/
+/		USING THE DENSITY PARAMETER, SD=0/DD=1,
+/		BUILD 2*SECTOR NUMBER + SECTOR NUMBER
+/		FOR A SINGLE DENSITY DISKETTE, OR
+/		SIMPLY 2*SECTOR NUMBER + 0 FOR A DOUBLE
+/		DENSITY DISKETTE.
+/
+/	(B.) CALCULATE THE PHYSICAL SECTOR NUMBER MINUS ONE BASED
+/		ON THE CORRECT MODULUS.
+/
+/		I.E. K*SECTOR NUMBER - 26 + DENSITY PARAMETER (SD=0/DD=1)
+/		AND CONTINUE ADDING " - 26 + DENSITY PARAMETER"
+/		TO THE RESULT WHILE IT REAMAINS POSITIVE.
+/
+/	(C.) FOR EITHER DENSITY ADD "1" TO THE FINAL RESULT TO
+/		OBTAIN THE CORRECT PHYSICAL SECTOR NUMBER.
+/
+/
+/*********************************************************************
+				EJECT
+/	** -1- ** PAGE 1 DOCUMENTATION ****
+/*********************************************************************
+/
+/				PAGE 1
+/
+/*********************************************************************
+/
+/	PAGE 1 OF THE DRIVER CONTAINS, AND IN THE PROPER ORDER,
+/		THE FOLLOWING ROUTINES, AND DATA AREAS.
+/
+/	A.	THE ENTRY POINT TO THE DRIVER.
+/
+/	B.	THE "DPB" ( I.E. DEVICE PARAMETER BLOCK ) TRANSFER
+/			ROUTINE.
+/
+/	C.	THE CONTROLLER SELECT CODE.
+/
+/	D.	THE IOT MODIFICATION PROCESSOR.
+/
+/	E.	THE DISKETTE DENSITY DETERMINATION.
+/
+/	F.	THE BUILD OF THE CONTROLLER COMMAND.
+/
+/	G.	THE INITIALISATION/RE-TRY PROCESSOR.
+/
+/	H.	THE READ/WRITE PROCESSOR/DISPATCHER.
+/
+/	I.	THE PAGE 1 DATA AREAS.
+/
+/*********************************************************************
+/
+		IFNDEF DECDEV <
+			FIELD 2		/FOR WRITE DISK ONLY
+		>
+		IFDEF DECDEV <
+			FIELD 5
+		>
+/			FIELD 00	/ACTUAL LOAD FIELD
+			*RXDLDP		/LOAD ADDRESS FOR DRIVER.
+/
+/
+
+/---------------------------------------------------------------------
+/
+/************************ ENTRY POINT TO RX01/RX02 DEVICE DRIVER *****
+/
+/	ARGUMENTS ARE ACCESSED BY A "PASCAL-LIKE" CASE STATEMENT,
+/	AS IMPLEMENTED IN PDP-8 ASSEMBLY LANGUAGE, AS INDICATED
+/		IN THE PREAMBLE TO THIS DRIVER.
+/
+/---------------------------------------------------------------------
+/								/A015
+/		VERIFY BIT = BIT 1				/A015
+/								/A015
+/		WHEN SET IN RZXDIR ON INPUT			/A015
+/		LOGICAL WRITE=READ AFTER WRITE (DONT EMPTY SILO)/A015
+/		LOGICAL READ(12BIT) =READ AND COMPARE SILO TO BUFFER	/A015
+/		PHYSICAL READ=READ AND COMPARE SILO TO BUFFER	/A015
+/
+/---------------------------------------------------------------/A015
+RX2SYS,	0			/ ENTRY POINT TO "RX2SYS".
+	DCA	RZEXIT		/SET RETURN FIELD(IN ACC UPON ENTRY)
+	TAD	RZCDF0		/ BUILD PROPER "CDF",...
+	RDF			/ ...TO KNOW WHICH DATA FIELD,...
+	DCA	RZCCDF		/ ......DRIVER WAS CALLED FROM.
+	JMS	RZARGS		/ LOAD TABLE HEAD.
+RZACNT,	RZDRIV-RZARGS		/ COUNT OF # OF ARGUMENTS PASSED.
+RZCTLR,				/ * LOCAL STORAGE FOR THE CONTROLLER #.
+RZDRIV,	0			/ LOCAL STORAGE FOR DRIVE # ( 0-3 ).
+PYSECT,				/ SECTOR NO FOR PHYSICAL I/O
+RZBLKN,	0			/ LOCAL STORAGE FOR START BLOCK # ON DISKETTE.
+RZBCDF,	0			/ LOCAL STORAGE FOR "CDF" OF BUFFER FIELD.
+RZBPTR,	0			/ LOCAL STORAGE FOR BUFFER ADDRESS WITHIN FIELD.
+RZBCTR,	0			/ LOCAL STORAGE FOR # OF BLOCKS TO TRANSFER.
+PYTRAK,	0		/TRACK NO FOR PHYSICAL IO
+RZXDIR,	0			/ LOCAL STORAGE FOR TRANSFER DIRECTION.
+RZUNIT,				/ * LOCAL STORAGE FOR UNIT #.
+RZARGS,	0			/ ENTRY POINT TO "RXARGS".
+	TAD	RZACNT		/ LOAD COUNT OF ,...
+	DCA	RZACTR		/ ...NUMBER OF ARGUMENTS PASSED.
+RZARG1,	ISZ	RZARGS		/ UPDATE POINTER TO ADDR. OF NEXT LOCAL ARG.
+RZCCDF,	CDFSYS			/ * "CDF" TO CALLER FIELD.		/M033
+	TAD I	RX2SYS		/ LOAD ARGUMENT,...
+	CDFSYS			/ ENSURE LOCAL DATA FIELD.		/M033
+	ISZ	RX2SYS		/ ...UPDATE TO ADDRESS OF NEXT ARGUMENT,...
+	DCA I	RZARGS		/ ......STORE ARGUMENT LOCALLY,...
+	ISZ	RZACTR		/ ALL ARGUMENTS PASSED ?
+	JMP	RZARG1		/ NO - RETREIVE NEXT.
+/---------------------------------------------------------------------
+/
+/************************ INITIALISE/SET RETRY PARAMETERS ************
+/
+/---------------------------------------------------------------------
+	TAD  	RZRTCT		/ LOAD THE RE-TRY COUNT,...
+	DCA 	RZECTR		/ ...AND SAVE IT.
+/---------------------------------------------------------------------
+/
+/************************ SELECT SPECIFIED CONTROLLER ****************
+/
+/---------------------------------------------------------------------
+/---------------------------------------------------------------------
+/		FOR DECMATE I
+/
+/	 RZDRIV = 0,1     SEL DRIVE 0   UNIT 0,1
+/	 RZDRIV = 2,3	  SEL DRIVE 1   UNIT 0,1
+/
+/
+/		FOR DECMATE II
+/
+/
+/	 RZDRIV = 0,1     SEL DRIVE 0   UNIT 0,1 HEAD 0
+/	RZDRIV = 4,5	SEL DRIVE 0	UNIT 0,1 HEAD 1
+/	 RZDRIV = 2,3	  SEL DRIVE 1   UNIT 0,1 HEAD 0
+/	RZDRIV = 6,7	SEL DRIVE 1	UNIT 0,1 HEAD 1
+/
+/--------------------------------------------------------------------
+  IFDEF	WINNIE	<
+	TAD	RZXDIR		/FUNCTION CODE			/A032
+	SPA			/=PHYIO?		/A032	/M036
+	CMA			/YES 			/A032	/M036
+	RAR			/WINNIE BIT IN LINK	/A032	/M036
+	SZL			/=WINNIE?		/A032	/M036
+	JMP	ISAWIN		/TAG SPEAKS FOR ITSELF		/A036
+/D036	JMS	WINCHK		/CHECKS FOR WINNIE RETRNS IF NOT/A032
+	CLA			/NOT CLEAR ON RETURN		/A032
+			>	/END IFDEF WINNIE		/A032
+  IFDEF	CONDOR		<
+	IFNDEF LOAD4	<
+	CLA CLL IAC RTL		/=4		DEVICE PAIR BIT	/A019
+	AND	RZDRIV		/GET DRIVE
+			>	/END IFNDEF LOAD4		/A027
+	IFDEF LOAD4	<
+	JMS	SET4	/SET UP DRIVE 4				/A027
+			>	/END IFDEF LOAD4		/A027
+	CLL RTR			/SET PAIR BIT(11)		/A019
+	RTR							/A019
+	DCA	RZPAIR		/SAVE
+			>					/A018
+	CLA CLL CML IAC RAL	/ YES - 0003 = MASK FOR DRIVE NUMBER.
+	AND	RZDRIV		/ MASK OFF DRIVE NUMBER.
+	RAR			/
+	MQL			/SAVE UNIT
+	RTR;BSW			/SHIFT INTO POS
+	DCA	RZUNIT
+	CLA SWP			/GET CTRLR
+	IFDEF	CONDOR	<
+	TAD	RZPAIR		/ADD PAIR BIT(11)		/A019
+			>	/END IFDEF CONDOR		/A030
+	DCA	RZSLDV		/SAVE PAIR TO BE SELECTED	/A020
+	JMS	SELCMD		/SET SELECT			/A018
+/D036	CLA							/A006
+	JMS	RZSETB		/RESET CDF'S
+			SIZE=	.-RX2SYS
+
+/
+/************************ PHYSICAL I/O SET UP AND CALL*****************
+/
+/****************      PHYSICAL I/O READS/WRITES ONLY ONE  ************
+/*************   CALL IN RZXDIR IS COMPLEMENT OF READ/WRITE *********
+/****************          FOR PHYSICAL I/O        ********************
+/*******************          SECTOR FOR EACH CALL      ***************
+/
+/-----------------------------------------------------------------------
+RZBYPS,	TAD	RZXDIR
+  IFDEF	CONDOR		<
+	SPA		/IS LOGIO?				/A025
+	CMA		/NO=PHYSIO COMPL.			/A025
+	AND	(1000						/M025	
+	DCA	RZ50SW		/SET RZ50X SWITCH. 0=NO 1=YES	/M025
+	TAD	RZXDIR						/C025
+			>				/A018	/M025
+	SPA			/IS PHYSICAL I/O?
+	JMP	PHYSIO		/YES
+				EJECT
+/	** -1- ** MORE INITIALIZATION ****
+/---------------------------------------------------------------------
+/
+/************************ BUILD CONTROLLER COMMAND *******************
+/
+/---------------------------------------------------------------------
+LOGIO,	DCA	RZPAT1		/SAVE FULL COMMAND
+	JMS	DVSET		/SET DISK VERIFY SW		/A015
+	TAD	RZPAT1
+	AND	MSK37		/CLEAR ALL BUT FUNCTION BITS
+	DCA	RZXDIR		/RESET
+	TAD	RZPAT1
+	AND	MSK400		/GET DENSITY BIT
+	SZA CLA			/IS SD?
+	IAC			/NO. IT IS DD
+	DCA 	RZDENS		/SET DENSITY FLAG 0=SD 1=DD
+	TAD	RZ50SW		/IS IT RX50
+	SZA CLA
+	JMP	LOGIOA		/YES CLEAR MODE SW
+	TAD 	RZDENS
+	SNA CLA 		/IF SD SET MODE BIT = 100
+	CLA IAC BSW			/....ELSE IS DD MODE BIT = 000
+LOGIOA,	DCA 	RZMODE
+	TAD	RZPAT1		/GET FULL CMND
+	AND	MSK400		/GET DENSITY BIT
+	TAD	RZXDIR		/GET CMND AND CONTINUE
+	TAD  	RZMODE		/MODE BIT 5=0 12BIT MODE  =1 8BIT MODE
+	TAD	RZUNIT		/ YES - LOAD IN UNIT CODE,...
+	TAD	RZHEAD		/ADD HEAD BIT FOR X50
+	DCA  	RZCMND		/ ......AND SAVE IT.
+	DCA  	RZPHSW		/CLR PHYS/LOG IO SW 0=LOGIO
+/---------------------------------------------------------------------
+/
+/************************ CALCULATE LOGICAL SECTOR NUMBER ************
+/
+/---------------------------------------------------------------------
+	TAD  	RZ50SW
+	SZA CLA			/IS IT RX50?
+	JMP	RZINT3		/INTERLEAVE BY 2 IF 50
+	TAD  	RZDENS		/ LOAD THE DENSITY SPECIFIER.
+	SNA CLA			/ DOUBLE DENSITY ?
+	TAD	RZBLKN		/ NO - MAKE IT  *3.
+RZINT2,	TAD	RZBLKN		/ YES - MAKE IT,...
+RZINT3,	TAD	RZBLKN		/ ...ONLY *2.
+	DCA 	RZLSEC		/ ......AND SAVE IT.
+/
+/
+RZRTRY,
+	JMS	BLKSET			/SET BLOCK CNT			/c045
+	TAD  	RZLSEC		/ BACK UP THE "LOGICAL" SECTOR #,...
+	DCA	RZCSEC		/ ...AND [RE-]SET THE CURRENT SECT. #.
+	TAD	RZBPTR		/ GET THE CURRENT BUFFER POINTER,...
+	DCA  	RZBFFR		/ ...AND SAVE IT FOR A RETRY.
+	JMS	RZDIVD		/ CALCULATE FIRST TRACK/SECTOR VALUES.
+	JMS	RZNEXT
+RZEXIT,	CIFSYS			/RETURN TOO CALLER			/M033
+RZ2RET,	JMP I	RX2SYS			/RETURN TO CALLER
+/D032RZCDIF,	CIFSYS			/USED TO SET RETURN		/M033
+MSK37,	37			/MASK
+MSK400,	400			/DENSITY BIT MASK
+RZACTR,						/A015
+RZPAT1,	0		/TEMP STORE			/A015
+RZ50SW,	0			/0=RX01 OR RX02-- NOT 0=RX50
+RZHEAD,	0	/HEAD SIDE
+  IFDEF	CONDOR		<
+RZPAIR,	0	/PAIR BIT(11)  1 = 2 RX50 OR RX50 +RX02	/A019
+			>
+			SIZE=	.-LOGIO
+/
+/	** -1- ** PAGE 1 DATA AREA ****
+/---------------------------------------------------------------------
+/
+/************************ OFF-PAGE POINTERS, DATA, ETC. **************
+/
+/---------------------------------------------------------------------
+RZCSEC,	0			/ * CURRENT SECTOR NUMBER.
+/
+RZCDF0,	CDFSYS			/ "CDF 0" INSTRUCTION.			/M033
+/
+RZRTCT,	-10			/ POINTER TO RETRY COUNT.
+RZLSEC,	0		/LOGICAL SECTOR
+RZECTR,	0			/ERROR COUNT WORD
+RZPHSW,	0		/PHYSICAL I/O SW 0=LOGIO 1=PHYS
+RZDENS,	0		/DENSITY SW			/M036
+			SIZE=	.-RZCSEC
+			SPARE=	.+177&7600-.
+				PAGE
+			EJECT
+/	** -2- ** PAGE 2 DOCUMENTATION ****
+/*********************************************************************
+/
+/				PAGE 2
+/
+/*********************************************************************
+/
+/	THIS PAGE OF THE DRIVER CONTAINS ALL OF THE I/O FUNCTIONS
+/	AND CONTROLLER I/O COMMAND PROCESSORS, AND CONCOMMITANT
+/			DATA AREAS.
+/
+/	A.	THE 8 BIT MODE/SINGLE DENSITY, SECTOR 1, DATA
+/			PACKING ROUTINE.
+/
+/	B.	THE 8 BIT MODE/SINGLE DENSITY, SECTOR 1, DATA
+/			UNPACKING ROUTINE.
+/
+/	C.	COMBINED MODE/DUAL DENSITY, READ PRIMITIVE.
+/
+/	D.	COMBINED MODE/DUAL DENSITY, WRITE PRIMITIVE.
+/
+/	E.	THE PHYSICAL I/O CONTROLLER PRIMITIVE.
+/
+/	F.	THE CONTROLLER COMMAND PRIMITIVES.
+/
+/	G.	THE CONTROLLER "DONE"/"ERROR" PROCESSOR PRIMITIVES.
+/
+/	H.	THE PAGE 2 DATA AREA.
+/
+/*********************************************************************
+
+/	** -2- ** PACKING ALGORITHM ****
+/*********************************************************************
+/
+/	THE ROUTINE "DXPACK" PERFORMS A TRANSFORMATION OF A
+/	BLOCK (I.E. 256(10)) OF TWELVE BIT WORDS INTO THREE
+/	128(10) SECTORS OF 8 BIT BYTES SCHEMATICALLY INDICATED
+/	BY THE FOLLOWING DIAGRAM.
+/
+/	THE ROUTINE "DXUNPK" REVERSES THIS PACKING ALGORITHM.
+/
+/
+/	NOTA BENE - Nx,y INDICATES NIBBLE(BITS 0-3) OF PAGE "x", WORD "y".
+/				WHILE
+/		    Bx,y INDICATES BYTE(BITS 4-11) OF PAGE "x", WORD "y".
+/
+/			!<--------12------->!
+/			!<--4->!<----8----->!
+/			! N0,0 !    B0,0    !
+/			! N0,1 !    B0,1    !
+/			! N0,2 !    B0,2    !
+/			! N0,3 !    B0,3    !
+/				.
+/				.
+/				.
+/				ETC.
+/				.
+/				.
+/				.
+/			!N1,127!   B1,127   !
+/
+/
+/
+/			IS TRANSFORMED INTO
+/
+/
+/
+/ !  SECTOR "1" !		! SECTOR "2" !		! SECTOR "3" !
+/ !<-----8----->!		!<----8----->!		!<----8----->!
+/ ! N0,1 ! N0,0 !		!    B0,0    !		!    B1,0    !
+/ ! N0,3 ! N0,2 !		!    B0,1    !		!    B1,1    !
+/ ! N0,5 ! N0,4 !		!    B0,2    !		!    B1,2    !
+/ ! N0,7 ! N0,6 !		!    B0,3    !		!    B1,3    !
+/ 	.				.			.
+/ 	.				.			.
+/ 	.				.			.
+/ 	ETC.	+			ETC.	+		ETC.
+/ 	.				.			.
+/ 	.				.			.
+/ 	.				.			.
+/ !N1,127!N1,126!		!   B0,127   !		!   B1,127   !
+/
+/*********************************************************************
+				EJECT
+/	** -2- ** RX01 SECTOR PACKING ROUTINE ****
+/---------------------------------------------------------------------
+/
+/************************ RX01 SECTOR PACKING ROUTINE ****************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/---------------------------------------------------------------------
+DXPACK,	0			/ ENTRY POINT TO "DXPACK".
+	JMS	RZLCMD		/ INITIATE A "FILL SILO" OPERATION.
+DXPAK1,	CLA CLL			/ ENSURE REGISTER CLEAR, "XDR" DOESN'T.
+RZ1SET,	CDFSYS								/M033
+	TAD I	RZBTMP		/ LOAD A DATUM,...
+	AND	DXNMSK		/ ...AND ISOLATE THE HIGH ORDER 4 BITS.
+	ISZ	RZBTMP		/ UPDATE BUFFER ADDRESS TO NEXT DATUM.
+DXNMSK,	7400			/ (NOP)- JUST IN CASE THE "ISZ" SKIPS. -/M033
+	CLL RTR			/ ALIGN BITS AGAINST HOB BOUNDARY,...
+	RTR
+	MQL			/ ...AND SAVE TEMPORARILY.
+	TAD I	RZBTMP		/ LOAD NEXT SEQUENTIAL DATUM,...
+	CDFSYS			/RESET					/M033
+	AND	DXNMSK		/ ...AND ISOLATE HIGH ORDER 4 BITS.
+	ISZ	RZBTMP		/ UPDATE BUFFER ADDRESS TO NEXT DATUM.
+	NOP			/ - JUST IN CASE THE "ISZ" SKIPS.
+	BSW			/ ALIGN BITS ON LOB BOUNDARY,...
+	CLL RTR			/ ...COMPLETE BUILD OF 8 BIT BYTE,...
+	MQA			/ ......BY COMPLETING ALIGNMENT,...
+	JMS I	R2XFER		/ .........THEN TRANSFER TO SILO.
+	JMP	DXPAK1		/  - REPEAT PROCESS.
+	JMP	RZEPRO			/ERROR RETURN
+	JMS	RZPHYS
+	JMS	DYWRIT		/ DONE - LET "DYWRIT" FINISH IT OFF.
+	JMP I	DXPACK		/ RETURN TO CALLER.
+			SIZE=	.-DXPACK
+
+				EJECT
+/	** -2- ** RX01 UNPACKING ROUTINE ****
+/---------------------------------------------------------------------
+/
+/************************ RX01 UNPACKING ROUTINE *********************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/---------------------------------------------------------------------
+DXUNPK,	0			/ ENTRY POINT TO "DXUNPK".
+	JMS	RZPHYS		/ EFFECT A "READ SECTOR" OPERATION.
+	JMS	RZLCMD		/ INITIATE AN "EMPTY SILO" OPERATION,...
+DXUPK1,	JMS I	R2XFER		/ TRANSFER A DATUM,...
+	JMP	DXCONT		/TRANSFER
+	JMP	RZEPRO			/ERROR RET
+	JMP	DXDONE		/DONE RETURN
+DXCONT,	AND	DXK377		/ ...AND ENSURE HIGH ORDER NIBBLE = 0.
+	CLL RTL			/ ALIGN NIBBLES ONTO BYTE BOUNDARY.
+	MQL			/ SAVE.
+	MQA			/ RETREIVE.
+	AND	DXBMSK		/ ISOLATE HIGH ORDER NIBBLE,...
+	CLL RTL			/ ...COMPLETE ALIGNMENT,...
+RZ2SET,	CDFSYS								/M033
+	DCA I	RZBTMP		/ ......AND INSERT INTO BUFFER.
+	ISZ	RZBTMP		/ UPDATE POINTER TO NEXT BUFFER ADDRESS.
+DXK377,	0377			/ - JUST IN CASE THE "ISZ" SKIPS.
+				/ ( == "AND 377 ).
+	MQA			/ RETREIVE DATUM.
+	AND	DXPC77		/ ISOLATE NEXT SEQUENTIAL NIBBLE,...
+	BSW			/ ...ISOLATE INTO HIGH ORDER BYTE,...
+	DCA I	RZBTMP		/ ......THEN INSERT INTO BUFFER.
+	CDFSYS			/RESET					/M033
+	ISZ	RZBTMP		/ UPDATE POINTER TO NEXT BUFFER ADDRESS.
+DXPC77,	0077			/ - JUST IN CASE THE "ISZ" SKIPS.
+				/ ( == "AND 77 ).
+	JMP	DXUPK1		/ NO - REPEAT.
+DXDONE,	JMS	DYREAD		/ YES - LET "DYREAD" FINISH IT OFF.
+	JMP I	DXUNPK		/ RETURN TO CALLER.
+			SIZE=	.-DXUNPK
+
+				EJECT
+/	** -2- ** READ PRIMITIVE ****
+/---------------------------------------------------------------------
+/
+/************************ READ PRIMITIVE *****************************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/
+/	THE FOLLOWING ROUTINE UTILISES A PROPERTY OF THE
+/	RX28 SUBSYSTEM THAT IS MODE DEPENDENT.
+/
+/	IN 12 BIT MODE:
+/			ALL TRANSFERS TO THE AC FROM THE
+/			INTERFACE REGISTER ARE 12 BIT JAM
+/			TRANSFERS.
+/
+/	IN 8 BIT MODE:
+/			ALL TRANSFERS TO THE AC FROM THE
+/			INTERFACE REGISTER ARE LOCICAL "OR'S"
+/			INTO BITS 4-11 OF THE AC.
+/
+/	THUS, IN 12 BIT MODE, THE DATA IN THE AC, ACCESSED
+/	BY THE "TAD I	RZBFFR", ARE OVER-WRITTEN BY THE
+/	TRANSFER. IN 8 BIT MODE, HOWEVER, THE DATA TRANSFERRED
+/	IS "OR"ED INTO THE DATA ALREADY IN THE AC ( USUALLY
+/	THE HIGH ORDER FOUR(4) BITS OF A PACKED WORD).
+/
+/	HENCE, THIS FUNCTION MAY BE EMPLOYED AS A "READ"
+/	PRIMITIVE.
+/
+/
+/---------------------------------------------------------------------
+DYREAD,	0			/ ENTRY POINT TO "DYREAD".
+DYRD01,	JMS	RZPHYS		/ EXECUTE A "READ SECTOR" OPERATION.
+	JMS	RZLCMD		/ INITIATE "EMPTY SILO" OPERATION.
+DYRD02,
+	TAD	RZXVFY		/VERIFY MODE?		/A024
+	SZA						/A024
+	JMP	RZ3SET		/YES			/A024
+	TAD	RZPHSW		/PHYSICAL IO SW
+RZ3SET,	CDFSYS								/M033
+	SNA CLA CLL			/IF  SET DONT ADD CONTENTS OF BUFFER
+	TAD I	RZBFFR		/ LOAD CONTENTS OF BUFFER.
+	CDFSYS			/RESET					/M033
+	JMS I	R2XFER		/ LOAD A DATUM.
+				/#(12 BIT MODE = JAM XFER BITS 0-11)
+				/#( 8 BIT MODE = "OR" OF BITS 4-11.)
+	JMP	DYCONT		/TRDONE
+	JMP	RZEPRO			/ERROR RETURN
+	JMP	DYDONE		/DONE RETURN
+DYCONT,
+RZ4SET,	CDFSYS								/M033
+/__________________________________________________________/A015
+/
+/		VERIFY DISKETTE				   	/A015
+/	MUST BE LOCATED IN SAME PAGE AREA AS CALLING SUBROUTINE /A015
+/	ELSE CDF'S AND/OR SECOND BUFFER POINTER NEEDED		/A015
+/
+/		VERIFY MODE COMPARES BUFFER TO SILO		/A015
+/
+RZVJMP,	JMP	RZXNOV		/NOT VERIFY MODE=JMP..NOP=VFY MODE/A015
+	CIA							/A015
+	TAD I	RZBFFR		/CHECK AGAINST BUFFER		/A015
+	SNA CLA							/A015
+	JMP	DVFCNT		/OK CONTINUE			/A015
+	CDFSYS			/RESET TO DRIVE FIELD		/M033
+RZXLOP,	CLA			/WILL NOT RESET 10 TIMES	/A015
+	JMS I	R2XFER		/WAIT UNTILL DONE TO CLEAR FLAGS/A015
+	JMP	RZXLOP		/TR TRY AGN			/A015
+	JMP	RZEPRO		/IS ERROR			/C024
+	JMP	RZEPRO		/IS ERROR			/C024
+RZXNOV,							/A015
+	DCA I	RZBFFR		/STORE				/A015
+DVFCNT,	CDFSYS			/RESET				/M033
+/
+	ISZ	RZBFFR		/ UPDATE BUFFER ADDRESS - WRAP ?
+DXBMSK,	SMA CLA			/ - JUST IN CASE THE "ISZ" SKIPS -
+				/ ( == 7700 & WILL NEVER SKIP!!!)
+	JMP	DYRD02		/ CHECK FOR OPERATION DONE.
+DYDONE,	ISZ	RZSCTR		/ YES - ALL SECTORS PROCESSED ?
+	JMP	DYRD01		/ NO - PROCESS NEXT.
+	JMP I	DYREAD		/ YES - RETURN TO CHECK FOR END OF REQUEST.	/M032
+RZVSKP,	JMP	RZXNOV		/VERIFY SKIP INSTRUCTION	/A015
+			SIZE=	.-DYREAD
+
+				EJECT
+/	** -2- ** WRITE PRIMITIVE ****
+/---------------------------------------------------------------------
+/
+/************************ WRITE PRIMITIVE ****************************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/---------------------------------------------------------------------
+DYWRIT,	0			/ ENTRY POINT TO "DYWRIT".
+DYWRT1,	JMS	RZLCMD		/ INITIATE A "FILL SILO" COMMAND.
+DYWRT0,	 CLA CLL		/
+RZ5SET,	CDFSYS								/M033
+	TAD I	RZBFFR		/UPDATE BUFFER ADDR
+	CDFSYS			/RESET					/M033
+	JMS I	R2XFER		/TRANSMIT
+	JMP	DYCNT1		/TRANSMIT RETURN
+	JMP	RZEPRO			/ERROR RETURN
+	JMP	DYDNE		/DONE RETTURN
+DYCNT1,	ISZ	RZBFFR	
+	NOP			/NECESSARY WHEN REACH END OF FLD
+	JMP	DYWRT0		/NEXT
+DYDNE,	JMS	RZPHYS		/ YES - EXECUTE A "WRITE SECTOR" OPERATION.
+	ISZ	RZSCTR		/ ALL SECTORS PROCESSED ?
+	JMP	DYWRT1		/ NO - DO NEXT.
+	JMP I	DYWRIT		/ YES - RETURN TO CHECK FOR END OF REQUEST.	/M032
+			SIZE=	.-DYWRIT
+
+/								/M032
+/CHECK FOR PHYSICAL IO						/M032
+/	RETURN+1 IF  SWITCH=1					/M032
+/
+CHKPHY,	0							/M032
+	CLA							/M032
+	TAD	RZPHSW		/PHYS IO?		/M012	/M032
+	SZA CLA						/A012	/M032
+	ISZ	CHKPHY					/A012	/M032
+	JMP I	CHKPHY					/A012	/M032
+/*****************************************************
+			EJECT
+/
+/____________________________________________________________/A015
+/	FOLLOWING MAY NOT BE NECESSARY TO RESET TO WRITE UPON EXIT/A015
+/		TO BE RECHECKED					?A015
+/_______________________________________________________________/A015
+DVSETW,	0
+	CLA CLL CMA RTL		/7775				/A015
+	AND 	RZCMND		/CLEAR READ BIT			/A015
+	DCA 	RZCMND						/A015
+	JMP I	DVSETW						/A015
+/
+/
+RZXVFY,	0			/VERIFY MODE SWITCH		/A015
+/	** -2- ** PAGE 2 DATA AREA ****
+/---------------------------------------------------------------------
+/
+/************************ OFF-PAGE POINTERS, DATA, ETC. **************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/---------------------------------------------------------------------
+RZCMND,	0			/ * CONTROLLER COMMAND WORD.
+RZBFFR,	0			/ * RUNNING BUFFER ADDRESS.
+RZBTMP,	0			/ * TEMPORARY BUFFER POINTER.
+RZTRAK,	0			/ * THE PHYSICAL TRACK NUMBER.
+RZSECT,	0			/ * THE PHYSICAL SECTOR NUMBER.
+RZSCTR,	0			/ * SECTOR COUNTER.
+/
+/
+R2XFER,	RZXFER			/POINTER TO "RZXFER ROUTINE
+			SIZE=	.-RZCMND
+			SPARE=	.+177&7600-.
+				PAGE
+			EJECT
+/--------------------------------------------------------------------
+/
+/************************ PHYSICAL I/O SET UP AND CALL*****************
+/
+/****************      PHYSICAL I/O READS/WRITES ONLY ONE  ************
+/*************   CALL IN RZXDIR IS COMPLEMENT OF READ/WRITE *********
+/****************          FOR PHYSICAL I/O        ********************
+/*******************          SECTOR FOR EACH CALL      ***************
+/
+/-----------------------------------------------------------------------
+PHYSIO,	CMA			/
+	DCA	RZXDIR		/RESET CALL
+/D032	IAC			/PHYSICAL IO SW FOR DVSET	/A015
+	JMS	DVSET		/SET VERIFY SW			/A015
+	CLA CLL IAC BSW		/100
+	AND	RZXDIR		/MASK  COMPUTED MODE BIT
+	DCA	RZMODE		/SET MODE CALLED FOR
+	TAD	RZUNIT		/ADD UNIT NO
+	TAD	RZHEAD		/HEAD 0/1 FOR RX50
+	TAD	RZXDIR
+	AND 	KON536		/MASK OUT COMMAND BITS
+	DCA	RZCMND		/    SAVE COMMAND
+			/PHYSIO DENSITY BIT USED ONLY AS SW
+			/IN LDCMND  ROUTINE
+	TAD	RZXDIR		/GET MODE TO RESET DENSITY SW
+	AND	(400		/DENSITY BIT			/A011
+	SZA CLA			/CHECK DENSITY			/A011
+	IAC			/IS DBLE DEN			/A011
+	DCA	RZDENS		/... SET ACTUAL DENSITY FOR THIS DSKETTE
+	TAD	PYTRAK
+	DCA	RZTRAK		/SET TRACK
+	TAD	PYSECT
+	DCA	RZSECT		/SET SECTOR
+RZPHIO,							/M025
+	CLA IAC			/RETRY I/O ERR		/C016	/C025
+	DCA	RZPHSW		/SET PHYSICAL IO SW=-1
+	TAD	RZBPTR		/BUFFER POINTER			/M025
+	DCA	RZBFFR		/RESET				/M025
+	CMA			/-1				/M016
+	DCA	RZSCTR		/SET TO READ ONLY 1 SECTOR	/M016
+	TAD	RZCMND	
+	JMS	RZXJMP		/SET JMP TO FUNCTION
+	RZWRIT			/FUNCTION 0=WRITE
+	RZREAD			/	  2=READ
+	RZFRMT			/	  4=FORMAT DSKETTE
+	RZLDEN			/	  6=GET DENSITY
+	RZEXT			/	 10=IGNORE
+	RZDSTY			/	 12=READ ERROR STATUS
+TRCON,				/SPACE WARS			  /M011
+RZXJMP,	0
+	CLL RAR			/  /2
+	AND	KON7
+	TAD	RZXJMP		/GET ADDR
+	DCA	RZXJMP		/SAVE LOC
+	TAD I	RZXJMP
+	DCA	RZXJMP
+	JMP I	RZXJMP		/EXEC
+RZFRMT,	TAD	KYWORD		/KEYWORD TO SET DENS
+RZDSTY,	DCA	TRCON		/111 FOR TRNSFER 0 FOR DONE
+RZFUNC,	AC0004			/EXECUTE PHYSICAL IO FUNCTION		/M033
+	JMS	RZLCMD
+/D019	JMP	RZERR1			/ERR
+	TAD	TRCON
+	SKP			/SET FOR TRNSFER
+	CLA			/SET FOR DONE RETURN
+	JMS	RZXFER		/READ STATUS
+	JMP .-2			/CHECK DONE
+	JMP	RZERR6			/ERR RET
+	JMP I	R3RET		/DONE RETURN
+RZREAD,	JMS	DYREAD		/GO READ IT
+	JMP I	R3RET		/EXIT
+RZWRIT,	JMS	DYWRIT		/WRITE IT
+	JMP I	R3RET		/EXIT
+RZLDEN,
+	JMS	RZIDEN	/GET DENSITY
+RZEXT,	JMP I	R3RET		/EXIT
+R3RET,	RZEXIT		/DONE RET
+				EJECT
+/	** -1- ** RX01/RX02 PROCESS DISPATCHER ****
+/---------------------------------------------------------------------
+/
+/************************ RX01/RX02 PROCESS DISPATCHER ***************
+/
+/	THIS IS THE MAIN I/O PROCESSOR - ALL I/O LOOPS THROUGH THIS
+/	ROUTINE.
+/
+/	THE FOLLOWING DISPATCH ROUTINE IS BASED UPON AN INDEX, A SUM
+/	CALCULATED FROM THE DENSITY FUNCTION, AND THE I/O FUNCTION
+/	AS FOLLOWS:
+/
+/			SD		DD
+/	RZDENS		0		1
+/
+/			WRITE		READ
+/	RZXDIR		0		2
+/
+/	THEREFORE,
+/
+/	"INDEX"		0	=>	SINGLE DENSITY/WRITE.
+/			1	=>	DOUBLE DENSITY/WRITE.
+/			2	=>	SINGLE DENSITY/READ.
+/			3	=>	DOUBLE DENSITY/READ.
+/
+/---------------------------------------------------------------------
+RZNEXT,	0
+RZNXTA,	TAD 	RZBFFR		/ SET/RE-SET TEMPORARY BUFFER,...
+	DCA 	RZBTMP		/ ...POINTER FOR PACK/UNPACK ROUTINES.
+	TAD	RZ50SW
+	SNA CLA			/IS IT RX50?
+	TAD	(-1		/NO INTERLEAVE 2
+	TAD	(-1		/YES INTERLEAVE 1
+	DCA 	RZSCTR		/ ...SECTOR COUNT,...
+	TAD	RZXVFY		/CHECK VERIFY MODE		/A015
+	SZA CLA							/A015
+	CLA CLL IAC RTL		/=4 ADD TO TABLE FOR VERIFY MODE/A015
+RZNXTB,	TAD 	RZDENS		/ LOAD THE DENSITY CODE,...
+	TAD	RZXDIR		/ ...AND BUILD DISPATCH CODE.
+	JMS	RZDISP		/ LOAD THE TABLE HEAD.
+	DXPACK			/ SD/8 BIT WRITE.
+	DYWRIT			/ DD/12 BIT WRITE.
+	DXUNPK			/ SD/8 BIT READ.
+	DYREAD			/ DD/12 BIT READ.
+	DVPACK			/8BIT SD WRITE WITH VERIFY	/A015
+	DVWRIT			/12BIT DD WRITE WITH VERIFY	/A015
+	RZVERF			/8BIT SD READ VERIFY(NOT ALLWD LOGIO)	/A015
+	DVREAD			/12BIT DD READ VERIFY(ALLWD LOGIO)/A015/C024
+RZDISP,	0			/ TABLE ENTRY ADDRESS/DISPATCH ADDRESS.
+	TAD	RZDISP		/ BUILD,...
+	DCA	RZDISP		/ ...DISPATCH,...
+	TAD I	RZDISP		/ ......ADDRESS,...
+	DCA	RZDISP		/ .........THEN,...
+	JMS I	RZDISP		/ .................AND DISPATCH.
+	ISZ	RZBCNT		/ REQUEST COMPLETE ?		/C045
+	JMP	RZNXTA		/ NO - DO ANOTHER BLOCK.
+	JMP I	RZNEXT		/ ...AND EXIT DRIVER.	/M032
+			SIZE=	.-RZNEXT
+/SPACE WARS MOVE VERSION 034
+/
+
+DVSETR,	0
+	CLA CLL IAC RAL	/=2			/A015	/M034
+	TAD 	RZCMND		/ADD			/A015	/M034
+	DCA 	RZCMND		/RESET			/A015	/M034
+	JMP I	DVSETR					/A015	/M034
+/
+				EJECT
+KYWORD,	111		/KEYWORD TO FORMAT DENSITY		/M032
+KON536,	536		/MASK  9 BIT =HEAD/SCND SIDE RX50
+KON7,	7
+			SPARE= .+177&7600-.
+				PAGE
+
+				EJECT
+/	** -2- ** PHYSICAL I/O PRIMITIVE ****
+/---------------------------------------------------------------------
+/
+/************************ PHYSICAL I/O PRIMITIVE *********************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/---------------------------------------------------------------------
+RZPHYS,	0			/ ENTRY POINT TO "RZPHYS".
+	AC0004			/ SET IN THE "PHYSICAL I/O" BIT,...	/M033
+	JMS	RZLCMD		/ ...AND TRANSMIT COMMAND TO CONTROLLER.
+	TAD	RZSECT		/ LOAD THE PHYSICAL SECTOR,...
+	JMS 	RZXFER		/ ...AND TRANSMIT IT.
+	JMP	RZCNT1		/TR DONE RETURN
+	JMP	RZEPRO			/ERROR RETURN
+	JMP	RZERR3			/SHOULD NOT GET DONE RETURN
+RZCNT1,	CLA CLL			/ ENSURE REGISTER CLEAR, "XDR" DOESN'T.
+	TAD	RZTRAK		/ LOAD THE PHYSICAL TRACK,...
+	JMS 	RZXFER		/ ...AND TRANSMIT IT TOO.
+	JMP	RZCNT2		/TR RETURN
+	JMP	RZEPRO			/ERROR RETURN
+	JMP	RZERR3			/SHOULD NOT GET DONE YET
+RZCNT2,
+	JMS	CHKPHY		/CHECK PHYSIO	SKIP ONE IF TRUE	/A012
+	JMS	RZDIVD		/THEN CALCULATE THE NEXT TRACK AND SECTOR./M012
+	JMS	RDNSWP			/DO SWAP IF DONE	/A026
+			/DONE RETURN
+	CDFSYS			/ RESTORE OUR DATA FIELD,...		/M033
+	JMP I	RZPHYS		/ YES - RETURN TO CALLER.		/M032
+			SIZE=	.-RZPHYS
+
+				EJECT
+/	** -2- ** CONTROLLER PRIMITIVES ****
+/---------------------------------------------------------------------
+/
+/************************ CONTROLLER FUNCTION PRIMITIVE **************
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! NOTA BENE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/!!!!!!!!!!!!!!!!!!!!!!!! END NOTE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/
+/---------------------------------------------------------------------
+RZLCMD,	0			/ ENTRY POINT TO "RZPHYS".
+	TAD	RZCMND		/ LOAD THE COMMAND,...
+RZIO01,	RXILCD			/ SUBMIT COMMAND, OR FIRST BYTE OF, 	/M033
+				/ TO CONTROLLER,...
+	TAD	RZMODE		/ ...8 BIT MODE OPERATION ?,...
+	SNA CLA	
+	JMP	INCRET			/NO 12 BIT
+	TAD	RZDENS		/SET 2ND HALF OF WORD FOR LCD		/A011
+RZLCM2,	JMS	RZXFER		/ .........YES - SEND OUT SECOND BYTE,...
+	JMP  	INCRET		/NORMAL RETURN
+	JMP	RZERR1		/ERROR RETURN			/C019
+	JMP	RZERR1		/DONE RETURN=ERROR		/C019
+INCRET,							/C019
+	CLA			/CLEAR FOR 8 BIT DD TRNSFER
+	JMP I	RZLCMD		/			/M032
+/*****RZLCM3 MUST BE LOCATED ON SAME PAGE AS RZLCM2		/A024
+RZLCM3,	JMS	RZXFER	/CONSTANT USED TO OVERLAY RZLCM2	/A024
+/******************						/A024
+/---------------------------------------------------------------------
+/
+/************************ CONTROLLER READY PRIMITIVE *****************
+/
+/   THE DATA FIELD OF THIS ROUTINE IS THE SPECIFIED BUFFER FIELD.
+/
+/************************ CONTROLLER DATA TRANSFER PRIMITIVE *********
+/
+/************************ OPERATION COMPLETE/ERROR PROCESSOR *********
+/
+/---------------------------------------------------------------------
+RZXFER,	0		/ENTRY POINT
+RZXRDY,				/RZXRDY  USED TO CHECK ASSEM REF ERRS(TEMP)
+RZIO02,	RXISTR			/TRANS READY?				/M033
+	JMP	RZDONE		/NO CHECK DONE
+RZIO03,	RXIXDR			/YES TRANSFER				/M033
+	JMP I	RZXFER		/TRANSFER COMPLETE RETURN		/M032
+RZDONE,				/RZDONE TEMP TO CHECK REFERENCES
+RZIO04,	RXISDN			/OP COMPLETE				/M033
+	JMP	RZXRDY		/NO CHECK TRANSFER
+RZIO05,	RXISER			/ANY ERROR				/M033
+	JMP RZNOER		//NO
+	JMS	RZTMPE		/ ERROR ROUTINE
+	JMP	RZERXT		/YES
+RZNOER,
+	CLA							/A007
+	ISZ	RZXFER		/SET DONE RETURN
+RZERXT,	ISZ	RZXFER		/SET ERROR RETURN
+	JMP I	RZXFER			/M032
+RZTMPE,	0		/ ERROR ROUTINE
+	CLA								/A011
+	RXIXDR			/GET STATUS				/M033
+	AND	M377
+	DCA	RZSTAT		/TO RZSTAT (FOR RZIDEN).		/M003
+	TAD	RZCMND		/GET DEVICE NO
+	AND	KON20
+	TAD	KON16		/ERR STATUS CODE
+	RXILCD			/TRNSFER				/M033
+	RXISDN								/M033
+	JMP	.-1
+	RXIXDR								/M033
+	AND	M377
+	DCA	RZERST		/SET ERROR STATUS
+	JMP I	RZTMPE		/
+KON20,	20
+KON16,	16
+RZMODE,	0			/MODE SW: 0=12(DD) BIT MODE 1=8(SD) BIT MODE
+/
+M377,	377
+
+				EJECT
+/	** -3- ** PAGE 3 DOCUMENTATION ****
+/*********************************************************************
+/
+/				PAGE 3
+/
+/*********************************************************************
+/
+/	THE FOLLOWING PAGE CONTAINS ALL OF THE UTILITY ROUTINES
+/	USED BY THE PAGE 1, AND PAGE 2 ROUTINES, PLUS THE ASSOCIATED
+/				DATA AREAS.
+/
+/	A.	THE ERROR PROCESSOR.
+/
+/	B.	THE EXTERNAL/INTERNAL DENSITY DETERMINATION ROUTINES.
+/
+/	C.	THE TRACK,SECTOR AND INTERLEAVE ROUTINES.
+/
+/      [D.	THE OPTIONAL I/O WAIT ROUTINE-USED ONLY IF ALL ELSE FAILS.]
+/
+/	E.	THE PAGE 3 DATA AREA.
+/
+/*********************************************************************
+/	** -3- ** ERROR PROCESSOR ****
+/---------------------------------------------------------------------
+/
+/************************ PROCESSES ERRORS/RE-TRY ********************
+/
+/---------------------------------------------------------------------
+RZEPRO,
+	IFDEF  CONDOR	<
+	JMS	CKWPRO		/CHECK IF WRITE PROTECT ERROR	/A026
+	JMP	RZERR2		/YES IT IS(DON'T) RETRY 10 TIMES/A026
+			>	/END ENDIF CONDOR		/A026
+	TAD I	R2BPTR		/ ......AND THE,...
+	DCA I	R2BFFR		/ .........BUFFER ADDRESS.
+	JMS	RZINCR		/CHECK INIT COUNT		/M016
+	TAD	RZXVFY		/IS VERIFY MODE			/A016
+	SZA CLA							/A016
+	JMP	RZERR8		/YES.				/A016
+	TAD	RZPHSW		/IS PHYSIO?			/A007
+	SZA CLA							/A007
+	JMP	RZERR6		/YES				/A007
+RZXPRC,	TAD I	R2CSEC		/ RE-SET THE OFFENDING,...
+	DCA I	R2LSEC		/ ...SECTOR NUMBER,...
+	ISZ I	R2ECTR		/ RETRY COUNT EXHAUSTED ?
+	JMP I	R2RTRY		/ NO - RE-TRY THIS OPERATION.
+	JMP	RZERR2		/PROCESS ERROR 2
+/
+/
+RZERR8,	TAD	RZPHSW		/IT IS VERIFY MODE BUTIS PHYSIO?/A016
+	SNA CLA							/C044
+/D044	JMP	RZERR7		/YES				/A016
+/D044	JMS	DVSETW		/NO IT'S LOGIO WRITE WITH VERIFY/A016
+	JMP	RZXPRC		/....AFTER SETTING TOWRITE CONT../A016
+/
+RZERR7,	TAD RZCMND	/CHECK COMMAND LAST PERFORMED	  /A016
+	AND	KON16
+	SNA CLA 			/0=WRITE 2 =READ....		  /A016
+	JMP	RZERRR		/WAS WRITE(WOULD BE FLUKE IF OCCURED)/A016
+	JMS	DVSETW		/SET TO WRITE			     /A016
+	CMA							/A016
+	DCA	RZSCTR		/SET SECTOR COUNT		/A016
+	JMS	DYWRIT		/WRITE IT			/A016
+RZERRR,	JMS	DVSETR		/SET READ			/A016
+	JMP	RZERR6		/DO IT				/A016
+			SIZE=	.-RZEPRO
+				EJECT
+/	** -2- ** PAGE 2 DATA AREA ****
+/---------------------------------------------------------------------
+/
+/************************ OFF-PAGE POINTERS, DATA, ETC. **************
+/
+/---------------------------------------------------------------------
+RZERST,	0			/ * ERROR-STATUS WORD.
+/
+/
+R2EXIT,	RZEXIT			/ LINK TO EXIT CODE.
+/
+R2RTRY,	RZRTRY			/ POINTER TO "RZRTRY".
+R2CSEC,	RZCSEC			/ POINTER TO "RZCSEC".
+R2BPTR,	RZBPTR			/ POINTER TO "RZBPTR".
+R2BFFR,	RZBFFR			/ POINTER TO "RZBFFR".
+R2ECTR,	RZECTR			/ POINTER TO "RZECTR".
+R2LSEC,	RZLSEC			/POINTER TO "RZLSEC"
+/
+/m 050 this routine moved here in V2.5
+/
+/	THIS ROUTINE ENTERED FOR 12 BIT LOGICAL READ AND VERIFY	/M027
+/
+DVREAD,	0						/M032
+	JMS	DYREAD		/READ AND COMPARE SILO		/M032
+	JMP I	DVREAD						/M032
+/
+/		END SPACE WARS
+
+			SPARE=	.+177&7600-.
+				PAGE
+				EJECT
+
+/
+/
+/************************ INTERNAL CALL DENSITY PROCESSOR ************
+/
+/---------------------------------------------------------------------
+RZIDEN,	0			/ ENTRY POINT TO "RZIDEN".
+	IFDEF	WINNIE	<
+	JMP	CHKWIN		/CHECK WINNIE(SPACE WARS CLUGE)		/A032
+			>	/END IFDEF WINNIE			/A032
+				/.....NOT A WINNIE RETURN		/A032
+/
+NOWINI,
+	DCA I	R3CMND			/CLEAR COMMAND TEMP
+	DCA I	R3MODE		/ENSURE 12 BIT MODE FOR LOAD STATUS CMND
+	TAD I	R3UNIT		/UNIT NO
+	TAD	CON12		/101X BIN READ STATUS
+	JMS	RZLCMD		/EX CMMND
+				/#	"SINGLE DENSITY"
+				/#	"12 BIT MODE"
+				/ ...OPERATION.
+	DCA	RZDLCT		/SET DELAY COUNT		/A022
+	TAD	KONDLY		/DELAY CONSTANT 7421(SNL)	/A023
+	DCA	RZDLC2		/OUTSIDE LOOP=-APPROX 240 DEC	/A023
+	JMP	RZDELY	/***********************
+RZIO10,	RXISDN			/DONE FLAG SET?			/M033
+	JMP	RZDELY		/INC TIMEOUT			/A022
+RZIO11,	RXISER			/IS THERE ANY ERROR		/M033
+	JMP	RZDNOK		/NO  DONE IS OK			/A022
+	JMS	RZTMPE		/READ ERROR STATUS		/A022
+	JMP	RZPASS		/GET STATUS			/A022
+RZDNOK,								/A022
+RZIO07,	RXIXDR			/READ STATUS			/M033
+	DCA	RZSTAT		/SAVE STAT TEMP
+RZPASS,	TAD	RZSTAT
+	AND	(377			/CLEAR UNUSED BITS
+	DCA	RZSTAT
+	TAD	(200		/DEVICE READY?
+	AND	RZSTAT
+	SNA CLA			/IS READY?
+	JMP	RZERR5		/NO
+	CLA IAC BSW		/100=RX50 BIT			/A023
+	AND	RZSTAT		/				/C023
+	SNA CLA			/IS IT A 50
+	JMP	NOTA50	
+	CLA CLL IAC RAL		/=2				/A024
+	JMS	RZSETX		/SET TYPE			/A024
+	TAD	RZSTAT
+	AND	(1000		/2ND HEAD AVAILABLE
+	SZA CLA
+	IAC			/SET DENS TO 3
+	TAD	(2		/2=RX50 ONE SIDE  3=RX50 2 SIDES
+	JMP	RZSETF		/SET DENSITY
+NOTA50,
+	TAD	RZSTAT		/ GET STATUS				/A002
+	AND	(10)		/ ISOLATE THE RX02 BIT.			/A002
+	JMS	RZSETX		/SET UP FOR RX02/RX01 		/A024
+	TAD	RZSTAT		/GET STATUS
+	AND	(40		/MASK DENSITY BIT
+	SZA CLA			/IS IT READY?
+	IAC			/DD
+RZSETF,
+	DCA I	R3DENS		/SET DENSITY 0=SD 1=DD
+				/............3=RX50 ONE SIDE
+				/............4=RX50 TWO SIDE
+RZCNT3,	TAD I	R3DENS		/GET WORKING DENSITY
+	JMP I	RZIDEN		/  -  RETURN.		/M032
+RZSTAT,	0			/SAVE STATUS JUST READ
+				/.....BIT 6 = DENSITY(0=SD)
+CON12,	12
+RZDLCT,	0	/DELAY COUNT INITIALIZED TO 0 TO APPROX 18.4 MSEC/C022
+RZDLC2,	0	/OUTSIDE LOOP (-240 APPROX.) =5SEC TOTAL/A023
+			SIZE=	.-RZIDEN
+
+				EJECT
+/	** -3- ** TRACK, SECTOR AND INTERLEAVE ****
+/---------------------------------------------------------------------
+/
+/************************ TRACK/SECTOR-INTERLEAVE PROCESSOR **********
+/
+/	THE FOLLOWING ROUTINE IS A "ONE'S COMPLEMENT" DIVIDE
+/	ROUTINE.
+/
+/	THE QUOTIENT IS RETURNED AS THE ONE'S COMPLEMENT
+/	OF THE TRUE QOUTIENT, WHILE THE REMAINDER IS RETURNED
+/	AS A POSITIVE NUMBER, GREATER OR EQUAL TO ZERO, AND LESS
+/	THAN THE DIVISOR.
+/
+/	THE MAXIMUM NUMBER OF ITERATIONS THAT MAY BE EXECUTED FOR
+/	TRACK/SECTOR CALCULATIONS IS TEN(10) DECIMAL. THUS, THE
+/	MAXIMUM TIME THAT MAY BE SPENT WITHIN THE DIVIDE ROUTINE
+/	PROPER FOR THE MAXIMUM BLOCK COUNT (<=1001(10)) IS ABOUT
+/	1.2 MILLISECONDS, FOR ALL OTHER SUCH CALCULATIONS,
+/	PROPORTIONATELY LESS.
+/
+/	ADJUSTMMENT OF THE TRACK NUMBER, IN THE ROUTINE, "RZINTL"
+/	TO THE RANGE OF 1<=TRACK<=77, IS ACCOMPLISHED BY A "CIA"
+/	INSTRUCTION, SIMULTANEOUSLY 1'S ORIGINING THE TRACK, AND
+/	BUILDING A POSITIVE NUMBER. FOR A TRUE DIVIDE THE QUOTIENT
+/	MUST BE MADE POSITIVE BY MEANS OF A "CMA" INSTRUCTION.
+/
+/---------------------------------------------------------------------
+RZDIVD,	0			/ ENTRY POINT TO "RZDIVD".
+	CLA MQL			/ INIT. THE RESIDUE,...
+	TAD	RZ50SW		/RX50 SW
+	SNA CLA			/IS IT SET
+	TAD	RZ02DV		/DIVISOR FOR RX01/RX02
+	TAD	RZ50DV		/DIVISOR FOR RX50
+	DCA	RZDVSR		/SET IT UP(10 SECTORS FOR 50__26 FOR 01/02)
+	CMA CLL CML		/ ...AND THE QUOTIENT,...
+	DCA I	R3TRAK		/ ......(THE PHYSICAL TRACK ~).
+	TAD I	R3LSEC		/ LOAD THE LOGICAL SECTOR #.
+	SNA			/ LOGICAL SECTOR = 0 ?
+	JMP	RZINTL		/ YES - JUST INTERLEAVE.
+RZDIV0,	RAL			/ NO - NORMALISE,...
+KONDLY,	SNL			/ ...THE LOGICAL SECTOR,...	/C023
+	JMP	RZDIV0		/ ......NUMBER.
+RZDIV1,	DCA I	R3SECT		/ SAVE THE CALCULATED PHYSICAL SECTOR.
+	MQA			/ LOAD RESIDUE.
+	RAL			/ SHIFT,...
+	MQL			/ ...AND SAVE.
+	MQA			/ RETREIVE RESIDUE.
+	TAD	RZDVSR		/ "SUBTRACT" DIVISOR (# SECTORS/TRACK).
+	SMA			/ OVERFLOW ?
+	MQL			/ NO - SAVE VALUE.
+	CLA CML			/ YES - CLEAR REGISTER, FIX LINK.
+	TAD I	R3TRAK		/ RETREIVE QUOTIENT.
+	RAL			/ SHIFT AND,...
+	DCA I	R3TRAK		/ ...SAVE.
+
+	TAD I	R3SECT		/ RETREIVE SECTOR,...
+	CLL RAL			/ ...AND SHIFT.
+	SZA			/ DONE ?
+	JMP	RZDIV1		/ NO - REPEAT.
+				/ YES - TIME TO INTERLEAVE.
+			SIZE=	.-RZDIVD
+/---------------------------------------------------------------------
+/
+/************************ INTERLEAVE SECTORS *************************
+/
+/---------------------------------------------------------------------
+RZINTL,	MQA			/ RETREIVE QUOTIENT.
+	CLL RAL			/ BUILD 2*Q.
+	DCA I	R3SECT		/ SAVE 2*Q.
+	TAD 	RZ50SW		/ GET DENSITY INDICATOR (0=SD,1=DD).
+	 SNA CLA		/RX50 INTERLEAVE 2 ELSE 3
+	MQA			/ NO - LOAD "Q".
+	TAD I	R3SECT		/ YES - BUILD CORRECT INTERLEAVE FACTOR.
+RZDIV2,	DCA I	R3SECT		/ SAVE "PHYSICAL" SECTOR #.
+	TAD 	RZ50SW						/A018
+	SZA CLA			/IS A 50?			/A018
+	TAD I	R3DENS		/.YES. ADJUST MODULUS FOR DENSITY TYPE/M018
+	TAD I	R3SECT		/ RETREIVE "PHYSICAL" SECTOR #.
+	TAD	RZDVSR		/ "SUBTRACT" # SECTORS/TRACK.
+	SMA SZA			/ OVERFLOW ?
+	JMP	RZDIV2		/ NO - REPEAT UNTIL OVERFLOW.
+	ISZ I	R3SECT		/ YES - ADD 1 TO BUILD CORRECT PHYSICAL SECTOR.
+	CLA
+	TAD I	R3TRAK		/ LOAD THE PHYSICAL TRACK #,...
+	CIA			/ ...ADJUST TO RANGE 1<=TRK<=77.,...
+	DCA I	R3TRAK		/ ......AND SAVE IT FOR CALLS.
+	ISZ I	R3LSEC		/ UPDATE LOGICAL SECTOR.
+	JMP I	RZDIVD		/ RETURN TO CALLER.		/M032
+			SIZE=	.-RZINTL
+
+				EJECT
+/	** -3- ** PAGE 3 DATA AREA ****
+/---------------------------------------------------------------------
+/
+/************************ OFF-PAGE POINTERS, DATA, ETC. **************
+/
+/---------------------------------------------------------------------
+/
+RZDVSR,	0			/ TRACK/SECTOR DIVISOR.
+RZ02DV,	-20		/DIVISOR FOR RX01/2=-(20+12)
+RZ50DV,	-12			/DIVISOR FOR RX50=10 DEC.
+/
+/
+R3DENS,	RZDENS			/ POINTER TO "RZDENS".
+R3TRAK,	RZTRAK			/ POINTER TO "RZTRAK".
+R3SECT,	RZSECT			/ POINTER TO "RZSECT".
+R3LSEC,	RZLSEC			/ POINTER TO "RZLSEC".
+R3UNIT,	RZUNIT			/ POINTER TO "RZUNIT".
+R3CMND,	RZCMND			/ POINTER TO "RXCMND".
+R3MODE,	RZMODE			/POINTER TO "RZMODE"
+			SIZE=	.-RZDVSR
+			SPARE=	.+177&7600-.
+				PAGE
+				EJECT
+/************************************************************/A026
+/
+/	THIS ROUTINE SET UP TO CHECK DONE. IT RETURNS IF DONE SET /A026
+/	IF ERROR OR TRANSFER  FLAG SET GOES TO APPROP. ERROR ROUTINE/A026
+/
+/	RDOSWP	 defined in WPF1  overlayed by WPCU2 after
+/		initialization done. allows swaping of tasks
+/		pending read/write done being set
+/		If error on RDOSWP ... WPF1 must change
+/		to = address in dskhnd.... currently=6412
+/
+/
+/************************************************************/A026
+RDNSWP,	0					/A026
+RNOSWP,	RXISTR		/TRNSFER READY			/M033
+	JMP	RNOXDR	/NO CHECK DONE			/C028
+	RXIXDR		/CLEAR IT			/M033
+	JMP	RZERR4	/TRANSFER READY ILLEGAL		/A026
+RNOXDR,	RXISDN		/DONE?				/M033
+	JMP	RDOSWP					/A032
+/
+/
+/D032ROVSWP,	JMP	RNOSWP	/CHECK TRANSFER			/C028
+	RXISER		/ERROR?				/M033
+	JMP I	RDNSWP					/A026
+	JMP	RZEPRO	/PROCESS ERROR			/A026
+RDOSWP,	CLA		/OVERLAYED WITH JSWAP		/C028
+	JMP	RNOSWP					/A032
+/*********************************************************/A018
+/
+/	THIS ROUTINE SELECTS THE DEVICE PAIR AS SPECIFIED IN AC	/A018
+/	IF DONE IS SET IT RETURNS ...CALL+1
+/	ELSE AFTER TIMEOUT
+/	INITIALIZES DISKETTES AND TAKES ERROR RETURN
+/	...WITH 5777 IN AC... BIT 0=ERROR
+/			      BITS 1,2,3 =101 FOR DENSITY DEVICE NOT/A018
+/			.......................READY
+/			      BITS 4-11 =377  UNIQUE ERROR CODE	/A018
+/				..............FOR LATER USE	/A018
+/************************************************************/A018
+SELCMD,	0
+	TAD	RZSLDV	/GET PAIR				/M022
+RXI00A,	RXISEL		/SELECT DRIVE PAIR			/M033
+	RXISEL		/SELECT DRIVE PAIR(in case drves 6-7)	/M033
+	CLA		/SET COUNT				/M022
+/SET UP TRANSFER FOR LOAD COMMAND. 0 FOR RX01
+/		SECOND TRANSFER   JMS RZXFER FOR RX02(RX50)	/A024
+/
+/
+	TAD	RZDRIV	/GET DRIVE #				/A024
+	AND	KON07	/MASK IT				/A024
+	TAD	TBLPTR	/TABLE POINTER				/A024
+	DCA	USEPTR	/SET IT UP				/A024
+	TAD I	USEPTR	/GET SWITCH CODE			/A024
+	SZA CLA		/IS RX01 OR RX02(50) TYPE		/A024
+	TAD	RZLCM3	/GET JMS RZXFER FRO RX02(50)		/A024
+	DCA	RZLCM2	/SET CODE OR 0				/A024
+/
+RXI00B,								/M022
+SELRPT,							/M022
+	RXISDN		/DONE					/M033
+	NOP							/M022
+	JMP I	SELCMD	/RETURN					/M022
+RZSLDV,	0	/DEVICE PAIR SELECTED			/M022
+/---------------------------------------------------------------/A016
+/	IF RX50  THIS ROUTINE WILL INIT DISK PRIOR TO RETRY	/A022
+/	THEN WILL SEEK TO TR 079 TILL ERRCOUNT  IS EXHAUSTED	/A022
+/---------------------------------------------------------------/A016
+RZINCR,	0			/DO INIT AFTER 5 RETRIES      /A005
+	JMS	RZSEEK		/CHECK TIME TO SEEK 079		/A022
+	JMP I	RZINCR		/RETURN W/O INIT		/A022
+RZIO06,	RXIINI			/INIT DSK			/M033
+RZIO00,	RXISDN			/WAIT DONE			/M033
+	JMP 	.-1
+	JMS	SELCMD		/SELECT PAIR			/A020
+	JMP I	RZINCR		/RET
+RZSEEK,	0
+	JMS	RZCHKH		/CHECK HALT			/A026
+	TAD	RZ50SW		/IS RX50?			/A022
+	SNA CLA							/A022
+	JMP	RZSEK1		/NO SET RETURN +1		/A022
+	TAD	RZECTR		/ERROR COUNT			/A023
+	TAD	KON10		/1ST TIME			/A023
+	SNA							/A023
+	JMP	RZSEK1		/YES INITIALIZE			/A023
+	TAD	MIN4						/A023
+	SMA CLA			/G.T. THAN 4 TIMES		/A023
+	TAD 	KON79		/YES SEEK TRACK 79		/A023
+	DCA	RZSEKT		/IF NO SEEK TRACK 0		/A023
+	TAD	RZCMND		/LOAD COMMAND			/A022
+	AND	KON20		/MASK DRIVE BIT			/A022
+	TAD	KON406		/DENSITY AND READ		/A022
+	RXILCD			/LOAD COMMAND			/M033
+	CLA IAC			/=1 (SECTOR)			/A022
+	RXISTR			/TRANSFER READY?		/M033
+	JMP	.-1		/NO				/A022
+	RXIXDR			/YES --TRANSFER			/M033
+	CLA			/CLEAR SECTOR			/A023
+	TAD	RZSEKT		/GET TRACK NO			/C023
+	RXISTR			/TRANSFER READY?		/M033
+	JMP	.-1		/NO				/A022
+	RXIXDR			/YES --TRANSFER			/M033
+	RXISDN			/DONE?				/M033
+	JMP	.-1		/NO				/A022
+	RXISER			/ERR?				/M033
+	JMP	RZSEK2		/NO   				/A022
+RZSEK1,	ISZ	RZSEEK		/YES INIT ANYWAY		/A022
+RZSEK2,	CLA							/A022
+	JMP I	RZSEEK						/A022
+/
+/
+/	SET CODE FOR RX01 OR RX02(50) TYPE DEVICE		/A024
+/	0=RX01 10=RX02 2=RX50					/A024
+RZSETX,	0							/A024
+	MQL		/SAVE CODE				/A024
+	TAD	RZDRIV	/GET DRIVE				/A024
+	AND 	KON07	/MASK NUMBER				/A024
+	TAD	TBLPTR	/GET POINTER TO TABLE +OFFSET		/A024
+	DCA	USEPTR	/USER POINTER				/A024
+	MQA		/GET SWITCH				/A024
+	DCA I	USEPTR	/STORE IT				/A024
+	JMP I	RZSETX						/A024
+/
+/
+/	THIS ROUTINE IS CALLED DURING THE ERROR RETRY PROCESS	/A026
+/	IS CHECKS TO SEE IF THE DEVICE IS AN RX50 IN WRITE	/A026
+/	PROTECT MODE.						/A026
+/
+CKWPRO,	0							/A026
+	TAD	RZ50SW		/IS A 50			/A026
+	SNA CLA							/A026
+	JMP	CHKRET		/NO RETURN			/A026
+	TAD	RZCMND		/GET FUNCTION CODE READ		/A026
+	AND	KON12	/IS=WRITE 				/A026
+	SZA CLA							/A026
+	JMP	CHKRET		/NO EXIT			/A026
+	TAD	RZSTAT		/GET STATUS			/A026
+	AND	KON10		/WRITE BIT			/A026
+	SNA CLA			/IS WRITE PROTECT		/A026
+CHKRET,	ISZ	CKWPRO		/NO 				/A026
+	JMP I	CKWPRO		/RET				/A026
+/
+/
+/
+USEPTR,	0	/USED TO SAVE POINTER TO CURRENT DEVICE	/A024
+TBLPTR,	DEVTBL		/POINTER TO DEVICE TABLE		/A024
+/	TABLE USED TO SAVE DEVICE TYPE 0=RX01 10=RX02/RX50	/A024
+/	ALLOWS MIX OF RX01,RX02 AND RX50'S			/A024
+DEVTBL,	0;0;0;0;0;0;0;0						/A024
+	IFDEF	WINNIE	<
+	0;0							/A032
+			>	/END IFDEF WINNIE		/A032
+KON406,	406							/A022
+KON79,	117			/79.				/C023
+KON12,	12					/A026
+KON10,	10						/A023
+KON07,	7	/DRIVE NUMBER MASK			/A024
+MIN4,	-4							/A023
+RZSEKT,	0			/TRACK NO.			/A023
+
+/ m050 the following is moved here to get it out of the startup
+/ m050 feild which is now overwritten by the 8 bit fallback routine
+
+	IFDEF	WINNIE	<
+/RDGTST ROUTINE GETS STATUS OF LAST BLOCK READ			/A042
+/    AND RETURNS IN WORD 1    BIT 5--1IF PHYSICAL CYLNDER 0	/A042
+/			      BIT 6--IF WRITE FAULT LAST DSK OP	/A042
+/			      BIT 7--IF SELECTED UNIT DEFINED	/A052
+/			      BIT 8--UNDEFINED			/A042
+/			      BIT 9--IF SEEK COMPLETE		/A042
+/			      BIT10--IF UNIT 1 SELECTED		/A042
+/			      BIT11--IF UNIT 0 SELECTED		/A042
+/
+/		    WORD 2         =CYLINDER NUMBER		/A042
+/		    WORD 4	   =SECTOR NUMBER		/A042
+/		    WORD 5	   =CONTROLLER VERSION NUMBER	/A042
+/
+RDGTST,								/A042
+	DCA	RDEFSW		/SET EMPTY SW				/A042
+	TAD	(WINSTA		/GET STATUS FUNCTION CODE		/A042
+	JMP	RDRZXT		/DO IT					/A042
+			>	/END IFDEF WINNIE				/A042
+
+				PAGE
+				EJECT
+
+/
+/FOLLOWING CODE MOVED HERE TO PUT AT MORE STABLE LOCATION FOR DATE/TIME
+/AS THE LAST LOCATION IS REFERENCED AS LOCATION THAT UNIT NUMBER IS
+/PASSED TO VERIFY ON ERROR AND FORCED RESTART.
+/
+/*******MOVED VER 046 *****
+/
+/
+/
+/
+/GETTIM SAVTIM USED ONLY DURING STARTUP
+/  Reference in WPF1 to SVFVFY=6600
+SVFVFY=6600			/REFERENCED IN WPF1		/A046
+/
+/CMNDBF USED FOR WINNIE
+/
+GETTIM,		/LOCATION WHERE TIME IS STORED
+SAVTIM,			/    "      "     "   "   "
+CMNDBF=.				/COMMAND BUFFER		/A032
+WRD1=CMNDBF			/1ST WORD			/A032
+WRD2=WRD1+1			/2ND WORD			/A032
+WRD3=WRD2+1			/3RD WORD			/A032
+	0;0;0;0;0;0;0;0;0;0;0;0
+TIMLNT,	SAVTIM+1+2-.		/LENGTH OF TIME FIELD	/A032/C046	/C047
+				/......LAST LOCATION NOW USED TO PASS PARAMETER
+				/......FROM ACP TO VERIFY DURING WARM START
+/D046	7401		/THIS LOC=7401 NECESSARY FOR BLOCK 6 ON DOC DISKETTE
+/D046	0
+/---------------------------------------------------------------------
+/
+/************************ SET BUFFER DATA FIELD **********************
+/
+/---------------------------------------------------------------------
+RZSETB,	0
+RZSETD,	JMS	RZSETA		/SET ALL CDFS FOR BUFFER REFERENCES
+RZSETS,	RZ1SET
+	RZ2SET
+	RZ3SET
+	RZ4SET
+	RZ5SET
+		0		/END TABLE			/A032
+	JMP I	RZSETB		/RET				/A032
+/
+RZSETA,	0
+RZSETL,
+	TAD I	RZSETA		/GET MEMBER IN LIST
+	SNA			/END TABLE?			/A032
+	JMP 	RZSETC						/A032
+	DCA	RZSETT		/TEMP STORE
+	TAD	RZBCDF		/BUFFER CDF POINTER
+	DCA I	RZSETT		/STORE
+	ISZ	RZSETA						/A032
+	JMP	RZSETL		/NO
+RZSETC,	ISZ	RZSETA					/A032
+	JMP I	RZSETA						/A032
+RZSETT,	0		/TEMP STOREAGE
+			SIZE=.-RZSETB
+/
+
+
+/--------------------------------------------------------------------
+/
+/			THIS ROUTINE SETS THE VERIFY SW 	/A015
+/		AC=0 LOGIO UPON ENTRY ELSE PHYSIO		/A015
+/	FOR LOGIO	JMP IS STORED IN RZVJMP			/A015
+/	FOR READ PHYSIO NOP IS STORED IN RZVJMP			/A015
+/	FOR OTHER PHYSIO JMP IS STORED IN RZVJMP		/A015
+/
+/_______________________________________________________________/A015
+
+DVSET,	0							/A015
+/D032	MQL			/SAVE SW			/A015
+	CLA CLL CML RTR		/=2000				/A015
+	AND	RZXDIR		/MASK VERIFY BIT		/A015
+	DCA	RZXVFY		/SET VERIFY SWITCH		/A015
+	CLA CLL CML RTR		/2000				/A015
+	CMA			/SET TO CLEAR SWITCH IN RZXDIR	/A015
+	AND	RZXDIR						/A015
+	DCA	RZXDIR						/A015
+	TAD	RZXVFY						/A015
+	SNA CLA			/VERIFY MODE?			/A015
+	JMP	DVSNOP		/SET NOP			/A015
+	TAD	RZXDIR		/GET CMND			/A015
+	AND	(16		/MASK FNCTION BITS		/A015
+	CIA							/A015
+	TAD	(2		/READ FUNCTION CODE		/A015
+	SZA CLA			/IS READ?			/A015
+	JMP	DVSNOP		/NO				/A015
+	TAD	(NOP						/A015
+	SKP			/STORE				/A015
+DVSNOP,	TAD	RZVSKP		/SKIP VERIFY			/A015
+	DCA	RZVJMP		/SET IT				/A015
+	JMP I	DVSET						/A015
+/*********************************************************************
+/
+/--------------------ERROR ROUTINES-------------------------------------
+/----------------THESE ROUTINES HANDLE ALL I/O ERRORS-------------------
+/---------------- WHEN CALLED THE AC CONTAINS THE ERROR-----------------
+/-----------------STATUS REGISTER, WHILE THE MQ CONTAINS THE------------
+/-----------------GENERAL STATUS REGISTER. ERROR ROUTINES---------------
+/----------------- 1 THRU 6 SET THE H/O BIT(BIT0) TO 1------------------
+/----------------- AND SETS BITS 1-3 TO 001--110 FOR -------------------
+/----------------- ERRORS 1-6 RESPECTIVELY.-----------------------------
+/
+/***********************************************************************
+RZERR6,
+	ISZ 	RZECTR		/INCR ERROR STATUS
+	JMP	RZPHIO		/RETRY 10 TIMES PHYSICAL I/O
+	ISZ	RZSAV1		/BITS 9-11 =6-PHYS IO ERROR
+RZERR5,	ISZ	RZSAV1		/BITS 9-11 =5-NOT READY
+RZERR4,	ISZ	RZSAV1		/BITS 9-11 =4-ILLEGAL TR
+RZERR3,	ISZ	RZSAV1		/BITS 9-11 =3-ILLEGAL DONE
+RZERR2,	ISZ	RZSAV1		/BITS 9-11 =2-ERROR RET
+RZERR1,	ISZ	RZSAV1		/BITS 9-11 =1ERR LD CMND
+	CLA
+RZERR0,							/M029
+	TAD	RZSAV1
+	BSW			/SET BITS1-3 = 000 THRU 110
+	CLL RTL
+	TAD	RZSTAT		/GET STATUS IN L/O BITS 5-11	/C010
+	TAD	RZ4000		/ERROR BIT
+	DCA	RZSAV2		/SAVE TEMP
+	DCA	RZSAV1		/CLEAR COUNT FOR NEXT TIME
+	TAD	RZSAV2		/GET ERR CODE
+	JMP 	RZEXIT		/EXIT RETURN
+RZ4000,	4000
+RZSAV1,	0
+RZSAV2,	0
+	EJECT
+/*****************************************************
+/		CHECK FOR GOLD HALT DURING ERROR RETRY/A026	/M032
+/		IF SET RETURN RZERR0 WITH NO MORE RETRIES/A026
+/
+/************************************************************** /A026
+RZCHKH,	0					/A026	/M032
+	CDFSYS					/A026	/M032
+	TAD I	HLTFLG	/GET HALT FLAG		/A026	/M032
+	CDFSYS					/A026	/M032	/M033
+	SNA CLA		/IS SET?		/A026	/M032
+	JMP I	RZCHKH	/NO...NORMAL RETURN	/A026	/M032
+/YES ERROR RETURN WITH 4000 BITS IN ACC AND REG STATUS IN L/O 8 BITS/A026
+	JMP	RZERR0			/A026	/M032
+/
+/
+/
+RZDELY,	ISZ	RZDLCT		/DONE?				/A022/M032
+	JMP	RZIO10		/NO CHECK DONE FLAG		/A022/M032
+	ISZ	RZDLC2		/OUTSIDE LOOP TOTAL APPROX 5 SEC/A023/M032
+	JMP	RZIO10		/NO CHECK DONE FLAG		/A023/M032
+	JMP	RZERR5		/TIME OUT ERR. DEVICE NO PRESENT/A022/M032
+/***************************************************************
+/
+/------------ SET UP POINTERS AND FIELD CDF'S
+/		BOTH FIELDS= FIELD 0
+/
+/****************************************************************
+SETMOV,	0		/SET UP MOVE PARAMS
+	TAD I	SETMOV
+	ISZ	SETMOV
+	DCA	INBUF	/FROM FIELD PTR
+	TAD I	SETMOV
+	ISZ	SETMOV
+	DCA	OUTBUF	/TO FIELD PTR
+	TAD	TIMLNT				/LENGTH OF TIME FIELD	/A032
+	DCA	MOVCNT	/COUNTER
+/D032MOVDAT,	0		/MOVE DATA FROM ONE FIELD TO ANOTHER
+INCDF,									/M032
+	TAD I	INBUF						/M032
+	DCA I	OUTBUF							/M032
+	ISZ	INBUF							/M032
+	ISZ	OUTBUF	/SET TO NEXT WORD				/M032
+	ISZ	MOVCNT	/DONE?						/M032
+	JMP	INCDF	/NO						/M032
+/D032	JMP I	MOVDAT	/YES
+/D032	JMS	MOVDAT	/MOVE DATA
+	JMP I	SETMOV
+/
+/
+INBUF,	0		/INPUT BUFFER ADDR
+OUTBUF,	0			/OUTPUT  "     "
+MOVCNT,	0			/WORD COUNT
+/SPACE WARS MOVE VERSION 034
+/
+/
+/--------------------------------------------------------------------/A015/M034
+/
+/		RZVERF USED ONLY IF VERIFY BIT ADVERSILY SET	/A015	/M034
+/		DURING LOGIO READ				/A015	/M034
+/		MAY BE ABLE TO DELETE THIS ROUTINE
+/_____________________________________________________________________/A015/M034
+RZVERF,	0			/NECESSARY BECAUSE OF WAY CMNDS EXEC..
+	DCA	RZXVFY		/CLEAR IF SET			/A015	/M034
+	JMP I	RZERR2		/ERROR ILLEGAL CODE  EXIT DRIVER./M032/C034
+/
+			PAGE
+			EJECT
+
+DMESS,
+	7401		/THIS LOC=7401 NECESSARY FOR BLOCK 6 ON DOC DISKETTE
+	CLA;TAD I DMESSP		/OUTPUT MESSAGE
+	BSW								/A034
+	JMS	PRINTM
+	TAD I	DMESSP			/SAME WORD			/A034
+	JMS	PRINTM			/PRINT L/O BYTE			/A034
+	ISZ	DMESSP							/A034
+	JMP	DMESS			/NEXT				/A034
+/
+PRINTM,	0								/A034
+	AND	K77							/A034
+	SNA				/END OF TABLE?			/A034
+	JMP	.			/YES				/A034
+	BSW								/A034
+	SMA				/SPECIAL CHAR			/A034
+	IAC								/A034
+	BSW								/A034
+	TAD	M77							/A034
+	SNA								/A034
+	TAD	K44							/A034
+	TAD	K77							/A034
+	TLS								/A034
+PRINTN,	TSF								/A034
+	JMP	PRINTN							/A034
+	CLA								/A034
+	JMP I	PRINTM							/A034
+K77,	77								/A034
+M77,	-77								/A034
+K44,	33-77								/A034
+/************************************************************
+/		THE FOLLOWING IS THE RESULT OF THE OLD
+/			SPACE WARS GAME
+/**************************************************************
+/
+/
+	IFDEF	WINNIE	<
+/
+/
+/ENTRIES IN DRIVE TABLE =
+/				0  =  SINGLE DENSITY OR NO ENTRY	/A034
+/			      400  =  DOUBLE DENSITY RX02		/A034
+/			     1400  =  -------------- RX50		/A034
+/			     4000  =  WINNIE DEVICE			/A034
+/			     4001  =  MOUNTED WINNIE			/A034
+/
+CHKWIN,
+	CLA IAC			/				/A032
+	RDNOOP			/CHECK WINNIE ON LINE		/A032
+	SZA CLA			/0=WINNIE ON LINE		/A032
+	JMP	NOWINI		/NO				/A032
+YSWINI,
+	TAD	DENDV0		/ADDRESS OF DEV 0 IN ACP DEV TABLE	/A034
+	TAD	RZDRIV		/OFFSET FOR DRIVE
+	DCA	DVPACK		/TEMP LOCATION				/A034
+	CDFACP			/ACP FIELD				/A034
+	TAD I	DVPACK		/GET CODE				/A034
+	CDFDSK			/DRIVER FIELD				/A034
+	RAL			/WINNIE BIT TO LINK			/A034
+	SNL			/IS WINNIE DEVICE?			/A034
+	JMP	NOWNCL		/NOT A WINNIE				/A034
+	SNA CLA			/IS WINNIE MOUNTED			/A034
+	JMP	RZERR2		/NO--SET DENSITY ERROR			/A034
+	CLA CLL IAC RTL		/4=WINNIE REFERENCE		/A032
+	JMP 	RZSETF		/SET DENSITY			/A032
+NOWNCL,	CLA								/A034
+	JMP	NOWINI		/NOT A WINNIE			/A034
+			>	/END IFDEF WINNIE			/A032
+/
+/------------------------------------------------------------/A015
+/								/A015
+/	VERIFY ROUTINES ...CALLED WITH BIT 1 SET DURING		/A015
+/		           LOGICAL WRITE   AND PHYSICAL READ 	/A015
+/
+/		PHYSICAL READ WITH VERIFY=COMPARE BUFFER TO SILO/A015
+/		(SHOULD ONLY BE USED AFTER PHYSICAL WRITE	/A015
+/		LOGICAL WRITE WITH VERIFY=READ AFTER WRITE	/A015
+/					  WITHOUT SILO EMPTY	/A015
+/		LOGICAL READ 12 BIT MODE =READ  COMPARES BUFFER	/A024
+/					  TO SILO		/A024
+/
+/---------------------------------------------------------------/A015
+/
+
+DVPACK,	0		/VERIFY LOGG WRITE 8 BIT MODE		/A015
+	JMS	DXPACK	/WRITE					/A015
+	CLA CLL CMA  RTL	/-3				/A015
+	JMS	DVVFY		/READ NO EMPTY SILO		/A015
+	JMP I	DVPACK		/RETURN				/A015
+/
+
+DVVFY,	0							/A015
+	DCA	DVBCTR		/SET SECTOR COUNT		/A015
+	TAD	RZCSEC		/SET LOG SECTOR			/A015
+	DCA 	RZLSEC						/A015
+	JMS	DVSETR		/SET READ LOGICAL SECTOR AND COMMAND/A015
+	JMS	RZDIVD		/SET SECTOR FOR I/O		/A015
+DVVFY2,	JMS	RZPHYS		/DO IT				/A015
+	ISZ	DVBCTR		/DONE?				/A015
+	JMP	DVVFY2		/NO				/A015
+	JMS	DVSETW		/RESET CMND FOR WRITE		/A015
+	JMP I	DVVFY						/A015
+DVBCTR,	0		/SAVE TEMP SECTORR COUNT	/A015
+/
+
+
+DVWRIT,	0			/WRITE 12 BIT WITH VERIFY/A015
+	JMS	DYWRIT			/WRITE IT		/A015
+	TAD 	RZ50SW			/RX50 SET?		/A018
+	SNA CLA							/A018
+	TAD	M1			/-1			/A018
+	TAD	M1			/-1....-1 RX50  -2 RX01/2/A018
+	JMS	DVVFY						/A015
+	JMP I	DVWRIT						/A015
+M1,	-1			/CONST				/A018
+/******************************************************************/M032/M036
+/----------------- CHECK ZERO BLK COUNT FOR LOGIO-------------------/M032/M036
+/-----------------     SET -1  IF TRUE-----------------------------/M032/M036
+/*****************************************************************/M032/M036
+BLKSET,	0						/A036
+	TAD	RZBCTR			/LOG IO = BLOCK COUNT/M032/M036
+	SNA				/=0		/M032/M036
+	CMA				/YES SET NEG	/M032/M036
+	DCA	RZBCNT			/RESET		/M032/M036/C045
+/******SPACE WARS MOVE*****TO LOAD LO BLOCK NUM FOR WINNIE	/A037
+	IFDEF	WINNIE	<
+	TAD	RZBLKN		/GET BLOCK NUMBER		/M037
+	DCA	LOBLK		/SAVE L/O			/M037
+			>	/END IFDEF WINNIE		/A037
+	JMP I	BLKSET						/A036
+RZBCNT,	0	/#BLOCKS TO BE PROCESSED		/A045
+/---------------------------------------------------------------------
+/
+/		END SPACE WARS
+/************************************************************
+/	
+/	SET4 USED TO SET ALL REFERENCES TO 0 AS DRIVE 4
+/
+	IFDEF	LOAD4	<
+SET4,	0						/A027
+	TAD	RZDRIV					/GET DRIVE NO
+	SNA			/IS=0			/A027
+	CLA CLL IAC RTL		/YES SET TO 4		/A027
+	DCA	RZDRIV					/A027
+	CLA CLL IAC RTL		/SET 4			/A027
+	AND	RZDRIV		/MASK PAIR		/A027
+	JMP I	SET4		/RETURN			/A027
+DMESSP,	.+1						/A039
+	TEXT	/?[2J?[5H SYS DSK IN DRV 0 AND RSTRT./	/A039
+			>	/END IFDEF LOAD4	/A027
+
+	IFNDEF	LOAD4	<
+DMESSP,	.+1
+/D034	200
+/D034	ESC; "[; "H
+/D034	ESC; "[; "J
+/D034	LF;LF;LF;LF;LF			/DOWN FIVE LINES
+IFDEF ENGLSH <
+	TEXT	/![[2J![[5HPUT SYSTEM DISKETTE IN DRIVE 0 AND RESTART/ /M051C045
+>
+IFDEF SPANISH <
+	TEXT	/![[2J![[5HCOLOQUE EL SISTEMA DSK EN UNIDAD 0 Y ARRAN./ /M051C045
+>
+IFDEF ITALIAN <
+	TEXT    /![[2J![[5H INSERIRE IL DISCO SISTEMA E RIPARTIRE./>
+IFDEF FRENCH <
+	TEXT	/?[2J?5H PLACE SYSTEM DISKETTE IN DRIVE 0 AND RESTART./ /C037
+>
+IFDEF GERMAN <
+	TEXT	/?[2J?5H MIT SYSTEM DISKETTE IM LINKEN LAUFWERK STARTEN./ /C037
+>
+IFDEF DUTCH <
+	TEXT	/?[2J?5H ZET SYSTEEMDISKETTE IN 0 EN OPNIEUW./ /C037
+>
+/D037	0			/ 0 SIGNIFIES END OF MESSAGE TO OUTPUT
+
+			>	/END IFNDEF LOAD4		/A039
+PAGE
+		EJECT
+  IFNDEF WINNIE	< ZBLOCK 400 >	/ LEAVE 2 PGS OF FILLER FOR NON-WINNIE	/A041
+
+/
+  IFDEF WINNIE	<
+
+/
+/COMMAND CODES
+WINMNT=CLA		/0=MOUNT VOLUME
+WINSTB=CLA CLL IAC		/1=SET BLOCK
+WINFIL=CLA CLL IAC RAL		/2=FILL BUFFER
+WINWRT=CLA CLL CML IAC RAL		/3=WRITE
+WINRD=CLA CLL IAC RTL			/4=READ
+WINDIS=5		/5=DISMOUNT VOLUME
+WINUPD=CLA CLL CML IAC RTL	/6=UPDATE VOLUME
+WINEMT=25		/EMPTY BUFFER
+WINSTA=26		/26=READ STATUS
+WINERS=27		/27=READ ERROR STATUS
+WINVOL=30		/30=GET VOLUME DATA
+WINDIR=33		/33=GET VOLUME DIRECTORY
+/
+/	TRANSFER COMMAND + 1 FOR DONE FOR COUNTS
+/
+SETCNT=4		/SET BLOCK COUNT
+DISCNT=2		/DISMOUNT COUNT
+MNTCNT=12		/MOUNT COUNT
+/************************************************************
+RDNOSW,	0	
+	RDSC		/SPACE SAVER TO HERE		/A032
+RNOSW,	RDSR		/TRNSFER READY
+	JMP	RNOXD	/NO CHECK DONE
+	JMP	TRNERR	/TRANSFER READY ILLEGAL
+RNOXD,	RDSD		/DONE?
+	JMP	RDOSWQ					/A032
+/
+	RDSE		/ERROR?
+	JMP I	RDNOSW					/A026
+	JMP	TRNERR	/PROCESS ERROR
+RDOSWQ,	CLA		/OVERLAYED WITH JSWAP
+	JMP	RNOSW					/A032
+/*********************************************************
+/
+/
+/COMES HERE IF A WINNIE
+/
+ISAWIN,
+	CLL RAL			/RESET WITHOUT WINNIE BIT	/A032
+	DCA	RZXDIR						/A032
+	JMS	BLKSET		/SET BLK CNT			/A036
+	JMS	DVSET		/SET VERIFY BIT			/A032
+	TAD	RZBPTR
+	DCA	RDBUFO		/SET BUFFER POINTER
+/
+	CLA IAC BSW		/100=MODE SW			/A032
+	AND	RZXDIR						/A032
+	DCA	RDMODE		/SET MODE SW			/A032
+RDONXT,							/A036
+	JMS	RZSETA					/M037
+	RD1SET						/M037
+	RD2SET						/M037
+	RD3SET
+	RD4SET						/M037
+/D037	RD5SET
+	0		/TERMINATOR			/M037
+	TAD	RZXDIR						/A032
+	JMS	RZXJMP		/JMP SUB			/A032
+	RDWRIT			/-2=WRITE A BLK			/A032
+	RDREAD			/-4=READ				/A032
+	RDMNT			/-6=MOUNT VOLUME
+	RDSMNT			/-10DISMOUNT VOLUME
+	RDVOL			/-12=GET VOLUME DATA
+	RDDIR			/-14=GET VOLUME DIRECTORY
+	RDUPD			/-16=UPDATE VOLUME	/A037
+	RDGTST			/-20=GET STATUS			/A042
+/
+/
+/WRITE A RECORD
+/
+RDWRIT,
+	JMS	WINSET		/SET UP BLOCK AND STRT PARAMS ADDR
+	CLA IAC
+	DCA	RDEFSW		/SET FILL SW
+	WINFIL		/SET UP FILL BUF CMND
+	JMS	RDCMPT		/FILL BUFFER
+	WINWRT		/SET UP WRITE
+	JMS	RDNOSW		/CHECK DONE AND SWAP IF NOT	/A032
+	TAD	RZXVFY		/VERIFY MODE?
+	SNA CLA		/SKIP TO RDREAD	
+	JMP 	RDRD1		/XIT				/C036
+/
+/
+/READ A RECORD
+/
+	TAD	RZBPTR
+	DCA	RDBUFO		/SET BUFFER POINTER
+RDREAD,						/M036
+	JMS	WINSET		/SET UP BLOCK
+	WINRD		/SET UP READ CMND
+	JMS	RDNOSW		/CHECK DONE AND SWAP IF NOT	/A032
+	DCA	RDEFSW		/CLEAR EMPTY SW
+	TAD	(WINEMT		/SET UP EMPTY BUFFER
+	JMS	RDCMPT	/FILL OR EMPTY SILO		/A032
+RDRD1,
+	ISZ	LOBLK		/NEXT BLOCK			/A036
+	ISZ	RZBCNT		/DONE?				/A036	/C045
+	JMP	RDONXT		/NO DO NEXT			/A036
+	JMP	RZEXIT		/YES EXIT			/A036
+/
+/************************************************************
+/
+/READ DENSITY FOR WINNIE RETURNS -1 FOR DEVICES
+/     0-15
+//
+/RDDEN,
+/	CLA CLL IAC RTL		/4RETURN 4 FOR DEV 0-15 WHEN WINNIE ON LINE
+/	JMP	RZEXIT	/EXIT
+/
+/
+/RD LOAD FUNCTION
+/
+/RDLDCMND,	0
+/	TAD	RDCMND		/GET COMMAND
+/	RDSC			/SEND COMMAND
+/	JMS	RDXFER		/CHECK DONE,TR RDY, ERROR?
+/	JMP I	RDLDCMND	/TR READY RET
+/	ISZ	RDLDCMND	/DONE RET
+/	ISZ	RDLDCMND	/ERROR RET
+/	JMP I	RDLDCMND	/RET
+
+
+/
+/
+/
+/RDXFER     USED TO CHECK AND RETURN
+/           CALL+1 = TR READY
+/	    CALL+2 = DONE
+/	    CALL+3 = ERROR
+/
+RDXFER,	0
+RDXFRA,
+	RDSR		/SKIP TR READY
+	SKP
+	JMP I	RDXFER	/TR READY
+	RDSD		/SKIP IF DONE FLAG SET
+	JMP	RDXFRA	/CHECK TR READY
+	ISZ	RDXFER	/SET RET
+	RDSE		/SKIP ERROR
+	JMP I	RDXFER	/DONE RET
+	ISZ	RDXFER	/SET ERROR  RET
+	JMP I	RDXFER
+/
+/
+/SET COMMAND
+/
+/WINCMD,	0
+/	TAD I	WINCMD		/GET CODE
+/	ISZ	WINCMD		/SET RETURN
+/	DCA	RDCMND
+/	TAD	RDCMND
+/	RDSC			/SEND COMMAND
+/	JMP I	WINCMD
+/
+/MOUNT COMMAND
+/	MOUNT VOLUME COMMAND
+/		MOUNTS THE VOLUME REFERENCED IN RZBPTR IN DATA FIELD
+/				  REFERENCED BY RXBCDF TO DRIVE IN RZDRIV
+/
+RDMNT,
+	JMS	MOVPAR		/MOVE PARAMETERS TO DRIVE FIELD
+	TAD	(-MNTCNT		/WORD COUNT
+	JMS	SVSPCE		/SET UP 		/A032
+	TAD	WRD1
+	TAD	(300		/ALLOW READ WRITE BITS (5&6)
+	DCA	WRD1		/INTO TABLE
+	WINMNT			/MOUNT COMMAND
+	JMP	RDTRLP		/TRANSFER LOOP THEN EXIT
+/
+/DISMOUNT COMMAND
+/	DISMOUNT VOLUME ASSOC WITH DRIVE # IN RXDRIV
+/
+RDSMNT,
+	CLA CLL CMA RAL			/-2 DISMNT COUNT
+	JMS	SVSPCE		/SET UP 		/A032
+	TAD	(WINDIS			/DISMOUNT CODE
+RDTRLP,
+	JMS	TRLOOP		/TRANSFER
+	JMP 	RZEXIT		/XIT
+/
+SVSPCE,	0
+	DCA	RDCNT
+	TAD	(CMNDBF	
+	DCA	WINPTR		/SET IT
+	TAD	WINFLD
+	DCA	RD1SET		/SET UP FIELD PTR
+	TAD	RZDRIV		/GET DRIVE #
+	AND	(37		/L/O 4 BITS			/C035
+	DCA	WRD1
+	JMP I	SVSPCE
+/
+/READ VOLUME DATA
+/
+RDVOL,
+	JMS	WINSET		/SET BLOCK DEFAULTS TO BLOCK IN RZBLKN
+	DCA	RDEFSW		/SET EMPTY SW
+	TAD	(WINVOL		/COMMAND
+	JMP	RDRZXT		/EMPTY AND EXIT
+		PAGE
+		EJECT
+/
+/UPDATE VOLUME DATA
+/
+RDUPD,			/UPDATE VOLUME DATA	/A037
+	CLA CMA			/-1			/A037
+	DCA	RDEFSW		/SET SW			/A037
+	WINUPD			/6=CMND CODE		/A037
+	JMP	RDRZXT		/DO IT 			/A037
+/
+/
+/READ DISK DIRECTORIES
+/
+RDDIR,
+	DCA	RDEFSW		/SET EMPTY SW
+	TAD	(WINDIR		/READ DIR COMMAND
+RDRZXT,
+	JMS	RDCMPT		/EMPTY OR FILL
+	JMP	RZEXIT
+/
+/MOVE PARAMETERS FROM DATA FIELD IN RZBCDF TO WIN FIELD
+/
+MOVPAR,	0
+	TAD	(-10		/COUNT
+	DCA	RDCNT		
+	TAD	RZBPTR
+	DCA	MVPTR2		/BUFFER POINTER
+	TAD	(CMNDBF+1	
+	DCA	MVPTR3
+RD4SET,	CDFSYS								/M033
+	TAD I	MVPTR2
+	CDFSYS								/M033
+	DCA I	MVPTR3
+	ISZ	MVPTR2
+	ISZ	MVPTR3
+	ISZ	RDCNT
+	JMP	RD4SET		/NOT DONE
+	JMP I	MOVPAR		/DONE
+MVPTR2,	0
+MVPTR3,	0
+/
+/
+/
+/
+/SET BLOCK FUNCTION
+/
+WINSET,	0
+	TAD	(-4
+	JMS	SVSPCE		/SET UP 		/A032
+	TAD	LOBLK		/LO ORDER
+	DCA	WRD2
+	TAD	HOBLK		/HI ORDER BLOCK NO
+	DCA	WRD3
+	WINSTB			/SET BLOCK CMND
+	JMS	TRLOOP		/TRANSFER
+	JMP I	WINSET
+/
+WINFLD,	CDFSYS								/M033
+/
+/EMPTY BUFFER COMMAND SET UP
+/
+/
+/
+/TRLOOP  WILL SEND REMAINING TRANSFERS BASED ON RDCNT
+TRLOOP,	0
+	RDSC		/SEND IT
+TRNCHK,
+	JMS	RDXFER		/CHECK DONE
+	JMP	TRANOK		/TR RDY
+	ISZ	RDCNT		/IS DONE--WAS LAST TR?
+	JMP	TRNERR		/TRANSFER ERROR
+	JMP I	TRLOOP		/OK
+TRANOK,
+RD1SET,	CDFSYS								/M033
+	TAD I	WINPTR		/GET WORD TO BE TRANSFERED
+	CDFSYS								/M033
+	RDTD			/TRANSFER IT
+	ISZ	WINPTR
+	ISZ	RDCNT
+	JMP	TRNCHK		/MORE TO TRANS
+	JMP	TRNERR		/PREMATURE END
+/
+/
+/EMPTY BUFFER ROUTINE
+/		AFTER READ
+/
+/******DON'T FORGET CDF'S*********
+/
+RDCMPT,	0
+	TAD	RDMODE		/8 OR 12 BIT MODE
+	RDSC			/SEND IT
+RDCNXA,
+	JMS	RDXFER
+	JMP	RDCNXT	/NEXT CHAR
+	JMP I	RDCMPT		/DONE
+	JMP	RDERROR
+RDCNXT,	TAD	RDEFSW		/EMPTY OR FILL BUFFER SW
+	SPA
+	JMP	RDCUPT			/UPDATE SPECIAL CASE
+	SNA CLA
+	JMP	RDDNXT			/EMPTY
+	JMS	RDADDC		/ADD CHAR FROM RDBUF0		/C037
+	RDTD		/SEND DATA
+	JMP	RDCCNT	/CONTINUE
+RDDNXT,
+	TAD	RZXVFY		/VERIFY SW
+	SNA CLA			/VERIFY MODE?
+	JMP	RDENXT		/NO EMPTY SILO
+	RDTD			/READ CHAR
+	CIA			/TWO'S COMP.
+	JMS	RDADDC		/ADD CHAR FROM RDBUF0		/C037
+	SNA CLA			/COMPARE =
+	JMP	RDCCNT		/YES
+	JMP	TRNERR		/NO****MUST SET TO CLEAR ALL TR FLAGS*****
+RDENXT,
+	RDTD		/RECIEVE DATA
+RD2SET,	CDFSYS								/M033
+	DCA I	RDBUFO	/GET CHAR
+	CDFSYS	
+RDCCNT,
+	ISZ	RDBUFO
+	NOP		/FOR WRAP AROUND BUFFER
+	JMP	RDCNXA		/FOR FIELD LOOP
+
+RDCUPT,
+	CLA IAC
+	DCA	RDEFSW		/SWITCH ONLY TO TRANSFER DEVICE NUM
+	TAD	RZDRIV
+	AND	(17
+	RDTD			/TRANSFER DEV NUM
+	JMP	RDCNXA		/CONTINUE
+/
+/
+/
+RDADDC,	0	/ADD CHAR FROM RDBUF0		/A037
+RD3SET,	CDFSYS								/M033
+	TAD I	RDBUFO	/GET CHAR
+	CDFSYS								/M033
+	JMP I	RDADDC	/RET				/A037
+/
+/
+RDEFSW,	0		/EMPTY/FILL SW
+/
+/FILL BUFFER ROUTINE
+/	BEFORE WRITE
+/
+/******DON'T FORGET CDF'S*********
+/
+/RDFMPT,	0
+/	TAD	RZBPTR	/REALLY NEED THIS????
+/	DCA	RDBUFO
+/RDFNXA,
+/	JMS	RDXFER
+/	JMP	RDFNXT	/NEXT CHAR
+/	JMP I	RDFMPT
+/	JMP	RDERROR
+/RDFNXT,
+/RD3SET,	CDFSYS							/M033
+/	TAD I	RDBUFO	/GET CHAR
+/	CDFSYS								/M033
+/	RDTD		/SEND DATA
+/	ISZ	RDBUFO
+/	JMP	RDFNXA
+/
+/RDDSTY,
+/	JMS	WINCMD
+/	WINSTA		/GET STATUS
+/	RDTD			/GET IT
+/	JMP	RZEXIT		/EXIT
+/
+/
+/
+/RDERROR/WRTERROR
+/
+/RDERROR,
+/WRTERROR,
+/	JMS	WINCMD
+/	WINSTA		/GET ERROR STATUS
+/	RDTD			/GET IT
+/	TAD	(4000		/ADD ERROR BIT
+/	JMP	RZEXIT
+/
+/TRANSFER ERROR= DONE OR TR FLAG OUT OF SEQ
+/*****MUST GET ALL 4 WORDS****CHANGE WINSTA
+/
+RDERROR,
+WRTERROR,
+TRNERR,
+	CLA CLL CMA RAL		/-2 WORD COUNT+1
+	DCA	RDCNT
+	TAD	(CMNDBF		/PNTR
+	DCA	WINPTR
+	TAD	WINFLD		/FIELD
+	DCA	RD1SET
+	TAD	(WINERS		/GET STATUS
+	JMS	TRLOOP		/GET STATUS
+	TAD	WRD1		/GET IT
+	TAD	(6000		/2 H/O BITS FOR RD ERROR SYTATUS NOTATION
+	JMP	RZEXIT
+/
+/ RETRY RESET
+/CAN BE DELETED FOR ROOM.. NOT USED CURRENTLY.. TO BE USED IF WANT INCREASE
+/ IN RETRY COUNT.   NOT REALLY NECESSARY
+/
+/
+/WINRTR,	0
+/	CLA CLL CMA RAL		/-2
+/	DCA	RDCNT
+/	TAD	(13	
+/	DCA	RDCMND		/SET COMMAND
+/	TAD	(10
+/	DCA	WRD1
+/	JMP I	WINRTR
+/
+HOBLK,	0	/STOREAGE OF THE H/O BLK FOR I/O
+LOBLK,	0	/STOREAGE OF THE L/O BLK FOR I/O
+WINPTR,	0	/TEMP POINTER AREA
+RDMODE,	0	/MODE BIT FOR WINNIE I/O
+RDBUFO,	0	/POINTER TO BUFFER AREA FOR WINNIE
+RDCNT,	0			/TRANSFER COUNT
+/ moved here in edit							/a050
+DENDV0,	5601		/ADDRESS OF DENSITY SW FOR DRIVE0 (ACPLDP+1)	/M033
+/RDCMND,	0			/COMMAND
+		PAGE
+			>	/END IFDEF WINNIE	/A032
+		EJECT
+
+
+/***********************************************************************/a050	
+/ WARNING ----								/a050
+/		V25STB defines the address of the table STBLK in WPF1	/a050
+/		Do not change this code without checking that this still holds/a050
+/		If you do change it then reassemble WPRINT as it modifies/a050
+/		the table. Messy isn't IT!!!!				/a050
+/***********************************************************************/a050
+
+/******************************************************************
+/
+/
+/         THIS CODE IS USED TO LOAD FIELDS 0,1,2
+/		THEN MOVES PAGE 0 FIELD 2 TO PAGE 0
+/		THIS FIELD
+/         IT CALLED BY THE BOOT ROUTINE IN BLOCK 0
+/
+/         IT CALLS THE RX02 HANDLER TO EXECUTE TO APPROPRIATE
+/	    IO INSTRUCTIONS THE JMPS TO 7600 IN FIELD  0
+/		WHICH IS THE START ADDRESS FOR THE SYSTEM
+/
+/*********************************************************************
+/
+/*****************************************************************
+/
+/------------- CHECK SEE IF WE SAVE CURRENT TIME-------------------
+/
+/*******************************************************************
+STLOAD,
+/D034	7401			/NEEDED AT BEGINNING OF BLOCK 6	/A015
+	DCA	BTLOC		/SAVE SYSTEM0 TYPE		/A032
+	TAD	STPTR		/GET LIST PNTR			/M032
+	DCA	X0		/INDEX PTR			/M032
+	TAD	RDRPT		/INIT JMP FOR RESTART	/C028	/C032
+	DCA	RDOSWP		/SET IT			/C028	/M032
+	IFDEF WINNIE	<
+	TAD	RDRPT		/INIT JMP FOR RESTART FOR WINNIE	/A032
+	DCA	RDOSWQ		/SET IT				/A032
+			>	/END IFDEF WINNIE		/A034
+	TAD	TIMESW		/FIRST TIME
+	SNA CLA
+	JMP	FIRSTM		/YES
+	JMS	SETMOV		/SETUP MOVE AND SAVE TIME
+	CLOCK+2			/START ADDRESS OF CLOCK			/C047
+	SAVTIM+2			/LOCATION TO BE SAVED IN	/C047
+	JMP	STSLOP		/LOAD USING DRV 0 AS PREV. DEFINED/c050	/A032
+FIRSTM,
+	TAD	BTLOC		/CODE 0 =RX01/RX02/RX50  4001=WININIE	/A034
+				/....PASSED TO LOAD FROM BOOT		/A034
+	CDFFIO			/ACP FIELD				/A034
+	DCA I	DENDVA0		/NIT TABLEADDRESS OF DRIVE 0 CODE IN TABLE/A034
+	CDFDSK			/MY FIELD				/A034
+	TAD	BTLOC							/A034
+	SMA CLA			/DRIVE 0=WINNIE?			/A034
+	JMP	FIRSTN		/NO					/A034
+	IAC			/SET WINNIE BIT				/A034
+	JMP	SETCMD		/SET READ				/A034
+FIRSTN,
+	TAD	M7		/M7=ONES COMP OF 6=GET DEN PHYSIO
+	DCA	STCMND
+	JMS	RDWTIO		/DO I/O  GET DENS. 0=SD 1=DD
+	DCA	SVDEN		/SAVE DENSITY
+	CLA CLL IAC RAL		/2
+	AND	SVDEN
+	SNA CLA			/=RX50
+	JMP	PASS50		/NO
+	TAD	K1400		/YES
+	JMP	SETCMD
+PASS50,	TAD	SVDEN			/GET DEN
+	SZA CLA				/DD?
+	TAD	K400		/DD SET CODE TO -400 DD/READ 12 BIT LOGIO
+SETCMD,	TAD	K2		/SD SET CODE TO READ 8 BIT LOG		/M018	
+	DCA	STCMND		/SAVE CMND			/M018
+STSLOP,									/a050
+	JMS	RDWTIO		/ First time through load V25 startup
+	JMS I	(V25ST)		/ and do it
+
+STLOOP,	TAD I	X0		/GET START BLOCK NO
+	SNA
+	JMP 	STDONE		/DONE
+	DCA	STBLK		/SAVE
+	TAD I	X0		/CDF BUFFER FLD
+	DCA	STFLD
+	TAD I	X0		/BUFFER ADDRESS
+	DCA	STLOC
+	TAD I	X0		/NEG BLOCK COUNT
+	DCA	STCNT
+	JMS	RDWTIO		/READ
+	CLA
+	TAD	INCSAV		/GET PTR		/C032
+	DCA	X0		/SET
+	JMP	STLOOP		/NEXT BLOCK
+RDWTIO,	0			/CALLS HNDLER TO LOAD BFFRS
+RDRPT,	CLA
+	TAD	X0
+	DCA	INCSAV			/SAVE FOR LOAD		/C032
+	TAD	RETFLD			/SET RETURN FLD IN AC
+	JMS 	RX2SYS			/CALL DRIVER
+	0				/DRIVE #
+
+/***********************************************************************/a050
+/ WARNING ----								/a050	
+/		V25STB defines the address of the table STBLK in WPF1	/a050
+/		Do not change this code without checking that this still holds/a050
+/		If you do change it then reassemble WPRINT as it modifies/a050
+/		the table. Messy isn't IT!!!!				/a050
+/***********************************************************************/a050
+V25STB,									/a050	
+STBLK,	DLCMPS				/START BLOCK#
+STFLD,	CDFSYS				/CDF BUFFER FLD
+STLOC,	V25ST				/BUFFER START ADDRESS
+STCNT,	-DSCMPS				/NEG BLK CNT
+	0				/TRACK NO PHYSIO
+STCMND,	2				/RXREAD "READ" FUNCTION CODE
+	SPA					/ERRORS?
+	JMP	RDRPT				/YES REREAD BLOCK
+	JMP I	RDWTIO			/RETURN
+STPTR,	STLIST-1				/PTR TO LIST-1
+/________________________________________________________________
+/
+/****************   LOAD SYSTEM FIELD  0, 0-4777 ****************
+/
+/________________________________________________________________
+STLIST,			/START OF PARAM LIST SET IN BLKS OF 4
+			/ENDING WHEN STRT BLK# = 0  AND IN
+			/THE FOLLOWING ORDER
+	DLFD0A				/START BLOCK ON DISKETTE
+	CDFSYS				/"CDF" OF BUFFER  FLD		/M033
+	0				/BUFFER ADDRESS
+	-DSFD0A				/NEG BLK COUNT
+/D040	IFNDEF	WINNIE	<
+/D040/________________________________________________________________
+/D040/
+/D040/****************   LOAD SYSTEM FIELD  0, 7000-7777 *************
+/D040/
+/D040/________________________________________________________________
+/D040	DLFD0B				/START BLOCK ON DISKETTE
+/D040	CDFSYS				/"CDF" OF BUFFER  FLD		/M033
+/D040	7000				/BUFFER ADDRESS
+/D040	-DSFD0B				/NEG BLK COUNT
+/D040			>	/END IFNDEF WINNIE	/AXXXDFB
+
+/________________________________________________________________
+/
+/****************   LOAD SYSTEM FIELD  1, 0-7000 ****************
+/
+/________________________________________________________________
+	DLFD1				/START BLOCK ON DISKETTE
+	CDFPRT				/"CDF" OF BUFFER  FLD		/M033
+	PRBOTM				/ADDRESS			/A043
+/D043	PRTOPP				/ADDRESS			/C038
+	-DSFD1				/NEG BLK COUNT
+
+/________________________________________________________________
+/
+/****************   LOAD SYSTEM FIELD  2, 0-4777 *************
+/
+/________________________________________________________________
+	DLFD2				/START BLOCK ON DISKETTE
+	CDFMNU				/"CDF" OF BUFFER  FLD		/M033
+	0				/BUFFER ADDRESS
+	-DSFD2				/NEG BLK COUNT
+
+/-----------------------------------------------------------------
+/
+/****************** LOAD WPSFIL FIELD 7, 0-6777 ********************
+/
+/-------------------------------------------------------------------
+/D049	DLFD7				/START BLOCK NO.
+/D049	CDFFIO				/CDF BUFFER FIELD		/M033
+/D049	0				/BUFFER ADDRESS
+/D049	-DSFD7				/NEG BLK COUNT(20)
+/________________________________________________________________
+ENDLST,	0		//END OF LIST
+/__--------------------------------------------------------
+/----------------------------------------------------------------
+/
+/******************* MOVE PAGE 0, FIELD 2 **************************
+/*******************   TO PAGE 0, FIELD 7 **************************
+/
+/___________________________________________________________________
+/
+/------------- RESTORE TIME TO FLD 0----------------------------
+/
+STDONE,	TAD	BTLOC						/A034
+	SPA 			/WINNIE?			/A034
+	JMP	STDNE2		/YES RESTORE NOW THAT TABLE IS LOADED	/A034
+	CLA							/A034
+STDNE1,								/A018
+	TAD	STCMND		/GET READ COMMAND			/A018
+	AND	K1400		/1400	DENSITY, RX50 		/A018/C032/C034
+STDNE2,								/A032
+	CDFFIO							/A034
+	DCA I	DENDVA0		/SET SYSTEM DRIVE DENSITY IN ACP FOR LOGIO
+	CDFSYS			/MYFLD					/M033
+				/WHILE WAITING DONE	/A026
+STDNE3,
+	TAD	TIMESW
+	SNA CLA
+	JMP	SKIPIT
+	DCA	STTYPE		/SET WARM STARTUP(IGNORE SET TIME)
+	JMS	SETMOV		/RESTORE TIME
+	GETTIM+2			/ADDR OF TIME		/C047
+	CLOCK+2			/ADDR TO BE STORED			/C047
+	SKP
+SKIPIT,	ISZ	TIMESW	/SET SKIP SW
+	CDISYS			/SET TO START				/M033
+	JMP I	.+1		/START WPS
+	201
+/
+/
+/
+		EJECT
+TIMESW,	0			/FIRST TIME SW
+SYHDLR,	RX2SYS			/RX02HNDLER
+SVDEN,				/SAVE DENSITY***CAUTION***/M026
+INCSAV,	0	/SAVE				/A032
+K1400,	1400					
+K400,	400								
+K2,	2								
+M7,	-7			/INES COMP OF 6=GET DENS CMND
+BTLOC,	0	/SYSTEM 0 DEVICE TYPE- 0=RX01/02 1=RX50 4000=RD50
+DENDVA0,5601	/ address of density switch for drive0			/a050
+		/ also defined at DENDV0 in above page			/a050
+		/ modified from /m033 so that this page is redundant 	/a050
+		/ after initialisation					/a050
+RETFLD,	CIFSYS			/SET RETURN THIS FLD			/M033
+
+/**********************************************************************
+/ Be WARNED IF YOU USE THIS SPACE
+/	You ca be overwritten at any minite by the print initialisation
+/	which follows
+/*********************************************************************	/a050
+		PAGE
+LF=12		/LINE FEED
+CR=15		/CARRIAGE RETURN
+		EJECT
+				/ END-OF-FILE.
+
+
+
+
