@@ -6995,7 +6995,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>PDP8E-XY8E PLOTTER CONTROL & DISPLAY<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d6a>maindec-8e-d6a</a></td>
 <td><table>
-<tr><td>ac-b839b / maindec-8e-d6ab-d</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d6a/maindec-8e-d6ab-d.pdf>ac-b839b / maindec-8e-d6ab-d</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-8e-d6a/maindec-8e-d6ab-pb>ak-b841b / maindec-8e-d6ab-pb</td><td></a></td></tr>
 <tr><td>af-b839b / maindec-8e-d6ab-dn</td><td></td></tr>
 </table></td></tr>
@@ -8163,6 +8163,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1479 of 2922 files linked (50.6%), in 1245 directories
+<P>1480 of 2922 files linked (50.7%), in 1245 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

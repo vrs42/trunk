@@ -5,6 +5,7 @@ A103		  Multiplexor Switch
 A111	C+ 	  Millivolt Multiplex Switch
 A112	A+ 	  Low Level Multiplex Switch
 A121	C* 	  Multiplexor Switch
+A123		  MUX SWITCH, POS LOGIC, 4 SINGLE-POLE MOS FET SW, COMMON OUTPUT
 A124	A* B* 	  4 Input Multiplexer Switch
 A126	A+ 	  8 Channel CMOS Analog Switch (double)
 A130	A* 	  Multiplexor
@@ -14,18 +15,32 @@ A140	C+ 	  2 Chan. Analog Switch, for VT15
 A163	A* 	  Multiplexer and Amplifier
 A200		  Operational Amplifier
 A202	A* 	  Two Analog Preamplifiers
+A209		  2 PREAMPS FOR 0 TO +2Y, MODIFIED A202 FOR LINC, GAIN OF 5
 A214	A B 	  2 Analog Amplifiers
 A215	A* 	  Analog Buffer
 A222	A* 	  Selectable Gain Amplifier
+A224		  A224 WITH GAIN OF 10, +/- 1V IN
 A225	B* C+ E+ 	  Deflection Amplifier
+A226		  A226 WITH GAIN OF 20, 0 TO +1V IN
+A231		  64 CH MUX CONTROL FOR A232 & A841
+A232		  8 PREAMPS & 8 CH MUX EXPANSION, A131 & A215 CKTS, AM8-EB
 A238	C+ 	  Dual Analog Summer and Driver (double)
+A241		  4 PREAMPLIFIERS, MANUALLY SWITCHED 0 TO +2V, +/-5V, 0 TO +10V IN, +/-5V OUT, LOW TC, DOUBLE 8.5
+A242		  A241 W +/-1V IN, +/-5V OUT ONLY
 A312	E+ 	  KV8/L Analog Function Generator, Double
 A3170	C+ 	  Arbitrary Vector Generator (double, long)
 A3180	C+ 	  Arbitrary Integrator (double, long)
+A320		  VECTOR GENERATOR & DRIVER FOR VT40, HEX 8.5
 A400		  Sample and Hold Amplifier
 A401	B+ 	  Sample and Hold
 A404	A* 	  Sample and Hold
 A405		  Sample and Hold Amplifier
+A406		  SAMPLE & HOLD (15 BIT ACCURACY) SINGLE 8.5
+A407		  A406 8 CH MUX, SINGLE 8.5
+A408		  8 CH SWITCHED GAIN MUX (1, 4, 16, 64), SINGLE 8.5
+A440		  4 CHANNEL SAMPLE & HOLD (SIMILAR TO A405)
+A460		  SAMPLE & HOLD WITH NO INPUT RUFFER, 20-A460, DOUBLE X 5
+A461		  A460 WITH AN INPUT BUFFER, 20-A461, DOUBLE X 5
 A502	A* C* D X 	  Difference Amplifier
 A601	A* D* E X 	  3 Bit DAC
 A603	A* 	  2 Bit DAC
@@ -38,15 +53,21 @@ A614	C+ 	  12 Bit bipolar D/A Converter, Double Long
 A615	B* D+ 	  D/A Converter
 A618	E+ 	  10 Bit D-A Converter (double)
 A622	C+ 	  10 Bit Single Buffered DAC 0 to 5V (double)
+A625		  2 12-BIT DACS, +/-5V
 A701	A* 	  Reference Supply
 A702	B C* E+ X 	  Reference Supply (-10V), double
 A704	A* D* E F+ X 	  Reference Supply, Double
+A705		  (OBSOLETE), SAMPLE & HOLD
 A706	C+ 	  Power Supply for A202
 A708	D* 	  Dual Voltage Regulator
 A712	A+ 	  Voltage Regulator for KV8/L
 A801		  10-bit A/D Converter
+A804		  12 BIT A/D, +5 TO -5V
 A811	E* 	  10-bit A/D Converter
+A841		  10 BIT A/D WITH S&H, A405 + A811 CKTS, AD8-EA
 A860	A* 	  A/D Converter, Double
+A862		  12 BIT A/D BIPOLAR, +/-10V IN, 48 USEC, 20-A862
+A865		  REPACKAGED A864 DOUBLE 8.5, 2 THICK
 A877		  13-bit A/D Converter
 A990		  Operational Amplifier
 A992		  Operational Amplifier
@@ -117,18 +138,26 @@ G021	B+ E+ H K 	  Dual Sense Amp for 8/I, IC levels, also used for G020
 G022	E* 	  4-input Sense Amp for PDP-10, with cable, +6.2V, -6.2V
 G023	F* 	  Master Slice Control for G022
 G050	D+ 	  9 Track, 45 ips, Dual Gap Head Read Amplifier
+G056		  TU16, 9 CH READ AMP HEX 8.5
 G060	D+ 	  Mag Tape Compressor, 9 Track
 G062	D+ 	  Mag Tape Peak Detector, 9 Track
 G064	C+ D+ 	  Mag Tape Slicer, 9 Track (double)
 G083	C+ D+ 	  Disc Preamplifier
 G084	C+ 	  Mag Tape Read, Rectify, Slice Amp, TU20, also used on G086
 G085	D* E+ 	  Disk Amplifier, replaces 1/2 G083 + 1/2 W532 + 1/2 W533 (double)
+G0850		  DISK AMP FOR DF32D, DS32-D
 G088	E* 	  Read Amplifier and Peak Detector (double)
+G092		  TIMING AMP + LOGIC, RS03, DBL X 8.5
+G093		  TU10 PEAK DETECTOR (REPLACES G062)
 G094	C+ 	  Threshold and Buffer
 G100	D* E+ 	  Sense Amp & Inhibit Driver, PDP15, 3 wire, 3D memory (double)
 G102	D+ 	  Sense, Inhibit, & Register (4 bits) for MM11 & ME10 (long)
 G103	A+ 	  Memory Levels and Gates (long)
-G203	B+ 	  Memory Selector (obsolete)
+G104		  SENSE, INHIBIT, & 12 BIT REGISTER FOR MM8-E, QUAD, 8.5
+G180		  LOW DENSITY (1100 BPI DOUBLE FREQ), R/W FOR RK04, DECPACK, DOUBLE X 8.5
+G182		  R/W HEAD AND DETECTION, RS03, DBL X 8.5
+G203	B 	  Memory Selector (obsolete)
+G205		  (OBS), PDP-8 INHIBIT DRIVER, REPLACED BY G208
 G206	B* 	  Memory Selector, PDP-6, 2us, double, used for G212
 G207	B* 	  Inhibit Driver, 4 Quadrant, PDP-6, 2us, double
 G208	A* B L* 	  Inhibit Driver
@@ -141,6 +170,7 @@ G222	A+ D* 	  Memory Selector, PDP15
 G223	D 	  2 Read-Write Drivers, PDP-15
 G225	B* D+ 	  X and Y Current Source (long)
 G226	C+ D* 	  XY Selection Switch, single 8.5", ME10, MM11 (long)
+G227		  XY SELECTION, CURRENT SOURCE & REGULATOR FOR MM8-E, QUAD, 8.5
 G228	B+ C+ H X 	  Core Memory Inhibit Driver, IC Inputs, 8/I, 8/L
 G230	D* 	  Current Source, with Delay Line on input, 0 to 40ns
 G284	C+ D+ 	  Disc Writer
@@ -166,9 +196,12 @@ G611	B+ 	  "B" Diode Matrix Board for PDP-8 stack 30-05256 (double)
 G613	A* B* C* 	  X Diode Matrix, 3 wire, 3D memory, 4K, 9/I
 G614	A* B* C* 	  Y Diode Matrix, 3 wire, 3D memory, 4K, 9/I
 G618	B* BYA+ BYB+ BYC+ BYD+ BYE+ BYF+ BYG+ BYH+ 	  VT15 Character Generator
+G619		  4K, 12 BIT, 20 MIL CORE MEMORY BOARD WITH DIODES, QUAD, 8.5 DEEP, FOR 8/E
+G621		  (OBS), RESISTOR BOARD FOR 8 MEM, 4 INHIBIT, 1 READ/WRITE & CAP & DIODE
 G622	D* 	  Resistor Board
 G624	C X 	  Resistor Board for 8/I memory, similar to G621
 G626	C+ 	  Resistor Board for memory, PDP-10, 2.5 D
+G643		  BRAID BOARD, 128 WIRES, 24 CORES, 1 DIODE PER WIRE (MR8-E), PLUGS INTO M880
 G680		  DS32 Disk Head Matrix
 G681	D* 	  Track Matrix
 G700	B+ BYA* 	  100 Ohm Cable Terminator, W028 etch
@@ -189,11 +222,13 @@ G708	A+ 	  Diode Board (double)
 G709	A+ 	  Cable Terminator
 G711	A+ 	  RF08 Terminator Board
 G715	B* 	  Terminator, equiv 100 ohms to +4V, uses +10V & ground, G700 pins
+G716		  RESISTOR BOARD, R002 LAYOUT, USED IN AX08
 G717	B* 	  Positive Bus Control Signal Terminator, 5 100 ohms to ground, pins K2, M2, P2, S2, T2, same grounds as W022
 G718	A* 	  Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
 G719	A+ 	  RF08 Terminator Board
 G720	A+ 	  RF08 Terminator Board
 G723	A+ 	  RF09 Cable Terminator
+G724		  JUMPER MODULE FOR DC08A CHECKOUT, ADJACENT PINS JUMPERED EXCEPT A1-B1, A2-82
 G726	B* 	  ME10 Bus Control, a Jumper Board
 G727	A+ 	  Grant Continuity, a Jumper Board
 G7273	A+ 	  Grant Continuity, double height
@@ -207,6 +242,7 @@ G740	A+ 	  Disk Selection
 G741	B+ C+ CYA+ 	  TU10 Negative Bus Terminator
 G742	A* 	  Jumper Card, pins of non-inverting M500 & M531, TU56 with positive logic controls
 G766	A* 	  G796 with 3M cable, 14 signals, 2 grounds
+G769		  KV8/I TO VT02, G778 ETCH
 G772	B X 	  PDP-11 Power Connector
 G775	A* B* C* 	  36 wires to Indicator, Q's, +6.5V from lamps, RF09
 G778	A X 	  KV8I Cable Connector
@@ -226,12 +262,17 @@ G8002	C* 	  AC/DC Low Sensor
 G8004	B+ 	  Power Fail
 G8010	B+ 	  -5.2V Control (long)
 G8014	B+ 	  Low Voltage Detector (long)
+G8016		  REGULATOR FOR H763, QUAD
+G8018		  POWER SUPPLY REGULATOR FOR 8A400., 8A500
+G802		  REGULATOR TRANSISTORS FOR PDP-8 EXTENDED MEMORY, DOUBLE HEIGHT, DOUBLE THICK
 G803	A X 	  Rectifying Slicer
 G804	D* 	  Control for G805
 G805	E* F+ 	  Regulator for negative 8 memory, Double
+G806		  (OBS), LIKE G804 BUT TURNS OFF REGULATOR INSTEAD OF DRIVING EXT RELAY, (DRIVES G805)
 G808	A* K* 	  Control for 708 Power Supply
 G809	A* J* 	  -15V Sense and Relay Driver
 G810	C* 	  6V Regulator Control, Drives a G805
+G813		  REGULATOR CONTROL FOR 704, DOUBLE MODULE SHAPE, DOESN'T PLUG IN
 G816	B* 	  Modified G806 for driving 70V Power Supply Regulator Outputs
 G817	A* 	  Card 1 for 713
 G818	B* 	  Card 2 for 713
@@ -239,7 +280,7 @@ G820	A+ 	  LINC-8 Positive Power Supply
 G821	C+ E* F* 	  +5V Regulator Control and Output Card for PDP15, see G829 (double)
 G822	C+ F* 	  -6V Regulator (from -10V) for sense amps, PDP15 (double)
 G823	B* C+ 	  -24V Memory Regulator Control, drives G825, PDP15
-G824	A B* 	  +5V Regulator Control for PDP-12, double
+G824	A B+ 	  +5V Regulator Control for PDP-12, double
 G825	B+ 	  -24V Pass Element (double)
 G826	D+ E* K L* X 	  Regulator Control for 8/I, drives G805 & detects presence of other voltages (double)
 G827	A+ 	  Low Voltage Detector, PDP-15, + K303 RC's detects +9V, uses +5V
@@ -250,6 +291,7 @@ G831	E* 	  -10V Reference, +5V output, 0 to +10V 6-bit DAC, Marginal Check Contr
 G836	B* D* 	  Positive & -20V Regulator for VT14
 G8360	A+ B* 	  VR14 Power Supply and Regulator
 G838	A* 	  Fault Protection, provides +5V for intensity board W682, in VR14
+G839		  COLOR GAIN COMPENSATOR, INCLUDES +5V FOR INTENSITY BOARD W682 IN VR20
 G840	C+ 	  VT40 Light Pen Amplifier
 G847	C+ D+ E+ 	  Dual Voltage Control for G848, TU56
 G848	H+ L M 	  TU56 Motor Drive, Triple
@@ -257,33 +299,78 @@ G850	E* H* J* K* L X 	  SCR Motor Driver, TU55
 G851	B X 	  DECtape Relay Module
 G853	A X 	  DECtape Misc, Single Unit Selection & Timing Track Sensing
 G854	A+ 	  Telegraph Line Circuit
+G855		  DUAL TELEGRAPH LEVEL CONV, REPLACES G852 IN MODIFIED SYSTEM
+G856		  G855 WITH + LOGIC INPUT LEVELS, DC08, 50-80V, DOUBLE THICK
 G858	A+ 	  PDP 15 Teletype Connector Card
 G859	A+ 	  Clock and Regulator for TU56 (long)
+G860		  TELEGRAPH LEVEL CONV, G856 WITH CONTACT SUP FOR 13SVDC, DC08-C
+G861		  SOLID STATE XMTR, 2 CKTS, EACH SPDT FROM +80 TO -80V, 400 MA MAX, DC08-CS, DOUBLE
+G862		  SOLID STATE RCVR, 2 CKTS, 8.5 TO 75 MA THRESHOLD ADJ, HIGH COM MODE REJ
+G863		  G856 WITH DIFFERENT CONTACT PROTECTION FOR GPD, IN DC08-L
 G879	A X 	  Transport Detector, TC08, TC09, TC15
 G882	B D* X 	  Manchester Reader-Writer
 G888	A X 	  Manchester Reader/Writer
+G900		  TAPE PHOTOCELL AMPLIFIER
 G9002	C+ 	  AC/DC Low Sensor
 G903	E* 	  Clock Accelerator for Paper Tape Reader
+G904		  PAPER TAPE PHOTOCELL AMP, USES SDA, 9 CHANNEL, DOUBLE BOARD
 G906	A* 	  LINC-8 Capacitor and Power Up
+G908		  + OUTPUT VERSION OF G904, LAMP FOR -15V INSTEAD OF +10, USES HOFFMAN PHOTOCELL
 G912	B+ 	  Deflection Amplifier, -12 Amps into 30uH Push-Pull Yoke, 15us full deflection time, VR12, Long, Double, Thick
 G913	A* 	  Clock Control, (G903 + 1/2 R302 + 1/3 R603)
+G915		  POWER ENABLE, MOTOR START, PP67-C,D
 G916	A* 	  Power Detector & Switch Filter, PDP-12
 G917	A* 	  Gain & Set Control for VR12
 G918	D+ 	  Photocell Amplifier for PT04, PT05, replacement for G908, for photo-transistors
+G919		  LIGHT PEN OUTPUT AMPLIFIER
 G920	D* 	  Control Memory
 G921	A* 	  PDP-8/L Console (plugs in)
+G930		  NON-STORE TAPE ALLOTMENT FOR PR68-C,D
 G932	D* 	  Capstan Servo Preamp (drives H603)
 G933	D+ E+ 	  Reel Motor Amp for TU10, +/-12V, +/-6A
+G934		  BRAKE ACTUATOR FOR TU10, 6V, INITIALLY 0.8A, FINALLY 0.1A
 G9340	A+ B* 	  Brake Actuator
 G9341	A+ B+ 	  TU10 Brake Driver
 G936	C+ E* 	  Clock Accelerator
 G938	K+ 	  DECPack Head Position Servo Preamp, Long, Double
 G998	A* 	  Current Measuring Extender, 1-1/2 length with Bus Loops
+H211		  4K 12 BIT ON G646, 3 WIRE 3D, 18 MIL CORES, MM8-EH
+H212		  8K 12 BIT H211, MM8-EJ, PS-3010654
+H220		  4K, 12 BIT, 22 MIL STACK ON G619, PS 3009834
+H304		  CLINICAL CHEM TERM BOX, \(FOR AUTO ANALYZER, TECHNICON\)
+H314		  INTEGRATED CIRCUIT SAMPLER, 180 IC'S
+H319		  20 MA CURRENT LOOP RECEIVER \(OPTICAL ISOLATER RECEIVER, PASS-THROUGH TRANSMITTER\)
 H3190	B+ 	  Staggered Turnaround (long)
+H603		  CAPSTAN SERVO POWER AMP FOR TU10 \(PREAMP IS G932\)
+H604		  DECPACK HEAD POSITION SERVO POWER AMP, \(PREAMP IS G938\)
+H605		  MOTOR DRIVE AMP, LA30
+H606		  TU16 POWER BOARD \(CAPSTAN PREAMP, POWER AMP, REEL MOTOR AMPS, BRAKE ACTUATORS\)
+H704		  REG. DUAL POWER SUPPLY, 15V @ 400 MA. FLOATING, MOUNTS ON 1943 OR H911, 115Y
+H707		  LIKE H704, BUT 1.5 AMPS FROM EACH OF THE TWO 15 V SUPPLIES, DELTRON \(OVERHEATS OVER 1 AMP\)
+H719		  H716 + 160 MF, 20V ON 19" X 10-1/2 PANEL
+H724		  230V H724
+H735		  LA30 SUPPLY, +15V 5A, +10V 4A, +5V 1A, -15V 5A, DUAL FREQ RESONANT SUPPLY 16-10416
+H737		  115/230V, +20V 1.5A \(5409484\), +5V 8A \(5409503\), -15V 2A \(5409484\)
+H740		  +5V20A, -15V5A, +15V1A, ACLO, DCLO, LINE FREQ SIG, 115/230V, 47-63HZ \(5409728\) 3.5X19 PANEL
+H748		  VT20-BC, -BD SUPPLY: +5V 4A, +15V 750MA, -15V 750MA, VT20, 95-130VAC, 190-260VAC
+H751		  190-260VAC H751-A
+H755		  LPS SUPPLY, +5V 13A, +/-15V +/-.03% 2A, LINEAR REGULATORS, 100, 115, 200, 230V +/-10%, 47-63 HZ
+H763		  PDP8-A POWER SUPPLY, 115V
+H764		  TWO 5409728 \(H740\) REGULATORS, EACH +5V 17A, -15V 5A, +15V 1A, ACLO, DCLO \(RP04\)
+H765		  PS FOR BA11-K, +15V 2A, 8V 1A, ACLO, DCLO, LINE FREQ SIGNAL, 2 H744, H745, H754, 5410993, 230V
+H807		  CONNECTOR BLOCK,36 PIN SINGLE MODULE DOUBLE-SIDED CONNECTOR, .025 SQUARE, 12-09123
+H815		  GARDNER DENVER GUN ALONE
 H851	C X 	  Top Connector Block
+H8511		  H807 W ALL CORRESPONDING SIDE 1 & SIDE 2 PINS CONNECTED TOGETHER
+H854		  40 PIN CONNECTOR, MALE, USED ON 8/E MODULES, 12-09941
+H856		  MATES TO H854 WITH POKE HOME CONTACTS \(BERG\) \(1210090 HOUSING, 1210089 PINS\)
+H900		  FLIP-CHIP MNTG PANEL & POWER SUPPLY \(USES H701\)
 H901		  Patchcord Mounting Panel
 H902		  Indicator Switch Panel
 H903		  Analog-Digital Panel
+H911		  H911-R W SLOTTED BLOCKS \(H863\)
+H9192		  PDP8-A BUS CONNECTOR BLOCK ASSEMBLY \(10 QUAD SLOTS\)
+H9194		  PDP8-A BUS CONNECTOR BLOCK ASSEMBLY \(7 QUAD + 5 QUINT SLOTS\)
 K003	A* 	  Gate Expander
 K026	A* 	  Gate Expander
 K113	A* 	  Inverting Gate
@@ -292,6 +379,7 @@ K138	A* B* 	  Eight Inverters
 K210		  Decimal or Binary Counter
 K220		  Decimal Up/Down Counter, Double
 K230		  Parallel Input Shift Register
+K265		  FIVE 100 MA REED RELAYS & DRIVERS, EITHER AXIAL OR PC RELAYS
 K271	A* 	  Set/Reset Memory
 K273		  Retentive Memory
 K303	B+ 	  Three Delay Timers
@@ -306,6 +394,8 @@ K652	B* 	  DC Driver
 K671		  Decade Display
 K683	B* 	  Driver
 K716		  Pilot Circuit Converter, Double
+K724		  INTERFACE SHELL, USED FOR PDP14 I/O BOX SHELL
+K725		  INTERFACE SHELL, USES A PRINTED BACKPLANE FOR CONNECTIONS, 16 IN, 8 OUT \(PDP14 I/O BOX\)
 K731	E+ 	  Multi-Purpose Source
 K732	A* B+ 	  Slave Regulator
 K791		  Test Probe
@@ -383,7 +473,9 @@ M177	A* 	  Non-inverting M147
 M178	B* 	  8 En x 6 out mixer, 74H53, 74H62, KI10
 M181	A* 	  Non-inverting M171
 M182	A B X 	  M162 with fast ICs, 74H
+M190		  4 ARITHMETIC LOGIC, IN & OUT BUFFERS, SN74181, USED IN FPP12
 M191	C D* X 	  2 Look-ahead elements (74182), uses W961 board, used with M190 or M159 (board 50-08912)
+M192		  2 8-INPUT PRIORITY ENCODERS, 9318 IC, 50-08912 BOARD
 M202	B X 	  Triple J-K Flip Flop
 M203	B C* X 	  8 Set-Reset Flip Flops
 M204	A* D X 	  Counter Buffer
@@ -410,6 +502,7 @@ M226	A X 	  1 Bit, all registers (except ACC) for PDP-15
 M227	B X 	  Accumulator for PDP-15, 9 bits
 M228	A X 	  Mark Track Decoder
 M230		  Binary to BCD and BCD to Binary Converter, double
+M231		  DUAL 12 BIT PRESETTABLE REPEATABLE COUNTER, DOUBLE, USED IN AIP12
 M232		  16x1 RAM
 M233	A* 	  Disk Shift Register
 M236	B X 	  12 Bit Binary Up/Down Counter, 8931 etch
@@ -450,10 +543,12 @@ M403		  RC Multivibrator Clock
 M404		  Crystal Clock
 M405	A B X 	  Crystal Clock, positive and negative pulse outputs, 5KHz to 10MHz
 M410	A 	  Resonant Reed Clock
+M415		  20 MHZ XTAL CLOCK
 M420	C X 	  Phase Lock Clock, RP09, RP15, double
 M4201	C* 	  Phase Lock Clock
 M452	A X 	  Variable Clock
 M453	A X 	  Variable Clock
+M455		  VARIABLE CLOCK, 2 RANGES, 4 - 20 MS, 0.4 - 2 MS, BY JUMPER
 M500	A B X 	  Negative Input Converter
 M501	B X 	  Schmitt Trigger
 M502	A B C* X 	  Negative Input Converter
@@ -467,6 +562,8 @@ M514	H X 	  TU10 Transceiver (for connection to TC58, TC59, & TM10), see M519, d
 M515	C D* X 	  Real Time Clock, 12VAC input on tabs, uses +11V & +5V
 M516	A X 	  Hex Positive Bus Receiver
 M517	A* 	  M507 with an enable input
+M518		  3 DIFFERENTIAL SCHMITTS & 8 BIT INPUT REGISTER \(A503 CKTS\), OS8-EA
+M519		  TU10-C,-D BUS TRANSCEIVER, SEE M514
 M521		  K to M Converter
 M531	A* 	  8 channel Negative Bus Receiver with noise filtering (M500 pins)
 M564	E* 	  I/O Bus Receiver, 8 circuits, negative bus, positive logic, light input load
@@ -478,7 +575,7 @@ M5940	B* 	  8 channel EIA-CCITT to DEC, 7 DEC to EIA-CCITT, DF11-A, 1V hysteresi
 M597	D 	  6 Channel IBM Receiver
 M602	A X 	  Pulse Amplifier
 M603	B* 	  2 Pulse Amplifiers, negative edge in, 1 positive 60ns & 1 positive 45-100ns out, 4 2-input NANDs (74H00), 3 3-input ANDs (74H11)
-M606	A B X 	  Pulse Generator
+M606	A B D+ X 	  Pulse Generator
 M610		  6 Open Collector 2-Input NAND Gates + Pulse Amplifier
 M611	A B X 	  High Speed Power Inverter
 M612	B* 	  6 Power Gates, 6 grounds, 5 inputs per gate pair
@@ -498,6 +595,7 @@ M651	A C X 	  M650 with outputs clamped to ground when 5V goes away
 M652	A X 	  Negative Output Converters
 M660	A B X 	  Positive Level Drivers
 M661	A X 	  Positive Level Driver for 8/I bus, 3 circuits, output clamped to +3V, M660 pins
+M662		  6 CKTS, NON-INY BUS DRIVERS FOR KVGS \(VT02\), 6 US RISE & FALL INTO OPEN LINE
 M663	C* 	  3 negative Memory Bus Drivers, positive input, 50 ohm load, KI10
 M664	B* 	  I/O Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
 M665	E* 	  Memory Bus Driver, 0 to +3V in, 0 to -3V out, 8 circuits
@@ -505,10 +603,18 @@ M666	B* C* 	  I/O Bus Reset, 12 outputs, 20mA@-3V, 1/3 duty factor max
 M671		  M to K Converter
 M688	B X 	  Unibus Power Fail Drivers
 M697	D 	  4 Channel IBM Transmitter
-M700	A B D* E X 	  Manual Timing Generator, double
+M700	A B C+ D* E X 	  Manual Timing Generator, double
 M701	A* D X 	  Display Control, VC8/I, double
 M7010	B X 	  VV15 Timing and Control (double, long)
 M7011	C* 	  Serial Transmitter
+M7015		  UNIBUS INTERFACE FOR LPS, QUAD 8.5
+M7016		  PROGRAMMABLE REAL TIME CLOCK W 3 SCHMITT TRIGGERS, LPSKW, QUAD 8.5
+M7017		  DIGITAL I/O, 16 BITS, TTL LEVELS, SIMILAR TO M863, LPSDR, QUAD 8.5
+M7018		  A/D CONTROL, PART OF LPSAD-12, LPSAD-15, USED WITH A804, A865, A406, DOUBLE 8.5
+M7019		  DISPLAY CONT, PART OF LPSVC, COLOR TUBE, STORAGE TUBE & PLOTTER CAPABILITY, DOUBLE 8.5
+M7020		  LPSAD-NP, NPR CONTROL FOR LPSAO, DOUBLE 8.5
+M7023		  DIGITAL I/O, 16 BITS, LATCH CHOICE, INTERRUPT ON ANY INPUT BIT, LPSDR-A, QUAD
+M7024		  VT55 GRAPHING CONTROL MODULE, HEX, NO GOLD ON FINGERS
 M703	E J* X 	  Power Fail Logic, 8/I
 M704	A* B* 	  Plotter Control, 8/I
 M705	D J X 	  Reader Control, double
@@ -524,11 +630,12 @@ M7100	B* 	  I/O Device Control, used with M592, 10 74H ICs
 M7101	F* 	  Control
 M7102	C* 	  Positive I/O Bus Converter
 M7103	F* 	  Negative I/O Bus Converter
-M7104	A* B 	  RK8E Data Buffer and Status
+M7104	A* B BYA 	  RK8E Data Buffer and Status
 M7105	A* B 	  RK8E Major Registers
 M7106	A* B C 	  RK8E Control
 M711	C* 	  Scope Control, PDP-12
 M712	C+ 	  Control Logic I, CR8-I, CR8-L
+M713		  MULTIPLEX INTERFACE FOR KV8/I
 M714	B+ 	  Control Logic I, CR8-I, CR8-L
 M715	A+ E* F X 	  Reader Clock, double
 M716	A+ B* 	  Control Logic II, CR8-I, CR8-L
@@ -550,6 +657,11 @@ M727	C+ 	  State Control (quad, long)
 M728	D+ 	  Timing and States (quad, long)
 M7290	C+ 	  Control Logic (double, long)
 M730	A+ 	  Positive Output Bus Interface
+M7300		  PDP16 GPA CONTROL, GEN PURPOSE ARITHMETIC UNIT, 4 4-BIT BYTES, USED WITH M7301'S, DOU6LE X 8.5,KAC16
+M7301		  PDP16 GPA REGISTER, GEN PURPOSE ARITH UNIT REGISTERS, 4 4-BIT BYTES, DOUBLE X 8.5, KAR16
+M7305		  PDP16 TRANSFER REGISTER, PROVIDES 16 BIT DATA STORAGE, MASKING & BYTE CONTROL, MS16-A
+M7306		  PDP16 FLAG MODULE, 3 SINGLE BIT STORAGE AND CONTROL, KFL16, SINGLE X 8.5
+M7307		  PDP16 CONSTANTS REGISTER, SMALL ROM, MR16-A, DOUBLE X 8.5
 M731		  Negative Output Bus Interface
 M732		  Positive Input Bus Interface
 M733		  Negative Input Bus Interface
@@ -582,20 +694,50 @@ M768	E+ 	  Delay Selector for TU10, with TC58, TC59, TM10, double
 M7687	C+ 	  Drive Data Interface (long)
 M769	F+ J* 	  Function Control for TU10
 M770	B+ 	  EAE CONTROL FOR PDP-15
+M7700		  SECTOR CTR, INDEX & PHOTOAMP FOR RK05, DOUBLE X 8.5
+M7701		  CONTROL & SAFETY INTERLOCKS FOR RK05, DOUBLE X 8.5
+M7702		  TRACK ADDRESS & DIFFERENCE CNTR FOR RK05, DOUBLE X 8.5
 M771	A+ 	  INTERNAL DEVICE DECODER FOR PDP-15
 M7710	F+ 	  Print Sequencer (double)
 M7711	F* 	  Control Logic A (double)
 M7712	D+ F+ 	  Control Logic B (double)
 M7713	D* E+ 	  LCV (double)
+M7714		  CHARACTER GENERATOR, LA30, DOUBLE
 M7715	C+ 	  Line Feed Control
 M7716	B+ 	  H550 Motor Translator
 M7717	C+ 	  Motor Control
+M7718		  KEYBOARD INTERFACE, LA30, CONNECT TO 8/I, 8/L, 12, OR 15, PARALLEL \(CAN REPLACE M706\), DOUBLE
+M7719		  TRANSMIT DATA TO LA30 PRINTER, PARALLEL, \(CAN REPLACE M707\), DOUBLE
 M772	A+ 	  CONSOLE CONTROL #1 FOR PDP-15
 M7721	B+ 	  Control Logic A (double)
+M7722		  LA36 MICROPROCESSOR, 10 X 15, NO FINGERS \(REPLACED BY M7723\)
+M7723		  LA36 MICROPROCESSOR, REPLACEMENT FOR M7722, HAS TEST PADS, NO FINGERS, 10 X 15
 M7724	B+ 	  Character Generator ROM (double)
+M7726		  RX01 CONTROL
+M7727		  RX01 READ/WRITE ELECTRONICS
 M773	B+ 	  CONSOLE CONTROL #2 FOR PDP-15
+M7731		  SERIAL INTERFACE CONTROL, LA30
 M775	B+ 	  TIME STATE GENERATOR
+M7751		  ENCODER-DECODER PLL \(PHASE LOCK LOOP\), 4 LAYER DOUBLE X 8.5, RS03 \(STANDARD DOUBLE INNER LAYER\)
+M7752		  DESKEW LOGIC, RS03, DOUBLE X 8.5
+M7753		  DATA BUFFER, RS03, DBL X 8.5, INCLUDES CRC
+M7754		  ADDRESS REGISTER, RS03, DBL X 8.5
+M7755		  CONTROL, RS03, DBL X 8.5
+M7756		  ALTERNATE TRACK OPTION, RS03, DBL X 8.5
+M7757		  RS04-TA \(TIMING TRACK WRITER\) QUAD 8.5
+M7759		  COMMAND DECODE, DOUBLE 8.5
 M776	A+ 	  Reader Register, PC15, Double
+M7760		  CASSETTE LOGIC, TU60, HEX 8.5, NO FINGERS
+M7761		  CASSETTE SERVO & READ, TU60, HEX 8.5, NO FINGERS
+M7770		  RS03 STATUS, DOUBLE 8.5
+M7771		  RS03 FORMAT, DOUBLE 8.5
+M7772		  RP04 SYNCHRONOUS LOGIC, 4 LAYER HEX
+M7773		  RP04 ASYNCHRONOUS LOGIC, HEX
+M7774		  RP04 REGISTER LOGIC, HEX
+M7775		  RP04 DUAL PORT LOGIC, HEX
+M7776		  RP04 ERROR CORRECTION LOGIC, 4 LAYER HEX
+M7777		  RP04 MDLI \(MIN DEVICE LEVEL INTERFACE\) TRANSMITTER, DOUBLE 8.5
+M7778		  RP04 MDLI RECEIVER, DOUBLE 8.5
 M780	A+ C* 	  TTY Transmitter & Receiver, 110 baud (double, long)
 M7800	A+ E* H* 	  DL11 Asynch Interface (quad)
 M782	A* E+ 	  Interrupt Control (long)
@@ -603,6 +745,7 @@ M7820	B* C+ 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Replaced by M7
 M7821	B+ C+ D+ 	  Interrupt Control, 7 bits, 1 per PDP11 peripheral, Faster M7820, extended single
 M783	A* B+ 	  Unibus/Omnibus Drivers, extended single
 M784	A* B* C+ 	  Unibus/Omnibus Receivers, extended single
+M7846		  RX01 UNIBUS INTERFACE, QUAD
 M785	A* B+ 	  Unibus/Omnibus Transceiver, extended single
 M786		  Device Register Interface, extended double
 M792	DYB+ E* 	  ROM Diode Matrix (long)
@@ -618,39 +761,85 @@ M824	C+ 	  Priority (double, long)
 M825	C+ 	  Power Fail and Control (long)
 M8290	B* C+ 	  CR11 Card Reader Interface (Unibus)
 M8291	C+ 	  CR11 Card Reader Interface (Unibus)
+M830		  MAJOR REGISTER FOR KK8-E
 M8300	B 	  KK8E Major Registers
+M8302		  LV01 CONT, LV8, QUAD 8.5
+M831		  REGISTER CONTROL FOR KK8-E
 M8310	F H* 	  KK8E Major Register Control
+M8311		  4K X 12 MOS RAM W ROM INTERFACE, QUAD \(MS8-AD\), USING 2102
+M8315		  1 HEX BOARD OMNIBUS CPU, 8/E INSTRUCTION SET
+M8316		  OPTION BOARD #1, SLU, XTAL CLOCK, GP PARALLEL INTERFACE, FRONT PANEL CONTROL, DKC8-AA, HEX
 M8317	E 	  KM8A 8/A Option Board 2<UL>
-M8320	D+ 	  KK8E Bus Loads
+M832		  LOAD RESISTORS FOR BUS, 8/E
+M8320	D 	  KK8E Bus Loads
+M8321		  TM8·E OUTPUT CONTROL
+M8322		  TM8-E CONTROL & BREAK
+M8323		  TM8-E TRANSPORT STATUS CONTROL
+M8327		  TM8-E REGISTERS
+M8328		  BUF MEM CLAMP LOADS, SWITCHES & INDICATORS \(BM8-L\), QUAD
+M8329		  LC8-E PARALLEL INTERFACE TO LA30-P, 8.5 X QUAD
 M833	D+ 	  KK8E Timing Generator (obsoleted by M8330)
 M8330	C+ D+ E+ F+ 	  KK8E Timing Generator
 M8331	B+ 	  TA8E Cassette Interface
 M8335	B+ 	  VT8E Keyboard/Printer Control
+M8336		  VT8-E FREQUENCY DIVIDER, QUAD 8.5
+M8337		  VT8-E LINE BUFFER, QUAD 8.5
 M8340	D* E F+ X 	  KE8E Decoder and Step Counter
 M8341	B* D X 	  KE8E Multiplexers and Timing Generator
+M8342		  LS8-E PARALLEL CONT- WILL REPLACE M8329
+M8347		  TIMING GENERATOR FOR 8/E W STOP CLOCK INPUT, CAN REPLACE M8330, QUAD 8.5 \(KM8-F\) \(ECO'D INTO M8330\)
+M8349		  M8349 WITH ONLY 256 WORDS OF PROM
+M835		  POSITIVE BUS INTERFACE CARD FOR PDP8-E
 M8350	C* 	  KA8E Positive I/O Bus Interface
+M8356		  KEY OPTION, MATCHES KEYS TO MEM ADDRESS REGISTER & HALTS, QUAD
+M8357		  RX01 OMNIBUS INTERFACE
+M836		  DATA BREAK BUS INTERFACE CARD FOR PDPB-E
+M8360		  FASTER M836, REPLACES M836, QUAD
 M8365	B* 	  LA180 Interface, Omnibus (quad, extended)
 M837	B+ D+ 	  Omnibus Memory Extension and Timeshare Option
+M839		  SYNC MODE INTERFACE CARD FOR DP8-E
 M840	K X 	  PC8E High Speed Reader/Punch Control (Omnibus)
+M841		  LE8-C, DATA PRODUCTS LINE PRINTER CONTROL, LP8-E
 M8416	C P 	  KT8A 128K Memory Management Board
 M842	B+ E+ 	  XY8E Plotter Control (Omnibus)
 M843	E 	  CR8E Card Reader Control (Omnibus)
 M847	D+ E* 	  MI8E Diode Bootstrap Loader
+M848		  POWER FAIL DETECT & AUTO RESTART, 8-E, QUAD
+M8480		  IMPROVED M848, USED ONLY WITH M8330
+M849		  RFI SHIELD, 8-E, QUAD
 M850	A X 	  EIA Converter and Cable Connector
 M851	E+ 	  Bus Receiver - Address Decoder (double)
+M860		  REAL TIME CLOCK, DK8-EF, 8-E, QUAD
+M863		  12 CH DIGITAL I/O \(DR8-EA\)
 M865	B C 	  KL8E Terminal Control (Obsoleted by M8650)
 M8650	B* C* D 	  KL8E Terminal Control
 M8652	B+ 	  KL8F Terminal Control
+M8653		  MODEM CONTROL, KL8-M
 M8655	B 	  KL8J Terminal Control
+M866		  EIA LEVEL CONVERTERS FOR M839 \(DP8-E\)
 M868	D+ H 	  TD8E Simple DECtape Controller
 M869	C+ D 	  VC8E Point Plot Display Controller
 M870	A* 	  IMPLEMENTS SIMPLE CLOCK IN PDP12
+M880		  25& WORD ROM, 8/E, QUAD, \(USES G643\) \(MR8-EA\)
 M882		  Omnibus Real Time Clock (Line)
+M883		  REAL TIME CLOCK, CRYSTAL, \(DK8-EC\) 8.5 QUAD, 3 FREQ CHOICE, REPLACED BY M8330
 M8830	C 	  DK8-EC Omnibus Real Time Clock (Crystal)
+M884		  REDUNDANCY CHECK, CRC, LRC & VRC GEN & CHECK, KG8-E, QUAD X 8.5
 M885	C+ E 	  VC8E Point Plot Display D/A
 M890	F+ H* 	  Motion Control for TU10
+M8901		  DATA SYNCHRONIZER, TU16, QUAD 8.5
+M8902		  TM02 TAPE CONTROL, PE, QUAD
+M8903		  TM02 TAPE CONTROL, COMMON MODE, HEX
+M8904		  TM02 TAPE CONTROL, NRZI, QUAD
+M8905		  TM02 MAINTENANCE REGISTER, QUAD
+M8906		  TM02 16-BIT FIDDLER, QUAD
+M8909		  TM02 MASS BUS INTERFACE, HEX
 M891	D+ 	  TU10 CRC and Write Gating, Double
+M8910		  TU16 LOGIC & WRITE BOARD, HEX 8.5
+M8911		  TU16 SLAVE CLOCK, MOTION DELAY, DOUBLE 8.5
 M892	E+ 	  TU10 Write Gap Timing, Double
+M8920		  TS03 TO TU10 MASTER BUS INTERFACE, NON-STANDARD SIZE
+M893		  9 TRACK WRITE BUFFER FOR TU10, +LOGIC VERSION OF M763
 M895	H* 	  TU10/TU15 Read Timing, Double
 M896	B+ X 	  TU10 CRC Checker
 M900	C* D X 	  CONNECTOR TO 8/I CONSOLE, 30 SIGNALS, 2 GNDS, TTL BUFFERING
@@ -658,6 +847,7 @@ M901	B C* X 	  Flat Mylar Cable Connector, 10 ohms in A2,B2,U1 & V1, 2 cables
 M902	A+ AYA* AYB* 	  TERMINATOR, 18 100 OHM RESISTORS, M903 & M904 CONNECTIONS
 M903	A* B X 	  Flat Mylar Connector, 18 signals, 14 GND pins
 M904	B+ 	  Coax Connector, 2x 9-signals, split lug, M903 Pins
+M905		  SPECIAL RIBBON CABLE CONNECTOR, DF32
 M906	A B+ X 	  Cable Terminator
 M907	A+ 	  Diode Clamp
 M908	B X 	  Connector Module
@@ -682,6 +872,8 @@ M929	B* C* 	  Bus Connector, double
 M930	C D+ E+ 	  Bus Terminator (double, short)
 M931	D* 	  15 TERMINATORS, 2K TO +5V, CLAMPED AT +.75 & +3V, M903 PINS EXCEPT 9 INDICATOR OUTPUTS, KI10
 M935	B+ 	  Omnibus Jumper Module
+M938		  M903 CONNECTIONS WITH 18 3K LOADS CLAMPED TO -3V
+M939		  M906 WITH 1K RESISTORS INSTEAD OF 220 OHMS
 M941	A* 	  JUMPER/EXTENDER BOARD FOR TU56
 M942	A+ 	  Bus Terminator (double)
 M943	A+ 	  Cable Connector
@@ -704,7 +896,9 @@ M971	B+ 	  Cable Interface Board #2 (long)
 M973	A+ 	  TTY Cable Connector (long)
 M975		  Flip Chip to 2x H854 Adapter, special double
 M982	B+ 	  Blank Universal Terminator
+M989		  TEMINATOR FOR 8/E TO TU10-M CABLE
 M993	A* B* 	  RK8E Control Cable Connector
+M997		  H854 ON DOUBLE X 5 MODULE, ALL PINS BROUGHT OUT
 Mxxx		  CPLD versions of Mxxx
 R001	A B X 	  Diode Network, 7 diodes, both ends brought to pins
 R002	A B X 	  Diode Network, 5 groups of 2 diodes, cathode common
@@ -796,6 +990,7 @@ W070	A* C X 	  Teletype Cable Connector, PDP8, PT08
 W072	A* 	  LINC-8 Scope Cable Connector
 W073	A* 	  LINC-8 Tape Cable Connector
 W076	B D X 	  Teletype Connector, from Positive Logic 8/I, logic equivalent to W070
+W077		  10 OHMS A & B, OTHER STRAIGHT THRU, FLEX PRINT, CABLE AT END
 W078	A* 	  W076 with AMP connector instead of cable
 W080		  Isolated AC/DC Switch
 W100	A* 	  Emitter Follower
@@ -856,7 +1051,9 @@ W707	E+ F H L P 	  Teletype Transmitter, 8 bit, 2 unit stop code, double
 W708	A+ 	  Teletype Communications Interface
 W709		  Divide by 16/64 Counter
 W714	A+ 	  Switch Module, 2 form C micro-switches, no circuits, 9/I memory
+W720		  4 DC & 3 DIFFERENIATING SWITCH FILTERS FOR + LOGIC, IN TU10
 W726	B+ 	  4 DC & 3 Differentiating Switch Filters, for positive logic, TU10
+W750		  TELETYPE MULTIPLEXER
 W800	B+ 	  2 Form A Reed Relays, similar to 1803
 W802	A+ 	  Relay Multiplexer, 8 Reed Relays, double
 W808	B* 	  2-2 Form A, 1/8 Amp 250V Relays
@@ -874,6 +1071,7 @@ W951		  Wire Wrappable Module, 15x 16 pin, 4x 24 pin, extended double
 W952	B+ 	  Wire Wrappable Module, 30x 16 pin, 8x 24 pin, with sockets, extended quad
 W953		  Wire Wrappable Module, 15x 16 pin, 4x 24 pin, with sockets, extended double
 W960	A+ 	  MSI Mounting Board (2 14-16 pin or 1 24 pin, all pins brought out)
+W962		  24 PIN IC MOUNT WITH A2 \(PIN 24\) +5V & C2,T1 \(PIN 12\) GND, BOARD 50-08908A, ALSO USED FOR M155, M159, M1713
 W964	B+ 	  Blank Universal Terminator, 28 pins, single 5", 50-09733 etch
 W966		  Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, extended quad
 W967		  Wire Wrappable Module, 42x 16 pin, 72 terminal fingers, I/O header, with sockets, extended quad
