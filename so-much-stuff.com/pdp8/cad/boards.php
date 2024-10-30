@@ -5328,10 +5328,6 @@ the hard to find 8202 chip.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7751 target=_blank>./DEC/Mxxx/M7751</a></b>: ENCODER-DECODER PLL \(PHASE LOCK LOOP\), 4 LAYER DOUBLE X 8.5, RS03 \(STANDARD DOUBLE INNER LAYER\)
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7752 target=_blank>./DEC/Mxxx/M7752</a></b>: DESKEW LOGIC, RS03, DOUBLE X 8.5
 
 </LEGEND></FIELDSET>
@@ -5381,26 +5377,6 @@ the hard to find 8202 chip.
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7771 target=_blank>./DEC/Mxxx/M7771</a></b>: RS03 FORMAT, DOUBLE 8.5
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7772 target=_blank>./DEC/Mxxx/M7772</a></b>: RP04 SYNCHRONOUS LOGIC, 4 LAYER HEX
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7773 target=_blank>./DEC/Mxxx/M7773</a></b>: RP04 ASYNCHRONOUS LOGIC, HEX
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7774 target=_blank>./DEC/Mxxx/M7774</a></b>: RP04 REGISTER LOGIC, HEX
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7775 target=_blank>./DEC/Mxxx/M7775</a></b>: RP04 DUAL PORT LOGIC, HEX
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7776 target=_blank>./DEC/Mxxx/M7776</a></b>: RP04 ERROR CORRECTION LOGIC, 4 LAYER HEX
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
@@ -6035,10 +6011,6 @@ with input flow control implemented.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8903 target=_blank>./DEC/Mxxx/M8903</a></b>: TM02 TAPE CONTROL, COMMON MODE, HEX
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8904 target=_blank>./DEC/Mxxx/M8904</a></b>: TM02 TAPE CONTROL, NRZI, QUAD
 
 </LEGEND></FIELDSET>
@@ -6051,10 +6023,6 @@ with input flow control implemented.
 
 </LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8909 target=_blank>./DEC/Mxxx/M8909</a></b>: TM02 MASS BUS INTERFACE, HEX
-
-</LEGEND></FIELDSET>
-<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M891 target=_blank>./DEC/Mxxx/M891</a></b>: TU10 CRC and Write Gating, Double
 
 </LEGEND><DL>
@@ -6062,10 +6030,6 @@ with input flow control implemented.
   <DD>is a version of DEC's M891 CRC and Write Gating module.
 </DL>
 </FIELDSET>
-<FIELDSET><LEGEND>
-  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8910 target=_blank>./DEC/Mxxx/M8910</a></b>: TU16 LOGIC & WRITE BOARD, HEX 8.5
-
-</LEGEND></FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8911 target=_blank>./DEC/Mxxx/M8911</a></b>: TU16 SLAVE CLOCK, MOTION DELAY, DOUBLE 8.5
 
