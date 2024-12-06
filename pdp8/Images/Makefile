@@ -13,6 +13,7 @@ MDSK = $(RK05:.rk05=.dsk) $(RX01:.rx01=.dsk) $(RX02:.rx02=.dsk) \
        $(OS8P:.os8p=.dsk) $(TRPL:.3p=.dsk) $(TU56:.tu56=.dsk) $(COS:.cos=.dsk)
 XML  = $(MDSK:.dsk=.xml) $(DSK:.dsk=.xml) $(TSS:.tss=.xml)
 DIR  = $(XML:.xml=.dir.txt)
+RES  = $(DSK:.dsk=.res.txt)
 AS   = $(wildcard */*.as)
 DA   = $(wildcard */*.da)
 DB   = $(wildcard */*.db)
@@ -20,7 +21,7 @@ DB   = $(wildcard */*.db)
 CTXT = $(AS:.as=.as.txt) $(DB:.db=.db.txt)
 DATX = $(DA:.da=.da.txt)
 
-all: $(MDSK) $(XML) $(DIR) $(CTXT) $(DATX)
+all: $(MDSK) $(XML) $(DIR) $(CTXT) $(DATX) $(RES)
 
 %.dsk: %.rk05
 	rm -f $@; ln $< $@
@@ -45,6 +46,9 @@ all: $(MDSK) $(XML) $(DIR) $(CTXT) $(DATX)
 
 %.dir.txt: %.dsk
 	$(BIN)/os8dir $< >$@
+
+%.res.txt: %.dsk
+	$(BIN)/os8res $< >$@ 2>&1
 
 %.xml: %.dsk
 	@rm -f $@.bad
