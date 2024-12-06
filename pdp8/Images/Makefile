@@ -47,8 +47,8 @@ all: $(MDSK) $(XML) $(DIR) $(CTXT) $(DATX) $(RES)
 %.dir.txt: %.dsk
 	$(BIN)/os8dir $< >$@
 
-%.res.txt: %.dsk
-	$(BIN)/os8res $< >$@ 2>&1
+%.res.txt: %.dsk $(BIN)/os8res
+	-$(BIN)/os8res $< >$@ 2>&1
 
 %.xml: %.dsk
 	@rm -f $@.bad
