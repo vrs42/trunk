@@ -2794,6 +2794,14 @@ System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345 target=_blank>8-345</div>
 </a><td><div>EDIT-PAL </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-1_2.bin target=_blank>decus-8-345-1_2.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-1_2.bn target=_blank>decus-8-345-1_2.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-1_2.lst target=_blank>decus-8-345-1_2.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-1_2.pal target=_blank>decus-8-345-1_2.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-2_2.bin target=_blank>decus-8-345-2_2.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-2_2.bn target=_blank>decus-8-345-2_2.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-2_2.lst target=_blank>decus-8-345-2_2.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-2_2.pal target=_blank>decus-8-345-2_2.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345.htm target=_blank>decus-8-345.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345.pdf target=_blank>decus-8-345.pdf</a></div>
 <tr>
@@ -3158,6 +3166,10 @@ System </div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398.htm target=_blank>decus-8-398.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398.pdf target=_blank>decus-8-398.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.bin target=_blank>decus-8-398a.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.bn target=_blank>decus-8-398a.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.lst target=_blank>decus-8-398a.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.pal target=_blank>decus-8-398a.pal</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-399 target=_blank>8-399</div>
 </a><td><div>8K FORTRAN Bit Manipulation Subroutines </div>
@@ -3435,7 +3447,16 @@ System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440 target=_blank>8-440</div>
 </a><td><div>PIPL </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-1_3.bn target=_blank>decus-8-440-1_3.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-1_3.pal target=_blank>decus-8-440-1_3.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-2_3.bn target=_blank>decus-8-440-2_3.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-2_3.pal target=_blank>decus-8-440-2_3.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3.bn target=_blank>decus-8-440-3_3.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3.pal target=_blank>decus-8-440-3_3.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.bin target=_blank>decus-8-440.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.htm target=_blank>decus-8-440.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.lst target=_blank>decus-8-440.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.pal target=_blank>decus-8-440.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.pdf target=_blank>decus-8-440.pdf</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-441 target=_blank>8-441</div>
@@ -3692,8 +3713,19 @@ System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472 target=_blank>8-472</div>
 </a><td><div>PS8IN, PS8OUT </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.bin target=_blank>decus-8-472.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.htm target=_blank>decus-8-472.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.lst target=_blank>decus-8-472.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.pal target=_blank>decus-8-472.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.pdf target=_blank>decus-8-472.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_pa8in.bn target=_blank>decus-8-472_pa8in.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8in.bin target=_blank>decus-8-472_ps8in.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8in.lst target=_blank>decus-8-472_ps8in.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8in.pal target=_blank>decus-8-472_ps8in.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8out.bin target=_blank>decus-8-472_ps8out.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8out.bn target=_blank>decus-8-472_ps8out.bn</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8out.lst target=_blank>decus-8-472_ps8out.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8out.pal target=_blank>decus-8-472_ps8out.pal</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-473 target=_blank>8-473</div>
 </a><td><div>Three Utility Routines for PS/8 </div>
@@ -4741,7 +4773,9 @@ Monitor System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615 target=_blank>8-615
 </a><td><div>FTMULT: EAE Multiplicadon for 8K FORTRAN </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615 target=_blank>decus-8-615</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615.htm target=_blank>decus-8-615.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615.sbr target=_blank>decus-8-615.sbr</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-616 target=_blank>8-616</div>
 </a><td><div>Octal Character Equivalent</div>
@@ -4792,7 +4826,14 @@ Monitor System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625 target=_blank>8-625
 </a><td><div>Floating Integer Functions for use with 8K FORTRAN </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625 target=_blank>decus-8-625</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.htm target=_blank>decus-8-625.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.od target=_blank>decus-8-625.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.pt target=_blank>decus-8-625.pt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.pt.od target=_blank>decus-8-625.pt.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.rl target=_blank>decus-8-625.rl</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.rl.od target=_blank>decus-8-625.rl.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.sbr target=_blank>decus-8-625.sbr</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-626 target=_blank>8-626
 </a><td><div>Automated Electrooculography </div>
