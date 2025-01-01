@@ -23,6 +23,7 @@ other website pages).
     <TABLE><TR><TD valign=top>
     <TD>
     <FONT size=3>
+<P><A href=y2025.txt target=_blank>2025 SVN Activity</A>
 <P><A href=y2024.txt target=_blank>2024 SVN Activity</A>
 <P><A href=y2023.txt target=_blank>2023 SVN Activity</A>
 <P><A href=y2022.txt target=_blank>2022 SVN Activity</A>

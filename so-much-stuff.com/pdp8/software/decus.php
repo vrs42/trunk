@@ -3453,6 +3453,7 @@ System </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-2_3.pal target=_blank>decus-8-440-2_3.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3.bn target=_blank>decus-8-440-3_3.bn</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3.pal target=_blank>decus-8-440-3_3.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3thirdread.pt target=_blank>decus-8-440-3_3thirdread.pt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.bin target=_blank>decus-8-440.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.htm target=_blank>decus-8-440.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.lst target=_blank>decus-8-440.lst</a></div>
@@ -5652,6 +5653,22 @@ Restructuring Program </div>
 </a><td><div>STAGE2 Macro Processor </div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747.htm target=_blank>decus-8-747.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_flub_macros_3_5.pt target=_blank>decus-8-747_flub_macros_3_5.pt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_flub_macros_3_5.s2 target=_blank>decus-8-747_flub_macros_3_5.s2</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_header_code_4_5.pal target=_blank>decus-8-747_header_code_4_5.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_header_code_4_5.pt target=_blank>decus-8-747_header_code_4_5.pt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_logic_macros_5_5.pt target=_blank>decus-8-747_logic_macros_5_5.pt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_logic_macros_5_5.s2 target=_blank>decus-8-747_logic_macros_5_5.s2</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_source_tape_1_5.pal target=_blank>decus-8-747_source_tape_1_5.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_source_tape_1_5.pt target=_blank>decus-8-747_source_tape_1_5.pt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_source_tape_2_5.pal target=_blank>decus-8-747_source_tape_2_5.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_source_tape_2_5.pt target=_blank>decus-8-747_source_tape_2_5.pt</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/mackef.s2 target=_blank>mackef.s2</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/s2head.s2 target=_blank>s2head.s2</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/s2rts.bin target=_blank>s2rts.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/s2rts.lst target=_blank>s2rts.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/s2rts.pal target=_blank>s2rts.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/stage2.s2 target=_blank>stage2.s2</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-748 target=_blank>8-748</div>
 </a><td><div>SM04 - OS/8 to Disk—Monitor ASCII File Converter</div>

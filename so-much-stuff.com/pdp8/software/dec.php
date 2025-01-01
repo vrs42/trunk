@@ -5787,6 +5787,10 @@ are some navigation shortcuts as well:
 <tr><td>ak-6637d / maindec-08-djdka-d-pm2</td><td></td></tr>
 <tr><td>ak-6638d / maindec-08-djdka-d-pm3</td><td></td></tr>
 <tr><td>ak-6639d / maindec-08-djdka-d-pm4</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djdka/maindec-08-djdka-a-pm1>ak-6636a / maindec-08-djdka-a-pm1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djdka/maindec-08-djdka-a-pm2>ak-6637a / maindec-08-djdka-a-pm2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djdka/maindec-08-djdka-a-pm3>ak-6638a / maindec-08-djdka-a-pm3</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djdka/maindec-08-djdka-a-pm4>ak-6639a / maindec-08-djdka-a-pm4</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>RANDOM MRI INSTRUCTION EXERCISER<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-djexa>maindec-08-djexa</a></td>
@@ -8163,6 +8167,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1480 of 2922 files linked (50.7%), in 1245 directories
+<P>1484 of 2926 files linked (50.7%), in 1245 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>
