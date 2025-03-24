@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Only works on systems with systemd.
+# Must run as root for install to succeed.
+
+cp serialdisk.service /lib/systemd/system/.
+systemctl daemon-reload
+systemctl enable serialdisk.service

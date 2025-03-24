@@ -1,0 +1,10 @@
+[Unit]
+Description=SerialDisk as a Service
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sudo -u tester /home/tester/sd/runserver >/home/tester/sd/log.txt
+
+[Install]
+WantedBy=multi-user.target

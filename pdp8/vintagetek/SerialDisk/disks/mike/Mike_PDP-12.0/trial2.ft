@@ -1,0 +1,15 @@
+      WRITE(4,100)
+  100 FORMAT(" TEST OF FORTRAN IV (F4.SV), LIST OF SQUARES AND ROOTS")
+      WRITE(4,101)
+  101 FORMAT(" ")
+      DO 1 I=1,20
+      J=I*I
+      A=SQRT(FLOAT(I))
+    1 WRITE(4,102)I,J,A
+  102 FORMAT(" THE SQUARE OF ",I2," IS ",I3," AND THE ROOT IS ",F10.6)
+      WRITE(4,101)
+      WRITE(4,103)
+  103 FORMAT(" DONE.")
+      STOP
+      END
+

@@ -1,0 +1,239 @@
+   1               /
+   2               / COPY DEVICE TO DEVICE
+   3               /
+   4               / Beware: This will obliterate the output device
+   5               / to make a copy of the input device.
+   6               /
+   7               / USR Command codes:
+   8               FETCH=1                 /Fetch a handler
+   9               LOOKUP=2                /Look up a file
+  10               ENTER=3                 /Create a tentative file
+  11               CLOSE=4                 /Make tentative file permanent
+  12               DECODE=5                /Call the command decoder
+  13               CHAIN=6                 /Invoke a program
+  14               ERROR=7                 /Print an error code
+  15               USRIN=10                /Fetch USR
+  16               USROUT=11               /Dismiss USR
+  17               INQUIRE=12              /Any such device?
+  18               RESET=13                /Reset system tables
+  19               
+  20               *100
+  21               /Put these on page zero for now.
+  22 000100  0000  MESG,   .-.
+  23 000101  1500          TAD I MESG      /Get left character
+  24 000102  7112          CLL RTR
+  25 000103  7012          RTR
+  26 000104  7012          RTR
+  27 000105  4112          JMS HALF
+  28 000106  1500          TAD I MESG      /Get right character
+  29 000107  4112          JMS HALF
+  30 000110  2100          ISZ MESG        /Point to next pair
+  31 000111  5101          JMP MESG+1      /and output the rest
+  32 000112  0000  HALF,   .-.             /Output a 6-bit character
+  33 000113  0177          AND [77         /Mask to 6 bits
+  34 000114  7450          SNA             /Terminator?
+  35 000115  5124          JMP DOCR        /Yes, wrap up
+  36 000116  1176          TAD [-40        /Alphabetic?
+  37 000117  7510          SPA
+  38 000120  1175          TAD [100        /Yes
+  39 000121  1174          TAD [240        /Form mark parity ASCII
+  40 000122  4154          JMS OCHAR       /Output it
+  41 000123  5512          JMP I HALF
+  42 000124  1173  DOCR,   TAD [215        /Get CR
+  43 000125  4154          JMS OCHAR       /Output it
+  44 000126  1172          TAD [212        /Get LF
+  45 000127  4154          JMS OCHAR       /Output it
+  46 000130  2100          ISZ MESG        /Skip terminating word
+  47 000131  5500          JMP I MESG      /Return to caller
+  48               
+  49 000132  0000  OCTOUT, .-.
+  50 000133  7004          RAL             /Skip over LINK
+  51 000134  4142          JMS ODIGIT      /Output 4 digits
+  52 000135  4142          JMS ODIGIT
+  53 000136  4142          JMS ODIGIT
+  54 000137  4142          JMS ODIGIT
+  55 000140  7200          CLA             /Return with AC clear
+  56 000141  5532          JMP I OCTOUT
+  57 000142  0000  ODIGIT, .-.
+  58 000143  7006          RTL             /Shift next digit into low AC
+  59 000144  7004          RAL
+  60 000145  3100          DCA MESG        /Save the value
+  61 000146  1100          TAD MESG        /Get it back
+  62 000147  0171          AND [7          /Get octal digit
+  63 000150  1170          TAD [260        /Convert to ASCII
+  64 000151  4154          JMS OCHAR       /Print it
+  65 000152  1100          TAD MESG        /Get the value again
+  66 000153  5542          JMP I ODIGIT    /Return to caller
+  67               
+  68 000154  0000  OCHAR,  .-.
+  69 000155  6046          TLS             /Output the character
+  70 000156  6041          TSF             /Wait for output
+  71 000157  5156          JMP .-1
+  72 000160  7200          CLA             /Return with AC clear
+  73 000161  5554          JMP I OCHAR
+  74               
+  75               /
+  76               / The sequence is to bring USR into memory, call the decoder,
+  77               / sanity check the result, fetch the drivers, then begin
+  78               / calling the drivers to read and write blocks until done.
+  79               PAGE/*200
+  80 000200  6212  DEVCPY, CIF 10          /Call USR, make resident
+  81 000201  4777          JMS I (7700
+  82 000202  0010          USRIN
+  83               
+  84 000203  6212          CIF 10          /Call the command decoder
+  85 000204  4776          JMS I (200
+  86 000205  0005          DECODE
+  87 000206  0000          0000            /No extension
+  88 000207  0000          0000            /Preserve tentative files
+  89               
+  90 000210  6211          CDF 10          /Acces Command decoder tables
+  91 000211  1775          TAD I (7601     /Peek file name, if any
+  92 000212  7640          SZA CLA         /Must be empty
+  93 000213  5273          JMP OFAIL       /...but wasn't
+  94 000214  1774          TAD I (7604     /Peek file extension, if any
+  95 000215  7640          SZA CLA         /Must be empty
+  96 000216  5273          JMP OFAIL       /...but wasn't
+  97 000217  1373          TAD (OUTHND+1   /Reset handler buffer pointer
+  98 000220  3231          DCA OUTHPT
+  99 000221  1772          TAD I (7600     /First output device number
+ 100 000222  7450          SNA             /Must be specified
+ 101 000223  5273          JMP OFAIL       /...but wasn't
+ 102 000224  0371          AND (0017       /Ignore size, if any
+ 103 000225  6201          CDF 00          /Must return to this field
+ 104               
+ 105 000226  6212          CIF 10          /Fetch the driver
+ 106 000227  4776          JMS I (200
+ 107 000230  0001          FETCH
+ 108 000231  1001  OUTHPT, OUTHND+1        /Allow 2 page output handler
+ 109 000232  5273          JMP OFAIL       /Failed to FETCH
+ 110               
+ 111 000233  6211          CDF 10          /Acces Command decoder tables
+ 112 000234  1770          TAD I (7620     /Input starting block
+ 113 000235  7640          SZA CLA         /Must be zero
+ 114 000236  5312          JMP IFAIL       /...but wasn't
+ 115 000237  1367          TAD (INHND+1    /Reset handler buffer pointer
+ 116 000240  3252          DCA INHPT
+ 117 000241  1766          TAD I (7617     /First input device
+ 118 000242  0365          AND (7760       /Get file size
+ 119 000243  7640          SZA CLA         /Must be zero
+ 120 000244  5312          JMP IFAIL       /...but wasn't
+ 121 000245  1766          TAD I (7617     /First input device
+ 122 000246  6201          CDF 00          /Must return to this field
+ 123               
+ 124 000247  6212          CIF 10          /Fetch the driver
+ 125 000250  4776          JMS I (200
+ 126 000251  0001          FETCH
+ 127 000252  0401  INHPT,  INHND+1         /Allow 2 page input handler
+ 128 000253  5312          JMP IFAIL       /Failed to FETCH
+ 129               
+ 130               /
+ 131               / TODO: Confirm the intent to obliterate
+ 132               / the output device content!
+ 133               /
+ 134               
+ 135               /
+ 136               / At this point, both handlers are ready to use.
+ 137               / Block structured devices don't detect EOF and do partial
+ 138               / reads.  As a result, we do the copy one block at a time.
+ 139               /
+ 140 000254  3260          DCA IBLKNO      /Start with block 0
+ 141               LOOP,   
+ 142 000255  4652          JMS I INHPT     /Call input handler
+ 143 000256  0200          0200            /One block
+ 144 000257  1400          IOBUF
+ 145 000260  0000  IBLKNO, .-.             /Current block number
+ 146 000261  5342          JMP IODONE      /Error implies we are done
+ 147               
+ 148 000262  1260          TAD IBLKNO      /Copy block number
+ 149 000263  3267          DCA OBLKNO
+ 150 000264  4631          JMS I OUTHPT    /Call output handler
+ 151 000265  4200          4200            /One block
+ 152 000266  1400          IOBUF
+ 153 000267  0000  OBLKNO, .-.             /Current block number
+ 154 000270  5331          JMP IOFAIL      /Error implies an actual error
+ 155 000271  2260          ISZ IBLKNO      /Try for next block
+ 156 000272  5255          JMP LOOP
+ 157               /
+ 158               / Various failure modes
+ 159 000273  6201  OFAIL,  CDF 00
+ 160 000274  4100          JMS MESG
+ 161 000275  1725          TEXT    /OUTPUT MUST BE A DEVICE/
+     000276  2420  
+     000277  2524  
+     000300  4015  
+     000301  2523  
+     000302  2440  
+     000303  0205  
+     000304  4001  
+     000305  4004  
+     000306  0526  
+     000307  1103  
+     000310  0500  
+ 162 000311  5200          JMP DEVCPY      /Start over
+ 163               
+ 164 000312  6201  IFAIL,  CDF 00
+ 165 000313  4100          JMS MESG
+ 166 000314  1116          TEXT    /INPUT MUST BE A DEVICE/
+     000315  2025  
+     000316  2440  
+     000317  1525  
+     000320  2324  
+     000321  4002  
+     000322  0540  
+     000323  0140  
+     000324  0405  
+     000325  2611  
+     000326  0305  
+     000327  0000  
+ 167 000330  5200          JMP DEVCPY      /Start over
+ 168               
+ 169 000331  7200  IOFAIL, CLA             /Lose AC error code
+ 170 000332  4100          JMS MESG
+ 171 000333  1725          TEXT    /OUTPUT ERROR/
+     000334  2420  
+     000335  2524  
+     000336  4005  
+     000337  2222  
+     000340  1722  
+     000341  0000  
+ 172               /Fall through!
+ 173               
+ 174 000342  1260  IODONE, TAD IBLKNO      /Print block count
+ 175 000343  4132          JMS OCTOUT
+ 176 000344  4100          JMS MESG
+ 177 000345  4002          TEXT    / BLOCKS COPIED/
+     000346  1417  
+     000347  0313  
+     000350  2340  
+     000351  0317  
+     000352  2011  
+     000353  0504  
+     000354  0000  
+ 178 000355  5200          JMP DEVCPY      /Go again
+ 179               
+ 180 000365  7760          PAGE
+     000366  7617  
+     000367  0401  
+     000370  7620  
+     000371  0017  
+     000372  7600  
+     000373  1001  
+     000374  7604  
+     000375  7601  
+     000376  0200  
+     000377  7700  
+ 181               INHND=.
+ 182               *.+0400
+ 183               OUTHND=.
+ 184               *.+400
+ 185               IOBUF=.
+ 186               *.+400
+ 187 000170  0260  $
+     000171  0007  
+     000172  0212  
+     000173  0215  
+     000174  0240  
+     000175  0100  
+     000176  7740  
+     000177  0077  

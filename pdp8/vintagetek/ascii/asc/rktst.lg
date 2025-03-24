@@ -1,0 +1,79 @@
+
+HEADING:RKTST.25  1/21/80   MODEL 25 #1, #2, #3 
+
+STEP
+  1   FOR  J = 1.00000E+00 TO 1.00000E+03 
+  2   FOR  I = 1.00000E+00 TO 1.70000E+01 
+  3   TEST   UNK I  CODE 1  TOL 1  ACC 0  REJ 0  REG 1
+  4   NEXT  I
+  5   PRIN  "PASS " J " COMPLETED" 
+     
+  6   HAND
+  7   NEXT  J
+  8   QUIT
+UNK
+  1   NOM 1  SCAN 1  MAT 0  FUNC 0  DUM 1
+  2   NOM 1  SCAN 2  MAT 0  FUNC 0  DUM 2
+  3   NOM 1  SCAN 3  MAT 0  FUNC 0  DUM 3
+  4   NOM 1  SCAN 4  MAT 0  FUNC 0  DUM 4
+  5   NOM 1  SCAN 5  MAT 0  FUNC 0  DUM 5
+  6   NOM 1  SCAN 6  MAT 0  FUNC 0  DUM 6
+  7   NOM 1  SCAN 7  MAT 0  FUNC 0  DUM 7
+  8   NOM 1  SCAN 8  MAT 0  FUNC 0  DUM 8
+  9   NOM 1  SCAN 9  MAT 0  FUNC 0  DUM 9
+ 10   NOM 1  SCAN 10  MAT 0  FUNC 0  DUM 10
+ 11   NOM 1  SCAN 11  MAT 0  FUNC 0  DUM 11
+ 12   NOM 1  SCAN 12  MAT 0  FUNC 0  DUM 12
+ 13   NOM 1  SCAN 13  MAT 0  FUNC 0  DUM 13
+ 14   NOM 1  SCAN 14  MAT 0  FUNC 0  DUM 14
+ 15   NOM 1  SCAN 15  MAT 0  FUNC 0  DUM 15
+ 16   NOM 1  SCAN 16  MAT 0  FUNC 0  DUM 16
+ 17   NOM 1  SCAN 17  MAT 0  FUNC 0  DUM 17
+REG
+  1   06
+  2   00
+  3   00
+  4   00
+NOM
+  1   1.00000E+03
+SCAN
+  1   0, 0, 0, 0
+  2   1, 1, 0, 0
+  3   2, 2, 0, 0
+  4   3, 3, 0, 0
+  5   4, 4, 0, 0
+  6   5, 5, 0, 0
+  7   6, 6, 0, 0
+  8   7, 7, 0, 0
+  9   8, 8, 0, 0
+ 10   9, 9, 0, 0
+ 11   10, 10, 0, 0
+ 12   11, 11, 0, 0
+ 13   12, 12, 0, 0
+ 14   13, 13, 0, 0
+ 15   14, 14, 0, 0
+ 16   15, 15, 0, 0
+ 17   16, 16, 0, 0
+CODE
+  1   3, 8, 0, 0
+TOL
+  1   -5.00000E-02, 5.00000E-02
+DUM
+  1   0.00000E+00
+  2   0.00000E+00
+  3   0.00000E+00
+  4   0.00000E+00
+  5   0.00000E+00
+  6   0.00000E+00
+  7   0.00000E+00
+  8   0.00000E+00
+  9   0.00000E+00
+ 10   0.00000E+00
+ 11   0.00000E+00
+ 12   0.00000E+00
+ 13   0.00000E+00
+ 14   0.00000E+00
+ 15   0.00000E+00
+ 16   0.00000E+00
+ 17   0.00000E+00
+

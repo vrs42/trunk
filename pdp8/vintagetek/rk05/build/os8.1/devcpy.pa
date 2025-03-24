@@ -1,0 +1,187 @@
+/
+/ COPY DEVICE TO DEVICE
+/
+/ Beware: This will obliterate the output device
+/ to make a copy of the input device.
+/
+/ USR Command codes:
+FETCH=1			/Fetch a handler
+LOOKUP=2		/Look up a file
+ENTER=3			/Create a tentative file
+CLOSE=4			/Make tentative file permanent
+DECODE=5		/Call the command decoder
+CHAIN=6			/Invoke a program
+ERROR=7			/Print an error code
+USRIN=10		/Fetch USR
+USROUT=11		/Dismiss USR
+INQUIRE=12		/Any such device?
+RESET=13		/Reset system tables
+
+*100
+/Put these on page zero for now.
+MESG,	.-.
+	TAD I MESG	/Get left character
+	CLL RTR
+	RTR
+	RTR
+	JMS HALF
+	TAD I MESG	/Get right character
+	JMS HALF
+	ISZ MESG	/Point to next pair
+	JMP MESG+1	/and output the rest
+HALF,	.-.		/Output a 6-bit character
+	AND [77		/Mask to 6 bits
+	SNA		/Terminator?
+	JMP DOCR	/Yes, wrap up
+	TAD [-40	/Alphabetic?
+	SPA
+	TAD [100	/Yes
+	TAD [240	/Form mark parity ASCII
+	JMS OCHAR	/Output it
+	JMP I HALF
+DOCR,	TAD [215	/Get CR
+	JMS OCHAR	/Output it
+	TAD [212	/Get LF
+	JMS OCHAR	/Output it
+	ISZ MESG	/Skip terminating word
+	JMP I MESG	/Return to caller
+
+OCTOUT,	.-.
+	RAL		/Skip over LINK
+	JMS ODIGIT	/Output 4 digits
+	JMS ODIGIT
+	JMS ODIGIT
+	JMS ODIGIT
+	CLA		/Return with AC clear
+	JMP I OCTOUT
+ODIGIT,	.-.
+	RTL		/Shift next digit into low AC
+	RAL
+	DCA MESG	/Save the value
+	TAD MESG	/Get it back
+	AND [7		/Get octal digit
+	TAD [260	/Convert to ASCII
+	JMS OCHAR	/Print it
+	TAD MESG	/Get the value again
+	JMP I ODIGIT	/Return to caller
+
+OCHAR,	.-.
+	TLS		/Output the character
+	TSF		/Wait for output
+	JMP .-1
+	CLA		/Return with AC clear
+	JMP I OCHAR
+
+/
+/ The sequence is to bring USR into memory, call the decoder,
+/ sanity check the result, fetch the drivers, then begin
+/ calling the drivers to read and write blocks until done.
+PAGE/*200
+DEVCPY,	CIF 10		/Call USR, make resident
+	JMS I (7700
+	USRIN
+
+	CIF 10		/Call the command decoder
+	JMS I (200
+	DECODE
+	0000		/No extension
+	0000		/Preserve tentative files
+
+	CDF 10		/Acces Command decoder tables
+	TAD I (7601	/Peek file name, if any
+	SZA CLA 	/Must be empty
+	JMP OFAIL	/...but wasn't
+	TAD I (7604	/Peek file extension, if any
+	SZA CLA 	/Must be empty
+	JMP OFAIL	/...but wasn't
+	TAD (OUTHND+1	/Reset handler buffer pointer
+	DCA OUTHPT
+	TAD I (7600	/First output device number
+	SNA		/Must be specified
+	JMP OFAIL	/...but wasn't
+	AND (0017	/Ignore size, if any
+	CDF 00		/Must return to this field
+
+	CIF 10		/Fetch the driver
+	JMS I (200
+	FETCH
+OUTHPT,	OUTHND+1	/Allow 2 page output handler
+	JMP OFAIL	/Failed to FETCH
+
+	CDF 10		/Acces Command decoder tables
+	TAD I (7620	/Input starting block
+	SZA CLA 	/Must be zero
+	JMP IFAIL	/...but wasn't
+	TAD (INHND+1	/Reset handler buffer pointer
+	DCA INHPT
+	TAD I (7617	/First input device
+	AND (7760	/Get file size
+	SZA CLA 	/Must be zero
+	JMP IFAIL	/...but wasn't
+	TAD I (7617	/First input device
+	CDF 00		/Must return to this field
+
+	CIF 10		/Fetch the driver
+	JMS I (200
+	FETCH
+INHPT,	INHND+1 	/Allow 2 page input handler
+	JMP IFAIL	/Failed to FETCH
+
+/
+/ TODO: Confirm the intent to obliterate
+/ the output device content!
+/
+
+/
+/ At this point, both handlers are ready to use.
+/ Block structured devices don't detect EOF and do partial
+/ reads.  As a result, we do the copy one block at a time.
+/
+	DCA IBLKNO	/Start with block 0
+LOOP,	
+	JMS I INHPT	/Call input handler
+	0200		/One block
+	IOBUF
+IBLKNO,	.-.		/Current block number
+	JMP IODONE	/Error implies we are done
+
+	TAD IBLKNO	/Copy block number
+	DCA OBLKNO
+	JMS I OUTHPT	/Call output handler
+	4200		/One block
+	IOBUF
+OBLKNO,	.-.		/Current block number
+	JMP IOFAIL	/Error implies an actual error
+	ISZ IBLKNO	/Try for next block
+	JMP LOOP
+/
+/ Various failure modes
+OFAIL,	CDF 00
+	JMS MESG
+	TEXT	/OUTPUT MUST BE A DEVICE/
+	JMP DEVCPY	/Start over
+
+IFAIL,	CDF 00
+	JMS MESG
+	TEXT	/INPUT MUST BE A DEVICE/
+	JMP DEVCPY	/Start over
+
+IOFAIL, CLA		/Lose AC error code
+	JMS MESG
+	TEXT	/OUTPUT ERROR/
+/Fall through!
+
+IODONE,	TAD IBLKNO	/Print block count
+	JMS OCTOUT
+	JMS MESG
+	TEXT	/ BLOCKS COPIED/
+	JMP DEVCPY	/Go again
+
+	PAGE
+INHND=.
+*.+0400
+OUTHND=.
+*.+400
+IOBUF=.
+*.+400
+$

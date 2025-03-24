@@ -1,0 +1,467 @@
+   1               / VC8E/VR14 scope test program.
+   2               
+   3               / VC8E IOTs
+   4               
+   5               DILC=6050       / reset
+   6               DICD=6051       / clear done flag
+   7               DISD=6052       / skip if done
+   8               DILX=6053       / load X
+   9               DILY=6054    / load Y
+  10               DIXY=6055    / intensify point
+  11               DILE=6056    / load enable/status reg, clear AC
+  12               DIRE=6056    / read enable/status reg
+  13               
+  14               / VC8E enable/status register bits
+  15               
+  16               VCDONE=4000     / done flag (read only)
+  17               VCWRTH=0040     / write-through (for storage scopes)
+  18               VCSTOR=0020     / store (for storage scopes)
+  19               VCERAS=0010     / erase (for storage scopes)
+  20               VCCOLR=0004     / color (for VR20)
+  21               /VCCOLR=0002    / channel (for VR14/VR20)
+  22               VCINTE=0001     / interrupt enable
+  23               
+  24               / VC8E dot pitch for pixels in text
+  25               VCPICH=0010
+  26               
+  27               / Index Regs
+  28               *       0010
+  29 000010  0000  X0,     .-.
+  30               
+  31               / Globals
+  32               *       0020
+  33 000020  0000  TBL,    0
+  34 000021  1000  TBLLOC, OUTTB
+  35 000022  0000  POINTS, 0
+  36 000023  4000  K4000,  4000
+  37               
+  38               / Main program
+  39               *       0200
+  40               START,                  / initialization
+  41 000200  6050          DILC
+  42               REPLOT,                 / main display refresh loop
+  43 000201  7200          CLA
+  44 000202  1021          TAD     TBLLOC
+  45 000203  3020          DCA     TBL
+  46 000204  4577          JMS I   [VCAT]
+  47 000205  1200          1200
+  48 000206  0300          300
+  49 000207  4576          JMS I   [VCTEXT]
+  50 000210  0252          STR1
+  51 000211  4576          JMS I   [VCTEXT]
+  52 000212  0300          STR2
+  53 000213  4577          JMS I   [VCAT]
+  54 000214  1400          1400
+  55 000215  1400          1400
+  56 000216  4576          JMS I   [VCTEXT]
+  57 000217  0316          STR3
+  58 000220  1021  PLOTB,  TAD     TBLLOC
+  59 000221  7041          CMA IAC
+  60 000222  1020          TAD     TBL
+  61 000223  7041          CMA IAC
+  62 000224  3022          DCA     POINTS
+  63 000225  7040          CMA
+  64 000226  1021          TAD     TBLLOC
+  65 000227  3010          DCA     X0
+  66 000230  1410  OUTIT,  TAD     I X0
+  67 000231  7510          SPA
+  68 000232  5245          JMP     DOX
+  69 000233  6054          DILY
+  70 000234  6052          DISD
+  71 000235  5234          JMP     .-1     / wait for ready
+  72 000236  6055          DIXY            / intensify
+  73 000237  7200          CLA
+  74 000240  2022          ISZ     POINTS
+  75 000241  5230          JMP     OUTIT
+  76 000242  6031          KSF
+  77 000243  5220          JMP     PLOTB
+  78 000244  5646          JMP     I DOX+1
+  79 000245  6053  DOX,    DILX
+  80 000246  7600          7600 CLA
+  81 000247  2022          ISZ     POINTS
+  82 000250  5230          JMP     OUTIT
+  83 000251  5220          JMP     PLOTB
+  84               
+  85 000252  0102  STR1,   TEXT    'ABCDEFGHIJKLM%NOPQRSTUVWXYZ%"0123456789"%@'
+     000253  0304  
+     000254  0506  
+     000255  0710  
+     000256  1112  
+     000257  1314  
+     000260  1545  
+     000261  1617  
+     000262  2021  
+     000263  2223  
+     000264  2425  
+     000265  2627  
+     000266  3031  
+     000267  3245  
+     000270  4260  
+     000271  6162  
+     000272  6364  
+     000273  6566  
+     000274  6770  
+     000275  7142  
+     000276  4500  
+     000277  0000  
+  86 000300  4143  STR2,   TEXT    "!#$&'()*+,-.%/:;<=>?[\]^_@"
+     000301  4446  
+     000302  4750  
+     000303  5152  
+     000304  5354  
+     000305  5556  
+     000306  4557  
+     000307  7273  
+     000310  7475  
+     000311  7677  
+     000312  3334  
+     000313  3536  
+     000314  3700  
+     000315  0000  
+  87 000316  2410  STR3,   TEXT    'THE BIG DOG ATE%BEANS FOR BREAKFAST@'
+     000317  0540  
+     000320  0211  
+     000321  0740  
+     000322  0417  
+     000323  0740  
+     000324  0124  
+     000325  0545  
+     000326  0205  
+     000327  0116  
+     000330  2340  
+     000331  0617  
+     000332  2240  
+     000333  0222  
+     000334  0501  
+     000335  1306  
+     000336  0123  
+     000337  2400  
+     000340  0000  
+  88               
+  89                       PAGE
+  90               
+  91 000400  0000  VCAT,   .-.     / Move to X,Y
+  92                               / Inline param1: X coord
+  93                               / Inline param2: Y coord
+  94                               / Return follows with AC = 0
+  95                               / Uses: VCvariables
+  96 000401  7200          CLA
+  97 000402  1600          TAD I   VCAT    / get X
+  98 000403  3344          DCA     VCX
+  99 000404  1344          TAD     VCX
+ 100 000405  3345          DCA     VCXTMP
+ 101 000406  2200          ISZ     VCAT    / bump
+ 102 000407  1600          TAD I   VCAT    / get Y
+ 103 000410  3346          DCA     VCY
+ 104 000411  2200          ISZ     VCAT    / bump
+ 105 000412  5600          JMP I   VCAT
+ 106               
+ 107 000413  0000  VCTEXT, .-.     / Display text on screen, using inline params
+ 108                               / Inline param1: Address of text string
+ 109                               / Return follows with AC = 0
+ 110                               / Text is packed 6-bit stripped ASCII,
+ 111                               / where @ marks end of string and % is CRLF.
+ 112                               / Uses: VCvariables
+ 113 000414  7200          CLA
+ 114 000415  1613          TAD I   VCTEXT  / get text pointer
+ 115 000416  3236          DCA     VCTXPT
+ 116 000417  2213          ISZ     VCTEXT  / bump
+ 117               VCTLP,
+ 118 000420  1636          TAD I   VCTXPT  / get a pair of characters
+ 119 000421  7002          BSW
+ 120 000422  0235          AND     C077    / extract first
+ 121 000423  7450          SNA             / test for end of string
+ 122 000424  5613          JMP I   VCTEXT  /   if so, return
+ 123 000425  4237          JMS     VCCHAR  / else display it
+ 124 000426  1636          TAD I   VCTXPT
+ 125 000427  0235          AND     C077    / extract second
+ 126 000430  7450          SNA             / test for end of string
+ 127 000431  5613          JMP I   VCTEXT  /   if so, return
+ 128 000432  4237          JMS     VCCHAR  / else display it
+ 129 000433  2236          ISZ     VCTXPT
+ 130 000434  5220          JMP     VCTLP
+ 131               
+ 132 000435  0077  C077,   0077    / mask to extract a byte
+ 133 000436  0000  VCTXPT, .-.     / pointer to char string
+ 134               
+ 135 000437  0000  VCCHAR, .-.     / Display char from AC on screen
+ 136                               / Char is in 6 bit trimmed ASCII
+ 137                               / returns AC=0
+ 138 000440  1273          TAD     NPCSGN  / compare with EOL
+ 139 000441  7450          SNA
+ 140 000442  5262          JMP     VCCHCR  / got a %, use as CRLF
+ 141 000443  1274          TAD     PPCSGN  / undo the damage
+ 142 000444  7104          CLL RAL         / 2 words per char
+ 143 000445  1270          TAD     VCTTAP  / make address of table entry
+ 144 000446  3275          DCA     VCCHPT  / save pointer to char
+ 145 000447  1675          TAD I   VCCHPT  / get first 2 columns
+ 146 000450  4276          JMS     VCDCOL  / display first column
+ 147 000451  4276          JMS     VCDCOL  / display second column
+ 148 000452  2275          ISZ     VCCHPT
+ 149 000453  1675          TAD I   VCCHPT  / get second 2 columns
+ 150 000454  4276          JMS     VCDCOL  / display third column
+ 151 000455  4276          JMS     VCDCOL  / display final column
+ 152 000456  1345          TAD     VCXTMP
+ 153 000457  1271          TAD     VCDOTS
+ 154 000460  3345          DCA     VCXTMP  / advance over interchar column
+ 155 000461  5637          JMP I   VCCHAR
+ 156               
+ 157 000462  1272  VCCHCR, TAD     VCDPLN  / get line pitch
+ 158 000463  1346          TAD     VCY     /
+ 159 000464  3346          DCA     VCY     / update y
+ 160 000465  1344          TAD     VCX
+ 161 000466  3345          DCA     VCXTMP  / force X to margin
+ 162 000467  5637          JMP I   VCCHAR
+ 163               
+ 164 000470  0550  VCTTAP, VCTTAB  / pointer to table base
+ 165 000471  0010  VCDOTS, VCPICH  / dot pitch, next is line pitch
+ 166 000472  7700  VCDPLN, 0-VCPICH-VCPICH-VCPICH-VCPICH-VCPICH-VCPICH-VCPICH-VCPICH
+ 167 000473  7733  NPCSGN, -0045
+ 168 000474  0045  PPCSGN, 0045
+ 169 000475  0000  VCCHPT, .-.     / pointer to column bitmap of char
+ 170               
+ 171 000476  0000  VCDCOL, .-.     / Display one column of char from AC
+ 172                               / Returns AC shift-right 6 bits
+ 173 000477  3343          DCA     VCDCSV  / save column
+ 174 000500  1345          TAD     VCXTMP
+ 175 000501  1023          TAD     K4000
+ 176 000502  3420          DCA     I TBL
+ 177 000503  2020          ISZ     TBL
+ 178 000504  1345          TAD     VCXTMP
+ 179 000505  6053          DILX            / set X coord for column
+ 180 000506  1271          TAD     VCDOTS
+ 181 000507  3345          DCA     VCXTMP  / save updated X coord
+ 182 000510  1346          TAD     VCY     / get base Y coord
+ 183 000511  3347          DCA     VCYTMP  / save working copy of Y
+ 184 000512  4322          JMS     VCDROW  / show row 1
+ 185 000513  4322          JMS     VCDROW  / show row 2
+ 186 000514  4322          JMS     VCDROW  / show row 3
+ 187 000515  4322          JMS     VCDROW  / show row 4
+ 188 000516  4322          JMS     VCDROW  / show row 5
+ 189 000517  4322          JMS     VCDROW  / show row 6
+ 190 000520  1343          TAD     VCDCSV  / recover column
+ 191 000521  5676          JMP I   VCDCOL
+ 192               
+ 193 000522  0000  VCDROW, .-.     / Display a dot in a column
+ 194                               / on entry and exit, AC = 0
+ 195 000523  1347          TAD     VCYTMP
+ 196 000524  3420          DCA     I TBL
+ 197 000525  1347          TAD     VCYTMP  
+ 198 000526  6054          DILY            / set Y coord for column
+ 199 000527  1271          TAD     VCDOTS
+ 200 000530  3347          DCA     VCYTMP  / save updated Y coord
+ 201 000531  1343          TAD     VCDCSV  / get column
+ 202 000532  7110          CLL RAR         / shift a bit into link
+ 203 000533  3343          DCA     VCDCSV  / save shifted column
+ 204 000534  7420          SNL
+ 205 000535  5722          JMP I   VCDROW  / return if no dot
+ 206 000536  2020          ISZ     TBL
+ 207 000537  6052          DISD
+ 208 000540  5337          JMP     .-1     / wait for ready
+ 209 000541  6055          DIXY            / intensify
+ 210 000542  5722          JMP I   VCDROW
+ 211               
+ 212 000543  0000  VCDCSV, .-.     / save location for column of char
+ 213                       
+ 214 000544  0000  VCX,    .-.     / starting X coord (margin)
+ 215 000545  0000  VCXTMP, .-.     / working copy of X coord
+ 216 000546  0000  VCY,    .-.     / starting Y coord (baseline)
+ 217 000547  0000  VCYTMP, .-.     / working copy of Y coord
+ 218               
+ 219               VCTTAB, / array of bitmaps for each character.  Format:
+ 220                       /  2 words per character, giving 4 wide by 6 high
+ 221                       /  bitmap.  Left column in low byte of first word,
+ 222                       /  right column in high byte of last, bottom bit in
+ 223                       /  least significant position.
+ 224                       / entries are in trimmed ASCII order
+ 225               
+ 226 000550  4136          4136;3455       / @ NULL
+     000551  3455  
+ 227 000552  4437          4437;3744       / A
+     000553  3744  
+ 228 000554  5177          5177;2651       / B
+     000555  2651  
+ 229 000556  4136          4136;2241       / C
+     000557  2241  
+ 230 000560  4177          4177;3641       / D
+     000561  3641  
+ 231 000562  5177          5177;4151       / E
+     000563  4151  
+ 232 000564  4477          4477;4044       / F
+     000565  4044  
+ 233 000566  4136          4136;2645       / G
+     000567  2645  
+ 234               
+ 235 000570  0477          0477;7704       / H
+     000571  7704  
+ 236 000572  4100          4100;4177       / I
+     000573  4177  
+ 237 000574  4102          4102;7641       / J
+     000575  7641  
+ 238 000576  1477          1477;4122       / K
+     000577  4122  
+ 239 000600  0177          0177;0101       / L
+     000601  0101  
+ 240 000602  2077          2077;7720       / M
+     000603  7720  
+ 241 000604  1077          1077;7704       / N
+     000605  7704  
+ 242 000606  4136          4136;3641       / O
+     000607  3641  
+ 243               
+ 244 000610  4477          4477;3044       / P
+     000611  3044  
+ 245 000612  4136          4136;3743       / Q
+     000613  3743  
+ 246 000614  4477          4477;3146       / R
+     000615  3146  
+ 247 000616  5122          5122;2245       / S
+     000617  2245  
+ 248 000620  4040          4040;4077       / T
+     000621  4077  
+ 249 000622  0176          0176;7601       / U
+     000623  7601  
+ 250 000624  0374          0374;7403       / V
+     000625  7403  
+ 251 000626  0277          0277;7702       / W
+     000627  7702  
+ 252               
+ 253 000630  1463          1463;6314       / X
+     000631  6314  
+ 254 000632  1261          1261;7004       / Y
+     000633  7004  
+ 255 000634  4543          4543;6151       / Z
+     000635  6151  
+ 256 000636  7700          7700;0041       / [
+     000637  0041  
+ 257 000640  3040          3040;0106       / \
+     000641  0106  
+ 258 000642  4100          4100;0077       / ]
+     000643  0077  
+ 259 000644  2000          2000;2077       / ^
+     000645  2077  
+ 260 000646  1604          1604;0404       / _
+     000647  0404  
+ 261               
+ 262 000650  0000          0000;0000       / space
+     000651  0000  
+ 263 000652  0000          0000;0075       / !
+     000653  0075  
+ 264 000654  6000          6000;6000       / "
+     000655  6000  
+ 265 000656  3712          3712;3712       / #
+     000657  3712  
+ 266 000660  7322          7322;2267       / $
+     000661  2267  
+ 267 000662  6661          6661;4333       / % CR
+     000663  4333  
+ 268 000664  5126          5126;0526       / &
+     000665  0526  
+ 269 000666  5000          5000;0060       / '
+     000667  0060  
+ 270               
+ 271 000670  3600          3600;0041       / (
+     000671  0041  
+ 272 000672  4100          4100;0036       / )
+     000673  0036  
+ 273 000674  1422          1422;2214       / *
+     000675  2214  
+ 274 000676  0404          0404;0437       / +
+     000677  0437  
+ 275 000700  0500          0500;0006       / ,
+     000701  0006  
+ 276 000702  0404          0404;0404       / -
+     000703  0404  
+ 277 000704  0300          0300;0003       / .
+     000705  0003  
+ 278 000706  0601          0601;4030       / /
+     000707  4030  
+ 279               
+ 280 000710  4537          4537;7651       / 0
+     000711  7651  
+ 281 000712  2100          2100;0177       / 1
+     000713  0177  
+ 282 000714  4321          4321;3145       / 2
+     000715  3145  
+ 283 000716  4122          4122;2651       / 3
+     000717  2651  
+ 284 000720  0474          0474;0477       / 4
+     000721  0477  
+ 285 000722  5172          5172;4651       / 5
+     000723  4651  
+ 286 000724  5136          5136;4651       / 6
+     000725  4651  
+ 287 000726  4340          4340;6054       / 7
+     000727  6054  
+ 288               
+ 289 000730  5126          5126;2651       / 8
+     000731  2651  
+ 290 000732  4531          4531;3645       / 9
+     000733  3645  
+ 291 000734  6600          6600;0066       / :
+     000735  0066  
+ 292 000736  6500          6500;0066       / ;
+     000737  0066  
+ 293 000740  0400          0400;2112       / <
+     000741  2112  
+ 294 000742  1212          1212;1212       / =
+     000743  1212  
+ 295 000744  1221          1221;0004       / >
+     000745  0004  
+ 296 000746  5540          5540;2050       / ?
+     000747  2050  
+ 297                       *1000
+ 298 001000  0000  OUTTB,  0
+ 299 000176  0413  $
+     000177  0400  
+
+C077    0435
+DICD    6051 unreferenced
+DILC    6050
+DILE    6056 unreferenced
+DILX    6053
+DILY    6054
+DIRE    6056 unreferenced
+DISD    6052
+DIXY    6055
+DOX     0245
+K4000   0023
+NPCSGN  0473
+OUTIT   0230
+OUTTB   1000
+PLOTB   0220
+POINTS  0022
+PPCSGN  0474
+REPLOT  0201 unreferenced
+START   0200 unreferenced
+STR1    0252
+STR2    0300
+STR3    0316
+TBL     0020
+TBLLOC  0021
+VCAT    0400
+VCCHAR  0437
+VCCHCR  0462
+VCCHPT  0475
+VCCOLR  0004 unreferenced
+VCDCOL  0476
+VCDCSV  0543
+VCDONE  4000 unreferenced
+VCDOTS  0471
+VCDPLN  0472
+VCDROW  0522
+VCERAS  0010 unreferenced
+VCINTE  0001 unreferenced
+VCPICH  0010
+VCSTOR  0020 unreferenced
+VCTEXT  0413
+VCTLP   0420
+VCTTAB  0550
+VCTTAP  0470
+VCTXPT  0436
+VCWRTH  0040 unreferenced
+VCX     0544
+VCXTMP  0545
+VCY     0546
+VCYTMP  0547
+X0      0010

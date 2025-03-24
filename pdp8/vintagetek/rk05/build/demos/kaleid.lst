@@ -1,0 +1,66 @@
+   1               / Kaleidoscope program for the VC8E/VR14 scope.
+   2               / Based on suggestions from page 6-19 of the Small
+   3               / Computer Handbook, 1973.
+   4               
+   5               / The advice given is to experiment with settings
+   6               / of the switch register bit positions 9, 10 and 11,
+   7               / leaving all higher bits zero.  The advice is good;
+   8               / this is a nice "screen saver" for non-storage
+   9               / scopes.
+  10               
+  11               DISD=   6052
+  12               DILX=   6053
+  13               DILY=   6054
+  14               DIXY=   6055
+  15               
+  16                       *200
+  17 000200  1224  START,  TAD     Y
+  18 000201  4225          JMS     SCALE
+  19 000202  7040          CMA
+  20 000203  1223          TAD     X
+  21 000204  3223          DCA     X       / X = X - SCALE(Y)
+  22 000205  1223          TAD     X
+  23 000206  6053          DILX
+  24 000207  4225          JMS     SCALE
+  25 000210  1224          TAD     Y
+  26 000211  6054          DILY
+  27 000212  6052          DISD
+  28 000213  5212          JMP     .-1
+  29 000214  6055          DIXY
+  30 000215  3224          DCA     Y       / Y = Y - SCALE(X)
+  31 000216  6031          KSF             / VRS: Key struck?
+  32 000217  5200          JMP     START
+  33 000220  6032          KCC             / VRS: Toss the character
+  34 000221  5622          JMP I .+1       / VRS: Yes, return to OS/8
+  35 000222  7600          7600
+  36 000223  3777  X,      3777            / any initial value works, but
+  37 000224  0006  Y,      6               / 0,0 is least interesting.
+  38               
+  39               / Divide AC by 2**SR
+  40 000225  0000  SCALE,  .-.
+  41 000226  3242          DCA     TEM
+  42 000227  7404          OSR
+  43 000230  7041          CIA
+  44 000231  3243          DCA     C
+  45 000232  1242          TAD     TEM
+  46 000233  7100          CLL
+  47 000234  7510          SPA
+  48 000235  7020          CML
+  49 000236  7010          RAR             / Arithmetic right shift
+  50 000237  2243          ISZ     C
+  51 000240  5233          JMP     .-5
+  52 000241  5625          JMP I   SCALE
+  53 000242  0000  TEM,    .-.
+  54 000243  0000  C,      .-.
+  55               $
+
+C       0243
+DILX    6053
+DILY    6054
+DISD    6052
+DIXY    6055
+SCALE   0225
+START   0200
+TEM     0242
+X       0223
+Y       0224
