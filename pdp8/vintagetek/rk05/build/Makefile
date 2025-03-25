@@ -5,7 +5,7 @@ FILES	= $(FILES0) $(FILES1)
 
 all:	$(PACKS)
 
-%.0:	demos/*.bn
+%.0:	demos/*.bn demos/*.tx
 	cp $? $@
 
 %.1:	demos/*.pa
