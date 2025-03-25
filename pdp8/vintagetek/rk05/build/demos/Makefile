@@ -10,3 +10,8 @@ all:	$(BIN)
 
 %.bn:	%.bin
 	bin2bn $< >$@ || (rm -f $@; exit 1)
+
+install:
+	for i in ../*.0; do cp *.bn $$i; done
+	for i in ../*.0; do cp *.tx $$i; done
+	for i in ../*.1; do cp *.pa $$i; done
