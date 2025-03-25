@@ -3,7 +3,7 @@ IMAGE	= $(wildcard *.rk05)
 all:	update $(IMAGE) $(IMAGE:.rk05=.new)
 
 update:
-	cd build; make $(IMAGE)
+	cd build; make
 
 $(IMAGE): build/$(IMAGE)
 	cp $< .
