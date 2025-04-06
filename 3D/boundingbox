@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+$scale = 25.4; # Convert to inches
+$scale = 1 unless defined $scale;
+
+foreach $f (@ARGV) {
+  open(INPUT, $f) || die "$f: $!";
+  $maxx = $maxy = $maxz = 0;
+  $minx = $miny = $minz = 0;
+  while (<INPUT>) {
+    next unless /vertex\s+([-+0-9.]+)\s+([-+0-9.]+)\s+([-+0-9.]+)/;
+    ($x, $y, $z) = ($1, $2, $3);
+    $maxx = $x if $x > $maxx;
+    $maxy = $y if $y > $maxy;
+    $maxz = $y if $y > $maxz;
+    $minx = $x if $x < $minx;
+    $miny = $y if $y < $miny;
+    $minz = $z if $z < $minz;
+  }
+  # Convert to inches.
+  # This makes stuff already in inches quite small.
+  $maxx /= $scale;
+  $maxy /= $scale;
+  $maxz /= $scale;
+  $minx /= $scale;
+  $miny /= $scale;
+  $minz /= $scale;
+  # Skip stuff obviously not imperial
+  $threshold = 19 / $scale; # 19 inches
+  $x = $maxx - $minx;
+  $y = $maxy - $miny;
+  $z = $maxz - $minz;
+  next if $x > $threshold;
+  next if $y > $threshold;
+  next if $z > $threshold;
+  printf "%8.3f\t%8.3f\t%8.3f\t$f\n", $maxx-$minx, $maxy-$miny, $maxz-$minz;
+}

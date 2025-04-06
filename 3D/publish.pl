@@ -16,8 +16,8 @@ $status = 0;
 
 print "Here are some 3D design files mostly relevant to the PDP-8.\n";
 print "These should mostly be printable with common 3D printing services\n";
-print "like Shapeways, etc.  Be advised that some of the STL files are in\n";
-print "inches, not mm.\n";
+print "like Shapeways, etc.  Because .stl is no longer the prefered format,\n";
+print "be advised that all of the STL files are now in mm, not inches.\n";
 print "<P>Use the link in the page footer to let me know if there are issues\n";
 print "with these files.\n";
 print "<P>In no particular order:<P>\n";
@@ -88,9 +88,8 @@ foreach $stl (sort keys %work) {
     $dsc = "";
   }
   print "<A href=$url/$jpg><IMG src=$url/$jpg width=320></A><BR>\n";
-  print "<A href=$url/$stl>STL file (Imperial)</A><BR>\n";
-  $mm = $stl; $mm =~ s/.stl$/-mm.stl/;
-  print "<A href=$url/$mm>STL file (Metric)</A><BR>\n" if -f $mm;
+  $stl = "$stl.stl";
+  print "<A href=$url/$stl>STL file (Metric)</A><BR>\n" if -f $stl;
   $skp = $stl; $skp =~ s/.stl$/.skp/;
   if (-f $skp) {
     print "<A href=$url/$skp>Sketchup file</A><BR>\n";
