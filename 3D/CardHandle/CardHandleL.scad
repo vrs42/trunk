@@ -89,7 +89,7 @@ module Label(mname) {
     color("white") {
         translate([lwidth/2, lheight/2, 0])
             rotate([0, 0, 90])
-                linear_extrude(0.072*inch)
+                linear_extrude(0.082*inch)
                     text(mname, size=2.7, //font=":style=Bold",
                         halign="center", valign="center");
     }
@@ -106,6 +106,9 @@ module LabelHandle () {
             rotate([90, 0, -90])
                 Label("");
         translate([(-0.231-.005)*inch, 1.425*inch, 0])
+            rotate([90, 0, -90])
+                Label("");
+        translate([(-0.231-.000)*inch, (1.425-.005)*inch, 0])
             rotate([90, 0, -90])
                 Label("");
     }

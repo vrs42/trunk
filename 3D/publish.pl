@@ -23,18 +23,57 @@ print "with these files.\n";
 print "<P>In no particular order:<P>\n";
 print "<TABLE>\n";
 $thisrow = 0;
+%work = (); # No sets found yet
+# .scad => .stl or .3mf
+foreach $scad (sort <*/*.scad>) {
+  $noext = $scad; $noext =~ s/[.]scad$//;
+  $work{$noext} = 1;
+  next if -f "$noext.3mf";
+  next if -f "$noext.stl";
+  warn "no .stl or .3mf for $scad\n";
+  undef $work{$noext};
+}
+# .skp => .stl
+foreach $skp (sort <*/*.skp>) {
+  $noext = $skp; $noext =~ s/[.]...$//;
+  $work{$noext} = 1;
+  next if -f "$noext.stl";
+  warn "no .stl for $skp\n";
+  undef $work{$noext};
+}
+# .stl => .3mf
 foreach $stl (sort <*/*.stl>) {
- next if $stl =~ /^mangled\//;
- next if $stl =~ /-mm[.]stl$/;
-  $jpg = $stl; $jpg =~ s/.stl$/.jpg/;
+  $noext = $stl; $noext =~ s/[.]...$//;
+  $work{$noext} = 1;
+# warn "./nonsolid $stl";
+# $status += system("./nonsolid $stl") / 256;
+  next if -f "$noext.3mf";
+  next if -f "$noext.stl";
+  warn "no .3mf for $stl\n";
+  undef $work{$noext};
+}
+# Every .stl should be checked for solid
+# Every .3mf needs a .jpg image
+# Every .3mf needs a .txt description
+foreach $stl (sort keys %work) {
+  # Skip artefacts
+  next if $stl =~ /^mangled\//;
+  next if $stl =~ /-mm$/;
+  # Look for the best 3D file to download
+  if (-f "$stl.3mf") {
+    $prt = "$stl.3mf";
+  } else {
+    $prt = "$stl.stl";
+  }
+  # TODO: Look for best source file to download
+  # Look for a .jpg
+  $jpg = "$stl.jpg";
   $jpg =~ s/.jpg$/.png/ unless -f $jpg;
   warn "$stl: no image .jpg\n" unless -f $jpg;
   next unless -f $jpg;
-  $txt = $stl; $txt =~ s/.stl$/.txt/;
+  $txt = "$stl.txt";
   warn "$stl: no descriptive .txt\n" unless -f $txt;
   next unless -f $txt;
-# warn "./nonsolid $stl";
-  $status += system("./nonsolid $stl") / 256;
   print "<TD>";
   if (-f $txt) {
     open(INPUT, $txt) || die "$txt: $!";

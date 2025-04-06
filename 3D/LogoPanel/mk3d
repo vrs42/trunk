@@ -1,0 +1,133 @@
+#!/usr/bin/perl
+
+$pi = 3.14159265359;
+
+# An eagle "wire" specifies two endpoints, and an optional curvature.
+# A curvature requires we calculate a centerpoint for a circle.
+# A curvature of zero is implemented as a simple hull around the endpoints.
+sub wire {
+  local($x1, $y1, $x2, $y2, $curve, $width) = @_;
+  $curve = 0 unless defined $curve;
+  $curve *= $pi / 180; # Convert to radians
+  $width = 0.1 unless $width;
+  if ($curve == 0) {
+    print "hull() {\n";
+    print "    translate([$x1, $y1, 0]) circle(d=$width);\n";
+    print "    translate([$x2, $y2, 0]) circle(d=$width);\n";
+    print "}\n\n";
+  } else {
+    # Some trig to establish the center.
+    # Compute the length of the chord.
+    $dist = sqrt(($y2-$y1)*($y2-$y1) + ($x2-$x1)*($x2-$x1));
+    # Based on the given curve, project on the unit circle.
+    # One endpoint of the resultant chord is [1, 0].
+    # Find the other endpoint.
+    $atan = atan2(($y2-$y1), ($x2-$x1));
+    $cos = cos($curve);
+    $sin = sin($curve);
+    # Now, what is the length of the chord on the unit circle?
+    $udist = sqrt(($sin*$sin) + ($cos-1)*($cos-1));
+    # Their ratio is the desired radius.
+    # (r should be 9.525 in the example.)
+    $r = $dist / $udist;
+#print "r = $r\n";
+# At this point, $atan has the angle from [x1, y1] to [x2, y2].
+# To that, we must add (180-abs($curve))/2 to point to the center.
+# Note that the sign of $curve and of our addend should be the same.
+    # Now, get the rise and run of the angle formed by the chord
+    # and a line from [x1, y2] to the center point.
+    $a = ($pi - abs($curve)) / 2;
+    $a = -$a if $curve < 0;
+    $a += $atan;
+    $rise = sin($a) * $r;
+    $run  = cos($a) * $r;
+#print "run, rise = ", cos($a), " ", sin($a), "\n";
+# BUGBUG: $rise and $run must be sign adjusted for quadrant!
+    # Calculate the center point for the arc.
+#print "[x1, y1] + [run, rise] == [$x1, $y1] + [$run, $rise]\n";
+    $x = $x1 + $run;
+    $y = $y1 + $rise;
+#print "center: [$x, $y]\n\n";
+    # We finally know the radius and center of the arc
+    # so we can render it. Start with the endpoints.
+    print "translate([$x1, $y1, 0]) circle(d=$width);\n";
+    print "translate([$x2, $y2, 0]) circle(d=$width);\n";
+    # Render the outer circle, then subtract the inner circle
+    # and the masking polygon.
+    print "difference() {\n";
+    print "    translate([$x, $y, 0]) circle(r=$r+$width/2);\n";
+    print "    translate([$x, $y, 0]) circle(r=$r-$width/2);\n";
+    # Compute corners for a masking rectangle.
+    # We still have $angle, but compute the center of the chord.
+    $x = ($x2+$x1) / 2;
+    $y = ($y2+$y1) / 2;
+    # Now construct a polygon by going $r away from the center of
+    # the chord on either side, then 2*$r at right angles.
+# TODO: Masking polygon
+    $rise = sin($atan) * ($r+$width);
+    $run  = cos($atan) * ($r+$width);
+    $x1 = $x - $run;
+    $y1 = $y - $rise;
+    $x2 = $x + $run;
+    $y2 = $y + $rise;
+    # Make an appropriate right angle.
+    $a = $atan - $pi/2;
+    $a = $atan + $pi/2 if $curve < 0;
+    # And a slope for the new sides.
+    $rise = sin($a) * $r;
+    $run  = cos($a) * $r;
+    $x3 = $x2 - 2*$run;
+    $y3 = $y2 - 2*$rise;
+    $x4 = $x1 - 2*$run;
+    $y4 = $y1 - 2*$rise;
+    print "    polygon(points=[[$x1, $y1], [$x2, $y2], [$x3, $y3], [$x4, $y4]]);\n";
+    print "}\n\n";
+  }
+}
+
+#
+# Read the .brd and output the OpenSCAD.
+#
+open(INPUT, "8ipanel.brd") || die "8ipanel.brd: $!";
+
+print "\$fn=24;\n";
+print "linear_extrude(height=0.1) {\n";
+while (<INPUT>) {
+  if (/<wire .*\/>/) {
+    /x1="([^"]*)"/ || die;
+    $x1 = $1;
+    /y1="([^"]*)"/ || die;
+    $y1 = $1;
+    /x2="([^"]*)"/ || die;
+    $x2 = $1;
+    /y2="([^"]*)"/ || die;
+    $y2 = $1;
+    /width="([^"]*)"/ || die;
+    $width = $1;
+#   next if $width == 0;
+    /layer="([^"]*)"/ || die;
+    $layer = $1;
+    $curve = 0;
+    $curve = $1 if /curve="([^"]*)"/;
+    # Call a subroutine for the hard work.
+    &wire($x1, $y1, $x2, $y2, $curve, $width);
+  } elsif (/<circle .*\/>/) {
+    /x="([^"]*)"/ || die;
+    $x = $1;
+    /y="([^"]*)"/ || die;
+    $y = $1;
+    /radius="([^"]*)"/ || die;
+    $radius = $1;
+    /width="([^"]*)"/ || die;
+    $width = $1;
+    /layer="([^"]*)"/ || die;
+    $layer = $1;
+    # Draw the circle with radius $radius+($width/2).
+    # Subtract the circle with radius $radius-($width/2).
+    print "translate ([$x, $y, 0])\n";
+    print "difference() {\n";
+    print "  circle(r=$radius+$width/2);\n";
+    print "  circle(r=$radius-$width/2);\n}\n";
+  }
+}
+print "}\n";
