@@ -354,12 +354,23 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td>dec-08-a2b4-la</td><td></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pr>dec-08-a2b4-pr</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pa1>dec-08-a2b4-pa1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pa2>dec-08-a2b4-pa2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pa3>dec-08-a2b4-pa3</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pa4>dec-08-a2b4-pa4</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pa5>dec-08-a2b4-pa5</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b4/dec-08-a2b4-pa6>dec-08-a2b4-pa6</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>8K Fortran Library Subroutines 2/2<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5>dec-08-a2b5</a></td>
 <td><table>
 <tr><td>dec-08-a2b5-la</td><td></td></tr>
 <tr><td>dec-08-a2b5-pa</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5/dec-08-a2b5-pa1>dec-08-a2b5-pa1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5/dec-08-a2b5-pa2>dec-08-a2b5-pa2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5/dec-08-a2b5-pa3>dec-08-a2b5-pa3</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5/dec-08-a2b5-pa4>dec-08-a2b5-pa4</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5/dec-08-a2b5-pa5>dec-08-a2b5-pa5</td><td></a></td></tr>
 <tr><td>dec-08-a2b5-pb</td><td></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-a2b5/dec-08-a2b5-pr>dec-08-a2b5-pr</td><td></a></td></tr>
 </table></td></tr>
@@ -8167,6 +8178,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1484 of 2926 files linked (50.7%), in 1245 directories
+<P>1495 of 2937 files linked (50.9%), in 1245 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

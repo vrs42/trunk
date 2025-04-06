@@ -2804,6 +2804,7 @@ System </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345-2_2.pal target=_blank>decus-8-345-2_2.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345.htm target=_blank>decus-8-345.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345.pdf target=_blank>decus-8-345.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-345/decus-8-345.png target=_blank>decus-8-345.png</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-346 target=_blank>8-346</div>
 </a><td><div>Pollution Game </div>
@@ -3166,6 +3167,7 @@ System </div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398.htm target=_blank>decus-8-398.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398.pdf target=_blank>decus-8-398.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398.png target=_blank>decus-8-398.png</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.bin target=_blank>decus-8-398a.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.bn target=_blank>decus-8-398a.bn</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-398/decus-8-398a.lst target=_blank>decus-8-398a.lst</a></div>
@@ -3453,12 +3455,12 @@ System </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-2_3.pal target=_blank>decus-8-440-2_3.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3.bn target=_blank>decus-8-440-3_3.bn</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3.pal target=_blank>decus-8-440-3_3.pal</a></div>
-<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440-3_3thirdread.pt target=_blank>decus-8-440-3_3thirdread.pt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.bin target=_blank>decus-8-440.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.htm target=_blank>decus-8-440.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.lst target=_blank>decus-8-440.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.pal target=_blank>decus-8-440.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.pdf target=_blank>decus-8-440.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-440/decus-8-440.png target=_blank>decus-8-440.png</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-441 target=_blank>8-441</div>
 </a><td><div>DELETE </div>
@@ -3719,6 +3721,7 @@ System </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.lst target=_blank>decus-8-472.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.pal target=_blank>decus-8-472.pal</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.pdf target=_blank>decus-8-472.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472.png target=_blank>decus-8-472.png</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_pa8in.bn target=_blank>decus-8-472_pa8in.bn</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8in.bin target=_blank>decus-8-472_ps8in.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-472/decus-8-472_ps8in.lst target=_blank>decus-8-472_ps8in.lst</a></div>
@@ -4776,6 +4779,7 @@ Monitor System </div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615 target=_blank>decus-8-615</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615.htm target=_blank>decus-8-615.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615.png target=_blank>decus-8-615.png</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-615/decus-8-615.sbr target=_blank>decus-8-615.sbr</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-616 target=_blank>8-616</div>
@@ -4830,6 +4834,7 @@ Monitor System </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625 target=_blank>decus-8-625</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.htm target=_blank>decus-8-625.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.od target=_blank>decus-8-625.od</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.png target=_blank>decus-8-625.png</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.pt target=_blank>decus-8-625.pt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.pt.od target=_blank>decus-8-625.pt.od</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-625/decus-8-625.rl target=_blank>decus-8-625.rl</a></div>
@@ -5653,6 +5658,7 @@ Restructuring Program </div>
 </a><td><div>STAGE2 Macro Processor </div>
 <td>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747.htm target=_blank>decus-8-747.htm</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747.jpg target=_blank>decus-8-747.jpg</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_flub_macros_3_5.pt target=_blank>decus-8-747_flub_macros_3_5.pt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_flub_macros_3_5.s2 target=_blank>decus-8-747_flub_macros_3_5.s2</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-747/decus-8-747_header_code_4_5.pal target=_blank>decus-8-747_header_code_4_5.pal</a></div>
