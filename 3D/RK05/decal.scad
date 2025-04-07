@@ -8,11 +8,17 @@ $fn=50;
 thick = 0.5; // mm
 size = inch/2; 
 
-// The basic decal without text.
+module label(text) {
+// The basic decal without the text.
 color ("black") cube ([inch, inch, thick]);
 
 // Put a bird on it.
 color ("white")
   translate ([inch/2, inch/2, thick])
   linear_extrude(height=thick)
-  text ("2", font=":style=Bold", size=size, valign="center", halign="center");
+  text (text=text, font=":style=Bold", size=size, valign="center", halign="center");
+}
+
+translate ([1.1*inch*0, 0, 0]) label("1");
+translate ([1.1*inch*1, 0, 0]) label("2");
+translate ([1.1*inch*2, 0, 0]) label("3");
