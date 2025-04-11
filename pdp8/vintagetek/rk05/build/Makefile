@@ -11,6 +11,12 @@ all:	$(PACKS)
 %.1:	demos/*.pa
 	cp $? $@
 
+os8.0:	demos/*.pa
+	cp $? $@
+
+os8.1:	demos/*.bn demos/*.tx
+	cp $? $@
+
 %.xml+: %.0 %.1 %.0/* %.1/*
 	touch $(@:.xml+=.0) $(@:.xml+=.1)
 	os8implode $(@:.xml+=)
@@ -19,5 +25,5 @@ all:	$(PACKS)
 	mkdsk $<
 
 %.rk05:	%.new
-	./RK05Simh2Bin -n $(@:.rk05=) -d tektronix $< $@+
+	./RK05Simh2Bin -n $(@:.rk05=) -d vintagetek $< $@+
 	mv $@+ $@
