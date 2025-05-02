@@ -298,6 +298,17 @@ I have not printed this.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/ModuleRack.3mf>Print profile</A><BR>
 or two single height modules.
 </TD>
+<TD>Doug's quite nice module storage stuff.
+<BR>
+<A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/OMNI_hex_v7.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/OMNI_hex_v7.jpg width=320></A><BR>
+<A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/OMNI_hex_v7.stl>STL file (Metric)</A><BR>
+<A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/OMNI_hex_v7.3mf>Print profile</A><BR>
+
+These are what I store most of my modules in now.
+Print the bits that you need for your storage solution.
+</TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>A rack suitable for storing up to four quad height modules.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/QuadRack.png><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/QuadRack.png width=320></A><BR>
@@ -305,8 +316,6 @@ or two single height modules.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/QuadRack.skp>Sketchup file</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/QuadRack.3mf>Print profile</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>A small rack, suitable for up to eight single height modules.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/SingleRack.png><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/SingleRack.png width=320></A><BR>
@@ -314,6 +323,8 @@ or two single height modules.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/SingleRack.skp>Sketchup file</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ModuleStorage/SingleRack.3mf>Print profile</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>The computer end of a DEC current loop cable.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480459-0.jpg width=320></A><BR>
@@ -324,8 +335,6 @@ or two single height modules.
 (This end has the female sockets/pins inside.)
 I have printed these sucessfully.
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>The terminal end of a DEC current loop cable.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/Molex-AMP/1-480460-0.jpg width=320></A><BR>
@@ -335,14 +344,14 @@ I have printed these sucessfully.
 (This end has the male pins inside.)
 I have printed these sucessfully.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>A model of the bulb cover for the RK05 drives.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/12-10798.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/12-10798.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/12-10798.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/12-10798.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>This is the tubing coupler inside an RK05.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/12-12177.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/12-12177.jpg width=320></A><BR>
@@ -352,13 +361,13 @@ I have printed these sucessfully.
 This was made of (and should be printed in) some rubbery substance.
 Experimental.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An example of the RK05 replacement drive label.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/decal.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/decal.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RK05/decal.3mf>Print profile</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>An RL02 "drive 0" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/0.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/0.jpg width=320></A><BR>
@@ -368,20 +377,22 @@ Experimental.
 Print the indicators in something translucent (nylon), as they 
 will have lights behind them.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RL02 "drive 1" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/1.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>An RL02 "drive 2" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/2.skp>Sketchup file</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RL02 "drive 3" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/3.jpg width=320></A><BR>
@@ -391,77 +402,75 @@ will have lights behind them.
 I also have drawings for "4" through "7", if you've got an 
 RK06/RK07.
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>An RK06/RK07 "drive 4" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/4.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/4.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/4.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/4.skp>Sketchup file</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RK06/RK07 "drive 5" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/5.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/5.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/5.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/5.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>An RK06/RK07 "drive 6" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/6.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/6.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/6.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/6.skp>Sketchup file</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>An RK06/RK07 "drive 7" indicator.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/7.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/7.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/7.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/RL02plug/7.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>A replacement foot for the VT01 (Tektronix 611).
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ScopeFoot/ScopeFoot.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/ScopeFoot/ScopeFoot.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ScopeFoot/ScopeFoot.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/ScopeFoot/ScopeFoot.3mf>Print profile</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>The base for Doug's drill jig, for switch handle repairs.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_base.png><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_base.png width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_base.stl>STL file (Metric)</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>The top for Doug's drill jig, for switch handle repairs.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_top.png><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_top.png width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_top.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/drill_jig_top.3mf>Print profile</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>A mold for a switch handle.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold1-vrs.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold1-vrs.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold1-vrs.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold1-vrs.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>A mold for 16 switch handles (enough for a color batch). 
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold16-vrs.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold16-vrs.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold16-vrs.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold16-vrs.skp>Sketchup file</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>A mold for a pair of switch handles.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold2-vrs.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold2-vrs.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold2-vrs.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/mold2-vrs.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>The switch toggle used on most models of PDP-8.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch-vrs.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch-vrs.jpg width=320></A><BR>
@@ -472,14 +481,14 @@ RK06/RK07.
 This is based on some earlier work by
 <A href=http://www.thingiverse.com/thing:360853>phooky</A>.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>A print job for 16 switch handles (a color batch).
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch16-vrs.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch16-vrs.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch16-vrs.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/SwitchHandle8/switch16-vrs.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>Thin trim panel bracket with barbs.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-barbs.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-barbs.jpg width=320></A><BR>
@@ -489,6 +498,8 @@ This is based on some earlier work by
 Use thick or thin depending on whether there's equipment 
 behind the trim panel or not.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>Thin trim panel bracket with screws and sturdier but gentler engagement.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-new.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-new.jpg width=320></A><BR>
@@ -496,8 +507,6 @@ behind the trim panel or not.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-new.skp>Sketchup file</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-new.3mf>Print profile</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>A single rack bracket, oriented for durability of the printed part.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-oriented.png><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-oriented.png width=320></A><BR>
@@ -505,14 +514,14 @@ behind the trim panel or not.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-oriented.skp>Sketchup file</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-oriented.3mf>Print profile</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>Thin trim panel bracket with screw holes.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.jpg width=320></A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.stl>STL file (Metric)</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-screws.skp>Sketchup file</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>Thick trim panel bracket with barbs.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.jpg width=320></A><BR>
@@ -520,6 +529,8 @@ behind the trim panel or not.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.skp>Sketchup file</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/bracket-thick.3mf>Print profile</A><BR>
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 <TD>A pair of rack brackets, oriented for durability of the printed part.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/brackets-oriented.png><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/brackets-oriented.png width=320></A><BR>
@@ -527,8 +538,6 @@ behind the trim panel or not.
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/brackets-oriented.skp>Sketchup file</A><BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/rack-bracket/brackets-oriented.3mf>Print profile</A><BR>
 </TD>
-<TR><TD><BR><BR></TD></TR>
-<TR></TR>
 <TD>The classic XX2247 keyswitch.
 <BR>
 <A href=https://svn.so-much-stuff.com/svn/trunk/3D/xx2247/xx2247.jpg><IMG src=https://svn.so-much-stuff.com/svn/trunk/3D/xx2247/xx2247.jpg width=320></A><BR>
@@ -539,5 +548,7 @@ behind the trim panel or not.
 You're better off getting these duplicated at your local 
 locksmith.
 </TD>
+<TR><TD><BR><BR></TD></TR>
+<TR></TR>
 </TABLE>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

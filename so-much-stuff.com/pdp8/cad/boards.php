@@ -1923,7 +1923,11 @@ LM837.
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G718 target=_blank>./DEC/Gxxx/G718</a></b>: Timing Jumper for PDP12, when plugged in upside down, each delay line tape is shifted
 
-</LEGEND></FIELDSET>
+</LEGEND><DL>
+<DT>G718A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Gxxx/G719 target=_blank>./DEC/Gxxx/G719</a></b>: RF08 Terminator Board
 
@@ -6445,6 +6449,14 @@ select DEC7384 replaced with a more readily available gate.
   <DD>is a drawing of DEC's PC04 backplane for the 8/I.
 <DT>7006268-1</A>
   <DD>is a drawing of DEC's PC04 backplane for the 8/E/F/M and the 8/L.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/PDP8 target=_blank>./DEC/PDP8</a></b>: PDP-8 (Straight 8)
+
+</LEGEND><DL>
+<DT>pdp8</A>
+  <DD>is a drawing of DEC's PDP-8 computer backplanes, rounded up from the CPU and option drawings.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>

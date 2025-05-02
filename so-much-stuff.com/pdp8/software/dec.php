@@ -1006,9 +1006,9 @@ are some navigation shortcuts as well:
 <td>4K PAL III<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lpala>dec-08-lpala</a></td>
 <td><table>
 <tr><td>ab-0642a / dec-08-lpala-a-la</td><td></td></tr>
-<tr><td>ak-0643a / dec-08-lpala-a-pa1</td><td></td></tr>
-<tr><td>ak-0644a / dec-08-lpala-a-pa2</td><td></td></tr>
-<tr><td>ak-0645a / dec-08-lpala-a-pa3</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lpala/dec-08-lpala-a-pa1>ak-0643a / dec-08-lpala-a-pa1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lpala/dec-08-lpala-a-pa2>ak-0644a / dec-08-lpala-a-pa2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lpala/dec-08-lpala-a-pa3>ak-0645a / dec-08-lpala-a-pa3</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-lpala/dec-08-lpala-a-pb>ak-0646a / dec-08-lpala-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -1581,6 +1581,9 @@ are some navigation shortcuts as well:
 <tr>
 <td>OS/12 FORTRAN IV ADC Routine<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba>dec-12-lliba</a></td>
 <td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba/dec-12-lliba-a-pa1>dec-12-lliba-a-pa1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba/dec-12-lliba-a-pa2>dec-12-lliba-a-pa2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba/dec-12-lliba-a-pa3>dec-12-lliba-a-pa3</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba/dec-12-lliba-b-pa1>dec-12-lliba-b-pa1</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba/dec-12-lliba-b-pa2>dec-12-lliba-b-pa2</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-lliba/dec-12-lliba-b-pa3>dec-12-lliba-b-pa3</td><td></a></td></tr>
@@ -2063,7 +2066,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>ADVANCED AVERAGER SECTION II DSK/DTA<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aaapa>dec-8e-aaapa</a></td>
 <td><table>
-<tr><td>ak-4203a / dec-8e-aaapa-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aaapa/dec-8e-aaapa-a-pb>ak-4203a / dec-8e-aaapa-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Auto and Cross Correlation Mass Storage<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aacra>dec-8e-aacra</a></td>
@@ -2075,20 +2078,20 @@ are some navigation shortcuts as well:
 <td>ADVANCED AVERAGER SECTION I-IV<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aap1a>dec-8e-aap1a</a></td>
 <td><table>
 <tr><td>aa-4205a / dec-8e-aap1a-a-d</td><td></td></tr>
-<tr><td>ak-4206a / dec-8e-aap1a-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aap1a/dec-8e-aap1a-a-pb>ak-4206a / dec-8e-aap1a-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>ADVANCED AVERAGER CTL SECTION II-IV<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aap2a>dec-8e-aap2a</a></td>
 <td><table>
-<tr><td>ak-4207a / dec-8e-aap2a-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aap2a/dec-8e-aap2a-a-pb>ak-4207a / dec-8e-aap2a-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>ADVANCED AVERAGER FOR DSK/DTA<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aapta>dec-8e-aapta</a></td>
 <td><table>
-<tr><td>ak-4208a / dec-8e-aapta-a-pb1</td><td></td></tr>
-<tr><td>ak-4209a / dec-8e-aapta-a-pb2</td><td></td></tr>
-<tr><td>ak-4210a / dec-8e-aapta-a-pb3</td><td></td></tr>
-<tr><td>ak-4211a / dec-8e-aapta-a-pb4</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aapta/dec-8e-aapta-a-pb1>ak-4208a / dec-8e-aapta-a-pb1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aapta/dec-8e-aapta-a-pb2>ak-4209a / dec-8e-aapta-a-pb2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aapta/dec-8e-aapta-a-pb3>ak-4210a / dec-8e-aapta-a-pb3</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aapta/dec-8e-aapta-a-pb4>ak-4211a / dec-8e-aapta-a-pb4</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Basic Averager<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aba0a>dec-8e-aba0a</a></td>
@@ -2143,9 +2146,9 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-abasa/dec-8e-abasa-a-pb>ak-4214a / dec-8e-abasa-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
-<td>LAB-8/E BASIC AVERAGER<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-acaoa>dec-8e-acaoa</a></td>
+<td>LAB-8/E BASIC AVERAGER<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aca0a>dec-8e-aca0a</a></td>
 <td><table>
-<tr><td>aa-4216a / dec-8e-acaoa-a-d</td><td></td></tr>
+<tr><td>aa-4216a / dec-8e-aca0a-a-d</td><td></td></tr>
 </table></td></tr>
 <tr>
 <td>LAB-8/E Data Conversion Program<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-acvta>dec-8e-acvta</a></td>
@@ -2183,7 +2186,7 @@ are some navigation shortcuts as well:
 <td>DAQUAN<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-adqna>dec-8e-adqna</a></td>
 <td><table>
 <tr><td>ab-4221a / dec-8e-adqna-a-la</td><td></td></tr>
-<tr><td>ak-4222a / dec-8e-adqna-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-adqna/dec-8e-adqna-a-pb>ak-4222a / dec-8e-adqna-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>LAB8E Mass Storage Binaries<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-almsa>dec-8e-almsa</a></td>
@@ -2277,7 +2280,7 @@ are some navigation shortcuts as well:
 <td>TIME AND INTERVAL HISTOGRAM<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-atina>dec-8e-atina</a></td>
 <td><table>
 <tr><td>aa-4266a / dec-8e-atina-a-d</td><td></td></tr>
-<tr><td>ak-4267a / dec-8e-atina-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-atina/dec-8e-atina-a-pb>ak-4267a / dec-8e-atina-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>TD8E DT FORMATTER<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-euz>dec-8e-euz</a></td>
@@ -3081,28 +3084,24 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18c-pb>dec-lb-u18c-pb</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18c-pb1>dec-lb-u18c-pb1</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18c-pb2>dec-lb-u18c-pb2</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18c-pb3>dec-lb-u18c-pb3</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18c-pb4>dec-lb-u18c-pb4</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18b-pb>dec-lb-u18b-pb</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18b-pb1>dec-lb-u18b-pb1</td><td></a></td></tr>
-<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u18/dec-lb-u18b-pb2>dec-lb-u18b-pb2</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>AUTO & CROSS CORRELATION PACKAGE<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u41>dec-lb-u41</a></td>
 <td><table>
-<tr><td>ak-4500b / dec-lb-u41b-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u41/dec-lb-u41b-pb>ak-4500b / dec-lb-u41b-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>NMR AVERAGER<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u52>dec-lb-u52</a></td>
 <td><table>
 <tr><td>ab-4501a / dec-lb-u52a-la</td><td></td></tr>
-<tr><td>ak-4502a / dec-lb-u52a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u52/dec-lb-u52a-pb>ak-4502a / dec-lb-u52a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>NMR SIMULATOR<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u53>dec-lb-u53</a></td>
 <td><table>
 <tr><td>ab-4503a / dec-lb-u53a-la</td><td></td></tr>
-<tr><td>ak-4504a / dec-lb-u53a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u53/dec-lb-u53a-pb>ak-4504a / dec-lb-u53a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>AUTO & CROSS CORRELATION PACKAGE<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-lb-u67>dec-lb-u67</a></td>
@@ -3219,10 +3218,10 @@ are some navigation shortcuts as well:
 <tr>
 <td>OS/8 FORTRAN IV Compiler (F4.SV)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva>dec-s8-lfiva</a></td>
 <td><table>
-<tr><td>dec-s8-lfiva-a-ps1</td><td></td></tr>
-<tr><td>dec-s8-lfiva-a-ps2</td><td>OS/8 FORTRAN IV Compiler (PASS2.SV)</td></tr>
-<tr><td>dec-s8-lfiva-a-ps3</td><td>OS/8 FORTRAN IV Compiler (PASS2O.SV)</td></tr>
-<tr><td>dec-s8-lfiva-a-ps4</td><td>OS/8 FORTRAN IV Compiler (PASS3.SV)</td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-a-ps1>dec-s8-lfiva-a-ps1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-a-ps2>dec-s8-lfiva-a-ps2</td><td>OS/8 FORTRAN IV Compiler (PASS2.SV)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-a-ps3>dec-s8-lfiva-a-ps3</td><td>OS/8 FORTRAN IV Compiler (PASS2O.SV)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-a-ps4>dec-s8-lfiva-a-ps4</td><td>OS/8 FORTRAN IV Compiler (PASS3.SV)</a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-b-ps1>dec-s8-lfiva-b-ps1</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-b-ps2>dec-s8-lfiva-b-ps2</td><td>OS/8 FORTRAN IV Compiler (PASS2.SV)</a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lfiva/dec-s8-lfiva-b-ps3>dec-s8-lfiva-b-ps3</td><td>OS/8 FORTRAN IV Compiler (PASS2O.SV)</a></td></tr>
@@ -3263,13 +3262,18 @@ are some navigation shortcuts as well:
 <tr>
 <td>OS/8 FORTRAN IV Library (FORLIB)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba>dec-s8-lliba</a></td>
 <td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-a-ps1>dec-s8-lliba-a-ps1</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-a-ps2>dec-s8-lliba-a-ps2</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-a-ps3>dec-s8-lliba-a-ps3</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-a-ps4>dec-s8-lliba-a-ps4</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-a-ps5>dec-s8-lliba-a-ps5</td><td></a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-a-ps6>dec-s8-lliba-a-ps6</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-b-ps1>dec-s8-lliba-b-ps1</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-b-ps2>dec-s8-lliba-b-ps2</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-b-ps3>dec-s8-lliba-b-ps3</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-b-ps4>dec-s8-lliba-b-ps4</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-b-ps5>dec-s8-lliba-b-ps5</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lliba/dec-s8-lliba-b-ps6>dec-s8-lliba-b-ps6</td><td></a></td></tr>
-<tr><td>dec-s8-lliba-a-ps</td><td></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 FORTRAN IV Loader<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-lloda>dec-s8-lloda</a></td>
@@ -3317,6 +3321,20 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb>dec-s8-obada-b-pb</td><td></a></td></tr>
 <tr><td>dec-s8-obada-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb1>dec-s8-obada-b-pb1</td><td>OS/8 PT8E/PTP Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb2>dec-s8-obada-b-pb2</td><td>OS/8 KS33/PTP Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb3>dec-s8-obada-b-pb3</td><td>OS/8 TC08/DTA[0-7] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb4>dec-s8-obada-b-pb4</td><td>OS/8 LINC/LTA[0-7] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb5>dec-s8-obada-b-pb5</td><td>OS/8 TD8A/DTA[01] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb6>dec-s8-obada-b-pb6</td><td>OS/8 TD8B/DTA[23] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb7>dec-s8-obada-b-pb7</td><td>OS/8 TD8C/DTA[45] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb8>dec-s8-obada-b-pb8</td><td>OS/8 TD8D/DTA[67] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb9>dec-s8-obada-b-pb9</td><td>OS/8 AS33/TTY Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb10>dec-s8-obada-b-pb10</td><td>OS/8 LP08/LPT Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb11>dec-s8-obada-b-pb11</td><td>OS/8 LS8E/LPT Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb12>dec-s8-obada-b-pb12</td><td>OS/8 L645/LPT Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb13>dec-s8-obada-b-pb13</td><td>OS/8 RK8/RKA[0-3] Driver</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obada/dec-s8-obada-b-pb14>dec-s8-obada-b-pb14</td><td>OS/8 CR8E/CDR Driver</a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 Batch<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-obata>dec-s8-obata</a></td>
@@ -3624,7 +3642,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>TD8E Initializer (RIM) Tape<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-otina>dec-s8-otina</a></td>
 <td><table>
-<tr><td>dec-s8-otina-a-pm</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-otina/dec-s8-otina-a-pm>dec-s8-otina-a-pm</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>COGO-8 Double Precision<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-scdpa>dec-s8-scdpa</a></td>
@@ -3715,7 +3733,7 @@ are some navigation shortcuts as well:
 <td>OS/8 RK8E System Handler<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-urk8a>dec-s8-urk8a</a></td>
 <td><table>
 <tr><td>dec-s8-urk8a-a-la</td><td></td></tr>
-<tr><td>dec-s8-urk8a-a-pa</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-urk8a/dec-s8-urk8a-a-pa>dec-s8-urk8a-a-pa</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-urk8a/dec-s8-urk8a-a-pb>dec-s8-urk8a-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -3739,6 +3757,11 @@ are some navigation shortcuts as well:
 <tr><td>dec-s8-uteca-a-d</td><td></td></tr>
 <tr><td>dec-s8-uteca-a-la</td><td></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-uteca/dec-s8-uteca-a-pb>dec-s8-uteca-a-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>OS/8 LS8E/LPT Driver<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-xls8a>dec-s8-xls8a</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-xls8a/dec-s8-xls8a-a-pb>dec-s8-xls8a-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 RK8E Handler Document<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-s8-xos8a>dec-s8-xos8a</a></td>
@@ -5753,7 +5776,7 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td>ac-6605c / maindec-08-diuda-c-d</td><td></td></tr>
 <tr><td>ak-6607c / maindec-08-diuda-c-pb</td><td></td></tr>
-<tr><td>maindec-08-diuda-b-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-diuda/maindec-08-diuda-b-pb>ak-6607b / maindec-08-diuda-b-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>VT20 HOST COMPUTER PROGRAM<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-08-divtb>maindec-08-divtb</a></td>
@@ -8178,6 +8201,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1495 of 2937 files linked (50.9%), in 1245 directories
+<P>1537 of 2956 files linked (52.0%), in 1246 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>
