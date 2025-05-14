@@ -1,5 +1,5 @@
 PAL	= devcpy.pa donet.pa kaleid.pa life.pa mvc8ts.pa noeae.pa \
-	rks8es.pa spacex.pa spcwr3.pa vc8tst.pa # tank.pa 
+	rks8es.pa spacex.pa spcwr3.pa vc8tst.pa tank.pa 
 BIN	= $(PAL:.pa=.bn)
 .PRECIOUS: .bin
 
