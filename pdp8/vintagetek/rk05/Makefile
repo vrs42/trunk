@@ -1,12 +1,18 @@
-IMAGE	= $(wildcard *.rk05)
+RKE	= $(wildcard *.rke)
+RK05	= $(RKE:.rke=.rk05)
+DSK	= $(RKE:.rke=.new)
+IMAGE	= $(RK05) $(RKE)
 
-all:	update $(IMAGE) $(IMAGE:.rk05=.new)
+all:	update $(RK05) $(RKE) $(DSK)
 
 update:
 	cd build; make
 
-$(IMAGE): build/$(IMAGE)
+%.rk05:	build/%.rk05
 	cp $< .
 
-$(IMAGE:.rk05=.new): build/$(IMAGE:.rk05=.new)
+%.rke:	build/%.rke
+	cp $< .
+
+%.new:	build/%.new
 	cp $< .
