@@ -65,7 +65,6 @@ foreach $stl (sort keys %work) {
   } else {
     $prt = "$stl.stl";
   }
-  # TODO: Look for best source file to download
   # Look for a .jpg
   $jpg = "$stl.jpg";
   $jpg =~ s/.jpg$/.png/ unless -f $jpg;
@@ -88,12 +87,18 @@ foreach $stl (sort keys %work) {
     $dsc = "";
   }
   print "<A href=$url/$jpg><IMG src=$url/$jpg width=320></A><BR>\n";
-  $stl = "$stl.stl";
-  print "<A href=$url/$stl>STL file (Metric)</A><BR>\n" if -f $stl;
+  $dir = "$stl"; $dir =~ s:/[^/]*::;
+  print "<A href=$url/$dir>Directory</A><BR>\n";
+  $src = "$stl.scad";
+  if (-f $src) {
+    print "<A href=$url/$src>OpenSCAD file</A><BR>\n";
+  }
   $skp = $stl; $skp =~ s/.stl$/.skp/;
   if (-f $skp) {
     print "<A href=$url/$skp>Sketchup file</A><BR>\n";
   }
+  $stl = "$stl.stl";
+  print "<A href=$url/$stl>STL file (Metric)</A><BR>\n" if -f $stl;
   $mf = $stl; $mf =~ s/.stl$/.3mf/;
   if (-f $mf) {
     print "<A href=$url/$mf>Print profile</A><BR>\n";
