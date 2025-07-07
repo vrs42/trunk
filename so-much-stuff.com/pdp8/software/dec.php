@@ -405,6 +405,11 @@ are some navigation shortcuts as well:
 <tr><td>dec-08-a2d2-ua</td><td></td></tr>
 </table></td></tr>
 <tr>
+<td>FORTRAN Programming Manual<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-afa>dec-08-afa</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-afa/dec-08-afac-d.pdf>dec-08-afac-d</td><td></a></td></tr>
+</table></td></tr>
+<tr>
 <td>Fortran Symbol Print<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-afa2>dec-08-afa2</a></td>
 <td><table>
 <tr><td>dec-08-afa2-pa</td><td></td></tr>
@@ -713,7 +718,7 @@ are some navigation shortcuts as well:
 <td>Edusystem 30<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ed30a>dec-08-ed30a</a></td>
 <td><table>
 <tr><td>dec-08-ed30a-a-la</td><td></td></tr>
-<tr><td>dec-08-ed30a-a-pb</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-08-ed30a/dec-08-ed30a-a-pb>dec-08-ed30a-a-pb</td><td></a></td></tr>
 <tr><td>dec-08-ed30a-a-uc</td><td></td></tr>
 </table></td></tr>
 <tr>
@@ -1486,11 +1491,6 @@ are some navigation shortcuts as well:
 <tr><td>dec-12-d7ah-uo</td><td></td></tr>
 </table></td></tr>
 <tr>
-<td>PDP-12 D8GF<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-d8g>dec-12-d8g</a></td>
-<td><table>
-<tr><td>dec-12-d8gf-uo</td><td></td></tr>
-</table></td></tr>
-<tr>
 <td>PDP-12 TED<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-eos>dec-12-eos</a></td>
 <td><table>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-eos/dec-12-eosa-d.pdf>dec-12-eosa-d</td><td></a></td></tr>
@@ -1648,7 +1648,21 @@ are some navigation shortcuts as well:
 <tr>
 <td>OS/12 System LINCtape #1<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-osysa>dec-12-osysa</a></td>
 <td><table>
-<tr><td>dec-12-osysa-a-uo</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-osysa/dec-12-osysa-a-uo>dec-12-osysa-a-uo</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>OS/12 System LINCtape #1 (Binary)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-osysb>dec-12-osysb</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-osysb/dec-12-osysb-a-ac1>dec-12-osysb-a-ac1</td><td></a></td></tr>
+<tr><td>dec-12-osysb-a-ac2</td><td>OS/12 System LINCtape #2 (Binary)</td></tr>
+<tr><td>dec-12-osysb-a-aa1</td><td>OS/12 System LINCtape #1 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa2</td><td>OS/12 System LINCtape #2 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa3</td><td>OS/12 System LINCtape #3 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa4</td><td>OS/12 System LINCtape #4 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa5</td><td>OS/12 System LINCtape #5 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa6</td><td>OS/12 System LINCtape #6 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa7</td><td>OS/12 System LINCtape #7 (Source)</td></tr>
+<tr><td>dec-12-osysb-a-aa8</td><td>OS/12 System LINCtape #8 (Source)</td></tr>
 </table></td></tr>
 <tr>
 <td>LAP6-DIAL-MS for the RK8F<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-se2>dec-12-se2</a></td>
@@ -1751,6 +1765,13 @@ are some navigation shortcuts as well:
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-udema/dec-12-udema-a-d.pdf>dec-12-udema-a-d</td><td></a></td></tr>
 </table></td></tr>
 <tr>
+<td>OS/8 Extension LINCtape (Binary)<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-uextb>dec-12-uextb</a></td>
+<td><table>
+<tr><td>dec-12-uextb-a-ac</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-uextb/dec-12-uextb-a-aa1>dec-12-uextb-a-aa1</td><td>OS/8 Extension LINCtape #1 (Source)</a></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-uextb/dec-12-uextb-a-aa2>dec-12-uextb-a-aa2</td><td>OS/8 Extension LINCtape #2 (Source)</a></td></tr>
+</table></td></tr>
+<tr>
 <td>FPP Assembler Users Manual<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-ufpaa>dec-12-ufpaa</a></td>
 <td><table>
 <tr><td>dec-12-ufpaa-a-d</td><td></td></tr>
@@ -1814,7 +1835,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>PDP-12 Demonstration Programs<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-uxz>dec-12-uxz</a></td>
 <td><table>
-<tr><td>dec-12-uxzc-uo</td><td></td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-uxz/dec-12-uxzc-uo>dec-12-uxzc-uo</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-12-uxz/dec-12-uxzb-d.pdf>dec-12-uxzb-d</td><td>DEMO12 Users Guide</a></td></tr>
 </table></td></tr>
 <tr>
@@ -2228,6 +2249,11 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-alosa/dec-8e-alosa-a-d.pdf>dec-8e-alosa-a-d</td><td></a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-alosa/dec-8e-alosa-a-pb>dec-8e-alosa-a-pb</td><td></a></td></tr>
+</table></td></tr>
+<tr>
+<td>PST and Latency Histogram<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-alpha>dec-8e-alpha</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-alpha/dec-8e-alpha-a-pb>dec-8e-alpha-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>LAB-8/E SOFTWARE SYS USERS MANUAL<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/dec-8e-aluma>dec-8e-aluma</a></td>
@@ -6410,6 +6436,11 @@ are some navigation shortcuts as well:
 <tr><td>maindec-12-d8fb-pb</td><td></td></tr>
 </table></td></tr>
 <tr>
+<td>PDP-12 D8GF<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-12-d8g>maindec-12-d8g</a></td>
+<td><table>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-12-d8g/maindec-12-d8gf-uo>maindec-12-d8gf-uo</td><td></a></td></tr>
+</table></td></tr>
+<tr>
 <td>DP02 Test<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/maindec-12-d8h>maindec-12-d8h</a></td>
 <td><table>
 <tr><td>maindec-12-d8ha-d</td><td></td></tr>
@@ -7945,7 +7976,7 @@ are some navigation shortcuts as well:
 <tr><td>al-3551d / al-3551d-uo</td><td> Source LINCtape #2</td></tr>
 <tr><td>al-3552d / al-3552d-uo</td><td> Source LINCtape #3</td></tr>
 <tr><td>al-3554d / al-3554d-uo</td><td> Binary LT #1</td></tr>
-<tr><td>al-5595d / al-5595d-uo</td><td> Binary LT #2</td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf008/al-5595d-uo>al-5595d / al-5595d-uo</td><td> Binary LT #2</a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf008/ak-4528d-ps>ak-4528d / ak-4528d-ps</td><td>OS/8 F4 F4.SV</a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf008/ak-4529d-ps>ak-4529d / ak-4529d-ps</td><td>OS/8 F4 PASS2.SV</a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf008/ak-4530d-ps>ak-4530d / ak-4530d-ps</td><td>OS/8 F4 PASS2O.SV</a></td></tr>
@@ -7992,7 +8023,7 @@ are some navigation shortcuts as well:
 <tr>
 <td>OS/8 V3D<br><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf015>qf015</a></td>
 <td><table>
-<tr><td>al-3580c / al-3580c-uo</td><td> Binary #1 (LT)</td></tr>
+<tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf015/al-3580c-uo>al-3580c / al-3580c-uo</td><td> Binary #1 (LT)</a></td></tr>
 <tr><td>al-3581c / al-3581c-uo</td><td> Binary #2 (LT)</td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf015/al-4711c-uc>al-4711c / al-4711c-uc</td><td> Binary #1 (DT)</a></td></tr>
 <tr><td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/dec/qf015/al-4712c-uc>al-4712c / al-4712c-uc</td><td> Binary #2 (DT)</a></td></tr>
@@ -8201,6 +8232,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1537 of 2956 files linked (52.0%), in 1246 directories
+<P>1548 of 2971 files linked (52.1%), in 1250 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

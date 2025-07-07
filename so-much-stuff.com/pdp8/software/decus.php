@@ -2375,8 +2375,25 @@ Console Utility Package for PDP-8/S and PDP-8 Computers </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277 target=_blank>5-277</div>
 </a><td><div>ICBM </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/Makefile target=_blank>Makefile</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/Restoration.txt target=_blank>Restoration.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/decus-5-277.htm target=_blank>decus-5-277.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/decus-5-277.pdf target=_blank>decus-5-277.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.bin target=_blank>icbm.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.cjl.bin target=_blank>icbm.cjl.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.cjl.lst target=_blank>icbm.cjl.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.cjl.pa target=_blank>icbm.cjl.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.lst target=_blank>icbm.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.orig.bin target=_blank>icbm.orig.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.orig.lst target=_blank>icbm.orig.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.orig.pa target=_blank>icbm.orig.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.pal target=_blank>icbm.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.sv target=_blank>icbm.sv</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.svb target=_blank>icbm.svb</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.vrs.bin target=_blank>icbm.vrs.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.vrs.lst target=_blank>icbm.vrs.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.vrs.pa target=_blank>icbm.vrs.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/pdp8.ini target=_blank>pdp8.ini</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-278 target=_blank>8-278</div>
 </a><td><div>Single Length Floating Point Package </div>
@@ -3083,9 +3100,14 @@ System </div>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382 target=_blank>8-382</div>
 </a><td><div>Readable High Speed Punch Copier </div>
 <td>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/8-382.bin target=_blank>8-382.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/8-382.lst target=_blank>8-382.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/8-382.pal target=_blank>8-382.pal</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/Reconstruction.txt target=_blank>Reconstruction.txt</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/decus-8-382-lst.pdf target=_blank>decus-8-382-lst.pdf</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/decus-8-382.htm target=_blank>decus-8-382.htm</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/decus-8-382.pdf target=_blank>decus-8-382.pdf</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-382/punch2text target=_blank>punch2text</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-383a target=_blank>8-383a</div>
 </a><td><div>Scan and Analysis Program </div>
