@@ -107,6 +107,7 @@ typedef struct {
 #define DEV_PTP         002                             /* paper tape punch */
 #define DEV_TTI         003                             /* console input */
 #define DEV_TTO         004                             /* console output */
+#define DEV_VC8         005                             /* VC8 display */
 #define DEV_CLK         013                             /* clock */
 #define DEV_TSC         036
 #define DEV_KJ8         040                             /* extra terminals */
@@ -207,7 +208,8 @@ typedef struct {
 #define INT_V_UF        (INT_V_DIRECT+9)                /* user int */
 #define INT_V_TSC       (INT_V_DIRECT+10)               /* TSC8-75 int */
 #define INT_V_FPP       (INT_V_DIRECT+11)               /* FPP8 */
-#define INT_V_OVHD      (INT_V_DIRECT+12)               /* overhead start */
+#define INT_V_VC8       (INT_V_DIRECT+12)               /* VC8 */
+#define INT_V_OVHD      (INT_V_VC8+1)                   /* overhead start */
 #define INT_V_NO_ION_PENDING (INT_V_OVHD+0)             /* ion pending */
 #define INT_V_NO_CIF_PENDING (INT_V_OVHD+1)             /* cif pending */
 #define INT_V_ION       (INT_V_OVHD+2)                  /* interrupts on */
@@ -239,6 +241,7 @@ typedef struct {
 #define INT_UF          (1 << INT_V_UF)
 #define INT_TSC         (1 << INT_V_TSC)
 #define INT_FPP         (1 << INT_V_FPP)
+#define INT_VC8         (1 << INT_V_VC8)
 #define INT_NO_ION_PENDING (1 << INT_V_NO_ION_PENDING)
 #define INT_NO_CIF_PENDING (1 << INT_V_NO_CIF_PENDING)
 #define INT_NO_LIF_PENDING (1 << INT_V_NO_LIF_PENDING)

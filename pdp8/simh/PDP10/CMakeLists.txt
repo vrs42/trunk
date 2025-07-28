@@ -46,6 +46,20 @@ add_simulator(pdp10
     NO_INSTALL
     TEST pdp10)
 
+
+option(PANDA_LIGHTS
+       "Enable (=1)/disable (=0) KA-10/KI-11 simulator's Panda display. (def: disabled)"
+       FALSE)
+option(PIDP10
+       "Enable (=1)/disable (=0) PIDP10 display options (def: disabled)"
+       FALSE)
+
+### Ensure that the options are mutually exclusive:
+if (PANDA_LIGHTS AND PIDP10)
+  message(FATAL_ERROR "PANDA_LIGHTS and PIDP10 options are mutually exclusive. Choose one.")
+endif ()
+
+
 add_simulator(pdp10-ka
     SOURCES
         ${KA10D}/kx10_cpu.c
@@ -89,6 +103,8 @@ add_simulator(pdp10-ka
         ${KA10D}/kx10_disk.c
         ${KA10D}/ka10_pclk.c
         ${KA10D}/ka10_tv.c
+        ${KA10D}/ka10_dd.c
+        ${KA10D}/kx10_ddc.c
         ${DISPLAY340}
         ${DISPLAYIII}
     INCLUDES
@@ -98,15 +114,20 @@ add_simulator(pdp10-ka
     FEATURE_INT64
     FEATURE_VIDEO
     FEATURE_DISPLAY
+    USES_AIO
     LABEL PDP10
     PKG_FAMILY pdp10_family
     TEST ka10)
 
 if (PANDA_LIGHTS)
-  target_sources(pdp10-ka PUBLIC ${PDP10D}/ka10_lights.c)
+  target_sources(pdp10-ka PUBLIC ${PDP10D}/kx10_lights.c)
   target_compile_definitions(pdp10-ka PUBLIC PANDA_LIGHTS)
   target_link_libraries(pdp10-ka PUBLIC usb-1.0)
-endif (PANDA_LIGHTS)
+endif ()
+if (PIDP10)
+  target_sources(pdp10-ka PUBLIC ${PDP10D}/ka10_pipanel.c)
+  target_compile_definitions(pdp10-ka PUBLIC PIDP10=1)
+endif ()
 
 add_simulator(pdp10-ki
     SOURCES
@@ -131,6 +152,8 @@ add_simulator(pdp10-ki
         ${KI10D}/kx10_imp.c
         ${KI10D}/kx10_dpy.c
         ${KI10D}/kx10_disk.c
+        ${KI10D}/kx10_ddc.c
+        ${KI10D}/kx10_tym.c
         ${DISPLAY340}
     INCLUDES
         ${KI10D}
@@ -139,6 +162,7 @@ add_simulator(pdp10-ki
     FEATURE_INT64
     FEATURE_VIDEO
     FEATURE_DISPLAY
+    USES_AIO
     LABEL PDP10
     PKG_FAMILY pdp10_family
     TEST ki10)
@@ -171,6 +195,7 @@ add_simulator(pdp10-kl
     DEFINES
         KL=1
     FEATURE_INT64
+    USES_AIO
     LABEL PDP10
     PKG_FAMILY pdp10_family
     TEST kl10)
@@ -198,6 +223,7 @@ add_simulator(pdp10-ks
     DEFINES
         KS=1
     FEATURE_INT64
+    USES_AIO
     LABEL PDP10
     PKG_FAMILY pdp10_family
     TEST ks10)
@@ -218,6 +244,7 @@ add_simulator(pdp6
         ${PDP6D}/pdp6_dcs.c
         ${PDP6D}/kx10_dpy.c
         ${PDP6D}/pdp6_slave.c
+        ${PDP6D}/pdp6_ge.c
         ${DISPLAY340}
     INCLUDES
         ${PDP6D}

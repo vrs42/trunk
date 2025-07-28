@@ -246,8 +246,6 @@ extern UNIT cr_unit, prt_unit[];
 #  define ARFSET(v)                         /* without GUI, no need for setting ARF */
 #endif
 
-static void   init_console_window (void);
-static void   destroy_console_window (void);
 static t_stat view_cmd (int32 flag, CONST char *cptr);
 static t_stat cpu_attach (UNIT *uptr, CONST char *cptr);
 static t_bool bsctest (int32 DSPLC, t_bool reset_V);
@@ -655,7 +653,7 @@ t_stat sim_instr (void)
 
             eaddr = word2;                  /* assume standard addressing & compute effective address */
             if (TAG)                        /* if indexed */
-                eaddr += ReadIndex(TAG);    /* add index register value */
+		eaddr = (eaddr + ReadIndex(TAG)) & 0xFFFF;	/* add index register value */
             if (INDIR)                      /* if indirect addressing */
                 eaddr = ReadW(eaddr);       /* pick up referenced address */
             

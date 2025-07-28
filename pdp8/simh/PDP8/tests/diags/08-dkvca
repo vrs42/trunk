@@ -1,0 +1,13 @@
+:: VT78: 16K MOS Memory Diagnostic
+echof "** VC8E: Display Diagnostic "
+load diags/maindec-08-dhvca-a-pb
+set vc8 enable
+#
+d sr 0000
+# Set a HLT at 0274, after "END OF PASS" message.
+d 0274 7402
+# Get past the SR prompt
+expect "SR=0400 "; send "\r"; c
+go 0200
+if (pc != 0275) e pc,ac; echof "MAINDEC-08-DHVCA failed."; exit 1
+echof "** VC8E: Display Diagnostic passed"

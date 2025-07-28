@@ -202,9 +202,11 @@
 #define PCQ_ENTRY(x)    pcq[pcq_p = (pcq_p - 1) & PCQ_MASK] = x
 #define UNIT_V_NOEAE    (UNIT_V_UF)                     /* EAE absent */
 #define UNIT_NOEAE      (1 << UNIT_V_NOEAE)
-#define UNIT_V_MSIZE    (UNIT_V_UF + 1)                 /* dummy mask */
+#define UNIT_V_MSIZE    (UNIT_V_UF + 1)                 /* memory size */
 #define UNIT_MSIZE      (1 << UNIT_V_MSIZE)
-#define UNIT_V_MODEL    (UNIT_V_UF + 2)                 /* dummy mask */
+#define UNIT_V_NOTS     (UNIT_V_UF + 2)                 /* time share */
+#define UNIT_NOTS       (1 << UNIT_V_NOTS)
+#define UNIT_V_MODEL    (UNIT_V_UF + 3)                 /* model */
 #define UNIT_MODEL      (1 << UNIT_V_MODEL)
 #define OP_KSF          06031                           /* for idle */
 
@@ -246,6 +248,10 @@ int32 tsc_ir = 0;                                       /* TSC8-75 IR */
 int32 tsc_pc = 0;                                       /* TSC8-75 PC */
 int32 tsc_cdf = 0;                                      /* TSC8-75 CDF flag */
 int32 tsc_enb = 0;                                      /* TSC8-75 enabled */
+int32 dmm_enb = 0;                                      /* TSC8-75 enabled */
+uint8 tm[0100] = { 0 };                                 /* Trap masks */
+uint8 vp[010];                                          /* V. field to phys. */
+#define VP(FLD) (UF? vp[FLD>>12]<<12: FLD)              /* macro to use it */
 int32 cpu_astop = 0;                                    /* address stop */
 int16 pcq[PCQ_SIZE] = { 0 };                            /* PC queue */
 int32 pcq_p = 0;                                        /* PC queue ptr */
@@ -319,6 +325,8 @@ REG cpu_reg[] = {
 MTAB cpu_mod[] = {
     { UNIT_NOEAE, UNIT_NOEAE, "no EAE", "NOEAE", NULL },
     { UNIT_NOEAE, 0, "EAE", "EAE", NULL },
+    { UNIT_NOTS, UNIT_NOTS, "no TS", "NOTS", NULL },
+    { UNIT_NOTS, 0, "TS", "TS", NULL },
     { UNIT_MODEL, 0, "MODEL", "MODEL", 0, &cpu_show_model },
     { UNIT_MODEL, PDP5,  "pdp5",     "PDP5",     &cpu_set_model },
     { UNIT_MODEL, PDP8_, "pdp8",     "PDP8",     &cpu_set_model },
@@ -409,6 +417,8 @@ while (reason == 0) {                                   /* loop until halted */
             LIF = LDF = 0;
         } else
             SF = (UF << 6) | (IF >> 9) | (DF >> 12);    /* form save field */
+        if (MODEL == VT78)
+            SF &= ~00004;
         PCQ_ENTRY (IF | PC);                            /* save old PC w/ IF */
         IF = IB = DF = UF = UB = 0;                     /* clear mem ext */
         if (LINC) {
@@ -423,7 +433,7 @@ while (reason == 0) {                                   /* loop until halted */
         }
     }
 
-    MA = IF | PC;                                       /* form PC */
+    MA = VP(IF) | PC;                                   /* form PC */
     if (sim_brk_summ && 
         sim_brk_test (MA, (1u << SIM_BKPT_V_SPC) | SWMASK ('E'))) { /* breakpoint? */
         reason = STOP_IBKPT;                            /* stop simulation */
@@ -777,8 +787,8 @@ return SCPE_OK;
    than the straight-8, is the least capable model after the PDP-5.
 
    Model        Limitations
-   5            No IAC rotate, no CMA rotate, no EAE, 4K maximum, slower
-                PC at 0000, Interrupts at 0001, no DMA (data break)
+   5            No IAC rotate, no CMA rotate, slower PC at 0000,
+   		Interrupts at 0001
    8/S          No IAC rotate, no CMA rotate, no EAE, 8K maximum, 15x slower
    (straight) 8 No IAC rotate, IOT 6004 is special, no SWP, no SCL
                 Nonexistent memory reference is special
@@ -798,6 +808,9 @@ return SCPE_OK;
    VT78         CAF, BSW, Omnibus I/O, PUSH/POP
                 RAL RAR and RTL RTR are NOPs
                 Autoindex suppressed for current page accesses
+                The IF is only 2 bits long (16K)
+                The MMU reads only 2 bits of DF during RDF
+                The MMU maps DF 7 onto panel memory
                 No restart from HLT, No DMA (data break)
    DECmates     CAF, BSW, R3L, Omnibus I/O, PUSH/POP
                 RAL RAR is R3L, RTL RTR is NOP
@@ -883,7 +896,7 @@ do_pdp8()
 /* Opcode 0, AND */
 
     case 000:                                           /* AND, dir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         LAC = LAC & (M[MA] | 010000);
         break;
 
@@ -893,10 +906,10 @@ do_pdp8()
         break;
 
     case 002:                                           /* AND, indir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         if ((MA & 07770) != 00010)                      /* indirect; autoinc? */
-            MA = DF | M[MA];
-        else MA = DF | (M[MA] = (M[MA] + 1) & 07777);   /* incr before use */
+            MA = VP(DF) | M[MA];
+        else MA = VP(DF) | (M[MA] = (M[MA] + 1) & 07777); /* incr before use */
         LAC = LAC & (M[MA] | 010000);
         break;
 
@@ -912,7 +925,7 @@ do_pdp8()
 /* Opcode 1, TAD */
 
     case 004:                                           /* TAD, dir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         LAC = (LAC + M[MA]) & 017777;
         break;
 
@@ -922,10 +935,10 @@ do_pdp8()
         break;
 
     case 006:                                           /* TAD, indir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         if ((MA & 07770) != 00010)                      /* indirect; autoinc? */
-            MA = DF | M[MA];
-        else MA = DF | (M[MA] = (M[MA] + 1) & 07777);   /* incr before use */
+            MA = VP(DF) | M[MA];
+        else MA = VP(DF) | (M[MA] = (M[MA] + 1) & 07777); /* incr before use */
         LAC = (LAC + M[MA]) & 017777;
         break;
 
@@ -934,17 +947,17 @@ do_pdp8()
         if ((MA & 07770) == 00010)                      /* indirect; autoinc? */
             if (MODEL != VT78)                          /* on a 6100? */
                 M[MA] = (M[MA] + 1) & 07777;            /* incr before use */
-        MA = DF | M[MA];
+        MA = VP(DF) | M[MA];
         LAC = (LAC + M[MA]) & 017777;
         break;
 
 /* Opcode 2, ISZ */
 // BUGBUG: The implementation PDP5 PC in location 0 currently ignores ISZ 0.
 // AND 0, TAD 0, and DCA 0 are implemented. JMS 0 and JMP 0 should never
-// occur in valid PDP-5 code..
+// occur in valid PDP-5 code.
 
     case 010:                                           /* ISZ, dir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         M[MA] = MB = (M[MA] + 1) & 07777;               /* field must exist */
         if (MB == 0)
             PC = (PC + 1) & 07777;
@@ -958,10 +971,10 @@ do_pdp8()
         break;
 
     case 012:                                           /* ISZ, indir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         if ((MA & 07770) != 00010)                      /* indirect; autoinc? */
-            MA = DF | M[MA];
-        else MA = DF | (M[MA] = (M[MA] + 1) & 07777);   /* incr before use */
+            MA = VP(DF) | M[MA];
+        else MA = VP(DF) | (M[MA] = (M[MA] + 1) & 07777); /* incr before use */
         MB = (M[MA] + 1) & 07777;
         if (MEM_ADDR_OK (MA))
             M[MA] = MB;
@@ -974,7 +987,7 @@ do_pdp8()
         if ((MA & 07770) == 00010)                      /* indirect; autoinc? */
             if (MODEL != VT78)                          /* on a 6100? */
                 M[MA] = (M[MA] + 1) & 07777;            /* incr before use */
-        MA = DF | M[MA];
+        MA = VP(DF) | M[MA];
         MB = (M[MA] + 1) & 07777;
         if (MEM_ADDR_OK (MA))
             M[MA] = MB;
@@ -985,7 +998,7 @@ do_pdp8()
 /* Opcode 3, DCA */
 
     case 014:                                           /* DCA, dir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         M[MA] = LAC & 07777;
         // Implement PDP5 PC in location 0.
         if ((MA == 0) && (MODEL == PDP5))
@@ -1003,10 +1016,10 @@ do_pdp8()
         break;
 
     case 016:                                           /* DCA, indir, zero */
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         if ((MA & 07770) != 00010)                      /* indirect; autoinc? */
-            MA = DF | M[MA];
-        else MA = DF | (M[MA] = (M[MA] + 1) & 07777);   /* incr before use */
+            MA = VP(DF) | M[MA];
+        else MA = VP(DF) | (M[MA] = (M[MA] + 1) & 07777); /* incr before use */
         if (MEM_ADDR_OK (MA))
             M[MA] = LAC & 07777;
         // Implement PDP5 PC in location 0.
@@ -1020,7 +1033,7 @@ do_pdp8()
         if ((MA & 07770) == 00010)                      /* indirect; autoinc? */
             if (MODEL != VT78)                          /* on a 6100? */
                 M[MA] = (M[MA] + 1) & 07777;            /* incr before use */
-        MA = DF | M[MA];
+        MA = VP(DF) | M[MA];
         if (MEM_ADDR_OK (MA))
             M[MA] = LAC & 07777;
         // Implement PDP5 PC in location 0.
@@ -1054,7 +1067,7 @@ do_pdp8()
             IF = IB;                                    /* change IF */
             UF = UB;                                    /* change UF */
             int_req = int_req | INT_NO_CIF_PENDING;     /* clr intr inhibit */
-            MA = IF | MA;
+            MA = VP(IF) | MA;
             if (MEM_ADDR_OK (MA))
                 M[MA] = PC;
             }
@@ -1076,7 +1089,7 @@ do_pdp8()
             IF = IB;                                    /* change IF */
             UF = UB;                                    /* change UF */
             int_req = int_req | INT_NO_CIF_PENDING;     /* clr intr inhibit */
-            MA = IF | MA;
+            MA = VP(IF) | MA;
             if (MEM_ADDR_OK (MA))
                 M[MA] = PC;
             }
@@ -1085,7 +1098,7 @@ do_pdp8()
 
     case 022:                                           /* JMS, indir, zero */
         PCQ_ENTRY (MA);
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         if ((MA & 07770) != 00010)                      /* indirect; autoinc? */
             MA = M[MA];
         else MA = (M[MA] = (M[MA] + 1) & 07777);        /* incr before use */
@@ -1101,7 +1114,7 @@ do_pdp8()
             IF = IB;                                    /* change IF */
             UF = UB;                                    /* change UF */
             int_req = int_req | INT_NO_CIF_PENDING;     /* clr intr inhibit */
-            MA = IF | MA;
+            MA = VP(IF) | MA;
             if (MEM_ADDR_OK (MA))
                 M[MA] = PC;
             }
@@ -1127,7 +1140,7 @@ do_pdp8()
             IF = IB;                                    /* change IF */
             UF = UB;                                    /* change UF */
             int_req = int_req | INT_NO_CIF_PENDING;     /* clr intr inhibit */
-            MA = IF | MA;
+            MA = VP(IF) | MA;
             if (MEM_ADDR_OK (MA))
                 M[MA] = PC;
             }
@@ -1194,7 +1207,7 @@ do_pdp8()
 
     case 026:                                           /* JMP, indir, zero */
         PCQ_ENTRY (MA);
-        MA = IF | (IR & 0177);                          /* dir addr, page zero */
+        MA = VP(IF) | (IR & 0177);                      /* dir addr, page zero */
         if ((MA & 07770) != 00010)                      /* indirect; autoinc? */
             MA = M[MA];
         else MA = (M[MA] = (M[MA] + 1) & 07777);        /* incr before use */
@@ -1448,10 +1461,7 @@ do_pdp8()
         MQ = LAC & 07777;
         LAC = LAC & 010000 | temp;
 */
-        if (MODEL < PDP8I)
-            temp = 0;                                   /* no SWP */
-        else
-            temp = MQ;                                  /* group 3 */
+        temp = MQ;                                      /* group 3 */
         if (IR & 0200)                                  /* CLA */
             if (MODEL != PDP8L)                         /* NOP on 8/L */
                 LAC = LAC & 010000;
@@ -1462,6 +1472,8 @@ do_pdp8()
             } else {
                 MQ = LAC & 07777;
                 LAC = LAC & 010000;
+                if (MODEL < PDP8I)
+                    temp = 0;                           /* no SWP */
             }
         }
         if (IR & 0100)                                  /* MQA */
@@ -1722,7 +1734,22 @@ do_pdp8()
    the ECDF flag is set, otherwise it is cleared. */
 
     case 030:case 031:case 032:case 033:                /* IOT */
-        if (UF) {                                       /* privileged? */
+        device = (IR >> 3) & 077;                       /* device = IR<3:8> */
+        pulse = IR & 07;                                /* pulse = IR<9:11> */
+        if (UF) {                                       /* Privileged? */
+            int dotrap = 1;                             /* Set up default */
+            if (dmm_enb) {                              /* DMM special cases? */
+                dotrap = !tm[device];                   /* DMM default */
+                if ((device & 070) == 020) {            /* 062xx? */
+                    if ((pulse == 0) || (pulse & 04)) { /* 62x[04567]? */
+                        dotrap = 1;                     /* Always trap */
+                    }
+                }
+                if ((IR == 06006) || (IR == 06214) || (IR == 06224)) {
+                    dotrap = 0;                               /* Never trap */
+                }
+            }
+            if (dotrap) {
             int_req = int_req | INT_UF;                 /* request intr */
             tsc_ir = IR;                                /* save instruction */
             if ((IR & 07707) == 06201)                  /* set/clear flag */
@@ -1730,8 +1757,7 @@ do_pdp8()
             else tsc_cdf = 0;
             break;
             }
-        device = (IR >> 3) & 077;                       /* device = IR<3:8> */
-        pulse = IR & 07;                                /* pulse = IR<9:11> */
+        }
         iot_data = LAC & 07777;                         /* AC unchanged */
         switch (device) {                               /* decode IR<3:8> */
 
@@ -1774,6 +1800,10 @@ do_pdp8()
                       ((LAC & 010000) >> 1) | (gtf << 10) |
                       (((int_req & INT_ALL) != 0) << 9) |
                       (((int_req & INT_ION) != 0) << 7) | SF;
+                if (MODEL == VT78) {
+                    if (LAC & 00400)                    /* II */
+                        LAC &= ~01000;                  /* Clear IR in AC */
+                }
                 break;
 
             case 5:                                     /* RTF */
@@ -1782,9 +1812,11 @@ do_pdp8()
                     break;
                 }
                 gtf = ((LAC & 02000) >> 10);
+// BUGBUG: Can RTF set UB with TS disabled?
                 UB = (LAC & 0100) >> 6;
                 IB = (LAC & 0070) << 9;
                 DF = (LAC & 0007) << 12;
+// BUGBUG: What? RTF changes AC and Link??
                 LAC = ((LAC & 04000) << 1) | iot_data;
                 int_req = (int_req | INT_ION) & ~INT_NO_CIF_PENDING;
                 break;
@@ -1816,7 +1848,13 @@ do_pdp8()
                 }                                       /* end switch pulse */
             break;                                      /* end case 0 */
 
-        case 020:case 021:case 022:case 023:
+        case 020:
+            if (pulse == 0) {                           /* 6200 is CDIF */
+              DF = IF;
+                break;
+            }
+            /* FALL THROUGH */
+        case 021:case 022:case 023:
         case 024:case 025:case 026:case 027:            /* memory extension */
             switch (pulse) {                            /* decode IR<9:11> */
 
@@ -1826,11 +1864,15 @@ do_pdp8()
 
             case 2:                                     /* CIF */
                 IB = (IR & 0070) << 9;
+                if (MODEL == VT78)
+                    IB &= 0030 << 9;
                 int_req = int_req & ~INT_NO_CIF_PENDING;
                 break;
 
             case 3:                                     /* CDF CIF */
                 DF = IB = (IR & 0070) << 9;
+                if (MODEL == VT78)
+                    IB &= 0030 << 9;
                 int_req = int_req & ~INT_NO_CIF_PENDING;
                 break;
 
@@ -1845,7 +1887,10 @@ do_pdp8()
                     if (LINC)
                         LAC = LAC | (LDF << 1);
                     else
-                        LAC = LAC | (DF >> 9);
+                        if (MODEL == VT78)
+                            LAC = LAC | (030 & (DF >> 9));
+                        else
+                            LAC = LAC | (DF >> 9);
                     break;
 
                 case 2:                                 /* RIF */
@@ -1869,6 +1914,7 @@ do_pdp8()
                         LDF = SF & 037;
                         DF = LDF >> 2;
                     } else {
+// BUGBUG: Can RMF set UB with TS disabled?
                         UB = (SF & 0100) >> 6;
                         IB = (SF & 0070) << 9;
                         DF = (SF & 0007) << 12;
@@ -1887,12 +1933,50 @@ do_pdp8()
                     break;
 
                 case 7:                                 /* SUF */
+                    if (cpu_unit.flags & UNIT_NOTS)
+                        break;                          /* Refuse if disabled */
                     UB = 1;
                     int_req = int_req & ~INT_NO_CIF_PENDING;
                     break;
                     }                                   /* end switch device */
                 break;
             
+            case 5:                                     /* DMM-8E MMU */
+                /* The DMM-8E, if present, implements a mapping from virtual
+                 * field to physical field, and also provides a mechanism to
+                 * inhibit trapping for IOTs executed in user mode.
+                 * BUGBUG: This should be switched on the DMM-8E enable!
+                 */
+/* BUGBUG: If feature enabled */
+                switch ((IR >> 3) & 07) {               /* decode IR<6:8> */
+                    case 0:                             /* RTM */
+                        LAC &= 010000;                  /* Isolate LINK */
+                        LAC |= tsc_ir;                  /* instruction to AC */
+                        break;
+                    case 1:                             /* SKME */
+                        if (dmm_enb)                    /* skip if enabled */
+                            PC = (PC + 1) & 07777;
+                        break;
+                    case 2:                             /* SKMM */
+                        PC = (PC + 1) & 07777;          /* Feature enabled */
+                        break;
+                    case 3:                             /* LTM */
+                        tm[(LAC>>3)&077] = LAC & 1;     /* Update trap mask */
+                        LAC &= 010000;
+                        break;
+                    case 4:                             /* LRM */
+                        vp[LAC&07] = (LAC>>3) & 07;     /* Update relocation */
+                        LAC &= 010000;
+                        break;
+                    case 6:                             /* SMME */
+                        dmm_enb = 1;                    /* Set enable flop */
+                        break;
+                    case 7:                             /* CMME */
+                        dmm_enb = 0;                    /* Clear enable flop */
+                        break;
+                    default:; /* FALL THROUGH */
+                }
+                /* FALL THROUGH */
             default:
                 reason = stop_inst;
                 break;

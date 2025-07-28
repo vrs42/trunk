@@ -1,0 +1,27 @@
+:: VT78: 4K to 32K Exerciser
+echof "** VT78: 4K to 32K Exerciser"
+load diags/maindec-08-djexc-a-pb
+#
+# VT78 does not have a hardware switch register.
+# 0020 Software Switch Register:
+# 0	Inhibit Error Halts
+# 1	Loop on Error
+# 2	Loop on Test
+# 3	Halt at end of test
+# 4	Inhibit Error Typeout
+# 5	Inhibit March Test
+# 6	Inhibit Dynamic Test
+# 7	Ring Bell on Error
+d 0020 0400
+# The VT78 only supports 16K.  The MMU will wrap
+# fields 4-7 onto 0-3.
+# Inhibit APT, set 16K
+d 0021 0017
+# Set a HLT at 0274, after "END OF PASS" message.
+d 0274 7402
+# Get past the SR prompt
+expect "SR=0400 "; send "\r"; c
+reset
+go 0200
+if (pc != 0275) e pc,ac; echof "MAINDEC-08-DJEXC failed."; exit 1
+echof "** VT78: 4K to 32K Exerciser passed"

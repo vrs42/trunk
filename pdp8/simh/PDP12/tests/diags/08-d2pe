@@ -1,0 +1,23 @@
+:: Teletype Tests Part 1
+echof "** PDP-8: Teletype Tests Part 1: "
+:: Normally, these should run until the user was satisfied and 
+:: stopped them.  But we're not looking for hardware failures,
+:: so hopefully a single pass of each suffices.
+:: Start with low version
+load diags/maindec-08-d2pe-pb
+# The program halts at 0274 unless "Loop Program" is selected.
+# Set switches:
+# 0	Halt after routine
+# 1	Select routine from 6-11
+# 2	Loop Program
+# 6-11	Routine to run
+dep sr 0000
+# Need flags clear?
+#reset all
+go -q 0200
+# There's a halt at 232 to set the switches.  (Already done.)
+if (PC != 0233) echof "MAINDEC-08-D2PE failed."; exit 1
+c
+e pc
+if (PC != 0274) echof "MAINDEC-08-D2PE failed."; exit 1
+echof "** PDP-8: Teletype Tests Part 1 passed"

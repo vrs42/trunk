@@ -1,0 +1,22 @@
+:: Memory Address Test
+echof "** PDP-8: Memory Address Test: "
+:: Start with low version
+load diags/maindec-08-d1b1-pb
+:: Patch address 0072 with HLT. Otherwise the test loops
+:: indefinitely, printing "11" every 28 seconds.
+dep 0072 7402
+# Set switches:
+# 0	Stop on error
+dep sr 04000
+# Need flags clear?
+#reset all
+go -q 0004
+if (PC != 00073) echof "MAINDEC-08-D1B1 failed."; exit 1
+:: Now run high version
+load -r diags/maindec-08-d1b2-pm
+:: Patch address 7472 with HLT. Otherwise the test loops
+:: indefinitely, printing "11" every 28 seconds.
+dep 7472 7402
+go -q 7400
+if (PC != 07473) echof "MAINDEC-08-D1B2 failed."; exit 1
+echof "** PDP-8: Memory Address Test passed"

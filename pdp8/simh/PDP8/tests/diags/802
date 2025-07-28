@@ -1,0 +1,15 @@
+#:: Memory Checkerboad Test (802)
+#:: This test writes a pattern and it's complement to memory.
+echof -n "** PDP-8: Memory Checkerboard Test (1): "
+load -r diags/maindec-802-pm2
+#expect -r [25] "1" echof; echof "** PDP-8: MAINDEC-802 passed."
+d sr 0100
+br 0022
+reset
+go 0001
+e ac
+if (PC == 0071) echof "MAINDEC-802 failed."; exit 1
+if (AC == 0074) echof "MAINDEC-802 failed."; exit 1
+if (PC == 0022) echof "MAINDEC-802 passed."
+#echof "MAINDEC-802 passed."
+nobr

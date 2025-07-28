@@ -1,0 +1,14 @@
+#:: Memory Address Test (803)
+#:: This test checks that memory addresses are unique.
+echof -n "** PDP-8: Memory Address Test: "
+load -r diags/maindec-803-pm
+# Stop twice at the breakpoint
+br 0031
+reset
+go 0001
+e ac
+if (PC == 0017) echof "MAINDEC-803 failed."; exit 1
+if (AC == 0022) echof "MAINDEC-803 failed."; exit 1
+c
+echof "MAINDEC-803 passed."
+nobr

@@ -1,0 +1,11 @@
+#:: EAE Instruction Test (801-3a)
+#:: This test halts after the first few instructions to
+#:: allow manual verification of OSR and CLA operation.
+#:: Correct operation is to print "3A" every pass.
+sh cpu
+echof -n "** PDP-8: EAE Instruction Test (3a): "
+load -r diags/maindec-801-3a-pb
+d sr 05000
+reset
+expect -r [25] "3A" echof; echof "** PDP-8: MAINDEC-801-3a passed."
+go 0200

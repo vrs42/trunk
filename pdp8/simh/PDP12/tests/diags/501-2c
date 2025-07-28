@@ -1,0 +1,13 @@
+#:: Basic Instruction Test (501-2c)
+#:: This test halts after the first few instructions to
+#:: allow manual verification of OSR and CLA operation.
+#:: Correct operation is to print "2C" every pass.
+set cpu pdp5
+echof -n "** PDP-5: Basic Instruction Test (2c): "
+load -r diags/maindec-801-2c-pb
+d sr 07777
+expect -r [25] "2B" echof; echof "** PDP-5: MAINDEC-501-2c passed."
+reset
+go 0200
+if (PC == 0406) echof "MAINDEC-501-2c failed.";exit 1
+if (PC == 02423) echof "MAINDEC-501-2c failed.";exit 1

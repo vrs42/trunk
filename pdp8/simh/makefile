@@ -19,21 +19,21 @@
 # In general, the logic below will detect and build with the available
 # features which the host build environment provides.
 #
-# Dynamic loading of libpcap is the preferred default behavior if pcap.h 
+# Dynamic loading of libpcap is the preferred default behavior if pcap.h
 # is available at build time.  Support to statically linking against libpcap
-# is deprecated and may be removed in the future.  Static linking against 
-# libpcap can be enabled if GNU make is invoked with USE_NETWORK=1 on the 
+# is deprecated and may be removed in the future.  Static linking against
+# libpcap can be enabled if GNU make is invoked with USE_NETWORK=1 on the
 # command line.
 #
-# Some platforms may not have vendor supplied libpcap available.  HP-UX is 
+# Some platforms may not have vendor supplied libpcap available.  HP-UX is
 # one such example.  The packages which are available for this platform
-# install include files and libraries in user specified directories.  In 
-# order for this makefile to locate where these components may have been 
-# installed, gmake should be invoked with LPATH=/usr/lib:/usr/local/lib 
+# install include files and libraries in user specified directories.  In
+# order for this makefile to locate where these components may have been
+# installed, gmake should be invoked with LPATH=/usr/lib:/usr/local/lib
 # defined (adjusted as needed depending on where they may be installed).
 #
-# In the unlikely event that someone wants to build network capable 
-# simulators without networking support, invoking GNU make with 
+# In the unlikely event that someone wants to build network capable
+# simulators without networking support, invoking GNU make with
 # NONETWORK=1 on the command line will do the trick.
 #
 # By default, video support is enabled if the SDL2 development
@@ -44,49 +44,49 @@
 # If debugging is desired, then GNU make can be invoked with
 # DEBUG=1 on the command line.
 #
-# When building compiler optimized binaries with the gcc or clang 
-# compilers, invoking GNU make with LTO=1 on the command line will 
-# cause the build to use Link Time Optimization to maximally optimize 
-# the results.  Link Time Optimization can report errors which aren't 
-# otherwise detected and will also take significantly longer to 
+# When building compiler optimized binaries with the gcc or clang
+# compilers, invoking GNU make with LTO=1 on the command line will
+# cause the build to use Link Time Optimization to maximally optimize
+# the results.  Link Time Optimization can report errors which aren't
+# otherwise detected and will also take significantly longer to
 # complete.  Additionally, non debug builds default to build with an
-# optimization level of -O2.  This optimization level can be changed 
-# by invoking GNU OPTIMIZE=-O3 (or whatever optimize value you want) 
+# optimization level of -O2.  This optimization level can be changed
+# by invoking GNU OPTIMIZE=-O3 (or whatever optimize value you want)
 # on the command line if desired.
 #
-# The default setup will fail simulator build(s) if the compile 
-# produces any warnings.  These should be cleaned up before new 
-# or changd code is accepted into the code base.  This option 
+# The default setup will fail simulator build(s) if the compile
+# produces any warnings.  These should be cleaned up before new
+# or changed code is accepted into the code base.  This option
 # can be overridden if GNU make is invoked with WARNINGS=ALLOWED
 # on the command line.
 #
-# The default build will run per simulator tests if they are 
-# available.  If building without running tests is desired, 
-# then GNU make should be invoked with TESTS=0 on the command 
+# The default build will run per simulator tests if they are
+# available.  If building without running tests is desired,
+# then GNU make should be invoked with TESTS=0 on the command
 # line.
 #
 # Default test execution will produce summary output.  Detailed
-# test output can be produced if GNU make is invoked with 
+# test output can be produced if GNU make is invoked with
 # TEST_ARG=-v on the command line.
 #
-# simh project support is provided for simulators that are built with 
-# dependent packages provided with the or by the operating system 
-# distribution OR for platforms where that isn't directly available 
-# (OS X/macOS) by packages from specific package management systems (MacPorts 
-# or Homebrew).  Users wanting to build simulators with locally built 
-# dependent packages or packages provided by an unsupported package 
-# management system may be able to override where this procedure looks 
-# for include files and/or libraries.  Overrides can be specified by define 
-# exported environment variables or GNU make command line arguments which 
-# specify INCLUDES and/or LIBRARIES.  
+# simh project support is provided for simulators that are built with
+# dependent packages provided with the or by the operating system
+# distribution OR for platforms where that isn't directly available
+# (OS X/macOS) by packages from specific package management systems (MacPorts
+# or Homebrew).  Users wanting to build simulators with locally built
+# dependent packages or packages provided by an unsupported package
+# management system may be able to override where this procedure looks
+# for include files and/or libraries.  Overrides can be specified by define
+# exported environment variables or GNU make command line arguments which
+# specify INCLUDES and/or LIBRARIES.
 # Each of these, if specified, must be the complete list include directories
-# or library directories that should be used with each element separated by 
+# or library directories that should be used with each element separated by
 # colons. (i.e. INCLUDES=/usr/include/:/usr/local/include/:...)
-# If this doesn't work for you and/or you're interested in using a different 
+# If this doesn't work for you and/or you're interested in using a different
 # ToolChain, you're free to solve this problem on your own.  Good Luck.
 #
 # Some environments may have the LLVM (clang) compiler installed as
-# an alternate to gcc.  If you want to build with the clang compiler, 
+# an alternate to gcc.  If you want to build with the clang compiler,
 # invoke make with GCC=clang.
 #
 # Internal ROM support can be disabled if GNU make is invoked with
@@ -362,7 +362,7 @@ ifeq (${WIN32},)  #*nix Environments (&& cygwin)
       $(shell git log -1 --pretty="SIM_GIT_COMMIT_ID %H$(GIT_EXTRA_FILES)%nSIM_GIT_COMMIT_TIME $(isodate)" >.git-commit-id)
     endif
   endif
-  LTO_EXCLUDE_VERSIONS = 
+  LTO_EXCLUDE_VERSIONS =
   PCAPLIB = pcap
   ifeq (agcc,$(findstring agcc,${GCC})) # Android target build?
     OS_CCDEFS += -D_GNU_SOURCE
@@ -585,16 +585,16 @@ ifeq (${WIN32},)  #*nix Environments (&& cygwin)
       LIBEXTSAVE := ${LIBEXT}
       LIBEXT = a
       ifneq (,$(call find_lib,pthread))
-        AIO_CCDEFS += -DUSE_READER_THREAD -DSIM_ASYNCH_IO 
+        AIO_CCDEFS += -DUSE_READER_THREAD -DSIM_ASYNCH_IO
         OS_LDFLAGS += -lpthread
         $(info using libpthread: $(call find_lib,pthread) $(call find_include,pthread))
       else
         ifneq (,$(findstring Haiku,$(OSTYPE)))
-          AIO_CCDEFS += -DUSE_READER_THREAD -DSIM_ASYNCH_IO 
+          AIO_CCDEFS += -DUSE_READER_THREAD -DSIM_ASYNCH_IO
           $(info using libpthread: $(call find_include,pthread))
         else
           ifeq (Darwin,$(OSTYPE))
-            AIO_CCDEFS += -DUSE_READER_THREAD -DSIM_ASYNCH_IO 
+            AIO_CCDEFS += -DUSE_READER_THREAD -DSIM_ASYNCH_IO
             OS_LDFLAGS += -lpthread
             $(info using macOS libpthread: $(call find_include,pthread))
           endif
@@ -675,20 +675,20 @@ ifeq (${WIN32},)  #*nix Environments (&& cygwin)
       OS_CCDEFS += -DHAVE_LIBPNG
       OS_LDFLAGS += -lpng
       $(info using libpng: $(call find_lib,png) $(call find_include,png))
-      ifneq (,$(call find_include,zlib))
-        ifneq (,$(call find_lib,z))
-          OS_CCDEFS += -DHAVE_ZLIB
-          OS_LDFLAGS += -lz
-          $(info using zlib: $(call find_lib,z) $(call find_include,zlib))
-        endif
-      endif
+    endif
+  endif
+  ifneq (,$(call find_include,zlib))
+    ifneq (,$(call find_lib,z))
+      OS_CCDEFS += -DHAVE_ZLIB
+      OS_LDFLAGS += -lz
+      $(info using zlib: $(call find_lib,z) $(call find_include,zlib))
     endif
   endif
   ifneq (,$(call find_include,glob))
     OS_CCDEFS += -DHAVE_GLOB
   else
     ifneq (,$(call find_include,fnmatch))
-      OS_CCDEFS += -DHAVE_FNMATCH    
+      OS_CCDEFS += -DHAVE_FNMATCH
     endif
   endif
   ifneq (,$(call find_include,sys/mman))
@@ -1285,8 +1285,8 @@ else
         $(info ***********************************************************************)
         $(error .)
       else
-        $(info **  date.  For the most functional and stable features you shoud     **)
-        $(info **  Download the file:                                               **)
+        $(info **  date.  For the most functional and stable features you should    **)
+        $(info **  download the file:                                               **)
         $(info **  https://github.com/simh/windows-build/archive/windows-build.zip  **)
         $(info **  Extract the windows-build-windows-build folder it contains to    **)
         $(info **  $(abspath ..\)                                                   **)
@@ -1332,7 +1332,7 @@ else
   else
     CFLAGS_O := $(OPTIMIZE)
   endif
-  LDFLAGS_O = 
+  LDFLAGS_O =
   GCC_MAJOR_VERSION = $(firstword $(subst  ., ,$(GCC_VERSION)))
   ifneq (3,$(GCC_MAJOR_VERSION))
     ifeq (,$(GCC_OPTIMIZERS_CMD))
@@ -1671,7 +1671,7 @@ VAX8200 = ${VAXD}/vax_cpu.c ${VAXD}/vax_cpu1.c ${VAXD}/vax_fpa.c \
 	${VAXD}/vax_mmu.c ${VAXD}/vax_sys.c  ${VAXD}/vax_syscm.c \
 	${VAXD}/vax_watch.c ${VAXD}/vax820_stddev.c ${VAXD}/vax820_bi.c \
 	${VAXD}/vax820_mem.c ${VAXD}/vax820_uba.c ${VAXD}/vax820_ka.c \
-	${VAXD}/vax820_syslist.c \
+	${VAXD}/vax_uw.c ${VAXD}/vax820_syslist.c \
 	${PDP11D}/pdp11_rl.c ${PDP11D}/pdp11_rq.c ${PDP11D}/pdp11_ts.c \
 	${PDP11D}/pdp11_dz.c ${PDP11D}/pdp11_lp.c ${PDP11D}/pdp11_tq.c \
 	${PDP11D}/pdp11_xu.c ${PDP11D}/pdp11_ry.c ${PDP11D}/pdp11_cr.c \
@@ -1686,7 +1686,7 @@ VAX8600 = ${VAXD}/vax_cpu.c ${VAXD}/vax_cpu1.c ${VAXD}/vax_fpa.c \
 	${VAXD}/vax_mmu.c ${VAXD}/vax_sys.c  ${VAXD}/vax_syscm.c \
 	${VAXD}/vax860_stddev.c ${VAXD}/vax860_sbia.c \
 	${VAXD}/vax860_abus.c ${VAXD}/vax780_uba.c ${VAXD}/vax7x0_mba.c \
-	${VAXD}/vax860_syslist.c \
+	${VAXD}/vax_uw.c ${VAXD}/vax860_syslist.c \
 	${PDP11D}/pdp11_rl.c ${PDP11D}/pdp11_rq.c ${PDP11D}/pdp11_ts.c \
 	${PDP11D}/pdp11_dz.c ${PDP11D}/pdp11_lp.c ${PDP11D}/pdp11_tq.c \
 	${PDP11D}/pdp11_xu.c ${PDP11D}/pdp11_ry.c ${PDP11D}/pdp11_cr.c \
@@ -1730,20 +1730,34 @@ TT2500_OPT = -I ${TT2500D} ${DISPLAY_OPT} ${AIO_CCDEFS}
 
 
 PDP8D = ${SIMHD}/PDP8
+PDP8_DISPLAY_OPT = -DDISPLAY_TYPE=DIS_VR17 -DPIX_SCALE=RES_HALF -DPIX_SIZE=1
 PDP8 = ${PDP8D}/pdp8_cpu.c ${PDP8D}/pdp8_clk.c ${PDP8D}/pdp8_df.c \
 	${PDP8D}/pdp8_dt.c ${PDP8D}/pdp8_lp.c ${PDP8D}/pdp8_mt.c \
 	${PDP8D}/pdp8_pt.c ${PDP8D}/pdp8_rf.c ${PDP8D}/pdp8_rk.c \
 	${PDP8D}/pdp8_rx.c ${PDP8D}/pdp8_sys.c ${PDP8D}/pdp8_tt.c \
 	${PDP8D}/pdp8_ttx.c ${PDP8D}/pdp8_rl.c ${PDP8D}/pdp8_tsc.c \
-	${PDP8D}/pdp8_td.c ${PDP8D}/pdp8_ct.c ${PDP8D}/pdp8_fpp.c
-PDP8_OPT = -I ${PDP8D}
+	${PDP8D}/pdp8_td.c ${PDP8D}/pdp8_ct.c ${PDP8D}/pdp8_fpp.c \
+	${PDP8D}/pdp8_vc8.c ${DISPLAYL}
+PDP8_OPT = -I ${PDP8D} $(DISPLAY_OPT) $(PDP8_DISPLAY_OPT) -DUSE_DISPLAY -g
+
+
+PDP12D = ${SIMHD}/PDP12
+PDP12_DISPLAY_OPT = -DDISPLAY_TYPE=DIS_VR14 -DPIX_SCALE=RES_FULL
+PDP12 = ${PDP12D}/pdp8_cpu.c ${PDP12D}/pdp8_clk.c ${PDP12D}/pdp8_df.c \
+	${PDP12D}/pdp8_dt.c ${PDP12D}/pdp8_lp.c ${PDP12D}/pdp8_mt.c \
+	${PDP12D}/pdp8_pt.c ${PDP12D}/pdp8_rf.c ${PDP12D}/pdp8_rk.c \
+	${PDP12D}/pdp8_rx.c ${PDP12D}/pdp8_sys.c ${PDP12D}/pdp8_tt.c \
+	${PDP12D}/pdp8_ttx.c ${PDP12D}/pdp8_rl.c ${PDP12D}/pdp8_tsc.c \
+	${PDP12D}/pdp8_td.c ${PDP12D}/pdp8_ct.c ${PDP12D}/pdp8_fpp.c \
+	${PDP12D}/pdp8_vc12.c ${PDP12D}/pdp8_lt.c ${DISPLAYL}
+PDP12_OPT = -DPDP12D -I ${PDP12D} ${DISPLAY_OPT} $(PDP12_DISPLAY_OPT)
 
 
 H316D = ${SIMHD}/H316
 H316 = ${H316D}/h316_stddev.c ${H316D}/h316_lp.c ${H316D}/h316_cpu.c \
 	${H316D}/h316_sys.c ${H316D}/h316_mt.c ${H316D}/h316_fhd.c \
 	${H316D}/h316_dp.c ${H316D}/h316_rtc.c ${H316D}/h316_imp.c \
-	${H316D}/h316_hi.c ${H316D}/h316_mi.c ${H316D}/h316_udp.c 
+	${H316D}/h316_hi.c ${H316D}/h316_mi.c ${H316D}/h316_udp.c
 H316_OPT = -I ${H316D} -D VM_IMPTIP
 
 
@@ -1795,7 +1809,7 @@ I7090 = ${I7000D}/i7090_cpu.c ${I7000D}/i7090_sys.c ${I7000D}/i7090_chan.c \
 	${I7000D}/i7090_cdr.c ${I7000D}/i7090_cdp.c ${I7000D}/i7090_lpr.c \
 	${I7000D}/i7000_chan.c ${I7000D}/i7000_mt.c ${I7000D}/i7090_drum.c \
 	${I7000D}/i7090_hdrum.c ${I7000D}/i7000_chron.c ${I7000D}/i7000_dsk.c \
-	${I7000D}/i7000_com.c ${I7000D}/i7000_ht.c 
+	${I7000D}/i7000_com.c ${I7000D}/i7000_ht.c
 I7090_OPT = -I $(I7000D) -DUSE_INT64 -DI7090 -DUSE_SIM_CARD
 
 I7080D = ${SIMHD}/I7000
@@ -1803,7 +1817,7 @@ I7080 = ${I7000D}/i7080_cpu.c ${I7000D}/i7080_sys.c ${I7000D}/i7080_chan.c \
 	${I7000D}/i7080_drum.c ${I7000D}/i7000_cdp.c ${I7000D}/i7000_cdr.c \
 	${I7000D}/i7000_con.c ${I7000D}/i7000_chan.c ${I7000D}/i7000_lpr.c \
 	${I7000D}/i7000_mt.c ${I7000D}/i7000_chron.c ${I7000D}/i7000_dsk.c \
-	${I7000D}/i7000_com.c ${I7000D}/i7000_ht.c 
+	${I7000D}/i7000_com.c ${I7000D}/i7000_ht.c
 I7080_OPT = -I $(I7000D) -DI7080 -DUSE_SIM_CARD
 
 I7070D = ${SIMHD}/I7000
@@ -1811,7 +1825,7 @@ I7070 = ${I7000D}/i7070_cpu.c ${I7000D}/i7070_sys.c ${I7000D}/i7070_chan.c \
 	${I7000D}/i7000_cdp.c ${I7000D}/i7000_cdr.c ${I7000D}/i7000_con.c \
 	${I7000D}/i7000_chan.c ${I7000D}/i7000_lpr.c ${I7000D}/i7000_mt.c \
 	${I7000D}/i7000_chron.c ${I7000D}/i7000_dsk.c ${I7000D}/i7000_com.c \
-	${I7000D}/i7000_ht.c 
+	${I7000D}/i7000_ht.c
 I7070_OPT = -I $(I7000D) -DUSE_INT64 -DI7070 -DUSE_SIM_CARD
 
 I7010D = ${SIMHD}/I7000
@@ -1819,20 +1833,20 @@ I7010 = ${I7000D}/i7010_cpu.c ${I7000D}/i7010_sys.c ${I7000D}/i7010_chan.c \
 	${I7000D}/i7000_cdp.c ${I7000D}/i7000_cdr.c ${I7000D}/i7000_con.c \
 	${I7000D}/i7000_chan.c ${I7000D}/i7000_lpr.c ${I7000D}/i7000_mt.c \
 	${I7000D}/i7000_chron.c ${I7000D}/i7000_dsk.c ${I7000D}/i7000_com.c \
-	${I7000D}/i7000_ht.c 
+	${I7000D}/i7000_ht.c
 I7010_OPT = -I $(I7010D) -DI7010 -DUSE_SIM_CARD
 
 I704D  = ${SIMHD}/I7000
 I704   = ${I7000D}/i7090_cpu.c ${I7000D}/i7090_sys.c ${I7000D}/i7090_chan.c \
 	 ${I7000D}/i7090_cdr.c ${I7000D}/i7090_cdp.c ${I7000D}/i7090_lpr.c \
-	 ${I7000D}/i7000_mt.c ${I7000D}/i7090_drum.c ${I7000D}/i7000_chan.c 
+	 ${I7000D}/i7000_mt.c ${I7000D}/i7090_drum.c ${I7000D}/i7000_chan.c
 I704_OPT = -I $(I7000D) -DUSE_INT64 -DI704 -DUSE_SIM_CARD
 
 
 I701D  = ${SIMHD}/I7000
 I701   = ${I7000D}/i701_cpu.c ${I7000D}/i701_sys.c ${I7000D}/i701_chan.c \
 	 ${I7000D}/i7090_cdr.c ${I7000D}/i7090_cdp.c ${I7000D}/i7090_lpr.c \
-	 ${I7000D}/i7000_mt.c ${I7000D}/i7090_drum.c ${I7000D}/i7000_chan.c 
+	 ${I7000D}/i7000_mt.c ${I7000D}/i7090_drum.c ${I7000D}/i7000_chan.c
 I701_OPT = -I $(I7000D) -DUSE_INT64 -DI701 -DUSE_SIM_CARD
 
 
@@ -1860,8 +1874,8 @@ IBM1130 = ${IBM1130D}/ibm1130_cpu.c ${IBM1130D}/ibm1130_cr.c \
 	${IBM1130D}/ibm1130_t2741.c
 IBM1130_OPT = -I ${IBM1130D}
 ifneq (${WIN32},)
-IBM1130_OPT += -DGUI_SUPPORT -lgdi32 ${BIN}ibm1130.o 
-endif  
+IBM1130_OPT += -DGUI_SUPPORT -lgdi32 ${BIN}ibm1130.o
+endif
 
 
 ID16D = ${SIMHD}/Interdata
@@ -1894,6 +1908,8 @@ ALTAIR_OPT = -I ${ALTAIRD}
 
 ALTAIRZ80D = ${SIMHD}/AltairZ80
 ALTAIRZ80 = ${ALTAIRZ80D}/altairz80_cpu.c ${ALTAIRZ80D}/altairz80_cpu_nommu.c \
+	${ALTAIRZ80D}/s100_tuart.c \
+	${ALTAIRZ80D}/s100_dazzler.c \
 	${ALTAIRZ80D}/s100_jair.c \
 	${ALTAIRZ80D}/sol20.c \
 	${ALTAIRZ80D}/s100_vdm1.c \
@@ -1981,7 +1997,7 @@ INTEL_PARTS = \
 	${INTELSYSC}/multibus.c \
 	${INTELSYSC}/mem.c \
 	${INTELSYSC}/sys.c \
-	${INTELSYSC}/zx200a.c 
+	${INTELSYSC}/zx200a.c
 
 
 INTEL_MDSD = ${INTELSYSD}/Intel-MDS
@@ -2006,7 +2022,7 @@ IBMPCXT = ${IBMPCXTC}/i8088.c ${IBMPCXTD}/ibmpcxt_sys.c \
 	${IBMPCXTC}/i8253.c ${IBMPCXTC}/i8259.c \
 	${IBMPCXTC}/i8255.c ${IBMPCXTD}/ibmpcxt.c \
 	${IBMPCXTC}/pceprom.c ${IBMPCXTC}/pcram8.c \
-	${IBMPCXTC}/pcbus.c ${IBMPCXTC}/i8237.c 
+	${IBMPCXTC}/pcbus.c ${IBMPCXTC}/i8237.c
 IBMPCXT_OPT = -I ${IBMPCXTD}
 
 
@@ -2042,19 +2058,20 @@ BESM6_OPT = -I ${BESM6D} -DUSE_INT64 $(BESM6_PANEL_OPT)
 
 PDP6D = ${SIMHD}/PDP10
 ifneq (,${DISPLAY_OPT})
-  PDP6_DISPLAY_OPT = 
+  PDP6_DISPLAY_OPT =
 endif
 PDP6 = ${PDP6D}/kx10_cpu.c ${PDP6D}/kx10_sys.c ${PDP6D}/kx10_cty.c \
 	${PDP6D}/kx10_lp.c ${PDP6D}/kx10_pt.c ${PDP6D}/kx10_cr.c \
 	${PDP6D}/kx10_cp.c ${PDP6D}/pdp6_dct.c ${PDP6D}/pdp6_dtc.c \
 	${PDP6D}/pdp6_mtc.c ${PDP6D}/pdp6_dsk.c ${PDP6D}/pdp6_dcs.c \
-	${PDP6D}/kx10_dpy.c ${PDP6D}/pdp6_slave.c ${DISPLAYL} ${DISPLAY340}
+	${PDP6D}/kx10_dpy.c ${PDP6D}/pdp6_slave.c ${PDP6D}/pdp6_ge.c \
+    ${DISPLAYL} ${DISPLAY340}
 PDP6_OPT = -DPDP6=1 -DUSE_INT64 -I ${PDP6D} -DUSE_SIM_CARD ${DISPLAY_OPT} ${PDP6_DISPLAY_OPT} \
 	   ${AIO_CCDEFS}
 
 KA10D = ${SIMHD}/PDP10
 ifneq (,${DISPLAY_OPT})
-  KA10_DISPLAY_OPT = 
+  KA10_DISPLAY_OPT =
 endif
 KA10 = ${KA10D}/kx10_cpu.c ${KA10D}/kx10_sys.c ${KA10D}/kx10_df.c \
 	${KA10D}/kx10_dp.c ${KA10D}/kx10_mt.c ${KA10D}/kx10_cty.c \
@@ -2069,9 +2086,9 @@ KA10 = ${KA10D}/kx10_cpu.c ${KA10D}/kx10_sys.c ${KA10D}/kx10_df.c \
 	${KA10D}/pdp6_dtc.c ${KA10D}/pdp6_mtc.c ${KA10D}/pdp6_dsk.c \
 	${KA10D}/pdp6_dcs.c ${KA10D}/ka10_dpk.c ${KA10D}/kx10_dpy.c \
 	${KA10D}/ka10_ai.c ${KA10D}/ka10_iii.c ${KA10D}/kx10_disk.c \
-	${KA10D}/ka10_pclk.c ${KA10D}/ka10_tv.c \
-	${DISPLAYL} ${DISPLAY340} ${DISPLAYIII}
-KA10_OPT = -DKA=1 -DUSE_INT64 -I ${KA10D} -DUSE_SIM_CARD ${NETWORK_OPT} ${DISPLAY_OPT} ${KA10_DISPLAY_OPT}
+	${KA10D}/ka10_pclk.c ${KA10D}/ka10_tv.c ${KA10D}/ka10_dd.c \
+    ${KA10D}/kx10_ddc.c ${DISPLAYL} ${DISPLAY340} ${DISPLAYIII}
+KA10_OPT = -DKA=1 -DUSE_INT64 -I ${KA10D} -DUSE_SIM_CARD ${NETWORK_OPT} ${DISPLAY_OPT} ${KA10_DISPLAY_OPT} ${AIO_CCDEFS}
 ifneq (${PANDA_LIGHTS},)
 # ONLY for Panda display.
 KA10_OPT += -DPANDA_LIGHTS
@@ -2081,7 +2098,7 @@ endif
 
 KI10D = ${SIMHD}/PDP10
 ifneq (,${DISPLAY_OPT})
-KI10_DISPLAY_OPT = 
+KI10_DISPLAY_OPT =
 endif
 KI10 = ${KI10D}/kx10_cpu.c ${KI10D}/kx10_sys.c ${KI10D}/kx10_df.c \
 	${KI10D}/kx10_dp.c ${KI10D}/kx10_mt.c ${KI10D}/kx10_cty.c \
@@ -2090,8 +2107,8 @@ KI10 = ${KI10D}/kx10_cpu.c ${KI10D}/kx10_sys.c ${KI10D}/kx10_df.c \
 	${KI10D}/kx10_dt.c ${KI10D}/kx10_dk.c ${KI10D}/kx10_cr.c \
 	${KI10D}/kx10_cp.c ${KI10D}/kx10_tu.c ${KI10D}/kx10_rs.c \
 	${KI10D}/kx10_imp.c ${KI10D}/kx10_dpy.c ${KI10D}/kx10_disk.c \
-	${DISPLAYL} ${DISPLAY340}
-KI10_OPT = -DKI=1 -DUSE_INT64 -I ${KI10D} -DUSE_SIM_CARD ${NETWORK_OPT} ${DISPLAY_OPT} ${KI10_DISPLAY_OPT}
+    ${KI10D}/kx10_ddc.c ${KI10D}/kx10_tym.c ${DISPLAYL} ${DISPLAY340}
+KI10_OPT = -DKI=1 -DUSE_INT64 -I ${KI10D} -DUSE_SIM_CARD ${NETWORK_OPT} ${DISPLAY_OPT} ${KI10_DISPLAY_OPT} ${AIO_CCDEFS}
 ifneq (${PANDA_LIGHTS},)
 # ONLY for Panda display.
 KI10_OPT += -DPANDA_LIGHTS
@@ -2107,7 +2124,7 @@ KL10 =  ${KL10D}/kx10_cpu.c ${KL10D}/kx10_sys.c ${KL10D}/kx10_df.c \
     ${KL10D}/kx10_rp.c ${KL10D}/kx10_tu.c ${KL10D}/kx10_rs.c \
     ${KL10D}/kx10_imp.c ${KL10D}/kl10_fe.c ${KL10D}/ka10_pd.c \
     ${KL10D}/ka10_ch10.c ${KL10D}/kl10_nia.c ${KL10D}/kx10_disk.c
-KL10_OPT = -DKL=1 -DUSE_INT64 -I $(KL10D) -DUSE_SIM_CARD ${NETWORK_OPT} 
+KL10_OPT = -DKL=1 -DUSE_INT64 -I $(KL10D) -DUSE_SIM_CARD ${NETWORK_OPT}  ${AIO_CCDEFS}
 
 KS10D = ${SIMHD}/PDP10
 KS10 = ${KS10D}/kx10_cpu.c ${KS10D}/kx10_sys.c ${KS10D}/kx10_disk.c \
@@ -2115,7 +2132,7 @@ KS10 = ${KS10D}/kx10_cpu.c ${KS10D}/kx10_sys.c ${KS10D}/kx10_disk.c \
 	${KS10D}/kx10_rp.c ${KS10D}/kx10_tu.c ${KS10D}/ks10_dz.c \
 	${KS10D}/ks10_tcu.c ${KS10D}/ks10_lp.c ${KS10D}/ks10_ch11.c \
 	${KS10D}/ks10_kmc.c ${KS10D}/ks10_dup.c ${KS10D}/kx10_imp.c
-KS10_OPT = -DKS=1 -DUSE_INT64 -I $(KS10D) -I $(PDP11D) ${NETWORK_OPT}
+KS10_OPT = -DKS=1 -DUSE_INT64 -I $(KS10D) -I $(PDP11D) ${NETWORK_OPT} ${AIO_CCDEFS}
 
 ATT3B2D = ${SIMHD}/3B2
 ATT3B2M400 = ${ATT3B2D}/3b2_cpu.c ${ATT3B2D}/3b2_sys.c \
@@ -2144,7 +2161,8 @@ SIGMA = ${SIGMAD}/sigma_cpu.c ${SIGMAD}/sigma_sys.c ${SIGMAD}/sigma_cis.c \
 	${SIGMAD}/sigma_coc.c ${SIGMAD}/sigma_dk.c ${SIGMAD}/sigma_dp.c \
 	${SIGMAD}/sigma_fp.c ${SIGMAD}/sigma_io.c ${SIGMAD}/sigma_lp.c \
 	${SIGMAD}/sigma_map.c ${SIGMAD}/sigma_mt.c ${SIGMAD}/sigma_pt.c \
-	${SIGMAD}/sigma_rad.c ${SIGMAD}/sigma_rtc.c ${SIGMAD}/sigma_tt.c
+	${SIGMAD}/sigma_rad.c ${SIGMAD}/sigma_rtc.c ${SIGMAD}/sigma_tt.c \
+	${SIGMAD}/sigma_cr.c ${SIGMAD}/sigma_cp.c 
 SIGMA_OPT = -I ${SIGMAD}
 
 SEL32D = ${SIMHD}/SEL32
@@ -2188,18 +2206,18 @@ SAGE = ${SAGED}/sage_cpu.c ${SAGED}/sage_sys.c ${SAGED}/sage_stddev.c \
     ${SAGED}/sage_cons.c ${SAGED}/sage_fd.c ${SAGED}/sage_lp.c \
     ${SAGED}/m68k_cpu.c ${SAGED}/m68k_mem.c ${SAGED}/m68k_scp.c \
     ${SAGED}/m68k_parse.tab.c ${SAGED}/m68k_sys.c \
-    ${SAGED}/i8251.c ${SAGED}/i8253.c ${SAGED}/i8255.c ${SAGED}/i8259.c ${SAGED}/i8272.c 
+    ${SAGED}/i8251.c ${SAGED}/i8253.c ${SAGED}/i8255.c ${SAGED}/i8259.c ${SAGED}/i8272.c
 SAGE_OPT = -I ${SAGED} -DHAVE_INT64
 
 PDQ3D = ${SIMHD}/PDQ-3
 PDQ3 = ${PDQ3D}/pdq3_cpu.c ${PDQ3D}/pdq3_sys.c ${PDQ3D}/pdq3_stddev.c \
-    ${PDQ3D}/pdq3_mem.c ${PDQ3D}/pdq3_debug.c ${PDQ3D}/pdq3_fdc.c 
+    ${PDQ3D}/pdq3_mem.c ${PDQ3D}/pdq3_debug.c ${PDQ3D}/pdq3_fdc.c
 PDQ3_OPT = -I ${PDQ3D}
 
 #
 # Build everything (not the unsupported/incomplete or experimental simulators)
 #
-ALL = pdp1 pdp4 pdp7 pdp8 pdp9 pdp15 pdp11 pdp10 \
+ALL = pdp1 pdp4 pdp7 pdp8 pdp9 pdp12 pdp15 pdp11 pdp10 \
 	vax microvax3900 microvax1 rtvax1000 microvax2 vax730 vax750 vax780 \
 	vax8200 vax8600 besm6 \
 	microvax2000 infoserver100 infoserver150vxt microvax3100 microvax3100e \
@@ -2210,7 +2228,7 @@ ALL = pdp1 pdp4 pdp7 pdp8 pdp9 pdp15 pdp11 pdp10 \
 	swtp6800mp-a swtp6800mp-a2 tx-0 ssem b5500 intel-mds \
 	scelbi 3b2 3b2-700 i701 i704 i7010 i7070 i7080 i7090 \
 	sigma uc15 pdp10-ka pdp10-ki pdp10-kl pdp10-ks pdp6 i650 \
-	imlac tt2500 sel32 
+	imlac tt2500 sel32
 
 all : ${ALL}
 
@@ -2225,7 +2243,7 @@ else
 	if exist BIN rmdir /s /q BIN
 endif
 
-${BUILD_ROMS} : 
+${BUILD_ROMS} :
 	${MKDIRBIN}
 ifeq (${WIN32},)
 	@if ${TEST} \( ! -e $@ \) -o \( sim_BuildROMs.c -nt $@ \) ; then ${CC} sim_BuildROMs.c ${CC_OUTSPEC}; fi
@@ -2271,6 +2289,15 @@ ${BIN}pdp8${EXE} : ${PDP8} ${SIM}
 	${CC} ${PDP8} ${SIM} ${PDP8_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${PDP8D},pdp8))
 	$@ $(call find_test,${PDP8D},pdp8) ${TEST_ARG}
+endif
+
+pdp12 : ${BIN}pdp12${EXE}
+
+${BIN}pdp12${EXE} : ${PDP12} ${SIM}
+	${MKDIRBIN}
+	${CC} ${PDP12} ${SIM} ${PDP12_OPT} ${CC_OUTSPEC} ${LDFLAGS}
+ifneq (,$(call find_test,${PDP12D},pdp12))
+	$@ $(call find_test,${PDP12D},pdp12) ${TEST_ARG}
 endif
 
 pdp9 : ${BIN}pdp9${EXE}
@@ -2861,7 +2888,7 @@ endif
 
 b5500 : ${BIN}b5500${EXE}
 
-${BIN}b5500${EXE} : ${B5500} ${SIM} 
+${BIN}b5500${EXE} : ${B5500} ${SIM}
 	${MKDIRBIN}
 	${CC} ${B5500} ${SIM} ${B5500_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${B5500D},b5500))
@@ -2871,7 +2898,7 @@ endif
 3b2-400 : 3b2
 
 3b2 : ${BIN}3b2${EXE}
- 
+
 ${BIN}3b2${EXE} : ${ATT3B2M400} ${SIM}
 	${MKDIRBIN}
 	${CC} ${ATT3B2M400} ${SIM} ${ATT3B2M400_OPT} ${CC_OUTSPEC} ${LDFLAGS}
@@ -2895,7 +2922,7 @@ endif
 
 i7090 : ${BIN}i7090${EXE}
 
-${BIN}i7090${EXE} : ${I7090} ${SIM} 
+${BIN}i7090${EXE} : ${I7090} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I7090} ${SIM} ${I7090_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I7000D},i7090))
@@ -2904,7 +2931,7 @@ endif
 
 i7080 : ${BIN}i7080${EXE}
 
-${BIN}i7080${EXE} : ${I7080} ${SIM} 
+${BIN}i7080${EXE} : ${I7080} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I7080} ${SIM} ${I7080_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I7080D},i7080))
@@ -2913,7 +2940,7 @@ endif
 
 i7070 : ${BIN}i7070${EXE}
 
-${BIN}i7070${EXE} : ${I7070} ${SIM} 
+${BIN}i7070${EXE} : ${I7070} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I7070} ${SIM} ${I7070_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I7070D},i7070))
@@ -2922,7 +2949,7 @@ endif
 
 i7010 : ${BIN}i7010${EXE}
 
-${BIN}i7010${EXE} : ${I7010} ${SIM} 
+${BIN}i7010${EXE} : ${I7010} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I7010} ${SIM} ${I7010_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I7010D},i7010))
@@ -2931,7 +2958,7 @@ endif
 
 i704 : ${BIN}i704${EXE}
 
-${BIN}i704${EXE} : ${I704} ${SIM} 
+${BIN}i704${EXE} : ${I704} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I704} ${SIM} ${I704_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I704D},i704))
@@ -2940,7 +2967,7 @@ endif
 
 i701 : ${BIN}i701${EXE}
 
-${BIN}i701${EXE} : ${I701} ${SIM} 
+${BIN}i701${EXE} : ${I701} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I701} ${SIM} ${I701_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I701D},i701))
@@ -2949,7 +2976,7 @@ endif
 
 i650 : ${BIN}i650${EXE}
 
-${BIN}i650${EXE} : ${I650} ${SIM} 
+${BIN}i650${EXE} : ${I650} ${SIM}
 	${MKDIRBIN}
 	${CC} ${I650} ${SIM} ${I650_OPT} ${CC_OUTSPEC} ${LDFLAGS}
 ifneq (,$(call find_test,${I650D},i650))

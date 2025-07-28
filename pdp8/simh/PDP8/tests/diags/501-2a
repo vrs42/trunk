@@ -1,0 +1,28 @@
+#:: Basic Instruction Test (801-2a)
+#:: This test halts after the first few instructions to
+#:: allow manual verification of OSR and CLA operation.
+#:: Correct operation is to print "2A" every pass.
+set cpu pdp5
+echof -n "** PDP-5: Basic Instruction Test (2a): "
+load -r diags/maindec-801-2a-pb
+# Edit 801-2a back to PDP-5 interrupt service.
+d 4730 3002
+d 4746 3002
+d 4762 3002
+d 5004 3002
+d 5025 3002
+d 5054 3002
+d 5077 3002
+d 5124 3002
+d 5052 3001
+d 5122 3001
+d 5064 1001
+d 5111 1001
+d 5135 1001
+d sr 07777
+reset
+go 01200
+e ac
+if (PC != 01203 || AC != 0) echof "MAINDEC-501-2a failed."; exit 1
+expect -r [25] "2A" echof; echof "** PDP-5: MAINDEC-501-2a passed."
+c

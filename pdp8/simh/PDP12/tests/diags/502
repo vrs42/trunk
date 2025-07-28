@@ -1,0 +1,18 @@
+#:: Memory Checkerboad Test (502)
+#:: This test writes a pattern and it's complement to memory.
+#:: We run the low test, as the high test deposits in 0000,
+#:: which is a no-no on the PDP-5.
+set cpu pdp5
+echof -n "** PDP-5: Memory Checkerboard Test (1): "
+load -r diags/maindec-802-pm2
+#expect -r [25] "1" echof; echof "** PDP-5: MAINDEC-502 passed."
+d sr 0100
+br 0022
+reset
+go 0001
+e ac
+if (PC == 0071) echof "MAINDEC-502 failed."; exit 1
+if (AC == 0074) echof "MAINDEC-502 failed."; exit 1
+if (PC == 0022) echof "MAINDEC-502 passed."
+#echof "MAINDEC-502 passed."
+nobr

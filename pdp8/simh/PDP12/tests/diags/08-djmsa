@@ -1,0 +1,18 @@
+:: PDP-8/A: 1-4K MS8-A MOS Memory Test
+echof "** PDP-8: 1-4K MS8-A MOS Memory Test: "
+load diags/maindec-08-djmsa-a-pb
+#
+# 0021 Software Switch Register:
+# 0	Switch Register Present
+# 1	Loop on Error
+# 2	Loop on Test
+dep 0021 4000
+#
+# Hardware Switch Register:
+# 1	Loop on Error
+# 2	Loop on Test
+# 3	Halt at end of test
+dep sr 0400
+go -q 0200
+if (PC != 01302) e pc; echof "MAINDEC-08-DJMSA failed."; exit 1
+echof "** PDP-8: 1-4K MS8-A MOS Memory Test passed"

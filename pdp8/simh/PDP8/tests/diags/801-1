@@ -1,0 +1,17 @@
+#:: Basic Instruction Test (801-1)
+#:: This test halts after the first few instructions to
+#:: allow manual verification of OSR and CLA operation.
+#:: Correct operation is to print "?@?1" every pass.
+echof -n "** PDP-8: Basic Instruction Test (1): "
+load -r diags/maindec-801-1-pm
+reset
+go 0200
+if (PC != 0201 || AC != 0) echof "MAINDEC-801-1 failed."; exit 1
+d sr 7777
+c
+if (PC != 00203) echof "MAINDEC-801-1 failed pc."; exit 1
+if (AC != 07777) echof "MAINDEC-801-1 failed ac."; exit 1
+c
+if (PC != 0206 || AC != 0) echof "MAINDEC-801-1 failed."; exit 1
+expect -r [25] "1" echof; echof "** PDP-8: MAINDEC-801-1 passed."
+c

@@ -5,7 +5,7 @@
   - [Why CMake?](#why-cmake)
   - [Before You Begin Building...](#before-you-begin-building)
     - [Toolchains and Tools](#toolchains-and-tools)
-      - [Ninja: "failed recompaction: Permission denied"](#ninja-file-recompation-permission-denied)
+      - [Ninja: "failed recompaction: Permission denied"](#ninja-file-recompaction-permission-denied)
       - [Windows XP-compatible/Server 2003 binaries](#windows-xp-compatibleserver-2003-binaries)
     - [Feature Libraries](#feature-libraries)
       - [Linux, macOS and MinGW-w64](#linux-macos-and-mingw-w64)
@@ -43,7 +43,7 @@ framework. A sample of the supported build environments include:
   - Unix Makefiles
   - [MinGW Makefiles][mingw64]
   - [Ninja][ninja]
-  - macOS XCode
+  - macOS Xcode
   - MS Visual Studio solutions (2015, 2017, 2019, 2022)
   - IDE build wrappers ([Sublime Text][sublime] and [CodeBlocks][codeblocks])
 
@@ -189,7 +189,7 @@ to select a 32-bit target architecture and the `v141_xp` toolkit.
 
 _VS2022_: Install the `v141_xp` tools
 
-Start the Visual Studio Installler, whether this is a new VS2022 install or
+Start the Visual Studio Installer, whether this is a new VS2022 install or
 modifying an existing installation.
 
 - New install
@@ -219,7 +219,7 @@ the [command line](#cmake-command-line) or [via the IDE](#xp-compatible-build-vi
 
 _VS2019_: Install the `v141_xp` tools.
 
-Start the Visual Studio Installler, whether this is a new VS2019 install or
+Start the Visual Studio Installer, whether this is a new VS2019 install or
 modifying an existing installation.
 
 - New installation: Follow the VS 2022 "New install" instructions. The steps are
@@ -283,6 +283,12 @@ binaries.
 
     ```bash
     $ sudo sh .travis/deps.sh osx
+    ```
+
+  - macOS MacPorts:
+
+    ```bash
+    $ sudo sh .travis/deps.sh macports
     ```
 
   - MinGW-w64 Win64 console:
@@ -373,7 +379,7 @@ Setup and Usage:
         PS C:\...\vcpkg> cd ..\open-simh
         PS C:\...\open-simh>
         ```
-  Then set the `VCPKG_ROOT` environment variable to the `vcpkg` installaton directory.
+  Then set the `VCPKG_ROOT` environment variable to the `vcpkg` installation directory.
 
 [^1]: `vcpkg` does not support the `v141_xp` toolkit required to compile Windows
 XP binaries. Windows XP is a target platform that SIMH can hopefully deprecate
@@ -462,7 +468,7 @@ the [appveyor] CI/CD pipelines execute these scripts.
     $ git clone https://github.com/open-simh/simh.git
     $ cd simh
 
-    # Install feature dependency libraries (use "osx" instead of "linux"
+    # Install feature dependency libraries (use "osx", for HomeBrew or "macports" for MacPorts)
     # on macOS with HomeBrew.)
     $ sh .travis/deps.sh linux
 
@@ -1033,11 +1039,11 @@ within the IDE. The walkthrough provides directions for VS 2022 and VS 2019.
        `x64-Release` configuration. And wait for reconfiguration to finish (again.)
 
 5. Select `Build All` from the `Build` menu, or equivalently chord `Ctrl-Shift-B`
-   on the keyboard, to start the dependecy feature library superbuild.
+   on the keyboard, to start the dependency feature library superbuild.
 
      - When all dependency feature libraries have been built, the build process
        __will__ unexpectedly terminate with a _"failed recompaction: Permission
-       denied"_ error (see [this `ninja` note](#ninja-file-recompation-permission-denied).)
+       denied"_ error (see [this `ninja` note](#ninja-file-recompaction-permission-denied).)
 
        Choose `Delete Cache and Reconfigure` from the `Project` menu. This will
        cause CMake to reconfigure the project and detect the dependency feature
@@ -1141,7 +1147,7 @@ add_simulator(3b2
     TEST 3b2)
 ```
 
-`add_simulator` is relatively self explanitory:
+`add_simulator` is relatively self explanatory:
 
 - The first argument is the simulator's executable name: `3b2`. This generates
   an executable named `3b2` on Unix platforms or `3b2.exe` on Windows.
@@ -1288,6 +1294,13 @@ add_simulator(simulator_name
     ## in its sim_instr() instruction simulation loop:
     USES_AIO
 
+    ## Arguments to append after "RegisterSanityCheck". These arguments
+    ## appear between "RegisterSanityCheck" and the test script, if
+    ## given, e.g.:
+    ##
+    ##    mysimulator RegisterSanityCheck -r -t path/to/mysim_test.ini
+    TEST_ARGS "-r"
+
     ## Packaging "family" (group) to which the simulator belongs,
     ## for packagers that support grouping (Windows: NSIS .exe,
     ## WIX .msi; macOS)
@@ -1386,9 +1399,19 @@ solution is `cmake/generate.py` to update the affected simulator
 ```sh
 ## You have to be in the cmake subdirectory to run the generate.py script
 $ cd cmake
+$ python -m generate --help
+usage: generate.py [-h] [--debug [DEBUG]] [--srcdir SRCDIR] [--orphans]
+
+SIMH simulator CMakeLists.txt generator.
+
+options:
+  -h, --help       show this help message and exit
+  --debug [DEBUG]  Debug level (0-3, 0 == off)
+  --srcdir SRCDIR  makefile source directory.
+  --orphans        Check for packaging orphans
+
 # [simh_source] is the absolute path to your top-level SIMH source directory
-$ python -m generate
-generate.py: Expecting to emit 77 simulators.
+$ python -m generate --orphans
 generate.py: Looking for makefile, starting in [simh-source]/open-simh/cmake
 generate.py: Looking for makefile, trying [simh-source]/open-simh
 generate.py: Processing [simh-source]/open-simh/makefile
@@ -1423,6 +1446,7 @@ generate.py: all target vaxstation4000m60
 generate.py: all target microvax3100m80
 generate.py: all target vaxstation4000vlc
 generate.py: all target infoserver1000
+generate.py: all target nd100
 generate.py: all target nova
 generate.py: all target eclipse
 generate.py: all target hp2100
@@ -1475,6 +1499,7 @@ generate.py: all target sel32
 generate.py: exp target alpha
 generate.py: exp target pdq3
 generate.py: exp target sage
+generate.py: Expecting to emit 78 simulators.
 ==== writing to [simh-source]/open-simh/3B2/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/ALTAIR/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/AltairZ80/CMakeLists.txt
@@ -1495,6 +1520,7 @@ generate.py: exp target sage
 ==== writing to [simh-source]/open-simh/Intel-Systems/scelbi/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/Interdata/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/LGP/CMakeLists.txt
+==== writing to [simh-source]/open-simh/ND100/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/NOVA/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/PDP1/CMakeLists.txt
 ==== writing to [simh-source]/open-simh/PDP10/CMakeLists.txt

@@ -30,6 +30,9 @@
 
 #include "sim_defs.h"                                   /* simulator defns */
 
+/* Rename of global PC variable to avoid namespace conflicts on some platforms */
+#define PC PC_Global
+ 
 #if defined(USE_ADDR64)
 #error "PDP-10 does not support 64b addresses!"
 #endif
@@ -513,6 +516,8 @@ extern DEVICE   pd_dev;
 extern DEVICE   pclk_dev;
 extern DEVICE   dpy_dev;
 extern DEVICE   iii_dev;
+extern DEVICE   dd_dev;
+extern DEVICE   vds_dev;
 extern DEVICE   imx_dev;
 extern DEVICE   imp_dev;
 extern DEVICE   ch10_dev;
@@ -528,7 +533,6 @@ extern DEVICE   tv_dev;
 extern DEVICE   wcnsls_dev;             /* MIT Spacewar Consoles */
 extern DEVICE   ocnsls_dev;             /* Old MIT Spacewar Consoles */
 extern DEVICE   ai_dev;
-extern DEVICE   dn_dev;
 extern DEVICE   dct_dev;                /* PDP6 devices. */
 extern DEVICE   dtc_dev;
 extern DEVICE   mtc_dev;
@@ -540,6 +544,8 @@ extern DEVICE   dup_dev;
 extern DEVICE   tcu_dev;
 extern DEVICE   ddc_dev;
 extern DEVICE   tym_dev;
+extern DEVICE   ge_dev;
+extern DEVICE   gtyo_dev;
 
 #if KS
 
@@ -729,6 +735,8 @@ extern void ka10_lights_set_aux (int);
 extern void ka10_lights_clear_aux (int);
 #endif
 
+#define IBM_DEV        04000
+
 /* I/O system parameters */
 #if !(PDP6 | KS)
 #define NUM_DEVS_LP     1
@@ -748,6 +756,7 @@ extern void ka10_lights_clear_aux (int);
 #define NUM_DEVS_DSK    1
 #define NUM_DEVS_DCS    1
 #define NUM_DEVS_SLAVE  PDP6
+#define NUM_DEVS_GE     PDP6
 #endif
 #if !(PDP6 | KS)
 #define NUM_DEVS_DC     1
@@ -758,7 +767,6 @@ extern void ka10_lights_clear_aux (int);
 #define NUM_DEVS_TTY    1
 #define NUM_LINES_TTY   64
 #define NUM_DEVS_NIA    1
-#define NUM_DEVS_DN     0
 #elif KS
 #define NUM_DEVS_LP20   1
 #define NUM_DEVS_DZ     4
@@ -791,6 +799,7 @@ extern void ka10_lights_clear_aux (int);
 #define NUM_DEVS_DKB    (WAITS * USE_DISPLAY)
 #define NUM_DEVS_III    (WAITS * USE_DISPLAY)
 #define NUM_DEVS_TV     (WAITS * USE_DISPLAY)
+#define NUM_DEVS_DD     (WAITS * USE_DISPLAY)
 #define NUM_DEVS_PD     ITS
 #define NUM_DEVS_PCLK   WAITS
 #define NUM_DEVS_IMX    ITS
@@ -851,7 +860,7 @@ extern uint32 dd_keyboard_line (void *);
 #endif
 
 #if PIDP10
-void pi_panel_start();
+t_stat pi_panel_start();
 void pi_panel_stop();
 #endif
 

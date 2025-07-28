@@ -571,6 +571,7 @@ add_simulator(vax8200
         vax820_mem.c
         vax820_uba.c
         vax820_ka.c
+        vax_uw.c
         vax820_syslist.c
         ${PDP11D}/pdp11_rl.c
         ${PDP11D}/pdp11_rq.c
@@ -619,6 +620,7 @@ add_simulator(vax8600
         vax860_abus.c
         vax780_uba.c
         vax7x0_mba.c
+        vax_uw.c
         vax860_syslist.c
         ${PDP11D}/pdp11_rl.c
         ${PDP11D}/pdp11_rq.c
