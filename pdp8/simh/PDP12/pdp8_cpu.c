@@ -477,6 +477,20 @@ pcq_r->qptr = pcq_p;                                    /* update pc q ptr */
 return reason;
 }                                                       /* end sim_instr */
 
+/* VC8E SR hack */
+void cpu_set_switches(unsigned long bits)
+{
+    /* just what we want; */
+    //BUGBUG: SR = bits;
+}
+
+unsigned long cpu_get_switches(void)
+{
+    return SR;
+}
+/* VC8E SR hack ends */
+
+
 /*
  * This sequence of instructions is a mix that hopefully
  * represents a resonable instruction set that is a close 
@@ -501,6 +515,7 @@ int_req = (int_req & ~INT_ION) | INT_NO_CIF_PENDING | INT_NO_LIF_PENDING;
 saved_DF = IB = saved_PC & 070000;
 UF = UB = gtf = emode = 0;
 FLO = 0; // BUGBUG: Initialize other LINC stuff here
+LINC = 0; // Start in PDP-8 mode
 pcq_r = find_reg ("PCQ", NULL, dptr);
 if (pcq_r)
     pcq_r->qptr = 0;

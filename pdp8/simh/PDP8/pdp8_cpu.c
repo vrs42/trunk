@@ -515,6 +515,7 @@ int_req = (int_req & ~INT_ION) | INT_NO_CIF_PENDING | INT_NO_LIF_PENDING;
 saved_DF = IB = saved_PC & 070000;
 UF = UB = gtf = emode = 0;
 FLO = 0; // BUGBUG: Initialize other LINC stuff here
+LINC = 0; // Start in PDP-8 mode
 pcq_r = find_reg ("PCQ", NULL, dptr);
 if (pcq_r)
     pcq_r->qptr = 0;

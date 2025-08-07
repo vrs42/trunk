@@ -1,0 +1,26 @@
+:: PDP-12 VC12 Test
+:: maindec-12-d6bc-pb
+echof -n "** PDP-12: VC12 Test: "
+set throttle 555k
+load diags/maindec-12-d6bc-pb
+reset
+d sr 0
+d 4017 6141
+#br 4017
+br 5473
+go 4017
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+c
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+c
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+c
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+c
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+c
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+c
+if (PC != 05473) echof "MAINDEC-12-D6BC failed."; exit 1
+nobr
+echof "passed"

@@ -246,8 +246,8 @@ int32 spacewar (int32 inst, int32 dev, int32 io)
 #endif
 
 /* These are needed for display.c */
-void cpu_get_switches(unsigned long *p1, unsigned long *p2) { };
-void cpu_set_switches(unsigned long l1, unsigned long l2) { };
+//void cpu_get_switches(unsigned long *p1, unsigned long *p2) { };
+//void cpu_set_switches(unsigned long l1, unsigned long l2) { };
 
 #else  /* USE_DISPLAY not defined */
 char pdp12_vc12_unused;   /* sometimes empty object modules cause problems */
