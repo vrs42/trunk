@@ -7,6 +7,7 @@ load diags/maindec-12-d0ba-pb.bin
 dep 5103 0000
 dep sr 7777
 dep lsr 7777
+dep sns 77
 # Start in LINC mode.
 #d linc 1
 #go -q 4020
@@ -14,10 +15,11 @@ dep lsr 7777
 dep 4017 6141
 reset
 go -q 4017
-#e PC
+#e PC,AC
 if (PC != 04023 || AC != 0) echof "MAINDEC-12-D0BA failed."; exit 1
 go -q
-#e 0001,4004,4006,4007,4010,4013
+#e PC,AC
 if (PC != 05104) echof "MAINDEC-12-D0BA failed."; exit 1
 #echof -n "** PDP-12: LINC Instruction Test (1): "
+dep sns 00
 echof "passed"

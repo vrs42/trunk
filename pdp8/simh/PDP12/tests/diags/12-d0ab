@@ -13,16 +13,13 @@ dep 7415 7402
 dep sr 07777
 reset
 go -q 20
-e PC,AC
+#e PC,AC
 if (PC != 00023 || AC != 0) echof "MAINDEC-12-D0AB failed."; exit 1
-echof got here
 go -q
-echof got here2
-e PC
+#e PC
 if (PC != 00027 || AC != 07777) echof "MAINDEC-12-D0AB failed."; exit 1
-echof got here3
 go -q
-e pc,mq,l,ac,0001
+#e pc,mq,l,ac,0001
 if (PC != 07416) echof "MAINDEC-12-D0AB failed."; exit 1
 #echof -n "** PDP-12: CP Test (2): "
 echof "passed"
