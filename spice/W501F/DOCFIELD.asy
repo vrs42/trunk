@@ -1,0 +1,33 @@
+Version 4
+Symboltype GRAPHIC
+LINE Normal 0 0 448 0
+LINE Normal 640 -96 552 -96
+LINE Normal 0 0 0 -32
+LINE Normal 0 -32 448 -32
+LINE Normal 0 -32 0 -96
+LINE Normal 640 -96 640 -32
+LINE Normal 448 -32 448 0
+LINE Normal 448 -32 552 -32
+LINE Normal 448 0 640 0
+LINE Normal 552 -96 552 -32
+LINE Normal 552 -96 0 -96
+LINE Normal 552 -32 640 -32
+LINE Normal 640 -32 640 0
+LINE Normal 0 -96 0 -144
+LINE Normal 640 -224 0 -224
+LINE Normal 640 -224 640 -144
+LINE Normal 0 -144 640 -144
+LINE Normal 0 -144 0 -224
+LINE Normal 640 -144 640 -96
+TEXT 8 -8 Left 4 Date:
+TEXT 80 -8 Left 4 Mon Jul 22 23:37:00 2019
+TEXT 456 -8 Left 4 Sheet:
+WINDOW 3 544 -8 Left 2
+TEXT 560 -72 Left 4 REV:
+TEXT 8 -120 Left 4 TITLE:
+TEXT 8 -72 Left 4 Document Number:
+TEXT 112 -120 Left 4 W501F.asc
+SYMATTR Value DOCFIELD
+SYMATTR Prefix -
+SYMATTR Description frames/DOCFIELD
+

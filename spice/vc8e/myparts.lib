@@ -1,0 +1,178 @@
+*.MODEL 1N4001   D(IS=76.9p RS=42.0m BV=50.0 IBV=5.00u CJO=39.8p M=0.333
+*+               N=1.45 TT=4.32u)
+.model 1N4001   D(Is=14.11n N=1.984 Rs=33.89m Ikf=94.81 Xti=3 Eg=1.11
++               Cjo=25.89p M=.44 Vj=.3245 Fc=.5 Bv=75 Ibv=10u Tt=5.7u)
+.model 1N4002 ako: 1N4001 D(Bv=150)
+.model 1N4003 ako: 1N4001 D(Bv=300)
+.model 1N4004 ako: 1N4001 D(Bv=600)
+.model 1N4005 ako: 1N4001 D(Bv=900)
+.model 1N4006 ako: 1N4001 D(Bv=1200)
+.model 1N4007 ako: 1N4001 D(Bv=1500)
+.model 1N4009   D(Is=0.1p Rs=4 CJO=2p Tt=3n Bv=60 Ibv=0.1p)
+.model FR154 ako: 1N4001
+.model 1N4154 ako: 1N914 Vfwd=0.6
+.model 1N3606 ako: 1N4154
+*1N4744A 15V 5% 1W Zener
+.model 1N4744   D(Is=3.142f Rs=3.544 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=72.5p M=.3282
++               Vj=.75 Fc=.5 Isr=1.973n Nr=2 Bv=15 Ibv=.14467 Nbv=1.093
++               Ibvl=.1m Nbvl=1.2722 Tbv1=001433.3u)
+.model 1N4744A ako: 1N4744
+*1N5235 6.8V 5% ?W Zener
+.model 1N5235   D(Is=1.616f Rs=1.818 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=120p M=.5117
++               Vj=.75 Fc=.5 Isr=1.698n Nr=2 Bv=6.8 Ibv=2.8814 Nbv=.28248
++               Ibvl=1.9426e-6 Nbvl=.27168 Tbv1=485.29u)
+.model 1N645 ako: 1N914
+.model 1N748    D(Is=1.252f Rs=1.156 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=205p M=.6004
++               Vj=.75 Fc=.5 Isr=1.867n Nr=2 Bv=3.9 Ibv=17.244m Nbv=2.4016
++               Ibvl=8.619m Nbvl=13.283 Tbv1=-384.62u)
+.model 1N748A ako: 1N748
+*1N751 5.1V 0.5W Zener
+.model 1N751    D(Is=1.004f Rs=.5875 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=160p M=.5484
++               Vj=.75 Fc=.5 Isr=1.8n Nr=2 Bv=5.1 Ibv=27.721m Nbv=1.1779
++               Ibvl=1.1646m Nbvl=21.894 Tbv1=176.47u)
+* AZ1 should be 1% (not 5% as 1N751)
+.model AZ1 ako: 1N751
+*1N752 5.6V 5% 0.5W Zener
+.model 1N752    D(Is=1.154f Rs=.9471 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=150p M=.5788
++               Vj=.75 Fc=.5 Isr=1.625n Nr=2 Bv=5.6 Ibv=62.583m Nbv=.62382
++               Ibvl=631.96u Nbvl=50 Tbv1=267.86u)
+.model NZX5V6C ako: 1N752
+*1N753 6.2V 0.5W Zener
+.model 1N753    D(Is=1.536f Rs=1.687 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=130p M=.5259
++               Vj=.75 Fc=.5 Isr=1.719n Nr=2 Bv=6.2 Ibv=1.9685 Nbv=.28384
++               Ibvl=7.0094e-7 Nbvl=.29418 Tbv1=443.55u)
+.model 1N753A ako: 1N753
+*1N756 8.2V 0.5W Zener
+.model 1N756    D(Is=2.453f Rs=2.9 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=90p M=.448
++               Vj=.75 Fc=.5 Isr=1.803n Nr=2 Bv=8.2 Ibv=1.5593 Nbv=.51406
++               Ibvl=8.3521e-5 Nbvl=.1313 Tbv1=585.366u)
+.model 1N756A ako: 1N756
+*1N758 10V 0.5W Zener
+.model 1N758    D(Is=1.953f Rs=2.305 Ikf=0 N=1 Xti=3 Eg=1.11 Cjo=68p M=.3856
++               Vj=.75 Fc=.5 Isr=1.939n Nr=2 Bv=10 Ibv=.16597 Nbv=.84122
++               Ibvl=1.003m Nbvl=.20892 Tbv1=650u)
+.model 1N914V ako: 1N914
+.model D664 ako: 1N4154
+.model D662 ako: 1N914
+.model 2N2219 ako: 2N2219A
+.model MPS6534  PNP(Is=650.6E-18 Xti=3 Eg=1.11 Vaf=115.7 Bf=173.2 Ne=1.851
++               Ise=85.79f Ikf=1.103 Xtb=1.5 Br=3.637 Nc=2 Isc=0 Ikr=0 Rc=.715
++               Cjc=14.76p Mjc=.5383 Vjc=.75 Fc=.5 Cje=19.82p Mje=.3357 Vje=.75
++               Tr=112.6n Tf=761.3p Itf=.65 Vtf=5 Xtf=1.7 Rb=10)
+*               National        pid=63          case=TO92
+*               88-09-09 bam    creation
+*1M5395 1.5A 400V Diode
+.model 1N5395   D(Is=127.2f Rs=41.78m Ikf=4.315m N=1 Xti=3 Eg=1.11 Cjo=47.97p
++               M=.4547 Vj=.75 Fc=.5 Isr=14.38u Nr=2 Tt=5.049u)
+.model 2N2904   PNP(Is=650.6E-18 Xti=3 Eg=1.11 Vaf=115.7 Bf=94.38 Ne=1.829
++               Ise=134.5f Ikf=1.079 Xtb=1.5 Br=3.912 Nc=2 Isc=0 Ikr=0 Rc=.715
++               Cjc=14.76p Mjc=.5383 Vjc=.75 Fc=.5 Cje=19.82p Mje=.3357 Vje=.75
++               Tr=116.8n Tf=603.7p Itf=.65 Vtf=5 Xtf=1.7 Rb=10)
+.model 2N3009   NPN(Is=1.017f Xti=3 Eg=1.11 Vaf=100 Bf=85.99 Ne=2.048
++               Ise=34.11p Ikf=.2617 Xtb=1.5 Br=3.587 Nc=2 Isc=0 Ikr=0 Rc=1.75
++               Cjc=4.256p Mjc=.1053 Vjc=.75 Fc=.5 Cje=8.359p Mje=.3504 Vje=.75
++               Tr=5.32n Tf=289.3p Itf=.35 Vtf=5 Xtf=2 Rb=10)
+.model 2N3567   NPN(Is=1.227E-13 Bf=3.819E+02 Nf=1.043 Vaf=17.02 IKF=.18991
++               ISE=8.002E-13 NE=1.755 BR=25.88 NR=1.059 VAR=42.12
++               IKR=5.994E-02 ISC=3.855E-12 NC=1.463 IRB=8.313E-04 RE=.8171
++               RC=.7492 CJE=2.082E-11 VJE=.5915 MJE=.3254 TF=5.427E-10
++               XTF=1.000E+02 VTF=38.12 ITF=.8028 PTF=0 CJC=7.637E-12
++               VJC=.4465 MJC=.3124 XCJC=1 TR=0 CJS=0 VJS=.75 MJS=0 XTB=1.5
++               EG=1.11 XTI=3 KF=0 AF=1.0 FC=0.5)
+.model PN3567 ako: 2N3567
+.model 2N3640   PNP(Is=545.6E-18 Xti=3 Eg=1.11 Vaf=100 Bf=59.22 Ne=1.5 Ise=0
++               Ikf=50m Xtb=1.5 Br=1.438 Nc=2 Isc=0 Ikr=0 Rc=3.75 Cjc=2.77p
++               Mjc=.1416 Vjc=.75 Fc=.5 Cje=2.65p Mje=.3083 Vje=.75 Tr=4.123n
++               Tf=118.5p Itf=.5 Vtf=3 Xtf=6 Rb=10)
+.model PN3640 ako: 2N3640
+.model 2N3715   NPN(Is=10p Xti=3 Eg=1.11 Vaf=100 Bf=120 Ne=3.41 Ise=0.211E-6 
++               Ikf=1.52 Xtb=1.665 Br=4.29 Nc=3.41 Isc=211n Ikr=1.52 Rc=140E-3
++               Cjc=700p Mjc=.3333 Vjc=.7 Fc=.5 Cje=5E-12 Mje=.3333 Vje=.7
++               Tr=116.7n Tf=23.0n Itf=10 Vtf=20 Xtf=1.383 Rb=1.6 Nf=1.053
++               Nr=1.053 Vjs=0.6 Var=100 Rbm=1.6 Re=.01 Xcjc=.5 Mjs=.5)
+.model DEC3715 ako: 2N3715
+.model PN3645   PNP(Is=650.6E-18 Xti=3 Eg=1.11 Vaf=115.7 Bf=231.7 Ne=1.829
++               Ise=54.81f Ikf=1.079 Xtb=1.5 Br=3.563 Nc=2 Isc=0 Ikr=0 Rc=.715
++               Cjc=14.76p Mjc=.5383 Vjc=.75 Fc=.5 Cje=19.82p Mje=.3357 Vje=.75
++               Tr=111.3n Tf=603.7p Itf=.65 Vtf=5 Xtf=1.7 Rb=10)
+.model PN4250A  PNP(Is=6.734f Xti=3 Eg=1.11 Vaf=45.7 Bf=388.2 Ne=1.806
++               Ise=6.734f Ikf=.205 Xtb=1.5 Br=2.635 Nc=2 Isc=0 Ikr=0 Rc=1.67
++               Cjc=6.2p Mjc=.301 Vjc=.75 Fc=.5 Cje=7.5p Mje=.2861 Vje=.75
++               Tr=9.861n Tf=467.9p Itf=.17 Vtf=5 Xtf=8 Rb=10)
+.model PN4355   PNP(Is=12.27p Xti=3 Eg=1.11 Vaf=100 Bf=194.8 Ne=1.649
++               Ise=12.27p Ikf=1.123 Xtb=1.5 Br=1.184 Nc=2 Isc=0 Ikr=0 Rc=.6
++               Cjc=48.28p Mjc=.5615 Vjc=.75 Fc=.5 Cje=106.7p Mje=.5168 Vje=.75
++               Tr=474.5n Tf=867p Itf=.2 Vtf=2 Xtf=.8 Rb=10)
+.model PN3569 ako: BC337-25
+.subckt DGL-3V -15V GND OUT
+D1 GND d1d2 1N645
+D2 d1d2 d2d3 1N645
+D3 d2d3 d3d4 1N645
+D4 d3d4 -3V 1N645
+R1 -15V -3V 1500
+.ends
+* Each "A" or "B" gate of the duak transistors maps to a standard part.
+.model 2N2060 ako: 2N2219
+.model 2N3811 ako: 2N2907
+.model SDA-5 ako: 2N2219
+.model SDA-7 ako: 2N2907
+* SCR model based on
+* http://www.edn.com/design/analog/4425804/Greatly-improve-dV-dt-immunity-of-SCRs
+.subckt mcr649 a g c
+Q1 NPN c g hidden 2N3055
+Q2 PNP a hidden g D45H11
+Q3 NPN c g hidden 2N3055
+Q4 PNP a hidden g D45H11
+RB1 c g 10
+CB1 c g 1nF
+RB2 a hidden 10
+CB2 a hidden 1nF
+.ends
+*model BOGUS ako: 2N2222
+.model 2N3792   PNP(Is=6.233E-12 Bf=354 Nf=1.074 Vaf=30 IKF=0.7 Ise=20.16E-12
++               Ne=1.686 Br=0.9 Nr=1.448 Var=50 Ikr=1 Isc=1.85E-9 Nc=2.8
++               Rb=5.169 Irb=0.47 Rbm=1E-2 Rc=0.095 Cje=5.00E-12 Vje=0.7
++               Mje=0.333 Tf=4E-9 Xtf=1.5 Vtf=20 Itf=1 Ptf=0 Cjc=5E-12 Vjc=0.7
++               Mjc=0.4 Xcjc=0.5 Tr=284E-9 Cjs=0 Vjs=0.7 Mjs=0.5 Xtb=1.225
++               Eg=1.11 Xti=3.0 Kf=0 Af=1 Fc=0.5)
+.model 2N5551   NPN(Is=2.511f Xti=3 Eg=1.11 Vaf=100 Bf=242.6 Ne=1.249
++               Ise=2.511f Ikf=.3458 Xtb=1.5 Br=3.197 Nc=2 Isc=0 Ikr=0 Rc=1
++               Cjc=4.883p Mjc=.3047 Vjc=.75 Fc=.5 Cje=18.79p Mje=.3416 Vje=.75
++               Tr=1.202n Tf=560p Itf=50m Vtf=5 Xtf=8 Rb=10)
+.model BC639    NPN(IS=5.11174E-14 BF=121.9073426 NF=0.9777672 VAF=176.1562267
++               IKF=0.9 ISE=1.37180E-15 NE=1.1097692 BR=11.04 NR=977.8E-3
++               VAR=10.6060512 IKR=0.010075 ISC=5.26993E-14 NC=1.0459438
++               RB=308.1E-3 IRB=1.0E6 RBM=308.1E-3 RE=118.5E-3 RC=127.0E-3
++               CJE=66.59E-12 VJE=0.5112214 MJE=0.4201262 TF=600.0E-12
++               XTF=10 VTF=10 ITF=800.0E-3 PTF=30 CJC=16.81E-12 VJC=0.797553
++               MJC=0.3364217 XCJC=1 TR=1.0E-8 CJS=0 VJS=750.0E-3 MJS=330.0E-3
++               XTB=1.500 EG=1.110 XTI=3 KF=0 AF=1 FC=500.0E-3)
+.subckt T-2037 2 4 5 7
+primary L 4 5 220uH
+secondary L 2 7 43uH
+K1 primary secondary .95
+.ends
+.subckt T-2052 2 4 5 7
+primary L 4 5 550uH
+secondary L 2 7 550uH
+K1 primary secondary .95
+.ends
+.subckt PT55 2 4 5 7
+primary L 4 5 5mH
+secondary L 2 7 5mH
+K1 primary secondary .95
+.ends
+.subckt Tamura 2 4 5 7
+primary L 4 5 4500uH
+secondary L 2 7 4500uH
+K1 primary secondary .95
+.ends
+*SYMATTR Value PN3569
+*SYMATTR Value 7440N
+*SYMATTR Value 74N00
+*SYMATTR Value 74N01
+*SYMATTR Value AD8044
+*SYMATTR Value LM301AN
+*SYMATTR Value S7346-ND
+*SYMATTR Value TYN612 Thyristor
+*SYMATTR Value 2N4870 Unijunction
