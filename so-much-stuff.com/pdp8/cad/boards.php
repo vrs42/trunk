@@ -4850,6 +4850,22 @@ Dave Brockman.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7216 target=_blank>./DEC/Mxxx/M7216</a></b>: Priority and Control (long) (double)
+
+</LEGEND><DL>
+<DT>M7216D</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7218 target=_blank>./DEC/Mxxx/M7218</a></b>: Multiple Bus Request Flow Option (long)
+
+</LEGEND><DL>
+<DT>M7218A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
+<FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M7219 target=_blank>./DEC/Mxxx/M7219</a></b>: RC11 Bus Interface (quad)
 
 </LEGEND><DL>
@@ -5793,6 +5809,14 @@ M837cc is a variant without the the TP_CB1 input.
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M839 target=_blank>./DEC/Mxxx/M839</a></b>: SYNC MODE INTERFACE CARD FOR DP8-E
 
 </LEGEND></FIELDSET>
+<FIELDSET><LEGEND>
+  <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M8399 target=_blank>./DEC/Mxxx/M8399</a></b>: Omnibus Remote Boot
+
+</LEGEND><DL>
+<DT>M8399A</A>
+  <DD>needs a drawing.
+</DL>
+</FIELDSET>
 <FIELDSET><LEGEND>
   <b><a href=https://svn.so-much-stuff.com/svn/trunk/Eagle/projects/./DEC/Mxxx/M840 target=_blank>./DEC/Mxxx/M840</a></b>: PC8E High Speed Reader/Punch Control (Omnibus)
 

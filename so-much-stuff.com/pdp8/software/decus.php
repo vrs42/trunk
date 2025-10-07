@@ -2393,6 +2393,10 @@ Console Utility Package for PDP-8/S and PDP-8 Computers </div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.vrs.bin target=_blank>icbm.vrs.bin</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.vrs.lst target=_blank>icbm.vrs.lst</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm.vrs.pa target=_blank>icbm.vrs.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm12.bin target=_blank>icbm12.bin</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm12.lst target=_blank>icbm12.lst</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/icbm12.pa target=_blank>icbm12.pa</a></div>
+<div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/pdp12.ini target=_blank>pdp12.ini</a></div>
 <div><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/5-277/pdp8.ini target=_blank>pdp8.ini</a></div>
 <tr>
 <td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/decus/8-278 target=_blank>8-278</div>
