@@ -158,7 +158,7 @@ main(int argc, char *argv[])
     vopen();
     vcursor_line();
     vprintf("GTTY (c) Bickley Consulting West Inc. 2006\n");
-    vprintf("$Id$\n\n");
+    vprintf("$Id: gtty.c 5511 2023-07-07 21:14:45Z vrs $\n\n");
     vupdatexy();
 
     while (1) {

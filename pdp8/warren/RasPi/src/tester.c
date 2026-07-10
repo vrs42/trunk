@@ -8,7 +8,7 @@
 /************************************************************************/
 
 #define VERSION_STRINGO "version 0.91 November 27, 2015"
-#define VERSION_STRING  "$Id$"
+#define VERSION_STRING  "$Id: tester.c 5169 2021-12-17 02:37:20Z vrs $"
 
 #define _CRT_SECURE_NO_WARNINGS	1	/* disable Microsoft 'old library' warnings	*/
 
