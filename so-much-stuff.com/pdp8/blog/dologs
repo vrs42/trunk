@@ -1,11 +1,15 @@
 #!/bin/sh
 
-LOGPATH=http://svn.so-much-stuff.com/svn/trunk
+#LOGPATH=http://svn.so-much-stuff.com/svn/trunk
+LOGPATH=$HOME
 YEAR=`date +%Y`
 year=`expr $YEAR - 1`
 
-svn log -v -r "{$YEAR-12-31}:{$YEAR-1-1}" >y$YEAR.txt $LOGPATH
-svn log -v -r "{$year-12-31}:{$year-1-1}" >y$year.txt $LOGPATH
+git log --name-status --until "$YEAR-12-31" --since "$YEAR-1-1" >y$YEAR.txt
+git log --name-status --until "$year-12-31" --since "$year-1-1" >y$year.txt
+
+#svn log -v -r "{$YEAR-12-31}:{$YEAR-1-1}" >y$YEAR.txt $LOGPATH
+#svn log -v -r "{$year-12-31}:{$year-1-1}" >y$year.txt $LOGPATH
 
 # svn log -v -r "{2021-12-31}:{2021-1-1}" >y2021.txt $LOGPATH
 # svn log -v -r "{2020-12-31}:{2020-1-1}" >y2020.txt $LOGPATH

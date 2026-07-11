@@ -1,0 +1,62 @@
+#!/usr/bin/perl   
+
+# A fancy data hack for 1 year ago.
+#date -d $(($(date "+%Y%m%d")-10000)) "+%Y-%m-%d"
+
+# Use a fancy backtick to get the svn log data.
+$string = qx!svn log -v -r HEAD:"{`date -d \$((\$(date "++%Y%m%d")-20000)) "+%Y-%m-%d"`}" ..!;
+
+#print "Content-Type: text/xml\r\n\r\n";
+
+print "<?xml version='1.0' encoding='utf-8' ?>
+ <rss version='2.0' xmlns:dc='http://purl.org/dc/elements/1.1/'>
+ <channel>
+   <title>SVN Log Feed</title>
+   <link>http://www.so-much-stuff.com/pdp8</link>;
+   <description>Automatically generated RSS feed from the SVN history.</description>
+ ";
+
+# Encode '&' to avoid flagging errors in browsers.
+$string =~ s/\&/&amp;/g;
+
+foreach my $loge (split("-"x72, $string)) {
+  $loge =~ s!-*
+r(\d+) \| (\w+) \| (.+) \((.+)\) \| (\d*) line(s?)$
+Changed paths:
+(.*)
+^$
+(.*)
+-*$!
+  <item>
+    <title>Revision $1, Committed by $2 on $4</title>
+    <description>&lt;pre&gt;$8
+Changed paths:
+$7
+    </description>
+    <dc:creator>$2</dc:creator>
+  </item>!msg;
+
+  print $loge;
+}
+
+print "</channel>
+         </rss>";
+
+exit 0;
+#------------------------------------------------------------------------
+#r2591 | vrs | 2012-10-17 16:44:30 -0700 (Wed, 17 Oct 2012) | 4 lines
+#Changed paths:
+#   M /trunk/so-much-stuff.com/pdp8/blog/y2012.txt
+#   M /trunk/so-much-stuff.com/pdp8/cad/boards.php
+#   M /trunk/so-much-stuff.com/pdp8/flipchip/Gxxx.htm
+#   M /trunk/so-much-stuff.com/pdp8/flipchip/Rxxx.htm
+#   M /trunk/so-much-stuff.com/pdp8/flipchip/Sxxx.htm
+#   M /trunk/so-much-stuff.com/pdp8/flipchip/Wxxx.htm
+#   M /trunk/so-much-stuff.com/pdp8/flipchip/modules.htm
+#   M /trunk/so-much-stuff.com/pdp8/flipchip/modules.txt
+#
+#Publish some new PDF schematics.
+#Publish R210 and W603 drawings and photos, and R202E photos.
+#Publish minor fixes for Eagle ULP and DRU files.
+#
+#------------------------------------------------------------------------
