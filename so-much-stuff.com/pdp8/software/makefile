@@ -9,8 +9,9 @@ ALL = dec.php decus.php misc.php si.php
 
 all:	update $(ALL)
 
+# Git maintains a workspace, so an update should not be needed.
 update:
-	cd $(DEC)/..; svn update .
+#svn	cd $(DEC)/..; svn update .
 
 ak.php: .
 	cd $(AK); ./publish.pl

@@ -51,7 +51,7 @@ nets are routed with 16mil traces, and the "Power" nets are routed
 with 32mil traces.  Most of the routing is done by hand, to 
 approximate DEC's routing.  Vias should be round, with a 32mil 
 drill diameter.
-<P>The file <A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/dru/16mils.dru">16mils.dru</A>
+<P>The file <A href="/pdp8/trunk/Eagle/dru/16mils.dru">16mils.dru</A>
 should be used to force round pads and enforce clearance and
 other design rules.
 
@@ -78,12 +78,12 @@ value to match the EIA equivalent of the DEC part number.
 the schematic, so generally jumpers are a pair of vias and a 0.4" 
 segment in the top layer.  (For double-sided boards, a 0 ohm resistor
 may be required.) 
-<P>The library <A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/dec-con.lbr">dec-con.lbr</A>
+<P>The library <A href="/pdp8/trunk/Eagle/lbr/dec-con.lbr">dec-con.lbr</A>
 also contains parts which are used in DEC boards, for which there
 is no similar part in the standard Eagle libraries.
 
 <DT>Component Substitutions
-<DD>The script <A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/ulp/xversion.ulp">xversion.ulp</A>
+<DD>The script <A href="/pdp8/trunk/Eagle/ulp/xversion.ulp">xversion.ulp</A>
 will iterate over a schematic, replacing values of parts favored
 by DEC with readily available "modern" equivalents.  This is generally
 used for the "X" (non-replica) version of a board.  It performs

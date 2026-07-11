@@ -29,7 +29,7 @@ so if there's stuff in it that I shouldn't be republishing, let me know.
 	One thing that is there, is that the "DEC" sub-directory has quite a 
 collection of CAD drawings intended to mimic various original DEC boards.
 <DT>
-<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/dec-con.lbr">dec-con</A>
+<A href="/pdp8/trunk/Eagle/lbr/dec-con.lbr">dec-con</A>
 <DD>
 This is a collection of board outlines and the obsolete components, which 
 will be useful if you are trying to re-create flip-chip modules or design 
@@ -39,7 +39,7 @@ single, double, quad and even hex-height boards.
 You will need to set the "Copper/Dimension" design rule to 15 mils, to
 eliminate diagnostics about copper too close to the edge in the edge
 connectors.  I use 16 mil signal traces and 32 mil power traces, as in 
-<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/dru/16mils.dru">16mils.dru</A>.
+<A href="/pdp8/trunk/Eagle/dru/16mils.dru">16mils.dru</A>.
 <P>
 You will also want to set the board routing grid to 25 mils (or other 
 sub-multiple of 100 and 125 mils). Otherwise it will be difficult to route 
@@ -51,7 +51,7 @@ things to align with the 125 mil grid when necessary.  I can also then use the
 alternate grid to move traces around as needed.  (The schematic grid should 
 just be left at the default of 0.1".)
 <DT>
-<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/dec-m.lbr">dec-m</A>
+<A href="/pdp8/trunk/Eagle/lbr/dec-m.lbr">dec-m</A>
 <DD>
 This is a collection of symbolic representations of various DEC flip-chips. 
 For instance, everything needed to draw the prints and backplane for a TC08 
@@ -79,7 +79,7 @@ You will want to set the board grid to .125", to get proper placement of the
 parts.  Even so, you may have to move them to get them on-grid, as Eagle 
 tends to place them with incorrect alignment initially.
 <DT>
-<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/lbr/deprecated/dec-r.lbr">dec-r</A>
+<A href="/pdp8/trunk/Eagle/lbr/deprecated/dec-r.lbr">dec-r</A>
 <DD>
 This is essentially now a copy of <b>dec-m</b>, and it's use is now deprecated.
 (It won't be tracking future changes from <b>dec-m</b>, for instance.)

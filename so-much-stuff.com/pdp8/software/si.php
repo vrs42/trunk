@@ -14,29 +14,29 @@ SI 3040 disk controller and versions of it's diagnostic.
 </tr><tr>
 <td>Disk Controller Documentation
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-1-3.pdf>si-si3040-1-3.pdf</a><td>(PDF write-up)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-1-3.pdf>si-si3040-1-3.pdf</a><td>(PDF write-up)<tr>
 </table>
 </tr><tr>
 <td>Disk Diagnostic, March 1972
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-3-3-72.bin>si-si3040-diag-3-3-72.bin</a><td>(BIN format)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-3-3-72.bin.lbl.jpg>si-si3040-diag-3-3-72.bin.lbl.jpg</a><td>(Tape label)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-3-3-72.bin.od>si-si3040-diag-3-3-72.bin.od</a><td>(BIN format in octal)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-3-3-72.bin>si-si3040-diag-3-3-72.bin</a><td>(BIN format)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-3-3-72.bin.lbl.jpg>si-si3040-diag-3-3-72.bin.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-3-3-72.bin.od>si-si3040-diag-3-3-72.bin.od</a><td>(BIN format in octal)<tr>
 </table>
 </tr><tr>
 <td>Disk Diagnostic, July 1972
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-7-10-72.bin>si-si3040-diag-7-10-72.bin</a><td>(BIN format)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-7-10-72.bin.lbl.jpg>si-si3040-diag-7-10-72.bin.lbl.jpg</a><td>(Tape label)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-7-10-72.bin.od>si-si3040-diag-7-10-72.bin.od</a><td>(BIN format in octal)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-7-10-72.bin>si-si3040-diag-7-10-72.bin</a><td>(BIN format)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-7-10-72.bin.lbl.jpg>si-si3040-diag-7-10-72.bin.lbl.jpg</a><td>(Tape label)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-7-10-72.bin.od>si-si3040-diag-7-10-72.bin.od</a><td>(BIN format in octal)<tr>
 </table>
 </tr><tr>
 <td>Disk Diagnostic, September 1973
 <td><table width=100%><col width=50%><col width=50%>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-9-12-73.bin>si-si3040-diag-9-12-73.bin</a><td>(BIN format)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-9-12-73.lst>si-si3040-diag-9-12-73.lst</a><td>(PAL listing)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-9-12-73.pal>si-si3040-diag-9-12-73.pal</a><td>(PAL source)<tr>
-<td><a href=https://svn.so-much-stuff.com/svn/trunk/pdp8/src/si/./si3040-diag-9-12-73.pdf>si-si3040-diag-9-12-73.pdf</a><td>(PDF write-up)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-9-12-73.bin>si-si3040-diag-9-12-73.bin</a><td>(BIN format)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-9-12-73.lst>si-si3040-diag-9-12-73.lst</a><td>(PAL listing)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-9-12-73.pal>si-si3040-diag-9-12-73.pal</a><td>(PAL source)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/si/./si3040-diag-9-12-73.pdf>si-si3040-diag-9-12-73.pdf</a><td>(PDF write-up)<tr>
 </table>
 </table>
 </FIELDSET>

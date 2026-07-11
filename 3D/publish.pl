@@ -2,7 +2,8 @@
 
 #
 # Look for 3D files and create a web page about them.
-$url = "https://svn.so-much-stuff.com/svn/trunk/3D";
+#$url = "https://svn.so-much-stuff.com/svn/trunk/3D";
+$url = "/pdp8/trunk/3D";
 
 $head = <<'EOM';
 <?php

@@ -1,6 +1,8 @@
+# Deferred work is marked here with "#gitmv"
+
 all: .
 	./dirchk.pl
-	cd blog; make
+#gitmv	cd blog; make
 	cd cad; make
 	cd flipchip; make
 	cd repair; make

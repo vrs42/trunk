@@ -23,7 +23,7 @@ has done some nice work towards getting
 Warren's tester to work connected directly to a modern 
 Windows desktop.  His solution uses an FTDi USB to SPI 
 cable, and his source, etc. can be found
-<A href=http://svn.so-much-stuff.com/svn/trunk/pdp8/michaelt/Warrens_Flipchip_Tester/>here</A>.
+<A href=/pdp8/trunk/pdp8/michaelt/Warrens_Flipchip_Tester/>here</A>.
 <P>
 <DT>Warren Stearn's Tester
 <DD>
@@ -65,9 +65,9 @@ components, a couple of blue wires, but this effort has been largely
 successful.  Working testers have been created!
 <P>
 Tester board designs can be found 
-<A href="http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/Stearns%20Tester/">here</A>,
+<A href="/pdp8/trunk/Eagle/projects/Stearns%20Tester/">here</A>,
 and software 
-<A href="http://svn.so-much-stuff.com/svn/trunk/pdp8/warren/">here</A>.
+<A href="/pdp8/trunk/pdp8/warren/">here</A>.
 <P>
 Blue wire information and important assembly tips and hints for the kits
 are available <A href="fc-tester/assembly.php">here</A>.
