@@ -21,18 +21,18 @@ I'm asking $95 plus shipping (which is typically another $15 within the USA).
 <P>The older 32K Memory card, without bootstrap circuitry, is described
 <A HREF=32KOmnibus-.php>here</A>.
 <P>Some of you have asked, so
-<A HREF=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/ target=_blank>here</A>
+<A HREF=/pdp8/trunk/Eagle/projects/32k-Omnibus/ target=_blank>here</A>
 is a shortcut to the CAD drawings.
 Of these, the "Roland+mem1" drawings are the board as sent off for
 fabrication.
 <DL>
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.brd target=_blank>Roland+mem1.brd</A>
+<DT><A href=/pdp8/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.brd target=_blank>Roland+mem1.brd</A>
 <DD>is the Eagle board drawing.
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.sch target=_blank>Roland+mem1.sch</A>
+<DT><A href=/pdp8/trunk/Eagle/projects/32k-Omnibus/Roland+mem1.sch target=_blank>Roland+mem1.sch</A>
 <DD>is the Eagle schematic.  (The action is on sheets 2 and 3.)
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1BRD.pdf target=_blank>Roland+mem1BRD.pdf</A>
+<DT><A href=/pdp8/trunk/Eagle/projects/32k-Omnibus/Roland+mem1BRD.pdf target=_blank>Roland+mem1BRD.pdf</A>
 <DD>is the board drawing, as a PDF.
-<DT><A href=http://svn.so-much-stuff.com/svn/trunk/Eagle/projects/32k-Omnibus/Roland+mem1SCH.pdf target=_blank>Roland+mem1SCH.pdf</A>
+<DT><A href=/pdp8/trunk/Eagle/projects/32k-Omnibus/Roland+mem1SCH.pdf target=_blank>Roland+mem1SCH.pdf</A>
 <DD>is the schematic the board, as a PDF (you want pages 2 and 3).
 </DL>
 </TABLE>

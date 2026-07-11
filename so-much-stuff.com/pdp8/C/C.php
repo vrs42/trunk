@@ -60,11 +60,9 @@ VM taking an additional 660 words.  (This is with "fputc" stubbed with a routine
 to output on the TTY.)  I estimate that adding support for proper stdio-style 
 I/O would just about use the rest of the available 4K, unless most of it can be 
 placed in field 0.
-    <P>You can download a snapshot of the code <A href=small-c.tar>here</A>,
-or browse the SVN repository
-<A href=http://svn.so-much-stuff.com/svn/trunk/pdp8/small-c>here</A>. 
-Once you have extracted the snapshot, you can update to the bleeding edge
-with "svn update .".
+    <P>You can download a snapshot of the code <A href=small-c.tar>here</A>.
+or browse the repository
+<A href=/pdp8/trunk/pdp8/small-c>here</A>. 
 </TABLE>
 
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>

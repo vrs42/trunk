@@ -14,9 +14,9 @@ Perl.  The tools are written in an ancient dialect of Perl because that's
 the rapid prototyping language I'm most used to, and because it's available
 for almost any reasonable machine you'd want to use for this work.
     <P>The tools themselves are
-<a href="https://svn.so-much-stuff.com/svn/trunk/pdp8/8tools">here</a>
+<a href="/pdp8/trunk/pdp8/8tools">here</a>
 with a documentation sub-directory
-<a href="https://svn.so-much-stuff.com/svn/trunk/pdp8/8tools/doc">here.</a>
+<a href="/pdp8/trunk/pdp8/8tools/doc">here.</a>
 Best way to get a local copy is with Subversion's "co" command.
     <P>The tools fall into a few rough categories:
 <DL>
