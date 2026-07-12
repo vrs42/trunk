@@ -51,8 +51,8 @@
 //       # enable_mem & mem2); 
 // n_t_4x = !ps_2; 
 // e5: sn7482 
-module m221d (a=b, ac_2, ac_2_l, ac_3, ac_3_l, adder1, adder2, adder3, adder4, addr_match, carry_in, carry_ok_l, carry_out_2, data_add, data_add_2, data_add_3, enable_ac, enable_ac_l, enable_ac_r, enable_bcl, enable_bse, enable_ma2, enable_ma3, enable_mb2, enable_mb3, enable_mem, enable_mq, enable_pc, enable_rsw, load_ac, load_ma, load_mb, load_pc, ls_msc2, ls_msc3, lsw, lsw2, lsw3, ma2_h, ma2_l, ma3_h, ma3_l, mb_2, mb_2_l, mb_3, mb_3_l, mem2, mem3, mq2, mq3, no_rot, pc2_l, pc3_l, ps_2, ps_3, ps_left_2, ps_left_3, reg_bus2, reg_bus3, rot_left, rot_right, rs_msc2, rs_msc3, rsw2, rsw3);
-output a=b;
+module m221d (a_eq_b, ac_2, ac_2_l, ac_3, ac_3_l, adder1, adder2, adder3, adder4, addr_match, carry_in, carry_ok_l, carry_out_2, data_add, data_add_2, data_add_3, enable_ac, enable_ac_l, enable_ac_r, enable_bcl, enable_bse, enable_ma2, enable_ma3, enable_mb2, enable_mb3, enable_mem, enable_mq, enable_pc, enable_rsw, load_ac, load_ma, load_mb, load_pc, ls_msc2, ls_msc3, lsw, lsw2, lsw3, ma2_h, ma2_l, ma3_h, ma3_l, mb_2, mb_2_l, mb_3, mb_3_l, mem2, mem3, mq2, mq3, no_rot, pc2_l, pc3_l, ps_2, ps_3, ps_left_2, ps_left_3, reg_bus2, reg_bus3, rot_left, rot_right, rs_msc2, rs_msc3, rsw2, rsw3);
+output a_eq_b;
 output ac_2;
 output ac_2_l;
 output ac_3;
@@ -198,12 +198,11 @@ always @(posedge load_pc)
   end
 assign pc2_l = ~pc2_h;
 // e15: sn7453 
-// gdollar_9 = !(!ac3_h & mb3_h
+// a_eq_b = !(!ac3_h & mb3_h
 //          # ac2_h & !mb2_h
 //          # !ac2_h & mb2_h
 //          # !mb3_h & ac3_h); 
-// !gdollar_9 = !gdollar_9; 
-assign a=b = gdollar_9;
+// !a_eq_b = !a_eq_b; 
 // e16: sn7453 
 // ps_left_3 = !(enable_mq & mq3
 //       # ls_msc3
@@ -260,10 +259,10 @@ assign carry_ok_l = ~((~ac3_h & ps_3
                         | ac2_h & ~ps_2
                         | ~ac2_h & ps_2
                         | ~ps_3 & ac3_h));
-assign gdollar_9 = ~((~ac3_h & mb3_h
-                       | ac2_h & ~mb2_h
-                       | ~ac2_h & mb2_h
-                       | ~mb3_h & ac3_h));
+assign a_eq_b = ~((~ac3_h & mb3_h
+                    | ac2_h & ~mb2_h
+                    | ~ac2_h & mb2_h
+                    | ~mb3_h & ac3_h));
 assign ps_left_3 = ~((enable_bcl & ~mb3_h & ac3_h)
                       | (enable_bse & ~ac3_h & mb3_h)
                       | (enable_mq & mq3
