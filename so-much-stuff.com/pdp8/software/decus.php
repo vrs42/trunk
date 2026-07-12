@@ -2791,7 +2791,7 @@ System </div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-OBJECT-BINARY.pt target=_blank>8-341-LISP8-OBJECT-BINARY.pt</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-Origin.pa target=_blank>8-341-LISP8-Origin.pa</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-Origin.pt target=_blank>8-341-LISP8-Origin.pt</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-SOURCE-#2.pt target=_blank>8-341-LISP8-SOURCE-#2.pt</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-SOURCE-2.pt target=_blank>8-341-LISP8-SOURCE-2.pt</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-SOURCE-ORIGIN.pt target=_blank>8-341-LISP8-SOURCE-ORIGIN.pt</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-Source-1-of-12.pa target=_blank>8-341-LISP8-Source-1-of-12.pa</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/8-341/8-341-LISP8-Source-1-of-12.pt target=_blank>8-341-LISP8-Source-1-of-12.pt</a></div>
@@ -10596,21 +10596,21 @@ Overlay to U/W-FOCAL </div>
 <td>
 <div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-clkrun-i1-i2-i3-count-pr target=_blank>decus-12-75-clkrun-i1-i2-i3-count-pr</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-clkrun-i1-i2-i3-count-pr.od target=_blank>decus-12-75-clkrun-i1-i2-i3-count-pr.od</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-clkset_imode-irate-ipre-i1-i2-i3#5-pr target=_blank>decus-12-75-clkset_imode-irate-ipre-i1-i2-i3#5-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-clkset_imode-irate-ipre-i1-i2-i3#5-pr.od target=_blank>decus-12-75-clkset_imode-irate-ipre-i1-i2-i3#5-pr.od</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-disp_ix-iy-#2-pr target=_blank>decus-12-75-disp_ix-iy-#2-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-disp_ix-iy-#2-pr.od target=_blank>decus-12-75-disp_ix-iy-#2-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-clkset_imode-irate-ipre-i1-i2-i3-5-pr target=_blank>decus-12-75-clkset_imode-irate-ipre-i1-i2-i3-5-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-clkset_imode-irate-ipre-i1-i2-i3-5-pr.od target=_blank>decus-12-75-clkset_imode-irate-ipre-i1-i2-i3-5-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-disp_ix-iy-2-pr target=_blank>decus-12-75-disp_ix-iy-2-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-disp_ix-iy-2-pr.od target=_blank>decus-12-75-disp_ix-iy-2-pr.od</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-histogram-demonstration.for target=_blank>decus-12-75-histogram-demonstration.for</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iadc_i#3-pr target=_blank>decus-12-75-iadc_i#3-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iadc_i#3-pr.od target=_blank>decus-12-75-iadc_i#3-pr.od</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iexl_i#7-pr target=_blank>decus-12-75-iexl_i#7-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iexl_i#7-pr.od target=_blank>decus-12-75-iexl_i#7-pr.od</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-ilsw_0#4-pr target=_blank>decus-12-75-ilsw_0#4-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-ilsw_0#4-pr.od target=_blank>decus-12-75-ilsw_0#4-pr.od</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-isns_i#1-pr target=_blank>decus-12-75-isns_i#1-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-isns_i#1-pr.od target=_blank>decus-12-75-isns_i#1-pr.od</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-relay_i0-i1-i2-i3-i4-i5#6-pr target=_blank>decus-12-75-relay_i0-i1-i2-i3-i4-i5#6-pr</a></div>
-<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-relay_i0-i1-i2-i3-i4-i5#6-pr.od target=_blank>decus-12-75-relay_i0-i1-i2-i3-i4-i5#6-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iadc_i-3-pr target=_blank>decus-12-75-iadc_i-3-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iadc_i-3-pr.od target=_blank>decus-12-75-iadc_i-3-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iexl_i-7-pr target=_blank>decus-12-75-iexl_i-7-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-iexl_i-7-pr.od target=_blank>decus-12-75-iexl_i-7-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-ilsw_0-4-pr target=_blank>decus-12-75-ilsw_0-4-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-ilsw_0-4-pr.od target=_blank>decus-12-75-ilsw_0-4-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-isns_i-1-pr target=_blank>decus-12-75-isns_i-1-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-isns_i-1-pr.od target=_blank>decus-12-75-isns_i-1-pr.od</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-relay_i0-i1-i2-i3-i4-i5-6-pr target=_blank>decus-12-75-relay_i0-i1-i2-i3-i4-i5-6-pr</a></div>
+<div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75-relay_i0-i1-i2-i3-i4-i5-6-pr.od target=_blank>decus-12-75-relay_i0-i1-i2-i3-i4-i5-6-pr.od</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75.htm target=_blank>decus-12-75.htm</a></div>
 <div><a href=/pdp8/trunk/pdp8/src/decus/12-75/decus-12-75.pdf target=_blank>decus-12-75.pdf</a></div>
 <tr>
