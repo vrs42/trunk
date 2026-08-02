@@ -6460,6 +6460,12 @@ select DEC7384 replaced with a more readily available gate.
   <DD>is a single-height module using a 44 pin PLCC.
 <DT>single84</A>
   <DD>is a single-height module using a 84 pin PLCC.
+<DT>single100</A>
+  <DD>is a single-height module using a 100 pin PQFP.
+<DT>double100</A>
+  <DD>is a double-height module using a 100 pin PQFP.
+<DT>double100tqfp</A>
+  <DD>is a double-height module using a 100 pin TQFP.
 </DL>
 </FIELDSET>
 </FIELDSET>
@@ -6543,6 +6549,8 @@ subsystem replaced with level converters and a ramboard.
   <DD>is the Negibus paddle card, for making cables.
 <DT>MMU8L</A>
   <DD>is a compatible MMU for the PDP-8/L.
+<DT>PT08</A>
+  <DD>is a Posibus terminal controller.
 </DL>
 </FIELDSET>
 <FIELDSET><LEGEND>
