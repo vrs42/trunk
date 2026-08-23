@@ -1,5 +1,5 @@
 .description
-Convert .g or .sv to (BIN) Paper Tape
+Convert .dg or .sv to (BIN) Paper Tape
 .name
 Images/diag-games-kermit.0/convrt.sv
 .notes
