@@ -92,61 +92,126 @@ SD =	$(COMGEN:.sv=.sd)
 
 all::	$(COMGEN) $(SD)
 
-#BUGBUG: Can't use make -j with bn2sv, as it always calls the result foo.sv!!
-
 # Most binaries are 4K
-%.sv:	z4k.bn %.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+# TODO: Add rules to set starting addresses in the .sv files.
+%.sv:	%.bn
+	$(BIN)/bn2sv $@ $^
 
-# These have their own rules
-rk4mat.sv: z4k.bn rklfmt.bn rklpch.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+# These have their own rules because they combine source files.
+rk4mat.sv: rklfmt.bn rklpch.bn
+	$(BIN)/bn2sv $@ $^
 
-dt4mat.sv: z4k.bn dtfrmt.bn dt4pch.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+dt4mat.sv: dtfrmt.bn dt4pch.bn
+	$(BIN)/bn2sv $@ $^
 
-dtcopy.sv: z4k.bn dtcopy.bn dtcpch.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+dtcopy.sv: dtcopy.bn dtcpch.bn
+	$(BIN)/bn2sv $@ $^
 
-focpqs.sv: z8k.bn focl69.bn focpqs.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+focpqs.sv: focl69.bn focpqs.bn
+	$(BIN)/bn2sv $@ $^
 
-asmblr.sv: z8k.bn asmblr.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+# These have their own rules to set the starting address correctly.
+# (The default starting address is the load address, or 0200 if that
+# is zero.)
 
-%.sd:	%.sv
-	$(BIN)/sv2sd $<
+map.sv: map.bn
+	$(BIN)/bn2sv $@=01200 $^
+
+# BUGBUG:  We are failing to create pal.sd and focal.sd!
+# BUGBUG:  We are creating a lot of <driver>.sd.  Need them?
+
+# BUGBUG:  We are loading cruft at 02400, but the load addr s.b. 02600
+filman.sv: filman.bn
+	$(BIN)/bn2sv $@=07000 $^
+
+# BUGBUG:  We are loading an extra 3 blocks.
+consol.sv: consol.bn
+	$(BIN)/bn2sv $@ $^
+
+#asmblr.sv: asmblr.bn
+#	$(BIN)/bn2sv $@ $^
 
 # Magic sysgen binaries
 pqsdsu.sv: z12k.bn pqsmon.bn pqsdsu.bn bin.bn odt.bn dump.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+	$(BIN)/bn2sv $@ $^
 
 pqsdta.sv: z12k.bn pqsmon.bn pqsdta.bn bin.bn odt.bn dump.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+	$(BIN)/bn2sv $@ $^
 
 pqsflp.sv: z12k.bn pqsmon.bn pqsflp.bn bin.bn odt.bn dump.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+	$(BIN)/bn2sv $@ $^
 
 pqslta.sv: z12k.bn pqsmon.bn pqslta.bn bin.bn odt.bn dump.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+	$(BIN)/bn2sv $@ $^
 
 pqsrka.sv: z12k.bn pqsmon.bn pqsrka.bn bin.bn odt.bn dump.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+	$(BIN)/bn2sv $@ $^
 
 pqsrxa.sv: z12k.bn pqsmon.bn pqsrxa.bn bin.bn odt.bn dump.bn
-	$(BIN)/bn2sv $^
-	mv foo.sv $@
+	$(BIN)/bn2sv $@ $^
+
+# Sometimes the default is enough.
+%.sd:	%.sv
+	$(BIN)/sv2sd $< || (rm $@; exit 1)
+
+# But often it isn't.
+# odt, batch, bin, get, start, dump, change, find are special
+bsave.sd: bsave.sv
+	$(BIN)/sv2sd $<-O-4 || (rm $@; exit 1)
+
+pal.sd: pal.sv
+	$(BIN)/sv2sd $<-8 || (rm $@; exit 1)
+
+map.sd: map.sv
+	$(BIN)/sv2sd $<-2 || (rm $@; exit 1)
+
+#blkodt.sd: blkodt.sv
+#	$(BIN)/sv2sd $<-0 || (rm $@; exit 1)
+
+set.sd: set.sv
+	$(BIN)/sv2sd $<-R-S || (rm $@; exit 1)
+
+core.sd: core.sv
+	$(BIN)/sv2sd $<-S || (rm $@; exit 1)
+
+date.sd: date.sv
+	$(BIN)/sv2sd $<-S || (rm $@; exit 1)
+
+print.sd: print.sv
+	$(BIN)/sv2sd $<-R-13 || (rm $@; exit 1)
+
+filman.sd: filman.sv
+	$(BIN)/sv2sd $<-S || (rm $@; exit 1)
+
+allcat.sd: allcat.sv
+	$(BIN)/sv2sd $<-S || (rm $@; exit 1)
+
+consol.sd: consol.sv
+	$(BIN)/sv2sd $<-2 || (rm $@; exit 1)
+
+focal.sd: focal.sv
+	$(BIN)/sv2sd $<-11 || (rm $@; exit 1)
+
+os8con.sd: os8con.sv
+	$(BIN)/sv2sd $<-5 || (rm $@; exit 1)
+
+#systat.sd: systat.sv
+#	$(BIN)/sv2sd $<-0 || (rm $@; exit 1)
+
+direct.sd: direct.sv
+	$(BIN)/sv2sd $<-R-S || (rm $@; exit 1)
+
+#blkcpy.sd: blkcpy.sv
+#	$(BIN)/sv2sd $<-0 || (rm $@; exit 1)
+
+#rk4mat.sd: rk4mat.sv
+#	$(BIN)/sv2sd $<-0 || (rm $@; exit 1)
+
+#dt4mat.sd: dt4mat.sv
+#	$(BIN)/sv2sd $<-0 || (rm $@; exit 1)
+
+#dtcopy.sd: dtcopy.sv
+#	$(BIN)/sv2sd $<-0 || (rm $@; exit 1)
 
 # Maintenance stuff:
 

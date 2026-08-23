@@ -46,24 +46,58 @@ while ($dir =~ s/(\S+)\s+(\d+)\s+(\d+).*//) {
 }
 
 foreach $f (@ARGV) {
+  # Read a ".du" format file, and extract the relevant info.
   open(INPUT, $f) || die "$f: $!";
   while (<INPUT>) {
-    next unless /^TR\s+\d:(\d+)/;
-    $first = oct($1);
-    $s = <INPUT>;
-    die unless $s =~ /^\s+(\d+)/;
-    $size = oct($1);
-    $s = <INPUT>;
-    die unless $s =~ /^\s+\d:(\d+)/;
-    $output = oct($1);
-    # Locate the correct input file.
-    for ($index = 0; $index < $count; $index++) {
-      last unless $first[$index] <= $first;
+    if (/^TR\s+\d:(\d+)/) {
+      $first = oct($1);
+      $s = <INPUT>;
+      die unless $s =~ /^\s+(\d+)/;
+      $size = oct($1);
+      $s = <INPUT>;
+      die unless $s =~ /^\s+\d:(\d+)/;
+      $output = oct($1);
+      # At this point, we know which blocks and their destination.
+      # Locate the correct input file.
+      for ($index = 0; $index < $count; $index++) {
+        last unless $first[$index] <= $first;
+      }
+      $index--;
+      $name = $name[$index];
+      # Form an offset into the file.
+      $offset = $first - $first[$index] - 1;
+      # TODO: Translate the offset/size information into an address range.
+      # Open the relevant ".sv" file and read the control block.
+      open(SV, "$name") || die "$name: $!";
+      read(SV, $buf, 384);
+      @buf = unpack("C*", $buf);
+      # Convert 128 word pairs packed $buf to unpacked $dsk.
+      for ($i = 0; $i < 128; $i += 2) {
+         $dsk[$i*2] = $buf[$i*3] + (($buf[$i*3+2]&0xF0)<<4);
+         $dsk[$i*2+1] = $buf[$i*3+1] + (($buf[$i*3+2]&0xF)<<8);
+      }
+      # Extract the starting address.
+      $nseg = 010000 - $dsk[0];
+      $sa = (($dsk[1]&070)<<01000) + $dsk[2];
+      $jsw = $dsk[3];
+      # Use the segment table to translate the block numbers into an 
+      # address range.
+      for ($i = 0; $i < $nseg; $i++) {
+        # Is the block number within the segment?
+        # ($first is conveniently in page-sized blocks.)
+        $np = $dsk[4+$i*2+1]>>6;
+        last if $offset < $np;
+        $offset -= $np;
+      }
+      # At this point, $offset has been decremented to fit inside the segment.
+      # Offset by the segment origin to recover the first address.
+      $offset = $dsk[4+$i*2] + $offset*128;
+      $offset += $dsk[4+$i*2+1] << 01000; # Include the starting field
+      # Convert size to an ending address.
+# BUGBUG: Worry about the case where size exceeds the segment size!
+      $end = $size*128 + $offset;
+# Worry about the case where this file name is the same as the last.
+      printf "../bin/transfer $name 0%04o 0%04o 0%04o\n", $offset, $end, $output;
     }
-    $index--;
-    $name = $name[$index];
-#   $name =~ s/sv$/sd/;
-    $offset = $first - $first[$index] - 1;
-    printf "../bin/transfer $name %d %d 0%o\n", $offset, $size, $output;
   }
 }
