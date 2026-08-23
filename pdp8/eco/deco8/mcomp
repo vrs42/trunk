@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+
+#
+# Read files.txt.  For each line describing a new-style part number, verify
+# that the component is accurately reflected in the scattered Files.txt.
+#
+
+sub readFiles {
+  local(*files) = @_;
+  %files = ();
+  while (<INPUT>) {
+    die unless /^(.*)\t(.*)\t(.*)\t(.*)/;
+    ($pn, $mt, $f, $desc) = ($1, $2, $3, $4);
+    next unless $pn;
+    $files{"$mt-$pn"} = $f;
+  }
+}
+
+# First, just read in files.txt.
+open(INPUT, "files.txt") || die "files.txt: $!";
+&readFiles(*ftxt);
+open(INPUT, "cat ~/pdp8/src/dec/*/Files.txt|") || die "Files.txt: $!";
+&readFiles(*cache);
+# Iterate over each result, checking it.
+foreach $pn (sort keys %ftxt) {
+  $fn = $ftxt{$pn};
+  $dir = $fn;
+  $dir =~ s/.-[^-]*$//;
+  $dir =~ s/-$//;
+  $inmem = $fn;
+  if (!defined $cache{$pn}) {
+    warn "$pn: missing for $ftxt{$pn}\n";
+    next;
+  }
+  warn "$pn: mismatch\n  $ftxt{$pn}\n  $cache{$pn} in $dir\n"
+    unless $ftxt{$pn} eq $cache{$pn};
+#warn "$pn: match in $dir\n" if $ftxt{$pn} eq $cache{$pn};
+}
+# Also possible part number is missing locally.
+@list = %fxt; %rtxt = reverse @list;
+foreach $pn (sort keys %cache) {
+  next unless defined $rtxt{$cache{$pn}};
+  if (!defined $ftxt{$pn}) {
+    warn "$pn: missing locally for $cache{$pn}\n";
+    next;
+  }
+}

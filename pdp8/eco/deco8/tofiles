@@ -70,7 +70,12 @@ foreach $f (@ARGV) {
   } elsif ($f =~ /^a(.*)-(.).*$/) {
 # BUGBUG: This picks up ac-* as well.
     ($name, $version) = ("d$1", $2);
-    $name = "08-$name";
+    # BUGBUG: X8 stuff should go to x8-, not 08-
+    if ($value{'description'} =~ /X8/) {
+      $name = "x8-$name";
+    } else {
+      $name = "08-$name";
+    }
   }
   $name =~ s/0*$//;
   $name .= "0" if length($name) < 6; # 08-xx gets padded
