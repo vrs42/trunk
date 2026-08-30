@@ -1,0 +1,136 @@
+C  MOR1.F4   TWO SPHERES BY METHOD OF REFLECTIONS
+C   PARALLEL
+C
+        DOUBLE PRECISION BB,BC,CB,CC,BNC,CNC,AN,F
+        DIMENSION SUMB(20,20,20,2),SUMC(20,20,20,2)
+        DIMENSION B(20,20,20,2),C(20,20,20,2)
+C
+        N=20
+        WRITE(4,1500)
+1500    FORMAT(' TWO SPHERES BY THE METHOD OF REFLECTIONS - PARALLEL'/)
+C        WRITE(4,1510)
+C1510    FORMAT(' ENTER # OF TERMS ( 20 <= ) '$)
+C        READ(4,1520)N
+1520    FORMAT(I5)
+        NMAX=N
+        NPOW=N
+        IFLECT=N
+C N1,N2 = N OR n (B,C,SUMB,SUMC)
+C  I,J=POWER OF A,B   (B,C,SUMB,SUMC) - (1,1)=CONSTANT
+C  II,JJ=B OR b,C OR c (B,C - REVERSE I,J FOR CAPITOL LETTER SYSTEM)
+C  II,JJ=* OR ** (B,C)
+C  II,JJ=UB OR UA (SUMB,SUMC)
+        DO 100 I=1,NMAX
+        DO 100 J=1,NPOW
+        DO 100 K=1,NPOW
+        DO 100 L=1,2
+        B(I,J,K,L)=0.
+        C(I,J,K,L)=0.
+        SUMB(I,J,K,L)=0.
+100     SUMC(I,J,K,L)=0.
+        B(1,1,1,1)=.25
+        C(1,1,1,1)=1.5
+        SUMB(1,1,1,1)=1./6.
+        SUMC(1,1,1,1)=1.
+C
+        II=1
+        DO 500 IR=2,IFLECT
+        JJ=II
+        II=3-II
+        DO 300 N1=1,NMAX
+C
+        DO 110 I=1,NPOW
+        DO 110 J=1,NPOW
+        B(N1,I,J,II)=0.
+110     C(N1,I,J,II)=0.
+C
+        BB=N1*(2.D0*N1-1.D0)/(2.D0*(N1+1.D0))
+        BC=N1*(2.D0*N1+1.D0)/(2.D0*(N1+1.D0)*2.D0*(2.D0*N1+3.D0))
+        CB=N1*(2.D0*N1-1.D0)*(2.D0*N1+1.D0)/(N1+1.D0)
+        CC=N1*(2.D0*N1-1.D0)/((N1+1.D0)*2.D0)
+        BNC=N1*(2.D0*N1-1.D0)/(2.D0*(N1+1.D0))
+        CNC=N1*(2.D0*N1-1.D0)*(2.D0*N1+1.D0)/(N1+1.D0)
+C
+        DO 200 N2=1,NMAX
+        F=FUNC(N1,N2)
+        AN=(2.D0*N1*N2+2.D0-N1-N2)/(2.D0*(2.D0*N2-1.D0)*(2.D0*N1-1.D0)*(
+     1N1+N2))
+C
+        DO 150 I=1,NPOW
+        DO 150 J=1,NPOW
+        I1=J+N1-1
+        IF(I1.GT.NPOW)GOTO 150
+        I2=I+N2
+        IF(I2.GT.NPOW)GOTO 150
+        B(N1,I1,I2,II)=B(N1,I1,I2,II)-F*BNC*AN*C(N2,I,J,JJ)
+        C(N1,I1,I2,II)=C(N1,I1,I2,II)-F*CNC*AN*C(N2,I,J,JJ)
+        I2=I2+2
+        IF(I2.GT.NPOW)GOTO 140
+        B(N1,I1,I2,II)=B(N1,I1,I2,II)+F*BB*B(N2,I,J,JJ)
+        C(N1,I1,I2,II)=C(N1,I1,I2,II)+F*CB*B(N2,I,J,JJ)
+140     I1=I1+2
+        I2=I2-2
+        IF(I1.GT.NPOW)GOTO 150
+        B(N1,I1,I2,II)=B(N1,I1,I2,II)+F*BC*C(N2,I,J,JJ)
+        C(N1,I1,I2,II)=C(N1,I1,I2,II)+F*CC*C(N2,I,J,JJ)
+150     CONTINUE
+C
+200     CONTINUE
+        DO 250 I=1,NPOW
+        DO 250 J=1,NPOW
+        TWO=2.**(-I-J+2)*.666666667
+        SUMB(N1,I,J,II)=SUMB(N1,I,J,II)+B(N1,I,J,II)*TWO
+250     SUMC(N1,I,J,II)=SUMC(N1,I,J,II)+C(N1,I,J,II)*TWO
+300     CONTINUE
+500     CONTINUE
+C       DO 550 N1=1,NMAX
+C
+        N1=1
+        GOTO 520
+C
+        WRITE(4,1010)N1
+        DO 510 I=1,NPOW
+        WRITE(4,1000)(SUMB(N1,I,J,1),J=1,NPOW)
+510     CONTINUE
+        WRITE(4,1020)N1
+        DO 520 I=1,NPOW
+        WRITE(4,1000)(SUMB(N1,I,J,2),J=1,NPOW)
+520     CONTINUE
+        WRITE(4,1030)N1
+        DO 530 I=1,NPOW
+        WRITE(4,1000)(SUMC(N1,I,J,1),J=1,NPOW)
+530     CONTINUE
+        WRITE(4,1040)N1
+        DO 540 I=1,NPOW
+        WRITE(4,1000)(SUMC(N1,I,J,2),J=1,NPOW)
+540     CONTINUE
+550     CONTINUE
+1000    FORMAT(5G15.8)
+1010    FORMAT(' B - UA   N= ',I3)
+1020    FORMAT(' B - UB   N= ',I3)
+1030    FORMAT(' C - UA   N= ',I3)
+1040    FORMAT(' C - UB   N= ',I3)
+        STOP
+        END
+C  FUNC.F4
+        FUNCTION FUNC(N1,N2)
+        FUNC=1.
+        IF(N2.EQ.0) RETURN
+        DO 10 I=1,N2
+10      FUNC=FUNC*(N1+N2-I+1.)/I
+        RETURN
+        END
+0     CONTINUE
+1000    FORMAT(5G15.8)
+1010    FORMAT(' B - UA   N= ',I3)
+1020    FORMAT(' B - UB   N= ',I3)
+1030    FORMAT(' C - UA   N= ',I3)
+1040    FORMAT(' C - UB   N= ',I3)
+        STOP
+        END
+C  FUNC.F4
+        FUNCTION FUNC(N1,N2)
+        FUNC=1.
+        IF(N2.EQ.0) RETURN
+        DO 10 I=1,N2
+10      FUNC=FUNC*(N1+N2-I+

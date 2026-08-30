@@ -1,0 +1,35 @@
+{$X+}
+program dirdupl(source:'scr:t.di',result:'scr:t.bi',output);
+{Reads a .directory scr:t.di<dev:=1 and creates a side-ways
+ duplicated list. Useful for building BATCH jobs on OS/8.}
+const keep = 9 {keep first 9 characters on line};
+     ndupl = 3 {number of side-ways repetitions};
+var source, result: text;
+  sfn : packed array[1..14] of char;
+  s : packed array[1..keep] of char;
+ slc, i, j : integer;
+begin {dirdupl}
+  reset(source);
+  rewrite(result);
+  slc := 0;
+  while not eof(source) do
+    begin
+      if source^ <> ' ' then
+        begin i := 0;
+          slc := slc + 1;
+          while not eoln(source) do
+            begin
+              i := i + 1;
+              if i <= keep then s[i] := source^;
+              get(source)
+            end;
+          for j := i + 1 to keep do s[j] := ' ';
+          for i := 1 to ndupl do write(result,'*SCR :',s);
+          writeln(result)
+        end;
+      readln(source)
+    end;
+  getfn(result,sfn);
+  writeln(output,slc:1,' lines written to ',sfn)
+end {dirdupl}.
+

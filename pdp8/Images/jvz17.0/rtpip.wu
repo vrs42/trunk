@@ -1,0 +1,171 @@
+                                  RTPIP
+
+     RTPIP is an OS/8 program which allows one to transfer files in either
+direction to (or from) a single- or double-density RT-11 floppy disk.  The
+usual sort of 'PIP' options are available: listing the directory, deleting
+files or 'zeroing' a new disk.  Wildcards are not allowed, hence only one
+file at a time may be moved, but unlike OS/8 PIP, the creation date of the
+file is not changed.  (To facilitate moving many files at once, RTPIP may
+be called from a BATCH file.)  OS/8 input files must be on a directory de-
+vice (i.e. disks or DECtapes), however non-file-structured output devices
+such as the TTY: are allowed.
+
+     RTPIP prints a '*' after it is loaded, then waits for a command line
+to be entered.  In order to process RT-11 filenames correctly, the command
+line is not read by the OS/8 command decoder, but rather by a similar rou-
+tine built into RTPIP.  The command line has the general form:
+
+                    *output spec < input spec /options
+
+where:  'output spec' may be either DEVICE:FILENAME.EX for OS/8, or
+                                    FILENAME.EXT       for RT-11
+
+and,    'input spec' is similar.  Note especially that NO RT-11 de-
+         vice specification is allowed!  'DSK:' is assumed for OS/8.
+
+        'options' are limited to: /D,/L,/R,/W,/V,/Z,/0,/1.  Only a
+         single option is generally recognized, with the exception
+         of the /0 and /1 options.  These two options only need to
+         be specified once, rather than on each line.  The meaning
+         of each option is as follows:
+
+        /0 - the RT-11 floppy is in Drive 0
+        /1 - the RT-11 floppy is in Drive 1 (this is the default)
+        /D - Delete the RT-11 file specified
+        /I - Image mode transfers (with /R or /W - see below)
+        /L - List the RT-11 directory (default output dev is TTY:)
+        /R - Read the RT-11 file
+        /W - Write the RT-11 file
+        /Z - Zero the RT-11 disk (asks 'Are you sure?' - ans. Y,N)
+        /V - print the program version number
+
+     The existence of the /R and /W options may appear puzzling since the
+syntax of the command line itself would seem to show which file is being
+read and which is being written.  But a moment's reflection will indicate
+that without a device specification for the RT-11 disk, some other method
+is necessary to resolve command lines such as: FILE.EXT<FILE.EXT.  Which
+file is on the OS/8 device DSK:, and which is on the RT-11 disk?
+
+     Since the option switches always refer to the RT-11 file, adding '/R'
+indicates that the input comes from the RT-11 disk, while adding '/W' in-
+dicates that a RT-11 file is being created.  If you forget to specify one
+of the options, RTPIP will print an error message and then retype the com-
+mand line so you can edit it.  Note that /D simply deletes the first file-
+name specified, while /L and /Z completely ignore filename specifications.
+(To send the directory listing to an OS/8 file, you must specify a DEVICE
+name as well as a file name, e.g. DSK:RT11.DIR</L.)
+     RTPIP is primarily intended for moving ASCII data files between OS/8
+and RT-11 systems, hence the normal transfer mode includes an EOF check to
+ensure that OS/8 files end with CTRL/Z, while RT-11 files end with a null.
+Characters are also converted from 7-bit (RT-11) to 8-bit (OS/8), in keep-
+ing with the standard convention in each system.  In order to allow an oc-
+casional non-ASCII file to be moved, RTPIP does have a '/I' switch which
+provides 'image-mode' transfers.  Note, however, that the FILESIZE may not
+be preserved during a 'round-trip', even though using the /I option will
+preserve the contents!  This anomoly is due to the fact that RT-11 files
+contain 512 bytes/block, while OS/8 files have only 384.  OS/8 files whose
+size is not a multiple of 4, or RT-11 files whose size is not a multiple
+of 3, may 'grow' by 1 block when moved back and forth!
+
+     When using RTPIP to transfer data files on a regular basis between
+(say) an OS/8 data collection system and a RT-11 data analysis system, it
+is advantageous to prepare a small BATCH file to control the operations.
+RTPIP automatically uses the BATCH input and output devices in place of
+the terminal when it is called in this manner, hence one has only to con-
+struct a control file which mimicks the normal keyboard input:
+
+                $JOB TO RUN RTPIP UNDER BATCH
+                /HIT RETURN WHEN READY TO PROCEED
+                $MSG: MOUNT RT-11 DISK IN DRIVE 1
+                .R RTPIP
+                */L$
+                /RIGHT DISK? USE CTRL/C TO EXIT
+                $MSG: IS THIS THE CORRECT DISK?
+                .R RTPIP
+                *FILE1.DAT<FILE1.DA/W
+                *FILE2.DAT<FILE2.DA/W
+                ...
+                *FILEN.DAT<FILEN.DA/W$
+                $END
+
+     Note the two command lines above which end with a 'Dollar Sign' ($).
+These cause the program to return to the OS/8 (or Batch) monitor so that
+the next job-step can be performed.  The first exit occurs after listing
+the directory, the second after copying the last file.  Such Batch Input
+files can easily be created by the data collection program for use at the
+end of the day, or even from a directory listing, if you are a TECO guru!
+
+
+     Use of RTPIP in conjunction with the D0,D1 floppy disk handlers:
+
+     RTPIP is a very useful program for exchanging files between 8's and
+11's since it allows one to access files with the normal RT-11 directory.
+However, it has the limitation that the only access to such files is via
+the program, hence the only operation which can be performed is to move
+files one-at-a-time from one disk to another.  One cannot directly com-
+pare two files (using OCOMP, for instance) to see if they are identical.
+
+     In contrast, use of the D0/D1 handler allows -any- OS/8 program to
+access data on a single-density RT-11 disk.  However, such access is via
+the OS/8 directory (or else directly by block number), rather than via
+the RT-11 directory.  Fortunately the two directory areas do not overlap,
+so it is possible to 'zero' a disk with both OS/8 PIP and RTPIP and thus
+keep track of files in both directories simultaneously.  To attempt such
+foolishness, you should place a 'dummy' 1-block file at the beginning of
+the RT-11 directory, and a similar 13-block(10) file at the beginning of
+the OS/8 directory.  (Use a command such as '.PUNCH D1:DUMMY</I=15'.)
+OS/8 file sizes should be a multiple of 4, RT-11 files a multiple of 3.
+
+
+                      Using RTPIP for archival storage
+
+     Since RTPIP can operate with double-density disks as well as single-
+density, it is possible to use this program to store files totaling up to
+1298 OS/8 blocks on a single disk - a 32% improvement over the 981 blocks
+available via the normal OS/8 double-density handler.  The extra storage
+capacity comes from the use of 'byte-mode' rather than 'word-mode'.  Note
+that the D0/D1 handler also uses byte-mode to get nearly 40% more storage
+on a single-density disk.  However it is not possible to use this handler
+with double-density disks due to a hardware limitation.  (It CAN be used
+with single-density disks on a RX02 drive, however.)  Thus to gain access
+to all the disk space available, it is necessary to use the RTPIP program.
+
+     The major disadvantage to storing OS/8 files in this way is that ac-
+cess to them is somewhat restricted, as discussed above.  For archiving
+large data sets which are needed only infrequently, however, this method
+is quite viable.  Such files are less transportable than those stored on
+single-density disks, but they can be read on RX02-based PDP-11 systems.
+
+
+                            RTPIP Error Messages
+
+Bad slash option        Option was not /0,/1,/D,/I,/L,/R,/V,/W or /Z
+
+No option selected      Self-explanatory command line error
+
+Bad directory           A valid RT-11 directory was not found
+
+No output file          Self-explanatory command line error
+
+Handler fetch failed    The OS/8 handler specified could not be loaded
+
+OS/8 I/O error          The OS/8 handler reported a fatal error condition
+
+Cannot spec. RT-11 dev  Only OS/8 device specifications are allowed
+
+Need file name          An OS/8 file-structured device was specified
+
+Out dev full            Not enough room for the RT-11 directory listing
+
+File not found          Either the OS/8 file or the RT-11 file was missing
+
+Segment full - SQUEEZE  The RT-11 directory is full (try to SQUEEZE it)
+
+No room on floppy       The RT-11 floppy cannot contain the new file
+
+Floppy I/O error        The RT-11 handler reported a fatal error condition
+
+OS/8 File overflow      The RT-11 file is too big to fit on the OS/8 device
+
+Non-file input not...   Input from non-file devices (TTY:) is not allowed
+

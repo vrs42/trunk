@@ -1,0 +1,303 @@
+			  OS/8 <-> VMS/RSX HANDLER
+
+     The VAX:/RSX: handlers allow PDP8 programmers using the OS/8 (OS/78)
+operating system to send files to, or receive files from, other large DEC
+computer systems using VMS, RSX or TOPS10/20 operating systems.  All com-
+munication is through the host system's terminal driver, hence no special
+transfer programs are required on the remote machine.  In fact, the files
+may include operating system commands, making it possible to initiate pro-
+cessing on the large machine which then runs in parallel with programs on
+the PDP8.
+
+     The basic handler is available in three formats: one for the VAX, one
+for '11 systems, and one for '10 systems.  They have the names: VAX:, RSX:
+and TEN:, respectively.  For purposes of illustration only the VAX: handler
+will be discussed below, however operations with the RSX: or TEN: handlers
+are entirely similar, with only minor differences.
+
+     Note that since the handlers may be used with any OS/8 program, the re-
+sulting 'network' is significantly more versatile than one which uses a spe-
+cial 'file-transfer' program on either end.  The only restriction is that
+OS/8 FORTRAN IV programs cannot use this handler for INPUT at the same time
+that they use any other non-system handler for I/O operations.  This is due
+to a design deficiency in FRTS that applies to all handlers that buffer data
+within themselves.  There are no restrictions on OUTPUT.
+
+     The handler may be installed either by using the BUILD program (see the
+OS/8 Handbook, Ch. 2), or by using the OS/78 SET HANDLER command.  After the
+hander is installed, the user may run the VAXX (or RSXX or TENX) program to
+change various characteristics, for instance the device codes used, the 'con-
+catenation switch' or the 'delay-time' setting; the use of the VAXX program
+is described separately.  It is also necessary to have a 'terminal emulator'
+program available that will allow you to connect the OS/8 console to the re-
+mote machine.  This program is usually called TERMIN so it may be invoked by
+the '.TER' command.  The version of TERMIN supplied with the handler is also
+described separately.
+
+     The VAX: handler has been designed to interface with the standard VMS
+terminal driver.  However, the following terminal characteristics should be
+set before you attempt to use the handler: SET TERM/TAB/FORM/WIDTH=132/LOWER
+/TTSYNC/HOSTSYNC.  Of these, the last two are the most important since they
+control the synchronization required between the two machines.  'HOSTSYNC'
+means that the VAX will respond to XON/XOFF signals sent from the '8, while
+'TTSYNC' means that the VAX will send similar signals back to the '8.  This
+command (or something equivalent) can be included in your LOGIN.COM file, or
+it can be placed in the system startup file.  (Note that the 'TTSYNC' option
+has only recently been implemented under RSX; the handler will thus NOT WORK
+with older versions of that operating system.)
+
+
+			    Sending files to the VAX
+
+     To send files to the VAX one must first go through the usual LOGIN pro-
+cedure and then issue a 'CREATE' command to copy data into a VMS file:
+
+		.R TERMIN		(or use .TER with OS/78)
+		Username: ...
+		Password: ...
+		$ CREATE 'filespec'	(hit 'return', then Ctrl/E)
+     On other systems 'CREATE' may be replaced by a 'COPY filespec=TTY:' com-
+mand (the ordering of input/output may differ).  This command should be termi-
+nated by hitting the RETURN key, at which point any additional data sent will
+be put in the file.  The next step is thus to exit from the TERMIN program by
+typing 'Ctrl/E' and return to the OS/8 monitor:
+
+		(Type Ctrl/E to exit from the TERMIN program)
+		.COPY VAX:<filename	(this uses the FOTP program)
+		FILES COPIED:
+		filename		(only one at a time for now)
+		.R TERMIN
+		$ DIR filespec		(check that the file exists)
+		$ TYPE filespec		(look at some of it)
+		$ PRINT/delete filespec	(print it out and delete it)
+		$ LOGOUT		(or whatever...)
+		(Type Ctrl/E to return to OS/8)
+
+     Aside from the login procedure which is best performed interactively so
+you can respond to mail, note system down-times, etc., the commands which
+create the file can just as well be sent via the handler itself.  Thus after
+logging in, one can immediately go back to OS/8 to run a program which sends
+the appropriate CREATE command (plus a Carriage Return), followed by the ac-
+tual data.  This allows 'unattended' operation which may even be done by a
+BATCH procedure, which is extremely convenient when processing large amounts
+of data.
+
+     Note that unlike almost all other 'non-file-structured' handlers, the
+VAX: handler normally sends the 'CTRL/Z' which OS/8 uses to mark the end-of-
+file.  Since the VAX also recognizes CTRL/Z as the EOF mark, this means the
+receiving file will be closed automatically without any further attention.
+If the file you are sending to the VAX is being generated by a program, the
+operation of closing the OS/8 file will also 'close' the VAX file.  One can
+also just send a CTRL/Z (octal 32, decimal 26) to close the VAX file without
+closing the OS/8 file.  This allows the program to continue to use the VAX:
+handler without the overhead of constantly re-loading it.
+
+     This mode of operation is generally, but not always, convenient.  There
+are times when it is desirable to merge several OS/8 files into one large VAX
+file.  For example, one might like to create a temporary 'print file' and then
+send over several PAL8 listings.  This won't work unless the 'no-EOF' switch
+in the handler is set, as otherwise the CTRL/Z at the end of the first listing
+will close the VAX file.  The state of this switch may be changed by altering
+location '100' in the handler, either with a 'SET VAX: LOC 100=1' command, or
+more easily by using the VAXX program:
+
+		.R VAXX/C		(Set the 'concatenate' switch)
+		.R VAXX/N		(Reset the switch to 'normal')
+
+     A common use of the 'concatenated file' mode is to create a single VAX
+file containing the OS/8 directory listings of many different floppy disks
+or DECtapes.  These may then be conveniently printed all at once rather than
+one-at-a-time.  To do this, run the TERMIN program and issue a $ CR DIR.LIS
+command.  Then go back to OS/8 and proceed as follows:
+		.R VAXX/C			(combine output)
+		.DIR VAX:<RXA1:/E/P		(first floppy)
+		.DIR VAX:<RXA1:/E/P		(second disk)
+		.DIR VAX:<DTA0:/E/P		(first tape, etc.)
+		.R VAXX/N			(reset EOF switch)
+		.DIR VAX:<DTA1:/E/P		(do the last tape)
+		.R TERMIN			(connect with VAX)
+		$ PR/DEL DIR			(print directory file)
+		(type Ctrl/E to return to OS/8)
+
+     Once one has learned the few simple steps required to use this handler,
+the procedures shown above will become almost second nature.  The most fre-
+quent mistake is forgetting to initially create the file on the VAX.  If this
+happens, the data sent by the handler is treated as a series of DCL commands!
+This mistake can usually be detected by noting the much slower transfer rate
+caused by all the error messages which are generated.
+
+
+			Receiving files from the VAX
+
+     The procedure for sending files from the host machine back to the PDP8 is
+largely similar to that outlined for sending files the other way, with the ob-
+vious switching of input/output operations.  One annoying difference on the
+OS/8 side is that the .COPY command cannot be used - instead one must use the
+.PUNCH command, due a deficiency in the FOTP program.  (PUNCH uses PIP rather
+than FOTP.)  The basic outline of the steps required is as follows:
+
+		1) Run the TERMIN program to login, etc.
+		2) Issue a '$ TYPE filespec' command
+		3) Type Ctrl/E to return to OS/8
+		4) Call the VAX: handler as an input device
+
+     Note especially that the $ TYPE command shown in Step 2 is but ONE method
+for producing output from the VAX.  The procedure discussed below works with
+ANY command which sends data to the terminal - thus the VAX: handler can be
+used to 'capture' any sort of output, such as directory listings, mail, help
+files, status reports, etc., and put this information in an OS/8 file.
+
+     Since steps 3 & 4 typically take several seconds, it is obvious that un-
+less something special is done in Step 2, most of the data sent to the PDP8
+will be lost before the VAX: handler can be called.  There are two ways to
+temporarily stop execution of the VAX command: the first is to type the com-
+mand as shown, but WITHOUT hitting the 'return' key.  This simply leaves the
+command in the input buffer, waiting for the user to say 'go ahead and do it'.
+This is the recommended procedure.  The second method (useful in case habit
+overcomes reason and you hit the RETURN key) is to QUICKLY type Ctrl/S several
+times, which should stop output to the terminal.  The second method is not en-
+tirely reliable since there appear to be times when the VAX simply ignores you.
+
+     With the VAX in a suspended state there is now time to invoke the OS/8
+utility which will use the VAX for input.  When the handler finally receives
+an input request, it first sends a 'CTRL/Q' and then a 'RETURN', so no matter
+how output was suspended, it will be sure to start.  Data received from the
+VAX are then packed into the buffer area specified in the input request (us-
+ing the standard OS/8 packing scheme) until either the buffer fills up or the
+transmission ends.  If the buffer fills up first, the handler sends XOFF to
+stop transmission until additional buffer space is available.  (Buffer space
+is determined by the calling program, not by the handler).  When the VAX fin-
+ally stops sending data the handler takes the 'EOF' exit.
+     This raises an interesting question: how does the handler know when the
+transmission is over?  The answer is: 'whenever no characters are received 
+for a pre-determined period of time'.  Since the VAX does not send any 'EOF'
+code to the terminal, this is the only way the handler can detect this con-
+dition.  The 'pre-determined period of time' is an adjustable parameter in
+the handler which must be set somewhat empirically, depending upon the re-
+sponse time of a particular system.  The minimum delay is approximately .1
+second, while delays of several seconds have been found necessary in cases
+where the system is heavily loaded.  The 'delay time' may be set by changing
+the value in location '300' of the handler, using either the 'SET LOC' com-
+mand, or more conveniently, by means of the '/T' option in the VAXX program:
+
+		.R VAXX/T=3		(set the delay to '3')
+		.R VAXX/T=5		(increase it slightly)
+		.R VAXX/T=0		(reset to the default value)
+
+It is desirable in general to keep this value as small as possible so that
+the handler will respond quickly to a 'real' EOF condition, while not 'tim-
+ing out' too soon when the system is busy.
+
+     Note that the VAX: handler may be used 'simultaneously' for both input
+and output.  Thus the calling program may use this handler to send commands
+to the VAX and then wait for the calculated results to come back before pro-
+ceeding to the next step.  To check out the 'receive' side of the handler,
+try sending a file to the VAX and then copying it back to the PDP8:
+
+		.R TERMIN		(connect terminal to VAX)
+		$ CR TESTFILE		(set up temporary output file)
+		(Type CTRL/E to return to OS/8)
+		.COPY VAX:<TEST.DA
+
+		.R TERMIN		(get back on the VAX)
+		$ TYPE TESTFILE.	(Remember: Don't type RETURN!)
+		(Type CTRL/E to get back to OS/8)
+		.PUNCH TEST.VX<VAX:	(Remember: Can't use .COPY!)
+		.COMPAR TEST.DA,TEST.VX	(Check for any differences)
+
+     As you will discover by actually trying this example, the two files are
+ALMOST, but not EXACTLY, identical.  The difference is that the file received
+from the VAX contains an extra blank line and a '$' at the end, which will be
+recognized as the standard VAX 'prompt' line.  These spurious characters are
+sent immediately after the data, and hence get appended to the file.  To avoid
+this you can make a little command procedure that puts a 2-second 'wait' after
+the 'TYPE' command, so the handler can 'time-out' before the command prompt:
+
+		$ TYPE 'P1'		(list specified file on terminal)
+		$ WAIT 0::2		(then wait for 2 seconds)
+
+     If these two commands are put in a file called 'SEND8.COM', and you add
+the definition $ SEND8:==@SEND8 to your login file, then you can use the com-
+mand: '$ SEND8 filespec' in place of '$ TYPE filespec' to get an unblemished
+version of the file.
+
+     Here is another example: suppose you would like to keep a running record
+of all the VAX time used to transfer files back and forth.  This information
+is displayed by the 'LOGOUT' command, so you may proceed as follows:
+		.R TERMIN		(time to end this session)
+		$ LOGOUT/FULL		(But don't hit the RETURN key!)
+		(Type CTRL/E to go back to OS/8)
+		.PU VAXTIM<VAXTIM,VAX:
+
+     The .PUNCH command adds the new accounting information to the end of the
+cumulative VAXTIM file (which of course can be sent back to the VAX at some
+later time for printing).
+
+     As mentioned earlier, the VAX: handler can be used with practically any
+OS/8 program, not just with 'file-transfer' programs like PIP and FOTP.  Here
+is an example in which a VAX file is directly compared with an OS/8 file using
+the SRCCOM program:
+
+		.R TERMIN
+		$ SEND8 filespec	(no RETURN, please)
+		(Type CTRL/E to exit)
+		.COMPARE original,VAX:	(do a direct comparison)
+		first line of original
+		first line of VAX file
+		NO DIFFERENCES		(we hope!)
+				Technical Details
+
+     The key to successful communication between the PDP8 and other DEC oper-
+ating systems lies in the use of the 'XON/XOFF' protocol.  According to this
+scheme, the computer which is sending data must stop whenever it receives a
+'XOFF' (DC3 or CTRL/S) character, resuming when it receives a 'XON' (DC1 or
+CTRL/Q) code.  This allows the computer which is receiving data to stop the
+transmission whenever it runs out of room in its input buffer.
+
+     Aside from implementing this protocol, however, the user should be aware
+that this handler also contains a number of other features tailored to the
+'peculiarities' of the particular operating system it is inteneded to be used
+with.  Here is a list of some of those special features:
+
+     1) Linefeeds and nulls are suppressed during output.  The VAX treats
+both of these as 'carriage returns' which creates spurious blank lines.
+
+     2) CTRL/Z (the OS/8 end-of-file character) is normally sent to the VAX
+in order to close the file.  This limits COPY operations to one-file-at-a-
+time.  The user may, however, set the 'no-EOF' switch so that several OS/8
+files can be merged into one VAX file.
+
+     3) The handler uses a time-out loop to detect the end-of-transmission
+from the VAX.  The response time of this loop can be adjusted to accomodate
+different processors and/or different system activity levels.
+
+     4) The handler sends 'XON+RETURN' when it is ready to receive data from
+the VAX.  It then waits for a 'LINEFEED' plus a 'RETURN' before storing data
+in the buffer.  These characters are not part of the data file, but are gen-
+erated in response to the initial 'return'.
+
+     5) Since the VAX does not immediately stop sending when it receives XOFF,
+the handler stores up to 8 'overflow' characters in an internal buffer.  These
+characters are then put in the user's input buffer the next time the handler is
+called.  This feature limits usage of the handler with OS/8 FORTRAN IV programs
+to situations in which no other OS/8 handlers are active at the same time, with
+the exception of operations involving only the system device.
+
+     6) Multiple 'linefeeds' during input are converted to multiple 'CR,LF'
+pairs.  This solves a problem with early versions of VMS in which consecutive
+blank lines (= multiple CR's in the OS/8 world) were sent as a single CR fol-
+lowed by multiple LF's.  Since most OS/8 programs discard LF, the result was
+the loss of all blank lines.
+
+     7) Current versions of VMS seem to send multiple CR's.  For example, the
+response to a DCL command is 'CR,LF,CR', with no apparent way to avoid the
+second return.  Be sure to set both the /CRFILL and /LFFILL parameters to '0'
+to avoid other spurious 'returns'.  You should also set the /FORM option so
+that formfeeds will be preserved.
+
+     8) This handler is distributed under the terms of a single-user license
+agreement and may not be copied or otherwise made available to an unlicensed
+user.  For more information, please contact
+
+Lab Data Systems          10320 Ravenna Avenue N.E.          Seattle, Wa 98125
+

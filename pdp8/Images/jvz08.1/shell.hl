@@ -1,0 +1,35 @@
+Explanation of shell model computation of friction of objects
+by extrapolation of Seidel computations to zero bead size.
+
+1.  Several programs place beads on a shell.  They are:
+	ELIPSE.F4  places beads centered on ellipsoid surface
+	SPHRIP.F4  places beads inside tangent to sphere surface
+	CYLNDR.F4  places beads on a cylinder
+	SHELLS.F4  generates multisphere object from set of beads on
+a sphere and the coords of centers of multisphere object.  Example:
+	.R F4
+	*SPHRIP/G
+	*TEMP.DA</7$
+	TYPE A,R (2F7.0): 20,2.7
+(generates shell of inside tangent beads on a sphere)
+	.R F4
+	*SHELLS/G
+	*TEMP.DA/5
+	*TETRAH.DA/6   (tetrah., a=20.)
+	*TETR1.DA</7$
+(generates shell of tetrahedral tetramer)
+	.ED TETR1.DA   (to fix title)
+
+2.  Seidel computations.  SEIDEL.F4 handles up to 640 beads; SEIDL2.F4
+up to 1650 beads, using disk storage of force vector.  Optimized load 
+modules exist as SEIDEL.LD and SEIDL2.LD.  Coordinates on unit 5
+(I5,3F10.5), interruption files on units 6 (previous) and 7 (new).
+
+3.  Extrapolations to zero bead size.  This is done by GENLSQ to get
+quadratic least squares polynomial.  Set SSW0 to get printout of 
+coefficient matrix (C) and inverse (C').  For estimate of standard error
+of intercept, estimate the uncertainty R of the Seidel results, calculate
+SQRT(SIGMA(R(I))/N) for N Seidel computations, multiply by SQRT(C'00).
+This is the independent estimate of the standard error of the intercept,
+and will likely be greater than the +/- figure calculated by GENLSQ.
+In any case the larger figure must be used.

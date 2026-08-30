@@ -1,0 +1,139 @@
+ OCTAMER FOR CHRISTOPH
+     8    1.
+    1        1.       -1.       -1.
+    2        1.        1.       -1.
+    3       -1.        1.       -1.
+    4       -1.       -1.       -1.
+    5        1.       -1.        1.
+    6        1.        1.        1.
+    7       -1.        1.        1.
+    8       -1.       -1.        1.
+N
+0.,0.,0.
+0
+g*Pf"@e!@d(Gd;~/\Dr@A8(4,1001)TN
+	NB=TN*BN+1
+	IF(NB.LE.500)GO TO 20
+	WRITE(4,2000)
+2000	FORMAT(' TOO MANY BEADS!')
+	GO TO 10
+20	WRITE(4,1003)
+1003	FORMAT(' PITCH, P, IN BEAD RADII FOR A FULL TURN:'$)
+	READ(4,1001)P
+	WRITE(4,1005)
+1005	FORMAT(' CENTER COORD?'$)
+	READ(4,1006)YN
+1006	FORMAT(A1)
+	P=P*RB
+	HYP=2.*RB*BN
+	ALFA=ASIN(P/HYP)
+	DEG=180.*ALFA/PI
+	WRITE(4,2001)DEG
+2001	FORMAT(' ANGULAR RISE PER BEAD IS' F12.4)
+	X0=HYP*COS(ALFA)/(2.*PI)
+	WRITE(4,2002)X0
+2002	FORMAT(' CYLINDER RADIUS:' F12.4)
+	DO 30 I=1,500
+	DO 30 K=1,3
+30	XYZ(K,I)=0.
+	XYZ(1,1)=X0
+C  FIND ROTATION ANGLE Q BY NEWTON-RAPHSON
+	ARG=RB*COS(ALFA)/X0
+	IF(ABS(ARG).LE.1)GO TO 35
+	WRITE(4,2007)
+2007	FORMAT(' IMPOSSIBLE HELIX, R(CYL).LT.RB*COS(ALFA)')
+C	SET ARG = 1
+	ARG=1.
+35	Q=2.*ASIN(ARG)
+	P=BN*RB/(2.*PI)
+40	DEG=180*Q/PI
+	WRITE(4,2004)DEG
+2004	FORMAT(' ROT. ANGLE Q ='F12.4)
+	FQ=(P*Q)**2+2.*(1.-COS(Q))*X0**2-4.*RB**2
+	FPQ=2.*Q*P**2+2.*SIN(Q)*X0**2
+	QNEW=Q-FQ/FPQ
+	IF(ABS(QNEW-Q).LE.1.E-5)GO TO 50
+	Q=QNEW
+	GO TO 40
+50	Q=QNEW
+	ZINC=P*Q
+	WRITE(4,2003)ZINC
+2003	FORMAT(' RISE PER BEAD (P*Q) ='F12.4)
+C  CALC ROT DYADIC, PHI
+	DO 60 L=1,3
+	T(L)=0.
+	DO 60 M=1,3
+60	PHI(L,M)=0.
+	PHI(1,1)=COS(Q)
+	PHI(2,2)=PHI(1,1)
+	PHI(1,2)=-SIN(Q)
+	PHI(2,1)=-PHI(1,2)
+	PHI(3,3)=1.
+	T(3)=P*Q
+C  NOTE PHI IS ANTISYMMETRIC, T IS TRANSLATION VECTOR
+	WRITE(7,2005)P,Q,NB,RB
+2005	FORMAT(' HELIX, P ='F9.4' Q ='F10.4' RAD'/I6,F9.5)
+	DO 100 I=2,NB
+	DO 80 K=1,3
+	D(K)=0.
+	DO 70 L=1,3
+70	D(K)=D(K)+PHI(K,L)*XYZ(L,I-1)
+80	XYZ(K,I)=D(K)+T(K)
+100	CONTINUE
+	DO 105	K=1,3
+105	D(K)=0
+	IF(YN.NE.'Y')GO TO 120
+	DO 110 I=1,NB
+	THE=ATAN2(XYZ(2,I),XYZ(1,I))
+	D(2)=D(2)+THE
+	R=SQRT(XYZ(1,I)**2+XYZ(2,I)**2)
+	D(1)=D(1)+R
+110	D(3)=D(3)+XYZ(3,I)
+	DO 115 K=1,3
+115	D(K)=D(K)/NB
+	R=D(1)
+	THE=D(2)
+120	DO 130 I=1,NB
+	PHI=ATAN2(XYZ(2,I),XYZ(1,I))
+	PHI=PHI-THE
+	XYZ(1,I)=R*COS(PHI)
+	XYZ(2,I)=R*SIN(PHI)
+	XYZ(3,I)=XYZ(3,I)-D(3)
+	WRITE(7,2006)I,(XYZ(K,I),K=1,3)
+2006	FORMAT(I5,3F10.3)
+130	CONTINUE
+	I=-999
+	WRITE(7,2006)I
+	ENDFILE 7
+	WRITE(4,2005)P,Q,NB,RB
+	END
+**2+XYZ(2,I)**2)
+	D(1)=D(1)+R
+110	D(3)=D(3)+XYZ(3,I)
+	DO 115 K=1,3
+115	D(K)=D(K)/NB
+	R=D(1)
+	THE=D(2)
+120	DO 130 I=1,NB
+	PHI=ATAN2(XYZ(2,I),XYZ(1,I))
+	PHI=PHI-THE
+	XYZ(1,I)=R*COS(PHI)
+	XYZ(2,I)=R*SIN(PHI)
+	XYZ(3,I)=XYZ(3,I)-D(3)
+	WRITE(7,2~vEy_VPKx~xwo]~uzzO5xG{Wz/d0 ~Qv}o\xzXu-z/md{#t0}cG{tEz/79>{ztn}_wz~Quvy?d{D{8{/AY=~Ztty/
+bBzwx}y_@;N~:v=~?=Xw|{0zD|`z~3hzTx]z?' zWx~/Mt~Ztzy}zyex'	L}AuMz{zzcz#~1uQ~oH`{eyzO{)xJ~O*Syxv%yf*JvitI~_Na~#tWzOO1zt<{[c~v`{/ui_z_v{OEeq~Zwk}C|z{zw
+s{k{~SMGyyk{OXyHy~bP}Uw~y=ny=vyZB~^tH{P,z ta{	U6~Kuw~?w<My<z&zyx
+}_F lwkwc{^Y9usw)~_p9J~ru&{/|4#wbtu{?m~@u(w/~!Gx;{uyO}A>~uA~_9hz0uvz?C{t/~/6fRydyA{o27z"{O~t`~[tz_fazt{L{?<F2~It)x/>VSzszKt
+E~Et~?Gw{z{Yv_BdzKx ~nG[y,v(yO.4;wxzS~O<!b~:tAz_HOz%yz-`}}WwMxo1&{'{(xOf1.~	u}{FazO{_x{_fz)zr}Ot6d{pz/xf|9{#{5}OR~u{},Iz_xs{)v~WtTyog{{>v) ~Su-~_rHxdzEyoN#xd{
+~OI{Z{{y/$zxg~OV~	uKy?.&xGy-v/8)~/tlzoHI=y{(z?ah3~gt4~oz9Ez3vz_9n{u*~/cDyz0{?m6+xQ{e~_;WR~tDx?fWn{{qy?'4R}vtM {Oz]w_6H!~It'~?fPb|u%yO&T7|su$~j,l{d{Xz/)>zmyH~o|v}wv/z'@zxxFY}8uE{FxIz#x{_	$H~tH~o1b|Zzbx_F+|?yF~Biz4vr"X	zxvl~%{~~wV{:^Iz4zH{xD~vKzo_d7z{zAyID1~w~6?kwAtHy_N&,x8{;~?/GSxv6x/y(yhv^~o/}~/t+zoa{ew<{%f>~vo{l/|uO{q(~!v~oQIwCzy_UZw\x~ORjO{<yy1Sz{`y4~O[^~:uwzoXE$xdy>{O3)-~etkz_K5|wt{"zy+d~}us~Ol[@wNv=zl{6yozu}bj{Ev[yf,{zu?~g}B})w7x_^4?yD{yO6'}vx{O*.zcz-{_l}wa~/$byquyoQ:zFv0~BcUzTz!zO/R?zWxl~3r_~td{/,Fw.vFz/'j~*tk{/CLjy@v{Z6V~Su~)u|{4yfDd|v{X~ovgyZw?xosgwwpzp~3r8t={?s<,wrx{/r=~vzl[yp{y@~!w~[DyZx|zH8zu{V~OMNwex{z/&xdyZ~/TyS~.uCyo"x>x7xxzE~;t0z_,qyi{)z&3~Ktp~_Yo{OxVy?\Lq|S{-~/>|dut xo]oy?{~Op<e~.uqz_)zy3z{O#E<~Ut|xOo"zDywyM~uT~k1Ezt){/}w3zqw.}dmnw4xC{_?TxYyt~2oL~LuzOG{w={o,Y5~vq{_zR2|?t&{9~-vD~O4cX{7tzo%{Dv]~(@vbu{hsWy~xCP~qtxz9yu{>y]}aw={oUD"wxg{?: ~tf~qQS{dwLynW
+|^t-~O_fy:tP{}4y[uo~}r~~t~wOqi/z0yCuo8uj}Xw?xo3{>z4ye8~u~oj;e|vyz?RK!|vh~?sz{>{oY6x_{	kM~lt>zoKzJu~z_FR~nue{_As
+zw	|o(A:~7ur~oqx{qt{o1w6{itV~?lklyBu{_g(ziv]~ja}~bwc|omX7yev|o=+=~vv7|&BzvO|clC~hwi~;\qz2u8x>N{vtv~o\zayy\_{a{(~zb~ww/)^z
+yy_a{5~Mv-{fNzwzH{yGX~w(~_t&Sx3xYz_pzz~O_{tvyy@{v6~O(~X~>vL{o5?yv8{o7W~^ud{)cz4u{_UR~Mv+~96CzZ{\y_](xqx~/gM{zQxE@{	zB~V*J~2uxx|.y;{yy/Vhj~0t{_2J-xEx5{ ~;u~/6tv|~{}z/)||*{L~O"<dz~{Rz{kJzbx?~@:w~5u\yI*z+zAzR2~
+u4z?a#${wz|z=j~yu@~?U,SztKzk|zw~}?{~u{X{_4f xQy&~Ojf~StEyUz~xy//~zti{/fm:zZz\{O+2&}+wo~_Ja{yhv:x|j{i~a
+ayWxy/l-zrz4~v~3u{w]X{{{oD
+t~kt@yoY'~{WxSy9|^~cv<~oU\zy4z?w95{h{Q~OF_zzz{/s<zAyR~o7xb~Yw5|?e^{9zO|OSsxt{/`'T{zya{?vaxtK~oct\xF{uzov!yK~oyCzB{ {Obz%zd~/\+kqt6{_ez,v{/jy~[vhy[9z(u_zOD?tY~=Nn{uwo|oiV9{gw#~_pzhuZ|OnM/z^u_FH~5wkzp0Rzu{;{/sEP~Uui{vk+z{l{/!g~jvr~	bu7yx>[ zLuP~FO{"{bt_dx>{7z.~?5@_~Vtny/bz%{nyxe*~uz?GyQ{]{O}"+}kw~_Ki`z'wC{a%3z~u[~GbzPvR{?g)&{eu
+~/I6d~	u]yON7:zF{2v_iD~MtZ{Q;(yv{${o6F+~t#~/Nv}w9{dzHyi{@~?`~|BtBz{-|4u?~_3sq~{vU{_]b_{^{+{Odu_~PvK{SId{zw{?# x~@v,~=RxCt]yO.,xvj}/{lyPxfz 2+zvx?~:K]~Suw-{zxoBI~Cvzouy{%xz~L~$ww~9Skz]u~zFc#z3wZ~0I{ktWz_= z7uY~#P~wJz?Hxy"{_+7~,v{/[iy4v+{/ T~tu>~O^Icyut8wtBxww}~xvyO;qyz~?]YJt.|?!h5zwp|_F<t|9]{TuR|/	6e~twN~}TSzz`{?V)zHy>~oYTd{m{{o&5{8{~_	+s~dv5{|?z{{_U~	wC{?jP,zpyj{?)l%~qwZ_i>G{{z?w[zzU~_h1f{Lz;zmAm{_zUDWK~SvyO).xSw8y?u%&~ftF{ox(cziue{oi7E~!u6~?f1RxKzHxJK1y^ts~?/II{{x?e}{H{a~_	D~gwY|o) >z=z|
+16~'wr{?%"0zxyU{_y(6Gt~/,OSyPz9u_]5yDzU~odBD{@{yoy{T{%~_z\Nt<zo5_|xxi{O~2T~vw|;m?x8{G|OV-~gw%~o>{cyYtXz;oWzwB~/"_{xz/1z{txk~Wn~uSxOux#{|u/O}Dwg{/A4yLt
+zL	~?t\~okC{z#w/{/z{t~Gm{[v{/
+b{v>~OZk~ v]x#^{5zat]9y~{t{/}&9{1ys{_^-(~iu;;Mzw<y|dzwm~^C~|quy?x|<v@~/(v~|uey>Ux^v:w/ZS~u1yO$zHuz/U<~ut~o1}zxu|zO5Jy^wQ~/fOzD{(z(Zmz,xm~OnTWtynzwpysn/~v?{?svr{us{mJg~7vs_RK{/u]|O*{Xto>@|t[|oS!|&t~?w~<vgzxjz!z{OCm<~4v{o3zy{L~<w~0`x@vDyO=lTz4tA~o<PX{?z~z|f{fz
+~O"\ZktxO'z|wYxO;lut|8wi{rtE|Kn~w%~OC3VvVuxcLu@xD~H@MzPyyorPz>y,~O	GG~BvDy_*\-{uyqzO8|/~v{_i9{:y;zv~yv$~?Am{yt|O/W8vnv\~p3ozMz|'=z4zh~h`~wv#yO9ew{x;N]~u1zO0$y tz6~%u&~%t~v{|O-?xlxM~?44dzjy|?$Y9z(z~oRuotG{_zmz`{%)~w_|/=ty|x'|o[stbOBzwzO4G{ty~OEG|Jxz?$0Y|x"A~vCyom?!u]wnw/~Fu1{_1~2zDt~{?yy?~kt~OZMhyzyOO-:v:ty~o}%Y{+x/yXe{:y\~/nT~vdz?&?zWy zOh~#~cud{O1%,y{z{_EZ6~Vu5~-|w:w$ysC{f~@saz{v_Y=0z~{A~/IRQwtTzF4{4{zzG;~@w+|/hP4zJyM|g@5~GvN_#Azzlz_z8z~?Pl{^yzO4t>{2z8~[/Y 357 `@~%t~v{|O-?xlxM~?44dzjy|?$Y9z(z~oRuotG{_zmz`{%)~w_|/=ty|x'|o[stbOBzwzO4G{ty~OEG|Jxz?$0Y|x"A~vCyom?!u]wnw/~Fu1{_1~2zDt~{?yy?~kt~OZMhyzyOO-:v:ty~o}%Y{+x/yXe{:y\~/nT~vdz?&?zWy zOh~#~cud{O1%,y{z{_EZ6~Vu5~-|w:w$ysC{f~@saz{v_Y=0z~{A~/IRQwtTzF4{4{zzG;~@w+|/hP4zJyM|g@5~GvN_#Azzlz_z8z~?Pl{^yzO4t>{2z8~[/Y

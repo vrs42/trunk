@@ -1,0 +1,21 @@
+PC8CPY.SV (or PCX.SV for short) uses the XMODEM protocol to send the con-
+tents of a specified OS/8 device to another computer using the byte order
+specified by the SOFT8/PC8 emulators.  The calling format is:
+
+		.R PC8CPY	 or	.PCX dev:=length
+		*dev:=length
+		*$ (altmode)	 eg	.PCX D1:=1233
+
+The receiving computer must be given an appropriate filename.  The result-
+ing file is an image copy in SOFT8/PC8 format of the device specified, in-
+cluding the directory and any other special coding employed by programs on
+that device, and hence can be used by these emulators as a standard 'RK8E'
+diskpack file.  (Caution: system devices copied in this way can be booted
+by the emulator only if SYS = some version of the RK8E handler.  Copies of
+floppy disks can only be used as non-system devices until the system area
+is changed with a PIP '/Y' transfer.)
+
+For more information on the PC8 emulator, which allows most PDP8 programs
+to be run on 80x86 systems, please contact the author (Jim van Zee), c/o
+Lab Data Systems, 268 NE 42nd St, Seattle, WA 98105.  Ph: (206) 633-4432.
+

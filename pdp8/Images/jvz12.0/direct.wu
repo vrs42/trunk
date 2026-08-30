@@ -1,0 +1,123 @@
+
+
+     This is an improved version of the directory listing program dis-
+tributed with OS/8 (OS/12) V3, V3C, V3D and OS/78.  It is functionally
+equivalent to the original version and includes any updates which have
+been released up to the time of submission.  To distiguish it from the
+earlier versions it has been designated 'V6'.  The loading and operat-
+ing instructions in the OS/8 Handbook apply without change.*
+
+     The improvements are as follows:
+
+1.   Multiple column listings are now printed in column order rather
+than in row order.  This makes the listing much more 'readable' since
+sequential files and embedded empties appear in their natural order.
+
+2.  The listing can be sorted!  The output can be arranged alphabeti-
+cally (by name or extension), or viewed in forward or reverse chrono-
+logical order.  Ordering is first by date, then extension, then name.
+
+3.  Dates can be printed in either the 'DD-MMM-YY' format of the orig-
+inal version or the numeric 'MM/DD/YY' style used by the monitor DATE
+command prior to 1978.  The extended date algorithm devised for V3D is
+used to interprete file dates after 1977.  (Good through 1999!)
+
+4.  The header block defined by the DECSYSTEM-8 program PARAM.SV can
+be listed at the beginning to provide a convenient identification of
+the media and the program contents, all in one place.  The header may
+also be written by the U/W-FOCAL program PARAM.FC.
+
+5.  Fewer spaces are used between columns so that 3 columns will fit
+on 80-column output devices and 1 less blank line is output at the end
+in order to retain more information on terminals with a limited amount
+of display.  To save trees as well as to preserve the display on some
+video terminals, the formfeed at the end has also been eliminated; the
+'/P' switch can be used to force a new page.  Finally, the summary now
+prints the number of blocks -used- as well as the number of 'empties'.
+
+     These features are selected by the /A, /D, /H, /N, /P, /T and /X
+switches.  "/A" produces an Alphabetical list while "/X" groups files
+by their eXtensions; /D organizes the output by Date while /T outputs
+the most Timely (recent) files first.  Empties will be printed at the
+end if /E is also specified.  "/P" starts a new page while "/N" gives
+Numeric dates.  "/H" prints out the Header block  - if there is one -
+otherwise /H is ignored.  Note that the date options will not work if
+there is no system date, so always check this before using DIRECT.
+
+     To further enhance operation of the program, some of the switches
+can be inverted.  Thus "/P" can be changed to Prevent Paging, and "/N"
+can be used to designate Non-Numeric dates rather than Numeric ones.
+The default value for the number of columns can be changed from '1' to
+something else (3 is nice), and the TV: handler can be selected as the
+default device in place of the TTY: (convenient for the PDP12).
+
+     Optional patches (shown in ODT format: location/ value  change)
+
+12257/ 7710 7700 Change /N to mean 'print non-numeric dates'
+12273/ 7640 7650 Change /H to mean 'do not print header information'
+13257/ 7640 7650 Change /P to mean 'do not output a formfeed'
+12377/ 0001 0003 Change default to 3 columns (or your choice)
+13177/ 0002 0004 Change spacing between columms (your choice)
+14713/ 5524 2426 Change default output device to TV: (for the PDP-12!)
+
+
+     Implementation notes: A minor difference in this release is that
+/W now disables the other options so that the version ID will not be
+followed by other output.  This is consistent with OS/8 documentation
+(and is actually an improvement!) but is at variance with the earlier
+releases.  The 'version release number' of the monitor system is also
+now printed in the header so you can distinguish 'V3' from 'V3C' etc.
+Note that this 'number' is actually printed as a letter to conform to
+the OS/8 convention.  Thus you should use the value '196' in PARAM in
+order to have the letter 'D' printed.  System ID=5 defines 'OS/78'.
+Finally, the restriction on combining /B and /E with the sort options
+has now been removed.  Both starting block numbers and a list of the
+empties may be included at any time.
+
+     Acknowledgments:  The initial improvements were made by Larry
+Fowler of the Boeing Commercial Airplane Co. in Seattle, Washington.
+He added the /A and /H options and also modified the source file so
+that different I/O codes could be substituted for the terminal.  Dr.
+Thomas W. McIntyre of the West Virginia University Medical Center in
+Morgantown, W. V. added the column-output feature and Jim van Zee of
+the Chemistry Department at the University of Washington in Seattle
+added the remaining options and condensed the code so that it would
+fit into the original file space.  Thanks to Rev. Geoffrey Chase of
+the Portsmouth Abbey school in Portsmouth R.I. for suggesting the /X
+switch and to Tom McIntyre for encouraging the addition of /D.
+
+*Loading Instructions:    .DA 11-FEB-78      (Identifies version 6 )
+(Delete the original      .R ABSLDR
+ version first so this    *PTR:=14600(89P)$
+ one will replace it)     .SA SYS DIRECT     (optional: use '=6503')
+
+
+     Summary of the command decoder options:
+
+     /A      ALPHABETIZE DIRECTORY BEFORE PROCESSING
+     /B      PRINT STARTING BLOCK NUMBERS (OCTAL)
+     /C      LIST ONLY FILES WITH THE CURRENT DATE
+     /D      ORDER FILES BY DATE, THEN ALPHABETICALLY
+     /E      INCLUDE EMPTIES IN THE LISTING
+     /F      FAST MODE (NO LENGTHS OR DATES)
+     /H      PRINT CONTENTS OF PARAMETER BLOCK (HEADER)
+     /I      PRINT ADDITIONAL INFORMATION WORDS (OCTAL)
+     /M      LIST ONLY THE EMPTIES AND THE FILE SUMMARY
+     /N      PRINT DATES IN NUMERIC FORM (MM/DD/YY)
+     /O      LIST ONLY FILES WITH OTHER THAN TODAY'S DATE
+     /P      PAGE AFTER EACH LISTING
+     /R      LIST REMAINDER OF FILES AFTER THE FIRST ONE
+     /T      LIST THE MOST TIMELY (RECENT) FILES FIRST
+     /U      TREAT EACH INPUT SPECIFICATION SEPARATELY
+     /V      LIST FILES NOT OF THE FORM SPECIFIED
+     /W      PRINT THE VERSION NUMBER
+     /X      ALPHABETIZE BY EXTENSION, THEN BY NAME
+     =N      USE N COLUMNS - OUTPUT IS ORDERED BY COLUMN
+
+     *       WILD NAME OR EXTENSION
+     ?       WILD CHARACTER
+
+     DEFAULT INPUT SPECIFICATION:    *.*
+     DEFAULT OUTPUT DEVICE:          TTY:
+     DEFAULT OUTPUT FILE EXTENSION:  .DI
+

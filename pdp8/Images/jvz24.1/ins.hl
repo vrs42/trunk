@@ -1,0 +1,104 @@
+INS.HL
+   HELP FILE FOR INSULIN BINDING AND KINETICS
+	30-MAR-83   D.C.T.
+1. INSULIN BINDING:
+.R FRTS
+*INSBND
+*FILE.DA/5  . . . $ HERE IF NO OUTPUT FILE IS DESIRED
+*TEMP.DA</7$ . . .(OPTIONAL)
+2. DECAY KINETICS
+.R F4
+*EXPDK/L
+*MATD15/G
+*FILE.DA/5
+*ESTIMATES.DA/6
+*OUTPUT.DA</7$
+    Or use EXPFD.F4 (finite difference derivatives)
+.R F4
+*EXPFD/O/Q/L
+*MATD15,EDK,AGAUSS,PCHISQ,GAMMA,FACTOR/G
+*FILE.DA/5
+*ESTIMATES.DA/6
+*OUTPUT.DA</7 - - - Optional
+*$
+3. BINDING KINETICS
+ Use KINRK(MATD06,RUNGK) FOR RUNGE-KUTTA 2ND ORDER BINDING:
+ H + X1 === X2 === X3
+ KINIP.DA CONTAINS STARTING PARAMETERS
+4. SIMULATION FOR ANOTHER DAY
+
+
+1. INSULIN BINDING:
+   the program is INSBND.F4 (MATD15).  fits binding isotherm with 1 or
+2 binding constants.  uses the theory of C. deHaen for the term A
+which is the fraction of counts non-specifically packed into the 
+pellet.
+   As of this date I just fixed the error extimates for the parameters.
+The formula is
+	sig(p) = sqrt[A(i,i)]*wsig
+sig(p) is the error estimate for parameter p, A(i,i) is the diagonal
+ element of the inverse matrix used to determine the parameter updates.
+wsig is a weighted deviation:
+	wsig**2 = sum[ w(i)*dev(i)**2 ] / (npoint - nparam)
+This formula is used because the weights are incorporated into A(i,i)
+as the reciprocals, so inclusion of the weights in wsig removes this 
+bias.
+   INSMLE.F4:  this program was written to obtain the maximum likeli-
+hood estimates of the parameters.  the input is the same as for INSBND
+but the weights differ.  After the program finds the maximum likelihood
+parameters, it tests whether the fractional deviations are normally
+distributed.  If they are not, I have been doing the following:  delete
+the points with extreme deviations until the fractional deviations are
+gaussian (normally) distributed as calculated from chi - square.
+   This program also calculates the Akaiki Information Content (AIC)
+measure of the goodness of fit to a model.  If the data fits both
+one site and two site models, the one with the minimum AIC is chosen
+as long as the difference is greater the 2.  If the difference in AIC
+is less than 2, choose the model with the smaller number of parameters.
+[D.C.T. 15-APR-83]. INSMLE.F4(MATD15,AGAUSS,PCHISQ,GAMMA,FACTOR)
+   PLTINS.F4 (AXIS,RSCALE,PLOTX,PLOTL,PLOTSY,MOVE) can be used to
+construct a BJERRUM plot of the data, by writind an output file with
+an INSBND option.  There is currently a PLTINS.BI file to compile and 
+run this plotting program.
+
+2. DECAY KINETICS (insulin release by dilution with cold):
+   The program for 2 exponential decays with background is EXPDK.F4
+(MATD15).  This program requires the parameter estimate file on unit 6.
+When 2 exponential decays are fitted it is necessary to back - compute
+the actual rate constants from the parameters.  The program GETK.F4
+is used for this back - calculation.  Error estimates of the parameters
+are output and also proppagated in GETK but this propagation part of
+the program has not yet (30-mar-83) been checked.
+   20-APR-83:
+    The program EXPFD.F4 uses finite difference derivatives.  Needs
+EDK.F4,MATD15.F4,AGAUSS.F4,PCHISQ.F4,GAMMA.F4,FACTOR.F4.
+This program tests the normality of the deviations from the fitted
+curve to enable one to verify that the model is proper, and the least-
+square estimate of parameters is the MLE estimate as well.  Because a
+histographic fit of the normal curve is given as output, one can also
+delete the few points which may be outliers prohibiting the normal
+error distribution to be the proper distribution of error.
+
+3. BINDING KINETICS (insulin binding - pseudo-first order):
+	      K12        K23
+	X(1) ===== X(2) ===== X(3)
+	      K21        K32
+   several programs are available here.  simple binding to state X(2)
+only is done with KINET.F4.  This model was found inadequate.  The pro-
+gram is a modified version of EXPFIT.F4.
+   The program KINETX.F4 uses explicit solution by the equations of
+Frost and Pearson.  C. deHaen made all of the necessary derivatives
+for solution of both the amplitudes and rate constants.  It did
+not converge for the amplitudes, however, but this could be fond by
+sweeping thru with specified amplitude.
+   The program KINFD.F4 (KINSUB.F4) uses finite difference derivatives
+for the parameters.  This program actually worked better than KINETX
+in that the answers were very close to theose of the latter program and
+also the amplitudes were also found.  As this proghram is easily modi-
+fied for other models, it shold be valuable for future work also.
+
+4. SIMULATION:
+   The program KINSIM.F4 (RUNGSB) was designed for simulation of the
+binding kinetics.  The reason for this was to examine the effect of the
+pseudo-first order assumption in the binding kinetics and also to sim-
+ulate data for binding curve setup.

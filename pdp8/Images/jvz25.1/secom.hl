@@ -1,0 +1,40 @@
+  SECOM.HL
+		D.C.T. 2-DEC-80
+   This is a description of what the various .ft programs labeled 
+secom?.ft do.
+    SECOM1.FT  is the sequence comparison program that searches the 
+atlas using only one peptide. This prog chains to SCOM1B.SV
+    SECOM2.FT is the same as secom1 but uses multiple runs.  It needs 
+subroutine SSW(N) and chains to SCOM1A.SV
+    SECOM3.FT is subroutine SECM3.  It computes a omparison matrix, the
+Sankoff V0 matrix and does a diagonal search.
+    SECOM4.FT tests for possible internal sequence homology.
+    SECOM5.FT can be used for the comparison of 2 proteins up to 1000
+residues in length. Diagonal search on only 2 proteins.
+    SECOM.FT is the Sankoff procedure.  up to 10 proteins per family.
+    SECOMX.FT is the same as SECOM.FT but the scores are multiplied by
+10.  is only works for zero centered matrices.  The programs in this 
+set are: SECL, SANKOF, TRACEB.
+    	SECL.FT,SANKOF.FT,TRACEB.FT (all as .SV files on SYS:) are used 
+in connection with secom and secomx for the Sankoff procedure.
+		8-OCT-82  DESCRIPTIONS:
+     SECOM4.F4 (and .LD file) and SECOM5.F4 (and .LD) are fortran IV
+versions of SECOM4.FT and SECOM5.FT.  These programs are diagonal search
+es which also keep track of the mean of the distribution.  They are
+also on the VAX in SECOM5R.FOR and SECOM4R.FOR (with appropriate
+command files) which also do randomizations.  I found there was an error
+in SECOM4.FT and so I rewrote these programs.  The error is not large,
+however.
+     On the VAX there are SECOM5F.FOR,SECOM5FR.FOR, and SECOM5R.FOR.
+The "F" stands for family comparison.  These family comparisons by
+diagonal methods are very slow.
+     The command file SECOM.COM runs the Sankoff procedure.  Command 
+file SECOMR.COM runs the Sankoff randomization procedure.
+     The scoring schemes are (VAX):
+	DAYHFN.DA(T)   new Dayhoff scores
+	MCLACH.DA(T)   McLachlan scores
+	MBDSCR.DA(T)   4 - MBD
+	IDENTY.DA(T)   Identity table (asx,glx are 0 vs anp &asn resp.)
+		       This tabler is simply a diagonal of 1 and should 
+		       be fixed up for further use.
+	MBDTAB.DA(T)   This is mbd table of no use as scores

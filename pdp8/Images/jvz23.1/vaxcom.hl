@@ -1,0 +1,56 @@
+	VAX to PDP-12 and PDP-12 to VAX communications.
+
+I.  At the VAX, communication is implemented by programs COM12 and
+PIP, which are found in the library [TELLER.DAVID].
+The communications programs can handle A-Z, 0-9 and special characters
+that are used in Fortran programs, but will not handle control chars,
+lower case, or other weird characters.  Use PIP/T to expand tabs.
+
+II.  PDP-12 to VAX communication is accomplished by the VAXCM2
+program and PIP.  The information to be transmitted should be put in a file
+with a six character filename and .DA extension.  You will need to 
+know the number of lines in the file.  Lines may not be longer than
+80 characters.  Then proceed as follows:
+	Turn on VADIC modem and check wire to PDP-12.
+	.R VAXCM2  and give it filename and number of lines.
+	Call VAX and login.
+
+	$MCR PIP   (this calls PIP from the system library)
+	PIP>fname.ext=TTA5:   (the 1200 baud line is terminal 5)
+
+	Wait for 'CR', then hit ^G to start transmission.  MQ
+shows characters being transmitted.  Wait for ^Z message from PIP.
+Hit ^Y to exit PIP on the VAX. Logout, and hit ^C to terminate
+PDP-12 program.
+
+III.  VAX to PDP-12 communication uses  the VAXCM3 and COM12 programs. 
+Only 80 characters per line can be transmitted.  At the PDP-12, the file
+will be written on DTA1: with your specified six character filename and
+.DA extension.
+Proceed as follows:
+	Turn modem on.
+	.AS DSK DTA1    (if you want file on DSK:)
+	.R VAXCM3  and give it output filename.
+	Login on VAX.
+
+
+
+	Wait for message, then hit ^G to proceed.  After each 100 
+100 lines is received a message is printed and errors are indicated.
+	Logout, hit ^G to terminate PDP-12 program.
+
+IV.  Login procedure on VAX:
+	Turn VADIC modem on (switch at rear).
+	Call VAX (5-7572), wait for high pitch tone, pull up
+	white knob on phone.
+	Hit 'CR' and wait for:
+
+	Username: TELLER
+	Password: DAVID    (will not echo)
+	$
+
+V.  Notes on using the VAX and other common problems--
+When typing commands to the VAX delete and ^U may be used (they work
+but do not echo).  ^Y aborts whatever the VAX is currently doing.
+Other commands:
+

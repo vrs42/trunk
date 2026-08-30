@@ -1,0 +1,1728 @@
+C	LINCAD LINEAR COMPUTER AIDED DESIGN SYSTEM
+C
+C	CONCATENATION OF MAIN PROGRAM & ALL SUBROUTINES
+C	ORIGINAL VERSION
+C
+C     MAIN PROGRAM CONTAINING THE INPUT AND SERVICE ROUTINES
+      IMPLICIT REAL*8(A-H,O-Z)
+      DIMENSION CN(4), ATOL(2), SY(2), HPTS(3), HMIN(3), HINC(2)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(180),GMTOL(20) 
+      COMMON TITLE(14),VDR(8),VDI(8),FREQ,PRTURB(20),X(20),EPS,EPS2 
+      COMMON VALUE,F,XMIN,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20) 
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(12),NVD,LPAR(20) 
+      COMMON NNODES,NBR,NGM,IPLT,MM,MODE,N1(8),N2(8),KSIGN,NN 
+      COMMON IBW,IWIDTH,M,LL,NPS,IFREQ,ICOORD,IPX 
+      COMMON /BDATA/ TYPE(56),VAL(18),VAL1(18),CONS(9),HD(7)
+      DATA CN(1),CN(2),CN(3),CN(4)/5HCONTR,5HOLLIN,5HG NOD,2HES/
+      DATA XLOG,YM,YRSYM,RLC/2HLO,2HYM,2HYR,5HO RLC/
+      DATA PLUSJ,XMINJ,UPPER,BWDTH/2H+J,2H-J,2HUP,2HBW/ 
+      DATA XPR,CDEG,PRC,ATOL/5H IN :,4H,DEG,1H:,5H,TOLE,5HRANCE/
+      DATA HPTS,HMIN/5H,NO O,5HF POI,3HNTS,5H,MIN ,5HAND M,2HAX/
+      DATA HINC/5H,INCR,5HEMENT/
+      CALL ERRSET (207,300,-1,1,0,225)
+      CALL ERRSET (241,300,-1,1,0,301)
+      WRITE (6,196) HD
+ 1    DO 2 I=1,325
+ 2    IV(I)=0 
+      DO 3 I=1,842
+ 3    YI(I)=0.
+      DO 4 I=1,14 
+      TITLE(I)=VAL1(7)
+      NP(I)=I 
+ 4    CONTINUE
+      EPS=.001
+      EPS2=1.E-8
+      NP(6)=0 
+      IPLT=-1 
+ 5    IWIDTH=70 
+      ICOORD=10 
+      WIDTH=50. 
+ 6    WRITE (6,189) 
+      READ (5,190) OP,OP1,OP2,OP3,SY
+      TOL=0.
+      IPX=IPLT
+      MODE=1
+      NEL1=61 
+      NEL2=360
+      MLAST=MM
+      IF(OP-YRSYM) 8,7,8
+ 7    MM=4
+      GO TO 136 
+ 8    IF(OP-YM) 10,9,10 
+ 9    MODE=-1 
+      MM=7
+      GO TO 136 
+ 10   MM=1
+ 11   IF(OP-TYPE(MM)) 12,15,12
+ 12   MM=MM+1 
+      IF(MM-56) 11,11,13
+ 13   CALL LINCD4 (14) 
+      GO TO 6 
+ 14   WRITE (6,193) 
+      GO TO 6 
+ 15   IF(MM-7) 136,140,16 
+ 16   IF(MM-10) 140,136,17
+ 17   IF(MM-12) 6,108,18
+ 18   IF(MM-14) 5,56,19 
+ 19   IF(MM-16) 43,1,20 
+ 20   IF(MM-18) 164,84,21 
+ 21   IF(MM-20) 99,57,22
+ 22   IF(MM-22) 95,59,23
+ 23   IF(MM-24) 93,77,24
+ 24   IF(MM-26) 77,77,25
+ 25   IF(MM-27) 77,166,26 
+ 26   IF(MM-29) 165,185,27
+ 27   IF(MM-31) 185,156,28
+ 28   IF(MM-34) 156,59,29 
+ 29   IF(MM-38) 38,38,30
+ 30   IF(MM-42) 44,44,31
+ 31   IF(MM-44) 48,47,32
+ 32   IF(MM-46) 44,94,33
+ 33   IF(MM-52) 94,58,34
+ 34   IF(MM-54) 58,42,35
+ 35   IF(MM-56) 155,36,36 
+ 36   AA=0. 
+      F=0.
+      OP1=OP2 
+      DO 37 M=1,55
+      MM=M
+      IF(TYPE(M)-OP2) 37,67,37
+ 37   CONTINUE
+      GO TO 14
+ 38   WRITE (6,191) OP,OP1,OP2,OP3,SY 
+      READ (5,*) N1(1),N2(1)
+      NVD=1 
+      N2(1)=IABS(N2(1)) 
+      L=N1(1) 
+      IF(N1(1)) 39,39,40
+ 39   N1(1)=N2(1) 
+      N2(1)=L 
+ 40   IF(MM-36) 53,177,41 
+ 41   IF(MM-38) 178,179,179 
+ 42   MM=24 
+      GO TO 77
+ 43   MM=22 
+      GO TO 59
+C     TOLERANCE 
+ 44   MM=MM-35
+      IF(MM-7) 46,45,46 
+ 45   WRITE (6,199) VAL(MODE+17),VAL1(MODE+17),ATOL,XPR 
+      READ (5,*) J,K,AA,JJ,KK,F,TOL 
+      GO TO 141 
+ 46   WRITE (6,198) VAL(MM),VAL1(MM),ATOL,XPR 
+      READ (5,*) J,K,AA,TOL 
+      GO TO 137 
+ 47   WRITE (6,192) ATOL,XPR
+      GO TO 49
+C     SCALE TOLERANCES
+ 48   WRITE (6,188) 
+ 49   CONTINUE
+      READ (5,*) TOL
+      DO 52 I=1,200 
+      IF(MM-44) 51,50,51
+ 50   YTOL(I)=TOL 
+      GO TO 52
+ 51   YTOL(I)=YTOL(I)*TOL 
+ 52   CONTINUE
+      GO TO 6 
+ 53   IF(OP1-BWDTH) 54,167,54 
+ 54   MM=26 
+      KSIGN=-2
+      IF(OP1-UPPER) 77,55,77
+ 55   KSIGN=2 
+      GO TO 77
+ 56   IWIDTH=115
+      ICOORD=20 
+      WIDTH=100.
+      GO TO 6 
+ 57   STOP
+ 58   MM=MM-28
+      MODE=-1 
+      GO TO 97
+ 59   XX1=OP1 
+      M=1 
+      IF(XLOG-XX1) 61,60,61 
+ 60   XX1=OP3 
+      IF(OP3-VAL1(7)) 63,78,63
+ 61   IF(YRSYM.NE.XX1) GO TO 63 
+      M=4 
+ 62   MODE=-1 
+      GO TO 67
+ 63   IF(TYPE(1)-XX1) 64,62,64
+ 64   IF(TYPE(M)-XX1) 65,67,65
+ 65   M=M+1 
+      IF(M-11) 64,66,14 
+ 66   IF(MM-22) 175,79,168
+ 67   IF(M-7) 69,68,69
+ 68   WRITE (6,198) CN
+      READ (5,*) J,K,JJ,KK
+      GO TO 141 
+ 69   WRITE (6,203) TYPE(M) 
+      READ (5,*) J,K
+      CALL LFIND (J,K,LL,6)
+      IF(OP-TYPE(56)) 75,70,75
+ 70   L=LL
+      IF(MM-10) 139,73,71 
+ 71   IF(MM-32) 162,161,72
+ 72   IF(MM-55) 163,74,14 
+ 73   MM=4
+      GO TO 139 
+ 74   YR(L)=0.
+      GO TO 162 
+ 75   IF(MM-22) 168,76,168
+ 76   IF(MODE) 79,79,77 
+ 77   WRITE (6,207) 
+      READ (5,*) FREQ 
+      IF(MM-23) 79,79,97
+ 78   M=11
+ 79   IF(OP-TYPE(15)) 83,80,83
+ 80   IF(OP1-XLOG) 82,81,82 
+ 81   WRITE (6,194) VAL(M),VAL1(M),HPTS 
+      READ (5,*) XMIN,XMAX,NPS
+      NPS=NPS-1 
+      GO TO 96
+ 82   WRITE (6,194) VAL(M),VAL1(M),HINC 
+      READ (5,*) XMIN,XMAX,XINC 
+      NPS=1.001*(XMAX-XMIN)/XINC
+      GO TO 97
+ 83   WRITE (6,194) VAL(M),VAL1(M),HMIN,VAL(IPLT+13),VAL1(IPLT+13)
+      READ (5,*) XMIN,XMAX,YMIN,YMAX,NPS
+      IF(OP1-XLOG) 97,96,97 
+ 84   IF(NBR) 6,6,85
+ 85   WRITE (6,207) 
+      READ (5,*) FREQ 
+      W=6.28318*FREQ
+      IF(OP3-RLC) 86,99,86
+ 86   DO 88 I=1,NBR 
+      YI(I)=W*CAP(I)
+      WHENR=W*HENRI(I)
+      IF(DABS(WHENR)-1.0E-50) 88,88,87
+ 87   YI(I)=YI(I)-1.0/WHENR 
+ 88   CONTINUE
+      IF(NGM) 93,93,89
+ 89   DO 92 I=1,NGM 
+      FF=0. 
+      FF2=YGM(I)
+      IF(FGM(I)-1.0E-10) 91,91,90 
+ 90   FF=FREQ/FGM(I)
+      FF2=FF2/(1.0+FF*FF) 
+ 91   BGM(I)=-FF*FF2
+      GGM(I)=FF2
+ 92   CONTINUE
+ 93   NEL1=1
+      NEL2=180
+      MODE=-1 
+      GO TO 107 
+ 94   IPLT=MM-47
+      GO TO 6 
+ 95   WRITE (6,195) 
+      READ (5,*) (NP(N),N=1,8)
+      GO TO 6 
+ 96   XMIN=DLOG10(XMIN) 
+      XMAX=DLOG10(XMAX) 
+ 97   CALL LINCD2 
+      IF(OP-TYPE(35)) 6,98,6
+ 98   VALUE=VDR(1)
+      GO TO 184 
+ 99   DO 104 I=1,NBR
+      YII=YI(I) 
+      IF(YII) 103,104,100 
+ 100  WHENR=W*HENRI(I)
+      IF(DABS(WHENR)-1.0E-50) 102,102,101 
+ 101  YII=YII-1.0/WHENR 
+ 102  CAP(I)=YII/W
+      GO TO 104 
+ 103  HENRI(I)=1./(W*(-YII+W*CAP(I))) 
+ 104  CONTINUE
+      IF(NGM) 107,107,105 
+ 105  DO 106 I=1,NGM
+      FF=-BGM(I)/GGM(I) 
+      FGM(I)=FREQ/FF
+ 106  YGM(I)=GGM(I)*(1.+FF*FF)
+ 107  MM=12 
+C     LIST CIRCUIT
+ 108  WRITE (6,196) TITLE 
+ 109  NNODES=0
+      DO 128 III=NEL1,NEL2
+      R=YI(III) 
+      IF(DABS(R)-1.0E-30) 110,113,113 
+ 110  IF(MODE) 111,111,128
+ 111  IF(III-60) 112,112,128
+ 112  IF(DABS(YR(III))-1.E-30) 128,113,113
+ 113  II=(III-1)/60 
+      I=III-II*60 
+      JJ=JN(I)
+      KK=KN(I)
+      NNODES=MAX0(NNODES,JJ)
+      IF(MM-12) 128,114,128 
+ 114  II=II+1 
+      IF(MODE) 117,117,115
+ 115  IF(II-4) 117,116,117
+ 116  R=.001/R-1.0E-10
+      II=10 
+      GO TO 124 
+ 117  R=R/CONS(II)
+      IF(II-1) 6,118,122
+ 118  AA=YR(III)
+      SIGN=PLUSJ
+      IF(R) 119,121,120 
+ 119  SIGN=XMINJ
+      R=-R
+ 120  WRITE (6,209) JJ,KK,AA,SIGN,R 
+      GO TO 128 
+ 121  WRITE (6,209) JJ,KK,AA
+      GO TO 128 
+ 122  IF(II-3) 123,123,124
+ 123  AA=EI(III-60)/CONS(II)
+      F=57.29578*DATAN2(AA,R) 
+      R=R/DCOS(F/57.29578)
+      LL=II+IV(I)+29
+      WRITE (6,197) TYPE(LL),JJ,KK,R,VAL1(II),VAL1(7),F,VAL(13),VAL1(13)
+      GO TO 128 
+ 124  IF(IV(I)) 125,125,128 
+ 125  IF(DABS(YTOL(III-180))-1.D-30) 127,126,126
+ 126  WRITE (6,197) TYPE(II),JJ,KK,R,VAL(II),VAL1(II),YTOL(III-180),PRC 
+      GO TO 128 
+ 127  WRITE (6,197) TYPE(II),JJ,KK,R,VAL(II),VAL1(II) 
+ 128  CONTINUE
+      DO 135 I=1,NGM
+      FGMI=FGM(I)/1.0E6 
+      YGMI=YGM(I) 
+      IF(MODE) 129,129,130
+ 129  FGMI=BGM(I) 
+      YGMI=GGM(I) 
+ 130  IF(DABS(FGMI)+DABS(YGMI)-1.E-50) 135,135,131
+ 131  NNODES=MAX0(NNODES,NJ(I),NJJ(I))
+      IF(MM-12) 135,132,135 
+ 132  WRITE (6,197) TYPE(7),NJ(I),NK(I),YGMI,VAL(7),VAL1(7),FGMI,VAL(MOD
+     1E+17),VAL1(MODE+17) 
+      IF(DABS(GMTOL(I))-1.0D-30) 134,133,133
+ 133  WRITE (6,208) NJJ(I),NKK(I),CN,GMTOL(I),PRC 
+      GO TO 135 
+ 134  WRITE (6,208) NJJ(I),NKK(I),CN
+ 135  CONTINUE
+      GO TO 6 
+C     INPUT OF ER, EI, IR, II, R, G, L, C, GM 
+ 136  WRITE (6,198) VAL(MM),VAL1(MM)
+      READ (5,*) J,K,AA 
+ 137  CALL LFIND (J,K,L,&6) 
+      IF(MM-10) 139,138,139 
+ 138  YR(L)=.001/(AA+1.0E-10) 
+      YTOL(L)=TOL 
+      GO TO 6 
+ 139  L=60*(MM-1)+L 
+      YI(L)=AA*CONS(MM) 
+      YTOL(L-180)=TOL 
+      GO TO 154 
+ 140  WRITE (6,199) VAL(MODE+17),VAL1(MODE+17)
+      READ (5,*) J,K,AA,JJ,KK,F 
+ 141  L=K 
+      IF(J-K) 142,143,143 
+ 142  K=J 
+      J=L 
+ 143  IF(JJ-KK) 144,145,145 
+ 144  L=KK
+      KK=JJ 
+      JJ=L
+ 145  DO 149 I=1,NGM
+      IF(NJJ(I)-JJ) 149,146,149 
+ 146  IF(NKK(I)-KK) 149,147,149 
+ 147  IF(NJ(I)-J) 149,148,149 
+ 148  IF(NK(I)-K) 149,150,149 
+ 149  CONTINUE
+      NGM=NGM+1 
+      I=NGM 
+      NJJ(I)=JJ 
+      NKK(I)=KK 
+      NJ(I)=J 
+      NK(I)=K 
+ 150  LL=I+180+180*(22/MM)
+      IF(MM-7) 75,151,75
+ 151  IF(MODE) 152,152,153
+ 152  BGM(I)=F
+      GGM(I)=AA 
+      GO TO 6 
+ 153  FGM(I)=F*1.0E6
+      YGM(I)=AA 
+      GMTOL(I)=TOL
+ 154  IF(DABS(AA)-1.E-30) 109,6,6 
+C     INPUT OF V,E, I, AND Y
+ 155  MM=31 
+      OP1=OP
+ 156  IF(MM.GT.32) GO TO 157
+      WRITE (6,198) VAL1(MM-29),CDEG
+      GO TO 158 
+ 157  WRITE (6,200) 
+ 158  CONTINUE
+      READ (5,*) J,K,AA,F 
+      CALL LFIND (J,K,L,&6) 
+      IF(MM-32) 159,161,163 
+ 159  IF(OP-TYPE(55)) 162,160,162 
+ 160  YR(L)=1.0E7 
+      GO TO 162 
+ 161  L=L+60
+      AA=.001*AA
+ 162  F=F/57.29578
+      ER(L)=AA*DCOS(F)
+      EI(L)=AA*DSIN(F)
+      GO TO 154 
+ 163  YI(L)=F 
+      YR(L)=AA
+      GO TO 6 
+ 164  READ (5,192) TITLE
+      GO TO 6 
+C     OPTIMIZATION SETUP
+ 165  WRITE (6,201) 
+      READ (5,*) EPS
+      EPS=.01*EPS 
+      GO TO 6 
+ 166  WRITE (6,202) 
+      READ (5,*) EPS2 
+      GO TO 6 
+ 167  NN=1
+      IPX=1 
+      IFREQ=1 
+      IBW=0 
+      GO TO 180 
+ 168  IF(NN-20) 170,169,169 
+ 169  WRITE (6,204) 
+      GO TO 6 
+ 170  NN=NN+1 
+      IF(M-7) 173,174,171 
+ 171  IF(M-10) 173,172,175
+ 172  M=4 
+ 173  LL=60*(M-4)+LL
+ 174  X(NN)=YR(LL)
+      PRTURB(NN)=.1*YR(LL)
+      LPAR(NN)=LL 
+      GO TO 6 
+ 175  IFREQ=1 
+ 176  WRITE (6,205) 
+      READ (5,*) FREQ 
+      X(NN)=FREQ
+      PRTURB(NN)=.1*FREQ
+      LPAR(NN)=-1 
+      IF(MM-35) 6,183,6 
+ 177  KSIGN=-1
+      GO TO 180 
+ 178  KSIGN=1 
+      GO TO 180 
+ 179  KSIGN=0 
+      WRITE (6,206) VAL(IPLT+13),VAL1(IPLT+13)
+      READ (5,*) VALUE
+      IF(DABS(VALUE).LT.EPS) VALUE=EPS
+ 180  IF(IFREQ) 181,181,182 
+ 181  WRITE (6,207) 
+      READ (5,*) FREQ 
+ 182  IFREQ=0 
+      IF(MM-35) 184,176,184 
+ 183  KSIGN=-1
+ 184  CALL LINCD3 
+      IFREQ=0 
+      NN=0
+      GO TO 6 
+ 185  REWIND 1
+      IF(MM-29) 6,186,187 
+ 186  CONTINUE
+      WRITE (1) (YI(I),I=1,842) 
+      WRITE (1) (IV(I),I=1,325) 
+      GO TO 6 
+ 187  CONTINUE
+      READ (1) (YI(I),I=1,842)
+      READ (1) (IV(I),I=1,325)
+      GO TO 6 
+C 
+ 188  FORMAT (' MULTIPLY TOLERANCE BY') 
+ 189  FORMAT ('+>=')
+ 190  FORMAT (A5,2A2,4A5) 
+ 191  FORMAT (' NODE DIFFERENCE TO ',A5,2A2,2A5,A2) 
+ 192  FORMAT (14A5) 
+ 193  FORMAT ('+ILLEGAL COMMAND') 
+ 194  FORMAT (19H INITIAL AND FINAL ,7A5,17H,NO. OF INTERVALS)
+ 195  FORMAT (47H NODES TO BE PLOTTED(FILL TO 8 NO.S WITH ZEROS)) 
+ 196  FORMAT (1X,14A5)
+ 197  FORMAT (1X,A2,2I4,2X,G12.5,1X,2A5,2X,G12.5,1X,2A5)
+ 198  FORMAT (7H NODES,,6A5)
+ 199  FORMAT (' NODES,MHOS,CONTROLLING NODES,',6A5) 
+ 200  FORMAT (26H NODES,REAL AND IMAG MHOS )
+ 201  FORMAT (20H ACCURACY IN PERCENT)
+ 202  FORMAT (' ENTER ERROR') 
+ 203  FORMAT (10H NODES OF ,A2) 
+ 204  FORMAT (18H ONLY 20 VARIABLES)
+ 205  FORMAT (21H ESTIMATED FREQ IN HZ) 
+ 206  FORMAT (10H VALUE IN ,2A5)
+ 207  FORMAT (11H FREQ IN HZ) 
+ 208  FORMAT (3X,2I4,2X,4A5,5X,G12.5,1X,A2) 
+ 209  FORMAT (' Y ',2I4,2X,G12.5,1X,A2,G12.5,' MHOS') 
+      END 
+      COMMON /AC/ G(31,30),B(31,30),Y(20),IWRSE(200)
+      EQUIVALENCE (G(1,1),X110(1)), (YLABEL(1),B(1,1))
+      COMMON /BDATA/ TYPE(56),VAL(18),VAL1(18),CONS(9),HD(7)
+      DATA SYM/1H*,1H.,1HX,1HO,1H-,1HI,1HV,1HZ,1H / 
+      DATA PLUS,OFF,FCO,PLUSJ,XMJ,XLOG/1H+,1H0,3HFC0,2H J,3H -J,2HLO/ 
+      IF(OP-TYPE(35)) 1,29,1
+ 1    IF(MM-24) 4,11,2
+ 2    IF(MM-25) 4,5,4 
+ 3    RETURN
+ 4    IF(M-10) 7,6,10 
+ 5    WRITE (6,100) 
+      GO TO 29
+ 6    XSAV=YR(LL) 
+      GO TO 10
+ 7    IF(M-7) 8,9,8 
+ 8    LL=60*(M-1)+LL
+ 9    XSAV=YI(LL) 
+ 10   XI=(XMAX-X)/FLOAT(NPS)
+      XMAX=XMAX+.5*XI 
+ 11   NVD=0 
+      I=0 
+ 12   I=I+1 
+      IF(NP(I)) 13,15,14
+ 13   N2(NVD)=-NP(I)
+      GO TO 12
+ 14   NVD=NVD+1 
+      N1(NVD)=NP(I) 
+      N2(NVD)=0 
+      GO TO 12
+ 15   IF(MM-22) 29,16,29
+ 16   IF(OP-TYPE(15)) 18,17,18
+ 17   MM=24 
+      GO TO 23
+ 18   NNT=5 
+      WRITE (6,101) TITLE,(SYM(I),N1(I),N2(I),I=1,NVD)
+      NCOUNT=9
+      SCALE=WIDTH/(YMAX-YMIN) 
+      NLAB=0
+      DO 20 I=1,6 
+      YLABEL(I)=FLOAT(I-1)*.2*WIDTH/SCALE+YMIN
+      IF(DABS(YLABEL(I))-DABS(0.1/SCALE)) 19,20,20
+ 19   YLABEL(I)=0.
+ 20   CONTINUE
+      IF(IWIDTH-100) 21,22,22 
+ 21   WRITE (6,103) VAL(IPX+13),VAL1(IPX+13),YLABEL 
+      GO TO 23
+ 22   WRITE (6,102) VAL(IPX+13),VAL1(IPX+13),YLABEL 
+ 23   XX=X
+      IF(OP1-XLOG) 25,24,25 
+ 24   XX=10.**X 
+ 25   SY(1)=VAL(M)
+      SY(2)=VAL1(M) 
+      VR=TYPE(M)
+      IF(M-10) 27,26,28 
+ 26   YR(LL)=.001/(XX+1.0E-10)
+      GO TO 29
+ 27   YI(LL)=XX*CONS(M) 
+      GO TO 29
+ 28   FREQ=XX 
+ 29   CALL ACSLN
+      IF(OP-TYPE(15)) 31,30,31
+ 30   WRITE (6,98) TYPE(M),XX,SY
+      GO TO 39
+ 31   IF(MM-25) 32,33,66
+ 32   IF(MM-24) 49,39,49
+ 33   DO 38 II=1,NNODES 
+      VR=G(NNODES+1,II) 
+      VI=B(NNODES+1,II) 
+      F=DSQRT(VR*VR+VI*VI)
+      ANGLE=0.0 
+      IF(DABS(VR)+DABS(VI)-1.E-40) 35,35,34 
+ 34   ANGLE=57.29578*DATAN2(VI,VR)
+ 35   IF(F-1.0E-30) 36,37,37
+ 36   DB=-600.
+      GO TO 38
+ 37   DB=20.0*DLOG10(F) 
+ 38   WRITE (6,104) II,VR,VI,F,ANGLE,DB 
+      GO TO 3 
+ 39   DO 48 I=1,NVD 
+      J=N1(I) 
+      K=N2(I) 
+      VR=VDR(I) 
+      VI=VDI(I) 
+      IF(IPX-1) 47,42,40
+ 40   IF(IPX-3) 43,43,41
+ 41   WRITE (6,105) J,K,VR,VAL(17),VI,VAL(13) 
+      GO TO 48
+ 42   WRITE (6,105) J,K,VR,TYPE(48),VI,VAL(13)
+      GO TO 48
+ 43   SIGN=PLUSJ
+      IF(VI) 44,46,45 
+ 44   SIGN=XMJ
+      VI=DABS(VI) 
+ 45   WRITE (6,105) J,K,VR,SIGN,VI,SYM(7) 
+      GO TO 48
+ 46   WRITE (6,105) J,K,VR,SYM(7) 
+      GO TO 48
+ 47   WRITE (6,105) J,K,VR,SYM(7),VI,VAL(13)
+ 48   CONTINUE
+      IF(OP-TYPE(15)) 3,62,3
+ 49   DO 50 I=1,IWIDTH
+ 50   X110(I)=SYM(NNT)
+      X110(11)=SYM(5) 
+      I=1 
+ 51   L=(VDR(I)-YMIN)*SCALE+11.5
+      IF(L+1) 52,52,53
+ 52   X110(1)=OFF 
+      GO TO 55
+ 53   IF(L-IWIDTH) 54,55,55 
+ 54   X110(L+1)=SYM(I)
+      GO TO 55
+ 55   I=I+1 
+      IF(I-NVD) 51,51,56
+ 56   NCOUNT=NCOUNT+1 
+      NLAB=NLAB+1 
+      IF(NLAB-5) 58,57,58 
+ 57   WRITE (6,110) SY,(X110(I),I=11,IWIDTH)
+      GO TO 62
+ 58   IF(NCOUNT-10) 59,60,59
+ 59   WRITE (6,106) (X110(I),I=1,IWIDTH)
+      GO TO 62
+ 60   DO 61 I=11,IWIDTH,ICOORD
+ 61   X110(I)=PLUS
+      NCOUNT==0
+           WRITE I=11,IWIDTH)
+**** **********************
+PAPER TAPE RIPPED AT THIS POINT - CHECK CARDS
+*****************************
+ 62   NNT=9 
+      X=X+XI
+      IF(XMAX-X) 63,23,23 
+ 63   IF(M-10) 65,64,3
+ 64   YR(LL)=XSAV 
+      GO TO 3 
+ 65   YI(LL)=XSAV 
+      GO TO 3 
+C     SENSITIVITIES MM=26 
+ 66   DO 67 I=1,NVD 
+C
+C
+C
+      SUBROUTINE LINCD2 
+      IMPLICIT REAL*8(A-H,O-Z)
+      DIMENSION SYM(9), Y0(8), SY(2), X110(110), YLABEL(6)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(200),TITLE(14) 
+      COMMON VDR(8),VDI(8),FREQ,PRTURB(20),XXX(20),EPS,EPS2 
+      COMMON VALUE,F,X,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20)
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(12),NVD,LPAR(20) 
+      COMMON NNODES,NBR,NGM,IPLT,MM,MODE,N1(8),N2(8),KSIGN,NN 
+      COMMON IBW,IWIDTH,M,LL,NPS,IFREQ,ICOORD,IPX 
+      COMMON /AC/ G(31,30),B(31,30),Y(20),IWRSE(200)
+      EQUIVALENCE (G(1,1),X110(1)), (YLABEL(1),B(1,1))
+      COMMON /BDATA/ TYPE(56),VAL(18),VAL1(18),CONS(9),HD(7)
+      DATA SYM/1H*,1H.,1HX,1HO,1H-,1HI,1HV,1HZ,1H / 
+      DATA PLUS,OFF,FCO,PLUSJ,XMJ,XLOG/1H+,1H0,3HFC0,2H J,3H -J,2HLO/ 
+      IF(OP-TYPE(35)) 1,29,1
+ 1    IF(MM-24) 4,11,2
+ 2    IF(MM-25) 4,5,4 
+ 3    RETURN
+ 4    IF(M-10) 7,6,10 
+ 5    WRITE (6,100) 
+      GO TO 29
+ 6    XSAV=YR(LL) 
+      GO TO 10
+ 7    IF(M-7) 8,9,8 
+ 8    LL=60*(M-1)+LL
+ 9    XSAV=YI(LL) 
+ 10   XI=(XMAX-X)/FLOAT(NPS)
+      XMAX=XMAX+.5*XI 
+ 11   NVD=0 
+      I=0 
+ 12   I=I+1 
+      IF(NP(I)) 13,15,14
+ 13   N2(NVD)=-NP(I)
+      GO TO 12
+ 14   NVD=NVD+1 
+      N1(NVD)=NP(I) 
+      N2(NVD)=0 
+      GO TO 12
+ 15   IF(MM-22) 29,16,29
+ 16   IF(OP-TYPE(15)) 18,17,18
+ 17   MM=24 
+      GO TO 23
+ 18   NNT=5 
+      WRITE (6,101) TITLE,(SYM(I),N1(I),N2(I),I=1,NVD)
+      NCOUNT=9
+      SCALE=WIDTH/(YMAX-YMIN) 
+      NLAB=0
+      DO 20 I=1,6 
+      YLABEL(I)=FLOAT(I-1)*.2*WIDTH/SCALE+YMIN
+      IF(DABS(YLABEL(I))-DABS(0.1/SCALE)) 19,20,20
+ 19   YLABEL(I)=0.
+ 20   CONTINUE
+      IF(IWIDTH-100) 21,22,22 
+ 21   WRITE (6,103) VAL(IPX+13),VAL1(IPX+13),YLABEL 
+      GO TO 23
+ 22   WRITE (6,102) VAL(IPX+13),VAL1(IPX+13),YLABEL 
+ 23   XX=X
+      IF(OP1-XLOG) 25,24,25 
+ 24   XX=10.**X 
+ 25   SY(1)=VAL(M)
+      SY(2)=VAL1(M) 
+      VR=TYPE(M)
+      IF(M-10) 27,26,28 
+ 26   YR(LL)=.001/(XX+1.0E-10)
+      GO TO 29
+ 27   YI(LL)=XX*CONS(M) 
+      GO TO 29
+ 28   FREQ=XX 
+ 29   CALL ACSLN
+      IF(OP-TYPE(15)) 31,30,31
+ 30   WRITE (6,98) TYPE(M),XX,SY
+      GO TO 39
+ 31   IF(MM-25) 32,33,66
+ 32   IF(MM-24) 49,39,49
+ 33   DO 38 II=1,NNODES 
+      VR=G(NNODES+1,II) 
+      VI=B(NNODES+1,II) 
+      F=DSQRT(VR*VR+VI*VI)
+      ANGLE=0.0 
+      IF(DABS(VR)+DABS(VI)-1.E-40) 35,35,34 
+ 34   ANGLE=57.29578*DATAN2(VI,VR)
+ 35   IF(F-1.0E-30) 36,37,37
+ 36   DB=-600.
+      GO TO 38
+ 37   DB=20.0*DLOG10(F) 
+ 38   WRITE (6,104) II,VR,VI,F,ANGLE,DB 
+      GO TO 3 
+ 39   DO 48 I=1,NVD 
+      J=N1(I) 
+      K=N2(I) 
+      VR=VDR(I) 
+      VI=VDI(I) 
+      IF(IPX-1) 47,42,40
+ 40   IF(IPX-3) 43,43,41
+ 41   WRITE (6,105) J,K,VR,VAL(17),VI,VAL(13) 
+      GO TO 48
+ 42   WRITE (6,105) J,K,VR,TYPE(48),VI,VAL(13)
+      GO TO 48
+ 43   SIGN=PLUSJ
+      IF(VI) 44,46,45 
+ 44   SIGN=XMJ
+      VI=DABS(VI) 
+ 45   WRITE (6,105) J,K,VR,SIGN,VI,SYM(7) 
+      GO TO 48
+ 46   WRITE (6,105) J,K,VR,SYM(7) 
+      GO TO 48
+ 47   WRITE (6,105) J,K,VR,SYM(7),VI,VAL(13)
+ 48   CONTINUE
+      IF(OP-TYPE(15)) 3,62,3
+ 49   DO 50 I=1,IWIDTH
+ 50   X110(I)=SYM(NNT)
+      X110(11)=SYM(5) 
+      I=1 
+ 51   L=(VDR(I)-YMIN)*SCALE+11.5
+      IF(L+1) 52,52,53
+ 52   X110(1)=OFF 
+      GO TO 55
+ 53   IF(L-IWIDTH) 54,55,55 
+ 54   X110(L+1)=SYM(I)
+      GO TO 55
+ 55   I=I+1 
+      IF(I-NVD) 51,51,56
+ 56   NCOUNT=NCOUNT+1 
+      NLAB=NLAB+1 
+      IF(NLAB-5) 58,57,58 
+ 57   WRITE (6,110) SY,(X110(I),I=11,IWIDTH)
+      GO TO 62
+ 58   IF(NCOUNT-10) 59,60,59
+ 59   WRITE (6,106) (X110(I),I=1,IWIDTH)
+      GO TO 62
+ 60   DO 61 I=11,IWIDTH,ICOORD
+ 61   X110(I)=PLUS
+      NCOUNT=0
+     WRITE (5,107) XX,(X110(I),I=11,IWIDTH)
+ 62   NNT=9 
+      X=X+XI
+      IF(XMAX-X) 63,23,23 
+ 63   IF(M-10) 65,64,3
+ 64   YR(LL)=XSAV 
+      GO TO 3 
+ 65   YI(LL)=XSAV 
+      GO TO 3 
+C     SENSITIVITIES MM=26 
+ 66   DO 67 I=1,NVD 
+ 67   Y0(I)=VDR(I)
+      DO 68 I=1,200 
+ 68   IWRSE(I)=0
+      III=0 
+      IF(OP-TYPE(35)) 69,70,69
+ 69   WRITE (6,108) TITLE,VAL(IPX+13),VAL1(IPX+13),VAL(IPX+13),VAL1(IPLT
+     1+13),(N1(I),N2(I),I=1,NVD)
+ 70   III=III+1 
+      IF(III-180) 71,71,77
+ 71   RR=YR(III)
+      IF(DABS(RR)-1.0E-30) 70,70,72 
+ 72   IF(OP-TYPE(35)) 74,73,74
+ 73   IF(DABS(YTOL(III))-1.D-30) 70,70,74 
+ 74   IX=(III-1)/60 
+      I=III-IX*60 
+      JJ=JN(I)
+      KK=KN(I)
+      IX=IX+4 
+      IF(IX-4) 76,75,76 
+ 75   IF(IV(I))751,751,70 
+ 751  R=.001/RR 
+      YR(III)=RR/1.001
+      IX=10 
+      GO TO 82
+ 76   R=RR/CONS(IX) 
+      YR(III)=1.001*RR
+      GO TO 82
+ 77   III=0 
+      IX=7
+ 78   IF(III-NGM) 79,89,89
+ 79   III=III+1 
+      IF(OP-TYPE(35)) 81,80,81
+ 80   IF(DABS(YTOL(III+180))-1.E-30) 78,78,81 
+ 81   JJ=NJ(III)
+      KK=NK(III)
+      R=YGM(III)
+      YGM(III)=1.001*R
+ 82   CALL ACSLN
+      DO 83 I=1,NVD 
+ 83   VDR(I)=1000.*(VDR(I)-Y0(I))/DABS(Y0(I)) 
+      IF(OP-TYPE(35)) 84,85,84
+ 84   WRITE (6,109) TYPE(IX),JJ,KK,R,(VDR(I),I=1,NVD) 
+ 85   IF(IX-7) 88,86,88 
+ 86   YGM(III)=R
+      IWRSE(III+180)=KSIGN
+      IF(VDR(1).LT.0.) IWRSE(III+180)=-KSIGN
+      IF(OP-TYPE(35)) 87,78,87
+ 87   WRITE (6,109) FCO,NJJ(III),NKK(III),FGM(III)
+      GO TO 78
+ 88   YR(III)=RR
+      IWRSE(IIII)=KSIGN
+      IF(VDR(1).LT.0.) IWRSE(III)=-KSIGN
+      GO TO 70
+ 89   IF(OP-TYPE(35)) 3,90,3
+C     COMPUTE WORSE CASE CIRCUIT
+ 90   NN=0
+      DO 96 I=1,200 
+      IF(IWRSE(I)) 91,96,91 
+ 91   R=1.+.005*YTOL(I)*FLOAT(IWRSE(I)) 
+      IF(NN-20) 92,97,97
+ 92   NN=NN+1 
+      LPAR(NN)=I
+      IF(I-60) 93,93,94 
+ 93   Y(NN)=YR(I) 
+      YR(I)=YR(I)/R 
+      GO TO 95
+ 94   Y(NN)=YR(I) 
+      YR(I)=YR(I)*R 
+ 95   XXX(NN)=YR(I) 
+      PRTURB(NN)=0.1*(Y(NN)-XXX(NN))
+ 96   CONTINUE
+      GO TO 3 
+ 97   WRITE (6,99)
+      GO TO 3 
+C 
+ 98   FORMAT (/1X,A2,1H=,G15.6,1X,2A5)
+ 99   FORMAT (' WORSE CASE ANALYSIS WILL BE LIMITED TO THE FIRST ','20 E
+     1LEMENTS WITH TOLERANCE')
+ 100  FORMAT (6X,9HREAL PART,2X,9HIMAG PART,3X,9HMAGNITUDE,7X,5HPHASE,2X
+     1,11H20*LOG(MAG)/) 
+ 101  FORMAT (1X,14A5/(5(2X,A1,5H NODE,I3,1H-,I2))) 
+ 102  FORMAT (20X,2A5/1X,6G20.4)
+ 103  FORMAT (20X,2A5/7X,6G10.3)
+ 104  FORMAT (2H V,I3,1X,3(1X,G11.4),2F10.3)
+ 105  FORMAT (2H V,I3,2H-V,I3,2H =,G13.5,1X,A3,1H,,G13.5,1X,A3) 
+ 106  FORMAT (2X,115A1) 
+ 107  FORMAT (1X,G11.4,115A1) 
+ 108  FORMAT (1X,14A5/17X,'D(',2A5,')/',2A5/'   SENSITIVITY = ',24(1H-)/
+     128X,'DX/X'/23X,4(6X,I2,1H-,I2)) 
+ 109  FORMAT (1X,A3,2I3,1X,G11.4,2X,4(1X,G10.3))
+ 110  FORMAT (1X,2A5,1X,115A1)
+      END 
+C
+C
+C
+      SUBROUTINE LINCD3 
+      IMPLICIT REAL*8(A-H,O-Z)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(200),TITLE(14) 
+      COMMON VDR(8),VDI(8),FREQ,PRTURB(20),X(20),EPS,EPS2 
+      COMMON VALUE,F,XMIN,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20) 
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(12),NVD,LPAR(20) 
+      COMMON NNODES,NBR,NGM,IPLT,MM,MODE,N1(8),N2(8),KSIGN,NN 
+      COMMON IBW,IWIDTH,M,LL,NPS,IFREQ,ICOORD,IPX 
+      COMMON /BDATA/ TYPE(56),VAL(18),VAL1(18),CONS(9),HD(7)
+      COMMON /AC/ GB(1860),Y(20),S(21,21),SC(20)
+      EQUIVALENCE (N1,NDE), (N2,NDE2) 
+      DATA YES/3HYES/ 
+      FNN=NN
+ 1    NNP1=NN+1 
+      DO 3 I=1,NN 
+      DO 2 J=1,NNP1 
+ 2    S(I,J)=X(I) 
+ 3    S(I,I)=X(I)+PRTURB(I) 
+      DO 5 J=1,NNP1 
+      DO 4 I=1,NN 
+ 4    X(I)=S(I,J) 
+      CALL FUNCT
+ 5    S(NNP1,J)=F 
+ 6    DO 34 NUM=1,100 
+      FL=S(NNP1,1)
+      FH=FL 
+      FH2=-1.E+30 
+      JH=1
+      JL=1
+      DO 12 J=2,NNP1
+      TEMP=S(NNP1,J)
+      IF(FH-TEMP) 7,8,8 
+ 7    FH2=FH
+      FH=TEMP 
+      JH=J
+      GO TO 12
+ 8    IF(FH2-TEMP) 9,10,10
+ 9    FH2=TEMP
+ 10   IF(FL-TEMP) 12,12,11
+ 11   FL=TEMP 
+      JL=J
+ 12   CONTINUE
+      IF(KSIGN) 13,14,15
+ 13   IF(DABS(FH-FL)-DABS(EPS2*F)) 35,16,16 
+ 14   IF(DABS(F)-DABS(EPS*VALUE)) 35,35,16
+ 15   IF(FH-FL-EPS2) 35,16,16 
+ 16   DO 18 I=1,NN
+      SUM=0.
+      DO 17 J=1,NNP1
+ 17   SUM=SUM+S(I,J)
+ 18   SC(I)=(SUM-S(I,JH))/FNN 
+      DO 19 I=1,NN
+ 19   X(I)=2.0*SC(I)-S(I,JH)
+      CALL FUNCT
+      IF(F-FL) 30,20,20 
+ 20   IF(F-FH2) 32,21,21
+ 21   IF(F-FH) 22,24,24 
+ 22   DO 23 I=1,NN
+ 23   S(I,JH)=X(I)
+      S(NNP1,JH)=F
+      FH=F
+ 24   DO 25 I=1,NN
+ 25   X(I)=.5*(S(I,JH)+SC(I)) 
+      CALL FUNCT
+      IF(F-FH) 32,26,26 
+ 26   DO 29 J=1,NNP1
+      IF(J-JL) 27,29,27 
+ 27   DO 28 I=1,NN
+      TEMP=.5*(S(I,J)+S(I,JL))
+      S(I,J)=TEMP 
+ 28   X(I)=TEMP 
+      CALL FUNCT
+      S(NNP1,J)=F 
+ 29   CONTINUE
+      GO TO 34
+ 30   DO 31 I=1,NN
+      TEMP=X(I) 
+      S(I,JH)=TEMP
+ 31   X(I)=TEMP+TEMP-SC(I)
+      S(NNP1,JH)=F
+      FL=F
+      CALL FUNCT
+      IF(F-FL) 32,34,34 
+ 32   DO 33 I=1,NN
+ 33   S(I,JH)=X(I)
+      S(NNP1,JH)=F
+ 34   CONTINUE
+      WRITE (6,52)
+      READ (5,53) ANS 
+      IF(ANS-YES) 35,6,35 
+ 35   IF(MM-35) 36,45,36
+ 36   DO 44 I=1,NN
+      ANS=S(I,JL) 
+      LL=LPAR(I)
+      IF(LL) 37,38,38 
+ 37   WRITE (6,54) ANS
+      GO TO 44
+ 38   IF(LL-180) 40,40,39 
+ 39   WRITE (6,55) TYPE(7),NJ(LL-180),NK(LL-180),ANS,VAL(7) 
+      GO TO 44
+ 40   M=(LL-1)/60 
+      L=LL-M*60 
+      YR(LL)=ANS
+      IF(M) 51,41,42
+ 41   ANS=.001/ANS
+      MM=10 
+      GO TO 43
+ 42   MM=M+4
+      ANS=ANS/CONS(MM)
+ 43   WRITE (6,55) TYPE(MM),KN(L),JN(L),ANS,VAL(MM),VAL1(MM)
+ 44   CONTINUE
+      WRITE (6,56) NDE,NDE2,VDR(1),VAL(IPLT+13),VAL1(IPLT+13) 
+      GO TO 51
+ 45   IF(IBW) 47,46,50
+ 46   FCENT=S(1,JL) 
+      VALUE=VDR(1)-3. 
+      PRTURB(1)=.02*FCENT 
+      X(1)=FCENT
+      WRITE (6,57) FCENT,VDR(1) 
+      IBW=-1
+      KSIGN=0 
+      GO TO 1 
+ 47   FUPP=S(1,JL)
+      WRITE (6,58) FUPP 
+      BW=FUPP-FCENT 
+      X(1)=FCENT-BW 
+      IF(X(1)) 48,49,49 
+ 48   X(1)=.01*FCENT
+ 49   PRTURB(1)=-.02*BW 
+      IBW=1 
+      GO TO 1 
+ 50   FLWR=S(1,JL)
+      BW=DABS(FUPP-FLWR)
+      WRITE (6,58) FLWR,BW
+ 51   RETURN
+C 
+ 52   FORMAT (41H NO CONVERGENCE,MORE ITERATIONS.YES OR NO) 
+ 53   FORMAT (14A5) 
+ 54   FORMAT (4H F= ,G12.5,3H HZ) 
+ 55   FORMAT (1X,A3,2I3,G12.5,1X,2A5) 
+ 56   FORMAT (2H V,I3,2H-V,I3,2H =,G12.5,1X,2A5)
+ 57   FORMAT (' PEAK AT F= ',G12.5,3H HZ,5X,G12.5,3H DB)
+ 58   FORMAT (7H F3DB= ,G12.5,3H HZ,5X,G12.5,9H=BW IN HZ) 
+      END 
+C
+C
+C
+      SUBROUTINE LINCD4 (*) 
+      IMPLICIT REAL*8(A-H,O-Z)
+      DIMENSION TY(5), COF(11), ROOTR(10), ROOTI(10), SS(10)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(200) 
+      COMMON TITLE(14),VDR(8),VDI(8),FREQ,PRTURB(20),X(20),EPS,EPS2 
+      COMMON VALUE,F,XMIN,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20) 
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(13),LPAR(20) 
+      COMMON NNODES,NBR,NGM,IPLT,MM,MODE,NDE,N1(7),NDE2 
+      COMMON /AC/ B(21),E(10),C(15,15),G(15,15),H(15,15),AX(15,15)
+      COMMON /AC/ IH(15),IG(15),IC(15),IND(15)
+      DATA PLUSJ,XMINJ/3H +J,3H -J/ 
+      DATA BLANK,PLUS,XMINUS/1H ,1H+,1H-/ 
+      DATA SS/1HS,4HS**2,4HS**3,4HS**4,4HS**5,4HS**6,4HS**7,4HS**8,4HS**
+     19,5HS**10/
+      DATA RPAR,SLASH,RNS/1H),1H/,5H R/NS/
+      DATA TY/4HGAIN,5HIMPED,5HZEROS,5HCHARA,5HPOLES/ 
+      MM=40 
+ 1    MM=MM+1 
+      IF(MM-45) 2,2,3 
+ 2    IF(TY(MM-40)-OP) 1,4,1
+ 3    RETURN 1
+ 4    MMM=0 
+      IF(NNODES-15) 5,5,123 
+ 5    IF(MM-42) 7,8,6 
+ 6    IF(MM-44) 8,11,10 
+ 7    WRITE (6,125) 
+      GO TO 9 
+ 8    WRITE (6,126) 
+ 9    CONTINUE
+      READ (5,*) NDE2,NDE 
+      GO TO 11
+ 10   MMM=1 
+ 11   N=NNODES
+      NA=2*N+1
+      DO 12 I=1,60
+ 12   IH(I)=0 
+      DO 13 I=1,931 
+      II=I+I
+ 13   B(I)=0. 
+      JCAP=0
+      DO 18 I=1,NBR 
+      J=JN(I) 
+      K=KN(I) 
+      YRI=YR(I) 
+      CAPI=CAP(I) 
+      HENR=HENRI(I) 
+      IF(DABS(CAPI).GT.1.E-30) JCAP=JCAP+1
+      IF(DABS(HENR).GT.1.E-30) JCAP=JCAP+1
+      G(J,J)=G(J,J)+YRI 
+      C(J,J)=C(J,J)+CAPI
+      IF(K) 15,15,14
+ 14   G(K,K)=G(K,K)+YRI 
+      G(J,K)=G(J,K)-YRI 
+      G(K,J)=G(J,K) 
+      C(K,K)=C(K,K)+CAPI
+      C(J,K)=C(J,K)-CAPI
+      C(K,J)=C(J,K) 
+ 15   IF(DABS(HENR)-1.0E-30) 18,18,16 
+ 16   H(J,J)=H(J,J)+1./HENR 
+      IF(K) 18,18,17
+ 17   H(K,K)=H(K,K)+1./HENR 
+      H(J,K)=H(J,K)-1./HENR 
+      H(K,J)=H(J,K) 
+ 18   CONTINUE
+      IF(JCAP.GT.10) GO TO 123
+      IF(NGM) 25,25,19
+ 19   DO 24 I=1,NGM 
+      JJ=NJJ(I) 
+      KK=NKK(I) 
+      J=NJ(I) 
+      K=NK(I) 
+      G(J,JJ)=G(J,JJ)+YGM(I)
+      IF(KK) 21,21,20 
+ 20   G(J,KK)=G(J,KK)-YGM(I)
+ 21   IF(K) 24,24,22
+ 22   G(K,JJ)=G(K,JJ)-YGM(I)
+      IF(KK) 24,24,23 
+ 23   G(K,KK)=G(K,KK)+YGM(I)
+ 24   CONTINUE
+ 25   IF(MM-44) 26,32,32
+ 26   IF(MMM) 32,27,27
+ 27   II=0
+      DO 31 I=1,N 
+      IF(I-NDE) 28,31,28
+ 28   II=II+1 
+      JJ=0
+      DO 30 J=1,N 
+      IF(J-NDE2) 29,30,29 
+ 29   JJ=JJ+1 
+      G(II,JJ)=G(I,J) 
+      H(II,JJ)=H(I,J) 
+      C(II,JJ)=C(I,J) 
+ 30   CONTINUE
+ 31   CONTINUE
+      N=N-1 
+      NA=NA-2 
+ 32   IF(N-1) 124,33,34 
+ 33   B(1)=H(1,1) 
+      B(2)=G(1,1) 
+      B(3)=C(1,1) 
+      GO TO 72
+ 34   IBASE=3 
+      IADD=-1 
+      JCAP=0
+      JHEN=0
+      DO 41 J=1,N 
+      DO 41 I=1,N 
+      IF(DABS(C(I,J))-1.0E-30) 36,36,35 
+ 35   IC(J)=1 
+      JCAP=1
+ 36   IF(DABS(H(I,J))-1.0E-30) 38,38,37 
+ 37   IH(J)=1 
+      JHEN=1
+ 38   IF(DABS(G(I,J))-1.0E-30) 41,41,39 
+ 39   IG(J)=1 
+      IF(NGM) 40,40,41
+ 40   IG(I)=1 
+ 41   CONTINUE
+      IF(JHEN) 42,42,43 
+ 42   IADD=0
+      GO TO 44
+ 43   IF(JCAP) 44,44,45 
+ 44   IBASE=2 
+      NA=NA-N 
+ 45   NN=IBASE**N 
+      DO 71 L=1,NN
+      NUM=L-1 
+      DO 49 M=1,N 
+      NDIV=NUM/IBASE
+      IND(M)=NUM-IBASE*NDIV 
+      IF(IND(M)+IADD) 46,47,48
+ 46   IF(IH(M)) 49,71,49
+ 47   IF(IG(M)) 49,71,49
+ 48   IF(IC(M)) 49,71,49
+ 49   NUM=NDIV
+      ICT=1 
+      DO 56 J=1,N 
+      ICT=ICT+IND(J)
+      IF(IND(J)+IADD) 50,52,54
+ 50   DO 51 I=1,N 
+ 51   AX(I,J)=H(I,J)
+      GO TO 56
+ 52   DO 53 I=1,N 
+ 53   AX(I,J)=G(I,J)
+      GO TO 56
+ 54   DO 55 I=1,N 
+ 55   AX(I,J)=C(I,J)
+ 56   CONTINUE
+      D=1.
+      K=1 
+ 57   CONTINUE
+      KK=K+1
+      IS=K
+      IT=K
+      BDP=DABS(AX(K,K)) 
+      DO 59 I=K,N 
+      DO 59 J=K,N 
+      IF(DABS(AX(I,J))-BDP) 59,59,58
+ 58   IS=I
+      IT=J
+      BDP=DABS(AX(I,J)) 
+ 59   CONTINUE
+      IF(IS-K) 62,62,60 
+ 60   DO 61 J=K,N 
+      CA=AX(IS,J) 
+      AX(IS,J)=AX(K,J)
+ 61   AX(K,J)=-CA 
+ 62   CONTINUE
+      IF(IT-K) 65,65,63 
+ 63   DO 64 I=K,N 
+      CA=AX(I,IT) 
+      AX(I,IT)=AX(I,K)
+ 64   AX(I,K)=-CA 
+ 65   AXKK=AX(K,K)
+      D=AXKK*D
+      IF(AXKK) 66,70,66 
+ 66   CONTINUE
+      DO 68 J=KK,N
+      AXKJ=AX(K,J)/AXKK 
+      AX(K,J)=AXKJ
+      DO 68 I=KK,N
+      W=AX(I,K)*AXKJ
+      AX(I,J)=AX(I,J)-W 
+      IF(DABS(AX(I,J))-1.0D-8*DABS(W)) 67,68,68 
+ 67   AX(I,J)=0.
+ 68   CONTINUE
+      K=KK
+      IF(K-N) 57,69,57
+ 69   D=AX(N,N)*D 
+ 70   CONTINUE
+      B(ICT)=B(ICT)+D 
+ 71   CONTINUE
+ 72   DO 73 I=1,NA
+      MAX=NA-I+1
+      IF(B(MAX)) 74,73,74 
+ 73   CONTINUE
+ 74   DO 75 MIN=1,MAX 
+      IF(B(MIN)) 76,75,76 
+ 75   CONTINUE
+ 76   M=MAX-MIN 
+      M1=M+1
+      ISING=MIN-N-1 
+      BB=B(MAX) 
+      DO 77 I=1,M1
+      ITEMP=I+MIN-1 
+ 77   B(I)=B(ITEMP)/BB
+      IF(MM-44) 78,93,105 
+ 78   IF(MMM) 80,79,105 
+ 79   BSAV=BB 
+      IF(MM-42) 93,93,105 
+ 80   BB=BSAV/BB
+      I=NDE+NDE2
+      IF(I-2*(I/2)) 82,82,81
+ 81   BB=-BB
+ 82   IF(MM-42) 83,89,120 
+ 83   CALL LFIND (NDE,0,I,&124) 
+      YRI=YR(I) 
+      CAPI=CAP(I) 
+      HENR=HENRI(I) 
+      IF(DABS(YRI)-1.0E-30) 84,84,86
+ 84   IF(DABS(CAPI)-1.0E-30) 85,85,87 
+ 85   IF(DABS(HENR)-1.0E-30) 89,89,88 
+ 86   BB=BB*YRI 
+      GO TO 89
+ 87   BBB=BB*CAPI 
+      ISING=ISING+1 
+      GO TO 89
+ 88   BB=BB*HENR
+      ISING=ISING-1 
+ 89   ISS=ISS-ISING 
+      TEMP=BLANK
+      TEMP2=BLANK 
+      IF(ISS) 90,92,91
+ 90   TEMP=SLASH
+      ISS=-ISS
+      TEMP2=SS(ISS) 
+      GO TO 92
+ 91   TEMP=BLANK
+      TEMP2=SS(ISS) 
+ 92   WRITE (6,127) BB,TEMP,TEMP2 
+ 93   K=0 
+      TEMP=BLANK
+      IF(M) 94,94,97
+ 94   IF(ISING) 96,96,95
+ 95   TEMP=SS(ISING)
+      ISING=0 
+ 96   WRITE (6,128) BLANK,BLANK,B(1),TEMP,RPAR
+      GO TO 104 
+ 97   DO 103 I=1,M
+      II=M-I
+      BB=B(II+1)
+      IF(BB) 98,103,99
+ 98   K=K+1 
+      ROOTI(K)=XMINUS 
+      E(K)=-BB
+      GO TO 100 
+ 99   K=K+1 
+      E(K)=BB 
+      ROOTI(K)=PLUS 
+ 100  IF(II) 102,102,101
+ 101  ROOTR(K)=SS(II) 
+      GO TO 103 
+ 102  ROOTR(K)=BLANK
+ 103  CONTINUE
+      WRITE (6,128) SS(M),(ROOTI(I),E(I),ROOTR(I),I=1,K),RPAR 
+ 104  IF(MM-44) 112,124,124 
+ 105  IF(M) 119,119,106 
+ 106  CONS=1.E-9
+      BB=10.**(-M)
+      DO 110 J=1,20 
+      SUM=0.
+      CC=1. 
+      DO 107 I=1,M
+      E(I)=BB*CC*B(I) 
+      CC=CC*10. 
+ 107  SUM=SUM+DABS(E(I))
+      IF(SUM-500.) 111,111,108
+ 108  DO 109 I=1,M
+ 109  B(I)=E(I) 
+ 110  CONS=10.*CONS 
+ 111  CALL ROOT2 (B,COF,M,ROOTR,ROOTI,124) 
+      GO TO 114 
+ 112  IF(MMM) 124,113,113 
+ 113  MMM=-1
+      ISS=ISING-1 
+      GO TO 11
+ 114  DO 118 I=1,M
+      SIGN=PLUSJ
+      BB=ROOTR(I)*CONS
+      ATEMP=ROOTI(I)*CONS 
+      IF(ATEMP) 115,117,116 
+ 115  SIGN=XMINJ
+      ATEMP=-ATEMP
+ 116  WRITE (6,129) BB,SIGN,ATEMP,RNS 
+      GO TO 118 
+ 117  WRITE (6,129) BB,RNS
+ 118  CONTINUE
+ 119  IF(MMM) 113,113,124 
+ 120  ISS=ISS-ISING 
+      BB=0. 
+      IF(ISS) 124,124,121 
+ 121  DO 122 I=1,ISS
+ 122  WRITE (6,129) BB,RNS
+      GO TO 124 
+ 123  WRITE (6,130) 
+ 124  RETURN
+C 
+ 125  FORMAT (^ VOUT/VIN NODES^)
+ 126  FORMAT (^ VOUT/IIN NODES^)
+ 127  FORMAT (54(1H-),G12.5,A1,A5)
+ 128  FORMAT (2H+(,A5,A1,3(1X,G12.5,A4,A1)) 
+ 129  FORMAT (1X,G12.5,A5,G12.5,A5) 
+ 130  FORMAT (^ SORRY ONLY 15 NODES AND(OR) 10 REACTIVE^,^ ELEMENTS IN T
+     1HIS OPTION^)
+      END 
+C
+C
+C
+      SUBROUTINE FUNCT
+      IMPLICIT REAL*8(A-H,O-Z)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(200),TITLE(14) 
+      COMMON VDR(8),VDI(8),FREQ,PRTURB(20),X(20),EPS,EPS2 
+      COMMON VALUE,F,XMIN,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20) 
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(12),NVD,LPAR(20) 
+      COMMON NNODES,NBR,NGM,IPLT,MM,MODE,N1(8),N2(8),KSIGN,NN 
+      COMMON IBW,IWIDTH,M,LL,NPS,IFREQ,ICOORD,IPX 
+      COMMON /BDATA/ TYPE(56) 
+      COMMON /AC/ GB(1860),Y(20)
+      DO 16 I=1,NN
+      LL=LPAR(I)
+      IF(1-(LL-1)/60) 2,1,2 
+ 1    X(I)=DABS(X(I)) 
+ 2    IF(LL) 3,3,6
+ 3    IF(X(I)) 4,5,5
+ 4    X(I)=0. 
+ 5    FREQ=X(I) 
+      GO TO 16
+ 6    IF(TYPE(35)-OP) 15,7,15 
+ 7    IF(LL-60) 8,8,9 
+ 8    R=(Y(I)-X(I))/X(I)
+      GO TO 10
+ 9    R=(X(I)-Y(I))/Y(I)
+ 10   IF(DABS(R)-0.01*DABS(YTOL(LL))) 15,15,11
+ 11   RR=1.0+R*0.01*YTOL(LL)/DABS(R)
+      IF(LL-60) 12,12,13
+ 12   YR(LL)=Y(I)/RR
+      GO TO 14
+ 13   YR(LL)=RR*Y(I)
+ 14   X(I)=YR(LL) 
+      GO TO 16
+ 15   YR(LL)=X(I) 
+ 16   CONTINUE
+      CALL ACSLN
+      F=VDR(1)
+      IF(KSIGN+1) 21,18,17
+ 17   IF(KSIGN-1) 19,22,20
+ 18   F=-F
+      GO TO 22
+ 19   F=DABS(VALUE-F) 
+      GO TO 22
+ 20   F=VALUE-F 
+      GO TO 22
+ 21   F=F-VALUE 
+ 22   RETURN
+      END 
+C
+C
+C
+      SUBROUTINE ACSLN
+      IMPLICIT REAL*8(A-H,O-Z)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(200),TITLE(14) 
+      COMMON VDR(8),VDI(8),FREQ,PRTURB(20),X(20),EPS,EPS2 
+      COMMON VALUE,F,XMIN,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20) 
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(12),NVD,LPAR(20) 
+      COMMON NNODES,NBR,NGM,IPLT,MM,MODE,N1(8),N2(17),IPX 
+      COMMON /AC/ G(31,30),B(31,30) 
+      EQUIVALENCE (N1,NDE), (N2,NDE2) 
+      XMAG(VR,VI)=DSQRT(VR*VR+VI*VI)
+      NN=NNODES+1 
+      IENV=-1 
+ 1    W=6.28318*FREQ
+       NNND=NNODES
+       NNN=NN 
+       IF(NNN-6)65,66,66
+65     NNND=5 
+       NNN=6
+66     DO 3 J=1,NNND 
+      DO 2 I=1,NNN
+      G(I,J)=0. 
+ 2    B(I,J)=0. 
+ 3    G(J,J)=1.E-15 
+      DO 9 I=1,NBR
+      IF(MODE) 6,6,4
+ 4    YII=W*CAP(I)
+      WHENR=W*HENRI(I)
+      IF(DABS(WHENR)-1.0E-50) 7,7,5 
+ 5    YII=YII-1.0/WHENR 
+      GO TO 7 
+ 6    YII=YI(I) 
+ 7    J=JN(I) 
+      K=KN(I) 
+      YRI=YR(I) 
+      G(J,J)=G(J,J)+YRI 
+      B(J,J)=B(J,J)+YII 
+      VRR=ER(I)*YRI-EI(I)*YII-XIR(I)
+      VII=ER(I)*YII+EI(I)*YRI-XII(I)
+      G(NN,J)=G(NN,J)+VRR 
+      B(NN,J)=B(NN,J)+VII 
+      IF(K) 9,9,8 
+ 8    G(K,K)=G(K,K)+YRI 
+      B(K,K)=B(K,K)+YII 
+      G(J,K)=G(J,K)-YRI 
+      B(J,K)=B(J,K)-YII 
+      G(K,J)=G(K,J)-YRI 
+      B(K,J)=B(K,J)-YII 
+      G(NN,K)=G(NN,K)-VRR 
+      B(NN,K)=B(NN,K)-VII 
+ 9    CONTINUE
+      IF(NGM) 22,22,10
+ 10   DO 21 I=1,NGM 
+      IF(MODE) 11,11,12 
+ 11   FF2=GGM(I)
+      BGMI=BGM(I) 
+      GO TO 15
+ 12   FF=0.0
+      FF2=YGM(I)
+      IF(FGM(I)-1.0E-10) 14,14,13 
+ 13   FF=FREQ/FGM(I)
+      FF2=FF2/(1.0+FF*FF) 
+ 14   BGMI=-FF*FF2
+ 15   JJ=NJ(I)
+      J=NJJ(I)
+      K=NKK(I)
+      KK=NK(I)
+      G(J,JJ)=G(J,JJ)+FF2 
+      B(J,JJ)=B(J,JJ)+BGMI
+      IF(K) 17,17,16
+ 16   G(K,JJ)=G(K,JJ)-FF2 
+      B(K,JJ)=B(K,JJ)-BGMI
+ 17   IF(KK) 19,19,18 
+ 18   G(J,KK)=G(J,KK)-FF2 
+      B(J,KK)=B(J,KK)-BGMI
+ 19   IF(K) 21,21,20
+ 20   G(K,KK)=G(K,KK)+FF2 
+      B(K,KK)=B(K,KK)+BGMI
+ 21   CONTINUE
+ 22     IF(MM-25)220,26,220 
+ 220   IF(NVD+NDE2-1) 26,23,26
+ 23   DO 24 I=1,NN
+      AR=G(I,NDE) 
+      AI=B(I,NDE) 
+      G(I,NDE)=G(I,NNODES)
+      B(I,NDE)=B(I,NNODES)
+      G(I,NNODES)=AR
+ 24   B(I,NNODES)=AI
+      DO 25 I=1,NNODES
+      AR=G(NNODES,I)
+      AI=B(NNODES,I)
+      G(NNODES,I)=G(NDE,I)
+      B(NNODES,I)=B(NDE,I)
+      G(NDE,I)=AR 
+ 25   B(NDE,I)=AI 
+C     CROUT METHOD FOR SOLVING LINEAR EQUATIONS 
+ 26   DO 30 L=1,NNODES
+      LLL=L-1 
+      DO 30 I=L,NNODES
+      II=I+1
+      AAR=G(II,L) 
+      AAI=B(II,L) 
+      IF(LLL) 29,29,27
+ 27   BBR=G(L,I)
+      BBI=B(L,I)
+      DO 28 K=1,LLL 
+      AR=G(K,I) 
+      AI=B(K,I) 
+      BR=G(L,K) 
+      BI=B(L,K) 
+      BBR=BBR-AR*BR+AI*BI 
+      BBI=BBI-AR*BI-AI*BR 
+      AR=G(K,L) 
+      AI=B(K,L) 
+      BR=G(II,K)
+      BI=B(II,K)
+      AAR=AAR-AR*BR+AI*BI 
+ 28   AAI=AAI-AR*BI-AI*BR 
+      G(L,I)=BBR
+      B(L,I)=BBI
+ 29   AR=G(L,L) 
+      AI=B(L,L) 
+      A2=AR*AR+AI*AI
+      G(II,L)=(AAR*AR+AAI*AI)/A2
+ 30   B(II,L)=(AAI*AR-AAR*AI)/A2
+        IF(MM-25)300,32,300 
+300   IF(NVD+NDE2-1) 32,31,32 
+ 31   G(NN,NDE)=G(NN,NNODES)
+      B(NN,NDE)=B(NN,NNODES)
+      GO TO 35
+ 32   DO 34 L=2,NNODES
+      I=NN-L
+      VR=G(NN,I)
+      VI=B(NN,I)
+      II=I+1
+      DO 33 K=II,NNODES 
+      AR=G(K,I) 
+      AI=B(K,I) 
+      BR=G(NN,K)
+      BI=B(NN,K)
+      VR=VR-AR*BR+AI*BI 
+ 33   VI=VI-AR*BI-AI*BR 
+      G(NN,I)=VR
+      B(NN,I)=VI
+ 34   CONTINUE
+      IF(MM-25) 35,64,35
+ 35   DO 58 I=1,NVD 
+      II=N1(I)
+      L=N2(I) 
+      VR=G(NN,II) 
+      VI=B(NN,II) 
+      IF(L) 37,37,36
+ 36   VR=VR-G(NN,L) 
+      VI=VI-B(NN,L) 
+ 37   IF(MM-24) 46,38,46
+ 38   IF(IPX-1) 40,40,39
+ 39   IF(IPX-3) 56,56,45
+ 40   VDR(I)=XMAG(VR,VI)
+      VDI(I)=0. 
+      IF(DABS(VR)+DABS(VI)-1.E-40) 42,42,41 
+ 41   VDI(I)=57.29578*DATAN2(VI,VR) 
+ 42   IF(IPX) 58,58,43
+ 43   DB=VDR(I) 
+      GO TO 53
+ 44   VDI(I)=0. 
+      IF(DABS(VR)+DABS(VI)-1.E-40) 58,58,45 
+ 45   VDI(I)=57.29578*DATAN2(VI,VR) 
+      GO TO 58
+ 46   IF(IPX) 47,48,50
+ 47   VDR(I)=XMAG(VR,VI)
+      GO TO 58
+ 48   VDR(I)=0. 
+      IF(DABS(VR)+DABS(VI)-1.E-40) 58,58,49 
+ 49   VDR(I)=57.29578*DATAN2(VI,VR) 
+      GO TO 58
+ 50   IF(IPX-2) 52,56,51
+ 51   IF(IPX-4) 57,44,44
+ 52   DB=XMAG(VR,VI)
+ 53   IF(DB-1.D-30) 54,54,55
+ 54   VDR(I)=-600.
+      GO TO 58
+ 55   VDR(I)=20.*DLOG10(DB) 
+      GO TO 58
+ 56   VDR(I)=VR 
+      VDI(I)=VI 
+      GO TO 58
+ 57   VDR(I)=VI 
+ 58   CONTINUE
+      IF(IPX-4) 64,59,59
+ 59   IF(IENV) 60,62,62 
+ 60   IENV=0
+      DO 61 I=1,NVD 
+ 61   VDR(I)=VDI(I) 
+      SFREQ=FREQ
+      FREQ=1.01*FREQ+1. 
+      SFREQ=FREQ-SFREQ
+      GO TO 1 
+ 62   DO 63 I=1,NVD 
+      VR=VDR(I) 
+ 63   VDR(I)=0.1591549*(VDI(I)-VDR(I))/SFREQ
+      VDI(I)=VR 
+ 64   RETURN
+      END 
+C
+C
+C
+       SUBROUTINE LFIND (J,K,L,*)
+      IMPLICIT REAL*8(A-H,O-Z)
+      COMMON YI(60),ER(60),XIR(60),YR(60),CAP(60),HENRI(60),YGM(20) 
+      COMMON FGM(20),GGM(20),EI(60),XII(60),BGM(20),YTOL(200),TITLE(14) 
+      COMMON VDR(8),VDI(8),FREQ,PRTURB(20),X(20),EPS,EPS2 
+      COMMON VALUE,F,XMIN,XMAX,YMIN,YMAX,OP,OP1,WIDTH,IV(60),NJ(20) 
+      COMMON NJJ(20),NK(20),NKK(20),JN(60),KN(60),NP(12),NVD,LPAR(20) 
+      COMMON NNODES,NBR 
+      COMMON /BDATA/ TYPE(56) 
+      IF(K-J) 2,19,1
+ 1    I=J 
+      J=K 
+      K=I 
+ 2    L=1 
+      IF(30-J) 17,3,3 
+ 3    IF(JN(L)-J) 8,4,8 
+ 4    IF(KN(L)-K) 8,5,8 
+ 5    IF(OP1-TYPE(55)) 7,6,7
+ 6    IF(IV(L)) 8,8,16
+ 7    IF(IV(L)) 16,16,8 
+ 8    L=L+1 
+      IF(L-NBR) 3,3,9 
+ 9    NBR=NBR+1 
+      L=NBR 
+      IF(60-NBR) 17,10,10 
+ 10   IF(OP-TYPE(55)) 12,11,12
+ 11   IV(L)=24
+ 12   IF(J-NNODES) 14,13,13 
+ 13   NNODES=J
+ 14   JN(NBR)=J 
+      IF(K) 17,16,15
+ 15   KN(NBR)=K 
+ 16   RETURN
+ 17   WRITE (6,20)
+ 18   RETURN 1
+ 19   WRITE (6,21) J,K
+      GO TO 18
+C 
+ 20   FORMAT (37H SORRY,ONLY 30 NODES AND 60 BRANCHES.) 
+ 21   FORMAT (32H ELEMENT CONNECTED BETWEEN NODES,I3,4H AND,I3,16H IS ME
+     1ANINGLESS.) 
+      END 
+C
+C
+C
+      SUBROUTINE ROOT2 (XCOF,COF,M,ROOTR,ROOTI,*) 
+      IMPLICIT REAL*8(A-H,O-Z)
+      DIMENSION XCOF(11), COF(11), ROOTR(10), ROOTI(10) 
+      IFIT=0
+      N=M 
+      NX=M
+      NXX=N+1 
+      N2=1
+      KJ1=N+1 
+      DO 1 L=1,KJ1
+      MT=KJ1-L+1
+ 1    COF(MT)=XCOF(L) 
+ 2    XO=.00500101
+      YO=.01000101
+      IN=0
+ 3    X=XO
+      XO=-10.*YO
+      YO=-10*X
+      X=XO
+      Y=YO
+      IN=IN+1 
+      GO TO 5 
+ 4    IFIT=1
+      XPR=X 
+      YPR=Y 
+ 5    ICT=0 
+ 6    UX=0. 
+      UY=0. 
+      V=0.
+      YT=0. 
+      XT=1. 
+      U=COF(N+1)
+      IF(U) 7,20,7
+ 7    DO 8 I=1,N
+      L=N-I+1 
+      TEMP=COF(L) 
+      XT2=X*XT-Y*YT 
+      YT2=X*YT+Y*XT 
+      U=U+TEMP*XT2
+      V=V+TEMP*YT2
+      FI=I
+      UX=UX+FI*XT*TEMP
+      UY=UY-FI*YT*TEMP
+      XT=XT2
+ 8    YT=YT2
+      SUMSQ=UX*UX+UY*UY 
+      IF(SUMSQ) 9,16,9
+ 9    DX=(V*UY-U*UX)/SUMSQ
+      X=X+DX
+      DY=-(U*UY+V*UX)/SUMSQ 
+      Y=Y+DY
+      IF(DABS(DY)+DABS(DX)-1.E-5) 14,10,10
+ 10   ICT=ICT+1 
+      IF(ICT-500) 6,11,11 
+ 11   IF(IFIT) 14,12,14 
+ 12   IF(IN-5) 3,13,13
+ 13   WRITE (6,28)
+      RETURN 1
+ 14   DO 15 L=1,NXX 
+      MT=KJ1-L+1
+      TEMP=XCOF(MT) 
+      XCOF(MT)=COF(L) 
+ 15   COF(L)=TEMP 
+      ITEMP=N 
+      N=NX
+      NX=ITEMP
+      IF(IFIT) 18,4,18
+ 16   IF(IFIT) 17,3,17
+ 17   X=XPR 
+      Y=YPR 
+ 18   IFIT=0
+      IF(DABS(Y)-1.E-4*DABS(X)) 21,19,19
+ 19   ALPHA=X+X 
+      SUMSQ=X*X+Y*Y 
+      N=N-2 
+      GO TO 22
+ 20   X=0.
+      NX=NX-1 
+      NXX=NXX-1 
+ 21   Y=0.
+      SUMSQ=0.
+      ALPHA=X 
+      N=N-1 
+ 22   COF(2)=COF(2)+ALPHA*COF(1)
+      DO 23 L=2,N 
+ 23   COF(L+1)=COF(L+1)+ALPHA*COF(L)-SUMSQ*COF(L-1) 
+ 24   ROOTI(N2)=Y 
+      ROOTR(N2)=X 
+      N2=N2+1 
+      IF(SUMSQ) 25,26,25
+ 25   Y=-Y
+      SUMSQ=0.
+      GO TO 24
+ 26   IF(N) 27,27,2 
+ 27   RETURN
+C 
+C 
+ 28   FORMAT (^ CANNOT FIND ROOTS^) 
+      END 
+C
+C
+C
+      BLOCK DATA
+      IMPLICIT REAL*8(A-H,O-Z)
+      COMMON /BDATA/ TYPE(56),VAL(18),VAL1(18),CONS(9),HD(7)
+      DATA HD/5HLINCA,5HD-LIN,5HEAR C,5HOMPUT,5HER AI,5HDED-D,5HESIGN/
+      DATA TYPE/2HYI,2HER,2HIR,1HG,1HC,1HL,2HGM,2HEI,2HII,1HR,1HF,4HLIST
+     1,2HTT,3HIBM,4HVARY,3HNEW,5HTITLE,5HCONVE,3HRLC,3HEND,5HNODES,4HPLO
+     2T,5HLIST(,4HVTVM,3HALL,5HSENSI,5HERROR,5HACCUR,4HSAVE,3HOLD,1HE,1H
+     3I,1HY,4HTUNE,4HFIND,5HMAXIM,5HMINIM,3HSET,5HG TOL,2HC%,2HL%,3HGM%,
+     45HSCALE,5HTOLER,2HR%,5HMAGNI,5HPHASE,2HDB,4HREAL,5HIMAGI,5HDELAY,5
+     5HVTVM(,5HALL(Y,3HDVM,1HV,5HREMOV/ 
+      DATA VAL/5HIMAG ,5HREAL ,5HREAL ,5HREAL ,5HMICRO,5HMILLI,4HMHOS,5H
+     1IMAG ,5HIMAG ,5HKILOH,5HHERTZ,5HVOLTS,5HDEGRE,5HDECIB,4HREAL,4HIMA
+     2G,5HSECON,5HFCO I/
+      DATA VAL1/4HMHOS,5HVOLTS,2HMA,4HMHOS,5HFARAD,5HHENRY,1H ,5HVOLTS,2
+     1HMA,2HMS,1H ,1H ,2HES,3HELS,2*5HVOLTS,2HDS,5HN MHZ/ 
+      DATA CONS/1.,1.,.001,1.,1.E-6,.001,1.,1.,1./
+      END 
+

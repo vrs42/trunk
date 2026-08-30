@@ -1,0 +1,302 @@
+program	Crossref463(source,listing) {1981-03-29};
+ 
+{ Simple cross reference generator for Pascal programs,	using
+  an AVL - balanced binary tree. John Easton, SSRFC, U of M, 1981.
+ 
+  Limitations:
+ 
+    -- amount of memory	available limits the size of source text processable.
+    -- Pascal reserved words are not suppressed.
+    -- upper-lower case	are completely distinct; mixed case names that
+       are spelled the same won't match.
+ 
+  This program exists as a reference for the algorithm EnterID.
+  It can process correct Pascal	programs, but there exist more complete	cross
+  reference generators.
+ 
+  Adapted from Niklaus Wirth's program 4.63 in 'Algorithms + Data Structures =
+  Programs', Prentice Hall 1976, section 4.4, pp 220-221, and program 4.5,
+  section 4.4, pp 206-208.
+ 
+  Please retain	the above names	in all uses of this program.
+}
+ 
+  const
+    idstrlength	=     10  {length of identifiers};
+    tablewidth =      70  {cross-reference table};
+    {width of listing is not limited}
+    digitspernumber =  5;
+ 
+  type
+    idstring = packed array [1..idstrlength] of	char;
+    natural =  0..maxint;
+    entryptr =	^ entry;
+    refptr =  ^	reference;
+    treebalance	= (higherleft, balanced, higherright);
+ 
+    entry =
+      record
+	key: idstring;
+	left, right: entryptr;
+	bal: treebalance;
+	last: refptr {last reference points to first}
+      end	     {reference	in a circular list};
+ 
+    reference =
+      packed record
+	lno: natural;
+	next: refptr
+      end;
+ 
+  var
+    source, listing: text;
+    root:   entryptr;
+    refsperline: natural;
+ 
+  procedure Scan(var f:	text);
+    var
+      lastidlength: 0..idstrlength;
+      id:	    idstring;
+      linenumber:   natural  {current source line number};
+ 
+ 
+    procedure EnterID(nam: idstring);
+      {search for nam, inserting if necessary. Always adds to the
+       reference list for the nam}
+      var
+	increasedheight: boolean;
+ 
+      procedure	Enter(var lcp: entryptr);
+ 
+    { Enter uses an AVL-balanced tree search algorithm by Niklaus Wirth. }
+    {	   (See	section	4.4 in "Algorithms + Data Structures = Programs" }
+    {	    Prentice Hall, 1976, pp. 215-222.)				 }
+ 
+	var
+	  lcp1,
+	  lcp2:	entryptr;
+	  newlast: refptr;
+ 
+      begin
+	if lcp = nil then
+	  begin	{ id not found in tree;	insert it. }
+	    new(lcp); new(newlast);
+	    with lcp^ do
+	      begin
+		right := nil;  left := nil;   last := newlast;
+		key := nam;   bal := balanced
+	      end;
+	    newlast^.next := newlast {circular list};
+	    newlast^.lno := linenumber;
+	    increasedheight := true
+	  end
+	else
+	  if nam < lcp^.key then
+	    begin
+	      lcp1 := lcp^.left;
+	      Enter(lcp1);
+	      lcp^.left	:= lcp1;
+	      if increasedheight then {	left branch has	grown higher }
+		case lcp^.bal of
+		  higherright:
+		    begin lcp^.bal := balanced;	  increasedheight := false end;
+		  balanced:
+		    lcp^.bal :=	higherleft;
+		  higherleft:
+		    begin { rebalance }
+		      if lcp1^.bal = higherleft	then
+			begin {	single ll rotation }
+			  lcp^.left := lcp1^.right;   lcp1^.right := lcp;
+			  lcp^.bal := balanced;	  lcp := lcp1
+			end
+		      else
+			begin {	double lr rotation }
+			  lcp2 := lcp1^.right;	 lcp1^.right :=	lcp2^.left;
+			  lcp2^.left :=	lcp1;	lcp^.left := lcp2^.right;
+			  lcp2^.right := lcp;
+			  if lcp2^.bal = higherleft then lcp^.bal := higherright
+			  else lcp^.bal	:= balanced;
+			  if lcp2^.bal=higherright then	lcp1^.bal := higherleft
+			  else lcp1^.bal := balanced;
+			  lcp := lcp2
+			end;
+		      lcp^.bal := balanced;   increasedheight := false
+		    end
+		end { case }
+	    end
+	  else	{ nam >= lcp^.key }
+	    if lcp^.key	= nam then
+	      begin increasedheight := false;
+		new(newlast);	newlast^.lno :=	linenumber;
+		newlast^.next := lcp^.last^.next;
+		lcp^.last^.next	:= newlast;  lcp^.last := newlast
+	      end
+	    else
+	      begin
+		lcp1 :=	lcp^.right;
+		Enter(lcp1);
+		lcp^.right := lcp1;
+		if increasedheight then	{ right	branch has grown higher	}
+		  case lcp^.bal	of
+		    higherleft:
+		      begin lcp^.bal :=	balanced; increasedheight := false end;
+		    balanced:
+		      lcp^.bal := higherright;
+		    higherright:
+		      begin { rebalance	}
+			if lcp1^.bal = higherright then
+			  begin	{ single rr rotation }
+			    lcp^.right := lcp1^.left;	lcp1^.left := lcp;
+			    lcp^.bal :=	balanced;   lcp	:= lcp1
+			  end
+			else
+			  begin	{ double rl rotation }
+			    lcp2 := lcp1^.left;	  lcp1^.left :=	lcp2^.right;
+			    lcp2^.right	:= lcp1;   lcp^.right := lcp2^.left;
+			    lcp2^.left := lcp;
+			    if lcp2^.bal=higherright then lcp^.bal := higherleft
+			    else lcp^.bal := balanced;
+			    if lcp2^.bal=higherleft then lcp1^.bal:=higherright
+			    else lcp1^.bal := balanced;
+			    lcp	:= lcp2
+			  end;
+			lcp^.bal := balanced;	increasedheight	:= false
+		      end
+		  end {	case }
+	      end
+      end { Enter };
+ 
+    begin {EnterID}
+      Enter(root)
+    end	{EnterID};
+ 
+    procedure OpenLine;
+    begin {OpenLine}
+      linenumber := linenumber + 1;
+      write(listing,linenumber:digitspernumber,' ')
+    end	{OpenLine};
+ 
+    procedure NextCH;
+    begin {NextCH}
+      if eoln(f) then
+	begin writeln(listing);	OpenLine end
+      else write(listing,f^);
+      get(f)
+    end	{NextCH};
+ 
+    procedure ScanIdent;
+      var idlen: 0..idstrlength;
+    begin {ScanIdent}
+      idlen := 0;
+      repeat
+	if idlen < idstrlength then
+	  begin
+	    idlen := idlen + 1;
+	    id[idlen] := f^
+	  end;
+	write(listing,f^);
+	get(f)
+      until not	(f^ in ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+			'N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+			'a','b','c','d','e','f','g','h','i','j','k','l','m',
+			'n','o','p','q','r','s','t','u','v','w','x','y','z',
+			'0'..'9']);
+      if idlen >= lastidlength then lastidlength := idlen
+      else
+	repeat
+	  id[lastidlength] := '	';
+	  lastidlength := lastidlength - 1
+	until lastidlength = idlen;
+      EnterID(id)
+    end	{ScanIdent};
+ 
+    procedure ScanQuote;
+    begin {ScanQuote}
+      repeat
+	write(listing,f^);
+	get(f)
+      until f^ = '''';
+      NextCH
+    end	{ScanQuote};
+ 
+    procedure ScanComment;
+    begin {ScanComment}
+      NextCH;
+      repeat
+	while not (f^ in ['*','}']) do NextCH;
+	if f^ =	'*' then NextCH
+      until f^ in [')','}'];
+      NextCH
+    end	{ScanComment};
+ 
+  begin	{Scan}
+    linenumber := 0;  lastidlength := idstrlength;
+    while not eof(f) do
+      begin
+	OpenLine;
+	while not eoln(f) do
+	  begin
+	    if f^ = ' '	then {very frequent}
+	      begin write(listing,f^); get(f) end
+	    else if f^ in ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+			   'N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+			   'a','b','c','d','e','f','g','h','i','j','k','l','m',
+			   'n','o','p','q','r','s','t','u','v','w','x','y','z'
+			  ] then ScanIdent
+	    else if f^ = '{' then ScanComment
+	    else if f^ = '(' then
+	      begin NextCH; if f^ = '*'	then ScanComment end
+	    else if f^ = '''' then ScanQuote
+	    else {all other chars}
+	      begin write(listing,f^); get(f) end
+	  end {while not eoln(f)};
+	writeln(listing); get(f) {readln(f)}
+      end {while not eof(f)}
+  end {Scan};
+ 
+  procedure Printtree(w: entryptr);
+ 
+    procedure PrintWord(w:entry);
+      var
+	c: natural;
+	x: refptr;
+    begin {PrintWord}
+      write(listing,' ',w.key);
+      x	:= w.last^.next;
+      w.last^.next := nil {break the ring};
+      c	:= 0;
+      repeat
+	if c = refsperline then
+	  begin
+	    writeln(listing);
+	    c := 0;
+	    write(listing,' ':idstrlength+1)
+	  end;
+	c := c + 1;
+	write(listing,'	',x^.lno:digitspernumber);
+	x := x^.next
+      until x =	nil;
+      writeln(listing)
+    end	{PrintWord};
+ 
+  begin	{Printtree}
+    if w <> nil	then
+      begin
+	Printtree(w^.left);
+	PrintWord(w^);
+	Printtree(w^.right)
+      end
+  end {Printtree};
+ 
+begin {crossref	4.63}
+  root := nil;
+  rewrite(listing);
+  page(listing);
+  reset(source);
+  Scan(source);
+  page(listing);
+  refsperline := (tablewidth - idstrlength - 1)	div
+		 (digitspernumber + 1);
+  Printtree(root)
+end {crossref 4.63}.
+ 

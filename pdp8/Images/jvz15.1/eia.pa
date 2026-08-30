@@ -1,0 +1,258 @@
+/ OS/8 DEVICE HANDLER FOR EIA INTERFACE
+/ For Communication with the Prompt 48
+/ Uses field 2 as a buffer because a 1K dump
+/ is larger than PIP's buffer. Approximately 2895(10)
+/ locations are utilized.
+/ This handler has been tested at 2400 baud with the Prompt 48
+/ 3 Mhz monitor. It should work at 4800 baud with the 6 Mhz monitor.
+/ Non-File Structured Handler
+/
+	*0
+/
+	-1		/1 Device Handler
+	DEVICE EIA	/Device Type
+	DEVICE PROM	/Device Name
+	0400		/DCB
+	4000		/Entry Offset, 2 pg handler
+	0
+	0
+/
+	RDEV=40		/Receive device code
+	TDEV=41		/Transmit device code
+	SKSF=RDEV^10+6001
+	SKCF=RDEV^10+6002
+	SKRB=RDEV^10+6006
+	STSF=TDEV^10+6001
+	STLS=TDEV^10+6006
+	LLP=7377	/LOAD END OF PAGE ADDRESS
+/
+	*200
+/
+ENTRY,	1		/Entry contains version number
+	CLA CLL
+	TAD I ENTRY	/Get function word
+	DCA FUNC	/Save the function word
+	TAD FUNC
+	AND M0070	/Mask buffer field
+	TAD CCDF	/Form change DF instruction
+	DCA SETDF
+	RDF		/Get return field
+	TAD CDFCIF	/Form instruction
+	DCA RETURN
+	TAD FUNC	/Get function word again
+	ISZ ENTRY	/Bump pointer
+	AND (3700	/Mask number of OS/8 records
+	CMA
+	DCA WC		/(word count/2)
+	TAD I ENTRY	/Get buffer address
+	ISZ ENTRY
+	DCA BUFADD	/Stow buffer address
+	TAD I ENTRY	/Get Block Number
+	DCA BLOCK	/Save the block number
+	LLP		/Load last location on page
+	TAD (SEND&177+1	/Form pointer to send routine
+	DCA XSEND	/Save pointer to send
+	LLP
+	TAD (READ&177+1	/Form pointer to read routine
+	DCA XREAD	/Save pointer to read routine
+	LLP
+	TAD (COM&177+1	/Form pointer to command routine
+	DCA XCOM
+	LLP
+	IAC		/Form pointer to next page
+	DCA EOB		/Save it temporarily
+	LLP		/Load last location on page
+	TAD (EXIT-377	/Get pointer to exit routine
+	CDF 0		/This field !
+	DCA I EOB	/Stow exit pointer in next page
+	TAD FUNC	/R/W bit to link for COM routine
+	RAL CLL
+	CLA
+	TAD BLOCK	/Get the block number
+SETDF,	0		/Change to proper DF
+	JMS I XCOM	/Issue command if necessary
+	TAD FUNC
+	SMA CLA		/Skip if write
+	JMP RECV
+/
+NEXTB,	ISZ WC		/Skip if done
+	SKP
+	JMP EXIT
+	TAD I BUFADD	/Get word from buffer
+	JMS I XSEND	/Send it
+	DCA SETDF	/Save part of third character
+	ISZ BUFADD	/Bump Pointer
+M7700,	7700		/Protect skip
+	TAD I BUFADD	/Get second character
+	JMS I XSEND	/Send it
+	RTR CLL		/Prepare for third
+	RTR
+	TAD SETDF	/Form third char
+	RTR
+	RTR
+	JMS I XSEND	/Send third char
+	ISZ BUFADD	/Bump pointer
+	NOP		/Protect skip
+	JMP NEXTB
+/
+RECV,	ISZ WC		/Skip if done
+	SKP
+	JMP EXIT
+	JMS I XREAD	/Get char
+	DCA I BUFADD	/Put away temporarilly
+	JMS I XREAD	/Get second
+	DCA EOB		/Stow temporarilly
+	JMS I XREAD	/Get third
+	RTL
+	RTL
+	DCA SETDF	/Save third
+	TAD SETDF	/Restore third character
+	AND M7400	/Mask upper 4
+	TAD I BUFADD	/Get lower part
+	DCA I BUFADD	/Put all away
+	TAD SETDF	/Get other part of third
+	RTL
+	RTL
+	AND M7400	/Mask upper 4
+	TAD EOB		/Get other 8 bits
+	ISZ BUFADD	/Bump pointer
+M7400,	7400
+	DCA I BUFADD	/Put all away
+	ISZ BUFADD	/Bump pointer
+M0070,	70		/Protect skip
+	JMP RECV
+/
+EOB,	0
+EXIT,	ISZ ENTRY	/Skip error exit
+	ISZ ENTRY
+RETURN,	0		/Return to calling field
+	JMP I ENTRY
+/
+BLOCK,	0
+BUFADD,	0		/Buffer address pointer
+CCDF,	CDF
+CDFCIF,	CDF CIF
+FUNC,	0
+WC,	0		/(Word count/2)
+XCOM,	0
+XREAD,	0
+XSEND,	0
+/
+	PAGE		/Handler second page
+/
+RET,	0		/Error return pointer
+READ,	0
+	RDF		/Get return field
+	TAD (CDF
+	DCA RETDF	/Save return data field
+	CDF 20		/To buffer field
+RD,	TAD NULLF	/Get null flag
+	SNA		/Skip if character okay
+	JMP RETDF	/Return null if flag set
+	SMA CLA		/Skip to fill buffer
+	JMP EMPTY	/Go empty buffer
+	JMS CNTRLC	/Test for control/C
+	SKSF		/Character ready?
+	JMP .-2		/Wait here for character
+	SKRB		/Yes read & clear flag
+	AND (177
+	TAD (-55	/Test for abreviated minus
+	SNA		/Skip if not EOF
+	JMP FULL
+	TAD (255	/Restore the character, force parity
+	DCA I PTR	/Buffer character
+	ISZ PTR		/Bump pointer
+	JMP RD		/Get next
+FULL,	CLA IAC		/Set flag to empty buffer
+	DCA NULLF
+	DCA I PTR	/Terminate the buffer
+	DCA PTR		/Restore pointer
+	JMP RD		/Now return characters from the buffer
+EMPTY,	TAD I PTR	/Get character
+	ISZ PTR		/Bump pointer
+	SNA		/Skip if valid character
+	JMP LAST	/Zero terminates buffer
+	TAD (-277	/Purge question marks
+	SZA
+	TAD (277		/Restore character otherwise
+	JMP RETDF	/Restore data field before exit
+LAST,	DCA NULLF	/Set flag to return nulls
+	TAD (232	/Return Cntrl/Z
+RETDF,	0		/Return data field
+	JMP I READ
+/
+SEND,	0
+	DCA READ	/Save the character
+	TAD READ	/Restore the character
+	AND (177	/Extract usefull bits
+	TAD (-32	/Test for Cntrl/Z
+	SNA
+	JMP I RET	/Take error return for EOF
+	TAD (32		/Restore character
+	SZA		/Purge null characters
+	JMS OUT		/Output character
+	JMS CNTRLC	/Test for Cntrl/C
+	TAD READ	/Restore the character
+	AND (7400	/Mask upper part
+	JMP I SEND
+/
+COM,	0		/Enter block in AC, R/W bit in LINK
+	SZA CLA		/Skip if command needed
+	JMP I COM	/Exit
+	TAD (TAD DMESG	/Get TAD MESSAGE
+	SZL		/Skip if read
+	TAD (LMESG-DMESG
+	DCA GET
+	CLA STL RAR	/(4000 to fill buffer
+	DCA NULLF	/Turn off null flag
+	DCA PTR		/Reset pointer
+GET,	0		/Get message
+	SNA		/Skip if not end
+	JMP I COM	/End of message
+	JMS OUT		/Output character
+	ISZ GET		/Next character
+	JMP GET
+/
+CNTRLC,	0		/Test for Control/C
+	DCA GET		/Preserve the AC
+	KSF		/Character waiting ?
+	JMP NOTCTC	/No not this time
+	KRB		/Get the character
+	AND (177	/Drop parity
+	TAD (-3		/Control/C ?
+	SNA CLA		/Skip if not
+	JMP MONITR	/Return to OS/8
+NOTCTC,	TAD GET		/Restore AC
+	JMP I CNTRLC	/Exit
+MONITR,	CDF CIF 0
+	JMP I M7600	/Back to OS/8
+/
+OUT,	0		/Output character
+	STLS		/Load & Print
+	STSF		/Skip on flag
+	JMP .-1
+M7600,	7600		/Also CLA
+	JMP I OUT	/Return
+/
+DMESG,	47		/Dump message  "DUMP PROGRAM MEMORY 0,3FF EXECUTE"
+	15		/Dump memory
+	41		/Program memory
+	20		/0
+	46		/,
+	23		/3
+	17		/F
+	17		/F
+	47		/Execute
+	0		/Terminator
+/
+LMESG,	47		/Load message "LOAD PROGRAM 0 EXECUTE"
+	16		/Load
+	41		/Program memory
+	20		/0
+	47		/Execute
+	0		/Terminate
+/
+NULLF,	0
+PTR,	0
+/
+	$$$

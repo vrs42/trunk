@@ -1,0 +1,215 @@
+
+	    Overview of Lab Data Systems' Floppy Disk Handlers
+
+
+     Lab Data Systems offers several high-performance floppy disk handlers
+for the OS/8 (OS/78) operating system.  These handlers provide several dif-
+ferent formats, optimized for different systems, as explained below.  With
+two exceptions, both System and Non-system versions are available.  The sys-
+tem handlers all boot up with either the RX01 or RX02 bootstrap and can be
+used in either the left- or right-hand drive on either type of system.  It
+should perhaps be emphasized, however, that handlers using 'byte-mode' for-
+mats can only be used with Single Density diskettes due to hardware limita-
+tions.  Single Density disks can be used with any DEC-compatible floppy disk
+system that emulates the RX01 or RX02 (i.e. DSD-210/440, possibly others).
+
+     The system handlers preserve the date during a bootstrap operation and
+support both Drive 0 and Drive 1 as 'co-resident' devices.  The latter fea-
+ture means that programs do not need to load a special handler for Drive 1,
+as they must when using the conventional system handler.  This in turn means
+that data on Drive 1 can be accessed more rapidly, and programs which trade
+buffer size for handler space (PAL8 for example) can now use larger buffers.
+Another benefit of having co-resident handlers is that 'virtual disk' files
+(implemented by Lab Data Systems DSKN handler) can reside on either device.
+It should be noted, though, that when a system disk is booted up on Drive 1
+only that drive can be accessed, since all references to Drive 0 are mapped
+to Drive 1.  (Such operation is normally restricted to times when Drive 0 is
+not functional.)
+
+     The non-system handlers all have three entry points: drive 0, drive 1,
+and drive 2 (for DSD-210 systems only).  The non-system handlers will work
+on either RX01 or RX02 systems, but again -only- with single-density disks.
+For convenience in reading different kinds of disks, a version of the non-
+system handler is available that supports 3 different formats, rather than
+3 different drives.  (In that version the 'drive number' may be changed by
+a 'SET' command - it is normally Drive 1).  The non-system handlers permit
+the number of 'retry' operations to be changed, which increases the chance
+of recovering data from a damaged diskette (the default is one retry).
+
+     Storage capacity: the major advantage of a byte-mode handler is the
+improved data storage available; thus the 'raw' storage capacity of a sin-
+gle density disk is 667 blocks in byte-mode vs. 494 blocks for the conven-
+tional handler.  For system disks (on which some of the space is reserved)
+the difference is approximately 40% (611 free blocks on a byte-mode disk,
+vs. 438 on conventional disks).  Note that the additional 173 blocks are
+obtained simply by changing the handler - no changes to the formatting of
+the disk are involved (unlike the use of double-density disks).  Users who
+absolutely need more space however, can purchase specially-formatted disks
+from Computer Methods Co., which, when used with the 'H' handler described
+below, allow one to get up to 770 blocks on a single-density disk.
+
+     Double-density (RX02) systems, of course, get 2*494, or 988 blocks per
+diskette.  As mentioned above, a double-density byte-mode handler cannot be
+written due to hardware limitations.  This is too bad, since such a handler
+would get 1334 blocks on one disk!  As an alternative, one can use the RTPIP
+program (available from Lab Data Systems), to store OS/8 files on a double-
+density RT-11 disk.  This is less convenient because the files can not be
+accessed by general OS/8 programs, but it does increase the storage capacity
+of a diskette by 25%.
+     System requirements: the non-system handlers use two pages of memory
+and will operate on even a minimal 8K system, although some Fortran-II pro-
+grams may require re-compilation (and possibly other changes) if they were
+written for use with only 1-page handlers.  Not all languages support the
+use of two-page handlers in an 8K environment.  To use the System handlers
+one must have at least 12K, as well as the proper version of programs such
+as Fortran-IV or Basic, since these languages must make special provisions
+for '12K' system handlers.  All system software with release dates of 1979
+or later should work without any problems, with the exception of the print
+spooler symbiont which runs on a DECstation.  A patch is available for this
+program, however, which allows it to be used with either byte-mode or con-
+ventional system disks.  The program PIP.SV must also be patched before a
+byte-mode disk can be properly '.ZEROed'.
+
+     The formats available are as follows:
+
+1.   'D' format: this format is compatible with that used by the RT-11 oper-
+ating system.  Thus data recorded in this format can be read on a PDP11 sys-
+tem, using one of the 'block mode' options in the DUMP command.  In addition
+to the ability to exchange data between systems, this handler offers another
+advantage: it has the highest throughput of any single-density format using
+standard disks (over 23 blocks/second, vs. 13 blocks/second for the conven-
+tional handler).  The 'D' handler is also available in a RTS/8 version.
+
+2.   'F' format: this is a variation of 'D' format which is optimized for
+use with '6100' microprocessor systems.  The data rate of the standard 'D'
+format is too high for 6100 systems to keep up with, with the result that
+such systems can read only one sector per disk rotation (equivalent to a
+throughput of about 2 blocks/second).  'F' format reduces the data rate by
+50%, which allows 6100 systems to operate at full speed (12 blocks/second -
+essentially the same speed as with the conventional handler), while still
+gaining 40% more data storage.  Due to the close relationship between 'D'
+and 'F' formats, the non-system handler can be used with either one simply
+by changing a 'switch' in the handler.  If this switch is set to '0' the
+handler uses 'D' format, while if it set to '1', it uses 'F' format.
+
+3.   'R' format: this is the format used by Steuart Dewar's byte-mode hand-
+ler.  This format cannot be used for a system disk, but because a RX01 ver-
+sion of this handler is in the public domain, this format is sometimes used
+for data exchange.  Note that Lab Data's version of this handler will work
+on either RX01 or RX02 systems.  The throughput is approximately 17 blocks
+per second - intermediate between 'D' and 'F' formats.
+
+4.   'C' format: this format is compatible with the COS-8 operating system.
+The immediate attraction of this format is that the directory structure of a
+COS-8 disk is similar to that of an OS/8 disk (except for the date offset) -
+hence by using this handler OS/8 programs can access COS-8 files.  This is
+not quite ase useful as it sounds however, because (a) COS-8 programs ('.SV'
+files) will not run under OS/8, (b) COS-8 data files do not use ASCII, hence
+special conversion programs are necessary to move data between the two sys-
+tems, and (c) the transfer rate on 6100 systems is only 1.7 blocks/second -
+the slowest of all formats, due in part to the fact that the data is stored
+in a VERY STRANGE way!  Because of the limited utility of this format, plus
+the fact that the bootstrap does not conform to OS/8 requirements, Lab Data
+Systems does not offer a 'C-format' system handler.
+
+5.   'H' format: this handler uses the specially formatted 'huge' floppies
+supplied by Computer Methods Co.  These disks store a total of 1540 blocks
+using both sides of a 'flippy' disk (only one side can be accessed at a
+time), and have a transfer rate of 17.3 blocks/second.  Users with systems
+based on the '6100' processor (VT/78, PCM12) must use disks formatted for
+those machines - otherwise the transfer rate drops to 2 blocks/second (as
+it does for everything but the special 'F' format).
+
+6.   CP/M format: this handler allows programs such as COPCOM to move data
+between OS/8 and CP/M systems.  Since the directory structures of the two
+systems are quite different, access to data is limited to block-by-block
+transfers.  (A 'CPMPIP' program similar to RTPIP will be offered if there
+is sufficient interest.)  This handler can also be used with other formats
+simply by changing the 'interleave factor' with a '.SET' command.
+
+7.   For use on RX02 systems, Lab Data Systems also offers a 'universal' 12-
+bit system handler which supports both Drive 0 and Drive 1 as 'co-resident'
+devices, preserves the system date during a bootstrap, and works with either
+single- or double-density diskettes.  This handler is completely compatible
+with the conventional single- and double-density handlers, but by providing
+support for both drives it frees up a scarce 'handler slot' for other uses.
+Either single- or double-density may be used with this handler.  Single-
+density disks can be booted up on either RX01 or RX02 systems that have at
+least 12K of memory.  The throughput for single-density disks is 13 blocks
+per second; for double-density disks it is 26 blocks/second on an 8/e, but
+only 19 blocks/second on 6100 systems.
+
+     Another 'universal' handler of sorts is the '3-format' version of the
+non-system byte-mode handler.  This handler has entry points for 'D', 'F',
+and 'R' formatted disks, and thus allows data on such disks to be easily
+moved from one to another with the convenience of having only one handler
+to do it.  Users who have both RX01 and RX02 systems at their disposal of-
+ten find that the combination of the 'universal' 12-bit system handler and
+the 'universal' 8-bit non-system handler allows them to make optimal use of
+both disk systems.
+
+     Nomenclature:  The device names 'D0','D1','D2' stand for 'Disk 0/1/2'.
+The names 'F0-F2' stand for 'Floppy 0-2', while 'H0-H2' are used for 'huge'
+floppies. 'C0-C2' are used for the COS-8 compatible format, while 'R0-R2'
+are Dewar's shorthand for the conventional names 'RXA0', 'RXA1', etc.  The
+CP/M compatible handler uses the names 'A','B','C'.  For reference purposes
+here are the filenames and 'BUILD' names of the handlers described above:
+
+     RX11SY     RXSY	'D' format system handler (RT11 data format)
+     RX11NS     RX11	'D' non-system handler (switchable to 'F' format)
+
+     RX61SY     RXSY	'F' format system handler (for 6100 systems)
+     RX61NS     RX61	'F' non-system handler (switchable to 'D' format)
+
+     RXDEWR     DEWR	'R' format non-system handler (Dewar compatible)
+     RX3FMT     RX3F	'D','F','R' format non-system handler
+
+     RXCOS8     RXC8	'C' format non-system handler (COS-8 compatible)
+     RXCPMX     CPMX     Adjustable format for reading 'foreign' disks
+
+     RXHFSY     HFSY	'H' format system handler (for 'huge' floppies)
+     RXHFNS     RXHF	'H' format non-system handler
+
+     RX2SYS     RX8E	 Universal 12-bit system handler for RX01/RX02
+			 systems, single- or double-density diskettes
+     Floppy handlers are available from a number of different sources (e.g.
+DECUS, etc.).  In comparing other handlers with the ones described above, the
+following questions may provide some useful insight.  Lab Data Systems hand-
+lers were (of course!) designed to satisfy these criteria:
+
+     a) Will the handler work on both RX01 and RX02 systems?  Many do not
+     because byte-mode is different on the two systems.
+
+     b) Will the handler work on all 12-bit machines?  A surprising num-
+     ber of authors use non-standard instructions such as 'BSW' or the
+     MQ register in order to save a few words.  Such handlers will not
+     work on non-Omnibus machines and thus are not true OS/8 handlers.
+
+     c) Is a system handler available?  Since system handlers are much
+     harder to write, frequently only non-system handlers are offered.
+
+     d) If a system handler is available, does it use the standard boot-
+     strap (there are actually two different standard bootstraps - one
+     for RX01 and one for RX02 systems), or does it need a special boot-
+     strap?  If the handler is to work on DECstation products it must
+     work interchangeably with either standard bootstrap.
+
+     e) Can the system handler be booted up on either drive?  This is
+     not essential until Drive 0 fails!
+
+     f) Does the system handler preserve the system date when it is
+     booted up?  This is also not essential, but exceedingly conven-
+     ient, since otherwise files are created without any date.
+
+     g) Can the system handler be installed with BUILD or is a special
+     installation procedure required?
+
+     h) Does the system handler deal properly with errant calls to 7700?
+
+     i) Is a RTS/8 version available?  This may not be important for
+     single-user systems, but vital for multi-tasking applications.
+
+     j) Is a patch available for the OS/78 symbiont?  This affects only
+     DECstation users who use the print spooler.
+
+ Ev}wO u@ ]$LC}It@WIorOww}}r u@Awl?~}_ wYwP{uEWWEF}s}iAwAU W?k wBQm_v};M u@DUDoO q M?y_z3S~;w3z?;23;7s;{{;3;#;}'{~{w{^?~k7;?W ";5

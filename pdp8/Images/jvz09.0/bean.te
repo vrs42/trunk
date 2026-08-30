@@ -1,0 +1,133 @@
+!BEAN.TE   TECO MACRO TO EMULATE PASCAL SCREEN-ORIENTED EDITOR IN
+       TECO.  VERSION FOR THE PDP-8 WITH TELEVIDEO TERMINAL.
+
+        COPYRIGHT 1981 BY JONATHAN VAUGHAN.  ALL RIGHTS RESERVED!
+
+
+Z=ZU2HX1HTHKGYJ2SFILE-4DG1J2SSTART!B,.KIHKXYHX2M2!START!
+-1eu524et
+-127u5!constant for backspace!
+hky
+!j<fs^a>
+j<@fs/$//>
+!!j<s**.u8ib,.xcib,.kq8,.x1q8j-2cm1k>
+!<s**.,.+1x1-2c.u8l.u9zj.u6iq7,q8xg1q6,zx1q6,zkm1q9u7q7j>
+hkhxzhx1
+q2"emj'
+q2"nEBFILEhky'
+mo
+^tu6q6+q5"e8u6'**b:read char, make del=backspace
+q6-64"g q6-96"l q6+32u6''**c:convert upper case to lower case
+128+7^t**d: ring the bell
+mh=  **e:cursor to home
+128+8^t 32^t 128+8^t**f:destructive backspace
+128+26^t**g:clear screen
+128+27^t**h:type esc
+memq INS <text> HOME ESC
+mnmp
+
+
+5tmn.u7zj.u8!in1!mbq6-31"gq6^tq6ioin1'
+q6-13"ei
+
+z-3500"loin1'  c= z= ...Banish
+
+mdoin1'
+q6-30"e.,q8xl.,q8kq7jgloin3'
+q6-27"e.,q8kq7join3'
+q6-8"e.-q8"g-dmfoin1''
+q6-9"e 8<32i>          oin1'
+mdoin1'
+!in3!**i:insert
+!go!mg FILE N)ew O)ld U)pdate E)x R)et 
+
+mbmc
+q6-^^n"e hkiew New name:  ogo1'
+q6-^^o"e hkieb Old name:  ogo1'
+q6-^^u"e Updating...ecogo'
+q6-^^e"e mgekex'
+q6-^^r"e ogo2'
+mdogo
+!go1!mbq6^t 
+q6-8"e ogo'
+q6-13"n q6iogo1'
+27iihkyhxzmz
+!go2!**j;  quit...
+mh^^?^t^tu8^tu9^t**k:read cursor location
+**l: used for copy buffer
+mg-5t*
+*
+*5t
+**m:show buffer special mode mm
+mh^^=^tq8^tq9^t **n:goto cursor location on screen
+!ed!mg
+EDIT: B C D I J N P - Q T X (26-SEP-81)
+-10tmk10tmn!ed1!mb
+Q6-32"e12u6'
+q6-30"eoed'
+q6-13"e10u6'
+q6-11"e-l 128+11^t 128+13^t oed1'
+q6-10"el 128+10^t 128+13^t oed1'
+q6-12"e c -1a^t oed1'
+q6-9"e 8c .-8,.t oed1'
+q6-8"e-c 128+8^T !128+13^t .u7 l-2c 0t q7j 128+13^t 0t! oed1'
+!ed2!mk
+q6-^^-"e-18loed'
+mc
+q6-^^b"e.u7-5lb,.pb,.k5loed'
+q6-^^c"egloed'
+q6-^^d"emroed'
+q6-^^f"eosp'
+q6-^^i"emioed'
+q6-^^j"emtoed'
+q6-^^n"emuoed'
+q6-^^p"e18loed'
+q6-^^q"emjoed'
+q6-^^r"eosp'
+q6-^^s"eosp'
+q6-^^t"eosp'
+q6-^^x"emsoed'
+mdoed
+!sp!memqmnmp*
+*
+*5t
+
+ SPECIAL MODE:
+**o:editor mo
+mh^^y^t**p:eos clear
+mh^^t^t**q:eol clear
+!de!memq DEL HOME ESC
+mn .u7 !de1!mb
+q6-32"e12u6'
+q6-13"e10u6'
+q6-11"e!de3!-1a-10"n mf -code3'128+11^t-lmqode1'
+q6-10"elmq
+ode1'
+q6-12"ec32^tode1'
+q6-8"e-cmfode1'
+q6-9"e8c8<32^t>'
+q6-27"e.,q7xlode4'
+q6-30"e.,q7xl.,q7kode4'
+mdode1
+!de4!**r deletion
+memq EX HOME ESC
+.u7mnzj.u8!x1!mb
+q6-31"gq6^tq6iox1'
+q6-30"e.,q8xlz-q8u6z,q8kq7jq6dglox2'
+q6-27"e.,q8kq7jox2'
+q6-8"e-dmfox1'
+mdox1
+!x2!**s  exchange
+!j1!mg JUMP B or E
+
+mbmc
+q6-^^b"ejoj2'
+q6-^^e"ezjoj2'
+q6-27"eoj2'
+mdoj1
+!j2!**t JUMP
+mg NEXT F [ECEBfile.exYMO for S]
+ mbmc
+q6-^^f"e -5l b,.pb,.k5la '
+Q6-^^s"em'
+**u: Next

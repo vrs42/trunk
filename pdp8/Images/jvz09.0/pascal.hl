@@ -1,0 +1,123 @@
+
+       Pascal-OS/8 Brief Sheet              Version 1-0-E    SSRFC  U of Minn
+                                            1982-04-28       JTE    Edit 04
+
+       Compiling a Pascal program.       ___________________________
+       If your Pascal program is on a file called "PROG.PS" then the command:
+               .R P,SYS:PASCAL,PROG
+       will run (execute) the Pascal compiler with your program as it's
+       input. If there are no errors, the compiler will generate a "code
+       file" called "PROG.PB" which you can execute.
+
+       The compiler will also provide a listing if you specify a device
+       and/or file after the program. For example:
+               .R P,SYS:PASCAL,PROG,LP:
+       will compile PROG.PS while listing it on the line printer. (LP: is an
+       internal line printer handler, see below.)
+
+       To get a cross-referenced listing of your program, do:
+               .R P,SYS:IDMAP,PROG,LP:
+       which produces a cross-referenced listing on the line printer (LP:).
+
+
+       Executing a Pascal program       __________________________
+       A "code file" called "PROG.PB" is executed by the command:
+               .R P,PROG
+       Device and/or file names can be "substituted" for program parameters
+       by listing them after PROG :
+               .R P,PROG,param1,param2,...
+
+       To repeat the last PMD (Post Mortem Display) in the event you need a          ______          ___
+       printed copy, do:
+               .R P,SYS:PMD,program,SYS:PASCAL.PM,LP:    / will be revised
+
+
+       Internal Device Handlers (character oriented input/output). Not all       ________________________
+       are necessarily available (installation defined).
+
+       TT:     OS/8 console handler, input line buffered and edited.
+       TT0:    OS/8 console handler, immediate (no buffering or editing).
+       LP:     line printer handler, input line buffered and edited.
+       LP0:    line printer handler, immediate.
+       IO:     message I/O; equal to TT: unless BATCH is running on the
+               line printer, then IO: is equal to LP:.
+       NULL:   null device (input: immediate eof, output: infinite sink).
+       PT:     paper tape (high speed, input: reader, output: punch).
+       RIO:    remote terminal device, input line buffered and edited.
+       RIO0:   remote terminal device, immediate (don't like this name@!).
+       CS:     control statement image (read-only).
+       TEK:    TEK 4015-1 scope, input line buffered and edited.
+       TEK0:   TEK 4015-1 scope, immediate.
+       GIN:    TEK 4015-1 scope, no echo (input for GIN mode only).
+       DIG:    SSRFC digitizer input kludge; also DK:, DN:, DT:.!
+
+
+       New Default File Name Extensions for Pascal-OS/8:       ________________________________
+
+       .PS     PascalSource - source files suitable for compiler input.
+       .PB     PascalBinary - executable files produced by compiler.
+       .PM     PostMortem - execution traceback dump file, produced by P8RTS.
+
+       Also, these two standard OS/8 extensions are used:
+
+       .LS     LiSting - compiler listing (also IDMAP, PFMAP, other outputs).
+       .TM     TeMporaries - internal files, scratch files.
+
+
+
+
+       Compiler Options control compiler behavior. Default settings are shown       ________ _______
+       in parenthesis. These switch options appear in program comments as:
+       {$L+,T-} or on the compiler call statement, as:
+               .R P,SYS:PASCAL,program/L+,T-
+
+       I+,I-   enable/disable interactive I/O for all text files         (I+)
+       N+,N-   enable/disable line number reporting within PMD           (N+)
+       L+,L-   enable/disable compilation listing
+                                        (L- unless listing device/file given)
+       P+,P-   enable/disable Post-Mortem-Dump information generation    (P+)
+       S+,S-   enable/disable segmentation of subsequent procedure or
+               function blocks                                           (S-)
+       T+,T-   enable/disable compiler-generated run-time tests          (T+)
+       V+,V-   enable/disable variable reporting within PMD.             (V+)
+       X+,X-   allow/disallow use of extensions                          (X-)
+       O+,O-   enable/disable options. If disabled, cannot be enabled    (O+)
+
+       The following numeric options can only appear in program comments:
+
+       Bn      set buffer factor to n, where 1<= n <= 512 (number of blocks).
+               (default  is B1)
+       Wn      set workspace to n, where n is in words. (Default is all
+               memory.) No effect in this release (V 1-0-E).
+
+
+       Terminal Controls (TT:, RIO:, LP:)  ('*' means TT: handler only)       _________________
+       Name      Display Effect       ________________________
+       Control-C "^C"    abort program, kill BATCH, return to OS/8.
+       Control-B "^B" *  abort program, close files, traceback, abort BATCH.
+       Control-A "^A" *  abort program, close files, abort BATCH.
+       Control-D      *  debug enable: interpreter state frames.
+       Control-E      *  debug disable: interp. and segment state frames.
+       Control-F      *  debug enable: segment loader state frames.
+
+       Control-S         X-OFF, hold output until X-ON.
+       Control-Q         X-ON, resume output after X-OFF.
+       Control-O         slough off (mute) output, any other key will resume.
+
+       The following are effective during line-buffered input (TT:, RIO:, LP:).
+
+       Control-H         Backspace, delete one character, erase from screen.
+       Rubout or Delete  delete one character; if OS/8 scope bit not set, echos
+                         as "\x\", the TTY convention; if OS/8 scope bit is set,
+                         same behavior as BackSpace: erases from screen.
+       Control-U "^U"    delete current input line.
+       Line Feed         re-print current input line.
+       Tab               perform OS/8 tabulation; always expanded to blanks.
+       Carriage Return   terminate input line; if a command statement in
+                         response to "%", recalls P8RTS after program execution.
+       Escape    "^["    if command statement ("%" prompt), terminate input and
+                         return to OS/8 at end of program execution (if any);
+                         otherwise no meaning as program input.
+       Control-Z "^Z"    if program input, cause EOF to become true (after end
+                         of current input line, if any); no meaning if given in
+                         a command-statement (may change).

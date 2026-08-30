@@ -1,0 +1,34 @@
+This version of SET has the SET HANDLER old=new option; unlike DEC's version
+however, it will work on ALL systems, regardless of whether they have 1-page
+or 2-page system handlers and whether or not the hardware can do a BSW!  The
+purpose of the SET HANDLER feature is to allow one to easily reconfigure the
+system without having to run BUILD.   This allows seldom-used handlers to be
+installed only when they are needed, freeing up scarce system space for fre-
+quently used devices such as large disks.  The symbols 'old' and 'new' refer
+to files on SYS that contain SAVED versions of the handlers; a .HN extension
+is required.  The 'old' handler must already be installed, and must be for a
+different device than the 'new' handler, but the number of entry points need
+not be the same (provided there is space in the 'name' table); handlers with
+different lengths can also be interchanged.  The '/L' option can be used for
+listing SOME of the handlers available, but a '.RESORC/E' listing is better.
+
+Command	=	.SET device [NO] option [= value]
+
+Device	=	TTY:	SLU2:	SLU3:	VLU2:	VLU3:
+Options	=	ARROW	CODE	COL	ECHO	ESC	FILL	FLAG
+		HEIGTH	LC	PAGE	PAUSE	SCOPE	TAB	WIDTH
+
+Device	=	LPT:
+Options	=	LC	LA78	LA8A	LV8E	WIDTH
+
+Device	=	MTA0:
+Options	=	PARITY EVEN/ODD
+
+Device	=	CDR:
+Options	=	CODE
+
+Device	=	SYS:
+Options	=	OS8	OS78	INIT xxxxx (5 char command string)
+
+Device	=	any
+Options =	BLOCK	DVC	FILES	LOC    VERSION    READONLY

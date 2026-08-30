@@ -1,0 +1,46 @@
+
+&HELP
+
+This version of HELP.SV was designed for use with the LAB-FOCAL script file.
+The files required for its full use are HELP.HL and LDF.HL.  By default all
+text comes from HELP.HL, hence normal use of the .HELP command is unchanged.
+
+The script files typically reside on SYS:, however they may also be on DSK0:
+(this is for MULTI8 users), or on the device called HELP: (provided it's co-
+resident with SYS: or has a 1-page handler).  A minimal HELP.HL file is pro-
+vided for those who only wish to use the LDF.HL file.
+
+	    .AS RKB0 HELP  -	make RKB0: the 'help' device
+	    .HELP DIR      -	get help on DIRECT from HELP.HL
+	    .HELP LDF      -	get help on LDF from LDF.HL
+
+If the user requests help on LDF without specifying any particular topic, a
+list of all commands and functions appears, and the Command Decoder (CD) is
+then recalled to process requests for additional help.  A '*' will list all
+headings in the script file, while '?'s serve to indicate a range of topics.
+Up to 5 items can be requested at a time and abbreviations may be used (see
+'*' listing: lower-case letters and numbers are optional).
+
+	    .HELP *        -	lists all subjects in HELP.HL
+	    .HELP LDF,*    -	lists all subjects in LDF.HL
+	    .HELP LDF,ASK  -	provides help on the ASK command
+
+The default output device is TTY:, but any valid output device may be speci-
+fied.  If the device has a directory the output file will be called HELP.LS
+unless the user supplies another name.
+
+	.HELP SYS:< *,??????	-  lists all headings, then all material
+				   found in HELP.HL.  Output goes to the
+				   file SYS:HELP.LS.
+
+	.HELP LDF, *, ??????-L	-  prints all info in LDF.HL on the LPT:
+				   (Use this command to get a mini-manual)
+
+Three Command Decoder (CD) switches are recognized by this version of HELP:
+
+	/P	-	Start a new PAGE (formfeed) for every subject
+	/T	-	Use TABS rather than spaces in the output file
+	 $ (altmode)	Recall the CD, or exit from CD to the monitor
+
+The default is NO FORMFEED and NO TAB, which allows the TV12E or ASR33 hand-
+lers to be used for output.

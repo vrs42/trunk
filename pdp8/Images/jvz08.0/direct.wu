@@ -1,0 +1,61 @@
+
+
+     This is an improved version of the directory listing program
+distributed with OS/8 Versions 3/3C.  It is functionally equivalent
+to the original version and includes any updates which have been
+published up to the time of submission.  To distiguish it from the
+earlier versions it has been designated 'V5'.  The loading and op-
+erating instructions in the OS/8 Handbook apply without change to
+this version.*
+
+     The improvements are as follows:
+
+1.   Multiple column listings are now printed in column order rather
+than row order.  This makes the output vastly easier to read, since,
+for instance, adjacent empty areas now appear juxtaposed in the out-
+put just as they do in a PIP "/E" listing.
+
+2.  The listing can be alphabetized!  This is especially convenient
+for dumping the directory of a large disk where the actual program
+arrangement is not very significant and the number of programs is
+usually so large that it is difficult to quickly locate a given file.
+
+3.  The dates may be printed in either a mixed alphanumeric form (as
+in the original version) or in a straight numeric style compatible
+with the monitor DATE command.  There is a provision for extending
+the date beyond 1977.
+
+4.  The header block defined by the DECSYSTEM-8 program PARAM.SV can
+be listed at the beginning to provide a convenient summary sheet
+showing both the volume identification and the program contents, all
+in one place.
+
+5.  There are fewer spaces between columns so that the output will
+fit on standard output devices (location 13163 controls the column
+spacing).  An extra space is inserted after the block number so that
+it does not run into the file size, but when selecting the numeric
+date option each column has 1 less character.  The formfeed at the
+end-of-output may be eliminated to reduce waste paper or to preserve
+the display on some types of CRT terminals.
+
+     These features are selected by the /A, /H, /N and /P options.
+"/A" specifies Alphabetizing.  If /A is used, /B and /E options will
+be ignored.  "/N" selects Numeric dates while "/P" Prevents Paging.
+"/H" prints out the Header information.  If the device does not have
+a parameter block, /H will be ignored.
+
+     Acknowledgments:  The initial improvements were made by Larry
+Fowler of the Boeing Commercial Airplane Co. in Seattle, Washington.
+He added the /A and /H options and also modified the source file so
+that different I/O codes could be substituted for the terminal.  Dr.
+Thomas W. McIntyre of the West Virginia University Medical Center in
+Morgantown, W. V. added the column-output feature and Jim van Zee of
+the Chemistry Department at the University of Washington in Seattle
+added the /N and /P options and condensed the code so that it would
+fit into the original file space.
+
+*Loading Instructions:   .DA 12/15/76   (Delete the original version
+(Change location 14713   .R ABSLDR       first so this one will fit)
+to 2426 to make TV: the  *PTR:(89P)=14600$
+default output device)   .SA SYS DIRECT
+

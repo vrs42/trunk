@@ -1,0 +1,5 @@
+$JOB
+.R FRTS
+*SYS:UCSCAN
+*2662B1.DA</7$
+$END

@@ -1,0 +1,21 @@
+
+The system now has a new version of CCLX (the command language interpreter),
+which permits the .LDF command to do more than just load Focal - now you can
+specify an arbitrary set of Focal commands following the .LDF command, which
+will be executed as soon as LDF is loaded.  The simplest idea is just to run
+the program you want to use:
+
+				.LDF L G myprog
+
+but you can also use LDF to perform monitor-level operations that are not as
+easily done with other programs - for example:
+
+				.LDF T $H$J";L Q
+
+will clear the screen.  The 'L Q' (Lib Quit) command returns to the monitor,
+so the whole episode of loading Focal and executing these two commands looks
+like a single monitor operation.  Putting this command string (sans the '.')
+in a file called 'CS.CM' allows the '@CS' command to clear the screen.
+
+Almost any separator can be used between the .LDF command and the Focal com-
+mands; a space was used above, but ',', '/', '-', or ';'  work just as well.

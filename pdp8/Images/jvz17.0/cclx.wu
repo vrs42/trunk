@@ -1,0 +1,57 @@
+CCLX is a user-version of OS/8 CCL developed by John Easton and John van
+Essen (of PASCAL fame) at the Speech and Hearing Research Lab of the Uni-
+versity of Minnesota (with lots of extra features added by Jim van Zee).
+
+CCLX implements all the OS/8-V3D CCL commands -- and more -- yet occupies
+significantly less disk space.  The command summary shown below is output
+whenever an unrecognized command is encountered (just type a SPACE plus a
+RETURN).  Users can .DEFine additional commands at any time without modi-
+fying the source code: e.g. .DEF VAXX adds the .VAXX command!
+
+The .DEScribe command provides easily extensible documentation: .DES will
+list all .HL, .WU and .DC files on any device, or will print out a speci-
+fic one.  The .RECall command is equally useful for listing any or all of
+the command strings CCLX saves in its 'remembrance' area.  The .DATE com-
+mand also automatically lists the contents of the file DATE.TX to provide
+notes on daily system operation, while the .YESTerday and .TOMmorrow com-
+mands help the forgetful user.  There is even an automatic prompt for the
+current date whenever you 'bootup' the system.
+
+Other features include: semicolons ';' are converted to ':'s, in case you
+forget to shift when spelling a device name; backslash '\' options un-set
+CCLX switches, e.g. 'DEL *.*\Q' disables the '/Query' option on a global
+delete, and .COPY DTA0:<RKB0:\L omits the tedious 'files copied' message.
+All system messages are output in upper/lower case.  Two of the commands
+were changed to agree with other DEC operating systems: .DIFfer replaces
+.COMPAre, and .XREF replaces .CREF (so .CReate could be shortened to two
+letters).  The .PRint command in THIS version has been patched to be the
+same as .LIst by changing the filename reference from LPTSPL to FOTP.
+
+The .VER command has a /E option to list the version numbers of all CUSPS
+(using the VERSN3 program), and the .VIew command joins .TYPE, .PRINT and
+.LIST as a way to send output to a specific device, in this case the TV:.
+Many bugs in CCL have been fixed, for example .MAP never calls ABSLDR, as
+DEC's version often did!  The .LGo (Load 'n Go) command provides a useful
+option, while .TIDY helps keep a clean disk by deleting all *.TM and *.WS
+files.  .EJect starts lineprinter output on a fresh page.  .CD changes or
+lists the default device, i.e. CD RXA1 makes DSK=RXA1.
+
+The .FUtil, .TERmin, .RTpip and .LDF commands have been included for the
+convenience of those who regularly use these CUSPS - use .DES to get more
+information.  The two OS/78 symbiont commands (.REQuest and .Queue) were
+omitted because they limit memory to 16K and only work on floppy systems.
+
+To install CCLX: (1) copy it to your system device; (2) use the .CCL com-
+mand to disable CCL and (3) .R CCLX to enable it.  Reverse this procedure
+(.CCLX,.R CCL) to go back to DEC's version.  The .CCLX command un-defines
+all .DEFined commands.  The 'native' command list is shown below:
+
+ BACksp   DAte     EDit     LINk     PAl      SET      TYpe     YESTer
+ BASic    DEassign EJect    LIst     PRint    SKip     UA       ZERO
+ BOot     DEFine   EOf      LOad     PUnch    SQuish   UB
+ CCLx     DELete   EXecute  MACrel   RECall   SUbmit   UC
+ CD       DEScribe FUtil    MAKe     REName   TEco     UNload
+ COMpile  DIFfer   HElp     MAP      RESource TERmin   VERsion
+ COPy     DIRect   LDF      MEMory   REWind   TIDY     VIew
+ CReate   DUPlicat LGo      MUng     RTpip    TOMorrow XREF
+

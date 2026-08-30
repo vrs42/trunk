@@ -1,0 +1,116 @@
+                            TERMIN  -  VERSION 3B
+
+     Version 3 of the TERMIN program has a major new feature: it can be con-
+figured at run time for a wide variety of different systems.  Features such
+as the device code for the Input/Output ports, the baud rate and the type of
+interface can all be specified when the program is called.  Furthermore, any
+changes made can be saved, allowing a single distribution copy of the program
+to be easily 'customized' for different installations.
+
+     The desired options are specified on the command line that loads the pro-
+gram into memory.  A 'VMS-like' syntax is employed to make the various parame-
+ters easier to remember.  Thus the /SPEED option selects the desired baud rate,
+while the /PERMANENT option saves all configuration changes so that they need
+not be re-specified each time.  The following options are recognized:
+
+     /NORMAL=xx       -  Specifies a 'normal' interface: KL8E, KL8JA, etc.
+     /DECSTATION[=2]  -  Specifies a VT/WT/78 or VT/278 (SLU3[2]@9600 Bd)
+     /SPEED=nnnn      -  Specifies Baud rate: 50-19200 (DECSTATIONS only!)
+     /BAUD_RATE=nnnn  -  Same as '/SPEED=nnnn' (see baud rate list below)
+     /INPUT=xx        -  Specifies the Input Device Code (01-77 octal)
+     /OUTPUT=xx       -  Specifies the Output Device Code (same as above)
+     /ARROW           -  Prints Control Characters as '^' + 'character'
+     /HELP            -  Prints a summary of the command line options
+     /VERSION         -  Prints the Version number of the program
+     /PERMANENT       -  Updates the load file, saving specified options
+
+     Example:  .R TERMIN /NORMAL=46 /PERMANENT
+
+     This call runs the TERMIN program, specifying a 'standard' interface which
+uses Device Codes 46 (for Input) and 47 (for Output).  The copy of TERMIN.SV on
+the system device is updated to save the changes so that the next time the pro-
+gram is used a '.R TERMIN' command will be sufficient.  (Note: the file date is
+not changed and the program is updated on the device from which it was loaded.)
+
+     Options may be specified in any order; the only rule is that the '/' must
+be immediately followed by the first letter of the option word, and similarly,
+the '=' sign must be immediately followed by a numerical parameter.  Options
+are commonly abbreviated to their first letter: /I=34 is the same as /INPUT=34.
+
+     Notes: (1) the Device Code specified by the /NORMAL option is that of the
+Input Port; the Output Port is automatically set to the next higher value.  The
+usual range for this parameter is 30-67, but no checking is performed.  Remem-
+ber that device codes 20-27 are used for extended memory addressing.
+
+     (2) The default for the /DECSTATION option is 'SLU3', which is the same as
+the printer port on a '278.  To use 'SLU2' specify '/D=2'.  The default rate is
+9600 baud; to pick a different rate (for example, 300), use: '.TER/D/S=300/P'.
+Any of the following baud rates may be selected:  50, 75, 110, 134.5, 150, 300,
+600, 1200, 1800, 2000, 2400, 3600, 4800, 7200, 9600, 19200.
+
+     (3) The following error messages may appear on the console, followed by an
+immmediate return to the Keyboard Monitor:
+
+     NOT UNDER BATCH!          -  TERMIN is interactive, so no BATCH calls!
+     INPUT DVC = OUTPUT DVC    -  Different I/O device codes are required
+     BAD SPEED OR BAUD RATE    -  Value specified is not available (see list)
+     WRITE ERROR ON LOAD DEV   -  An error occured while updating the program
+                                TERMIN.SV
+
+     The TERMIN program connects the console keyboard/display device to the
+input/output ports of a communications interface (KL8E, KL8JA, SLU3, etc.).
+This allows the user to interact with a remote computer system just as though
+the terminal were connected directly to the communications line.  The program
+is started by a '.R TERMIN' command, or more simply by just typing '.TER' if
+you have the OS/78 version of CCL.  The following features are available:
+
+     1) The baud rate of the communications line may be different from that
+     of the terminal.  The program buffers all characters received from the
+     communications line and automatically sends 'XOFF' when the buffer is
+     nearly full (about 2000 characters).  A 'XON' is sent when the buffer
+     is empty again.
+
+     2) Typing CTRL/S on the keyboard stops output from the buffer and also
+     sends XOFF to the remote system.  Typing CTRL/Q restarts output from
+     the buffer and also sends XON to the remote system.  Typing RUBOUT (or
+     DELETE) while output is stopped causes the buffer to be purged.  This
+     feature is for slow hardcopy terminals which wish to simply 'dump' un-
+     wanted output without stopping the program which is producing it.
+
+     3) All keyboard characters are transmitted exactly as typed with two
+     exceptions: CTRL/B causes a BREAK to be transmitted (KL8E, VT/78, '278
+     only!), and CTRL/E causes an EXIT from the program back to OS/8.  Note
+     that CTRL/C is not trapped and hence may be used to interrupt programs
+     on the remote system.  Typing either CTRL/C or CTRL/Y will purge the
+     output buffer (as will CTRL/S followed by DELETE as mentioned above).
+
+     4) All printing characters (ASCII values 40-177) received from the re-
+     mote system are transmitted to the terminal without change, as are the
+     characters 'backspace', 'horizontal tab', 'linefeed', 'vertical tab',
+     'formfeed', 'carriage return', 'bell' and 'escape'.  If the /ARROW op-
+     tion is selected, all other control characters are printed as '^char'.
+
+     5) A 'break' followed by CTRL/X is sent to the remote system when the
+     program is first started.  This stops operation of the TU58 simulator
+     in case it has control of the communications line.  A less desirable
+     side-effect of this feature is that it causes the VAX to respond with
+     a meaningless error message (message number 00000000) every time the
+     TERMIN program is reloaded after the user has once logged in.
+
+     6) The TERMIN program may be restarted (after a CTRL/E exit) by typing
+     '.ST'.  The program fits entirely on Page 0, but uses 200-4000+ for the
+     output buffer; the starting address is location 20.  The program may be
+     run while a symbiont program is also in operation (VT/78 systems only).
+     The baud rate used on VT/78's and 278's is set by the value in location
+     177: '5'=300, '7'=1200, '16'=9600, etc. - see explanation of IOT '6333'.
+
+|  TERMIN V3B has the following improvements: (1) the 'arrow flag' on control
+|  characters is suppressed unless the ?ARROW switch is set.  This allows the
+|  use of TERMIN with Tektronix terminals; (2) the /P (permanent) option will
+|  now update the program using the device and program name specified, rather
+|  than always assuming SYS:TERMIN.SV.  This allows the program to be renamed
+|  'HOST.SV', for example, and still have the command .RU RXA1:HOST/A/P work.
+|  (3) the /HELP option was added for those who use the program infrequently.
+
+LAB DATA SYSTEMS, 10320 Ravenna Ave. N.E., Seattle, Washington, 98125 - (C)1983
+

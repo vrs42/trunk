@@ -1,0 +1,793 @@
+{$X+ Edit 15} Program SVUTIL(savefile : 'SYS:X.SV',
+                             TTin:'TT0:', output);
+
+{Copyright (C) 1981  John T. Easton    SSRFC    U of Minn}
+
+{$L- turn listing off }
+{$T+,N+,P+ tests on, line numbers on, PMD on}
+
+{Edit 13  1981-07-28  JTE
+          1. updated device constants.
+ Edit 14  1981-09-28  JTE
+          1. fix "z" cmd bugs
+          2. implement "^", "<", "=", "\", "nnnn+", "nnnn-" commands
+          3. update unit numbers (lpdev, crdev)
+          4. remove "W" cmd, reserve for word search.
+          5. also implemented '(', ')' for field jumps.
+          6. broke Interact into lots of little procedures.
+ Edit 15  1981-11-19  JTE
+          1. convert to use INPUT and OUTPUT instead of DEVGET, DEVPUT.
+          2. renamed from OVLODT to SVUTIL.
+          3. change default sv file name to 'SYS:X.SV'.
+}
+
+{SVUTIL: simple 'ODT' -- octal debugger -- for overlaid save files.
+ See OS/8 ODT for description of basic ODT usage.
+ This ODT merely adds accurate overlay editing, as
+ attempted in FUTIL V7.
+
+  To use:
+
+        .R P8RTS
+        >SVUTIL,savefile
+
+  Implemented:
+
+        [overlay.]address / contents  replacement
+        [     oo.]aaaaaa  / cccc      rrrr
+
+        char  effect
+        ----  ------
+
+        cr  - store rrrr if given, close current location
+        lf  - store rrrr if given, close current, increment address,
+              open next and display
+        \   - store rrrr if given, close current, decrement address,
+              open next and display.
+        ;   - store rrrr if given, close current, increment address,
+              open next
+
+              note: none of the rest 'poke' a value (store)
+
+        /   - open current location (display current
+              address if none given)
+        n/  - set current location to n and open it for modification
+        =   - re-open the immediate last open location.
+              (remembers up to 16 prior addresses!. No number is
+              allowed before the '='.)
+        n+  - close the current address, add n to the address,
+              and open the new effective address. If no n was
+              given, default is 1.
+        n-  - close the current address, subtract n from the
+              current address, and open the new effective address.
+              If no n is given, default is 1.
+        n(  - decrement address by one field (-n*4096) and open.
+              (If no number is given, 1 is assumed.)
+        n)  - increment address by one field (n*4096) and open.
+              (If no number is given, 1 is assumed.)
+        ^   - (up arrow) (no number is allowed) close current
+              location, use the contents as a memory reference
+              instruction, and open the effective address.
+        <   - (left angle bracket) (no number is allowed) close
+              current location, use the contents as a 12-bit
+              pointer to a new effective location in the same
+              field, open it for modification.
+        .   - display current overlay number
+        n.  - set overlay number to n
+        nnnnnn  - assemble digit string as octal number (max 6 digits)
+        d   - toggle debug
+        h   - report save file header block
+        l   - display length in blocks of savefile
+        q   - return to OS/8 (writes last changes)
+        t   - change terminal (as in 'TT:')
+        w   - reserved for possible implementation of word search
+        m   - reserved for possible implementation of mask.
+        z   - setup ccb for modification
+        ^c  - (control-c) abort, all but last block mentioned is modified
+        ^w  - (control-w) toggle re-write enable
+
+  not implemented:
+
+                nnnng           nnnnb
+
+                m       w       a       l
+
+                c       d       ^o      f
+
+}
+
+
+  const
+    cr =          15bc    {suffix b:octal, c:character};
+    lf =          12bc;
+    bell =        07bc    {ring-ring};
+    maxlev =       7b     {max overlay level};
+    maxovl =      17b     {max overlay number};
+    maxdigits =    6      {need 6 to express addresses};
+    niladdr =     400000b;
+    fnlen =        14;    {length of filename}
+    queuedepth =   16     {depth of addr queue};
+
+  type
+    {ascii =      0c..127c -- predeclared in pdp8 pascal}
+    shortint =    0..4095;
+    showloc  =    (mute,show);
+    indexedfile = file[1..4095] of packed array[0..255] of shortint;
+
+  var
+  {$B1}
+    savefile :    indexedfile;
+    TTin:         file of ascii;
+    csdw :        array[1..31] of record
+                          org : integer;
+                          len : integer {pages} {shortint};
+                          blk : integer   {shortint}
+                        end;
+    ccbovl :      array[0..maxlev] of record
+                          org : integer;
+                          len : integer {pages} {shortint};
+                          blk : integer   {shortint};
+                          novls : integer   {shortint}
+                        end;
+    prevaddr : array[0..queuedepth] of integer;
+    prevptr : integer;
+    modified :    boolean;
+    inccb :       boolean;
+    enablewrite : boolean {put to indexed file enabled};
+    gotnum :      boolean;
+    innum :       boolean;
+    num :         integer;
+    ndigits :     integer {shortint};
+    debug :       boolean;
+    open :        boolean;
+    index :       0..4095;
+    relblk :      integer {shortint};
+    filelength :  integer;
+    hasovls :     boolean;
+    level :       0..maxlev;
+    overlay :     0..maxovl;
+    addr :        integer;
+    ncsdw :       integer {shortint};
+    sf :          integer {shortint};
+    sa :          integer {shortint};
+    js :          integer {shortint};
+    temp :        integer;
+    curblk:       integer {shortint};
+    offset :      integer {shortint};
+    lastaddr :    integer {address};
+    lastoverlay : integer {shortint};
+    filename :    packed array[1..fnlen] of char;
+    addroffset :  integer;
+    i :           integer;
+
+
+  procedure InitVars;
+    var i : integer;
+  begin {InitVars}
+    for i := 1 to queuedepth do prevaddr[i] := niladdr;
+    prevaddr[0] := 0 {initial address};
+    prevptr := 0;
+    debug:=false;
+    inccb:=false;
+    enablewrite:=true;
+    modified:=false;
+    open:=false;
+    innum:=false;
+    gotnum:=false;
+    num:=0;
+    ndigits:=0;
+    relblk:=0;
+    level:=0;
+    overlay:=0;
+    addr:=0;
+    lastoverlay := 20b {outofrange};
+    lastaddr := niladdr {outofrange};
+    hasovls:=false;
+  end   {InitVars};
+
+
+  procedure Queue(a : integer);
+  begin
+    prevptr := prevptr + 1;
+    if prevptr > queuedepth then prevptr := 0;
+    prevaddr[prevptr] := a
+  end {Queue};
+
+
+  function DeQueue : integer;
+  begin
+    DeQueue := prevaddr[prevptr];
+    prevaddr[prevptr] := niladdr {optional};
+    prevptr := prevptr - 1;
+    if prevptr < 0 then prevptr := queuedepth
+  end {DeQueue};
+
+
+ {procedure PrintOct(n,fw : integer);
+    var nd,i,j : integer;
+        a : array[1..8] of integer;
+  begin
+    if n < 0 then begin Write(OUTPUT,'-'); n := -n; fw:=8 end;
+    if fw<=8 then nd:=fw else nd:=8;
+    if fw>8 then for i:=1 to (fw-8) do Write(OUTPUT,' ');
+    for i:=1 to nd do
+      begin a[i]:=n mod 10b;
+        n:=n div 10b;
+      end;
+    j:=nd;
+    for i:=1 to nd do
+      begin
+        Write(OUTPUT,chr(a[j]+ord('0')));
+        j:=j-1
+      end
+  end   {PrintOct;}
+
+
+  procedure SetUpSaveFile {setup reference arrays from ccb};
+    var i,n,w1,w2,w3,w4,npages,block : integer;
+  begin
+    get(savefile,1); index := 1;
+    ncsdw:=10000b-savefile^[0] {negates value};
+    sf   := savefile^[1];
+    sa   := savefile^[2];
+    js   := savefile^[3];
+    n:=ncsdw; w1:=4; w2:=5; i:=1; block:=1;
+    if (n<=0) or (n>31) then halt('not a .sv file');
+    while (n>0) do
+      begin
+        npages:=savefile^[w2] div 100b;
+        csdw[i].len:=npages;
+        if odd(npages) then npages:=npages+1;
+        csdw[i].blk:=block;
+        block:=block+(npages div 2);
+        csdw[i].org:=((savefile^[w2] div 10b) mod 10b)
+                     *10000b+savefile^[w1];
+        w1:=w1+2; w2:=w2+2; i:=i+1; n:=n-1
+      end;
+
+    hasovls:=odd(js div 200b);
+    if hasovls then
+      begin
+        w1:=96; w2:=97; w3:=98; w4:=99; i:=0;
+        while (i<8) do
+          begin
+            ccbovl[i].novls:=savefile^[w1];
+            ccbovl[i].blk:=savefile^[w3];
+            ccbovl[i].len:=savefile^[w4];
+            ccbovl[i].org:=(savefile^[w2]{div 10b}mod 10b) {error in macrel doc.}
+                           *10000b+
+                           (savefile^[w2] div 200b)*200b;
+            w1:=w1+4; w2:=w2+4; w3:=w3+4; w4:=w4+4; i:=i+1
+          end
+      end
+  end   {setup};
+
+
+  procedure PutMappedBlock;
+  begin
+    if enablewrite then
+      begin
+        if modified then
+          begin
+            if debug then write(output,' !put=',index-1:4 oct,'! ');
+            put(savefile,index);
+            modified:=false {current block has been written}
+          end
+        else if debug then write(output,' !no put! ')
+      end
+    else write(output,' !write is off! ')
+  end   {PutMappedBlock};
+
+
+  procedure Interact;
+    label 1 {for bad Pokes};
+    var ch, uch : ascii;
+
+
+    procedure PrintCCB;
+      var n,i : integer;
+    begin
+      n:=ncsdw;
+      writeln(output,'root segments=',n:2 oct,
+        ' sf=',sf:4 oct,' sa=',sa:4 oct,' js=',js:4     oct);
+      i:=0;
+      while n>0 do
+        begin
+          i:=i+1;
+          writeln(output,'  ',i:2 oct,
+            '  org=',csdw[i].org:6 oct,
+            '  len=',csdw[i].len *200b:4 oct,
+            '  blk=',csdw[i].blk:4 oct);
+          n:=n-1
+        end;
+      if hasovls then
+        begin
+          writeln(output,'overlays:');
+          for i:=1 to maxlev do
+            begin
+              n:=ccbovl[i].novls;
+              if n>0 then
+                begin
+                  writeln(output,'  lev=',i:2 oct,
+                    '  org=',ccbovl[i].org:6 oct,
+                    '  len=',ccbovl[i].len*200b:4 oct,
+                    '  blk=',ccbovl[i].blk:4 oct,
+                    '  novls=',n:2 oct);
+                end
+            end
+        end
+    end   {PrintCCB};
+
+    procedure GetMappedBlock;
+    begin
+      if (relblk+1) <> index then
+        begin
+          if modified then PutMappedBlock;
+          index:=relblk+1;
+          get(savefile,index)
+        end
+    end   {GetMappedBlock};
+
+
+    function ValidAddr : boolean;
+    { ValidAddr has the side effects of setting the values of
+      the variables  offset, relblk, level, overlay, lastaddr,
+      and lastoverlay. }
+      var found,ovlerr : boolean;
+        origin,n,npages,nblks : integer;
+    begin {ValidAddr}
+      found:=false;
+      if addr >= 0 then
+      if inccb then
+        begin
+          if addr<400b then
+            begin
+              offset:=addr;
+              relblk:=0;
+              overlay:=0; level:=0;
+              found:=true
+            end
+          else write(output,' ?ccb?')
+        end
+      else
+        if ((lastaddr div 200b)=(addr div 200b)) {same page}
+  {     if ((lastaddr div 400b)=(addr div 400b))  same block}
+          and (lastoverlay=overlay) then
+          begin found:=true; offset:=addr mod 400b end
+        else
+          begin n:=1; level:=0;
+            while (n<=ncsdw) and (not found) do
+              begin
+                origin:=csdw[n].org;
+                npages:=csdw[n].len;
+          {     if odd(npages) then npages:=npages + 1;}
+                if (addr>=origin) and
+                   (addr<origin+npages*200b) then
+                  begin
+                    found:=true; level:=0; overlay:=0;
+                    relblk:=csdw[n].blk+(addr-origin) div 400b;
+                    offset:=addr mod 400b
+                  end;
+                n:=n+1
+              end;
+            if (not found) and hasovls then
+              begin ovlerr:=false;
+                repeat level:=level+1;
+                  origin:=ccbovl[level].org;
+                  npages:=ccbovl[level].len;
+          {       if odd(npages) then npages:=npages+1;}
+                  if odd(npages) then nblks := (npages + 1) div 2
+                                 else nblks := npages div 2;
+                  if (addr>=origin) and
+                     (addr<origin+npages*200b) then
+                    begin
+                      if overlay>=ccbovl[level].novls then
+                        begin write(output,' ?ovl?'); ovlerr:=true end
+                      else
+                        begin
+                          found:=true;
+                          n:=nblks*overlay;
+                          if debug then
+                            begin write(output,' @n=',n:4 oct) end;
+                          n:=n+((addr-origin) div 400b);
+                          if debug then
+                            begin write(output,' @n=',n:4 oct) end;
+                          relblk:=ccbovl[level].blk+n;
+                          if debug then write(output,' @n=',relblk:4 oct);
+                          offset:=addr mod 400b
+                        end
+                    end
+                until found or (level=maxlev) or ovlerr
+              end
+          end;
+      ValidAddr:=found;
+      if found then
+        begin
+          lastaddr:=addr;
+          lastoverlay:=overlay
+        end
+    end   {ValidAddr};
+
+
+    procedure NewNum;
+    begin gotnum:=false; innum:=false; num:=0; ndigits:=0 end;
+
+
+    procedure CloseLocation; begin open:=false; NewNum end;
+
+
+    procedure Void;
+    begin
+      if gotnum then writeln(output,' *Void*');
+      CloseLocation;
+    end   { Void };
+
+
+    procedure EOLVoid; begin if not gotnum then writeln(output); Void end;
+
+
+    procedure PrintLen;
+    begin
+      writeln(output,'length=',filelength:4 oct,' (decimal=',
+        filelength:1,') blocks');
+    end {PrintLen};
+
+
+    procedure Poke;
+    begin
+      if num > 4095 then
+        begin write(output,' ** too big '); Void; goto 1 end;
+      if enablewrite then
+        begin savefile^[offset]:=num; modified:=true end
+      else writeln(output,' !no! ');
+      CloseLocation
+    end   {Poke};
+
+
+    function OpenLocation(contents : showloc) : boolean;
+      var valid : boolean;
+    begin
+      valid := ValidAddr;
+      if valid then
+        begin
+          if debug then
+            begin
+              if level>0 then
+                begin
+                  write(output,' !lev=',level:1 oct,
+                    ' ovl=',overlay:2 oct,' ')
+                end
+              else write(output,' !');
+              write(output,'relblk=',relblk:4 oct);
+              write(output,' offset=',offset:4 oct,'!   ')
+            end;
+          open:=true;
+          GetMappedBlock;
+          if contents=show then write(output,savefile^[offset]:4 oct,' ')
+        end
+      else begin write(output,' ?bad addr: ',addr:6 oct); EOLVoid end;
+      OpenLocation := valid
+    end   {OpenLocation};
+
+
+    procedure ShowLocation;
+    begin
+      if OpenLocation(mute) then
+        begin
+          if level > 0 then write(output,overlay:2 oct,'.');
+          write(output,addr:6 oct,'/ ',savefile^[offset]:4 oct,' ')
+        end
+    end {ShowLocation};
+
+
+    procedure MRI {PDP8 Memory Reference effective address};
+      var inst, reladdr : integer;
+    begin {MRI}
+      write(output,ch);
+      if gotnum then Void
+      else
+        begin
+          inst := savefile^[offset];
+          CloseLocation; writeln(output);
+          reladdr := inst mod 128;
+          Queue(addr);
+          if odd(inst div 128) then {current page}
+            addr := (addr div 128) * 128 + reladdr
+           {addr := addr-(addr mod 128) + reladdr}
+          else {page zero}
+            addr := (addr div 4096) * 4096 + reladdr;
+          if odd(inst div 256) then
+            begin {indirect}
+              Queue(addr);
+              if OpenLocation(mute) then
+                addr := (addr div 4096) * 4096 + savefile^[offset]
+            end;
+          ShowLocation
+        end
+    end {MRI};
+
+
+    procedure cmdQ;
+    begin write(output,ch);
+      if gotnum then begin Void; uch:='?' end
+      else writeln(output)
+    end {cmdQ};
+
+
+    procedure cmdH;
+    begin write(output,ch);
+      if gotnum then Void
+      else begin writeln(output); PrintCCB end
+    end {cmdH};
+
+
+    procedure cmddot;
+    begin
+      if open then
+        begin open:=false;
+          if gotnum then begin write(output,ch); Void end
+          else begin writeln(output); write(output,overlay:2 oct,ch) end
+        end
+      else
+        if gotnum then
+          begin write(output,ch);
+            if num<=maxovl then begin overlay:=num; NewNum end
+            else begin write(output,' ovl??'); Void end;
+          end
+        else write(output,overlay:2 oct,ch)
+    end {cmddot};
+
+
+    procedure cmdslash;
+    begin
+      if gotnum
+        then begin addr:=num; Queue(addr) end
+        else write(output,addr:6 oct);
+      write(output,ch,' ');
+      NewNum;
+      if OpenLocation(show) then {null stmt}
+    end {cmdslash};
+
+
+    procedure cmdcr;
+    begin
+      if gotnum and open then Poke;
+      CloseLocation;
+      writeln(output)
+    end {cmdcr};
+
+
+    procedure cmdlf;
+    begin
+      Queue(addr);
+      if gotnum and open then Poke;
+      CloseLocation; writeln(output); addr:=addr+1;
+      ShowLocation
+    end {cmdlf};
+
+
+    procedure cmdbackslash;
+    begin
+      Queue(addr);
+      if gotnum and open then Poke;
+      CloseLocation; writeln(output); addr := addr-1;
+      ShowLocation
+    end {cmdbackslash};
+
+
+    procedure cmdsemi;
+    begin write(output,ch);
+      Queue(addr);
+      if gotnum and open then Poke;
+      CloseLocation;
+      addr:=addr+1; write(output,' ');
+      if OpenLocation(mute) then {null stmt}
+    end {cmdsemi};
+
+
+    procedure cmdplusminus;
+    begin { + - }
+      Queue(addr);
+      write(output,ch);
+      if gotnum then begin addroffset := num; NewNum end
+      else addroffset := 1;
+      CloseLocation; writeln(output);
+      if uch = '+' then addr := addr + addroffset
+      else addr := addr - addroffset;
+      ShowLocation
+    end { + - };
+
+
+    procedure cmdleftbracket;
+    begin { 12-bit indirect}
+      write(output,ch);
+      if gotnum then Void
+      else
+        begin
+          Queue(addr);
+          CloseLocation; writeln(output);
+          addr := (addr div 4096) * 4096 + savefile^[offset];
+          ShowLocation
+        end
+    end { < };
+
+
+    procedure cmdparens;
+      var temp: integer;
+    begin
+      write(output,ch);
+      if not gotnum then num := 1; temp := num;
+      Queue(addr);
+      CloseLocation; writeln(output);
+      Queue(addr);
+      if ch = '(' then temp := -temp*4096
+      else temp := temp*4096;
+      addr := addr + temp;
+      ShowLocation
+    end { ( ) };
+
+
+    procedure cmdeq;
+    begin
+      write(output,ch);
+      if gotnum then Void
+      else
+        begin
+          addr := DeQueue; writeln(output);
+          ShowLocation
+        end
+    end { = };
+
+
+    procedure cmdoctdigits;
+    begin write(output,ch);
+      if gotnum and (not innum) then {gap}
+        begin write(output,' ?gap in number'); Void end
+      else
+        begin innum:=true; gotnum:=true;
+          if (ch='0') and (ndigits=0) then {ignore}
+          else
+            if ndigits>=maxdigits then
+              begin write(output,' ?too many digits'); Void end
+            else
+              begin num:=num*8+ord(ch)-ord('0');
+                ndigits:=ndigits+1
+              end
+        end
+    end {cmdoctdigits};
+
+
+    procedure cmdT;
+      {var fn: fnstring;}
+    begin
+      write(output,ch);
+      writeln(output,' not implemented')
+    end {cmdT};
+
+
+    procedure cmddebug;
+    begin {write(output,ch);}
+      if gotnum then begin write(output,ch); Void end
+      else
+        begin
+          debug:=not debug; write(output,'debug=');
+          if debug then write(output,'on') else write(output,'off');
+          writeln(output)
+        end
+    end {cmddebug};
+
+
+    procedure cmdZ;
+    begin write(output,ch);
+      if gotnum then Void
+      else
+        begin
+          PutMappedBlock; index := 0;
+          inccb:=not inccb;
+          lastaddr := niladdr {outofrange};
+          level:=0; overlay:=0; addr:=0;
+          if inccb then write(output,'in ccb')
+          else write(output,'in .sv');
+          writeln(output)
+        end
+    end {cmdZ};
+
+
+    procedure cmdctrlw;
+    begin write(output,'^w');
+      if gotnum then Void
+      else
+        if modified then writeln(output,' no!')
+        else
+          begin
+            enablewrite:=not enablewrite;
+            write(output,' write');
+            if enablewrite then write(output,'=on')
+            else write(output,'=off');
+            writeln(output)
+          end
+    end {cmdctrlw};
+
+
+  begin {Interact}
+    PrintLen;
+ 1: repeat {label entry for bad Pokes}
+      read(TTin,ch);
+      if(ch>='a')and(ch<='z')then uch:=chr(ord(ch)-40b)
+      else uch:=ch;
+      case uch of
+        'Q' : {slip out of repeat loop} cmdQ;
+        'H' : cmdH;
+        '.' : {overlay setting} cmddot;
+        '/' : cmdslash;
+        cr : cmdcr;
+        lf : cmdlf;
+        '\': {reverse lf with Poke} cmdbackslash;
+        ';' : cmdsemi;
+        '+','-': {address offset by num} cmdplusminus;
+        '<' : { 12-bit indirect } cmdleftbracket;
+        '(',')' : {address offset by 4096} cmdparens;
+        '=' : {go back to previous address opened} cmdeq;
+        '^' : { PDP8 MRI effective address} MRI;
+        '0','1','2','3','4','5','6','7' : cmdoctdigits;
+        'T' : {terminal} cmdT;
+        'Z' : cmdZ;
+        27bc : {control-w} cmdctrlw;
+
+        '8','9' :
+          begin write(output,ch,' ?octal only'); EOLVoid end;
+
+        '?' :
+         begin write(output,ch); Void;
+           writeln(output,' see SVUTIL.PS')
+         end;
+
+        'L' :
+          begin
+            if gotnum then begin write(output,ch); Void end
+            else PrintLen
+          end;
+
+        'D' : cmddebug;
+
+        3bc : { control-c (seen if not console device)}
+              halt('ctrl-c');
+
+        ' ' : begin write(output,ch); innum:=false end;
+
+        otherwise
+          begin {unknown character}
+            if ch<' ' then
+              begin write(output,'^',chr(ord(ch)+100b)) end
+            else write(output,ch);
+            write(output,bell,'?');
+            EOLVoid
+          end
+
+        end {case ch}
+    until uch='Q';
+  end   {Interact};
+
+
+begin {SVUTIL}
+  InitVars;
+  write(output,'SVUTIL (Edit 15)   svfile=');
+  getfn(savefile,filename);
+  for i := 1 to fnlen do
+    if filename[i] <> ' ' then
+      write(output,filename[i]);
+  write(output,'   ');
+  reset(savefile);
+  filelength:=maxlength(savefile);
+  if filelength>0 then
+    begin
+      SetUpSaveFile;
+      Reset(TTin);
+      Interact;
+      if modified then PutMappedBlock;
+    end
+  else writeln(output,'?no file?')
+{$L+}
+end {SVUTIL}.
+
+

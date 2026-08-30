@@ -1,0 +1,107 @@
+program ChCount(input,output);
+
+(* ChCount counts character frequencies in a file,
+   and prints the result in a tabular format.
+
+   to use, do           (PDP8 Pascal)
+
+        .R P,CHCNT,infile,outfile
+
+
+*)(*$L-*)
+
+const
+  lowch =       ' '     (* ASCII *);
+(*lowch =       'a';    (* U of M (CDC) NOS *)
+  highch =      '~'     (* ASCII *);
+(*highch =      ';';    (* U of M (CDC) NOS *)
+  ncolumns =    4       (* columns wide for report *);
+
+var
+  counter : array[lowch..highch] of integer;
+  ch :          char    (* working char var *);
+  row :         integer (* current row *);
+  count :       integer (* count to print out *);
+  column :      1..ncolumns (* current column *);
+  numrows :     integer (* number of rows to print *);
+  tablecells :  integer (* cells in rectangular portion *);
+  charsetsize:  integer (* number of chars in set *);
+  firstprintingchar: integer (* ASCII first printing character *);
+  charordinal : integer (* ord of current char *);
+  inputlines :  integer (* input line counter *);
+  charcount :   integer (* count of characters read *);
+  linewidth :   integer (* width of current line *);
+  maxlinewidth : integer(* longest line in input *);
+
+begin
+  charsetsize := ord(highch) - ord(lowch) +1;
+  firstprintingchar := ord(lowch);
+  inputlines := 0;
+  charcount := 0;
+  maxlinewidth := 0;
+  writeln(output);
+  writeln(output,'   character frequency counter.');
+  writeln(output);
+  for ch := lowch to highch do counter[ch] := 0;
+
+  (* scan file *)
+  while not eof(input) do
+    begin
+      linewidth := 0;
+      inputlines := inputlines + 1;
+      while not eoln(input) do
+        begin
+          counter[input^] := counter[input^] + 1;
+          linewidth := linewidth + 1;
+          charcount := charcount + 1;
+          get(input)
+        end;
+      if linewidth > maxlinewidth then maxlinewidth := linewidth;
+      readln(input)
+    end;
+
+  writeln(output);
+  writeln(output,'   input character count = ', charcount : 6);
+  writeln(output,'   input line count =      ', inputlines : 6);
+  writeln(output,'   longest line length =   ', maxlinewidth : 6);
+  writeln(output);
+  if charcount > 0 then (* produce frequency table *)
+    begin
+      writeln(output);
+      write(output,' ' : 3);
+      for column := 1 to ncolumns do
+        begin
+          write(output,' count  ord ch');
+          if column < ncolumns then write(output,' ' : 4)
+        end;
+      writeln(output);
+      writeln(output);
+      numrows := charsetsize div ncolumns (* if rectangular shape *);
+      tablecells := numrows * ncolumns (* for nonrectangular table *);
+      if tablecells < charsetsize then numrows := numrows + 1;
+
+      (* write out columnar table *)
+      for row := 1 to numrows do
+        begin (* write each row as a line *)
+          write(output,' ' : 3); (* new line *)
+          charordinal := row + firstprintingchar - 1;
+          for column := 1 to ncolumns do
+            begin
+              if charordinal <= ord(highch) then
+                begin
+                  count := counter[chr(charordinal)];
+                  if count = 0
+                    then write(output, ' ' : 6)
+                    else write(output, count : 6 );
+                  write(output,' ' : 2, (charordinal) : 3,
+                        ' ' : 2, chr(charordinal));
+                  if column < ncolumns then write(output, ' ' : 4);
+                  charordinal := charordinal + numrows
+                end
+            end;
+          writeln(output)
+        end;
+      writeln(output) (* final blank line *)
+    end
+end (* ChCount *).
+

@@ -1,0 +1,394 @@
+C  HPLCWD.F4  380 LINES
+C  12-22-81  TO CALCULATE THE DATA OF OHARE AND NIEL FOR
+C  J CHROM. PAPER AS RECOMMENDED BY REFEREE
+C  HPLCW.F4 USES WEIGHTS FOR WEIGHTED LEAST SQUARES.  WEIGHTS ARE
+C  1/N(I)^2  WHERE N(I) ARE NUMBER OF RESIDUES IN PEPTIDE.
+C  D.C.T. 9-29-81
+C  HPLC.F4 LEAST SQUARES OF HPLC DATA.
+C
+C       REQUIRES MATD28.F4 AS SUBROUTINE
+C       D.C.TELLER JAN.1974 AS GAUSS.F4; REVERTED TO HPLC.F4 26-AUG-81
+C  UNIT 5: TR(I),N(J,I), J=1 TO 27  N IS # OF MOLES
+C  UNIT 6:  INITIAL PARAMETER ESTIMATES
+C  UNIT 7:  OUTPUT FINAL PARAMETERS AT END
+C
+        DOUBLE PRECISION A(28,28),B(28),C(28),S(28),AK(28)
+        DOUBLE PRECISION X(25,60),T(60),WT(60)
+        DOUBLE PRECISION PRED,D,DOLD,DNEW,DSUM,DLOG,ESCAP,AVRG,CMAX
+        DOUBLE PRECISION CLIM
+        DIMENSION AA(28),PA(28),KA(28),IPEP(60)
+C        LOGICAL NSW0,NSW1
+C       READ VALUES
+        NJ=25
+        READ(5,1001)NPOIT,(AA(I),I=1,NJ)
+1001    FORMAT(I3,6X,27A3)
+        ESCAP=1.D-3
+        NPAR=27
+        AA(NPAR)=' C*'
+        AA(NPAR-1)=' A*'
+C       READ FIRST ESTIMATES
+        DO 15 I=1,NPAR
+15      READ(6,1503)AK(I)
+1503    FORMAT(3X,B10.3)
+        DO 20 I=1,6
+        K=5*(I-1)+1
+        L=5*I
+        IF(L.GT.NPAR)L=NPAR
+        WRITE(4,1015)(AA(J),J=K,L)
+1015    FORMAT(1X,5(5X,A3))
+20      WRITE(4,1016)(AK(J),J=K,L)
+1016    FORMAT(1X,5B8.3)
+        TIT=' A*'
+        U=' C*'
+        DUM=0.
+        WRITE(4,1017)
+1017    FORMAT(/' SSW 0 = 1 TO INHIBIT PEPTIDE PRINTOUT (WIDE PAPER)')
+        WRITE(4,1018)
+1018    FORMAT(' SSW 1 = 1 TO INHIBIT ITERATION PRINTOUT')
+        WRITE(4,1006)
+1006    FORMAT(' IMPROVE CONVERGENCE?'$)
+        READ(4,1007)YN
+1007    FORMAT(A1)
+        WRITE(4,1019)
+1019    FORMAT(' USE WEIGHTS?'$)
+        READ(4,1007)WN
+        WRITE(4,1020)
+1020    FORMAT(' LIMIT CHANGES?'$)
+        READ(4,1007)XN
+        IF(XN.NE.'Y')GOTO 16
+        WRITE(4,1021)
+1021    FORMAT(' LIMIT OF CHANGE OF C(I):'$)
+        READ(4,1022)CLIM
+1022    FORMAT(B9.3)
+16      WRITE(4,1004)
+        READ(4,1505)NITER
+1004    FORMAT(' # ITERATIONS,I3:'$)
+1505    FORMAT(I3)
+C  NUMBER OF PARAMETERS TO FIT:
+C  D,E,C,R,H,K,TML,AEC,AC,NH,A*,C*:
+C       NFIT=12
+        WRITE(4,1030)
+1030    FORMAT(' NUMBER OF PARAMETERS TO FIT:'$)
+        READ(4,1031)NFIT
+1031    FORMAT(I2)
+C  STARTING POINT FOR ADDING NEW AA(REFIT NEW AA,A*,C*)
+        NST=NPAR-NFIT+1
+C  READ REST OF FILE 5:
+C  CALC RMS OF INPUT DATA AT SAME TIME
+        RMS=0.
+        SPT=0.
+        SP=0.
+        SPQ=0.
+        ST=0.
+        STQ=0.
+        DO 30 I=1,NPOIT
+        WT(I)=0.
+        READ(5,1002)IPEP(I),T(I),(X(J,I),J=1,NJ)
+C       WRITE(4,1502)IPEP(I),T(I),(X(J,I),J=1,NJ)
+1502    FORMAT(I4,B6.1,27B3.0)
+1002    FORMAT(I3,B6.1,27B3.0)
+        PRED=0.
+        DSUM=1.D0
+        DO 21 J=1,NJ
+        WT(I)=WT(I)+X(J,I)
+21      DSUM=DSUM+AK(J)*X(J,I)
+C  NEW WEIGHTS ARE 1/N:
+        WT(I)=1.D0/WT(I)
+C       WT(I)=1.D0/WT(I)**2
+        IF(WN.NE.'Y')WT(I)=1.D0
+        IF(DSUM.LT.0.D0)DSUM=DABS(DSUM)
+        PRED=AK(NPAR-1)*DLOG(DSUM)+AK(NPAR)
+        D=T(I)-PRED
+        SPT=SPT+PRED*T(I)
+        ST=ST+T(I)
+        STQ=STQ+T(I)**2
+        SP=SP+PRED
+        SPQ=SPQ+PRED**2
+        RMS=RMS+D**2
+30      CONTINUE
+        RMS=SQRT(RMS/FLOAT(NPOIT))
+        WRITE(4,1221)RMS
+C  CORRELATION OF OBS AND PRED:
+        TOP=SPT-ST*SP/NPOIT
+        COR=TOP/SQRT((STQ-ST**2/NPOIT)*(SPQ-SP**2/NPOIT))
+        TITL='NON-WT'
+        WRITE(4,1224)TITL,COR
+C       COMMENCE ITERATION
+        DOLD=0.D0
+        DNEW=0.D0
+        DO 999 KK=1,NITER
+        INDIC=0
+        WRITE(4,1999)KK
+1999    FORMAT(' ITERATION 'I4)
+        DO 115 K=1,NFIT
+        B(K)=0.D0
+        DO 115 J=1,NFIT
+115     A(K,J)=0.D0
+        DO 152 I=1,NPOIT
+        D=-T(I)+AK(NPAR)
+        DSUM=0.D0
+        DO 120 J=1,NJ
+120     DSUM=DSUM+AK(J)*X(J,I)
+        DSUM=1.D0+DSUM
+        D=D+AK(NPAR-1)*DLOG(DSUM)
+        L=0
+        DO 122 J=NST,NPAR-2
+        L=L+1
+122     S(L)=AK(NPAR-1)*X(J,I)/DSUM
+        L=L+1
+        S(L)=DLOG(DSUM)
+        L=L+1
+        S(L)=1.D0
+        DNEW=DNEW+D*D
+        DO 150 K=1,NFIT
+        B(K)=B(K)+D*S(K)*WT(I)
+        DO 150 J=1,NFIT
+150     A(K,J)=A(K,J)+S(K)*S(J)*WT(I)
+152     CONTINUE
+        RMS=DSQRT(DNEW/DBLE(NPOIT))
+        WRITE(4,1152)RMS
+1152    FORMAT(' NON-WEIGHTED RMS ='F9.3)
+        IF(YN.NE.'Y')GO TO 250
+        D=A(1,1)
+        DO 230 K=1,NFIT
+        IF(D.GT.A(K,K))D=A(K,K)
+230     CONTINUE
+        D=D*DABS(DNEW-DOLD)/DNEW
+        DO 240 K=1,NFIT
+240     A(K,K)=A(K,K)+D*A(K,K)
+        DOLD=DNEW
+250     DNEW=0.D0
+C       MAY HAVE TOO MUCH NESTED HERE
+C  DIVIDE A BY AVERAGE OF DIAGONAL:
+        D=0.D0
+        DO 300 I=1,NFIT
+300     D=D+A(I,I)
+        DSUM=DBLE(NFIT)
+        D=D/DSUM
+        AVRG=D
+        DO 310 I=1,NFIT
+        DO 310 J=1,NFIT
+310     A(I,J)=A(I,J)/AVRG
+        CALL MATINV(A,NFIT)
+C        CALL SSW(1,NSW1)
+        DO 156 I=1,NFIT
+        C(I)=0.
+        DO 155 J=1,NFIT
+155     C(I)=C(I)+B(J)*A(I,J)
+156     C(I)=C(I)/AVRG
+C  LIMIT CHANGES AS ON VAX (OPTIONAL):
+        IF(XN.NE.'Y')GO TO 340
+        CMAX=0.D0
+        DO 320 I=1,NJ
+        IF(C(I).GT.CMAX)CMAX=C(I)
+320     CONTINUE
+        IF(CMAX.LT.CLIM)GO TO 340
+        DO 330 I=1,NFIT
+330     C(I)=C(I)*0.5*CLIM/CMAX
+C       UPDATE AND PRINTOUT
+340     L=0
+        DO 160 J=NST,NPAR
+        L=L+1
+        S(L)=DABS(C(L)/AK(J))
+        IF(S(L).GT.ESCAP)INDIC=1
+1160    FORMAT(I3,' PAR = ',D12.5,'  CHNG =',D12.5,' RAT:',B9.4)
+        AK(J)=AK(J)-C(L)
+        IF(KK.EQ.NITER)GO TO 159
+C        IF(NSW1)GO TO 160
+159     WRITE(4,1160)J,AK(J),C(L),S(L)
+160     CONTINUE
+        WRITE(4,1181)
+1181    FORMAT(///)
+C        CALL SSW(1,NSW1)
+        IF(KK.EQ.1)GO TO 999
+        IF(INDIC)190,190,999
+999     CONTINUE
+C  PREDICT VALUES:
+190     IF(WN.EQ.'Y')WRITE(4,1190)
+1190    FORMAT(//' WEIGHTED LEAST SQUARES (12-26-81 WT = 1/N)'/)
+        DO 192 I=1,6
+        K=5*(I-1)+1
+        L=5*I
+        IF(L.GT.NPAR)L=NPAR
+        WRITE(4,1201)(AA(J),J=K,L)
+1201    FORMAT(1X,5(5X,A3))
+192     WRITE(4,1202)(AK(J),J=K,L)
+1202    FORMAT(1X,5B8.3)
+        DO 195 I=1,NJ
+        PA(I)='   '
+        KA(I)=0
+195     S(I)=0.
+        RMS=0.
+        SPT=0.
+        SP=0.
+        SPQ=0.
+        ST=0.
+        STQ=0.
+        SW=0.
+        SUMP=0.
+        WRITE(4,1226)
+1226    FORMAT('  I  N(I) T(OBS)  PRED   DEV   PCT  1 + D*X      PEPTID
+     1E')
+C******************************
+C  PLOTTING
+C       WRITE(7,1209)NPOIT
+C******************************
+        DO 220 I=1,NPOIT
+        PRED=0.
+        DSUM=1.D0
+        LL=0
+        WR=1.D0/WT(I)
+        DO 210 J=1,NJ
+        S(J)=S(J)+X(J,I)
+        DSUM=DSUM+AK(J)*X(J,I)
+        IF(X(J,I).EQ.0.)GO TO 210
+        LL=LL+1
+        KA(LL)=X(J,I)+1.D-6
+        PA(LL)=AA(J)
+210     CONTINUE
+        PRED=AK(NPAR-1)*DLOG(DSUM)+AK(NPAR)
+C******************************
+C  FOR PLOTTING:
+C       VAL=DLOG(DSUM)
+C       WRITE(7,1209)I,T(I),VAL
+C1209   FORMAT(I4,F6.1,F8.4)
+C******************************
+        D=T(I)-PRED
+        PCT=100.*D/T(I)
+        SUMP=SUMP+ABS(PCT)
+        SPT=SPT+PRED*T(I)*WT(I)
+        ST=ST+T(I)*WT(I)
+        STQ=STQ+WT(I)*T(I)**2
+        SP=SP+PRED*WT(I)
+        SPQ=SPQ+WT(I)*PRED**2
+        RMS=RMS+WT(I)*D**2
+        SW=SW+WT(I)
+        WRITE(4,1220)IPEP(I),WR,T(I),PRED,D,PCT,DSUM,(PA(K),K=1,LL)
+        WRITE(4,1231)(KA(K),K=1,LL)
+1231    FORMAT(45X,27I3)
+220     CONTINUE
+1220    FORMAT(I4,B5.0,3B6.1,F6.0,B10.3,2X,27A3)
+        RMS=SQRT(RMS/SW)
+        SUMP=SUMP/NPOIT
+        IF(WN.EQ.'Y')WRITE(4,1190)
+        WRITE(4,1221)RMS
+1221    FORMAT(/' RMS FIT: ',F9.3)
+        WRITE(4,1227)SUMP
+1227    FORMAT(' MEAN PERCENT DEV:'F6.1/)
+C
+C  CORRELATION OF OBS AND PRED:
+        TOP=SPT-ST*SP/SW
+        COR=TOP/SQRT((STQ-ST**2/SW)*(SPQ-SP**2/SW))
+        TITL='WEIGHT'
+        IF(WN.NE.'Y')TITL='NON-WT'
+        WRITE(4,1224)TITL,COR
+1224    FORMAT(1X,A6' CORRELATION OF OBS AND PRED:'F8.5)
+C  NEXT CAN BE REFORMATED TO WRITE UNIT 7 IF DESIRED, A3,B8.3 WOULD BE
+C PROPER FORMAT:
+        L=0
+        DO 260 I=1,NFIT
+260     B(I)=RMS*DSQRT(A(I,I))
+        WRITE(4,1225)
+1225    FORMAT('  AA    COEF   ERROR   #AA')
+        DO 261 I=1,NST-1
+261     WRITE(4,1261)AA(I),AK(I),S(I)
+1261    FORMAT(1X,A3,B8.3,8X,B7.0)
+1222    FORMAT(1X,A3,B8.3,B7.0)
+        S(NPAR)=0
+        S(NPAR-1)=0
+        L=0
+        DO 262 I=NST,NPAR
+        L=L+1
+262     WRITE(4,1260)AA(I),AK(I),B(L),S(I)
+1260    FORMAT(1X,A3,2B8.3,B7.0)
+        WRITE(4,1223)
+1223    FORMAT(///)
+        WRITE(7,1275)(AA(I),AK(I),I=1,NJ)
+        WRITE(7,1275)TIT,AK(NPAR-1)
+        WRITE(7,1275)U,AK(NPAR)
+1275    FORMAT(A3,B10.5)
+        CALL EXIT
+        END
+        SUBROUTINE MATINV(A,N)
+C       MATRIX INVERSION DOUBLE PRECISION CALLING
+C       N IS THE RANK OF THE SQUARE MATRIX [A].
+C
+        DIMENSION IPIVOT(28),INDEX(28,2)
+        DOUBLE PRECISION A(28,28),PIVOT(28),T,AMAX,SWAP,DETERM
+        DOUBLE PRECISION DABS
+C
+        DETERM=1.D0
+        DO 20 J=1,N
+20      IPIVOT(J)=0
+        DO 550 I=1,N
+C       SEARCH FOR PIVOT ELEMENT
+        AMAX=0.D0
+        DO 105 J=1,N
+        IF(IPIVOT(J).EQ.1) GO TO 105
+        DO 100 K=1,N
+        IF(IPIVOT(K).EQ.1) GO TO 100
+        IF(IPIVOT(K).GT.1) GO TO 740
+        IF(DABS(AMAX).GE.DABS(A(J,K))) GO TO 100
+        IROW=J
+        ICOLUM=K
+        AMAX=A(J,K)
+100     CONTINUE
+105     CONTINUE
+        IPIVOT(ICOLUM)=IPIVOT(ICOLUM)+1
+C       INTERCHANGE ROWS TO PUT PIVOT ELEMENT ON DIAGONAL
+        IF(IROW.EQ.ICOLUM) GO TO 260
+140     DETERM=-DETERM
+        DO 200 L=1,N
+        SWAP=A(IROW,L)
+        A(IROW,L)=A(ICOLUM,L)
+200     A(ICOLUM,L)=SWAP
+260     INDEX(I,1)=IROW
+        INDEX(I,2)=ICOLUM
+        PIVOT(I)=A(ICOLUM,ICOLUM)
+        IF(PIVOT(I).EQ.1.0D0) GO TO 351
+        DETERM=DETERM*PIVOT(I)
+C       DIVIDE PIVOT ROW BY PIVOT ELEMENT
+        A(ICOLUM,ICOLUM)=1.D0
+        DO 350 L=1,N
+        IF(A(ICOLUM,L).EQ.0.D0) GO TO 350
+        A(ICOLUM,L)=A(ICOLUM,L)/PIVOT(I)
+350     CONTINUE
+351     CONTINUE
+C       REDUCE NON-PIVOT ROWS
+        DO 550 L1=1,N
+        IF(L1.EQ.ICOLUM) GO TO 550
+        T=A(L1,ICOLUM)
+        A(L1,ICOLUM)=0.D0
+        DO 450 L=1,N
+        IF(A(ICOLUM,L).EQ.0.D0) GO TO 450
+        A(L1,L)=A(L1,L)-A(ICOLUM,L)*T
+450     CONTINUE
+550     CONTINUE
+C       INTERCHANGE COLUMNS
+        DO 710 I=1,N
+        L=N+1-I
+        IF(INDEX(L,1).EQ.INDEX(L,2))GO TO 710
+        JROW=INDEX(L,1)
+        JCOLUM=INDEX(L,2)
+        DO 705 K=1,N
+        SWAP=A(K,JROW)
+        A(K,JROW)=A(K,JCOLUM)
+705     A(K,JCOLUM)=SWAP
+710     CONTINUE
+740     CONTINUE
+        RETURN
+        END
+COLUM,L)*T
+450     CONTINUE
+550     CONTINUE
+C       INTERCHANGE COLUMNS
+        DO 710 I=1,N
+        L=N+1-I
+        IF(INDEX(L,1).EQ.INDEX(L,2))GO TO 710
+        JROW=INDEX(L,1)
+        JCOLUM=INDEX(L,2)
+        DO 705 K=1,N
+        SWAP=A(K,JROW)
+        A(K,JROW)=A(K,JCOLUM)
+705     A(K,JCOLUM)=SWAP
+7

@@ -1,0 +1,203 @@
+C  LAMDA2.F4
+C    CALLS TRIDAG.F4  (SOLVES TRIDIAGONAL MATRIX)
+C    CALLS CDC SUBROUTINE FLGNEW
+C         CALCULATES STOKE'S CORRECTION FACTOR
+C         FOR MOTION OF TWO SPHERES PERPENDICULAR TO LINE OF CENTERS
+C         USING METHOD BY GOLDMAN, COX, & BRENNER
+C
+        PROGRAM LAMDA2(INPUT,OUTPUT,TAPE4=INPUT,TAPE5=OUTPUT)
+        DOUBLE PRECISION ALFA,AINC,Q,X,X1,X2,DI,DI2,RT2,DTRM,BTRM
+        DOUBLE PRECISION ALAMDA,DSINH,DCOSH,DTANH,DLOG,DSQRT
+        DOUBLE PRECISION A(500,3),B(501),G(501),G0
+        DOUBLE PRECISION S(9),FUDGE,BX2(51),BAF2(51)
+        DIMENSION BX(51),BAL(51),BP(51),BR(51),BAF(51)
+        DATA S/1.D0,3.D0,9.D0,59.D0,465.D0,2259.D0,8601.D0,52779.D0,1529
+     127.D0/
+C
+        MAX=500
+        MS=9
+        MDAT=51
+        NDAT=0
+        FUDGE=1.D-18
+        X=0.D0
+        AINC=.1D0
+        RT2=DSQRT(2.D0)
+        NSTRP=-1
+C
+        DO 5 I=1,MS
+5       S(I)=S(I)/4.D0**(I-1)
+C
+        READ(4,1010)N
+1010    FORMAT(I5)
+        Q=N
+        AINC=1.D0/(Q+1.D0)
+        IF(N.GT.MDAT)STOP
+C
+        WRITE(5,1012)
+        WRITE(5,1013)
+1012    FORMAT(47H1LAGRANGE INTERPOLATION OF PERPENDICULAR MOTION)
+1013    FORMAT(33H OF TWO SPHERES IN VISCIOUS FLUID)
+        WRITE(5,1015)N,AINC
+1015    FORMAT(/14H DATA POINTS =,I5,14H   INCREMENT =,D15.8/)
+C
+100     X=X+AINC
+        IF(X.GT.1.D0-AINC)GOTO 400
+        X1=1.D0/X
+C   X1 = L/2A = COSH(ALPHA)   BRENNER PG. 272
+        ALFA=DLOG(X1+DSQRT(X1*X1-1))
+C
+        DO 10 I=1,MAX
+        B(I)=0.D0
+        G(I)=0.D0
+        DO 10 J=1,3
+10      A(I,J)=0.D0
+        B(MAX+1)=0.D0
+        G(MAX+1)=0.D0
+C
+C   START LOOP
+C
+        G0=DTANH(.5D0*ALFA)/DTANH(ALFA)
+        NQ=MAX+1
+        DO 200 I=1,NQ
+200     G(I)=DTANH((I+.5)*ALFA)/DTANH(ALFA)
+C
+C   REM CALC. FIRST SET OF COEF. FOR A
+        A(1,2)=3.D0-5.D0*G(1)+(10.D0*G(2)-G0-11.D0)/3.D0
+        A(1,3)=21.D0*(G(1)+1.D0)/5.D0-3.D0*(G(2)+1.D0)
+C
+        Q=DEXP(ALFA)/DCOSH(.5D0*ALFA)
+        Q=Q-2.D0/DCOSH(1.5D0*ALFA)
+        Q=Q+DEXP(-ALFA)/DCOSH(2.5D0*ALFA)
+        B(1)=RT2*DEXP(-1.5D0*ALFA)*Q
+C
+C   CALC. REST OF COEF.
+        I=1
+250     I=I+1
+        IF(I.GT.MAX)GOTO 260
+        DI=I
+        DI2=2.D0*DI
+C
+        Q=(DI-1.D0)*(G(I-1)-1.D0)
+        A(I,1)=Q-(DI-1.D0)*(DI2-3.D0)*(G(I)-1.D0)/(DI2-1.D0)
+C
+        Q=DI2+1.D0-5.D0*G(I)
+        Q=Q-DI*(DI2-1.D0)*(G(I-1)+1.D0)/(DI2+1.D0)
+        A(I,2)=Q+(DI+1.D0)*(DI2+3.D0)*(G(I+1)-1.D0)/(DI2+1.D0)
+C
+        Q=(DI+2.D0)*(DI2+5.D0)*(G(I)+1.D0)/(DI2+3.D0)
+        A(I,3)=Q-(DI+2.D0)*(G(I+1)+1.D0)
+C
+        Q=DEXP(ALFA)/DCOSH((DI-.5D0)*ALFA)
+        Q=Q-2.D0/DCOSH((DI+.5D0)*ALFA)
+        Q=Q+DEXP((-1.D0)*ALFA)/DCOSH((DI+1.5D0)*ALFA)
+        B(I)=RT2*DEXP((-1.D0)*(DI+.5D0)*ALFA)*Q
+C
+        IF(B(I).GT.FUDGE)GOTO 250
+260     NN=I-1
+C
+C    SOLVE SET OF SIMULTANEOUS EQS. A()   (RETURNED IN B)
+        NQ=MAX+1
+        CALL TRIDAG(MAX,NQ,NN,A,B)
+C
+C    ADD SERIES
+C     CALCULATE ZERO TERM
+        Q=2.D0*RT2*DEXP((-.5D0)*ALFA)/DCOSH(.5D0*ALFA)
+        ALAMDA=Q+2.D0*(G0+1.D0)*B(1)/3.D0
+C     CALC. REST OF TERMS
+        DO 300 I=1,NN
+        DI=I
+        DI2=2.D0*DI
+        II=I-1
+        IF(II.LE.0)II=NN+1
+C
+        DTRM=2.D0*RT2*DEXP((-1.D0)*(DI+.5D0)*ALFA)
+        DTRM=DTRM/DCOSH((DI+.5D0)*ALFA)
+        DTRM=DTRM-DI*(DI-1.D0)*(G(I)-1.D0)*B(II)/(DI2-1.D0)
+        DTRM=DTRM+(DI+1.D0)*(DI+2.D0)*(G(I)+1.D0)*B(I+1)/(DI2+3.D0)
+C
+        BTRM=2.D0*(DI-1.D0)*(G(I)-1.D0)*B(II)/(DI2-1.D0)
+        BTRM=BTRM-2.D0*G(I)*B(I)
+        BTRM=BTRM+2.D0*(DI+2.D0)*(G(I)+1.D0)*B(I+1)/(DI2+3.D0)
+C
+        ALAMDA=ALAMDA+DTRM+DI*(DI+1.D0)*BTRM
+300     CONTINUE
+        ALAMDA=ALAMDA*DSINH(ALFA)*(-1.D0)*RT2/6.D0
+C
+C   RESULTS
+C
+        X2=X/2.D0
+        ALAMDA=-ALAMDA
+C
+        NDAT=NDAT+1
+        BX2(NDAT)=X2
+        BAF2(NDAT)=ALAMDA
+        GOTO 100
+C
+400     NSTRP=NSTRP+1
+        IF(NSTRP.GT.MS)GOTO 900
+C
+        DO 600 I=1,N
+        Q=BAF2(I)
+        X=BX2(I)
+        IF(NSTRP.EQ.0)GOTO 550
+        DO 500 J=1,NSTRP
+        Q=Q-S(J)*X**(J-1)
+500     CONTINUE
+        Q=Q/X**(NSTRP)
+550     BX(I)=SNGL(X)
+        BAF(I)=SNGL(Q)
+600     CONTINUE
+C
+        NQ=N-1
+        CALL FLGNEW(BX,BAF,NQ,BAL,BP,BR)
+        WRITE(5,1005)NSTRP
+1005    FORMAT(/27H NUMBER OF TERMS REMOVED = ,I5)
+        WRITE(5,1000)(S(I),I=1,MS)
+1000    FORMAT(5E25.18)
+        GOTO 400
+900     STOP
+        END
+C   TRIDAG.F4
+C     SOLVES A SET OF SIMULTANEOUS EQUATIONS
+C     IN TRI-DIAGONAL FORM
+C     USING GAUSSIAN REDUCTION
+C      FIRST AND LAST ELEMENTS OF MATRIX MUST BE ZERO
+C
+        SUBROUTINE TRIDAG(NMAX,N1,N,A,B)
+        DOUBLE PRECISION A(NMAX,3),B(N1)
+C
+        A(1,1)=0.D0
+        A(N,3)=0.D0
+C
+        B(1)=B(1)/A(1,2)
+        A(1,3)=A(1,3)/A(1,2)
+        A(1,2)=1.D0
+C
+        DO 100 I=2,N
+        A(I,2)=A(I,2)-A(I,1)*A(I-1,3)
+        B(I)=B(I)-A(I,1)*B(I-1)
+        A(I,1)=0.D0
+C
+        A(I,3)=A(I,3)/A(I,2)
+        B(I)=B(I)/A(I,2)
+        A(I,2)=1.D0
+100     CONTINUE
+C
+        NQ=N-1
+        DO 200 I=1,NQ
+        II=N-I
+        B(II)=B(II)-A(II,3)*B(II+1)
+200     CONTINUE
+        RETURN
+        END
+2)
+        A(1,2)=1.D0
+C
+        DO 100 I=2,N
+        A(I,2)=A(I,2)-A(I,1)*A(I-1,3)
+        B(I)=B(I)-A(I,1)*B(I-1)
+        A(I,1)=0.D0
+C
+        A(I,3)=A(I,3)/A(I,2)
+        B(I)=B(I)/A(I,2)
+        A(I,

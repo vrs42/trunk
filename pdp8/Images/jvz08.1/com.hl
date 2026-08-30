@@ -1,0 +1,46 @@
+	CDC to PDP-12 and PDP-12 to CDC communications.
+
+I.  At the CDC, communication is implemented by programs COM2 and
+COM3, which are found in the library file LIB1.  When this file has
+been purged from disk, it must be copied from tape P96, using the 
+following JCL:
+	REQUEST,LIB1,*PF.
+	REQUEST,TAPE,VSN=P96,E,NORING.
+	SKIPF,TAPE,5,17.
+	COPYBF,TAPE,LIB1.
+	RANDOM,LIB1.
+	CATALOG,LIB1,RP=30.
+
+II.  PDP-12 to CDC-6400 communication is accomplished by the COM2
+programs.  The information to be transmitted should be put in a file
+with a six character filename and .DA extension.  You will need to 
+know the number of lines in the file.  Lines may not be longer than
+80 characters.  Then proceed as follows:
+	Turn on VADIC modem and check wire to PDP-12.
+	.R COM2  and give it filename and number of lines.
+	Call CDC and login.
+	COMMAND-ATTACH,LIB1
+	COMMAND-LIBRARY,LIB1
+	COMMAND-COM2
+	Wait for message, then hit ^G to start transmission.  MQ
+shows characters being transmitted.  Wait for end message.
+	COMMAND-CATALOG,TAPE7,filename
+	Logout, and hit ^C to terminate PDP-12 program.
+
+III.  CDC to PDP-12 communication uses the COM3 programs.  The file 
+to be transmitted must be on TAPE4, and only 80 characters per line
+can be transmitted.  At the PDP-12, the file will be written on DTA1:
+with your specified six character filename and .DA extension.
+Proceed as follows:
+	Turn modem on.
+	.AS DSK DTA1    (if you want file on DSK:)
+	.R COM3  and give it output filename.
+	Login on CDC.
+	COMMAND-ATTACH,LIB1
+	COMMAND-LIBRARY,LIB1
+	COMMAND-ETL,60   (time limit, for big files)
+	COMMAND-ATTACH,TAPE4,filename
+	COMMAND-COM3
+	Wait for message, then hit ^G to proceed.  After each 100 
+100 lines is received a message is printed and errors are indicated.
+	Logout, hit ^G to terminate PDP-12 program.

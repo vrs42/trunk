@@ -1,0 +1,147 @@
+{$X+ allow Pascal-OS/8 extensions} {$L+ listing on}
+{$P- turn off PMD processing}
+
+program CopyV(data,copy:' ',output);
+
+{Copyright (C) 1981, 1982 by John Easton, James Miner and SSRFC, U of M}
+
+{Copy data to copy and then verify the copy against the data.
+ John T. Easton   SSRFC   1981-03-24
+
+ To use, do:
+
+		.R P8RTS,COPYV,datafilename,copyfilename
+
+ and messages will report progress of operation.
+ If the copy does not verify correctly, a message is printed and
+ execution is halted.
+
+ If the copyfilename is omitted, no name is assumed, and a
+ run-time error will result.
+
+ If the copyfilename is a device name name only, and it is a
+ different device than in the datafilename, the datafilename
+ file-name part and extension are used for the copyfilename.
+ That is,
+
+		.R P8RTS,COPYV,SYS:BATCH.SV,SCR:
+
+ will append 'BATCH.SV' to the copy file name and perform the
+ copy and verify.
+
+}
+{$L- compiler listing off}
+{warning: this program is a kludge upon 12-bit char! -- JTE}
+
+  const
+    fnlength = 14;
+
+  type
+    filename = packed array[1..fnlength] of char;
+    natural = 0..maxint;
+
+  var
+    {$B16  use half-track (full-field) I/O buffers}
+    data, copy : file of packed array[1..256] of char;
+    datafn, copyfn : filename;
+
+  procedure PrintFN(fn: filename);
+   var i: 1..fnlength;
+  begin {PrintFN}
+    for i := 1 to fnlength do
+(*    if fn[i] <> ' ' then *) write(output,fn[i])
+  end {PrintFN};
+
+  procedure SubstituteNames;
+    var
+      i: 0..fnlength;
+      samedevice: boolean;
+  begin {SubstituteNames}
+    if copyfn[6] = ' ' then {compare device names}
+      begin
+        samedevice := true;
+        for i := 1 to 5 do
+          if copyfn[i] <> datafn[i] then samedevice := false;
+        if not samedevice then {ok to substitute}
+          for i := 6 to 14 do copyfn[i] := datafn[i]
+      end
+  end {SubstituteNames};
+
+
+  procedure CopyData;
+  begin {CopyData}
+    rewrite(copy,copyfn);
+    while not eof(data) do
+      begin
+        copy^ := data^;
+        put(copy);
+        get(data)
+      end
+  end {CopyData};
+
+  procedure VerifyDataCopy;
+    var verrors, relblock: natural;
+
+    procedure MarkFailure;
+    begin
+      if verrors = 0 then writeln(output,' Failed!');
+      verrors := verrors + 1
+    end;
+
+  begin {VerifyDataCopy}
+    verrors := 0; relblock := 0;
+    while not eof(data) do
+      begin
+        if data^ <> copy^ then
+          begin
+            MarkFailure;
+            writeln(output,'** compare errors in relative block ',relblock:3)
+          end;
+        get(data);
+        if not eof(copy) then get(copy)
+        else
+          begin
+            MarkFailure;
+            writeln(output,'** Extra data on ',datafn)
+          end;
+        relblock := relblock + 1
+      end;
+    if not eof(copy) then
+      begin
+        MarkFailure;
+        writeln(output,'** Extra data on ',copyfn)
+      end;
+    if verrors = 0 then writeln(output,' Verified.')
+    else
+      begin
+        writeln(output,'** ',verrors:1,' Verify Error(s) **');
+        halt('Verify Error(s)')
+      end
+  end {VerifyDataCopy};
+
+begin {CopyV}
+  reset(data);
+  if not eof(data) then
+    begin
+      getfn(data,datafn);
+      getfn(copy,copyfn);
+      SubstituteNames;
+      write(output,'  Copy ');
+      PrintFN(datafn);
+      write(output, ' to ');
+      PrintFN(copyfn);
+      write(output,' --');
+      CopyData;
+      reset(copy);
+      reset(data);
+      VerifyDataCopy
+    end
+  else
+    begin
+      getfn(data,datafn);
+      write(output, 'File ');
+      PrintFN(datafn);
+      writeln(output, ' is empty.')
+    end
+end {CopyV}.
+

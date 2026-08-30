@@ -1,0 +1,24 @@
+The TERMIN program connects the PDP/8/12 console device to a remote com-
+puter system through a serial-line interface (KL8-E, -JA, M707, SLU2,3).
+Runtime options provide selection of device codes, control-code flagging
+and baud rate selection (DECstations only).  TERMIN is typically used to
+establish a connection with a remote machine, using the HOST handler for
+the actual data transmission.  XON-XOFF handshaking is used, hence a 110
+baud terminal can be used with a 9600 baud data line.
+
+Command form:		.TER /option list
+
+Options:	/Arrow		print control codes as '^char'
+		/Baudrate=nnnn	Set baud rate (50-19200)
+		/Speed= nnnn	Same as /Baudrate
+		/Input= nn	Two-digit input device code
+		/Output=nn	Two-digit output device code
+		/Decsta=2,3	Select SLU2 or SLU3 on VT/78
+		/Normal		Restores default settings
+		/Normal= nn	Same + sets device codes (nn,nn+1)
+		/Permanent	Saves any changes made
+		/Help		Prints option summary
+		/Version	Prints version number
+
+For more information, please contact  Jim van Zee  at  Lab Data Systems,
+10320 Ravenna Avenue N.E.  Seattle,  Washington  98125.

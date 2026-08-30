@@ -1,0 +1,31 @@
+  UC PROGRAMS JAN-82
+RAYLEIGH:
+A) EQUILIBRIUM:
+	PLRDR1.LD	read plates
+	PLRDR2.LD	<TOVER1,TRHS,STAGE,TSTEP,TSCAN9 reads up to 4
+			channels of data, but is slow.
+B) VELOCITY:
+	FPROG.LD	same as EPROG.LD but output can be used by
+			SEDCF.LD for s & D.
+SCANNER:
+A)SEDIMENTATION EQUILIBRIUM:
+	UCMPX.LD	get scans for most purposes; collects 2nd points
+		of data.
+	UCSCAN.LD	use when not a multiplexer operation or if you
+		want every possible data point.
+	SPROG.LD	corresponds to DATED.LD of rayleigh system
+	SLOPD.LD	corresponds to a low speed equil program.
+	SCEXFD.LD	fits sums of exponentials plus baseline
+		(1-May-84).
+	UCFILL.F4	cell filling schedule for multichannel, multi-
+		sample experiments.
+	MERGSC.F4	merge outputs of several SLOPD files.
+	AVSCOP.F4	(AVRGW SUBR) average merged scanner files.
+B) SEDIMENTATION VELOCITY:
+	GETSCN.LD	get multiplexed (or not) velocity experiments.
+	EQSCN.LD	Equivalent boundary (moving boundary).
+	ACTENZ.LD	Active enzyme sed vel.
+	SEDAE.LD	Get s from o.p. of ACTENZ.
+	SEDCF.LD	The (optional) output of EQSCN is used for
+			sedimentation coefficient calcns.
+end

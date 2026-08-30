@@ -1,0 +1,14 @@
+100 !	BASIC User function demo. Checks to see if BATCH
+110 !	is running, prints a message about that, gets the
+120 !	switch register, and then exits.
+130 UDEF BAT(D),CAF(D),LAS(D)	!Define the functions
+140 I=BAT(0)		!Get BATCH status
+150 J=LAS(0)		!And the switch register.
+160 !	Print the message.
+170 IF I <> 0 THEN 200
+180 PRINT "BATCH is not running";
+190 GOTO 210
+200 PRINT "BATCH is running, memory size";(I*4)+4;"K";
+210 PRINT "  Console switches=";J
+220 STOP
+230 END

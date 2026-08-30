@@ -1,0 +1,1776 @@
+	FILE	A C I D  -- Documentation Program JY-5L
+	NOLIST			VERSION	01.14
+SWIT2	QUT	1,07644		DECODER SWITCHES (M-X)
+SWIT3	QUT	1,07645		SWITCHES (YZ, 0-9)
+ZZDATE	QUT	1,07666		OS-8 SYSTEM DATE WORD
+	AIF	&ZZDATE,.ENTERED	CHECK TO SEE IF DATE WAS ENTERED
+	ERROR:	TODAY'S DATE NOT ENTERED TO OS-8
+	MONR	WE SHOULD ALWAYS HAVE DATE ON ASSEMBLY LISTINGS
+.ENTERED AIF	(&SWIT2.AN.010).EQ.0,.NOLISTC
+	LISTC			SWITCH 'U' SET - LIST ALL
+	LIST			ALSO-LIST THE MACRO DEFINITIONS TOO
+.NOLISTC TITLE	<MACROS> General macro definitions
+/
+/	GENERAL MACRO DEFINITIONS
+/
+	MACRO			COMMON LOOPING MACRO
+	LOOP	<ADDRESS><COUNT=CNTR>
+<>	ISZ	<COUNT>
+	JMP	<ADDRESS>
+	MEND
+/
+	MACRO
+	.MONTH	<ARG>		; Argument is name of month
+:A	MSCAN	0,<ARG>		; Scan first character
+:B	MSCAN	1,<ARG>		; Scan second character
+:C	MSCAN	2,<ARG>		; Scan third character
+!<>	DC	:A,:B,:C	; Generate three words
+	MEND
+/
+/	LIST	<ACID>
+	TITLE	Introduction
+/
+/
+/
+/
+/	**************************************************
+/	**						**
+/	**	A C I D   D O C U M E N T A T I O N	**
+/	**						**
+/	**	         P R O G R A M			**
+/	**						**
+/	**		    JY-5L			**
+/	**						**
+/	**************************************************
+/
+/
+/
+/	This program is a sophisticated documentation package for generating
+/	all kinds of user and/or technical documentation. Among the important
+/	features in ACID are:
+/
+/	1.	Automatic indexing facility for headings
+/	2.	Resolution of forward, symbolic references to title headings
+/	3.	Provision for semi-automatic hyphenation of the text
+/	4.	Justification algorithm that prevents RIVERS from occuring
+/		in the text.
+/	5.	Provision for avoiding bad page breaks in sections of text
+/	6.	Simple provisions for generating upper/lower case printer
+/		output when only an upper case console is available for input.
+/	7.	Extraordinarily simple markup requirements including semantic
+/		recognition of indents and runarounds etc.
+	NOLIST
+	TITLE	ACID Commands & Run-time options
+/
+/	Run-time Options:
+/
+/	/H	Disable hyphenation. ACID will not request hyphenation for
+/		underset lines.
+/
+/	/I	Inhibits the generation of the cross-reference directory of
+/		all sections and also disallows [=] type references.
+/
+/	/N	No symbolic references: If this switch is set, ACID assumes
+/		that there are no symbolic references to process and will
+/		therefore skip pass 1.
+/
+/	/S	Select pages to be printed. A message is given to the
+/		operator & desired pages for output are entered via
+/		the consol. This is needed because fractional files
+/		contain codes somewhat incompatable with most editors.
+/
+/	NOTE:	ACID is a three-pass program. Two passes are necessary
+/		in order to resolve all forward references. The third pass
+/		is necessary in order to ensure that all page references
+/		are precisely accurate. Avoiding pass 3 would mean that
+/		some page references could be off. WHY? because forward
+/		symbolic references mean that the length of the section #
+/		may not be known until pass 2. However, the length of these
+/		section numbers can affect the line justification which
+/		in turn can affect the paging.
+/
+/	Pass 1	Only function is to build the symbol table of all section
+/		header references.
+/
+/	Pass 2	In this pass, the section references are known, so the
+/		hyphenation can be performed. At the same time, the symbol
+/		table is rebuilt again on top of the old one, since in pass 2
+/		we can now insert the precise page numbers for all references.
+/
+/	Pass 3	Final output is generated during this pass.
+/
+/	Note that we could avoid pass 3, by putting the table of contents at
+/	the end of the listing and doing the hyphenation concurrently with
+/	the output. However, it is much more convenient to go to an extra
+/	pass so the operator does not have to wait around to do the hyphenation
+/
+/	=nnnn	This command sets a floating margin for the final output.
+/		The default value is zero, which means that the output will
+/		start in column one on the output device. If a non-zero value
+/		is present, ACID will automatically indent all lines on the
+/		final output by the specified amount in 'nnn'.
+/
+/
+/	ACID commands:
+/
+/	All ACID commands are enclosed in square brackets. Command letters
+/	can be entered in either upper or lower case.
+/
+/	[C]	Centre line. The line to the left of this command will be
+/		centred on the current column. The line may begin with an
+/		an indent in which case the text is centred over the
+/		the indented text to follow.
+/
+/	[D]	This is replaced by today's date from OS/8 in the form:
+/		Sep-23, 1976. An error is generated if there is no date in
+/		the OS/8 date word.
+/
+/	[E]	Empty the line buffer. Dump the preceding line without CRLF.
+/		Used to terminate long escape sequences before line buffer
+/		overflow.
+/
+/	[Faa,bb,cc,dd,ee]	Set page format.
+/
+/		aa is the drop from the title line.
+/		bb is the number of lines per page (excluding title).
+/		cc is the font number for the title.
+/		dd is the font number for the paragraph titles.
+/		ee is the font number for the text.
+/
+/	[H]	Change heading. [H] marks the following text as the new
+/		page heading. All standard heading functions ([d],[p],[t])
+/		work as expected.
+/
+/	[J]	Resume justification of input. Only needed when a [n]
+/		command has been given.
+/
+/	[Lnn]	Linefeed size = nn,  nn is in increments of 1/48"
+/		if nn is absent a default of 6 lines/inch will be used
+/
+/	[Mnn]	Set right-hand margin at column position 'nn'. All remaining
+/		characters on the line will be stripped and ignored.
+/
+/	[N]	No justification. Line justification is inhibited. In
+/		typesetting terminology, this generates a RAGGED RIGHT
+/		condition (i.e. ragged right-hand margin).
+/
+/	[O]	Output during pass one. [O] commands must bracket text
+/		to be output during pass 1 (and only pass 1). This is
+/		intended for printer setup before any printing takes place.
+/
+/	[P]	Unconditional page eject. This command should be issued on a
+/		line by itself, since all remaining characters on the line
+/		up to the LF on that line are stripped.
+/
+/	[Pnn]	Conditional page eject. A page eject occurs if there are less
+/		than nn lines left on the current page.
+/
+/	[R]	Set line to the left of this command flush against the
+/		right-hand margin of the current line. In typesetting
+/		terminology, this is a quad right command. As with the [c]
+/		command, all remaining characters on the line are stripped.
+/
+/	[Vnn]	Vertical Tab to line 'nn' on the page. Sufficient blank lines
+/		are generated to reach line 'nn' on the output page. If already
+/		past line 'nn', this command has no effect.
+/
+/	[Wx]	Space out line to full line width by inserting the appropriate
+/		number of blanks at this point in the line. Generally
+/		used before a quad right or quad centre command. If 'x' is
+/		present, then the character 'x' is used to space out the line.
+/		instead of a blank.
+/
+/	[[]	Prints the [ character alone
+/
+/	[]]	Prints the ] character alone
+/
+/	[  ]	Generates fixed spaces (i.e. non-justifying spaces)
+/		for each space which is contained within the brackets
+/		without inhibiting justification on previous justification
+/		spaces.
+/
+/	[\]	Prints the \ character alone. The \ character is used as a
+/		discretionary (conditional) hyphen.
+/
+/	[-]	Prints the '-' (hyphen) character without having ACID
+/		treat it as a hyphenation character (i.e. ACID will not
+/		attempt to hyphenate a line at that point).
+/
+/	[^nn]	Superscript , nn is in increments of 1/48"
+/		if nn is absent a default of one half the current
+/		line feed size will be used.
+/
+/	[_nn]	Superscript, nn is in increments of 1/48"
+/		if nn is absent a default of one half the current
+/		line feed size will be used.
+/
+/	[<nn]	Backspace, nn is in increments of 1/60"
+/		if nn is absent a default of the current character
+/		width will be used.
+/
+/	[$...]	Escape sequence command. Dollar signs are converted to
+/		escape characters, sequence terminates with ].
+/
+/	[=text]	This is symbolic reference to a section number. 'text' is
+/		the text string associated with that section. The entire
+/		command is replaced with the numeric section number associated
+/		with 'text', followed by the page number.
+/
+/	[nnn]	Generate ASCII code 'nnn' where the 'nnn' represents
+/		the three octal digits of the ASCII code. The ASCII
+/		code generated is treated as having NO WIDTH. This
+/		allows backspacing or special control characters to
+/		be passed by the program.
+/
+/	[1]	Where 1 represents a digit from 1 to 9. This command is
+/		replaced by a string in the form:
+/			1.23.4
+/		which is used for a section number on the documentation.
+/		The digit represents the current level in the section number.
+/		ACID automatically keeps track of all the section numbers and
+/		increments the number associated with that level whenever this
+/		type of command is given. All text following the section number
+/		command is treated as a SYMBOLIC LABEL for that section for
+/		use in resolving symbolic references (see - command below)
+/		and for generation of the index of contents. In generating
+/		a section number, trailing section numbers greater than the
+/		current level are trimmed. Each section has an initial value
+/		of 0. Study the example below:
+/
+/	The very first line in the source input file is treated as a title
+/	for the documentation. This line is limited to 132 characters in
+/	length. As a special feature, the [d] command is permitted in this
+/	title, so that the user can place the current date in the title.
+/	Also, a [p] command is also allowed, which is replaced by the
+/	page number. A [t] command generates the total number of pages
+/	in the output file. If the first line in the file is null (i.e. just a
+/	CR/LF), then no title appears on the output.
+	TITLE	Fractional Justification File Format
+/		Fractional Justification File Format
+/
+/	In order to support fractional justification with device
+/	independence a special format output file is created.
+/	It is the responsibility of the printer device hand                                                                                                                                                                                       ler
+/	to correctly interpret the special file.
+/
+/	This file starts with a Control/Z end of file character.
+/	This character identifies the file as Fractional Justification
+/	format and signals the handler to accept the next word (not char)
+/	as a pitch argument. The format of this argument is currently
+/	the number of increments of 1/60" required for normal character
+/	spacing. Thus 10 pitch is 6, and 12 pitch is 5. This pitch
+/	argument allows the handler to identify and correctly print
+/	files of different justification pitches without operator
+/	intervention. The actual text then begins with the third word.
+/
+/	The file contains characters packed in normal OS/8 ASCII format.
+/	The characters with the parity bit set=1 are to be interpreted
+/	as standard characters whose width is defined by the pitch argument.
+/	Characters without the parity bit set should not be interpeted as
+/	standard ASCII characters, but instead specify printer move commands.
+/	The format of the move commands is described below:
+/
+/	BIT	FUNCTION
+/
+/	04	=1 Standard ASCII, =0 Fracional move argument
+/
+/	05	=1 move in Y (vertical) direction, =0 X (horizontal) move
+/
+/	6-11	Excess 40(8) move magnitude
+/		- in 1/60" increments for X moves
+/		- in 1/48" increments for Y moves
+/		- moves beyond +/- 40(8) increments will
+/		  be specified by multiple arguments.
+/
+/	The printer device handler should accumulate all move
+/	commands and initiate the sum upon receiving a valid
+/	printable character. The file is terminated by a
+/	standard Control/Z.
+/
+/	Note:	The absent parity bit format requires the file
+/		be transfered with FOTP or PIP option /I.
+/		PIP option /A forces the parity bit and thus
+/		destroys the special format.
+/	LIST
+	TITLE	Page zero cells and equivalences
+/
+CTLZ	EQU	0232		ASCII end-of-file code for OS/8
+CR	EQU	0215		ASCII carriage return
+LF	EQU	0212		ASCII Line feed code
+FF	EQU	0214		ASCII form feed
+DELETE	EQU	0377		ASCII delete/rubout code
+TAB	EQU	0211		ASCII Tabulation code
+DHYPHEN	EQU	'\		Definition for discretionary hypen
+SLASH	EQU	'/		Defintion of character for u/l case processing
+/
+LSIZE	EQU	9		Number of different levels allowed on sections
+IBUFL	EQU	4		Input buffer length in blocks
+FONTMAX	EQU	4		Maximum number of fonts available
+/
+USR	QUT	1,07700		Load point for non-resident USR routines
+OSDATE	QUT	1,07666		Location of OS/8 Date word
+BIPWRD	QUT	0,07777		Location of extended Date word
+SWITCH1	QUT	1,07643		Location of 1st. DECODER switch (A-L)
+SWITCH2	QUT	1,07644		Location of 2nd. DECODER switch (M-X)
+SWITCH3	QUT	1,07645		Location of 3rd DECODER switch (Y,Z,0-9)
+/
+/	Page Zero cells
+/
+	ORG	0
+MWIDTH	DC	05000		Default maximum width for line
+TOPM	DC	2		Default value for top margin on page
+MLINES	DC	55		Default value for maximum lines on page
+BOTTOMM	DC	0		Default bottom margin (0=do form feed)
+ODT	AS	3		Reserve 4,5,6 for ODT breakpoints
+FINDENT	DC	4		Default value for floating left margin
+/
+	ORG	010
+XR	DC	NUMBUFF-1	Temporary indexing cells
+XR1	DC	0		"		"	"
+XR2	DC	0		"		"	"
+/
+LXR	DC	0		Line buffer pointer
+KXR	DC	0		Non-temporary indexing cell
+DXR	DC	0		"	"	"	"
+EXR	DC	0		"	"	"	"
+JXR	DC	0		Index register for SEARCH routine
+/
+	ORG	020
+/
+TEMP	DC	0		Standard temporary cells
+TEMP1	DC	0		"		"	"
+TEMP2	DC	0		"		"	"
+TEMP3	DC	0		"		"	"
+CNTR	DC	0		Temporary loop counter
+JCNTR	DC	0		Temporary loop counter  J.Y.
+/				Set to overflow for /S option
+PTR	DC	0		General pointer cell
+CURLNW	DC	0		Current width of line being processed
+THISW	DC	0		Width of new word being processed
+INDENT	DC	0		Number of spaces for indent on current line
+MAXW	DC	0		Maximum width allowed on current line
+NXINDENT DC	0		Number of spaces for indent on next line
+DROP	DC	0		Current value for top marging
+LINES	DC	0		Current value for number of lines on page
+BOTTOM	DC	0		Current value for bottom margin
+/
+CHAR	DC	0		Most recent character read by GETC routine
+NEXTC	DC	0		Provides 1-character look-ahead for GETC
+NEXTSV	DC	0		Save cell for NEXTC while recapitulating
+NEXTSV2	DC	0		Save cell for NEXTC in SWITCH & GETEXR Subrs.
+JFLAG	DC	0		Justification Flag: 0=justify, 1=no justify
+COMC	DC	0		Command character (in [x] type commands)
+DPTR	DC	0		Pointer used by DATE section of GETC routine
+/
+SAVEP	DC	0		Saves address into line during hyphenation
+SAVEC	DC	0		Saves character at SAVEP address
+/
+SPACES	DC	0		Count for number of spaces to add on line
+SPACNT	DC	0		Count of number of spaces which can be added
+/
+LEFT	DC	0		Counts number of lines left on the output page
+/
+GCNTR	DC	0		Loop counter for the GENSP and GENCR routines
+HIGH	DC	0		High order part returned by BINDEC
+MID	DC	0		Middle part returned by BINASC/BINDEC
+LOW	DC	0		Low order part of result from BINASC/BINDEC
+FATAL	DC	0		Set non-zero on FATAL error condition
+/
+/	Cells needed by the OS/8 packing and unpacking routines
+/
+PKPTR	DC	OUTBUF		Pointer for the PAKUP routine
+PKPTR2	DC	0		Pointer for the PIKUP routine
+KCELL	DC	0		Temporary save cell
+/
+/	Cells for OS/8 device drivers
+/
+IDEV	DC	0		Entry point address for input driver
+ODEV	DC	0		Entry point address for output driver
+FPTR	DC	0		Pointer to current input file
+OMLENGTH DC	0		Minus length available for output file
+TCOLUMN	DC	0		Current column on input line (TAB restoration)
+COLSAVE	DC	0		Save the column count here
+/
+ERROR	DC	0		Number of error on call
+ERCALL	DC	0		Address of last call to error routine (DEBUG)
+OVBLK	DC	0		Current output virtual block
+MLENGTH	DC	0		Minus length left for input file
+IVBLK	DC	0		Current input virtual block
+/
+IFLAG	DC	0		Non-zero if index generation inhibited
+HYPHO	DC	0		Non-zero if hyphenation successful
+MAXF	DC	0		CDF to highest memory field (set by CORE)
+NUMBER	DC	0		Contains number in GETNUM routine
+PASS	DC	0		Identifies pass (0=pass 1; 1 = pass 2)
+SYMPTR	DC	SYMTAB		Insertion pointer into symbol table
+SYMPTR2	DC	0		Extraction pointer into symbol table
+GETCHAR	DC	GETKAR		Also LDC (/U option) or also GETEXR
+GETCSV	DC	0		Save cell for GETCHAR (see SWITCH & GETEXR)
+OUTCHAR	DC	NULL		Set to PAKUP during pass 2
+LPTR	DC	0		Pointer cell
+RPTR	DC	0		Pointer cell
+/
+HYPHP	DC	0		Pointer into hyphenation record table
+HYPHF	DC	0		LH/RH flag for hyphenation record table
+SAVE	DC	0		Non-temporary save cell
+EXTRAL	DC	0		Count of extra lines to produce after DUMPLN
+SYMTOP	DC	SYMTAB		Marks highest address in symbol table
+CDFTOP	DC	06211		Marks highest CDF into the symbol table
+DISPLAY	DC	0		Display counter for lines set (for MQ)
+LEVELSR	DC	0		Pointer to output Subr. for DOLEVEL Subr.
+SFLAG	DC	0		Flag to check for duplicate references
+PFLAG	DC	0		As above but checks for perfect references
+ERFLAG	DC	0		Set to 1 after error while calling DUMPLN
+TABFLAG	DC	0		Set to -1 after indent on line (for tab)
+EJFLAG	DC	-1		Set to -1 to force page eject
+TOTALPG	DC	0		Count of total pages in file (for [t] in title)
+NFLAG	DC	0		Set to 02000 if /N switch set, else 0
+WPTR	DC	0		If non-zero has address of [w] command
+WCHAR	DC	0		Character to leader with on [w] command
+TWIDTH	DC	0		Total line width of title line (for [w])
+OLDW	DC	0		Save value for MAXW in case [w] in title
+DATEW	DC	0		Date width for [d] command
+/
+PITCH	DC	5		Pitch for fractional output 1,5,6 for
+/				Normal, 12 Pitch, 10 Pitch respectively
+TRUPIT	DC	5		The true pitch normally 6 for 10 pitch
+/				Otherwise it is 5
+LINSEP	DC	8		Line seperation for elastic LF feature
+DEFAULT DC	0		Default sub/super script arg.
+LASTC	DC	0		Last character for double strike
+DIVC	DC	0		Divide counter
+GETCP	DC	GETC		Reset to get kybd char in GETNUM for /S
+INCREM	DC	1		Used to increment & decrement the MQ
+CWIDTH	DC	0		Width of current character
+NWIDTH	DC	0		Width of next character
+/
+FTILDE	DC	0		Font selected by TILDE character
+FAPOST	DC	0		Font selected by APOSTROPE character
+FLBRAC	DC	0		Font selected by LEFT BRACE character
+FRBRAC	DC	0		Font selected by RIGHT BRACE character
+/
+TFONT	DC	1		Default font for title lines
+HFONT	DC	2		Default font for heading lines
+XFONT	DC	3		Default font for text lines
+/
+/	Now some general page zero constants
+/
+SPACE	DC	0240
+MSPACE	DC	-0240
+LNF	DC	LF
+MLF	DC	-LF
+/
+	TITLE	Initial entry to ACID program
+/
+	ISEC	0		Enable auto-paging
+	ORG	0200
+	LDI	1		AC non-zero to show direct call
+	JMP	ACID		Off to do pre-pass initialization
+/
+/	Here to begin processing of the program. First step is to
+/	reset default parameters, since we may be starting the second
+/	or third pass in the program.
+/
+ENTFILE	JMSX	ENTER		Enter output file from here
+PASS2	TAD	=GETC2		Reset co-routine linkage
+	DCA	GETCX+0		...
+	DCA	INDENT		Reset indent back to zero
+	DCA	NXINDENT	Reset indent for next line back to zero
+	DCA	DISPLAY		Reset line display counter back to zero
+	LDI	1		Initialize page number back to 1
+	DCA	PAGENUM		...
+	DCA	EXTRAL		Clear extra line count cell
+	DCA	LEFT		Mark no lines left on the page
+	LDI	-1		Force page eject before index
+	DCA	EJFLAG		...
+	TAD	XFONT		Get the default text font
+	DCA	OLDEST		Assure we can return to this font
+	JMS	INDEX		Process the index now
+/
+/	Initialize pointers/parameters in the input routines to force
+/	start again at the beginning of the input file.
+/
+	TAD	=07617-1	Initialize pointer to DECODER file table
+	DCA	FPTR		...
+	TAD	=RNEXT		Initialize co-routine linkage to force new read
+	DCA	PIKX+0		...
+	LDI	1		Mark virtual block of 1
+	DCA	IVBLK		...
+	LDI	-1		and input file length of 1, this will force
+	DCA	MLENGTH		an immediate move to a new input file
+/
+/	Now clear out the file/page/line number area
+/	Also reset the page number for TITLE back to 1
+/
+	TAD	='0		Initialize to '0. 1.  1'
+	DCA	SECTION		...
+	TAD	SPACE		...
+	DCA	SECTION+2	...
+	TAD	='1		...
+	DCA	SECTION+3	...
+	TAD	SPACE		...
+	DCA	SECTION+5	...
+	TAD	SPACE		...
+	DCA	SECTION+6	...
+	TAD	='1		...
+	DCA	SECTION+7	...
+/
+/	Zero out the buffer that contains the current level for each
+/	section number.
+/
+	TAD	=-LSIZE		Set loop counter for number of levels
+	DCA	CNTR		...
+	TAD	=LEVEL-1	Set pointer to level table
+	DCA	XR		...
+/
+0H	DCAI	XR		Zero out a word
+	LOOP	0B		Loop till all cleared
+/
+	TAD	=HPOINTS-1	Reset pointer to hyphenation record table
+	DCA	HYPHP		...
+	DCA	HYPHF		Set to start with left byte
+/
+/	Before doing anything else, we must process the title line in the
+/	file and store it in the buffer TITLE. Come back here to change title.
+/
+PGHEAD	TAD	=TITLE-1	Set pointer to the title buffer
+	DCA	LXR		...
+	DCA	TWIDTH		Set title width to zero
+	TAD	=-(135-3)	Set count for title buffer length
+	DCA	JCNTR
+	JMSI	GETCP		Prime the GETC routine to set CHAR
+	CLA			Ignore garbage currently in NEXTC
+/
+/	Loop here to process the title line in the file
+/
+	TAD	TFONT		Select title font
+	JMS	FONT,CTITLE	Send font 1 select sequence
+1H	JMSI	GETCP		Get character out of the file
+	TAD	MLF		LF marks the end of the title line
+	SNA			Test for LF now
+	JMP	2F		LF all done here on end of line
+/
+	TAD	=LF-'[		Test for [ (possible [d] or [p] commands)
+	SNA
+	JMP	3F		OK - we have a possible command here
+	TAD	='[		Else restore original character
+	JMS	MEASURE		Get the width of this character
+	TAD	TWIDTH		Update title width
+	DCA	TWIDTH		Count width of this character
+	TAD	TEMP3		Restore the character
+	JMS	CTITLE		Move character into TITLE buffer
+	JMP	1B		Loop back for next character
+/
+/	Subroutine to store character into TITLE buffer and check for overflow
+/	When line overflows, CTITLE Does not return
+/
+CTITLE	SUB
+	CDF	%TITLE		To field of title buffer
+	DCAI	LXR		Store into the TITLE buffer
+	CDF	%*		Reset back to main field now
+	ISZ	JCNTR		Check for buffer overflow
+	RET	CTITLE		Yes - so return to call
+/
+/	Here when LF found, or the 132 character limit has been exceeded
+/
+2H	JMS	FONT,CTITLE	AC=0 restore the old font
+	TAD	=0215		Install CR/LF at the end of the line
+	JMS	CTITLE		Insert carriage return
+	TAD	LNF		...
+	JMS	CTITLE		Insert line feed
+	JMS	CTITLE		Install zero sentinel on the line
+	LDI	-1		Mark line buffer empty now
+	DCA	LINEB		...
+	LDI	-1		and no back up word to read
+	DCA	LINEB+1		...
+	JMS	EOLCK		Check for extra lines/indent following LF
+	TAD	EXTRAL		Get count of extra lines
+	JMS	LINMULT		Multiply by the current line feed size
+	TAD	=04000		Set the increment bit
+	JMS	GENCR		Generate them now (if any)
+	DCA	EXTRAL		Must clear this cell out now
+	JMP	NEWLN		Off for new line now
+/
+/	Here when [ found in title line--may be a P, W, T or D command.
+/
+3H	TAD	=TITLTAB-2	Set pointer to title command table
+	DCA	JXR
+	JMSI	GETCP		Get the command character
+	JMS	FOLD		Fold over to upper case for testing
+	JMS	SEARCH		Look for command
+	JMP	E1		ERROR - UNDEFINED COMMAND FOUND
+/
+/	Here to insert today's date into the title buffer
+/
+DA	TAD	=DAYBUF-1	Set pointer to OS/8 date buffer
+	DCA	DXR		...
+	TAD	DATEW		Account for full width of date
+	TAD	TWIDTH		...
+	DCA	TWIDTH		...
+	TAD	DAYBUF		Do we have an OS/8 date set?
+	SMA CLA			Skip if not
+	JMP	6F		Yes we have -- continue
+	INC	FATAL		Mark this as a fatal error now
+	JMP	E4		Print error and quit
+/
+6H	TADI	DXR		Get next character in the date
+	SNA			Test for sentinel
+	JMP	7F		All done when sentinel is found
+/
+	JMS	CTITLE		Else insert character into buffer
+	JMP	6B		Loop back for next character
+/
+/	Here to handle the [p] command. Just set 02000 word into the buffer
+/	to show that the page number goes there.
+/
+PG	TAD	=01000		Special flag to show page goes here
+/
+/	Here to handle the [t] command. Just set 01000 word into the buffer
+/	to show that the total number of pages goes there.
+/
+TOT	TAD	=01000		Special flag value
+	JMS	CTITLE		Insert into the buffer
+	TAD	='1		Account for width of page number
+	JMS	MEASURE		Assume all numbers are the same size
+	DCA	TEMP3		Save width
+	TAD	TEMP3		Multiply by 3
+	TAD	TEMP3		Multiply by 3
+	TAD	TEMP3		Multiply by 3
+	TAD	TWIDTH		...
+	DCA	TWIDTH		...
+/
+/	Here when done with command, also merge from [p], [w] & [t] commands
+/
+7H	JMS	FLUSHB		Flush the remaining square bracket
+	JMP	1B		Loop back for next character in title
+/
+/	Here for the [w] command, place 0400 flag word into buffer
+/	to show that this is where all additional space should be
+/	placed to fill out the line.
+/
+WD	TAD	=0400		Insert flag
+	JMS	CTITLE		...
+	JMP	7B		Loop back now to flush ] after command
+/
+	TITLE	Entry point to process a new line for output
+/
+/	Loop here to build a new line for output. First, we must
+/	copy over a possible word that did not fit on the previous
+/	line.
+/
+NEWLN	DCA	CURLNW		Set current line width back to zero
+	DCA	THISW		Set width of current word to zero
+	TAD	=LINEB-1	Reset pointer to the line buffer
+	DCA	LXR		...
+	TADX	SWITCH1		Get decoder switch with /H option
+	AND	=020		Issolate the /H option bit
+	DCA	HYPHO		Clear hyphenation flag (disable if /H set)
+	TAD	NXINDENT	Set indent for current line
+	DCA	INDENT		...
+/
+/	Scan to sentinel in line buffer to find the word that did not fit
+/
+	TAD	LXR		Copy pointer to the line buffer
+	DCA	KXR		...
+	TADI	KXR		Load the next character
+	CMA			Sentinel of -1 only
+	SZA CLA			Scan until sentinel found
+	JMP	*-3		Keep looking for it
+/
+/	Set co-routine to return characters from LINEB until sentinel
+/
+	TAD	=RECAP		Set co-routine linkage to re-read this word
+	DCA	GETCX+0		...
+	JMSI	GETCP		Prime the GETC routine now (AC.NE.0 but OK)
+/
+/	Loop here to get the next character out of the output buffer
+/	and store into the line buffer.
+/
+MLOOP	JMS	ABORTCK		Check for abort on ^C
+	CLA CLL			Non-zero here on occasion
+	TAD	=MLTAB-2	Get address of main loop table
+	DCA	JXR		Save pointer
+	JMSI	GETCP		Get the next character from buffer
+/
+/	Here we check for lower case alpha "a-z" and skip table lookup.
+/	This little optimization saves 20% on processing time!
+/
+	TAD	=-'z-1		Prepare for range check
+	CLL
+	TAD	='z-'a+1	Add range limit
+	SZL CLA			Skip if not in range
+/
+	JMP	NORMAL		Handle the most common L/C characters
+	TAD	CHAR
+	JMS	SEARCH		Search for command
+/
+/	Come back here to handle normal characters. They just get
+/	stored into the line buffer
+/
+NORMAL	TAD	CHAR		Get the character read by GETC routine
+	JMS	STAC		Store into buffer (and check overflow)
+	JMP	MLOOP		Off for the next character now
+/
+/	Little subroutine to store characters into the line buffer
+/	and check for overflow
+/
+STAC	SUB
+	DCAI	LXR		Store character into line buffer
+	TAD	CWIDTH		Get the width of current character
+	TAD	THISW		Increment width of this word
+	DCA	THISW		Increment width of this word
+	TAD	LXR		Check now for line overflow
+	TAD	=-(LINEB+BLEN)	(In case there were no blanks in the line)
+	SPA CLA			Skip if line has overflowed.
+	RET	STAC		No overflow -- return to call
+	DCA	INDENT		No spaces, reset indent to zero
+	JMP	E0		ERROR - LINE OVERFLOW WITH NO SPACES!
+	TITLE PROCESS ACID COMMAND
+/	Here to handle the open bracket which marks the start of a command
+/	First check for a number which indicates a level command
+/	or [nnn] type command
+/
+COMMAND	JMS	OVERSET		Close off current line if already overset
+	LDI	-1		Subtract
+	TAD	TCOLUMN		Get the current TAB column count
+	DCA	COLSAVE		Save it for later restoration
+	TAD	=COMTAB-2	Set pointer to command dispatch table
+	DCA	JXR		...
+	JMSI	GETCP		Read the letter of the command
+	TAD	=-(LSIZE+'0)-1	Test for decimal digit in level range
+	CLL			...
+	TAD	=(LSIZE+'0)-'1+1 ...
+	SZL			Skip if not in range
+	JMP	LEVELC		Else off to handle level/[nnn] type command
+	TAD	='1		Restore the original character
+	JMS	FOLD		Fold all command to upper case
+	JMS	SEARCH		Look for command
+	JMP	E1		ERROR -- UNDEFINED COMMAND FOUND
+/
+/	ROUTINE TO SEARCH TABLE OF CHARACTERS AND FIND COMMAND
+/
+/	CALL:	TAD	=ADDRESS OF TABLE-2  (CHAR,ADDRESS,CHAR,ADDRESS...0)
+/		DCA	JXR
+/		TAD	CHARACTER
+/		JMS	SEARCH	BRANCH IF COMMAND FOUND
+/				RETURN AC= ZERO IF NOT FOUND
+/
+SEARCH	SUB			ENTER HERE WITH CHARACTER TO FIND
+	CIA			NEGATE FOR TESTS
+	DCA	COMC		SAVE TEST CHARACTER
+	CDF	%COMTAB		COMMAND TABLE FIELD
+SEA	INC	JXR		BUMP POINTER PAST ADDRESS WORD
+	TADI	JXR		GET - CHARACTER FROM TABLE
+	SNA			SKIP IF NOT END OF TABLE
+	JMP	XSEA		EXIT WITH ZERO NOT FOUND
+	TAD	COMC		GET THE CHARACTER BACK
+	SZA CLA			SKIP IF MATCH
+	JMP	SEA		NO MATCH TRY AGAIN
+	TADI	JXR		PICKUP ADDRESS
+	CDF	%*		BACK TO CURRENT FIELD
+	DCA	TEMP		SAVE ADDRESS
+	JMPI	TEMP		GO THERE
+XSEA	CDF	%*		BACK TO CURRENT FIELD
+	RET	SEARCH		RETURN WITH ADDRESS
+/
+/	Subroutine to test for lower case alpha character in the AC.
+/	Lower case a-z becomes upper case a-z. All other codes are unchanged.
+/
+FOLD	SUB
+	TAD	=-'z-1		Get the upper limit
+	CLL			
+	TAD	='z-'a+1	Get the difference
+	SZL
+	TAD	=-040		Change lower case to upper case
+	TAD	='a		Restore the original character
+	RET	FOLD
+	TITLE	Processing of the level command
+/	Here to handle a new level. Come here with the binary level
+/	number as a positive number in the AC.
+/
+LEVELC	DCA	COMC		Save the binary level number (less 1)
+	TAD	HFONT		Select Font for paragraph headings
+	JMS	FONT,STAC	Set Font2 for paragraph headings
+	JMSI	GETCP		Get the next character
+	TAD	=-']
+	SZA			skip if end of command (was level command)
+	JMP	ANYCODE		Else must be the [nnn] type command
+/
+/	Since we are starting a new section, ensure that there are at
+/	least four lines left on the current page
+/	(note: EJFLAG may already be set by prior [p] command)
+/
+	LDI	3		Test for at least four lines left on page
+	JMS	LINMULT		Multiply by the current line size
+	CIA
+	TAD	LEFT		...
+	SMA SZA CLA		Skip if less than 4 four lines left
+	JMP	*+3		Ok, we have at least 4 lines left here
+/
+	LDI	-1		Else set for eject before this line
+	DCA	EJFLAG		...
+/
+	TAD	COMC		Reget the level number
+	TAD	=LEVEL		Index table of levels
+	DCA	TEMP		Save pointer
+	ISZI	TEMP		Step that level
+	NOP			(shouldn't skip if a valid file)
+/
+/	Now that we have incremented this level, we must now zero out
+/	all the following levels.
+/
+0H	INC	TEMP		Step pointer to the next level
+	TADI	TEMP		Load value at that level
+	SNA CLA			If zero, we have gone far enough
+	JMP	*+3		Ok, all done here
+/
+	DCAI	TEMP		Else set this level to zero
+	JMP	0B		And loop for the next one
+/
+/	Now dump out the current level into the LINEB buffer in the
+/	form: 1.2.4. etc.
+/
+	TAD	=LEVEL		Point to start of level table
+	JMS	DOLEVEL,STAC	Dump that level now (via STAC call)
+/
+/	Here we copy over the level information for this entry.
+/	Note that we do this in all three passes although it is really only
+/	necessary for the first two passes. In pass 1 the section numbers
+/	are correct but the page numbers may be off. In pass 2 we can insert
+/	the correct page numbers. In pass 3, we just redundantly copy what
+/	was stored in pass 2.
+/
+/	A symbol table entry looks as follows:
+/
+/	word 1		binary value of current page #
+/	word 2		binary value for level 1
+/	word 3		binary value for level 2
+/	......		......
+/	word n		binary value for level n-1
+/	0		Sentinel on levels
+/	a		Text for section in 8-bit ASCII
+/	b		...
+/	....		...
+/	0		Full word of zero for sentinel on entry
+/
+/	First get the current page number to insert as word 1 for this
+/	entry. Note that PAGENUM is always one larger than the current
+/	page. However, we have to check if this line will be at the
+/	top of the following page.
+/
+	TAD	EJFLAG		Test for forced page eject
+	SNA CLA			Skip if forcing eject
+	LDI	-1		Else account for page number 1+ current #
+	TAD	PAGENUM		Get the number for the next page
+	JMS	ISYM		And insert into the symbol table
+	TAD	=LEVEL-1	Set pointer to LEVEL
+	DCA	XR		...
+/
+/	Loop here copying until the end of the table is found.
+/
+4H	TADI	XR		Load next entry in table
+	SNA			Test for last significant entry
+	JMP	*+3		SENTINEL -- all done here
+	JMS	ISYM		Insert full word into symbol table
+	JMP	4B		Loop back for next
+/
+/
+	JMS	ISYM		Insert full word zero sentinel
+	DCA	ISYM+0		Mark -- no calls yet to ISYM routine
+/
+/	Now read the entire tag line on this level all the way up to the
+/	LF character at the end of the line. At the same time, we copy this
+/	entry into the symbol table
+/
+5H	JMSI	GETCP		Get next character from section label
+	TAD	MLF		Test for end of line code
+	SNA CLA			Skip if not at end
+	JMP	6F		All done on end of line code
+/
+	TAD	CHAR		Reget the character we just read
+	JMS	STAC		First install as text into the line buffer
+/
+	TAD	CHAR		Get the character again
+	TAD	MSPACE		Test for a blank here
+	SPA			Test for code < 240
+	JMP	5B		Ignore control codes (AC non-zero, but OK)
+	SZA CLA			Skip if we have a blank
+	JMP	*+4		Something else
+/
+	TAD	ISYM		Have we stored anything yet?
+	SNA CLA			Skip if so
+	JMP	5B		NO -- so trim off this leading blank then
+/
+	TAD	CHAR		Reget again
+	JMS	ISYM		Insert halfword into table
+	JMP	5B		Loop back for next character
+/
+/	Here at end of entry -- install sentinel
+/
+6H	JMS	FONT,STAC	AC=0 Restore old font
+	JMS	ISYM		Install sentinel character of zero
+	JMS	EOLCK		Check for indent/extra lines after LF code
+/
+/	Test now to see if we overflowed the line width for this line
+/
+	CLL
+	TAD	CURLNW		Get width accumulated so far this line
+	TAD	THISW		Add width accumulated on section header
+	TAD	INDENT		Add in any indent on this line
+	TAD	MAXW		Subtract maximum line width
+	SZL CLA			Skip if still room on this line
+	JMP	E10		Log error - section header overflowed line
+	JMP	LNDUMP		Ok: left-justify this line and print it
+/
+/	ISYM routine stores one full word (in the AC on entry) into the
+/	current symbol table slot. INCSYM is then called to step the pointer
+/	to the next position.
+/
+ISYM	SUB
+	JMS	SYMCDF		To current field in symbol table
+	DCAI	SYMPTR		Store AC into this slot in table
+	CDF	%*		Ensure current field reset
+	JMS	INCSYM		Step the pointer now
+	RET	ISYM		...
+/
+/	SYMCDF routine simply sets the data field to the current data field
+/	in which the SYMPTR pointer is pointing.
+/
+SYMCDF	SUB
+	CDF	1		CDF to symbol table field
+	RET	SYMCDF		...
+/
+/	INCSYM routine simply increments SYMPTR by one word position. We use
+/	a subroutine to increment the pointer so we can check for entering
+/	a new memory field and the last 128 locations of all memory fields
+/	are skipped. We also check for overflow of available memory.
+/
+INCSYM	SUB
+	TAD	NFLAG		If the /N flag is set, never increment
+	SZA CLA			Skip if not set
+	RET	INCSYM		/N set--we are not building a symbol table
+/
+	INC	SYMPTR		Step to next physical word in memory
+	TAD	=0200		(-7600 Else test now for stopping at 7600
+	TAD	SYMPTR		Compare now with current value of pointer
+	SZA CLA			Skip if past the logical end of a memory field
+	RET	INCSYM		Not past - return now
+/
+	DCA	SYMPTR		Set to start at location 0 in next field
+	TAD	SYMCDF+1	Get CDF instruction to that field
+	CMA IAC			Negate and compare with
+	TAD	MAXF		CDF to highest available memory field
+	SZA CLA			Skip if we have run out room
+	JMP	*+3		Still ok - keep going
+/
+	INC	FATAL		Mark fatal error here
+	JMP	E7		log the error now
+/
+	TAD	SYMCDF+1	Reget the CDF instruction
+	TAD	=1.LS.3		Step to the next memory field
+	DCA	SYMCDF+1	And store it back
+	RET	INCSYM		Return to call now
+/
+/	SYMCDF2 routine simply sets the data field to the current data field
+/	in which the SYMPTR2 pointer is pointing.
+/
+SYMCDF2	SUB
+	CDF	%SYMTAB		CDF to symbol table field
+	RET	SYMCDF2		...
+/
+/	INCSYM2 routine simply increments SYMPTR2 by one word position. We use
+/	a subroutine to increment the pointer so we can check for entering
+/	a new memory field and also to ensure that the last 128 locations of
+/	each memory field are skipped. We also check for overflow of available
+/	memory.
+/
+INCSYM2	SUB
+	INC	SYMPTR2		Step to next physical word in memory
+	TAD	=0200		(-7600 Else test now for stopping at 7600
+	TAD	SYMPTR2		Compare now with current value of pointer
+	SZA CLA			Skip if past the logical end of a memory field
+	RET	INCSYM2		Not past - return now
+/
+	DCA	SYMPTR2		Set to start at location 0 in next field
+	TAD	SYMCDF2+1	Get CDF instruction to that field
+	CMA IAC			Negate and compare with
+	TAD	MAXF		CDF to highest available memory field
+	SZA CLA			Skip if we have run out room
+	JMP	*+3		Still ok - keep going
+/
+	INC	FATAL		Mark fatal error here
+	JMP	E7		log the error now
+/
+	TAD	SYMCDF2+1	Reget the CDF instruction
+	TAD	=1.LS.3		Step to the next memory field
+	DCA	SYMCDF2+1	And store it back
+	RET	INCSYM2		Return to call now
+/
+/	Subroutine DOLEVEL inserts a section number into the line buffer
+/	LINEB via calls to STAC. On entry to this routine, AC will contain
+/	the address either of LEVEL or NLEVEL. Routine converts all binary
+/	level numbers to leading-zero-suppressed ASCII numbers and supplies
+/	a period after each level.
+/
+/	call:
+/		TAD	<ADDRESS>	Address of level buffer
+/		JMS	DOLEVEL,SUBR	Address of Subr. to call for output
+/
+	ROOM	10
+DOLEVEL	SUB
+	DCA	PTR		Save pointer to this table of levels
+	TADI	DOLEVEL		Get address of subroutine to call for output
+	DCA	LEVELSR		...
+	INC	DOLEVEL		Step return address over argument
+/
+/	Loop here to dump out the next level
+/
+1H	TADI	PTR		Load binary value of next level
+	INC	PTR		Step to next level for next time
+	SNA			If zero, we are done here
+	RET	DOLEVEL		So return
+	JMS	BINDEC		Else convert to decimal and store
+	TAD	HIGH		Get high order part
+	SZA			Skip to suppress
+	JMS	LVOUT		Else store into buffer
+	TAD	MID		Get middle part of number
+	SZA			Skip to suppress it
+	JMS	LVOUT		Else insert into the buffer
+	TAD	LOW		Always insert the low order part
+	JMS	LVOUT		...
+	TAD	='.-0200	Insert period (don't treat as punctuation)
+	JMS	LVOUT		...
+	JMP	1B		and loop back for next level
+/
+/	Subroutine STAPG stores HIGH, MID, and LOW into the buffer via STAC
+/	calls. Leading zeroes are changed to blanks.
+/	On entry, AC contains address of subroutine to call for output.
+/
+STAPG	SUB
+	DCA	LEVELSR		Save address of subroutine to call for output
+	TAD	HIGH		Get high order part
+	SNA			Skip if not leading zero
+	TAD	SPACE		Else change leading zero to a blank
+	JMS	LVOUT		Else store into buffer
+	TAD	MID		Get middle part of number
+	SNA			Skip if not leading zero
+	TAD	SPACE		Else change leading zero to a blank
+	JMS	LVOUT		Else insert into the buffer
+	TAD	LOW		Always insert the low order part
+	JMS	LVOUT		...
+	RET	STAPG
+/
+/	Routine to store characters for the Level and Page Number routines
+/	it updates CWIDTH for use by the STAC routine.
+/
+LVOUT	SUB			ROUTINE TO OUTPUT
+	JMS	MEASURE		Determine the width of this character
+	DCA	CWIDTH		Update CWIDTH
+	TAD	TEMP3		Get the character back again
+	JMSI	LEVELSR		Send the character
+	RET	LVOUT		Exit
+/
+/	Subroutine to flush out all remaining characters on the line until a
+/	LF code is found.
+/
+FLUSHLF	SUB
+	JMSI	GETCP		Get next character out of the buffer
+	TAD	MLF		Look for end of line code
+	SZA CLA			Skip if at end
+	JMP	FLUSHLF+1	Else loop
+	RET	FLUSHLF		All done -- return
+/
+/	Little subroutine to flush out the ] bracket that follows a command
+/
+FLUSHB	SUB
+	JMSI	GETCP		Get the next character
+	TAD	=-']		Must be a closing bracket here
+	SNA CLA			Skip if not
+	RET	FLUSHB		All ok -- return now
+	JMP	E2		ERROR - COMMAND DOES NOT END WITH ]
+	TITLE	Fixed Space and Hyphen handling
+/
+/	Here to handle special case of a fixed space in brackets. Main point
+/	here is that we must store a special space code that:
+/
+/		a. will not be treated as a justification space, and
+/		b. will not inhibit justification of the prior part of the line
+/
+FSPACE	LDI	-2		Adjust the column count for []
+	TAD	TCOLUMN		brackets around the spaces
+	DCA	TCOLUMN		...
+FSPACE2	TAD	=' 		Get a space
+	JMS	MEASURE		Setup length for STAC routine
+	DCA	CWIDTH		STAC uses CWIDTH for updates
+	TAD	=040		Use a normal space but WITHOUT the mark bit!
+	JMS	STAC		Store that blank
+	JMSI	GETCP		Get the next character
+	TAD	=-']		Test for end of series of blanks
+	SNA			Skip if not
+	JMP	MLOOP		All done here
+	TAD	=']-' 		Must be a space if not end
+	SNA CLA			Skip if invalid character here
+	JMP	FSPACE2		Ok -- off to store another fixed space
+	JMP	E1		Invalid command
+/
+/	Here to handle a discretionary hyphen. First job is to check to see
+/	whether the line is overset or not, since the J & H routines assume
+/	that they can scan back to a discretionary hyphen for a break-point
+/
+DISCRET	TAD	=DHYPHEN	Mark character now in case were are overset
+	DCA	CHAR		...
+	LDI	1		Must be room for a real hyphen if we need it
+	JMS	OVERSET		Test for overset line now
+/
+/	Line not overset - so store discretionary hyphen code into buffer
+/
+	TAD	=DHYPHEN-0200	Store hyphen code less flag bit (DUMPLN strips)
+	JMS	STAC		Insert into the buffer
+	TAD	=0377		Delete goes after (allows room for sentinel)
+	JMS	STAC		...
+/
+	LDI	-2		Account now for fact that this hyphen has no
+/
+/	Merge here from real hyphen routine
+/
+5H	TAD	THISW		real width (i.e. until it is used)
+	TAD	CURLNW		Add to width on this line
+	DCA	CURLNW		Set new line width
+	DCA	THISW		Reset word width back to zero
+	JMP	MLOOP		Off for next character now
+/
+/	Here to handle a real hyphen. Main thing here is that we can break
+/	a line on a real hyphen--so we must treat it specially.
+/
+REALH	LDI	1		Must be room for hyphen too on this line
+	JMS	OVERSET		Test for oversetting this line
+	JMS	MEASURE		Update CHAR width for stac routine
+	DCA	CWIDTH		Save width
+	TAD	TEMP3		Get the character back
+	JMS	STAC		...
+	DCA	CWIDTH		Zero width for delete code
+	TAD	=0377		allow room for sentinel here
+	JMS	STAC		...
+	JMP	5B		Merge now with discretionary hyphen processing
+	TITLE	Process ACID commands
+/	HANDLE THE LINEFEED SIZE COMMAND [Lnn]
+/
+LCOM	JMS	GETLIM		Handle the [Lnn] Command
+	SNA			Test for absent arg
+	TAD	=010		Default of 8
+	DCA 	LINSEP		Stow line feed size
+1H	TAD	COLSAVE		Back up column count
+	DCA	TCOLUMN
+	JMP	MLOOP		Back to work
+/
+/	HANDLE THE BACKSPACE COMMAND [<nn]
+/
+BACKSP	JMS	GETLIM		Get optional arg
+	SNA			Test for default
+	TAD	TRUPIT		Default to standard pitch
+	CIA			Negate for back space
+	JMP 	2F		Merge ahead to dump this char
+/
+/	HANDLE SUBSCRIPTS AND SUPERSCRIPTS
+/
+SUBSCRP	LDI	-1
+SUPERSC	DCA	JCNTR		Set the subscript switch
+	TAD	LINSEP		Set Sub/Super script default
+	RAR CLL			To one half line feed
+	DCA	DEFAULT		Save it for later
+	JMS	GETLIM		Get numeric arg if any
+	SNA			Test for default
+	TAD	DEFAULT		Default of one half line feed
+	ISZ	JCNTR		Skip if subscript
+	CIA			Negate if superscript
+	TAD	=0100		Set the Y axis bit
+2H	TAD	=04040		(4040 Add the flag & convert to excess 40
+	JMS	STAC
+	TAD	CWIDTH		Decrement word width
+	CIA			Subtract from word width
+	TAD	THISW
+	DCA	THISW
+	JMP	1B		Back up column & exit
+/
+/	HANDLE ESCAPE SEQUENCE COMMAND [$abcd...]
+/
+ESCAPE	TAD	=0233+0400	Get escape + ignore bit
+	CIA			All escape sequences are minus
+	JMS	STAC		Send this character
+	TAD	CWIDTH		Decrement word width
+	CIA			Subtract from word width
+	TAD	THISW		Get width
+	DCA	THISW		save new width
+	JMSI	GETCP		Get the next character
+	TAD	=-'$		Check for dollar sign
+	SNA			Skip if not dollar
+	TAD	=0233-'$	Translate to escape character
+	TAD	='$-']		Test for end of command
+	SNA			Skip if not end of command
+	JMP	1B		Reset column and exit
+	TAD	=']-0233	Funny constant for merge
+	JMP	ESCAPE		Loop until sequence complete
+/
+GETLIM	SUB			Get a numeric arg in [ ]
+	JMS	GETNUM		Go convert the number
+	TAD	=-31		Test for limit
+	SMA SZA			Skip if within range
+	JMP	E6		"SYNTAX ERROR IN NUMERIC FIELD"
+	TAD	=31		Restore the value
+	RET	GETLIM		Exit arg in the AC
+/
+/	Here to handle the [nnn] type command. All we do is read the next
+/	three characters and treat them as octal digits for the ASCII code
+/
+ANYCODE	TAD	=']-'0		Isolate binary value
+	DCA	SAVE		And save for a moment
+	TAD	CWIDTH		Decrement word width
+	CIA			Subtract from word width
+	TAD	THISW		...
+	DCA	THISW		...
+/
+	JMSI	GETCP		Get the third character
+	AND	=7		Isolate the binary code
+	DCA	TEMP		And save it
+/
+/	Now assemble the full octal ASCII code
+/
+	TAD	COMC		Get the digit (less 1)
+	CLL IAC RAL		Shift one digit position (and add back 1)
+	RTL			...
+	TAD	SAVE		Add in the second digit
+	RAL			Shift another digit position
+	RTL			...
+	TAD	TEMP		Add in the final digit
+	CIA			Assure zero width
+	JMP	4F		Off to store the character now
+/
+/	Here to handle a special character which appears in brackets
+/	Just output the character as if it was a normal character.
+/
+SPECIAL	TAD	CHAR		Get the character
+/
+/	Merge here with character in AC from the [nnn] type command
+/
+4H	TAD	=0400		Set 0400 flag bit so we always ignore it
+	DCA	COMC		Save for a moment
+	TAD	COLSAVE		Restore the column count
+	DCA	TCOLUMN		Special characters have zero width
+/
+/	Merge here to finish up from the [w] command
+/
+WCOM2	JMS	FLUSHB		Flush out the ] that must follow
+	TAD	COMC		Recover the special character
+	JMS	MEASURE		Determine its width
+	DCA	CWIDTH		Save it for the STAC routine
+	TAD	COMC		Recover the special character
+	JMP	NORMAL+1	Off to store into line buffer now
+/
+/	Here for the page eject command ([p]). Just set EJFLAG to force
+/	an eject in the DUMPLN routine
+/	Must also test for [Pnn] form of command for conditional eject
+/
+PAGEJ	JMS	IFLINE		Print out prior line if not printed yet
+	JMS	GETNUM		Get a possible digit that may follow
+	DCA	EJFLAG		Save for a moment (EJFLAG is available)
+	JMS	FLUSHLF		Flush all characters now till end of line
+	JMS	EOLCK		Check for indent/more lines after LF code
+	TAD	EJFLAG		Reget the value of number in [p] command
+	SNA			Test for zero (unconditional)
+	JMP	1F		Zero - jump to force an eject
+	JMS	LINMULT		Multiply by current line feed size
+	CMA IAC			Else negate and compare with
+	TAD	LEFT		the number of lines left on this page
+	SMA CLA			Skip if no room left on this page
+	JMP	*+3		OK, there is still room left
+/
+1H	DCA	EXTRAL		Clear out any blank lines after [p] command
+	LDI	-1		Set for page eject before next line
+	DCA	EJFLAG		...
+/
+/	Merge here from the [m] and [f] and [v] commands to print extra lines
+/
+PAGEJ2	TAD	EXTRAL		Generate any extra blank lines now
+	JMS	GENCR		(in case [Pnn] type command and no eject)
+	DCA	EXTRAL		Ensure this cell cleared out now
+	JMP	NEWLN		Off to start a new line now
+/
+/	Here for the [w] command which specifies where we should fill
+/	out the line with spaces to the full line width.
+/
+WCOM	TAD	=02000		Flag value to show where space goes
+	DCA	COMC		Save (prepare for merge at WCOM2)
+	LDI	1		Save address of where width goes
+	TAD	LXR		...
+	DCA	WPTR		For later use when [c] or [r] command found
+	TAD	CWIDTH		Account for no width yet of this "character"
+	CIA			Subtract the width for the W
+	TAD	THISW		...
+	DCA	THISW		...
+	TAD	SPACE		Default leadering character to a blank
+	DCA	WCHAR		...
+	JMSI	GETCP		Get the following character
+	TAD	=-']		Test for end of command
+	SNA			Skip if not
+	JMP	WCOM2+1		All done here (off to store COMC)
+	TAD	=']		Else restore character for leadering
+	DCA	WCHAR		And save it
+	JMP	WCOM2		Off to insist on ] being found now
+/
+/	Here for the [n] command which disables line justification
+/
+NCOM	LDI	1		Set to turn JFLAG on below
+/
+/	Here for the [j] command which re-enables line justification
+/
+JCOM	DCA	JFLAG		Turn justification flag back on again
+	JMS	FLUSHB		Flush out following ]
+	JMP	MLOOP		Off for next character
+/
+/	Here for the [d] command which generates a string of the
+/	current date. Must check that we really have a date here
+/
+DCOM	JMS	FLUSHB		Flush out ] from the [d] command
+	TAD	DAYBUF		If first character is negative -- no date
+	SPA CLA			Skip if we have a date here
+	JMP	E4		ERROR - [D] AND NO OS/8 DATE ENTERED
+	TAD	=DAYBUF-1	Set pointer to where date string is stored
+/
+/	Merge here from the end of the [-text] reference command to
+/	generate the section and page number reference with the pointer
+/	to where the string is stored in the AC
+/
+SWITCH	DCA	EXR		Set pointer to the string
+	TAD	GETCHAR		Get current pointer (to PIKUP or LDC)
+	DCA	GETCSV		and save it
+	TAD	NEXTC		Get the next character from stream
+	DCA	NEXTSV2		and save while we switch
+	TAD	=GETEXR		Set pointer to read this string
+	DCA	GETCHAR		...
+	JMP	MLOOP-1		Off to prime NEXTC and return to MLOOP
+/
+/	Here to handle a centred line. Just compute the new indent for
+/	the current line to get the prior text centred properly
+/
+CCOM	TAD	THISW		Get width of previous word
+	TAD	CURLNW		Add accumulated width on the line
+	TAD	INDENT		Add indent already present on this line
+	TAD	MAXW		Subtract total line width
+	CLL CMA IAC RAR		Make positive and divide by two
+/
+/	Merge here from right-hand margin command to set new indent value
+/	Unless we have a [w] command in effect.
+/
+1H	DCA	PTR		Save value for a moment
+	TAD	WPTR		Do we have a [w] command in effect?
+	SZA			Skip if not
+	JMP	3F		Yes - so handle it now
+/
+/	Also merge back here if [w] not on same line as [c] or [r]
+/
+4H	TAD	INDENT		No, so add value to current indent
+	TAD	PTR		...
+	DCA	INDENT		Set the new indent
+/
+/	Merge back here after processing prior [w] type command
+/
+2H	JMS	FLUSHB		Flush out the ] that must follow
+	JMS	FLUSHLF		Flush all remaining characters on that line
+	JMS	EOLCK		Check for multiple lines/indents after LF code
+	JMP	LNDUMP		Off to print this line out now
+/
+/	Here for the [r] command which sets the previous text flush against
+/	the right-hand margin.
+/
+RCOM	TAD	THISW		Get width of previous word
+	TAD	CURLNW		Add accumulated width on the line
+	TAD	INDENT		Add indent on this line
+	TAD	MAXW		Subtract total line width
+	CMA IAC			Make it a positive value
+	JMP	1B		Back to set new indent value
+/
+/	Here to handle a [r] or [c] command when there was a prior [w]
+/	command on the line.
+/
+3H	DCA	TEMP		Copy over the address now
+	DCA	WPTR		Clear address to show no [w] in effect now
+/
+	LDI	-02000		First check that we are on the same line
+	TADI	TEMP		Should find 2000 flag if so
+	SZA CLA			Skip if still on same line
+	JMP	4B		[w] not on same line, so skip it then
+/
+	LDI	02000		Set the flag to show leadering task
+	TAD	PTR		Add spacing needed on this line
+	DCAI	TEMP		Insert into the line where [w] command was
+	JMP	2B		Loop back now to conclude processing
+/
+/	Here for the [f] command which sets the top margin,
+/	number of lines, and default fonts.
+/
+FCOM	JMS	GETNUM		Get value for top margin
+	DCA	DROP		And save it
+	JMS	GETNUM		Get the number of lines per page
+	RAL CLL			Multiply by 8, Don't use LINMULT
+	RTL
+	DCA	LINES		And save it
+	JMS	GETNUM		Get the font number
+	DCA	TFONT		Set title font number
+	JMS	GETNUM		Get the font number
+	DCA	HFONT		Set heading font number
+	JMS	GETNUM		Get the font number
+	DCA	XFONT		Set text font number
+/
+/	Merge here from the [p], [m] and [v] commands
+/
+FCOM2	TAD	CHAR		Ensure command ended with ]
+	TAD	=-']		...
+	SZA CLA			Skip if so
+	JMP	E6		Syntax error in numeric command field
+	JMS	IFLINE		Dump out prior line now if necessary
+	JMS	FLUSHLF		Flush out all characters now to LF code
+	JMS	EOLCK		Check for extra lines/indent after LF code
+	JMP	PAGEJ2		Off now to generate extra lines needed
+/
+/	Here for the [m] command. Read the new position for the right
+/	hand margin. Multiply number by 32 for proportional spacing.
+/
+MCOM	JMS	GETNUM		Get new value for right-hand margin
+	BSW			Multipy by 64
+	CLL RAR			Divide by 2
+	CMA IAC			Negate and set as new value
+	DCA	MAXW		For maximum line width
+	JMP	FCOM2		Finish up now
+	LIST
+/
+/	Here for the [O] command. Output during pass 1.
+/	We toggle the output on/off in pass 1, nothing in pass 2
+/	and toggle it off/on in pass 3.
+/	It is intended to output printer initialization codes before
+/	any text to get it set up before the table of contents.
+/
+OCOM	JMS	FLUSHB		FLUSH THE REMAINING BRACKET
+/	ISZ	OUTF		TOGGLE LSB (SKIP OKAY)
+/	TAD	OUTF		GET OUTPUT FLAG
+/	CLL RAR			LSB TO LINK
+/	CLA CMA			DECREMENT PASS AND FLIP LINK ON PASS 2,3
+/	TAD	PASS		CHECK FOR PASS 1
+/	SNA CLA			SKIP IF PASS 1 OR 3
+/	JMP	MLOOP		NOTHING IN PASS 2
+/	SZL CLA			SKIP TO DISABLE OUTPUT ROUTINE
+/	TAD	=PAKUP-NULL	ENABLE OUTPUT
+/	TAD	=NULL		DISABLE OUTPUT
+/	DCA	OUTCHAR		SET POINTER
+	JMP	MLOOP		BACK TO WORK
+OUTF	DC	0
+	NOLIST
+/
+/	Here for the [v] command. Read the position on the page that we
+/	have to drop to and then set EXTRAL so that we will generate
+/	the appropriate number of blank lines to get to that line.
+/	If already past that line, ignore the [v] command.
+/
+VCOM	JMS	GETNUM		Read the line we have to tabulate to
+	JMS	LINMULT		Multiply by the line feed size
+	DCA	TEMP		Save line to get to
+	LDI	2		LEFT is                                                                                                                                                                                                                                                                                              2 larger than line about to go out
+	JMS	LINMULT		Multiply by the line feed size
+	TAD	LINES		Add number of lines on the page
+	CMA IAC			Subtract from
+	TAD	LEFT		Number of lines left on page
+	TAD	TEMP		Now subtract from position to get to
+	SPA			Skip if not past that line yet
+	CLA			Past the line, set for no extra lines then
+	DCA	PTR		Save number of blank increments to generate
+	JMS	IFLINE		Dump out prior line now (if necessary)
+	JMS	FLUSHLF		Flush out to LF code now
+	JMS	EOLCK		Check for any blank lines/indent
+	LDI	04000		Set the increment flag
+	TAD	PTR		Get count of increments to generate
+	DCA	EXTRAL		Set count (remove prior un-needed value)
+	JMP	PAGEJ2		Merge back now to finish up
+/
+/	subroutine GETNUM reads a binary number from the character stream
+/	and returns that value in the AC. Only valid terminators to a number
+/	are a comma or a closing bracket.
+/
+GETNUM	SUB
+	DCA	NUMBER		Initialize the result to zero
+	JMSI	GETCP		Get the next character from file or kybd
+	TAD	=-']		Test for ending bracket
+	SZA			Skip if so
+	TAD	=']-',		Else test for legal comma
+	SNA			Skip if not terminator
+	JMP	4F		TERMINATOR - all done here
+/
+	TAD	=',-'9-1	Must be a valid decimal digit now
+	CLL			...
+	TAD	='9-'0+1	...
+	SNL			Skip if valid decimal digit
+	JMP	E6		NOT A DIGIT  --  Syntax error in number
+/
+	DCA	TEMP		Save new binary digit
+	TAD	NUMBER		Get current number
+	CLL RTL			Multiply it by 10
+	TAD	NUMBER		...
+	CLL RAL			...
+	TAD	TEMP		Add in the new digit
+	JMP	GETNUM+1	Loop to store the digit and get next one
+/
+/	Here when done - just return the result in the AC
+/
+4H	TAD	NUMBER		Get the result
+	RET	GETNUM		...
+	TITLE	Process the symbolic reference command
+/
+/	Here to handle symbolic reference command
+/
+SREF	TAD	NFLAG		Are we inhibiting symbol table?
+	SZA CLA			Skip if not
+	JMP	E8		YES - symbolic references not allowed then
+/
+	DCA	SFLAG		Mark: no references seen yet at all
+	DCA	PFLAG		Mark: no perfect matches found yet
+	TAD	=%SYMTAB*8+06201 Setup CDF instruction for search
+	DCA	SYMCDF2+1	...
+	TAD	=SYMTAB		And initialize pointer to symbol table
+	DCA	SYMPTR2		...
+/
+	TAD	=-40		Label field limited to 40 characters
+	DCA	GCNTR		...
+	TAD	=REFER-1	Set pointer to buffer that will hold
+	DCA	RPTR		the referenced label
+/
+/	Ensure all leading blanks after level number are trimmed.
+/
+8H	TAD	NEXTC		Peek ahead at next character
+	TAD	MSPACE		Look for blank
+	SZA CLA			Skip if blank
+	JMP	0F		All ok here -- continue
+	JMSI	GETCP		Flush out leading blank
+	CLA			Ignore the blank now in CHAR
+	JMP	8B		Loop back now
+/
+/	Loop here to read the entire label on this reference and copy over
+/	into the 40 word table REFER in 8-bit ASCII code.
+/	Note that for this reference, we will change a LF code to a blank
+/
+0H	JMSI	GETCP		Get the next character
+	JMS	FOLD		Fold to upper case
+	TAD	MLF		Test for LF code
+	SNA			Skip if not
+	TAD	=' -LF		Else change LF to blank now
+	TAD	=LF-']		Test for end of label
+	SNA			...
+	JMP	1F		All done with label here
+	TAD	=']		Not at end, copy character over
+	INC	RPTR		Bump the pointer
+	DCAI	RPTR		And store it back
+	LOOP	0B,GCNTR	Loop back now
+/
+/	Here at end, install sentinel on REFER table
+/
+1H	INC	RPTR		Step pointer to next location
+	DCAI	RPTR		Install the sentinel
+	JMP	7F		Off to check for end of table now
+/
+/	Loop here to look for a match here on the next item
+/
+2H	TAD	=REFER-1	Set pointer to text to match
+	DCA	RPTR		...
+	TAD	=NLEVEL-1	Set pointer to where we will save LEVEL
+	DCA	LPTR		...
+	JMP	*+2		Don't step the pointer the first time through
+/
+/	Loop here to skip over the LEVEL field in the symbol table and
+/	also save this level number in the NLEVEL table in case we match
+/	on the text
+/
+3H	JMS	INCSYM2		Step the pointer to first word
+	JMS	SYMCDF2		Set to field of table
+	TADI	SYMPTR2		Get word from the table
+	CDF	%*		Reset current field
+	INC	LPTR		Step pointer into NLEVEL table
+	DCAI	LPTR		Store LEVEL information into table
+	TADI	LPTR		Reget the LEVEL
+	SZA CLA			Skip if sentinel on LEVEL field
+	JMP	3B		Else keep looking for it.
+/
+/	Loop here now to look for a match on the label on this section
+/
+4H	JMS	INCSYM2		Step pointer into text field in symbol table
+	JMS	SYMCDF2		Set to field of table
+	TADI	SYMPTR2		Get character from symbol table
+	CDF	%*		Reset current field
+	JMS	FOLD		Fold for comparison
+	CIA			Negate for comparison
+	DCA	TEMP 		Save for a moment
+/
+	INC	RPTR		Step the pointer to the next word
+	TADI	RPTR		Get character from the [=reference]
+	SNA			Skip if not end of reference
+	JMP	8F		Sentinel--we have a match here
+	JMS	FOLD		Fold for comparison
+	TAD	TEMP		Compare with character we saved
+	SNA CLA			Skip if we match here
+	JMP	4B		Else keep going if still matching
+/
+/	Here when there is no match, check for end of table
+/
+5H	JMS	SYMCDF2
+	TADI	SYMPTR2		Are we already at the sentinel?
+	CDF	%*		Reset field
+	SNA CLA			Skip if not
+	JMP	6F		Ok -- we have found sentinel on text field
+	JMS	INCSYM2		Else step pointer
+	JMP	5B		and loop back till sentinel found
+/
+/	Here at start of a new entry. Test now to see if we are at the
+/	end of the table.
+/
+6H	JMS	INCSYM2		Step past sentinel on last entry
+/
+/	Come here at the beginning to check for the end of the table
+/
+7H	TAD	SYMCDF2+1	Get CDF instruction
+	CMA IAC			Negate and see if
+	TAD	CDFTOP		we are now in the same field
+	SZA CLA			Skip if so
+	JMP	2B		Different fields -- definitely not at end yet
+/
+	TAD	SYMPTR2		Fields match - compare word pointers
+	CMA IAC			...
+	TAD	SYMTOP		...
+	SZA CLA			Skip if at the end of the table
+	JMP	2B		Not at end - so continue
+/
+/	Here at end of the table. Check now to see if we had a good match.
+/	This is an error if we are in pass 2 or 3
+/	(but not if we are in pass 1 since this may be a forward
+/	reference) unless SFLAG is set which indicates that we did find
+/	a match here
+/
+	TAD	PFLAG		Did we find a perfect match here?
+	SNA CLA			Skip if so
+	TAD	SFLAG		If not, did we find more than 1 match?
+	TAD	=-1		...
+	SMA SZA CLA		Skip if one perfect, or 1 normal match
+	JMP	E11		OK--we definitely had a duplicate entry then
+/
+/	Ok, test now to see if we found a match at all here
+/
+	TAD	PFLAG		A perfect match?
+	TAD	SFLAG		or any match at all in the table?
+	SZA CLA			Skip if not
+	JMP	SREFX		We did -- all done here
+/
+	TAD	PASS		Which pass are we in?
+	SNA CLA			Skip if in pass 2/3
+	JMP	MLOOP		Pass 1 -- not an error
+	JMP	E8		Pass 2 -- definitely an error now
+/
+/	Here when we had a match. Just dump out the LEVEL number now
+/	into the LINEB buffer, and follow it with the page number
+/	First, however, we must check for a perfect match on the level
+/	reference.
+/
+8H	TAD	TEMP		Get symbol table character
+	SZA CLA			Skip if perfect match here
+	JMP	1F		Ok, we did not have a perfect match then
+/
+	TAD	PFLAG		Get count of perfect matches
+	INC	PFLAG		increment count of perfect matches
+	SZA CLA			Skip if first perfect match
+	JMP	E11		Error - duplicate references here
+	JMP	2F		Off to store the perfect match
+/
+1H	TAD	PFLAG		Have we had a prior, perfect match?
+	SZA CLA			Skip if not
+	JMP	5B		Yes we have (so ignore this imperfect match)
+	INC	SFLAG		Update count of imperfect matches found
+/
+/	Come here to store the value of this section number
+/
+2H	TAD	=SAVEB-1	Initialize pointer
+	DCA	KXR		for storing the generated text
+	TAD	=NLEVEL+1	Set pointer to saved LEVEL information
+	JMS	DOLEVEL,PUTKXR	Insert the level information via KXR
+/
+/	Now do the page number. This is complicated by the fact that to
+/	retain hyphenation/justification/paging we must output the same
+/	number of units in pass 2 and pass 3. If we don't do this, there
+/	is a small chance that the hyphenation/paging may get out of
+/	synchronization. The chance seems admittedly small, but it did
+/	happen to us once, so we should ensure this can not happen.
+/
+/	we do this by outputting a slightly different message depending
+/	on the page number to be processed:
+/
+/	(Page 1)		for 1 digit page
+/	(Pg. 23)		for 2 digit page
+/	(Pg 123)		for 3 digit page
+/
+/	Note that the '.' has no mark bit (this avoids it being treated
+/	as a punctuation period, which can affect the line justification
+/	algorithm from pass to pass, if the # of pages change!). For the
+/	same reason, the separating blank must not be recognized as a
+/	place where the line could be broken up.
+/
+	TAD	NLEVEL		Get the saved page number
+	JMS	BINDEC		Convert to decimal ASCII number
+	TAD	SPACE		Justifiable blank here
+	JMS	PUTKXR		...
+	TAD	='(		Open parenthesis
+	JMS	PUTKXR		...
+	TAD	='P		Capital P
+	JMS	PUTKXR		...
+	TAD	MID		Do we have a single-digit page number?
+	SNA CLA			Skip if not
+	JMP	8F		Off to handle single-digit page number
+/
+	TAD	='G+040		2 or 3 digits-- do the 'g' now
+	JMS	PUTKXR		...
+	TAD	HIGH		Get the high order digit
+	SZA CLA			Skip if 2-digit page number
+	JMP	9F		3-digit page number -- all done here
+	TAD	='.-0200	Period after 'G' for 2-digit number
+	JMS	PUTKXR		...
+	JMP	9F		Off to insert separating blank now
+/
+/	Here to handle single-digit page, output, the 'age'
+/
+8H	TAD	='A+040		Lower case a
+	JMS	PUTKXR		...
+	TAD	='G+040		Lower case G
+	JMS	PUTKXR		...
+	TAD	='E+040		Store lower case e
+	JMS	PUTKXR		...
+/
+/	Merge here to output blank before page number
+/
+9H	TAD	=040		Non-justifying blank here
+	JMS	PUTKXR		...
+	TAD	HIGH		Get high order part
+	SZA			Ignore if zero
+	JMS	PUTKXR		Else store into buffer
+	TAD	MID		Get middle part
+	SZA			Skip if leading zero
+	JMS	PUTKXR		Else store into buffer
+	TAD	LOW		Always store the low order part
+	JMS	PUTKXR		...
+	TAD	=')		Closing parenthesis
+	JMS	PUTKXR		...
+	JMS	PUTKXR		Install sentinel of 0 on the buffer
+	JMP	5B		Loop back now to check for duplicate entry
+/
+/	Come back here at the end when everything is all right
+/
+SREFX	TAD	=SAVEB-1	Get pointer to the buffer
+	JMP	SWITCH		Off to read this string now
+/
+/	Little subroutine to place contents of AC via KXR
+/
+PUTKXR	SUB			Short form of routine
+	DCAI	KXR		Store into buffer
+	RET	PUTKXR		All ok
+

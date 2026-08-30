@@ -1,0 +1,22 @@
+    DROP will scan an entire mass-storage device seeking clues to the nature
+of the files it contains.  Thus if you lose the directory on a valuable disk
+and do not have a recent listing, DROP can be used to at least give you some
+idea of the files present. The program recognizes, for instance, .BN and .SV
+files, and in the later case, uses the CCB to suggest a likely candidate, ie
+PIP or ABSLDR or some other system program. Of course it does not know about
+any of your own special programs, but will list the starting address and the
+core locations used, which is often sufficient.  In the case of ASCII files,
+DROP will print the first 60 characters (sans all Carriage Returns and Line-
+feeds), which again is usually enough to identify the file. Given the start-
+ing block and the length, you can then copy it with LDF.
+
+    DROP asks at the end:  'WRITE DIRECTORY?'.  Respond -only- with 'NO' (or
+with a carriage return); this option is not properly implemented!
+
+EX:		.R DROP	(or .DEFine DROP and use .DROP dev:-L)
+		*output device < input device
+defaults:	 [none]		 DSK:
+
+    DROP was developed by an unknown author in Prof. W.L. van der Poel's lab
+at the Technical University of Delft (Holland) and was made available at the
+1978 European DECUS meeting in Copenhagen.

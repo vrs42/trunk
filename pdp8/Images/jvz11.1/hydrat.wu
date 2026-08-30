@@ -1,0 +1,20 @@
+		HYDRAT.HL
+  Help file for hydration studies - - 1-Jun- 84
+     One must use several disks for the data analysis.  Use UCFILL.F4
+on the uc prog. dsk to get a cell filling schedule.  I have tried
+(2954) using 9 sample distributed in 15 channels between 2 runs.  This
+looks good except the temperature of the AnG rotor is hard to control.
+     Collect the data with UCMPX and process is for M(dp/dc) with
+SPROG and then SLOPD.  I have recently also developed SCEXFD for a
+multiple exponential fit.  Data from several scans and fits are merged
+with MERGSC.F4 and then averaged with AVSCOP.F4.  At the end of the
+o.p. data file from this program are the sample #, Mw, and Mv data.
+     One copies this set of data to a tape and switch to the HPLC disk.
+Now make a file of % sucrose with the samples in the same order of the
+samples in the rotor.  Use SUCBUF.F4 to get the g3,v3,(1-v1p),etc data.
+Now use MERG.F4 to merge the g3, etc data with the U.C. data.  This
+o.p. file is the one required by HYDMLE.F4 for determination of the
+preferential hydration.  The optional o.p. file consists of g3,X1'*g3,
+and Err.  PLTXY.LD on the HPLC system is used to plot the data.
+Note that the error estimated in the MLE mode for HYDMLE is vastly
+underestimated.  I dont know why.

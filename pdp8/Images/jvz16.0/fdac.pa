@@ -1,0 +1,20 @@
+/'FDAC' SENDS DATA TO ONE OF EIGHT D/A CONVERTERS
+/ CHANNEL NUMBERS 40-47(10) SCALE THE VALUE BY 4.
+
+FDAC,   FIXIT           /GET CHANNEL NUMBER
+        AND P7
+        TAD (6570       /DEVICE CODE 57
+        DCA DAC2
+        TAD LORD
+        AND M10         /0-7?
+M140,   SZA CLA
+        SP6             /'RTL' BITS
+        TAD M1000
+        DCA DAC1
+        TSTCMA          /VALUE GIVEN?
+XM20,   SNL SMA SZA CLA /NO
+        GETNXT          /GET IT
+DAC1,   NOP             /OR 'RTL'
+DAC2,   NOP             /OUTPUT IT
+        RETURN
+/////

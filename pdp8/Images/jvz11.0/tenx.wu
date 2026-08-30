@@ -1,0 +1,60 @@
+			    Using the TENX program
+
+     The TENX program is provided with the TEN handler to allow the user to
+conveniently make changes once the handler is installed in the system.  The
+changes desired are specified by an option list which follows the '.R TENX'
+command.  Parameters which can be changed are: the device codes used by the
+interface, the baud rate, the time-out constant and a switch that determines
+whether or not multiple OS/8 files will be combined into one large '10 file.
+The options available are:
+
+		/Normal[=xx]		KL-8E,-JA, M707, etc. interfaces
+		/Decstation[=2,3]	VT/WT/78,'278: SLU2,3 ('none'=3)
+		/Input=xx		Changes only input device codes
+		/Output=xx		Changes only output device codes
+		/Combine		Omits CTRL/Z after output files
+		/Timeout=nnnn		Sets input timeout constant
+		/Speed=nnnn		Programs baud rate of Decstation
+		/Baudrate=nnnn		Same as Speed option
+		/Version		Prints version number of program
+
+     Several options may be included on one command line and only the first
+letter of the switch is significant (the order makes no difference).
+
+     Example:			.R TENX/N=56/T=4
+
+     This sets the input device code to 56, the output device code to 57 (a
+'normal' interface has 'output=input+1') and sets the time constant to '4'.
+The latter is an empirical parameter which determines the length of time be-
+fore the handler concludes that the '10 has stopped sending data and closes
+the input file; typical values are 0-7, depending upon the response time of
+the system.
+
+     To combine several OS/8 output files into one large '10 file, use the
+'/C' option.  This inhibits sending EOF codes (Ctrl/Z) after each OS/8 file
+and hence allows successive files to be concatenated.  Use the '/N' option
+to return to normal operation (one OS/8 file per PDP10 file).
+
+     The speed (baudrate) options apply only to use on a Decstation and are
+provided so that the user may conveniently change this important parameter.
+Note that this change is made only by the TENX program, not by the handler
+itself.  The allowable baudrates are: 50, 75, 110, 134, 150, 300, 600, 1200
+1800, 2000, 2400, 3600, 4800, 7200, 9600 and 19200.  The TERMIN program has
+the same options, and will normally be used to set this parameter.
+
+     The TENX program may be run under BATCH and hence may be used to change
+the characteristics of the handler between job steps.  Any errors in the op-
+tion specifications cause the program to abort after printing one of the fol-
+lowing messages:
+
+	TEN HANDLER NOT FOUND		The handler isn't available
+	INCORRECT VERSION		You don't have Version 'D'
+	INPUT DVC = OUTPUT DVC		Device code error
+	BAD SPEED OR BAUD RATE		Check the list above
+	SYSTEM READ ERROR		SERIOUS problem on system dev
+	SYSTEM WRITE ERROR		Write-locked maybe?  Try again
+
+Any problems encountered with this program should be reported to:
+
+LAB DATA SYSTEMS     10320 Ravenna Avenue N.E.    Seattle, Washington 98125
+

@@ -1,0 +1,47 @@
+
+
+
+
+
+
+
+
+	This short patch to the V3D release of PIP.SV (PIP V11A)
+
+	restores the /E /F /L options which were removed because
+
+	of the change to the date algorithm and the change-over
+
+	to the new way of writing dates.  In addition, the /N
+
+	option has been included to print dates in the 'numeric'
+
+	format previously employed.
+
+
+	To add this patch to your version of PIP, proceed as
+
+	follows:
+
+			.DA 11-MAR-78
+			.R ABSLDR
+			*PIP.SV/I
+			*PIPFIX=13000$
+			.SA SYS PIP=6503
+			.SA SYS PIP=6503
+
+
+	The second .SAVE operation will restore the program to
+
+	its original location (the file does not get any longer).
+
+	This will preserve any patches you may have made to your
+
+	version.  This overlay does not conflict with any known
+
+	bug fixes through revision V12B.  The version distributed
+
+	with V3D release contained a serious bug in the /Y option
+
+	which was fixed with the V12B patch (April 1978).
+

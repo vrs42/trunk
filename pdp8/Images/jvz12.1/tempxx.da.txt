@@ -1,0 +1,44 @@
+C  CTOM.F4
+C  GIVEN C COMPUTE MOLALITY
+C  ALSO GET DENSITY
+C  NACL SOLNS AT 25 DEG
+        DIMENSION BV(3)
+        REAL M2
+C  NACL:
+        DATA BV/16.612,1.8875,.03038/
+        DATA M2/58.4428/
+C  KCL:
+C       DATA BV/26.737,2.01503,.03706/
+C       DATA M2/74.5513/
+        DATA P0/.997047/
+1       WRITE(4,1001)
+1001    FORMAT(' CONCN (MOLARITY):'$)
+        READ(4,1002)C
+1002    FORMAT(F6.0)
+C  ASSUME AM (MOLAL) = C
+        AM=C
+        OLD=C
+5       EX=0.
+        PV=BV(1)
+        DO 10 I=2,3
+        EX=EX+.5
+10      PV=PV+BV(I)*AM**EX
+        AM=C/(P0*(1.-.001*PV*C))
+        IF(ABS(AM-OLD).LT.1.E-6)GO TO 20
+        OLD=AM
+        GO TO 5
+20      WRITE(4,1020)AM
+1020    FORMAT(' MOLALITY (M) ='F9.4)
+        RHO=(1.+.001*M2*AM)*P0/(1.+.001*PV*AM*P0)
+        WRITE(4,1025)RHO
+1025    FORMAT(' RHO ='F9.5)
+        X=AM/(AM+1000./18.016)
+        Y=1-2*X
+        WRITE(4,1029)
+1029    FORMAT(' MOLE FRACTIONS:')
+        WRITE(4,1030)X,Y
+1030    FORMAT(' X(NA) = X(CL) = X(2) ='F9.4/' X(1) = X(H20) = 1 - 2*X
+     1(2) ='F9.4)
+        GO TO 1
+        END
+

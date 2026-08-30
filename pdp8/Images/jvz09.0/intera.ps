@@ -1,0 +1,17 @@
+program interactive(input,output);
+begin
+  write(output,'huh? ');
+  while not eof(input) do
+    begin
+      while not eoln(input) do
+        begin
+          output^ := input^;
+          get(input);
+          put(output)
+        end;
+      writeln(output);
+      readln(input);
+      write(output,'yeah?')
+    end
+end.
+

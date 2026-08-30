@@ -1,0 +1,79 @@
+	VAX to PDP-12 and PDP-12 to VAX communications.
+
+I.  At the VAX, communication is implemented by programs PDPCOM and
+PIP, which are found in the library [TELLER.DAVID].
+The communications programs can handle A-Z, 0-9 and special characters
+that are used in Fortran programs, but will not handle control chars,
+lower case, or other weird characters.  Use PIP/T to expand tabs.
+
+II.  PDP-12 to VAX communication is accomplished by the VAXCM2
+program and PIP.  The information to be transmitted should be put in a file
+with a six character filename and .DA extension.  You will need to 
+know the number of lines in the file.  Lines may not be longer than
+80 characters.  Then proceed as follows:
+	Turn on VADIC modem and check wire to PDP-12.
+	.R VAXCM2  and give it filename and number of lines.
+	Call VAX and login.
+
+	$MCR PIP   (this calls PIP from the system library)
+	PIP>fname.ext=TTA5:   (the 1200 baud line is terminal 5)
+
+	Wait for 'CR', then hit ^G to start transmission.  MQ
+shows characters being transmitted.  Wait for ^Z message from PIP.
+Hit ^Y to exit PIP on the VAX. Logout, and hit ^C to terminate
+PDP-12 program.
+	Note that if the VAX is very busy, the file may be incomplete,
+as the VAX doesnt know that the lines continue to come.
+
+III.  VAX to PDP-12 communication uses  the VAX12 and PDPCOM programs. 
+Only 80 characters per line can be transmitted.  At the PDP-12, the file
+will be written on DSK: with your specified six character filename and
+.DA extension.
+Proceed as follows:
+	Turn modem on.
+	.R VAX12  and give it the filename on the PDP-12.
+	Call VAX and login.
+	Setup the file PDPCOM.COM as follows:
+		$Deass/all
+		$As TTA5: FOR004
+		$As name.ext FOR005	/this is the file to be sent
+		$Run PDPCOM
+		$Exit
+	When done with this editing (*EB to get out of ED) and the
+	$sign appears, type @PDPCOM to run the program in immediate mode.
+	At the end of the program, the PDP-12 tells the # of lines
+and the # of characters received.  The # of lines is 1 less than the
+VAX told you initially it would send.  Control then returns to the VAX
+which prints the number of characters it sent.  The number should
+of characters should agree between ths machines in a successful file
+transfer.
+	$ symbols will not be sent as these are used to terminate trans-
+mission.  They are replaced by % signs in the file on the PDP-12.  Use
+SCROLL to restore them to $ signs.  The number of signs converted is
+told to you by the VAX.
+	Logout, hit ^G to terminate PDP-12 program.
+	VAX12.FT uses the subroutines GCHAR.SB and VACTV.SB; the latter
+is a slightly modified version of IACTV.SB.
+	The program PDPCOM.FOR on the VAX has several delay loops
+to allow the PDP-12 time to write the lines.  These delay loops may
+have to be changed from time to time if the characteristics of either
+computer change.
+
+IV.  Login procedure on VAX:
+	Turn VADIC modem on (switch at rear).
+	Call VAX (5-7572), wait for high pitch tone, pull up
+	white knob on phone.
+	Hit 'CR' and wait for:
+
+	Username: TELLER
+	Password: DAVID    (will not echo)
+	$
+
+V.  Notes on using the VAX and other common problems--
+When typing commands to the VAX delete and ^U may be used (they work
+but do not echo).  ^Y aborts whatever the VAX is currently doing.
+
+VI.  If you want to use the PDP-12 as a terminal only, use either
+VAXCM2 or VAX12, giving a dummy file name at the beginning of the 
+program.  Just never hit ^G.
+

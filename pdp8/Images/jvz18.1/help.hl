@@ -1,0 +1,1619 @@
+
+&
+&HELP
+           ^ PDP-8 DIAGNOSTICS, DECX, MONITOR, AND GAMES ^
+
+Type:
+
+        .R PROG                 -       to run a system program
+        .HELP                   -       to type this text file
+        .HELP INFO              -       for more info
+        .HELP DIAG              -       to get a full list of diagnostics
+        .HELP FILENAME          -       to type a HELP file on the terminal
+        .HELP FILENAME-L        -       to print same on the printer
+        .SET SYS INIT           -       to print this test upon startup
+        .SET SYS NO INIT        -       to boot without this text default
+        .R RKBOOT/B             -       TO BOOT B SIDE OF THE DISK GAMES
+Note:
+
+	"PROG" / "FILENAME" refers to specific program or file
+
+&INFO
+
+
+
+
+-  For Diagnostic names, type ".HELP DEVICE", where "Device" is the option
+   you want to reference, ie: try ".HELP RK05" and see what happens.
+   For all the diagnostic names, type ".HELP DIAG"
+
+-  Several System Programs such as "DIRECT","BUILD","FUTIL", as well as 
+   various utilities such as "RKUTIL" and "RKCOPY" have HELP files. To review
+   these, type "HELP [Prog name].
+
+-  Before trying to run the program "BUILD.SV", please read the HELP files !
+   This procedure is advised for knowledgable users only ... be sure that you
+   have ".SET SYS NO INIT" before using !
+
+-  PLEASE remember not to make packs for customer sites with the programs
+   "RKCOPY" or "RKUTIL"  ... use  ".SU CUSPAC"  ! !
+
+-  For more information, type "HELP MORE"
+
+&MORE
+	STILL MOORE INFO ON THE SYSTEM ...
+
+  -  This is essentially an OS-8 system; all rules apply
+
+  -  There are several ".TX" documents on the "RKB0:" area that detail
+     this system, OS-8 in general, and the DECX8 system exerciser.
+
+  -  To print a System Information Package on a line printer, 
+     type ".SU BOOK"
+
+  -  There are two (2) printer handlers enabled, "LPT:" & "LQP:" For further
+     information on using the LQP printer under OS/8, type "HELP LQP".
+
+  -  Notice that "BASIC", and all supporting progams have been moved to 
+     "RKB0:" . To access BASIC or play any of the games, it is neccessary to
+     boot to RKB0:. This is done by typing ".R RKBOOT/B" . Return to normal
+     by typing ".R RKBOOT/0". Typing ".HELP" when booted onto RKB0: will
+     display a menu of available games.
+
+  -  By the way, if you are not running from an RK05, the RKB0: features are
+     unavailable. The RL01 version has "RL0B:", but it may not be booted.
+
+&LQP
+&LPQ
+
+	The letter quality printer used on many DEC word processing
+
+systems can be used as the default line printer. This can be used
+
+to allow the CCL "-L" option to HELP and DIRECT to output to the
+
+printer. To do this, type the OS/8 command "ASSIGN LQP LPT".
+
+
+&RK05 GAMES
+
+                FUN  and  GAMES
+                ---------------
+
+
+        There are several Basic Games on the RKB0 surface of this disk.
+
+        To play them, you must first boot to the "B" surface by:
+
+                ".R RKBOOT/B"
+
+        after you are on the "B" surface, type ".HELP GAMES" for
+        more specific information.
+
+	There are separate Games Floppys available for RX01 users.
+
+
+        NOTE:
+
+        to play "ADVENTURE", you must have 32K of memory !
+
+
+&ABSLDR
+        ABSLDR.SV
+ 
+@CALLING COMMANDS:
+.LOAD DEV:BINFILE.BN,...
+.LOAD BINFILE.BN,...    /FROM DSK
+
+@SWITCHES:
+/8      PROG DOESN'T USE BELOW 02000
+/9      PROG DOESN'T USE BELOW 12000
+/G      GO
+/I      CORE IMAGE FILE
+/P      PROG DOESN'T DESTROY EXTENDED BATCH RESIDENT
+/R      RESET
+/S      MULTIPLE BINARIES/FILE
+/N      FORCE LOADING TO FIELD N (N IS AN OCTAL DIGIT)
+=FNNNN  SET STARTING ADDRESS
+
+
+&DEV
+&DEVICE
+
+
+
+        NO ,  NO,  NO  . . .  by ".HELP DEVICE", we mean to substitute
+
+        the name of the device you want the diagnostic name of for "DEVICE"
+
+
+                ie:     ".HELP RK05"
+                        ".HELP TM8E"
+                        ".HELP TC08"
+
+                                etc.
+
+        Also, some system programs have help files, ie: ".HELP SVDUMP"
+
+
+&PROG
+&PROGNAME
+&[PROG]
+&[PROGNAME]
+
+	OOPS ! YOU GOOFED ... by "HELP [prog]" we mean to substitute the
+
+name of the program you want help with. For example:
+
+
+		.HELP RXREAD"
+
+types the help file for the Floppy Read Check progam on the terminal.
+
+
+
+&FILE
+&FILENAME
+
+
+	Some people never listen!! The command "HELP FILENAME" is used
+
+to obtain help on a particular program. For example, to get help for
+
+the program "RKUTIL", type "HELP RKUTIL".
+
+&DECX
+&DECX8
+
+
+                DECX8  SYSTEM  EXERCISER
+                ------------------------
+
+
+        REFERENCE THE FILE "RKB0:DECX8.TX" FOR ADDITIONAL INFORMATION.
+
+
+        ALSO, THERE ARE DOCUMENTS ON THE MICROFICHE LIBRARY FOR BUILDING
+        AND INITIALIZING DECX8.
+
+
+&ALIGN
+&ALIGNX
+&RKGENA
+		ALIGNX  -  RK05  ALIGNMENT  UTILITY
+		-----------------------------------
+
+
+	To run this utility, type:
+
+
+                .R RKGENA.SV
+
+
+	for a full explaination of the utility and a step-by-step
+	procedure for aligning an RK05, type:
+
+
+                .TYPE RKGENA.TX
+
+&FLOP1
+&FLOP2
+&FLOP3
+&FLOP4
+&FLOPX8
+&FLOP1.BI
+&FLOP2.BI
+&FLOP3.BI
+&FLOP4.BI
+&FLOPX8.BI
+
+			BATCH  STREAMS
+			--------------
+
+
+	These batch streams are designed to provide an easy method of creating
+diagnostic floppies. They are:
+
+
+	.SUB FLOP1	-	creates floppy of VT78, 8A, & 8E diagnostics
+
+	.SUB FLOP2	-	creates floppy of RX01 & RK05 diagnostics
+
+	.SUB FLOP3	-	creates floppy of RL01 diagnostics
+
+	.SUB FLOP4	-	creates floppy of VT, LA, LP, cte. diagnostics
+
+	.SUB FLOPX8	-	creates a DECX8 floppy system
+
+
+
+&BOOT
+        BOOT.SV
+ 
+@CALLING COMMANDS:
+.BOOT/DV
+
+@SWITCHES:
+/CA     TA8E CASSETTE   CAPS-8
+/DK     ANY DISK
+/DL     LINCTAPE        DIAL
+/DM     ANY DISK        DISK MONITOR
+/DT     ANY TAPE
+/LT     LINCTAPE
+/PT     PT8E (LOADS BINLDR)
+/RE     RK8E DISK
+/RF     RF08,DF32 DISKS
+/RK     RK8 DISK
+/RX     RX8E FLOPPY DISK
+/TD     TD8E DECTAPE
+/TY     TYPESET (UNIT 4)
+/VE     VERSION #
+/TC     TC08 DECTAPE    ALL SYSTEMS
+/ZE     ZEROES CORE (FIELD 0)
+
+DEVICES ARE UNIT 0 IF NOT SPECIFIED
+
+DV.     HALT AFTER LOADING BOOTSTRAP
+
+
+&BUILD
+        BUILD.SV
+
+@INTERNAL COMMANDS:
+$ALTER GRP,LOC
+$ALTER GRP,LOC=VALUE
+$BOOT
+$BUILD
+$CTL ACTNAM
+$CTL ACTNAM=VALUE
+$CORE N
+$DCB ACTNAM
+$DCB ACTNAM=VALUE
+$DELETE ACTNAM,...
+$DSK ACTNAM
+$DSK GRP:NAME
+$EXAMINE GRP,LOC
+$INSERT GRP
+$INSERT GRP:NAME,...
+$LOAD DEV:FILENM.BN
+$LOAD ACTNAM
+$NAME ACTNAM=NEWNAM
+$PRINT
+$QLIST
+$REPLACE ACTNAM,...=GRP:NEWNAM,,,
+$SIZE ACTNAM
+$SIZE ACTNAM=VALUE
+$SYS GRP
+$SYS GRP:NAME,...
+$UNLOAD GRP
+$UNLOAD GRP:NAME,...
+
+@ERRORS:
+?BAD ARG        NO DEVICE NAME IN LOAD COMMAND
+?BAD INPUT      INPUT NOT A VALID BINARY FILE
+?BAD LOAD       BINARY HANDLER NOT IN CORRECT FORMAT
+?BAD ORIGIN     ORIGIN IN BINARY FILE NOT IN RANGE 200-577
+?CORE           NOT ENOUGH MEMORY AVAILABLE
+?DSK            DSK IS NOT FILE STRUCTURED
+?HANDLERS       MORE THAN 15 HANDLERS ARE ACTIVE
+I/O ERROR       ERROR DURING LOAD
+?NAME           MISSING NAME
+NO ROOM         TOO MANY DEVICE HANDLERS LOADED
+NAME NOT FOUND  DEVICE OR FILE NAME NOT FOUND
+?PLAT           TOO MANY PLATTERS SPECIFIED FOR DEVICE
+?SYNTAX         BAD SYNTAX
+?SYS            HANDLER IS NOT A SYSTEM HANDLER OR TWO SYSTEM HANDLERS
+                ARE ACTIVE OR HANDLER CORESIDENT WITH NON-ACTIVE SYS
+SYS ERROR       I/O ERROR OCCURED WITH SYSTEM HANDLER.  PRESS CONTINUE
+                TO RETRY
+SYS NOT FOUND   NO ACTIVE HANDLER BY NAME OF SYS DURING BOOTSTRAP
+
+
+&OS-8
+&OS8
+&OS/8
+&SYSTEM
+&SYS
+&CCL
+OS/8 MONITOR COMMANDS
+
+CMD     PROG    EXPL
+
+ASSIGN  KBM     ASSIGNS LOGICAL NAME
+BACKSP  CAMP    BACKSPACES DEV
+BASIC   BASIC   ENTERS BASIC SYSTEM
+BOOT    BOOT    BOOTSTRAPS TO DEV
+CCL     CCL     DISABLES CCL
+COMPARE SRCCOM  COMPARES FILES
+COMPILE PAL8    COMPILES PROG
+        F4/FORT
+        BASIC
+        RALF
+        SABR
+COPY    FOTP    COPIES FILES
+CREATE  EDIT    OPENS FILE FOR EDITING
+CREF    PAL8    ASSEMBLES AND CHAINS TO CREF
+        CREF    CREF'S LISTING
+DATE    KBM/CCL SPECIFIES DATE
+DEAS    CCL     DEASSIGNS LOGICAL DEVICES
+DELETE  FOTP    DELETES FILES
+DIRECT  DIRECT  PRINTS DIRECTORIES
+DUPLIC  RXCOPY  COPIES RX DISKS
+EDIT    EDIT    EDITS FILE
+EOF     CAMP    WRITES END-OF-FILE
+EXECUTE PAL8    COMPILES AND EXECUTES
+        F4/FORT
+        BASIC
+        RALF
+        SABR
+        ABSLDR  LOADS AND EXECUTES
+        LOAD(ER)
+GET     KBM     GETS CORE-IMAGE
+HELP    HELP    LIST'S HELP FILE
+LIST    FOTP    LISTS FILES
+LOAD    ABSLDR  LOADS FILES
+        LOAD(ER)
+MAKE    TECO    MAKES NEW FILE FOR EDITING
+MAP     BITMAP  PRINTS BITMAP
+MEMORY  CCL     SPECIFIES MACHINE CORE SIZE
+MUNG    TECO    MUNGS FILE WITH TECO MACRO
+ODT     KBM     RUNS OCTAL DEBUGGER
+PAL     PAL8    RUNS PAL8
+PRINT   LPTSPL  RUNS 'LPTSPL' IF PRESENT
+PUNCH   FOTP    PUNCHES DATA
+R       KBM     RUNS PROGRAM FROM SYS:
+RENAME  FOTP    RENAMES FILES
+RESORC  RESORC  PRINTS RESOURCES OF SYSTEMS
+REWIND  CAMP    REWINDS DEV
+RUN     KBM     RUNS PROGRAM
+SAVE    KBM     SAVES CORE IMAGE
+SET     SET     ALTERS PARAMETERS
+SKIP    CAMP    SKIPS RECORDS
+SQUISH  PIP     SQUISHES DEV
+START   KBM     STARTS PROG
+SUBMIT  BATCH   STARTS BATCH JOB
+TECO    TECO    EDITS FILE
+TYPE    FOTP    TYPES FILES
+UA      CCL     REMEMBERS COMMAND
+UB      CCL
+UC      CCL
+UNLOAD  CAMP    UNLOADS DEV
+VERSION CCL     TYPES VERSION #
+ZERO    PIP     ZEROES DEV
+
+
+
+
+@SWITCHES:
+-L      OUTPUT TO LPT:
+-S      OUTPUT TO TV:
+-T      OUTPUT TO TTY:
+-P      OUTPUT TO PTP:
+-D      OUTPUT TO DUMP:
+-N      OUTPUT TO NULL:
+-LS     PRODUCE LISTING
+-NB     NO BINARY YET
+-MP     PRODUCE MAP
+-EXT    SET DEFAULT EXTENSION
+
+@FEATURES:
+/X      PASS SWITCH OPTION X TO PROGRAM
+(XYZ)   PASS SWITCH OPTIONS TO PROGRAM
+[N]     MAX OUTPUT SIZE
+=NNN    PASS OCTAL NUMBER TO PROGRAM
+#NNN    TAKE INTERNAL OCTAL FORM OF FILENAME
+ @FILE  REPLACE IN CMD LINE BY FILE'S CONTENTS
+$       COMPLEMENT DEFAULT ALTMODE SWITCH
+
+
+&EDIT
+&CREATE
+        EDIT.SV
+
+@CALLING COMMANDS:
+.EDIT DEV:OUTFILE.PA<DEV:INFILE.PA
+.CREATE OUTFILE.PA
+
+@SWITCHES:
+/A      RETURN TO EDITOR ON CLOSE
+/B      CONVERT 2 OR MORE SPACES TO TAB
+/D      PREDELETE
+  
+@ERRORS:
+?0      INPUT ERROR
+?1      OUTPUT ERROR
+?2      CLOSE ERROR
+?3      OPEN ERROR
+?4      COULDN'T LOAD DEVICE HANDLER
+
+@INTERNAL COMMANDS:
+A       APPEND TEXT
+B       LIST # OF CORE LOCATIONS LEFT
+C       CHANGE TEXT
+D       DELETE TEXT
+E       OUTPUT BUFFER, TRANSFER REST OF DATA, AND CLOSE
+F       AFTER J, SEARCH FOR NEXT OCCURRRENCE OF SAME STRING
+G       GET AND LIST TAGGED LINE
+I       INSERT
+J       INTER-BUFFER STRING SEARCH
+K       KILL BUFFER
+L       LIST TEXT
+M       MOVE TEXT
+N       WRITE BUFFER, KILL AND READ NEXT PAGE
+P       WRITE TEXT BUFFER TO OUTPUT
+Q       IMMEDIATE END OF FILE
+R       READ TEXT FROM INPUT DEVICE
+S       CHARACTER SEARCH
+T       PUNCH TRAILER TAPE
+V       PRINT ON LP08
+Y       INPUT TEXT PAGE, NO OUTPUT
+#       PRINT VERSION NO.
+
+
+&ODT
+        ODT
+  
+@CALLING COMMANDS:
+.ODT
+  
+@INTERNAL COMMANDS:
+NNNNN/  OPEN LOC
+/       REOPEN LAST OPENED LOC
+NN<CR>  DEPOSIT NN IN OPEN LOC, CLOSE LOC
+NN<LF>  DEPOSIT NN IN OPEN LOC, CLOSE LOC, OPEN AND DISPLAY NEXT LOC
+NN;...  DEPOSIT NN IN OPEN LOC, CLOSE AND OPEN NEXT LOC
+<CR>    CLOSE PREVIOUSLY OPENED LOC
+<LF>    CLOSE LOC, OPEN NEXT LOC
+N+      OPEN CUR LOC+N
+N-      OPEN CUR LOC-N
+^       CLOSE LOC, OPEN LOC ADDRESSED BY CONTENTS
+_       CLOSE LOC, OPEN POINTED TO BY CONTENTS
+NNG     GO
+NNB     ESTABLISH BREAKPOINT
+B       REMOVE BREAKPOINT
+A       OPEN AC
+L       OPEN LINK
+C       CONTINUE FROM BREAKPOINT
+NNC     CONTINUE, ITERATE NN TIMES
+M       OPEN SEARCH MASK
+ <LF>   OPEN LOWER SEARCH LIMIT
+ <LF>   OPEN UPPER SEARCH LIMIT
+NNW     SEARCH CORE FOR NN MASKED BETWEEN LIMITS
+D       OPEN DATA FIELD (0010=FIELD 1)
+F       OPEN FIELD FOR ^, _, W  (0010=FIELD 1)
+^O      SUPRESS PRINTING
+
+&PIP
+        PIP.SV
+
+@SWITCHES:
+/A      ASCII MODE
+/B      BINARY MODE
+/C      ELIM TRAILING BLANKS
+/D      DELETE OUTPUT FILE BEFORE TRANSFER
+/G      IGNORE ERRORS
+/I      IMAGE MODE
+/O      OKAY TO COMPRESS OR ZERO
+/S      SQUISH
+/T      CONVERT TABS TO SPACES, ETC.
+/V      VERSION #
+/Y      COPY SYSTEM HEAD
+/Z      ZERO OUTPUT DIRECTORY BEFORE TRANSFER
+=N      # OF ADDITIONAL INFO WORDS (/Z OR /S)
+=N      SIZE TO CLOSE OUTPUT FILE (/I)
+
+&PIP10
+        PIP10.SV
+
+@SWITCHES:
+/B      BINARY MODE
+/D      DELETE OLD OUTPUT FILE BEFORE TRANSFER
+/F      FAST PDP-10 DIRECTORY
+/I      IMAGE MODE
+/L      LIST PDP-10 DIRECTORY
+/P      PRESERVE LINE NUMBERS
+/Z      ZERO PDP-10 DIRECTORY BEFORE TRANSFER
+
+&DUPLIC
+&RXCOPY
+        RXCOPY.SV
+ 
+@CALLING COMMANDS:
+.DUPLIC OUTDEV:<INDEV:
+ 
+@SWITCHES:
+/M      MATCH WITH NO IMPLIED COPY
+/N      COPY WITH NO IMPLIED MATCH
+/P      PAUSE BEFORE AND AFTER ACCESSING DISKS
+/R      READ OUTPUT DEVICE WITH NO IMPLIED COPY OR MATCH
+/V      PRINT VERSION NUMBER
+
+&SET
+        SET.SV
+ 
+@CALLING COMMANDS:
+.SET DEV PARAMETER(S)
+.SET DEV NO PARAMETER(S)
+ 
+@PARAMETERS:
+READONLY        DECLARE DEVICE TO BE READ ONLY
+FILES           DECLARE DEVICE TO BE FILE STRUCTURED
+DVC             CHANGE DEVICE CODES
+VERSION X       CHANGE VERSION
+LOCATION N[=M]  EXAMINE OR CHANGE LOCATIONS
+LV8E            DECLARE LINE PRINTER TO BE AN LV8E
+LA8A            DECLARE LINE PRINTER TO BE LA180 ON DKC8-AA
+LA78            SAME AS .SET LPT NO LA8A
+WIDTH N         SET WIDTH OF LINE PRINTER OR TTY
+LC              DECLARE LINE PRINTER OR TTY TO HAVE LOWER CASE
+ECHO            RESTORE TTY CHARACTER ECHOING
+PAGE            RESTORE TTY ^S AND ^Q FACILITIES
+TAB             IN TTY PRINT TABS (DON'T SIMULATE WITH SPACES)
+FILL            IN TTY APPEND FILL CHARACTERS AFTER TABS
+FLAG            IN TTY FLAG LOWER CASE CHARACTERS
+SCOPE           ERASE CHARACTER ON TTY RUBOUTS
+ESC             PRINT ESC(ASCII 033) WITHOUT CONVERTING IT TO $ SIGN
+ARROW           PRINT CONTROL CHARACTERS WITH UP ARROW (E.G. ^C, ^S)
+HEIGHT [M]      SET TTY SCREEN HEIGHT
+PAUSE [N]       SET TTY PAUSE TIME
+COL N           SET DIRECT TO USE N COLUMNS (.SET TTY COL 2)
+CODE N          CHANGE TTY IOTS OR CARD READER CODES
+PARITY EVEN/ODD SET MAGTAPE PARITY
+OS8             DECLARE SYS TO BE OS/8
+OS78            DECLARE SYS TO BE OS/8
+INIT XXXXX      CAUSE SYS TO EXECUTE XXXXX ON BOOTSTAPPING
+
+&BATCH
+&SUBMIT
+        BATCH.SV
+ 
+@CALLING COMMANDS:
+.SUBMIT SPOOLDEV:<INPUTDEV:FILE.BI
+ 
+@SWITCHES:
+/C      CARDS
+/E      DON'T ABORT ON MONITOR, CD AND CCL ERRORS
+/P      PTR
+/Q      NO BATCH LOG
+/H      HUSH
+/T      OUTPUT TO TTY
+/U      UNATTENDED
+/6      USE 026 CARD CODES
+
+&FOTP
+&LIST
+&COPY
+&RENAME
+&TYPE
+&DELETE
+        FOTP.SV
+ 
+@CALLING COMMANDS:
+.COPY DEV:OUTFILE.EX<DEV:INFILE.EX      /* IS WILD NAME OR EXTENSION
+.REN DEV:NEWFILE.EX<DEV:OLDFILE.EX      /? IS WILD CHARACTER
+.DEL DEV:FILE.EX
+.LIST DEV:FILE.EX                       /= .COPY LPT:<DEV:FILE.EX
+.TYPE DEV:FILE.EX                       /= .COPY TTY:<DEV:FILE.EX
+ 
+@SWITCHES:
+/C      MATCH ONLY FILES WITH CURRENT DATE
+/D      DON'T TRANSFER (I.E. AT MOST ONLY DELETE)
+/F      REQUEST NEW DEVICE IF OUT OF ROOM
+/L      TYPE LOG OF INPUT FILENAME MATCHES (*)
+/N      NO PRE-DELETE
+/O      MATCH ONLY FILES WITH OTHER THAN TODAY'S DATE
+/Q      QUERY USER ABOUT FILE BEFORE OPERATION (*)
+/R      RENAME
+/T      USE TODAY'S DATE
+/U      TREAT EACH INPUT SPECIFICATION SEPARATELY
+/V      MATCH FILES NOT OF FORM SPECIFIED
+/W      PRINT VERSION #
+ 
+NOTES:
+ 
+(*)     /D CAUSES LOG OF OUTPUT FILES (IF /L ALSO)
+ 
+IF INDEV: EQUALS OUTDEV:, THEN /N IS FORCED.
+ 
+IF NO INPUT FILE, *.* IS FORCED EXCEPT FOR /D
+IF OUTPUT DEVICE SPECIFIED, BUT NO FILE, *.* IS ASSUMED.
+ 
+^P      ABORT OPERATION, FIX OUTPUT DIRECTORY
+^C      FIX OUTPT DIRECTORY, RETURN TO OS/8
+^O      SUPPRESS TYPEOUT
+
+&ASSIGN
+&DATE
+&DEASSIGN
+&GET
+&MEMORY
+&R
+&RUN
+&SAVE
+&START
+&SQUISH
+&UA
+&ZERO
+        KEYBOARD MONITOR AN OTHER COMMANDS
+ 
+@CALLING COMMANDS:
+.ASSIGN DEV NAME                /ASSIGN NAME TO DEVICE
+.DAY DD-MON-YY                  /ENTER DATE INTO SYSTEM
+.DEASSIGN                       /DEASSIGN LOGICAL DEVICE NAMES
+.GET DEV FILE.EX                /LOAD CORE IMAGE
+.MEMORY N                       /SPECIFY HIGHEST MEMORY FIELD AVAILABLE
+.R FILE                         /EXECUTE FILE.SV FROM SYS
+.RUN DEV FILE.EX                /EXECUTE FILE.EX FROM THE DEVICE
+.SAVE DEV FILE.EX               /SAVE CORE IMAGE
+.SQUISH DEV:                    /COMPRESS FILE STORAGE ON DEVICE
+.START FNNNN                    /START EXECUTION
+.UA COMMAND                     /SAVE COMMAND(.UA<CR> EXECUTES IT)
+.ZERO DEV:                      /ZERO DEVICE'S DIRECTORY
+
+&CONVRT
+        CONVRT.SV
+
+SAVE FORMAT - BINARY FILE PUNCHER
+
+
+        THIS PROGRAM PRODUCES AN ABSOLUTE BINARY FILE FROM AN OS/8
+        SAVE FILE. ONLY THOSE AREAS OF MEMORY SPECIFIED IN THE CORE
+        CONTROL BLOCK ARE ACTUALLY PUNCHED.
+
+        COMMAND DECODER RESPONSE IS:
+
+                OUTPUT < INPUT, INPUT .....
+
+        DEFAULT INPUT EXTENSION IS ".SV", DEFAULT OUTPUT IS THE
+        HIGH SPEED PAPER TAPE PUNCH.
+
+
+
+&FUTIL
+        FUTIL.SV
+
+
+        FUTIL IS AN OS-8 UTILITY PROGRAM THAT IS EXTREMELY USEFUL
+
+        I F   Y O U   K N O W   W H A T   Y O U ' R E   D O I N G
+        --    -----   -------   -------   -----------   ---------
+
+        IT IS EQUALLY AS DANGEROUS IF YOU DON'T !!!!!
+
+
+	There are two (2) useful examples of FUTIL in the file
+        "OS8.TX" on RKB0:
+
+        There is also a rather lengthly file "FUTIL.TX" located on RKB0:
+
+
+&SDUMP
+&SVDUMP
+                SVDUMP.SV
+
+
+
+        THIS PROGRAM DUMPS THE CONTENTS OF A SAVE FILE IN OCTAL
+        AS A LOADED CORE IMAGE.
+
+        APPROPRIATE COMMAND DECODER RESPONSE IS
+        "OUTPUT < INPUT1,INPUT2,..."
+        DEFAULT OUTPUT IS LPT, DEFAULT INPUT EXTENSION IS .SV.
+
+        DUMP FORMAT IS NORMALLY 20 (OCTAL) WORDS WIDE, ABOUT 105
+        COLUMNS. SPECIFYING A "/N" OPTION CHANGES THE FORMAT TO
+        10 WORDS WIDE, ALLOWING IT TO FIT ON A TTY.
+
+
+&QUIT
+		QUIT.SV		-	Directory Backup Program
+
+
+
+	By typing:
+
+
+		".QUIT" , you can backup your Directory to a file called
+       	"DIRECT.TS" on RKB0:.
+
+	If the disk crashes, and the directory area is destroyed, it may be
+	restored by booting to the "B" area of the disk, and using FUTIL to
+	write this file back onto the "A" area as the new directory.
+
+	PLEASE NOTE that this is for extreme cases only ! Read the section
+	on Advanced Techniques on the file "DIAG.TX" on RKB0: before
+	attempting this procedure.
+
+	Periodic use of this program is an essential part of the housekeeping
+	discipline that allows use of the Disk Recovery Techniques described
+	on the file "DIAG.TX"
+
+&RKCOPY
+        RKCOPY     RK05 DISC COPY PROGRAM
+        ------     ----------------------
+
+
+
+        RKCOPY COPIES DISCS ON A SECTOR-BY-SECTOR BASIS, FROM DRIVE 1 TO
+
+DRIVE 0, AND ONLY IN THAT DIRECTION. THE PROGRAM WILL WRITE PROTECT DRIVE 0.
+
+
+        THERE ARE TWO OPTIONS AVAILABLE :
+
+
+                        C   -   COPY
+
+                        V   -   VERIFY  (THAT DK1 = DK0)
+
+
+        TO RUN, TYPE:
+
+                        .R RKCOPY
+
+
+&RKUTIL
+	RKUTIL		RK05  UTILITY PROGRAM
+	------		---------------------
+
+
+
+
+	This utility has several handy options including a 
+
+
+
+	- Disk Copy Program that will copy & verify any 16 sector disk
+
+	- Disk Read Program that will verify that a disk has no CRC errors
+
+	- Disk Formatter Program to format new disks
+
+	- Disk Confidence Test that runs data patterns on a suspect disk
+
+
+&SHELLY
+&CRUNCH
+&RFTEST
+&RFCRUNCH
+		SHELLY.DG  or  RFCRUNCH
+		-----------------------
+
+This program was written around 1974 by Bob Shelly of Product Support. It
+provides an excellent checkout of the RF08 Disk System. It is an especially
+good check of a TSS-8 System. It does, however need an MQ to operate. This
+means an 8E or later or an 8I with an EAE.
+
+This program is best used as a GO / NO GO test since the error printouts are
+poor at best. The typeouts are interperted as follows:
+
+
+D
+
+XXXXXXXXXXXX  =  total number of errors
+
+W
+
+XXXXXXXXXXXX  =  positive word count that should have been transferred
+
+
+
+Unit    Track     Disk Mem Addr
+----    -----     -------------
+  X    XXXXXXX    XXXXXXXXXXXX     =  address where xfer SHOULD have started
+  X    XXXXXXX    XXXXXXXXXXXX     =  calculated address where xfer DID start
+
+XXXXXXXXXXXX  =  DMA of last WRITE done
+XXXXXXXXXXXX  =  DMA of last READ done
+-----------X  =  bit 11 is 0 if writing; 1 if reading
+
+
+S
+
+XXXXXXXXXXXX  =  status register minus photo-sync bit
+
+
+Program Locations
+-----------------
+
+120	-	momory where program was running
+121	-	Field disk was breaking to
+122	-	unit # and 6 bits of track address
+123	-	7th bit of track address and DMA
+124	-
+125	-	stall
+126 to  -	next transfer
+
+
+&RK05
+&RK05J
+&RK05F
+&RK8E
+&RKS8E
+                        RK05 DISK DRIVE
+                        ---------------
+
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHRKAE                  RK8E DISKLESS DIAGNOSTIC
+        DHRKBG                  RK8E/L DRIVE CONTROL TEST
+        DHRKCH                  RK8E/L DISK DATA RELIABILITY TEST
+        DHRKEA                  RK8L INSTRUCTION TEST
+
+        AUVAAA                  RKS8E DISKLESS DIAGNOSTIC
+        AUVBAB                  RKS8E DRIVE CONTROL TEST
+        AUVCAA                  RKS8E DSIK FORMATTER
+        AUVDAB                  RKS8E DISK DATA RELIABILITY TEST
+        AUVEAD                  RKS8E WORD COUNT TEST
+
+        ALIGNX                  RK05 ALIGNMENT ROUTINE
+        RKUTIL                  RK05 UTILITY PACKAGE
+
+&PDP8E
+
+                        PDP-8E  CPU  DIAGNOSTICS
+                        ------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHKAFA                  PDP-8E INSTRUCTION TEST 1
+        DHKAGA                  PDP-8E INSTRUCTION TEST 2
+        DHKAAB                  8E ADDER TESTS
+        DHKABA                  RANDOM "AND" TEST
+        DHKEBB                  KE8E (EAE) INSTRUCTION TEST 1
+        DHKECA                  KE8E (EAE) INSTRUCTION TEST 2
+        DHKPAB                  KP8E POWER FAIL DIAGNOSTIC
+        DGMACB                  PDP-8,8I,8S EXTENDED MEMORY CONTROL TEST
+        DHKLDA                  TELETYPE & KL8 ASYNC DATA CONTROL TESTS
+        DIKLAC                  KL8-JA LOOPBACK TEST
+        DIKLBA                  KL8-JA TELETYPE TEST
+        DHKACA                  MM8E 4K MEMORY CHECKERBOARD
+        DHKADA                  MM8E 4K MEMORY ADDRESS TEST
+        DHKMAD                  EXTENDED MEMORY CHECKERBOARD
+        DHKMCC                  EXTENDED MEMORY ADDRESS TEST
+        DHMPAA                  EXTENDED MEMORY PARITY TEST
+        DHMCAB                  MEMORY EXTENSION & TIME SHARE CONTROL TEST
+
+&PDP8A
+                        PDP-8A  CPU  DIAGNOSTICS
+                        ------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DJKKBA                  PDP-8A CPU TEST WITH CONSOLE PACKAGE
+        AJEXCC                  PDP-8A  4K-32K PROCESSOR EXERCISER
+        DJDKAD                  DKC8-AA OPTION TEST #1   (M8316)
+        DJKMAC                  KM8-A OPTION TEST #2   (M8317)
+        DJFPAB                  FPP-8A DIAGNOSTIC
+        DJFPBC                  FPP-8A INSTRUCTION TEST & DATA EXERCISER
+        AJKTAB                  KT8-A MEMORY MGT. DIAGNOSTIC
+        DHKMAD                  EXTENDED MEMORY CHECKERBOARD
+        DHKMCC                  EXTENDED MEMORY ADDRESS TEST
+
+
+&VT78
+                        VT78 - DECSTATION 78  DIAGNOSTICS
+                        ---------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DKVTAA                  VT78 MOS MEMORY DIAGNOSTIC
+        AKVTBB                  VT78 CPU DIAGNOSTIC
+
+&RX01
+&RX02
+&RX8E
+&FLOPPY
+                        RX8 / RX01 FLOPPY DISC DIAGNOSTICS
+                        ----------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        AIRXAE                  RX01/RX02   DIAGNOSTIC PROGRAM
+        AIRXBF                  RX01/RX02   DATA RELIABILITY EXERCISER
+
+
+
+&RXREAD
+
+	RXREAD - RX01 Floppy read check utility
+	------
+
+	This program is used to read a RX01 floppy disk and check it
+for any errors. The error report consists of the following:
+
+	- The track and sector number (in octal) of the bad sector
+
+	- The RX01 error and status (RXES) register contents
+
+	- The explanation of the RXES value (for example, if the error
+	  is a CRC error, it will say "CRC Error")
+
+	- The RX Definitive error code, and its description.
+
+	After an error, the program will ask if it is to re-write the
+bad sector. This question should be answered with "N" (no), unless the
+error was a CRC error. In this case, the sector can be re-written,
+which may (but may not) correct the error. In any case, the data
+is re-written with a good CRC. This may make at least part of a bad
+block usuable.
+
+&DF32
+&DF32D
+                        DF32 - DF32D  MINIDISK DIAGNOSTICS
+                        ----------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DIDFAC    *              DF32D DISCLESS LOGIC TEST
+        DIDFBA    *              DF32 DISCLESS LOGIC TEST
+        DIDFCA    *              DF32 / DF32D DISK DATA, INTERFACE TEST
+
+
+
+
+
+&RL8A
+&RL01
+                        RL01  DISK DIAGNOSTICS
+                        ----------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        AJRLAB                  RL01 DISKLESS DIAGNOSTIC
+        AJRLBB                  RL01 DRIVE CONTROL PART 1
+        AJRLCA                  RL01 DRIVE CONTROL PART 2
+        AJRLDA                  RL01 DRIVE COMPATABILITY VERIFIER
+        AJRLEA                  RL01 PERFORMANCE EXERCISOR
+        AJRLGA                  RL01 PACK VERIFY
+
+
+&TD8E
+&TC01
+&TC08
+                          DECTAPE CONTROL DIAGNOSTICS
+                          ---------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        TCBASX                  TC01/8 BASIC EXERCISER
+        TCRANX                  TC01/8 RANDOM EXERCISER
+        DHTDAB                  TD8E DECTAPE DIAGNOSTIC
+
+
+&TM8E
+&TC58
+&TU20
+                        TC58 TAPE CONTROL DIAGNOSTICS
+                        -----------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DITCBA     *             TC58 DRIVE FUNCTION TIMER
+        DITCCA     *             TC58 RANDOM EXERCISER
+        DITCDA     *             TC58 INSTRUCTION TEST PART 1
+
+
+
+
+
+
+&TM8E
+&TU10
+&TS03
+                        TM8E & TS03 TAPE CONTROLLER / DRIVE DIAGNOSTICS
+                        -----------------------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHTMAB    *              TM8-E CONTROL TEST PART 1
+        DHTMBB    *              TM8-E CONTROL TEST PART 2
+        DHTMCA    *              TM8-E DRIVE FUNCTION TIMER
+        DHTMDB    *              TM8-E DATA RELIABILITY  ( 9 TRACK )
+        DHTMEB    *              TM8-E DATA RELIABILITY  ( 7 TRACK )
+        DHTMFC    *              TM8-E RANDOM EXERCISER
+
+        DHTSAB    *              TM8-E/TS03 CONTROL TEST PART 1
+        DHTSBB    *              TM8-E/TS03 CONTROL TEST PART 2
+        DHTSCB    *              TM8-E/TS03 DATA RELIABILITY
+        DHTSDB    *              TM8-E/TS03 MULTIDRIVE DATA RELIABILITY 
+        DHTSEA    *              TM8-E/TS03 DRIVE FUNCTION TIMER
+        DHTSFA    *              TM8-E/TS03 UTILITY DRIVER
+
+
+
+&PC8E
+&PC04
+                        HIGH SPEED READER / PUNCH DIAGNOSTICS
+                        -------------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHPCAA                  HIGHSPEED READER/PUNCH TESTS
+
+&CM8F
+&CR8E
+&CR8F
+                        CARD READER
+                        -----------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHCRAA     *             CR8E/CR8F CARD READER TEST
+        DHCMAA     *             CM8F OPTICAL CARD READER TEST
+
+
+
+
+&DK8E
+                        DK8E CLOCK
+                        ----------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHDKAA    *              DK8E CLOCKS DIAGNOSTIC
+
+
+
+
+&DB8E
+                        DB8E INTERPROCESSOR BUFFER
+                        --------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DIDBAA    *              DB8-E INTERPROCESSOR BUFFER TEST
+
+
+
+
+&DP8EA
+&DP8E
+&DP8
+                        DP8-EA SYNCHRONOUS MODEM
+                        ------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHDPAD     *             DP8-EA SYNC MODEM INTERFACE DIAGNOSTIC
+
+
+
+
+&KG8EA
+&KG8E
+&KG8
+
+                        KG8-EA REDUNDANCY CHECK
+                        -----------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHKGAB     *            KG8-EA DIAGNOSTICS
+
+
+
+
+&DH8E
+                        DH8E DIAGNOSTICS
+                        ----------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHDHAA     *           DH8E HOST PROGRAM
+        DHDHCA     *           DH8E REMOTE LOADER PROGRAM
+
+
+
+
+&KL8E
+&KL8F
+&KL8J
+&KL8JA
+&KL8M
+&KL8A
+                        TERMINAL CONTROLLER DIAGNOSTICS
+                        -------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        AHKLAA                KL8M MODEM CONTROL DIAGNOSTIC
+        DHKLBB   *            KL8M KL8E/F DC08 ON LINE TEST
+        DHKLCD   *            KL8F DOUBLE BUFFERED ASYNC INTERFACE DIAGNOSTIC
+        DHKLDA                PDP-8E TELETYPE & KL8 ASYNC DATA CONTROL TESTS
+        DIKLAC   *            KL8-JA & KL8-KA/KB/KC/KD LOOPBACK TEST
+        DIKLBA                KL8-JA TELETYPE TEST
+        DJKLAD                KL8-A MULTIPLE SERIAL LINE UNIT DIAGNOSTIC
+
+
+
+
+&LP05
+&LP01
+&LP02
+&LP04
+&LP14
+&LE8
+&LE8E
+&LS8E
+&LS01
+&LQP8
+&LA180
+&LV8
+&LV8E
+&LV12
+                        PRINTER DIAGNOSTICS
+                        -------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DILACB                  LA180 PRINTER DIAGNOSTIC
+        DILPAC                  LE8/LP08 LINE PRINTER TEST
+        DILPEC                  LP05/LP08 AND LP14 LINE PRINTER TEST
+        DHLSAC                  LS8 LINEPRINTER TEST
+        DHLQAB                  LQP8 LETTER QUALITY PRINTER DIAGNOSTIC
+        DILVAA   *              LV12/LV8 PRINTER/PLOTTER TEST
+
+
+
+
+&DR8
+&DR8E
+&DR8EA
+&DR8ED
+                        DIGITAL I/O MODULE
+                        ------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+        DHDRAB   *               DR8-EA 12 CHANNEL BUFFERED DIGITAL INTERFACE
+        DHDRHA   *               DR8-ED EXERCISER
+
+
+
+
+&UDC
+&UDC8
+&UDC08
+                        UDC-8 DIAGNOSTICS
+                        -----------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DIUDAC   *                UDC-8 SYSTEM FUNCTION EXERCISER
+        DIADFA   *                UDC08 ANALOG INPUT EXERCISER
+
+
+
+
+&ICS8
+                        ICS8 DIAGNOSTICS
+                        ----------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHICAA   *               ICS FIELD TEST PROGRAM
+
+
+
+
+&AFC8
+&AFC08
+                        AFC8 DIAGNOSTICS
+                        ----------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DIAFBA   *               AFC-8 DIAGNOSTIC  (UNIPOLAR)
+
+
+
+
+&AD01
+&AD08
+&AD8E
+&AM8E
+                        ANALOG-DIGITAL CONVERTER DIAGNOSTICS
+                        ------------------------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DHADAA   *               AD8E,AM8E,A-D CONVERTER & MUX DIAGNOSTIC
+        DJADAC   *               A/D CONVERTER MUX DIAGNOSTIC
+
+
+
+
+
+&VK8A
+                        VK8A DIAGNOSTIC
+                        ---------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DJVKAB   *               VK8-A INTERNAL LOGIC/DISPLAY DIAGNOSTIC
+
+
+
+
+
+&TYPESET
+&TYPSET
+&DECSET
+&LPC8
+&LPD8
+                        PHOTOCOMP DIAGNOSTICS
+                        ---------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        DILTCA    *              LPC8 PHOTOCOMP INTERFACE DIAGNOSTIC
+        DILTDA    *              LPD8 PHOTOCOMP INTERFACE DIAGNOSTIC
+        TYPSET    *              PDP8 TYPESET DIAGNOSTIC
+
+
+
+
+&LA30
+&LA36
+&VT05
+&VT50
+&VT50H
+&VT52
+&VT55
+&VT8E
+&VT20
+&VT61
+&RT01
+&RT02
+                        TERMINAL DIAGNOSTICS
+                        --------------------
+
+        MAINDEC                         FUNCTION
+        -------                         --------
+
+        AILABE                  LA36 DIAGNOSTIC
+        DHVTCD                  VT50/52 ACCEPTANCE TEST
+        DHLAAB   *              DECWRITER  (LA30) EXERCISER 
+        DGV5AB   *              VT05 TERMINAL DIAGNOSTIC
+        DHVCAA   *              VC8E DISPLAY DIAGNOSTIC
+        DHVTAB   *              VT8E VIDEO DISPLAY TEST 1
+        DHVTBA   *              VT8E VIDEO DISPLAY TEST 2
+        DHVTDA   *              VT61 TERMINAL ACCEPTANCE TEST
+        DIVTCA   *              VT55 VIDEO TERMINAL ACCEPTANCE TEST
+        DIVTBA   *              VT20 HOST COMPUTER PROGRAM
+        DIRTAB   *              RT01/RT02 TERMINAL DIAGNOSTIC
+
+
+
+
+
+&HEADER
+                HEADER.SV
+
+.R HEADER
+
+DEVICE NAME? SYS or SYS: or DSK or RKB1 or RXA1: etc.
+DEVICE LENGTH? 737 or 3248 or 494 or (incl. directory blocks)
+
+if the device contains a system area the following applies:
+SYSTEM ID? OS/8, OS/12, OS/78, DS/8, or PS/8
+VERSION NO.?  3 or whatever
+RELEASE CODE? C or D or ......
+if there is no system area the questions above are skipped
+
+LOGICAL DEVICE NAME? CHEM or BOB: or UWF or ?? (1-4 letters)
+VOLUME NO.? 1 or any number up to 4095; 0 = none
+DESCRIPTIVE LABEL?
+Here you may enter any identifying information (UPPER/lower
+case, as you wish) - up tO!beqASK7S7IN3'+3w';?>H2:6+S'I77:s6:CwQ~%S3#S{0?z:"HW;<Ws+2';77~=K?6+&:r!7J5ewxnGU~nn*.Z-XZ*.Z,M5JM .L,)ZTkMz<-,
+TkMz
+,T-n~/IJn@nCzZn ^nA_n.noRn~l=O?d1]N_Mknwritten.
+
+
+
+&INUSE
+LOADING THE INUSE MACRO
+-----------------------
+
+.R TECO
+*ERINUSE.TE$YHXIHK$MI$$
+
+
+
+&WILD
+		"WILD.TE"  -  Wildcard Macro
+		-----------------------------
+
+The Wildcard macro, with the new version of CCL, allows the use of
+"*" and "?" in otherwise illegal commands.
+
+ex:	.MAC RKB0:<RKB0:CCL???.MA
+
+compiles all the files of the form "CCL.MA" on RKB0:
+
+
+also	.MUNG WILD,PRINT *.LS     prints all the .LS files, etc.
+
+
+"WILD.TE" is automatically called by:
+
+	COMPILE		PAL		MAC		LINK
+	EXECU
+
+
+&LAYOUT
+
+        KEYPAD LAYOUT for VTEDIT                OTHER KEYS
+_________________________________________
+| "BLUE"  |  "RED"  | "GREY"  |   "^"   |       CTRL/C  EXIT FROM MACRO
+|  SAVE   |  TECO   | UNSAVE  |  UP IN  |       CTRL/D  KILL REST OF LINE*
+|  TEXT*  | COMMAND |  TEXT   | COLUMN* |       CTRL/K  KILL LINE*
+|_________|_________|_________|_________|       CTRL/U  KILL START OF LINE
+|   "7"   |   "8"   |   "9"   |   "V"   |       CTRL/Z  EXIT FROM MACRO
+|  OPEN   |  PAGE*  |  QUOTE  | DOWN IN |       BK SP   GO TO END OF LINE*
+|  LINE*  |         |  NEXT*  | COLUMN* |       DELETE  DELETE PREVIOUS*
+|_________|_________|_________|_________|       2 ESC'S REPEAT TECO COMMAND
+|   "4"   |   "5"   |   "6"   |   ">"   |
+|   UP    | DELETE* |  DELETE |  CURSOR |       ARGUMENTS
+|  LINE*  |CHARACTER|   LAST  |  RIGHT* |
+|_________|_________|_________|_________|       ALL STARRED (*) COMMANDS
+|   "1"   |   "2"   |   "3"   |   "<"   |       OPTIONALLY TAKE AN ARGUMENT
+|   TOP   |  BOTTOM |  START  |  CURSOR |       ENTERED AS <ESC><DIGITS>
+| OF PAGE | OF PAGE | OF LINE |    LEFT*|
+|_________|_________|_________|_________|
+|        "0"        |   "."   | "ENTER" |
+|      DOWN LINE*   | SEARCH* | SEARCH  |
+|                   |         |ARGUMENT*|
+|___________________|_________|_________|
+
+
+&DIRECT
+        DIRECT.SV
+
+@Calling commands:
+.DIR dev:LISTFILE.DI<dev:FILETYPE               /* is wild name or extension
+.DIR FILETYPE                                   /? is wild character
+
+@Switches:
+/A      alphabetize directory before processing
+/B      include starting block numbers (octal)
+/C      list only files with the current date
+/D      sort files by date, then alphabetically
+/E      include empties in the listing
+/F      fast mode (no lengths or dates)
+/H      print contents of the header block
+/I      print additional information words (octal)
+/M      list only the empties and the file summary
+/N      print dates in numeric form (mm/dd/yy)
+/O      list only files with other than today's date
+/P      page after each listing
+/R      list remainder of files after the first one
+/T      print the most timely (recent) files first
+/U      treat each input specification separately
+/V      list files not of the form specified
+/W      print the version number
+/X      alphabetize by extension, then by name
+=n      use n columns - output is ordered by column
+
+&DIAG
+&DIAGNOSTICS
+&DIAGS
+
+	PDP-8  DIAGNOSTIC  CROSS  REFERENCE  LIST
+
+
+
+        Maindec                    Option
+        -------                    ------
+
+        AHKLAA                  KL8M MODEM CONTROL DIAGNOSTIC
+        AILABE                  LA36 DIAGNOSTIC
+        AIRXAE                  RX01/RX02   DIAGNOSTIC PROGRAM
+        AIRXBF                  RX01/RX02   DATA RELIABILITY EXERCISER
+        AJEXCC                  PDP-8A  4K-32K PROCESSOR EXERCISER
+        AJKTAB                  KT8-A MEMORY MGT. DIAGNOSTIC
+        AJRLAB                  RL01 DISKLESS DIAGNOSTIC
+        AJRLBB                  RL01 DRIVE CONTROL PART 1
+        AJRLCA                  RL01 DRIVE CONTROL PART 2
+        AJRLDA                  RL01 DRIVE COMPATABILITY VERIFIER
+        AJRLEA                  RL01 PERFORMANCE EXERCISOR
+        AJRLGA                  RL01 PACK VERIFY
+        AJRLHA                  RL02 SEEK/FCTN
+        AJRLIA                  RL02 READ/WRITE
+        AJRLJA                  RL02 DRIVE CPT
+        AJRLJA                  RL02 PERF EXER
+        AJRLLA                  RL02 PACK VRFY
+        AKVTBB                  VT78 CPU DIAGNOSTIC
+        ALIGNX                  RK05 ALIGNMENT ROUTINE
+        AUVAAA                  RKS8E DISKLESS DIAGNOSTIC
+        AUVBAB                  RKS8E DRIVE CONTROL TEST
+        AUVCAA                  RKS8E DSIK FORMATTER
+        AUVDAB                  RKS8E DISK DATA RELIABILITY TEST
+        AUVEAD                  RKS8E WORD COUNT TEST
+        DGMACB                  PDP-8,8I,8S EXTENDED MEMORY CONTROL TEST
+        DGV5AB   *              VT05 TERMINAL DIAGNOSTIC
+        DHADAA   *              AD8E,AM8E,A-D CONVERTER & MUX DIAGNOSTIC
+        DHCMAA   *              CM8F OPTICAL CARD READER TEST
+        DHCRAA   *              CR8E/CR8F CARD READER TEST
+        DHDHAA   *              DH8E HOST PROGRAM
+        DHDHCA   *              DH8E REMOTE LOADER PROGRAM
+        DHDKAA   *              DK8E CLOCKS DIAGNOSTIC
+        DHDPAD   *              DP8-EA SYNC MODEM INTERFACE DIAGNOSTIC
+        DHDRAB   *              DR8-EA 12 CHANNEL BUFFERED DIGITAL INTERFACE
+        DHDRHA   *              DR8-ED EXERCISER
+        DHICAA   *              ICS FIELD TEST PROGRAM
+        DHKAAB                  8E ADDER TESTS
+        DHKABA                  RANDOM "AND" TEST
+        DHKACA                  MM8E 4K MEMORY CHECKERBOARD
+        DHKADA                  MM8E 4K MEMORY ADDRESS TEST
+        DHKAFA                  PDP-8E INSTRUCTION TEST 1
+        DHKAGA                  PDP-8E INSTRUCTION TEST 2
+        DHKEBB                  KE8E (EAE) INSTRUCTION TEST 1
+        DHKECA                  KE8E (EAE) INSTRUCTION TEST 2
+        DHKGAB   *              KG8-EA DIAGNOSTICS
+        DHKLBB   *              KL8M KL8E/F DC08 ON LINE TEST
+        DHKLCD   *              KL8F DOUBLE BUFFERED ASYNC INTERFACE
+        DHKLDA                  TELETYPE & KL8 ASYNC DATA CONTROL TESTS
+        DHKLDA                  PDP-8E TELETYPE & KL8 ASYNC DATA CONTROL TESTS
+        DHKMAD                  EXTENDED MEMORY CHECKERBOARD
+        DHKMCC                  EXTENDED MEMORY ADDRESS TEST
+        DHKPAB                  KP8E POWER FAIL DIAGNOSTIC
+        DHLAAB   *              DECWRITER  (LA30) EXERCISER 
+        DHLQAB                  LQP8 LETTER QUALITY PRINTER DIAGNOSTIC
+        DHLSAC                  LS8 LINEPRINTER TEST
+        DHMCAB                  MEMORY EXTENSION & TIME SHARE CONTROL TEST
+        DHMPAA                  EXTENDED MEMORY PARITY TEST
+        DHPCAA                  HIGHSPEED READER/PUNCH TESTS
+        RKGENA                  RK05 ALIANMENT PROGRAM
+        DHRKAE                  RK8E DISKLESS DIAGNOSTIC
+        DHRKBG                  RK8E/L DRIVE CONTROL TEST
+        DHRKCH                  RK8E/L DISK DATA RELIABILITY TEST
+        DHRKEA                  RK8L INSTRUCTION TEST
+        DHTAAC   *              TA8E CASSETTE DIAGNOSTIC
+        DHTABC   *              TA8E CASSETTE RELIABILITY TEST
+        DHTDAB                  TD8E DECTAPE DIAGNOSTIC
+        DHTMAB   *              TM8-E CONTROL TEST PART 1
+        DHTMBB   *              TM8-E CONTROL TEST PART 2
+        DHTMCA   *              TM8-E DRIVE FUNCTION TIMER
+        DHTMDB   *              TM8-E DATA RELIABILITY  ( 9 TRACK )
+        DHTMEB   *              TM8-E DATA RELIABILITY  ( 7 TRACK )
+        DHTMFC   *              TM8-E RANDOM EXERCISER
+        DHTSAB   *              TM8-E/TS03 CONTROL TEST PART 1
+        DHTSBB   *              TM8-E/TS03 CONTROL TEST PART 2
+        DHTSCB   *              TM8-E/TS03 DATA RELIABILITY
+        DHTSDB   *              TM8-E/TS03 MULTIDRIVE DATA RELIABILITY 
+        DHTSEA   *              TM8-E/TS03 DRIVE FUNCTION TIMER
+        DHVCAA   *              VC8E DISPLAY DIAGNOSTIC
+        DHVTAB   *              VT8E VIDEO DISPLAY TEST 1
+        DHVTBA   *              VT8E VIDEO DISPLAY TEST 2
+        DHVTCD                  VT50/52 ACCEPTANCE TEST
+        DHVTDA   *              VT61 TERMINAL ACCEPTANCE TEST
+        DIADFA   *              UDC08 ANALOG INPUT EXERCISER
+        DIAFBA   *              AFC-8 DIAGNOSTIC  (UNIPOLAR)
+        DIDBAA   *              DB8-E INTERPROCESSOR BUFFER TEST
+        DIDFAC   *              DF32D DISCLESS LOGIC TEST
+        DIDFBA   *              DF32 DISCLESS LOGIC TEST
+        DIDFCA   *              DF32 / DF32D DISK DATA, INTERFACE TEST
+        DIKLAC                  KL8-JA LOOPBACK TEST
+        DIKLAC   *              KL8-JA & KL8-KA/KB/KC/KD LOOPBACK TEST
+        DIKLBA                  KL8-JA TELETYPE TEST
+        DIKLBA                  KL8-JA TELETYPE TEST
+        DJKLAD                  KL8-A MULTI SLU TEST
+        LA8DKC                  LA180 INTERFACED THREW DKC-8 TEST
+        DILACB                  LA180 PRINTER DIAGNOSTIC
+        DILPAC                  LE8/LP08 LINE PRINTER TEST
+        DILPEC                  LP05/LP08 AND LP14 LINE PRINTER TEST
+        DILTCA   *              LPC8 PHOTOCOMP INTERFACE DIAGNOSTIC
+        DILTDA   *              LPD8 PHOTOCOMP INTERFACE DIAGNOSTIC
+        DILVAA   *              LV12/LV8 PRINTER/PLOTTER TEST
+        DIRTAB   *              RT01/RT02 TERMINAL DIAGNOSTIC
+        DITCBA   *              TC58 DRIVE FUNCTION TIMER
+        DITCCA   *              TC58 RANDOM EXERCISER
+        DITCDA   *              TC58 INSTRUCTION TEST PART 1
+        DIUDAC   *              UDC-8 SYSTEM FUNCTION EXERCISER
+        DIVTBA   *              VT20 HOST COMPUTER PROGRAM
+        DIVTCA   *              VT55 VIDEO TERMINAL ACCEPTANCE TEST
+        DJADAC   *              A/D CONVERTER MUX DIAGNOSTIC
+        DJDKAD                  DKC8-AA OPTION TEST #1   (M8316)
+        DJFPAB                  FPP-8A DIAGNOSTIC
+        DJFPBC                  FPP-8A INSTRUCTION TEST & DATA EXERCISER
+        DJKKBA                  PDP-8A CPU TEST WITH CONSOLE PACKAGE
+        DJKLAD                  KL8-A MULTIPLE SERIAL LINE UNIT DIAGNOSTIC
+        DJKMAC                  KM8-A OPTION TEST #2   (M8317)
+        DJVKAB   *              VK8-A INTERNAL LOGIC/DISPLAY DIAGNOSTIC
+        DKVTAA                  VT78 MOS MEMORY DIAGNOSTIC
+        MOS32K                  32K MOS MEMORY TEST
+        RKUTIL                  RK05 UTILITY PACKAGE
+        TCBASX                  TC01/8 BASIC EXERCISER
+        TCRANX                  TC01/8 RANDOM EXERCISER
+        TYPSET   *              PDP8 TYPESET DIAGNOSTIC
+        DHLQAB                  LQP-8 PRINTER TEST
+        DHLQBB                  MULTI LQP-8 TEST
+        UPTEST                  UNIVERSAL TERMINAL TESTER
+
+
+
+
+
+
+&WPFLOP
+
+
+
+                           WPFLOP User's Guide
+
+
+    This document describes the operation of the word processing to OS/8
+conversion program, WPFLOP.
+
+
+USAGE
+
+     WPFLOP  is used to transfer documents from word  processing  floppy
+disks to OS/8 media or from OS/8 media to word processing diskettes. The
+WPS floppy is accessed using the COS compatible floppy handlers included
+in  this  package. There are various modes of conversion which  will  be
+explained later.
+
+
+
+OPERATION
+
+
+WPS->OS/8
+
+
+    Before using WPFLOP to access a WPS floppy, one must know the number
+of the document which is to be read from the WPS floppy. For example, in
+the  sample  index below, the column labeled "Document  number"  is  the
+number that WPFLOP uses to reference a document.
+
+
+
+-- DOCUMENT INDEX --
+
+Drive: 3, Name: DOC3  , # of Docs: 3, Blocks left: 621 (of 627)
+-------------------------------------------------------------------------------
+Document                                                           Elapsed Time
+Number  Name                 Created  Modified       Size Version  Last   Total
+-------------------------------------------------------------------------------
+  3     Floppy Index
+                             12/7/79  NO/DA/TE        3     1      0:00   0:00
+
+  2     WPFLOP User's Guide
+                             12/7/79  12/7/79 13:09   2     1      0:07   0:07
+
+  1
+                             12/3/79  12/7/79 13:10   1     4      0:00   0:00
+
+
+
+    The document "WPFLOP User's Guide" (this fidISQRgQH_Wj[[\iQ\k[EKu@g]9PSw@Sw@iQKA]k[UJeQhQShA?@3?B3TO7Mr=67MN3P#7'2;gTLVlDU ^2w)u)wwOw>V0fnee G^m~'7W~wHuwwb/w}.w_]tw
+gwnWL"uHuw O_M*p:M:?TZn>-UjZn \MIaMnKdST	5\au

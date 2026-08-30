@@ -1,0 +1,47 @@
+LDF (Lab Data Focal) is an interactive language designed for experimental
+control and 'hands-on' problem-solving.  Calculations are accurate to 10-
+digits (including mathematical functions).  LDF has over 40 commands and
+30 functions, with additional commands and functions available for common
+configurations such as the PDP12 or LAB8/e.
+
+OS/8 support includes four data files with a choice of ASCII and 4 binary
+(random-access) modes, a program library that includes subroutine calls,
+directory commands, and access to any data word on any OS/8 device.  File
+names can be 'subscripted' for automatic data collection and files can be
+opened, closed, and examined interactively.  LDF can also run under BATCH
+or be used in the background under RTS/8, SKED, MULTI-8, etc.  CCLX has a
+.LDF command that can be used to call the program and give it a series of
+commands at the same time: .LDF: LOAD GO FORMAT;C FORMAT DISK IN DRIVE 1.
+
+Graphics support includes a refreshed display on the PDP12/LAB8e, plotter
+routines for the XY8E/I (with upper/lower case annotation, including true
+decenders!), and Tektronix graphics with additional support for the Z19GP
+terminal.  For users with 'smart' graphics devices, a special 'escape se-
+quence operator' allows fancy peripherals to do fancy things very easily;
+the graphics features of the VT-125, for example, are readily put to use.
+Another powerful feature is the ability to use the keypad on 'VT-xx' ter-
+minals to initiate subroutine calls, providing 'push-button' programming.
+
+The Input/Output/Use Host commands allow the programmer to switch between
+the PDP/8 and a 'number-cruncher' at any time.  The four internal buffers
+can also be used as I/O devices, facilitating complex operations such as
+'look back' and 're-read' of input streams, editing, and data conversion.
+The entire 7-bit character set is supported and all programming can be in
+either upper or lower case.
+
+Special real-time features include external subroutine calls initiated by
+one of 4 internal timers (or a Schmitt trigger event) with response times
+of 5 msec.  (Note: these are FOCAL subroutine calls, not machine-language
+subroutine calls!)  Arbitration is by means of a 12-level priority queue.
+For testing and control purposes, the FPAL function allows machine-code
+routines to be built into the program, providing an extremely useful com-
+bination of low-level and high-level programming.
+
+LDF requires a minimum of 12K; additional memory (up to 32K) is used for
+data storage, providing over 3400 variables, with both single and double-
+subscripted arrays.  The source files are available as well as an 'expan-
+sion package' which makes custom modifications very easy; and for dedica-
+ted applications there is a compatible non-OS/8 version that fits in 8K.
+
+For more information,  please contact  Jim van Zee  at  Lab Data Systems,
+10320 Ravenna Avenue N.E.  Seattle,  Washington  98125.

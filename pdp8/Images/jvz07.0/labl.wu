@@ -1,0 +1,62 @@
+         LABL:  AN OS/8 HANDLER FOR PUNCHING LEGIBLE PAPER TAPES
+
+          This handler punches alphanumerics on a  paper tape using
+     either the high-speed or the low-speed (Teletype) punch.  This
+     provides a  very convenient way to add a short label for iden-
+     tification  purposes  before  punching  either a  binary or an
+     ASCII tape.  It may be used by any program which allows 2-page
+     handlers, i.e.  PIP, FORTRAN, BASIC, FOCAL, etc.   The symbols
+     are constructed on a 4x6 grid with  spaces substituted for all
+     non-printing control characters (tabs, carriage returns, etc.)
+
+          When called, LABL prints a  "^"  on the terminal and then
+     waits for a key to be struck before continuing.  This is simi-
+     lar to the action of the  PTR  handler and allows time to turn
+     on the punch.  This is especially important in the case of the
+     low-speed punch which must remain off while commands are being
+     entered.  When output is completed on the low-speed punch LABL
+     again waits for a keyboard character  so that the punch can be
+     turned off; since this is not required by the high-speed punch
+     the second wait is omitted. Typing CTRL/C at any time will re-
+     turn to the OS/8 monitor.  Typing CTRL/O will generally return
+     to the calling program. No blank tape is punched either before
+     or after the text so if you wish to separate the legible char-
+     acters from other material, just include a few extra spaces in
+     in the output file.  Generally the PTP handler provides a more
+     than adequate amount of blank tape at the beginning anyway.
+
+          The TTY handler can be used to create a label just before
+     punching the tape.  Input is terminated by typing a CTRL/Z(^Z)
+     The 'super' (KL8E) TTY: handler recognizes rubouts and is thus
+     somewhat more convenient for this purpose than the older  AS33
+     handler.  The following example shows how the  binary tape for
+     the LABL handler was punched:
+
+          .R PIP
+          *LBL:<TTY:
+          LABL.BN   15 MAY 1976   OS/8 LEGIBLE LEADER HANDLER^Z
+          ^ (turn on the punch, strike any key on the terminal)
+          *PTP:<LABL.BN/B
+
+          LABL is added to the system by running the  BUILD program
+     (see the OS/8 handbook for complete instructions). After load-
+     ing the binary, the 'PRINT' command will show:  LABL    LS  HS
+     The entry points are for the Low Speed and High Speed punches,
+     respectively.  Use the 'INSERT' command to add the appropriate
+     one and then rename it with the 'NAME' command.   Refer to the
+     first page of the listing for an example of how to do this.
+
+          Acknowledgments:  The original work on this handler  (and
+     the idea for it) came from Daniel T. Brown. Subsequently other
+     features were included such as the provision for both punches,
+     the turn-on/turn-off feature, and operation on a standard (non
+     8/e) machine.  Previous versions have been called 'TEXT' - the
+     name 'LABL' seemed somewhat more appropriate to many users and
+     has thus been adopted. This revision removes the last 'kludge'
+     and restores some order to the internal arrangement of things.
+
+          Restrictions: The keyboard is assumed to generate '8-bit'
+     (DEC standard) code with the 'parity' bit always being set on.
+
+
+     (Author: Jim van Zee, Dept of Chem, U of W, Seattle, WA 98195)
