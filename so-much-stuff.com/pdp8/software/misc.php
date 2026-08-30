@@ -814,6 +814,13 @@ If you know or discover something about these, please let me know.
 <col width=50%>
 <col width=50%>
 </tr><tr>
+<td>
+<td><table width=100%><col width=50%><col width=50%>
+<td><a href=/pdp8/trunk/pdp8/src/misc/./ascii-art/1963>misc-ascii-art-1963</a><td>(Unknown Image)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/misc/./ascii-art/1963>misc-ascii-art-1963</a><td>(Unknown Image)<tr>
+<td><a href=/pdp8/trunk/pdp8/src/misc/./ascii-art/1963.od>misc-ascii-art-1963.od</a><td>(Unknown image octal dump)<tr>
+</table>
+</tr><tr>
 <td>Fred Flinstone
 <td><table width=100%><col width=50%><col width=50%>
 <td><a href=/pdp8/trunk/pdp8/src/misc/./ascii-art/fredflinstone>misc-ascii-art-fredflinstone</a><td>(Unknown Image)<tr>
