@@ -1,0 +1,354 @@
+<TITLE>PQS8 Programming Notes</TITLE>
+
+<H1>PQS8 Programming Notes</H1>
+
+<H2>PQS8 System Device I/O</H2>
+
+The last page of field 0 is reserved for the resident part of PQS8.  There
+are code and tables there of use:
+<OL>    
+<LI> 07600
+This is a routine to reload the Keyboard Monitor and branch to it,
+effectively rebooting PQS8.
+<LI> 07602
+The unit number from which we were bootstrapped (often 0).
+<LI> 07604-07606
+The flags passed from the command line are available in three
+consecutive words: A-L, M-X, and Y-9.
+<LI> 07607
+The number of output files passed on the command line.
+<P>
+The file table (see below), is all created during the standard parsing
+of command lines for the "RUN" command that loaded and started the
+program.  The number of output files is also set, so that the output
+files (specified first) can be distinguished from the input files.
+<LI> 07610
+The system date.
+<P>
+The date word is encoded as ((year-epoch)\*372
+\+ month\*31 + day.  The epoch specifies a multiple of eight years,
+starting with 1960.  Thus, for the year 2022, the epoch begins at
+56 years past 1960, or 2016, and 2022 is year 6 of the epoch.  So,
+February 6, 2022 is 6\*372 + 2\*31 + 6, or 2300(10).  4374 in octal.
+<P>
+<LI> 07611
+The core size word.
+<P>The high 9 bits of the core size word are split
+into three 3 bit quantities:
+<UL>
+<LI> PCS
+The Physical core size. The number of the last field of
+physical memory.
+<LI> MCS
+The maximum field which is available for unrestricted use.
+This is generally because PQS8 has taken some of the high
+memory (above MCS) for system uses.
+<LI> LCS
+The logical core size. Utilities and programs should generally
+avoid using memory above this limit.
+</UL>
+<P>
+Each can be thought of as the number of the last field: 761x specifies
+that though there are 32K of physical memory, PQS8 has some stuff in
+field 7, so field 6 is the last unrestricted field.  In addition, the
+CORE command has been used to request that programs restrict themselves
+to the first 8K.
+<P>
+The low 3 bits are used as three single bits:
+<UL>
+<LI> J bit
+This bit indicates that the system handler is occupying
+locations 6000-7777 in the highest field of memory, not
+just 07600-07777.  Appropriate adjustments to the MCS
+(and possibly the LCS) will have been made.
+<LI> C bit
+This bit indicates that a console overlay is active, using
+high memory (below the system hander, if it is also in high
+memory. Appropriate changes to the MCS and LCS will have
+been made.
+<LI> I bit
+This bit indicates that the "control C" exit return is
+intended.  It is essentially reserved for the keyboard
+monitor, and is set by device drivers when they detect
+a control C.
+</UL>
+<P style="break-after: page;">
+<LI> 07632
+A routine to save memory before reloading PQS8 (to facilitate
+debugging).
+<P>
+Memory is written to the "%" and "$" files, then the PQS8
+keyboard monitor is loaded and started.
+<LI> 07640
+The system driver entry point allows for I/O to or from the system
+device.
+<P>
+A call to the system handler must be followed by these parameters:
+<UL>
+<LI> Buffer Pointer
+The buffer pointer is the offset of the user's buffer in
+the memory field to be used for the buffer.
+<LI> Function Word
+<UL>
+<LI> Read/Write bit (0)
+If this bit is set, a write is requested.
+<LI> Block Count (1-5)
+The number of blocks to be transfered. 0=>32 blocks.
+Memory buffer address ranges should generally not
+cross the zero boundary.
+<LI> Buffer Field (6-8)
+The memory field in which the buffer resides.
+<LI> Unit Number (9-11)
+The unit number to which the I/O is intended.  Each
+driver may support up to eight units.
+</UL>
+<LI> Block Number
+The starting block number for the transfer.  Blocks are 128
+words (1 page) each.
+</UL>
+<P>
+Calls to the system driver ignore the values in AC and LINK, and if
+interrupts are enabled.
+<P>
+System handler calls will return with DF == IF, AC clear, and LINK
+undefined.  Interrupt enable will be as prior to the call, though
+the driver may disable interrupts during the actual I/O.
+<LI> 07756
+The value from the "=" parameter on the command line, if any.
+Otherwise, 0000.
+<LI> 07757-07777
+A table of file specifications passed from the command line.
+<BR>
+Each such file is described by a word of the format:
+<UL>
+<LI> Block Number (0-8)
+These bits describe the block number at which the file
+starts.  Each file always starts at a multiple of 8
+blocks (allowing you to just mask out the unit number).
+<LI> Unit Number (9-11)
+These bits specify the unit number on which the file resides.
+(These files always live on some unit of the system device.)
+</UL>
+</OL>
+The file table, "=" word, and the flags words are all created during
+the standard parsing of command lines for the "RUN" command that
+loaded and started the program.  The number of output files is also
+set, so that the output files (specified first) can be distinguished
+from the input files.
+<P>
+This processing is done in lieu of another operating system call (in
+the style of OS/8 USR).  Instead, the file names are all looked up
+for you, and the command line syntax provides for files in the TFS
+of any unit on the system device.
+
+<H2>PQS8 File System</H2>
+
+The PQS8 user CATalog is built on top of the "Tiny File System".  The TFS
+directory just enumerates file names positionally, with a provision for a six
+character name for each file.  (A TFS directory entry is just these three
+words of sixbit text.) The file itself is a contiguous 2K chunk of
+the media, starting at some 8 block boundary on the media.  Which chunk is
+determined by the position in the directory and the starting point for user
+files, which was set at media creation.  (The TFS directory lives in blocks
+0015-0016, with the start value for user files at offset 0177 of block 0016,
+if you need to do your own TFS lookups for some reason.  Offset 0176 also
+contains the media size, useful when creating TFS files.)
+<P>
+Each 2K file can be a text file created by the built in editor, or a binary
+file (often the saved first or second half of a core image).  Text files are
+built by the editor by removing the line numbers, and the text (without line
+numbers) grows from the bottom of the buffer upwards.  The line number table
+grows from the top of the buffer downwards, and if it would collide with
+the text, your buffer is full.  Text is always case-folded and stored as
+sixbit 'bytes'.  A word of 0000 is also stored as an EOF marker.
+<P>
+The line number table grows downward from offset 03775, and consists of 2 word
+entries, each containing a line number, and the offset into the file where
+that line begins.  All lines begin on a word boundary (lines with an odd
+number of characters will have an extra 00 byte added).  Words 03776 and 03777
+of a text file track the end of the text and the end of the line number
+table, respectively.
+<P>
+TODO: Possibly describe how the system DIRectory works, in case someone wants
+to mess with it.
+
+<H2>PQS8 File I/O</H2>
+
+PQS8 programs are invoked with their file names already looked up, and
+described in the table at 07757-07777 and the output file count at 07607.
+File I/O, then, consists of reading or writing a block offset from the
+provided starting block to or from a buffer.  The data in the buffer
+can then be decoded as binary data or as sixbit text, as appropriate.
+<P>
+Beware that the file size is always 20 blocks, and constrain the block
+offset accordingly, or you'll be accessing something other than your
+file.  (Likewise, if the unit number isn't correct.)
+
+<H2>PQS8 Character I/O</H2>
+
+Experienced PDP-8 programmers should have little difficulty recognizing
+this code:
+<PRE>
+START,	JMS I \[ONCE]	/ Once only initialization
+	/ Do stuff...
+	JMP I \[7600]	/ Return to the O/S
+ONCE,	.-.
+	DCA START	/ Don't come back here
+	TSF		/ Is the flag up?
+	TLS		/ Now, arrange for it to come up
+	TFL/6040	/ DECmate hack
+	JMP I ONCE	/ Return
+/
+/ Console Input Routine
+/ Non-skip return: No character available, AC unchanged.
+/ Skip return: Character returned in AC.
+/
+TTYIN,	.-.		/ Entry point
+	KSF		/ Keyboard input?
+	JMP I TTYIN	/ No, just return
+	DCA CHKAC	/ Save the AC
+INKRS,	KRS		/ Get the character
+	AND \[177]	/ Ignore parity bit
+/ Clobbering CHKAC here commits us to return the char or abort.
+	DCA CHKAC	/ Save it
+	CLA CLL CMA RTL	/ -3
+	TAD ICHAR	/ Is it ^C?
+	SNA
+	ISZ I \[7611]	/ Yes, tell the O/S
+	SPA SNA CLA	/ NUL, ^A, ^B, ^C?
+	JMP I \[7600]	/ Yes, return to monitor
+	KCC		/ Acknowledge the character
+	TAD CHKAC	/ Restore AC
+	JMP I CHKUP	/ Return to caller
+/
+/ Check for ^C, etc.
+/ Normal return if not, AC unchanged.
+/
+CHKUP,	.-.		/ Entry point
+	DCA CHKAC	/ Save the AC
+	JMS TTYIN	/ Check for input
+	JMP I TTYIN	/ Return to caller
+	CLA		/ Ignore the input
+	TAD CHKAC	/ Restore AC
+	JMP I TTYIN	/ Return to caller
+CHKAC,	.-.		/ Save AC here
+/
+/ Console Output Routine
+/ Output the character, AC unchanged.
+/
+TTYOUT,	.-.		/ Entry point
+	JMS CHKUP	/ Check for ^C
+	TSF             / Ready for TLS?
+	JMP TTYOUT+1    / No, keep waiting/checking
+	TLS             / Print it
+	JMP I TTYOUT    / Return to caller
+/
+/ LPT Output Routine
+/ Output the character, AC unchanged.
+/
+LPTOUT,	.-.		/ Entry point
+	JMS CHKUP	/ Check for ^C
+	LSF             / Printer Ready?
+	JMP LPTOUT+1    / No, keep waiting/checking
+	LLS             / Print it
+	JMP I LPTOUT    / Return to caller
+</PRE>
+    These are a PQS8 version of the "family of eight" input/output routines,
+familiar to PDP-8 programmers everywhere.  They are slightly tweaked for
+the PQS8 environment:
+<UL>
+<LI> The code at the start of the program checks the TTY flag before sending
+a TLS, and omits it if it can determine that it isn't needed.  There's
+also a call for once only initialization, which may be replaced with
+a NOP after it is executed.
+<LI> The input routine checks for input, and takes a skip return to deliver
+the character if one is found.
+<LI> Care has been taken to ignore input parity, and to check for ^C input
+regularly during output waits.
+<LI> If ^C is detected, the "I" bit of location 07611 is set before the return
+to PQS8 so that PQS8 can determine that this is not the normal exit.
+</UL>
+
+  Next we consider modifications to the code for special circumstances.
+If the machine is not "family of eight", it is presumably a DECmate (the
+PDP-8/S is not supported by PQS8).  In this event, the KRS must be
+replaced by a KRB, and the KCC replaced by a NOP.  A DECmate can be
+detected by examining location 07600.  If it is not the value 4240,
+this may be assumed to be a DECmate.  (TODO: What's the point of
+KRS/KCC instead of just always using KRB??)
+<P>
+PQS8 also provides routines to do these common character-at-a-time I/O
+operations in an optional feature known as the console overlay.  The "C"
+bit of 07611 informs us whether this feature is currently enabled.
+<P>
+If so, there are routines, in the field MCS+1, at these addresses:
+<UL>
+<LI> 0031 Console Input
+<LI> 0033 Console Output
+<LI> 0035 LPT Output
+</UL>
+These virtualize these functions, possibly implementing them on graphics
+screens, etc.  They also provide consistency and high quality implementations
+of the functions.
+<P>
+A common practice for larger once only code is to place the initialization
+routine in an I/O buffer (or other reusable space).  A more sophisticated
+version of this routine should check the "C" bit, and "fix" the character
+I/O routines to use the overlay if it is available:
+<PRE>
+ONCE,	.-.		/ Entry point
+	TSF		/ Is the flag up?
+	TLS		/ Now, arrange for it to come up
+	TFL/6040	/ DECmate hack
+	DCA I \[START]	/ Don't come back here
+	TAD I \[7600]	/ Check for DECmate
+	TAD \[-4240]
+	SNA CLA		/ DECmate?
+	JMP ONCEC	/ No, go check "C" bit
+	/ Begin DECmate Fixup
+	ISZ INKRS	/ Change "KRS" to "KRB"
+	ISZ INKRS
+	DCA INKCC	/ Clobber the KCC
+	/ End DECmate Fixup
+ONCEC,	CLA CLL CML RTL	/ 2 ("IAC RAL" is not family of eight!)
+	AND I \[7611]	/ Check C bit
+	SNA CLA
+	JMP I ONCE	/ No overlay, we're done
+	/ Begin Overlay Fixup
+	TAD I \[7611]	/ Get memory size
+	RTR; RAR	/ Shift MCS into place
+	TAD \[CIF 10]	/ Form CIF for MCS+1
+	DCA CONCIF	/ Save it
+	/ TTYIN fixup
+	TAD \[TTYIN+2]	/ Get return JMP
+	TAD \[TTYIN+3]	/ Move it down
+	TAD CONCIF	/ Get CIF overlay
+	DCA TTYIN+1	/ Store it
+	TAD \[JMS 0031]	/ Get overlay call
+	DCA TTYIN+2	/ Store it
+	/ TTYOUT fixup
+	TAD \[TTYOUT+5]	/ Get return JMP
+	TAD \[TTYOUT+3]	/ Move it up
+	TAD CONCIF	/ Get CIF overlay
+	DCA TTYOUT+1	/ Store it
+	TAD \[JMS 0033]	/ Get overlay call
+	DCA TTYOUT+2	/ Store it
+	/ LPTOUT fixup
+	TAD \[LPTYOUT+5] / Get return JMP
+	TAD \[LPTYOUT+3] / Move it up
+	TAD CONCIF	/ Get CIF overlay
+	DCA LPTOUT+1	/ Store it
+	TAD \[JMS 0035]	/ Get overlay call
+	DCA LPTOUT+2	/ Store it
+	/ End Overlay Fixup
+	JMP I ONCE	/ Resume execution
+CONCIF,	.-.
+</PRE>
+<P style="break-after: page;">
+
+<H2>PQS8 Non-system I/O</H2>
+
+TODO: Describe the non-system handlers and how to call them.
+<P>
+TODO: Describe how to determine how much of the last field has been
+reserved by the console overlay, etc.
