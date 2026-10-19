@@ -459,23 +459,25 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pb>dec-08-aj1e-pb</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pb1>dec-08-aj1e-pb1</td><td>Utility Overlays for Focal 1969 (4WORD)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pa1>dec-08-aj1e-pa1</td><td>Utility Overlays for Focal 1969 (4WORD)</a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pb2>dec-08-aj1e-pb2</td><td>Utility Overlays for Focal 1969 (8K)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj1/dec-08-aj1e-pa2>dec-08-aj1e-pa2</td><td>Utility Overlays for Focal 1969 (8K)</a></td></tr>
 </table></td></tr>
 <tr>
-<td>Graphic Overlays for Focal 1969<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj2>dec-08-aj2</a></td>
+<td>Four User Overlay for Focal 1969<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj2>dec-08-aj2</a></td>
 <td><table>
-<tr><td>dec-08-aj32-pb</td><td></td></tr>
-<tr><td>dec-08-aj32-pa</td><td></td></tr>
-<tr><td>dec-08-aj32-pb1</td><td>?? Overlay for Focal 1969</td></tr>
-<tr><td>dec-08-aj32-pb2</td><td>?? Overlay for Focal 1969</td></tr>
-<tr><td>dec-08-aj32-pb3</td><td>?? Overlay for Focal 1969</td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj2/dec-08-aj2e-pb>dec-08-aj2e-pb</td><td></a></td></tr>
+<tr><td>dec-08-aj2e-pa</td><td></td></tr>
 </table></td></tr>
 <tr>
-<td>3D Surface Plot for Focal 1969<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj3>dec-08-aj3</a></td>
+<td>Graphic Overlays for Focal 1969<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj3>dec-08-aj3</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj3/dec-08-aj3e-pb>dec-08-aj3e-pb</td><td></a></td></tr>
 <tr><td>dec-08-aj3e-pa</td><td></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj3/dec-08-aj3e-pb1>dec-08-aj3e-pb1</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj3/dec-08-aj3e-pb1>dec-08-aj3e-pb1</td><td>CLINE Overlay for Focal 1969 (BIN)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj3/dec-08-aj3e-pa1>dec-08-aj3e-pa1</td><td>CLINE Overlay for Focal 1969 (SRC)</a></td></tr>
+<tr><td>dec-08-aj3e-pb2</td><td>PLOTR Overlay for Focal 1969</td></tr>
+<tr><td>dec-08-aj3e-pb3</td><td>GRAPH Overlay for Focal 1969</td></tr>
 </table></td></tr>
 <tr>
 <td>Extended Functions for Focal 1969 (REPLACE, REMOVE)<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aj4>dec-08-aj4</a></td>
@@ -518,14 +520,15 @@ are some navigation shortcuts as well:
 <tr><td>dec-08-aj9e-pa</td><td></td></tr>
 </table></td></tr>
 <tr>
-<td>Focal 8<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja>dec-08-aja</a></td>
+<td>Focal 8 (1969)<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja>dec-08-aja</a></td>
 <td><table>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-d.pdf>dec-08-ajad-d</td><td></a></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-pb>dec-08-ajad-pb</td><td></a></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-d.pdf>dec-08-ajab-d</td><td> (1968)</a></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-pb>dec-08-ajab-pb</td><td> (1968)</a></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajae-pb>dec-08-ajae-pb</td><td> (1969)</a></td></tr>
-<tr><td>dec-08-ajae-la</td><td> (1969)</td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajae-pb>dec-08-ajae-pb</td><td></a></td></tr>
+<tr><td>dec-08-ajae-la</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-d.pdf>dec-08-ajab-d</td><td>Focal 8 (1968)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajab-pb>dec-08-ajab-pb</td><td>Focal 8 (1968)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-d.pdf>dec-08-ajad-d</td><td>Focal 8</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajad-pb>dec-08-ajad-pb</td><td>Focal 8</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-aja/dec-08-ajaa-pb>dec-08-ajaa-pb</td><td>Focal 8</a></td></tr>
 </table></td></tr>
 <tr>
 <td>Advanced FOCAL Technical Specifications<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ajb>dec-08-ajb</a></td>
@@ -597,6 +600,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-cma/dec-08-cmaa-pb>dec-08-cmaa-pb</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-cma/dec-08-cma1-pb>dec-08-cma1-pb</td><td> Low Speed</a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-cma/dec-08-cma2-pb>dec-08-cma2-pb</td><td> High Speed</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-cma/dec-08-cmab-pb>dec-08-cmab-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>ODT-8<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-coc>dec-08-coc</a></td>
@@ -719,8 +723,14 @@ are some navigation shortcuts as well:
 <tr><td>dec-08-ed20b-a-uc</td><td></td></tr>
 </table></td></tr>
 <tr>
-<td>Edusystem 25<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25a>dec-08-ed25a</a></td>
+<td>Edusystem 25<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25>dec-08-ed25</a></td>
 <td><table>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25/dec-08-ed25f-pa>dec-08-ed25f-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25/dec-08-ed25f-pb>dec-08-ed25f-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25/dec-08-ed25b-pa>dec-08-ed25b-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25/dec-08-ed25b-pb>dec-08-ed25b-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25/dec-08-ed25a-pa>dec-08-ed25a-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-ed25/dec-08-ed25a-pb>dec-08-ed25a-pb</td><td></a></td></tr>
 <tr><td>dec-08-ed25a-a-la</td><td></td></tr>
 <tr><td>dec-08-ed25a-a-uc</td><td></td></tr>
 </table></td></tr>
@@ -997,6 +1007,8 @@ are some navigation shortcuts as well:
 <tr><td>ak-0631a / dec-08-lfrra-a-pb</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-lfrra/dec-08-lfrra-a-pb1>ak-0631a / dec-08-lfrra-a-pb1</td><td>FOCAL-8 REPLACE</a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-lfrra/dec-08-lfrra-a-pb2>ak-0631a / dec-08-lfrra-a-pb2</td><td>FOCAL-8 REMOVE</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-lfrra/dec-08-lfrra-a-pa1>dec-08-lfrra-a-pa1</td><td>FOCAL-8 REPLACE</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-lfrra/dec-08-lfrra-a-pa2>dec-08-lfrra-a-pa2</td><td>FOCAL-8 REMOVE</a></td></tr>
 </table></td></tr>
 <tr>
 <td>FORTRAN/SABR<br><a href=/pdp8/trunk/pdp8/src/dec/dec-08-lftna>dec-08-lftna</a></td>
@@ -1100,9 +1112,9 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td>dec-08-nfpea-a-d</td><td></td></tr>
 <tr><td>dec-08-nfpea-a-la</td><td></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pa1>dec-08-nfpea-a-pa1</td><td></a></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pa2>dec-08-nfpea-a-pa2</td><td></a></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pa3>dec-08-nfpea-a-pa3</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pa1>dec-08-nfpea-a-pa1</td><td> 1/3</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pa2>dec-08-nfpea-a-pa2</td><td> 2/3</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pa3>dec-08-nfpea-a-pa3</td><td> 3/3</a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-08-nfpea/dec-08-nfpea-a-pb>dec-08-nfpea-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -2132,11 +2144,18 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td>aa-4205a / dec-8e-aap1a-a-d</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap1a/dec-8e-aap1a-a-pb>ak-4206a / dec-8e-aap1a-a-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap1a/dec-8e-aap1a-a-pb1>dec-8e-aap1a-a-pb1</td><td>ADVANCED AVERAGER SECTION I</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap1a/dec-8e-aap1a-a-pb2>dec-8e-aap1a-a-pb2</td><td>ADVANCED AVERAGER SECTION II</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap1a/dec-8e-aap1a-a-pb3>dec-8e-aap1a-a-pb3</td><td>ADVANCED AVERAGER SECTION III</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap1a/dec-8e-aap1a-a-pb4>dec-8e-aap1a-a-pb4</td><td>ADVANCED AVERAGER SECTION IV</a></td></tr>
 </table></td></tr>
 <tr>
 <td>ADVANCED AVERAGER CTL SECTION II-IV<br><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap2a>dec-8e-aap2a</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap2a/dec-8e-aap2a-a-pb>ak-4207a / dec-8e-aap2a-a-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap2a/dec-8e-aap2a-a-pb1>dec-8e-aap2a-a-pb1</td><td>ADVANCED AVERAGER CTL SECTION II</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap2a/dec-8e-aap2a-a-pb2>dec-8e-aap2a-a-pb2</td><td>ADVANCED AVERAGER CTL SECTION III</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aap2a/dec-8e-aap2a-a-pb3>dec-8e-aap2a-a-pb3</td><td>ADVANCED AVERAGER CTL SECTION IV</a></td></tr>
 </table></td></tr>
 <tr>
 <td>ADVANCED AVERAGER FOR DSK/DTA<br><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aapta>dec-8e-aapta</a></td>
@@ -2197,11 +2216,16 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-abasa/dec-8e-abasa-a-la.pdf>ab-4213a / dec-8e-abasa-a-la</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-abasa/dec-8e-abasa-a-pb>ak-4214a / dec-8e-abasa-a-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-abasa/dec-8e-abasa-a-pa>dec-8e-abasa-a-pa</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>LAB-8/E BASIC AVERAGER<br><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aca0a>dec-8e-aca0a</a></td>
 <td><table>
 <tr><td>aa-4216a / dec-8e-aca0a-a-d</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aca0a/dec-8e-aca0a-a-pb>dec-8e-aca0a-a-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aca0a/dec-8e-aca0a-a-pb1>dec-8e-aca0a-a-pb1</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aca0a/dec-8e-aca0a-a-pb2>dec-8e-aca0a-a-pb2</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-aca0a/dec-8e-aca0a-a-pb3>dec-8e-aca0a-a-pb3</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>LAB-8/E Data Conversion Program<br><a href=/pdp8/trunk/pdp8/src/dec/dec-8e-acvta>dec-8e-acvta</a></td>
@@ -2673,6 +2697,7 @@ are some navigation shortcuts as well:
 <td>Disk System Restore<br><a href=/pdp8/trunk/pdp8/src/dec/dec-d8-rwd>dec-d8-rwd</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-d8-rwd/dec-d8-rwda-pa>dec-d8-rwda-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-d8-rwd/dec-d8-rwda-pb>dec-d8-rwda-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Disk System Builder<br><a href=/pdp8/trunk/pdp8/src/dec/dec-d8-sba>dec-d8-sba</a></td>
@@ -3245,9 +3270,15 @@ are some navigation shortcuts as well:
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-p8-yrx/dec-p8-yrxa-pb>dec-p8-yrxa-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
-<td>Edusystem 25<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25a>dec-s8-ed25a</a></td>
+<td>Edusystem 25<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25>dec-s8-ed25</a></td>
 <td><table>
 <a name='dec-s8'></a>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25/dec-s8-ed25f-pa>dec-s8-ed25f-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25/dec-s8-ed25f-pb>dec-s8-ed25f-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25/dec-s8-ed25b-pa>dec-s8-ed25b-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25/dec-s8-ed25b-pb>dec-s8-ed25b-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25/dec-s8-ed25a-pa>dec-s8-ed25a-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-ed25/dec-s8-ed25a-pb>dec-s8-ed25a-pb</td><td></a></td></tr>
 <tr><td>dec-s8-ed25a-a-la</td><td></td></tr>
 <tr><td>dec-s8-ed25a-a-uc1</td><td></td></tr>
 <tr><td>dec-s8-ed25a-a-uc2</td><td></td></tr>
@@ -3279,7 +3310,9 @@ are some navigation shortcuts as well:
 <td>OS/8 FORTRAN II Compiler<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lfora>dec-s8-lfora</a></td>
 <td><table>
 <tr><td>dec-s8-lfora-b-la</td><td></td></tr>
-<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lfora/dec-s8-lfora-b-pb>dec-s8-lfora-b-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lfora/dec-s8-lfora-b-pb>dec-s8-lfora-b-pb</td><td> (V6)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lfora/dec-s8-lfora-b-pb1>dec-s8-lfora-b-pb1</td><td> (V6)</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lfora/dec-s8-lfora-b-pb2>dec-s8-lfora-b-pb2</td><td> (V6)</a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 F4 SOFTWARE SUPPORT MANUAL<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lfssa>dec-s8-lfssa</a></td>
@@ -3305,7 +3338,7 @@ are some navigation shortcuts as well:
 <td>OS/8 FORTRAN IV Librarian (LIBRA)<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-llbra>dec-s8-llbra</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-llbra/dec-s8-llbra-b-ps>dec-s8-llbra-b-ps</td><td></a></td></tr>
-<tr><td>dec-s8-llbra-a-ps</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-llbra/dec-s8-llbra-a-ps>dec-s8-llbra-a-ps</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 FORTRAN IV Library (FORLIB)<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lliba>dec-s8-lliba</a></td>
@@ -3327,7 +3360,7 @@ are some navigation shortcuts as well:
 <td>OS/8 FORTRAN IV Loader<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lloda>dec-s8-lloda</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lloda/dec-s8-lloda-b-ps>dec-s8-lloda-b-ps</td><td></a></td></tr>
-<tr><td>dec-s8-lloda-a-ps</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lloda/dec-s8-lloda-a-ps>dec-s8-lloda-a-ps</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 FORTRAN IV PLOTTER ROUTINES<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lplma>dec-s8-lplma</a></td>
@@ -3356,13 +3389,13 @@ are some navigation shortcuts as well:
 <td>OS/8 FORTRAN IV RALF<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lrafa>dec-s8-lrafa</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lrafa/dec-s8-lrafa-b-ps>dec-s8-lrafa-b-ps</td><td></a></td></tr>
-<tr><td>dec-s8-lrafa-a-ps</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lrafa/dec-s8-lrafa-a-ps>dec-s8-lrafa-a-ps</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 FORTRAN IV V02 FRTS.SV<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lrtsa>dec-s8-lrtsa</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lrtsa/dec-s8-lrtsa-b-ps>dec-s8-lrtsa-b-ps</td><td></a></td></tr>
-<tr><td>dec-s8-lrtsa-a-ps</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-lrtsa/dec-s8-lrtsa-a-ps>dec-s8-lrtsa-a-ps</td><td>OS/8 FORTRAN IV V01 FRTS.SV</a></td></tr>
 </table></td></tr>
 <tr>
 <td>OS/8 Auxiliary Device Drivers<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-obada>dec-s8-obada</a></td>
@@ -3395,6 +3428,9 @@ are some navigation shortcuts as well:
 <td>OS/8 Builder (BUILD)<br><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-oblda>dec-s8-oblda</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-oblda/dec-s8-oblda-b-pb>dec-s8-oblda-b-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-oblda/dec-s8-oblda-b-pb1>dec-s8-oblda-b-pb1</td><td>OS/8 Builder (BUILD) Pt. 1</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-oblda/dec-s8-oblda-b-pb2>dec-s8-oblda-b-pb2</td><td>OS/8 Builder (BUILD) Pt. 2</a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/dec-s8-oblda/dec-s8-oblda-b-pb3>dec-s8-oblda-b-pb3</td><td>OS/8 Builder (BUILD) Pt. 3</a></td></tr>
 <tr><td>dec-s8-oblda-a-pb</td><td></td></tr>
 </table></td></tr>
 <tr>
@@ -3910,6 +3946,7 @@ are some navigation shortcuts as well:
 <td>Read-In-Mode Loader (dec-08-lraa)<br><a href=/pdp8/trunk/pdp8/src/dec/digital-8-1-u>digital-8-1-u</a></td>
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/digital-8-1-u/digital-8-1-u-d.pdf>digital-8-1-u-d</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/digital-8-1-u/digital-8-1-u-pm>digital-8-1-u-pm</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>Calculator<br><a href=/pdp8/trunk/pdp8/src/dec/digital-8-10-s>digital-8-10-s</a></td>
@@ -5297,6 +5334,7 @@ are some navigation shortcuts as well:
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhkma/maindec-08-dhkma-d-d.pdf>ac-6298d / maindec-08-dhkma-d-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhkma/maindec-08-dhkma-c-d.pdf>ac-6298c / maindec-08-dhkma-c-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhkma/maindec-08-dhkma-a-d.pdf>ac-6298c / maindec-08-dhkma-a-d</td><td></a></td></tr>
+<tr><td>maindec-08-dhkma-d-la</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhkma/maindec-08-dhkma-d-pb>ak-6300d / maindec-08-dhkma-d-pb</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhkma/maindec-08-dhkma-c-pb>ak-6300c / maindec-08-dhkma-c-pb</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhkma/maindec-08-dhkma-b-pb>ak-6300b / maindec-08-dhkma-b-pb</td><td></a></td></tr>
@@ -5505,7 +5543,7 @@ are some navigation shortcuts as well:
 <td>TA8E CASSETTE RELIABILITY TEST<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhtab>maindec-08-dhtab</a></td>
 <td><table>
 <tr><td>ac-6400c / maindec-08-dhtab-c-d</td><td></td></tr>
-<tr><td>ak-6403c / maindec-08-dhtab-c-pb</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhtab/maindec-08-dhtab-c-pb>ak-6403c / maindec-08-dhtab-c-pb</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-dhtab/maindec-08-dhtab-b-pb>ak-6403b / maindec-08-dhtab-b-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -5665,8 +5703,8 @@ are some navigation shortcuts as well:
 <td>DF32-D DISKLESS LOGIC TEST<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-didfa>maindec-08-didfa</a></td>
 <td><table>
 <tr><td>ac-6507c / maindec-08-didfa-c-d</td><td></td></tr>
-<tr><td>ak-6509c / maindec-08-didfa-c-pb</td><td></td></tr>
-<tr><td>ak-6509a / maindec-08-didfa-a-pb</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-didfa/maindec-08-didfa-c-pb>ak-6509c / maindec-08-didfa-c-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-didfa/maindec-08-didfa-a-pb>ak-6509a / maindec-08-didfa-a-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PDP-8, 8/I, 8/S DF32 DISKLESS LOGIC TEST<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-didfb>maindec-08-didfb</a></td>
@@ -5969,10 +6007,14 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td>ac-6667c / maindec-08-djkka-c-d</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-c-pb>ak-6670c / maindec-08-djkka-c-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-c-pa>maindec-08-djkka-c-pa</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-c-pb1>ak-6670c / maindec-08-djkka-c-pb1</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-c-pm1>ak-6675c / maindec-08-djkka-c-pm1</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-b-d.pdf>ac-6667b / maindec-08-djkka-b-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-b-pb>ak-6670b / maindec-08-djkka-b-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-b-pa>maindec-08-djkka-b-pa</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-b-pb1>ak-6670b / maindec-08-djkka-b-pb1</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkka/maindec-08-djkka-b-pm1>ak-6675b / maindec-08-djkka-b-pm1</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>CL8 PDP-8A CPU TEST WITH CONSOLE PACKAGE<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-08-djkkb>maindec-08-djkkb</a></td>
@@ -6744,6 +6786,7 @@ are some navigation shortcuts as well:
 <td>Extended Memory Control Test, Part 1<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-820-1>maindec-820-1</a></td>
 <td><table>
 <a name='maindec-820'></a>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-820-1/maindec-820-1-d.pdf>maindec-820-1-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-820-1/maindec-820-1-pb>maindec-820-1-pb</td><td></a></td></tr>
 </table></td></tr>
 <tr>
@@ -6893,8 +6936,11 @@ are some navigation shortcuts as well:
 <a name='maindec-8e'></a>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0ab-d.pdf>maindec-8e-d0ab-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0ab-pb>maindec-8e-d0ab-pb</td><td></a></td></tr>
+<tr><td>maindec-8e-d0ab-la</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0ab-pa>maindec-8e-d0ab-pa</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0aa-d.pdf>maindec-8e-d0aa-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0aa-pb>maindec-8e-d0aa-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0a/maindec-8e-d0aa-pa>maindec-8e-d0aa-pa</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>PDP-8/E Instruction Test 2<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0b>maindec-8e-d0b</a></td>
@@ -6995,6 +7041,7 @@ are some navigation shortcuts as well:
 <td><table>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0m/maindec-8e-d0mb-d.pdf>maindec-8e-d0mb-d</td><td></a></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0m/maindec-8e-d0mb-pb>maindec-8e-d0mb-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0m/maindec-8e-d0mb-pa>maindec-8e-d0mb-pa</td><td></a></td></tr>
 <tr><td>maindec-8e-d0ma-d</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8e-d0m/maindec-8e-d0ma-pb>maindec-8e-d0ma-pb</td><td></a></td></tr>
 </table></td></tr>
@@ -7285,6 +7332,7 @@ are some navigation shortcuts as well:
 <tr><td>ac-b920a / maindec-8i-d0ba-vrs</td><td></td></tr>
 <tr><td>ac-b920a / maindec-8i-d0ba-d</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8i-d0b/maindec-8i-d0ba-pb>ak-b922a / maindec-8i-d0ba-pb</td><td></a></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-8i-d0b/maindec-8i-d0ba-pa>maindec-8i-d0ba-pa</td><td></a></td></tr>
 </table></td></tr>
 <tr>
 <td>LE8/LP08 Line Printer Test<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-8i-d2a>maindec-8i-d2a</a></td>
@@ -7729,7 +7777,7 @@ are some navigation shortcuts as well:
 <td>AXDFAC0 MOD DF32DS DF32 Exerciser<br><a href=/pdp8/trunk/pdp8/src/dec/maindec-x8-didfa>maindec-x8-didfa</a></td>
 <td><table>
 <tr><td>ac-c226c / maindec-x8-didfa-c-d</td><td></td></tr>
-<tr><td>ak-c228c / maindec-x8-didfa-c-pb</td><td></td></tr>
+<tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-x8-didfa/maindec-x8-didfa-c-pb>ak-c228c / maindec-x8-didfa-c-pb</td><td></a></td></tr>
 <tr><td>ac-c226b / maindec-x8-didfa-b-d</td><td></td></tr>
 <tr><td><a href=/pdp8/trunk/pdp8/src/dec/maindec-x8-didfa/maindec-x8-didfa-b-pb>ak-c228b / maindec-x8-didfa-b-pb</td><td></a></td></tr>
 <tr><td>ac-c226a / maindec-x8-didfa-a-d</td><td></td></tr>
@@ -8316,6 +8364,6 @@ are some navigation shortcuts as well:
 </table></td></tr>
 </table>
 </div>
-<P>1547 of 2995 files linked (51.7%), in 1265 directories
+<P>1603 of 3043 files linked (52.7%), in 1265 directories
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/pdp8/footer.php'; ?>
