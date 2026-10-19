@@ -2,6 +2,7 @@
 #
 # Bring everything up to date
 all: .
+	git pull --recurse-submodules origin master
 	cd pdp8; make
 	@make test
 	@echo "BE SURE TO COMMIT YOUR CHANGES before exporting!"
